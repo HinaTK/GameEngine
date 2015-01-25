@@ -1,0 +1,31 @@
+
+#ifndef MESSAGETYPE_H
+#define MESSAGETYPE_H
+
+namespace EProtocol
+{
+	// 协议段
+	enum ProtocolSegment
+	{
+		LOGIN_PROTOCOL	= 1000,
+		GLOBAL_PROTOCOL = 20000,
+		GAME_PROTOCOL	= 65535
+	};
+
+	enum MessageType
+	{
+		MT_LOGIN_BEGIN = 0,
+		MT_USER_LOGIN,
+		MT_LOGIN_END = LOGIN_PROTOCOL,
+
+		MT_GLOBAL_BEGIN = LOGIN_PROTOCOL,
+		MT_GLOBAL_END = GAME_PROTOCOL,
+
+		MT_GAME_BEGIN = GLOBAL_PROTOCOL,
+		MT_MSG_TEST1,
+		MT_GAME_END,
+	};
+}
+
+#endif
+	

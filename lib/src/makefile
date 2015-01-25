@@ -1,0 +1,87 @@
+PWD 				= /mnt/hgfs/GameEngine/lib/src
+AR           		= ar cqs
+CXX           		= g++
+INCPATH			= -I /mnt/hgfs/GameEngine/lib/../ -I /mnt/hgfs/GameEngine/lib/include -I /mnt/hgfs/GameEngine/lib/include/frame
+BINDIR				= /mnt/hgfs/GameEngine/lib/linux/
+OBJDIR				= /mnt/hgfs/GameEngine/lib/linux/obj/
+BIN 				= libFrame.a
+SOURCES			= /mnt/hgfs/GameEngine/lib/src/frame/accepter.cpp /mnt/hgfs/GameEngine/lib/src/frame/bufmanager.cpp /mnt/hgfs/GameEngine/lib/src/frame/frame.cpp /mnt/hgfs/GameEngine/lib/src/frame/listener.cpp /mnt/hgfs/GameEngine/lib/src/frame/message.cpp /mnt/hgfs/GameEngine/lib/src/frame/netcommon.cpp /mnt/hgfs/GameEngine/lib/src/frame/nethandler.cpp /mnt/hgfs/GameEngine/lib/src/frame/netmanager.cpp /mnt/hgfs/GameEngine/lib/src/frame/netuser.cpp /mnt/hgfs/GameEngine/lib/src/frame/webaccepter.cpp /mnt/hgfs/GameEngine/lib/src/frame/websocket/base64.cpp /mnt/hgfs/GameEngine/lib/src/frame/websocket/dataframe.cpp /mnt/hgfs/GameEngine/lib/src/frame/websocket/dataframeheader.cpp /mnt/hgfs/GameEngine/lib/src/frame/websocket/gamewebsocket.cpp /mnt/hgfs/GameEngine/lib/src/frame/websocket/recvframe.cpp /mnt/hgfs/GameEngine/lib/src/frame/websocket/sendframe.cpp /mnt/hgfs/GameEngine/lib/src/frame/websocket/sha1.cpp 
+SOURCEFILES		= $(notdir $(SOURCES))
+OBJECTS			= $(addprefix $(OBJDIR), $(patsubst %.cpp,%.o,$(SOURCEFILES)))
+FLAGS				= 
+
+all:makedir $(OBJECTS)
+	$(AR) $(FLAGS) $(BIN) $(OBJECTS);
+
+makedir:
+	$(shell if [ -n "$(OBJDIR)" -a ! -e "$(OBJDIR)" ];then mkdir -p $(OBJDIR); fi)
+	$(shell if [ -n "$(BINDIR)" -a ! -e "$(BINDIR)" ];then mkdir -p $(BINDIR); fi)
+
+/mnt/hgfs/GameEngine/lib/linux/obj/accepter.o:/mnt/hgfs/GameEngine/lib/src/frame/accepter.cpp
+	rm -f $@
+	$(CXX) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/bufmanager.o:/mnt/hgfs/GameEngine/lib/src/frame/bufmanager.cpp
+	rm -f $@
+	$(CXX) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/frame.o:/mnt/hgfs/GameEngine/lib/src/frame/frame.cpp
+	rm -f $@
+	$(CXX) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/listener.o:/mnt/hgfs/GameEngine/lib/src/frame/listener.cpp
+	rm -f $@
+	$(CXX) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/message.o:/mnt/hgfs/GameEngine/lib/src/frame/message.cpp
+	rm -f $@
+	$(CXX) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/netcommon.o:/mnt/hgfs/GameEngine/lib/src/frame/netcommon.cpp
+	rm -f $@
+	$(CXX) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/nethandler.o:/mnt/hgfs/GameEngine/lib/src/frame/nethandler.cpp
+	rm -f $@
+	$(CXX) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/netmanager.o:/mnt/hgfs/GameEngine/lib/src/frame/netmanager.cpp
+	rm -f $@
+	$(CXX) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/netuser.o:/mnt/hgfs/GameEngine/lib/src/frame/netuser.cpp
+	rm -f $@
+	$(CXX) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/webaccepter.o:/mnt/hgfs/GameEngine/lib/src/frame/webaccepter.cpp
+	rm -f $@
+	$(CXX) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/base64.o:/mnt/hgfs/GameEngine/lib/src/frame/websocket/base64.cpp
+	rm -f $@
+	$(CXX) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/dataframe.o:/mnt/hgfs/GameEngine/lib/src/frame/websocket/dataframe.cpp
+	rm -f $@
+	$(CXX) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/dataframeheader.o:/mnt/hgfs/GameEngine/lib/src/frame/websocket/dataframeheader.cpp
+	rm -f $@
+	$(CXX) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/gamewebsocket.o:/mnt/hgfs/GameEngine/lib/src/frame/websocket/gamewebsocket.cpp
+	rm -f $@
+	$(CXX) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/recvframe.o:/mnt/hgfs/GameEngine/lib/src/frame/websocket/recvframe.cpp
+	rm -f $@
+	$(CXX) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/sendframe.o:/mnt/hgfs/GameEngine/lib/src/frame/websocket/sendframe.cpp
+	rm -f $@
+	$(CXX) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/sha1.o:/mnt/hgfs/GameEngine/lib/src/frame/websocket/sha1.cpp
+	rm -f $@
+	$(CXX) -fpic -c $(INCPATH) $< -o $@
+
