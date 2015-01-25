@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="script">
+      <UniqueIdentifier>{c02cba63-6adb-4d8d-9bf2-845a5b1f7427}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\lib\src\script\exportapi.cpp">
+      <Filter>script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\script\luascript.cpp">
+      <Filter>script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\script\luaengine.cpp">
+      <Filter>script</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\lib\include\script\exportapi.h">
+      <Filter>script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\script\luadef.h">
+      <Filter>script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\script\luascript.h">
+      <Filter>script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\script\luaengine.h">
+      <Filter>script</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

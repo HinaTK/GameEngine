@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="common">
+      <UniqueIdentifier>{1055d6b4-c2df-42d6-9bc1-1c68256a97e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\protocol">
+      <UniqueIdentifier>{753419a7-dd5d-41df-a688-36b82a08cb51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="frame">
+      <UniqueIdentifier>{25f5ca2b-be1d-4cba-9d6b-6f3eaf7e1882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="user">
+      <UniqueIdentifier>{cf6db892-f656-4efe-ade3-783edfa47ab1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="netid">
+      <UniqueIdentifier>{6b5e5d6c-33e6-4fe1-b5c2-e9873d5c62dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\libheader">
+      <UniqueIdentifier>{20581269-20b7-4288-ac10-ae353c2e3aef}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\common\commonfunction.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GatewayServer\frame\gatewayframe.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GatewayServer\frame\main.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GatewayServer\user\usermanager.cpp">
+      <Filter>user</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GatewayServer\netid\netidmanager.cpp">
+      <Filter>netid</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\common\commonfunction.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\commonvariable.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\systemdefine.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\protocol\msgheader.h">
+      <Filter>common\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GatewayServer\frame\gatewayframe.h">
+      <Filter>frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GatewayServer\user\usermanager.h">
+      <Filter>user</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GatewayServer\netid\netidmanager.h">
+      <Filter>netid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\libheader\libinternal.h">
+      <Filter>common\libheader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\libheader\libtinyxml.h">
+      <Filter>common\libheader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\libheader\libtimemanager.h">
+      <Filter>common\libheader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\libheader\libgamesocket.h">
+      <Filter>common\libheader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\libheader\libdatastructure.h">
+      <Filter>common\libheader</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

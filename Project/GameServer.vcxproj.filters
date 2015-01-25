@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="common">
+      <UniqueIdentifier>{7f8582f5-5052-42a7-af2c-6c5180f03411}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common\protocol">
+      <UniqueIdentifier>{97570fac-02b5-477c-b237-8d759adbefb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="global">
+      <UniqueIdentifier>{0b9a603d-77dc-43cd-8d9a-48d28449149b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="other">
+      <UniqueIdentifier>{4c41e74c-80bd-46b0-80aa-874d52314f3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene">
+      <UniqueIdentifier>{6425b495-5906-4b94-83cb-9ca92cfda4a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="obj">
+      <UniqueIdentifier>{5cc604e6-bc14-4595-8033-c42142819315}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="message">
+      <UniqueIdentifier>{c277280c-f7e1-456d-ab75-ad79cfc69707}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="message\messagefunction">
+      <UniqueIdentifier>{2c66f556-6b01-45f7-9062-93df34c718ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="message\messagetype">
+      <UniqueIdentifier>{88acd427-d3b7-4d36-83f1-92d85d2af061}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="frame">
+      <UniqueIdentifier>{0e9d4ec8-c143-48dd-9fa4-815140f69d4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="config">
+      <UniqueIdentifier>{7731df7b-f038-4c27-9640-e90a602243ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="poolconfig">
+      <UniqueIdentifier>{f332d743-f522-402a-98c3-4e09e0907cc6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\common\commonfunction.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\global\globalfunction.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\other\dll.cpp">
+      <Filter>other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\other\MyDll.cpp">
+      <Filter>other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\other\showcrash.cpp">
+      <Filter>other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\scene\aoi.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\scene\area.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\scene\areamanager.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\scene\observer.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\scene\scene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\scene\scenemanager.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\obj\obj.cpp">
+      <Filter>obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\obj\objmanager.cpp">
+      <Filter>obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\obj\role.cpp">
+      <Filter>obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\message\messagefunction\messagehandler.cpp">
+      <Filter>message\messagefunction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\frame\gameframe.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\frame\main.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\poolconfig\memorypoolconfig.cpp">
+      <Filter>poolconfig</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\poolconfig\test.cpp">
+      <Filter>poolconfig</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\globalclass.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\common\commonfunction.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\systemdefine.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\protocol\msggame.h">
+      <Filter>common\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\protocol\msgheader.h">
+      <Filter>common\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\global\globalfunction.h">
+      <Filter>global</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\global\globalvariable.h">
+      <Filter>global</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\other\dll.h">
+      <Filter>other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\other\example.h">
+      <Filter>other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\other\ipc.h">
+      <Filter>other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\other\MyDll.h">
+      <Filter>other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\other\sharememory.h">
+      <Filter>other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\other\showcrash.h">
+      <Filter>other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\other\tabledef.h">
+      <Filter>other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\scene\aoi.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\scene\area.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\scene\areamanager.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\scene\observer.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\scene\scene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\scene\scenemanager.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\obj\obj.h">
+      <Filter>obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\obj\objmanager.h">
+      <Filter>obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\obj\role.h">
+      <Filter>obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\message\messagefunction\messagehandler.h">
+      <Filter>message\messagefunction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\message\messagetype\messagerole.h">
+      <Filter>message\messagetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\message\messagetype\messagescene.h">
+      <Filter>message\messagetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\frame\gameframe.h">
+      <Filter>frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\poolconfig\test.h">
+      <Filter>poolconfig</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\commonvariable.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\globalclass.h">
+      <Filter>common</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

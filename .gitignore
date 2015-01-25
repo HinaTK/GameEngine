@@ -1,0 +1,13 @@
+Debug/
+serializer.opensdf
+*.sdf
+serializer/Debug/serializer.log
+*.tlog
+*.pdb
+*.obj
+*.idb
+*.lastbuildstate
+*.ilk
+*.suo
+Debug/serializer.exe
+*.opensdf

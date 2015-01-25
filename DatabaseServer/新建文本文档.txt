@@ -1,0 +1,61 @@
+grant all privileges on test.* to root@localhost identified by '123456';
+
+ int id; char name[20];
+    //printf("id name: ");
+    //scanf("%d %s", &id, name);
+ 
+    MYSQL_BIND params[3];
+    memset(params, 0, sizeof(params));
+    params[0].buffer_type = MYSQL_TYPE_LONG;
+    params[0].buffer = &id;
+    params[2].buffer_type = MYSQL_TYPE_STRING;
+    params[2].buffer = name;
+    params[2].buffer_length = sizeof(name);
+   
+    //mysql_stmt_bind_param(stmt, params);
+    mysql_stmt_bind_result(stmt, params); //用于将结果集中的列与数据缓冲和长度缓冲关联（绑定）起来
+    mysql_stmt_execute(stmt);           //执行与语句句柄相关的预处理
+    mysql_stmt_store_result(stmt);      //以便后续的mysql_stmt_fetch()调用能返回缓冲数据
+   
+    while(mysql_stmt_fetch(stmt) == 0) //返回结果集中的下一行
+        printf("%d\t%s\n", id, name);
+
+GameMysqlStmt smt("smt");
+    namespace SMT
+    {
+        enum Field
+        {
+            Id,
+            Name,
+            MAX_FIELD
+        };
+        const char * Fields[] = {"id", "name"};
+        MYSQL_BIND params[SMT::MAX_FIELD];
+    }
+
+    char *query = "select * from smt;";
+    if(mysql_stmt_prepare(DataBase::Instance().GetStmt(), query, strlen(query)))
+    {
+        fprintf(stderr, "mysql_stmt_prepare: %s\n", mysql_error(DataBase::Instance().GetHandle()));
+        return -1;
+    }
+    int id;
+    char name[20];
+
+    memset(Table::SMT::params, 0, sizeof(Table::SMT::params));
+    Table::SMT::params[0].buffer_type = MYSQL_TYPE_LONG;
+    Table::SMT::params[0].buffer = &id;
+    Table::SMT::params[1].buffer_type = MYSQL_TYPE_STRING;
+    Table::SMT::params[1].buffer = name;
+    Table::SMT::params[1].buffer_length = sizeof(name);
+
+    //mysql_stmt_bind_param(stmt, params);
+    mysql_stmt_bind_result(DataBase::Instance().GetStmt(), Table::SMT::params); //用于将结果集中的列与数据缓冲和长度缓冲关联（绑定）起来
+    mysql_stmt_execute(DataBase::Instance().GetStmt());           //执行与语句句柄相关的预处理
+    mysql_stmt_store_result(DataBase::Instance().GetStmt());      //以便后续的mysql_stmt_fetch()调用能返回缓冲数据
+
+    while(mysql_stmt_fetch(DataBase::Instance().GetStmt()) == 0)
+    {
+        printf("id = %d\t name = %s\n", id, name);
+    }
+    mysql_stmt_errno(DataBase::Instance().GetStmt());

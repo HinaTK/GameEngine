@@ -1,0 +1,4 @@
+#ifndef SHAREMEMORY_H
+#define SHAREMEMORY_H
+
+#endif // SHAREMEMORY_H

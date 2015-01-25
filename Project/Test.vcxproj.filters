@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="lua">
+      <UniqueIdentifier>{9639b598-a1b1-47a4-866f-96269f4f5d0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="websocket">
+      <UniqueIdentifier>{c2691f45-999a-4c94-9196-ec38c314ff99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thread">
+      <UniqueIdentifier>{906e8fac-ead1-4893-aac6-1d9f165dda7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="other">
+      <UniqueIdentifier>{31661adf-b8cb-47b3-9e3e-70dc8840554c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="global">
+      <UniqueIdentifier>{939f9bf2-71f8-4aaa-9fe9-e10b53501d8c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Test\lua\luatest.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Test\websocket\websockettest.h">
+      <Filter>websocket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Test\thread\threadtest.h">
+      <Filter>thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Test\other\hashlisttest.h">
+      <Filter>other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Test\other\logtest.h">
+      <Filter>other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Test\other\bridge.h">
+      <Filter>other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Test\testlog.h" />
+    <ClInclude Include="..\Test\testdatastructure.h" />
+    <ClInclude Include="..\common\globalclass.h">
+      <Filter>global</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Test\testserializer.h" />
+    <ClInclude Include="..\Test\testmemory.h" />
+    <ClInclude Include="..\Test\testsocket.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Test\main.cpp" />
+    <ClCompile Include="..\common\commonfunction.cpp" />
+    <ClCompile Include="..\common\globalclass.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

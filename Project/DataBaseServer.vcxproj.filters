@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="database">
+      <UniqueIdentifier>{0bb06829-4593-4d54-b839-6251a4e06ffb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="table">
+      <UniqueIdentifier>{d00c776c-69bb-45a3-af4a-882519365792}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="commom">
+      <UniqueIdentifier>{38b3e711-d230-4581-816a-3ccbef76036d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="commom\protocol">
+      <UniqueIdentifier>{7798f18b-cafd-4e5a-b61a-118c6122fc5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="frame">
+      <UniqueIdentifier>{238d258e-5051-4aeb-bd9e-7b358383b15c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocol">
+      <UniqueIdentifier>{5c8dc259-9f64-4036-b550-290dd7a7c9de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cache">
+      <UniqueIdentifier>{0383b3a6-6a8a-4f54-8189-ca070b3ce4d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="other">
+      <UniqueIdentifier>{de9ff4d7-906a-469a-b9a5-92eb89d1d120}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="msghandler">
+      <UniqueIdentifier>{42e81474-1325-4764-bb8f-9b27b6f83b46}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\DatabaseServer\database\gamemysql.cpp">
+      <Filter>database</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DatabaseServer\database\gamemysqlstmt.cpp">
+      <Filter>database</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DatabaseServer\table\datatable.cpp">
+      <Filter>table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DatabaseServer\table\datatablestmt.cpp">
+      <Filter>table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DatabaseServer\table\tb_login.cpp">
+      <Filter>table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DatabaseServer\table\testtable.cpp">
+      <Filter>table</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DatabaseServer\frame\databaseframe.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DatabaseServer\frame\main.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DatabaseServer\cache\testcache.cpp">
+      <Filter>cache</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DatabaseServer\msghandler\messagehandler.cpp">
+      <Filter>msghandler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DatabaseServer\database\database.cpp">
+      <Filter>database</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\commonfunction.cpp">
+      <Filter>commom</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\DatabaseServer\database\database.h">
+      <Filter>database</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DatabaseServer\database\gamemysql.h">
+      <Filter>database</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DatabaseServer\database\gamemysqlstmt.h">
+      <Filter>database</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DatabaseServer\table\datatable.h">
+      <Filter>table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DatabaseServer\table\datatablestmt.h">
+      <Filter>table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DatabaseServer\table\tb_login.h">
+      <Filter>table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DatabaseServer\table\testtable.h">
+      <Filter>table</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\protocol\internaltype.h">
+      <Filter>commom\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\protocol\l_dbprotocol.h">
+      <Filter>commom\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\protocol\messageheader.h">
+      <Filter>commom\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DatabaseServer\frame\databaseframe.h">
+      <Filter>frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DatabaseServer\cache\testcache.h">
+      <Filter>cache</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DatabaseServer\other\example.h">
+      <Filter>other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DatabaseServer\msghandler\messagehandler.h">
+      <Filter>msghandler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\commonfunction.h">
+      <Filter>commom</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
