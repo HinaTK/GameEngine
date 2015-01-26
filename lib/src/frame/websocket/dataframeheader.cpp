@@ -1,4 +1,5 @@
 
+#include <string.h>
 #include "websocket/dataframeheader.h"
 
 DataFrameHeader::DataFrameHeader(const char *buffer)

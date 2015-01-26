@@ -2,7 +2,6 @@
 #ifndef DATA_FRAME_HEADER_H
 #define DATA_FRAME_HEADER_H
 
-#include <string.h>
 
 class DataFrameHeader
 {

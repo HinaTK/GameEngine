@@ -8,14 +8,18 @@
 class RecvFrame
 {
 public:
-	RecvFrame(NetID _net_id, char *frame);
+	RecvFrame();
 	~RecvFrame();
 
-	void *			operator new(size_t c);
-	void			operator delete(void *m);
+// 	void *			operator new(size_t c);
+// 	void			operator delete(void *m);
+// 	MemoryVL::MemoryInfo data_frame;
 
-	NetID net_id;
-	MemoryVL::MemoryInfo data_frame;
+	bool			CheckHeader(const char *frame);
+	bool			Frame(const char *frame);
+
+	char			data[65536];
+	unsigned int	length;
 };
 
 

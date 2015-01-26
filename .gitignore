@@ -11,3 +11,4 @@ serializer/Debug/serializer.log
 *.suo
 Debug/serializer.exe
 *.opensdf
+lib/temp/Frame.log

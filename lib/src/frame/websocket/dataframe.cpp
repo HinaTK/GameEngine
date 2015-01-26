@@ -1,21 +1,22 @@
 
 #include <stdio.h>
+#include <string.h>
 #include "websocket/dataframe.h"
 #include "websocket/dataframeheader.h"
 
 DataFrame::DataFrame()
 : m_extend_len(0)
 , m_mask_len(0)
-, m_content_len(0)
+, m_data_len(0)
 {
-	memset(m_content, 0, sizeof(m_content));
+	memset(m_data, 0, sizeof(m_data));
 }
 
 
 DataFrame::DataFrame(const char *buffer)
 : m_extend_len(0)
 , m_mask_len(0)
-, m_content_len(0)
+, m_data_len(0)
 {
 // 	memset(m_content, 0, sizeof(m_content));
 // 	unsigned int offset = 0;
@@ -78,13 +79,18 @@ DataFrame::DataFrame(const char *buffer)
 
 void DataFrame::Mask()
 {
-	for (unsigned int i = 0; i < m_content_len; i++)
+	for (unsigned int i = 0; i < m_data_len; i++)
 	{
-		m_content[i] = (m_content[i] ^ m_mask[i % MASK_LEN]);
+		m_data[i] = (m_data[i] ^ m_mask[i % MASK_LEN]);
 	}
 }
 
-void DataFrame::Frame(const char* src, unsigned int src_len, char* des, unsigned int &des_len, bool mask, bool init_data)
+bool DataFrame::FromRecvFrame( const char *msg )
+{
+	return true;
+}
+
+void DataFrame::ToSendFrame(const char* src, unsigned int src_len, char* des, unsigned int &des_len, bool mask, bool init_data)
 {
 	if (src_len < 126)
 	{
@@ -103,6 +109,7 @@ void DataFrame::Frame(const char* src, unsigned int src_len, char* des, unsigned
 		// DataFrameHeader header(true, false, false, false, 1, false, 127);
 		return;
 	}
+	
 	memcpy(des + HEADER_LEN, m_extend, m_extend_len);
 	if (mask)
 	{
@@ -112,7 +119,7 @@ void DataFrame::Frame(const char* src, unsigned int src_len, char* des, unsigned
 	memcpy(des + HEADER_LEN + m_extend_len + m_mask_len, src, src_len);
 	if (init_data)
 	{
-		memcpy(m_content, src, src_len);
+		memcpy(m_data, src, src_len);
 	}
 	des_len = HEADER_LEN + m_extend_len + m_mask_len + src_len;
 }
