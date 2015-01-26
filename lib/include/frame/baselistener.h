@@ -18,6 +18,7 @@ public:
 	void *		operator new(size_t c);
 	void		operator delete(void *m);
 
+	void			Send(const char *buf, unsigned int len);
 protected:
 	virtual bool	AnalyzeBuf();
 

@@ -2,11 +2,8 @@
 #include <string.h>
 #include "websocket/dataframeheader.h"
 
-DataFrameHeader::DataFrameHeader(const char *buffer)
+FrameHeader::FrameHeader(const char *buffer)
 {
-	// 		if (buffer.Length < 2)
-	// 			throw new Exception("无效的数据头.");
-
 	//第一个字节
 	m_fin = (buffer[0] & 0x80) == 0x80;
 	m_rsv1 = (buffer[0] & 0x40) == 0x40;
@@ -20,31 +17,19 @@ DataFrameHeader::DataFrameHeader(const char *buffer)
 	
 }
 
-DataFrameHeader::DataFrameHeader(bool fin, bool rsv1, bool rsv2, bool rsv3, char opcode, bool hasmask, unsigned char length)
+
+void ConstructFrameHeader( bool fin, bool rsv1, bool rsv2, bool rsv3, char opcode, unsigned char length, char *data, bool hasmask /*= false*/ )
 {
-	m_fin = fin;
-	m_rsv1 = rsv1;
-	m_rsv2 = rsv2;
-	m_rsv3 = rsv3;
-	m_opcode = opcode;
-	//第二个字节
-	m_maskcode = hasmask;
-	m_payloadlength = length;
+	memset(data, 0, sizeof(data));
+
+	if (fin) data[0] ^= 0x80;
+	if (rsv1) data[0] ^= 0x40;
+	if (rsv2) data[0] ^= 0x20;
+	if (rsv3) data[0] ^= 0x10;
+
+	data[0] ^= opcode;
+
+	if (hasmask) data[1] ^= 0x80;
+
+	data[1] ^= length;
 }
-
-void DataFrameHeader::Header(char buffer[2])
-{
-	memset(buffer, 0, sizeof(buffer));
-
-	if (m_fin) buffer[0] ^= 0x80;
-	if (m_rsv1) buffer[0] ^= 0x40;
-	if (m_rsv2) buffer[0] ^= 0x20;
-	if (m_rsv3) buffer[0] ^= 0x10;
-
-	buffer[0] ^= m_opcode;
-
-	if (m_maskcode) buffer[1] ^= 0x80;
-
-	buffer[1] ^= m_payloadlength;
-}
-

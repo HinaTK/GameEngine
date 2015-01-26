@@ -178,9 +178,4 @@ void Listener::UnRegisterWriteFD()
 	m_is_register_write = false;
 }
 
-void Listener::Send(const char *buf, unsigned int len)
-{
-	MutexLock ml(&m_send_mutex);
-	m_send_buf_write->Push(buf, len);
-}
 

@@ -27,17 +27,17 @@ bool WebListener::AnalyzeBuf()
 	int buf_len = (int)m_recv_buf.Length();
 	do 
 	{
-		unsigned int buf_offset = DataFrameHeader::HEADER_LEN;
-		unsigned int frame_offset = DataFrameHeader::HEADER_LEN;
+		unsigned int buf_offset = FrameHeader::HEADER_LEN;
+		unsigned int frame_offset = FrameHeader::HEADER_LEN;
 		CHECK_BUF_LEN();
 		const char *buf = m_recv_buf.GetBuf();
-		DataFrameHeader header(buf);
+		FrameHeader header(buf);
 		if (header.Length() == 126)
 		{
-			buf_offset += DataFrameHeader::MID_EXTEND_LEN;
+			buf_offset += FrameHeader::MID_EXTEND_LEN;
 			CHECK_BUF_LEN();
 			//memcpy(extend_data, buf + frame_offset, DataFrameHeader::MID_EXTEND_LEN);
-			frame_offset += DataFrameHeader::MID_EXTEND_LEN;
+			frame_offset += FrameHeader::MID_EXTEND_LEN;
 			//length = (unsigned int)extend_data[0] * 256 + (unsigned int)extend_data[1];
 			length = (unsigned int)*(buf + frame_offset) * 256 + (unsigned int)*(buf + frame_offset + 1);
 		}
@@ -56,10 +56,10 @@ bool WebListener::AnalyzeBuf()
 
 		if (header.HasMask())
 		{
-			buf_offset += DataFrameHeader::MASK_LEN;
+			buf_offset += FrameHeader::MASK_LEN;
 			CHECK_BUF_LEN();
 			//memcpy(mask_data, buf + frame_offset, DataFrameHeader::MASK_LEN);
-			frame_offset += DataFrameHeader::MASK_LEN;
+			frame_offset += FrameHeader::MASK_LEN;
 		}
 
 		buf_offset += length;
@@ -74,4 +74,37 @@ bool WebListener::AnalyzeBuf()
 		m_recv_buf.RemoveBuf(remove_len);
 	}
 	return true;
+}
+
+void WebListener::Send(const char *buf, unsigned int len)
+{
+	// ππ‘Ïwebsocket∑¢ÀÕ÷°
+	MemoryVL::MemoryInfo frame;
+	unsigned int frame_length = FrameHeader::HEADER_LEN + FrameHeader::MAX_EXTEND_LEN + FrameHeader::MASK_LEN + len;
+	if (!MemoryVL::Instance().Malloc(frame_length, frame))
+	{
+		return;
+	}
+	unsigned extend_len = 0;
+	if (frame_length < 126)
+	{
+		ConstructFrameHeader(true, false, false, false, 1, frame_length, frame.mem);	
+	}
+	else if (frame_length < 65536)
+	{
+		ConstructFrameHeader(true, false, false, false, 1, 126, frame.mem);
+		extend_len = FrameHeader::MID_EXTEND_LEN;
+	}
+	else
+	{
+		ConstructFrameHeader(true, false, false, false, 1, 127, frame.mem);
+		extend_len = FrameHeader::MAX_EXTEND_LEN;
+	}
+	
+	{
+		MutexLock ml(&m_send_mutex);
+		m_send_buf_write->Push(buf, len);
+	}
+	
+	MemoryVL::Instance().Free(frame);
 }

@@ -37,7 +37,7 @@ public:
 	virtual void	OnCanRead();
 	virtual void	OnCanWrite();
 
-	void			Send(const char *buf, unsigned int len);
+	virtual void	Send(const char *buf, unsigned int len) = 0;
 
 	bool			IsRegisterWrite(){ return m_is_register_write; }
 	void			RegisterWriteFD();

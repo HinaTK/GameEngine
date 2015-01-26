@@ -3,7 +3,7 @@
 #define DATA_FRAME_HEADER_H
 
 
-class DataFrameHeader
+class FrameHeader
 {
 public:
 	static const unsigned int MIN_EXTEND_LEN = 0;
@@ -12,14 +12,8 @@ public:
 	static const unsigned int HEADER_LEN = 2;
 	static const unsigned int MASK_LEN = 4;
 
-	~DataFrameHeader(){};
-	DataFrameHeader(const char *buffer);
-	
-
-	//发送封装数据
-	DataFrameHeader(bool fin, bool rsv1, bool rsv2, bool rsv3, char opcode, bool hasmask, unsigned char length);
-
-	void			Header(char buffer[2]);
+	~FrameHeader(){};
+	FrameHeader(const char *buffer);
 
 	unsigned char	Length(){ return m_payloadlength; }
 	
@@ -37,5 +31,7 @@ private:
 
 };
 
+// 构造帧头
+void ConstructFrameHeader(bool fin, bool rsv1, bool rsv2, bool rsv3, char opcode, unsigned char length, char *data, bool hasmask = false);
 
 #endif

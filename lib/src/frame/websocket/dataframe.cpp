@@ -92,35 +92,35 @@ bool DataFrame::FromRecvFrame( const char *msg )
 
 void DataFrame::ToSendFrame(const char* src, unsigned int src_len, char* des, unsigned int &des_len, bool mask, bool init_data)
 {
-	if (src_len < 126)
-	{
-		DataFrameHeader header(true, false, false, false, 1, mask, src_len);
-		header.Header(des);
-	}
-	else if (src_len < 65536)
-	{
-		DataFrameHeader header(true, false, false, false, 1, mask, 126);
-		header.Header(des);
-		m_extend_len = MID_EXTEND_LEN;
-	}
-	else
-	{
-		// 数据太大
-		// DataFrameHeader header(true, false, false, false, 1, false, 127);
-		return;
-	}
-	
-	memcpy(des + HEADER_LEN, m_extend, m_extend_len);
-	if (mask)
-	{
-		memcpy(des + HEADER_LEN + m_extend_len, m_mask, MASK_LEN);
-		m_mask_len = MASK_LEN;
-	}
-	memcpy(des + HEADER_LEN + m_extend_len + m_mask_len, src, src_len);
-	if (init_data)
-	{
-		memcpy(m_data, src, src_len);
-	}
-	des_len = HEADER_LEN + m_extend_len + m_mask_len + src_len;
+// 	if (src_len < 126)
+// 	{
+// 		FrameHeader header(true, false, false, false, 1, mask, src_len);
+// 		header.Header(des);
+// 	}
+// 	else if (src_len < 65536)
+// 	{
+// 		FrameHeader header(true, false, false, false, 1, mask, 126);
+// 		header.Header(des);
+// 		m_extend_len = MID_EXTEND_LEN;
+// 	}
+// 	else
+// 	{
+// 		// 数据太大
+// 		// DataFrameHeader header(true, false, false, false, 1, false, 127);
+// 		return;
+// 	}
+// 	
+// 	memcpy(des + HEADER_LEN, m_extend, m_extend_len);
+// 	if (mask)
+// 	{
+// 		memcpy(des + HEADER_LEN + m_extend_len, m_mask, MASK_LEN);
+// 		m_mask_len = MASK_LEN;
+// 	}
+// 	memcpy(des + HEADER_LEN + m_extend_len + m_mask_len, src, src_len);
+// 	if (init_data)
+// 	{
+// 		memcpy(m_data, src, src_len);
+// 	}
+// 	des_len = HEADER_LEN + m_extend_len + m_mask_len + src_len;
 }
 

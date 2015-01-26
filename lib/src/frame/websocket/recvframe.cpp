@@ -17,13 +17,13 @@ RecvFrame::~RecvFrame()
 
 bool RecvFrame::CheckHeader( const char *frame )
 {
-	DataFrameHeader header(frame);
+	FrameHeader header(frame);
 
 	//扩展长度
 	if (header.Length() == 126)
 	{
-		char extend_data[DataFrameHeader::MID_EXTEND_LEN];
-		memcpy(extend_data, frame + DataFrameHeader::HEADER_LEN, DataFrameHeader::MID_EXTEND_LEN);
+		char extend_data[FrameHeader::MID_EXTEND_LEN];
+		memcpy(extend_data, frame + FrameHeader::HEADER_LEN, FrameHeader::MID_EXTEND_LEN);
 		length = (unsigned int)extend_data[0] * 256 + (unsigned int)extend_data[1];
 	}
 	else if (header.Length() == 127)
@@ -40,21 +40,21 @@ bool RecvFrame::CheckHeader( const char *frame )
 
 bool RecvFrame::Frame( const char *frame )
 {
-	unsigned int offset = DataFrameHeader::HEADER_LEN;
-	unsigned int extend_len = DataFrameHeader::MIN_EXTEND_LEN;
+	unsigned int offset = FrameHeader::HEADER_LEN;
+	unsigned int extend_len = FrameHeader::MIN_EXTEND_LEN;
 	unsigned int mask_len = 0;
 
-	static char extend_data[DataFrameHeader::MID_EXTEND_LEN];
-	static char mask_data[DataFrameHeader::MASK_LEN];
+	static char extend_data[FrameHeader::MID_EXTEND_LEN];
+	static char mask_data[FrameHeader::MASK_LEN];
 	//帧头
 
-	DataFrameHeader header(frame);
+	FrameHeader header(frame);
 
 	//扩展长度
 	if (header.Length() == 126)
 	{
-		memcpy(extend_data, frame + offset, DataFrameHeader::MID_EXTEND_LEN);
-		extend_len += DataFrameHeader::MID_EXTEND_LEN;
+		memcpy(extend_data, frame + offset, FrameHeader::MID_EXTEND_LEN);
+		extend_len += FrameHeader::MID_EXTEND_LEN;
 		length = (unsigned int)extend_data[0] * 256 + (unsigned int)extend_data[1];
 	}
 	else if (header.Length() == 127)
@@ -72,8 +72,8 @@ bool RecvFrame::Frame( const char *frame )
 	//是否有掩码
 	if (header.HasMask())
 	{
-		memcpy(mask_data, frame + offset, DataFrameHeader::MASK_LEN);
-		mask_len = DataFrameHeader::MASK_LEN;
+		memcpy(mask_data, frame + offset, FrameHeader::MASK_LEN);
+		mask_len = FrameHeader::MASK_LEN;
 	}
 
 	offset += mask_len;
@@ -106,7 +106,7 @@ bool RecvFrame::Frame( const char *frame )
 	{
 		for (unsigned int i = 0; i < length; i++)
 		{
-			data[i] = (data[i] ^ data[i % DataFrameHeader::MASK_LEN]);
+			data[i] = (data[i] ^ data[i % FrameHeader::MASK_LEN]);
 		}
 	}
 	return true;
