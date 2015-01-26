@@ -1,4 +1,8 @@
+LinuxDebug/
 Debug/
+log/
+Release/
+temp/
 serializer.opensdf
 *.sdf
 serializer/Debug/serializer.log
