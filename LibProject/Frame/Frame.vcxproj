@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\frame\accepter.cpp" />
+    <ClCompile Include="..\..\lib\src\frame\baselistener.cpp" />
     <ClCompile Include="..\..\lib\src\frame\bufmanager.cpp" />
     <ClCompile Include="..\..\lib\src\frame\frame.cpp" />
     <ClCompile Include="..\..\lib\src\frame\handshaker.cpp" />
@@ -33,6 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib\include\frame\accepter.h" />
+    <ClInclude Include="..\..\lib\include\frame\baselistener.h" />
     <ClInclude Include="..\..\lib\include\frame\bufmanager.h" />
     <ClInclude Include="..\..\lib\include\frame\frame.h" />
     <ClInclude Include="..\..\lib\include\frame\handshaker.h" />
@@ -42,6 +44,7 @@
     <ClInclude Include="..\..\lib\include\frame\nethandler.h" />
     <ClInclude Include="..\..\lib\include\frame\netmanager.h" />
     <ClInclude Include="..\..\lib\include\frame\netuser.h" />
+    <ClInclude Include="..\..\lib\include\frame\webaccepter.h" />
     <ClInclude Include="..\..\lib\include\frame\weblistener.h" />
     <ClInclude Include="..\..\lib\include\frame\websocket\base64.h" />
     <ClInclude Include="..\..\lib\include\frame\websocket\dataframe.h" />
@@ -51,7 +54,6 @@
     <ClInclude Include="..\..\lib\include\frame\websocket\sha1.h" />
     <ClInclude Include="..\..\lib\include\frame\websocket\stdint.h" />
     <ClInclude Include="..\..\lib\include\frame\websocket\gamewebsocket.h" />
-    <ClInclude Include="..\..\lib\include\frame\websocket\webaccepter.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{55622656-EDAF-46C0-B360-7A6671FD941D}</ProjectGuid>

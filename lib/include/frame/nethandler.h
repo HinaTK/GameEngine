@@ -30,7 +30,6 @@ public:
 		WEB_ACCEPTER,
 		HANDSHAKER,
 		LISTENER,
-		WEB_LISTENER,
 	};
 
 	NetHandle	m_handle;	// ÄÚ²¿²Ù×÷¾ä±ú

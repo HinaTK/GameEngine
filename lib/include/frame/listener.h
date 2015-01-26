@@ -22,7 +22,7 @@ public:
 		m_send_buf_read = new BufManager(128);
 		m_send_buf_write = new BufManager(128);
 	}
-	~Listener()
+	virtual ~Listener()
 	{
 		if (m_send_buf_read != NULL)
 		{
@@ -42,15 +42,13 @@ public:
 	bool			IsRegisterWrite(){ return m_is_register_write; }
 	void			RegisterWriteFD();
 
-	void *		operator new(size_t c);
-	void		operator delete(void *m);
 
 protected:
 	bool			RecvBuf();
-	bool			AnalyzeBuf();
+	virtual bool	AnalyzeBuf() = 0;
 	
 	void			UnRegisterWriteFD();
-private:
+protected:
 	BufManager	m_recv_buf;
 	BufManager	*m_send_buf_read;	// Ö»¶Á
 	BufManager	*m_send_buf_write;	// Ö»Ð´

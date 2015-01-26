@@ -5,6 +5,9 @@
 #include "common/systemdef.h"
 #include "libcommon/memoryvl.h"
 
+/*
+	目前没有使用
+*/
 class RecvFrame
 {
 public:

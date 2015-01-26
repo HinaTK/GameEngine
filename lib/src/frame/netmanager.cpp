@@ -5,7 +5,8 @@
 #include "netcommon.h"
 #include "accepter.h"
 #include "webaccepter.h"
-#include "listener.h"
+#include "baselistener.h"
+#include "weblistener.h"
 
 NetManager::~NetManager()
 {
@@ -119,7 +120,7 @@ bool NetManager::ConnectServer(char *ip, unsigned short port, NetID &net_id)
 		return false;
 	}
 #endif
-	Listener *handler = new Listener(this, NetHandler::LISTENER);
+	BaseListener *handler = new BaseListener(this, NetHandler::LISTENER);
 	handler->m_net_id = net_id;
 	AddNetHandler(handler);
 

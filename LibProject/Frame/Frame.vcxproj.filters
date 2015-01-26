@@ -58,6 +58,9 @@
     <ClCompile Include="..\..\lib\src\frame\weblistener.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\lib\src\frame\baselistener.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -119,13 +122,16 @@
     <ClInclude Include="..\..\lib\include\frame\nethandler.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\websocket\webaccepter.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\handshaker.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\weblistener.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\frame\webaccepter.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\frame\baselistener.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

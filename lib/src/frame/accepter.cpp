@@ -1,10 +1,10 @@
 
 #include "accepter.h"
-#include "listener.h"
+#include "baselistener.h"
 #include "netmanager.h"
 #include "common/socketdef.h"
 
-REGISTER_MEMORYPOOL(memorypool, Accepter, 64);
+REGISTER_MEMORYPOOL(memorypool, Accepter, 16);
 
 void Accepter::OnCanRead()
 {
@@ -13,7 +13,7 @@ void Accepter::OnCanRead()
 	NetID new_net_id = accept(m_net_id, (struct sockaddr*)&addr, &len);
 	if (new_net_id != INVALID_SOCKET)
 	{
-		Listener *handler = new Listener(m_net_manager, NetHandler::LISTENER);
+		BaseListener *handler = new BaseListener(m_net_manager, NetHandler::LISTENER);
 		handler->m_net_id = new_net_id;
 		m_net_manager->AddNetHandler(handler);
 	}

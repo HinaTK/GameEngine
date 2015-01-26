@@ -42,6 +42,12 @@ void Frame::Listen()
 	m_listen_thread.Create(::Listen, this);
 }
 
+
+void Frame::Send( NetHandle handle, const char *buf, unsigned int length )
+{
+	m_net_manager.Send(handle, buf, length);
+}
+
 bool Frame::Run()
 {
 	GameMsg		**msg = NULL;
@@ -90,18 +96,6 @@ bool Frame::Run()
 	return true;
 }
 
-
-// void Frame::Send(NetID net_id, char *msg, UInt32 length)
-// {
-// 	MsgQueue::ProtocolInfo info;
-// 	info.net_id = net_id;
-// 	memcpy(info.msg, msg, length);
-// 	info.length = length;
-// 	if (!m_in_com.SendQueue().Push(info))
-// 	{
-// 		Send(net_id, msg, length);
-// 	}
-// }
 
 
 

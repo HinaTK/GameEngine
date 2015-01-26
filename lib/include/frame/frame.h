@@ -22,11 +22,12 @@ public:
 
 	virtual void	DisConnet(NetID net_id){};
 
+	void			Send(NetHandle handle, const char *buf, unsigned int length);
+
 	void			Listen();
 
 	bool			Run();
 
-	//InCom			*GetInCom(){ return &m_in_com; }
 	NetManager		*GetNetManager(){ return &m_net_manager; }
 
 	void			SetUpdateInternal(int ms){ m_update_interval = ms; };
@@ -39,7 +40,6 @@ protected:
 	void			SetExSendSleepTime(int ms){ m_ex_send_sleep_time = ms; };
 	int				ExSendSleepTime(){ return m_ex_send_sleep_time; }
 
-	//InCom		m_in_com;
 	NetManager		m_net_manager;
 private:
 	
