@@ -6,6 +6,7 @@
 #include "websocket/recvframe.h"
 #include "websocket/dataframeheader.h"
 
+REGISTER_MEMORYPOOL(memorypool, WebListener, 256);
 
 #define CHECK_BUF_LEN()\
 	if ( buf_len <= (int)buf_offset)\

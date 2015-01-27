@@ -5,6 +5,7 @@
 #include "nethandler.h"
 #include "bufmanager.h"
 #include "libcommon/mutex.h"
+
 /*
 	监听者，监听所有数据的读写状态
 */
@@ -15,12 +16,10 @@ public:
 	Listener(NetManager *manager, int type)
 		: NetHandler(manager, type)
 		, m_recv_buf(128)
-		, m_send_buf_read(NULL)
-		, m_send_buf_write(NULL)
+		, m_send_buf_read(new BufManager(128))
+		, m_send_buf_write(new BufManager(128))
 		, m_is_register_write(false)
 	{
-		m_send_buf_read = new BufManager(128);
-		m_send_buf_write = new BufManager(128);
 	}
 	virtual ~Listener()
 	{

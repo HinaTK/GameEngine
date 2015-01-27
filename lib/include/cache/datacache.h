@@ -3,6 +3,7 @@
 
 #include <list>
 #include "dataadapter.h"
+#include "common/datastructure/gamehash.h"
 
 static DataField field;
 #define FIELD_DEFINE(Obj, Name, Type, Length)\
@@ -21,7 +22,7 @@ public:
 
 public:
 	DataCache(unsigned int hash_size = 256, unsigned int data_size = 1024)
-		: m_data(hash_size)
+		//: m_data(hash_size)
 	{
 		
 	}

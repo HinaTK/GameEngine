@@ -29,26 +29,26 @@ void MessageHandler::Test(char *msg)
 
 void MessageHandler::UserLogin( char * msg )
 {
-	IProtocol::LDBLogin * login = (IProtocol::LDBLogin *)msg;
-	
-
-	DataCache::DATAVALUE_VECTOR **field_data = TB_Login::Instance().GetCache()->m_data[login->account];
-	if (field_data == 0)
-	{
-		// 在cache找不到，查找数据库
-		printf("account = %d, password = %d\n",login->account, login->passward);
-		DataValue val;
-		val.dv_uint = 0;
-		DataCache::DATAVALUE_VECTOR *data = new DataCache::DATAVALUE_VECTOR(TB_Login::MAX_FIELD);
-		(*data)[TB_Login::ACCOUNT].dv_uint = login->account;
-		(*data)[TB_Login::PASSWORD].dv_uint = login->passward;
-		TB_Login::Instance().GetCache()->m_data.Push(login->account, data);
-	}
-	else
-	{
-		printf("raccount = %d, rpassword = %d\n",(**field_data)[TB_Login::ACCOUNT].dv_uint, (**field_data)[TB_Login::PASSWORD].dv_uint);
-		//printf("raccount = %d, rpassword = %d\n",field_data[TB_Login::ACCOUNT].dv_uint, field_data[TB_Login::PASSWORD].dv_uint);
-	}
+// 	IProtocol::LDBLogin * login = (IProtocol::LDBLogin *)msg;
+// 	
+// 
+// 	DataCache::DATAVALUE_VECTOR **field_data = TB_Login::Instance().GetCache()->m_data[login->account];
+// 	if (field_data == 0)
+// 	{
+// 		// 在cache找不到，查找数据库
+// 		printf("account = %d, password = %d\n",login->account, login->passward);
+// 		DataValue val;
+// 		val.dv_uint = 0;
+// 		DataCache::DATAVALUE_VECTOR *data = new DataCache::DATAVALUE_VECTOR(TB_Login::MAX_FIELD);
+// 		(*data)[TB_Login::ACCOUNT].dv_uint = login->account;
+// 		(*data)[TB_Login::PASSWORD].dv_uint = login->passward;
+// 		TB_Login::Instance().GetCache()->m_data.Push(login->account, data);
+// 	}
+// 	else
+// 	{
+// 		printf("raccount = %d, rpassword = %d\n",(**field_data)[TB_Login::ACCOUNT].dv_uint, (**field_data)[TB_Login::PASSWORD].dv_uint);
+// 		//printf("raccount = %d, rpassword = %d\n",field_data[TB_Login::ACCOUNT].dv_uint, field_data[TB_Login::PASSWORD].dv_uint);
+// 	}
 }
 
 

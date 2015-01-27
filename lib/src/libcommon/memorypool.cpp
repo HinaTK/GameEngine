@@ -66,6 +66,8 @@ void MemoryPool::Init(unsigned int size, unsigned int increase /*= 64*/)
 	{
 		return;
 	}
+	m_size = size;
+	m_increase = increase;
 	Resize();
 	m_init = true;
 }

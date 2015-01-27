@@ -54,10 +54,10 @@
 		</memory>
 		<memory>
 			<size>32768</size>
-			<num>4</num>
+			<num>2</num>
 		</memory>
 		<memory>
-			<size>32768</size>
+			<size>65536</size>
 			<num>2</num>
 		</memory>
 		<memory>
@@ -74,6 +74,10 @@
 		</memory>
 		<memory>
 			<size>1048576</size>
+			<num>1</num>
+		</memory>
+		<memory>
+			<size>2097152</size>
 			<num>1</num>
 		</memory>
 	</memory_vl>

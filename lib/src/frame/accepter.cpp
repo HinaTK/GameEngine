@@ -13,6 +13,7 @@ void Accepter::OnCanRead()
 	NetID new_net_id = accept(m_net_id, (struct sockaddr*)&addr, &len);
 	if (new_net_id != INVALID_SOCKET)
 	{
+		printf("ip = %s\n", inet_ntoa(addr.sin_addr));
 		BaseListener *handler = new BaseListener(m_net_manager, NetHandler::LISTENER);
 		handler->m_net_id = new_net_id;
 		m_net_manager->AddNetHandler(handler);

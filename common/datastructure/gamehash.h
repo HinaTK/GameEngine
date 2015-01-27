@@ -13,7 +13,7 @@
 
 namespace game
 {
-unsigned int _RealKey(const char *key, unsigned int length)
+static unsigned int _RealKey(const char *key, unsigned int length)
 {
 	static unsigned int real_key;
 	real_key = 0;

@@ -13,7 +13,7 @@ class BaseListener : public Listener
 {
 public:
 	BaseListener(NetManager *manager, int type): Listener(manager, type){}
-	virtual ~BaseListener(){	}
+	virtual ~BaseListener(){}
 
 	void *		operator new(size_t c);
 	void		operator delete(void *m);
