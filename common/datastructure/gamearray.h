@@ -114,6 +114,8 @@ Array<T>::Array(unsigned int size)
 	m_end.m_index		= 0;
 }
 
+// m_index_pool这样处理有问题，因为放到池里的索引可能很大，再读出来的时候，会浪费性能和空间 2015.1.27
+
 template<class T>
 unsigned int Array<T>::Insert(T &val)
 {
@@ -169,14 +171,14 @@ void Array<T>::Erase(unsigned int index)
 	else if (index == (m_end.m_index - 1))
 	{
 		unsigned i = index - 1;
-		for (; i > m_begin.m_index; --i)
+		for (; i >= m_begin.m_index; --i)
 		{
 			if (m_value[i].be_used)
 			{
 				break;
 			}
 		}
-		m_end.m_index = i;
+		m_end.m_index = i + 1;
 	}
 	--m_size;
 }
@@ -209,14 +211,14 @@ bool Array<T>::Erase(unsigned int index, T &val)
 	else if (index == (m_end.m_index - 1))
 	{
 		unsigned i = index - 1;
-		for (; i > m_begin.m_index; --i)
+		for (; i >= m_begin.m_index; --i)
 		{
 			if (m_value[i].be_used)
 			{
 				break;
 			}
 		}
-		m_end.m_index = i;
+		m_end.m_index = i + 1;		// 结束索引（m_end.m_index）等于最大有效索引加1
 	}
 	--m_size;
 	return true;

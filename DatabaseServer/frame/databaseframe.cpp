@@ -23,15 +23,6 @@ bool DatabaseFrame::InitConfig()
 {
 	if (!m_net_manager.InitServer(
 		ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER],
-		ServerConfig::Instance().m_server[ServerConfig::DATABASE_GAME].port,
-		ServerConfig::Instance().m_server[ServerConfig::DATABASE_GAME].backlog,
-		m_game_net_id))
-	{
-		return false;
-	}
-	printf("m_game_net_id = %d\n", m_game_net_id);
-	if (!m_net_manager.InitServer(
-		ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER],
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_LOGIN].port,
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_LOGIN].backlog,
 		m_login_net_id))
@@ -39,6 +30,17 @@ bool DatabaseFrame::InitConfig()
 		return false;
 	}
 	printf("m_login_net_id = %d\n", m_login_net_id);
+
+	if (!m_net_manager.InitServer(
+		ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER],
+		ServerConfig::Instance().m_server[ServerConfig::DATABASE_GAME].port,
+		ServerConfig::Instance().m_server[ServerConfig::DATABASE_GAME].backlog,
+		m_game_net_id))
+	{
+		return false;
+	}
+	printf("m_game_net_id = %d\n", m_game_net_id);
+	
 	if (!DataBase::Instance().Init(
 		ServerConfig::Instance().m_db_ip,
 		ServerConfig::Instance().m_db_name,
