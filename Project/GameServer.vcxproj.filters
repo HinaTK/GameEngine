@@ -7,10 +7,6 @@
     <Filter Include="common\protocol">
       <UniqueIdentifier>{97570fac-02b5-477c-b237-8d759adbefb6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
-    </Filter>
     <Filter Include="global">
       <UniqueIdentifier>{0b9a603d-77dc-43cd-8d9a-48d28449149b}</UniqueIdentifier>
     </Filter>
@@ -40,6 +36,9 @@
     </Filter>
     <Filter Include="poolconfig">
       <UniqueIdentifier>{f332d743-f522-402a-98c3-4e09e0907cc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="base">
+      <UniqueIdentifier>{9ee4c2f3-1d16-473f-a61e-1e37a9576243}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +101,9 @@
     </ClCompile>
     <ClCompile Include="..\common\globalclass.cpp">
       <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\base\knapsack.cpp">
+      <Filter>base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +193,9 @@
     </ClInclude>
     <ClInclude Include="..\common\globalclass.h">
       <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\base\knapsack.h">
+      <Filter>base</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

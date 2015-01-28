@@ -1,9 +1,9 @@
 
 
 #include "gatewayframe.h"
-#include "libcommon.h"
+#include "libcommon/serverconfig.h"
 #include "common/commonfunction.h"
-#include "common/datastructure/hashlist.h"
+//#include "common/datastructure/hashlist.h"
 #include "common/protocol/messageheader.h"
 
 
@@ -38,26 +38,12 @@ bool GatewayFrame::InitConfig()
 		ServerConfig::Instance().m_ip[ServerConfig::GATEWAY_SERVER],
 		ServerConfig::Instance().m_server[ServerConfig::GATEWAY_CLIENT].port,
 		ServerConfig::Instance().m_server[ServerConfig::GATEWAY_CLIENT].backlog,
-		m_gate_net_id))
+		m_gate_net_id, true))
 	{
 		return false;
 	}
 
 	return Init();
-}
-
-
-void GatewayFrame::NetSend( NetID net_id, char *msg, UInt16 length )
-{
-// 	MsgQueue::ProtocolInfo info;
-// 	info.net_id = userID;
-// 	memcpy(info.msg, msg, length);
-// 	info.length = length;
-//	m_in_com.SendQueue().Push(net_id, msg, length);
-// 	if (!m_ex_com.SendQueue().Push(info))
-// 	{
-// 		Send(userID, msg, length);
-// 	}
 }
 
 

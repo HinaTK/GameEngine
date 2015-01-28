@@ -3,7 +3,7 @@
 
 
 #include "common/commonvariable.h"
-#include "libcommon.h"
+#include "libcommon/serverconfig.h"
 #include "libtimemanager.h"
 #include "frame/frame.h"
 
@@ -27,22 +27,16 @@ public:
 
     void	Exit();
 
-//	void	ExternalRecv(NetID net_id, char *msg, UInt16 length);
 
 	void	InteanalRecv(NetID net_id, char *msg, UInt16 length);
 
-	void	NetSend(NetID net_id, char *msg, UInt16 length);
 
-	//virtual ExCom	*GetExCom(){ return &m_ex_com; }
 
 public:
 	NetID	m_gate_net_id;
     NetID	m_game_server_net_id;
 	NetID	m_global_server_net_id;
 	NetID	m_login_server_net_id;
-
-protected:
-	//ExCom				m_ex_com;
 
 private:
 	GatewayFrame();

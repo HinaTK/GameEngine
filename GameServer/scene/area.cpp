@@ -1,7 +1,6 @@
 
 #include "area.h"
 
-
 Area::~Area(void)
 {
 }
@@ -23,25 +22,6 @@ void Area::EraseObserver( ObjID obj_id )
 {
 	m_observer_list.Erase(obj_id);
 }
-
-ObjID Area::FirstObserver()
-{
-	return *m_observer_list.Begin();
-}
-
-bool Area::IsObserverEnd()
-{
-	//return m_observer_list.End();
-	return true;
-}
-
-ObjID Area::GetObserver()
-{
-	//return m_observer_list.NextVal();
-	ObjID objid;
-	return objid;
-}
-
 
 int Area::GetAOIHandle( UInt32 index )
 {

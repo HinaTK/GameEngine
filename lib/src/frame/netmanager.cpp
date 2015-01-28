@@ -47,7 +47,7 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, NetID &n
 	}
 #endif
 
-	unsigned long _ip = inet_addr(ip);
+//	unsigned long _ip = inet_addr(ip);
 // 	if (ip_n == INADDR_NONE) return false;
 // 
 // 	IP ip_host = ntohl(ip_n);
@@ -58,6 +58,7 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, NetID &n
 	}
 	else
 	{
+		unsigned long _ip = inet_addr(ip);
 		handler = new Accepter(this, NetHandler::ACCEPTER, _ip);
 	}
 	handler->m_net_id = net_id;

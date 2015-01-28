@@ -107,10 +107,11 @@ void AreaManager::CreateAOI(ObjID obj_id, Posi center, Posi enter_radius, Posi l
     {
         for (short j = bottomLeft.y; j <= topRight.y; ++j)
         {
-            Area *areaIter = &m_area_matrix[i][j];
-			for (ObjID id = areaIter->FirstObserver(); !areaIter->IsObserverEnd(); id = areaIter->GetObserver())
+            Area *area = &m_area_matrix[i][j];
+			Area::OBSERVER_LIST *observer_list = area->GetObserverList();
+			for (Area::OBSERVER_LIST::iterator itr = observer_list->Begin(); itr != observer_list->End(); ++itr)
 			{
-				Obj *otherObj = m_obj_manager->GetObj(id);
+				Obj *otherObj = m_obj_manager->GetObj(*itr);
 				if (otherObj == NULL)
 				{
 					return;
@@ -286,8 +287,10 @@ void AreaManager::MoveAOI( UInt32 aoi_handle )
 			}
 
 			Area *area = &m_area_matrix[x][y];
-			for (ObjID id = area->FirstObserver(); !area->IsObserverEnd(); id = area->GetObserver())
+			Area::OBSERVER_LIST *observer_list = area->GetObserverList();
+			for (Area::OBSERVER_LIST::iterator itr = observer_list->Begin(); itr != observer_list->End(); ++itr)
 			{
+				ObjID id = *itr;
 				if (objID == id)
 				{
 					continue;
@@ -335,8 +338,10 @@ void AreaManager::MoveAOI( UInt32 aoi_handle )
 			}
 
 			Area *area = &m_area_matrix[x][y];
-			for (ObjID id = area->FirstObserver(); !area->IsObserverEnd(); id = area->GetObserver())
+			Area::OBSERVER_LIST *observer_list = area->GetObserverList();
+			for (Area::OBSERVER_LIST::iterator itr = observer_list->Begin(); itr != observer_list->End(); ++itr)
 			{
+				ObjID id = *itr;
 				if (objID == id)
 				{
 					continue;
@@ -347,6 +352,7 @@ void AreaManager::MoveAOI( UInt32 aoi_handle )
 					obj->OnEnterAOI(id);
 				}
 			}
+			
 			if (!is_in)
 			{
 				area->AddAOIHandle(aoi_handle);

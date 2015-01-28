@@ -12,10 +12,6 @@
 
 #define PROGRAMNAMELEN 512
 
-#define OVERLOAD_MEMORYPOOL()\
-    void *	operator new(size_t c);\
-    void	operator delete(void *m);
-
 
 typedef char ProgramName[PROGRAMNAMELEN];
 typedef Vector2D<unsigned short>		Posi;
