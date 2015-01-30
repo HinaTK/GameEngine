@@ -31,7 +31,7 @@ bool BaseListener::AnalyzeBuf()
 			return false;
 		}
 
-		m_net_manager->GetMsgQueue()->Push(m_net_id, buf + NetCommon::HEADER_LENGTH, header->msg_len - NetCommon::HEADER_LENGTH);
+		m_net_manager->GetMsgQueue()->Push(m_handle, buf + NetCommon::HEADER_LENGTH, header->msg_len - NetCommon::HEADER_LENGTH);
 
 		remove_len += header->msg_len;
 		buf_len -= header->msg_len;

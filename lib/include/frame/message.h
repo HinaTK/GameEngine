@@ -9,8 +9,8 @@
 class GameMsg
 {
 public:
-	GameMsg(NetID _net_id, const char* _data, unsigned int _length)
-		: net_id(_net_id)
+	GameMsg(NetHandle _handle, const char* _data, unsigned int _length)
+		: handle(_handle)
 		, length(_length)
 	{
 		if (!MemoryVL::Instance().Malloc(length, data))
@@ -27,7 +27,8 @@ public:
 	void *		operator new(size_t c);
 	void		operator delete(void *m);
 
-	NetID			net_id;
+	NetHandle		handle;
+	//NetID			net_id;
 	unsigned int	length;
 	MemoryVL::MemoryInfo data;
 };

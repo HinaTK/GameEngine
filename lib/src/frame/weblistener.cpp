@@ -3,7 +3,6 @@
 #include "netcommon.h"
 #include "netmanager.h"
 #include "common/socketdef.h"
-#include "websocket/recvframe.h"
 #include "websocket/dataframeheader.h"
 
 REGISTER_MEMORYPOOL(memorypool, WebListener, 256);
@@ -65,7 +64,7 @@ bool WebListener::AnalyzeBuf()
 
 		buf_offset += length;
 		CHECK_BUF_LEN();
-		m_net_manager->GetMsgQueue()->Push(m_net_id, buf + frame_offset, length);
+		m_net_manager->GetMsgQueue()->Push(m_handle, buf + frame_offset, length);
 		buf_len -= buf_offset;
 		remove_len += buf_offset;
 		//m_recv_buf.RemoveBuf(buf_offset);

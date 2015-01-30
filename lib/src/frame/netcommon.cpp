@@ -61,6 +61,7 @@ void Close(NetID net_id)
 {
 #ifdef WIN32
 	closesocket(net_id);
+	printf("close = %d\n", net_id);
 #endif // WIN32
 #ifdef _unix
 	close(net_id);

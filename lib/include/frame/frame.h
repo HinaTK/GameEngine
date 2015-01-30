@@ -12,9 +12,7 @@ public:
 	Frame();
 	~Frame(){};
 
-	virtual	void	ExternalRecv(NetID net_id, char *msg, unsigned int length){};
-
-	virtual	void	InteanalRecv(NetID net_id, char *msg, unsigned int length){};
+	virtual	void	Recv(NetHandle handle, char *msg, unsigned int length){};
 
 	virtual	void	Update(time_t now){};  //¸üÐÂ
 

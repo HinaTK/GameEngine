@@ -27,8 +27,7 @@ public:
 
     void	Exit();
 
-
-	void	InteanalRecv(NetID net_id, char *msg, UInt16 length);
+	void	Recv(NetHandle handle, char *msg, UInt16 length);
 
 
 

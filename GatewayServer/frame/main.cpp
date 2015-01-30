@@ -27,9 +27,10 @@ bool GatewayFrame::Init()
 // 	}
 // }
 
-void GatewayFrame::InteanalRecv(NetID user_id, char *msg, UInt16 length)
+void GatewayFrame::Recv(NetHandle handle, char *msg, UInt16 length)
 {
-	//int *len = (int *)msg;
+	//Send()
+	printf("%s\n", msg);
 }
 
 void GatewayFrame::Update(time_t now)

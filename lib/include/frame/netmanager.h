@@ -23,8 +23,9 @@ public:
 
 	NetHandle		AddNetHandler(NetHandler *handler);			
 	void			RemoveHandler(NetHandle handle);
+	void			ReplaceHandler(NetHandle handle, NetHandler *handler);		// 将该句柄的控制者替换（用于将握手者-->监听者）
 	void			ClearHandler();
-
+	
 	MsgQueue		*GetMsgQueue(){ return &m_queue; }
 
 	void			Send(NetHandle handle, const char *buf, unsigned int length);

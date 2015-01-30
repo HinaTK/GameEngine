@@ -30,7 +30,6 @@
     <ClCompile Include="..\..\lib\src\frame\websocket\recvframe.cpp" />
     <ClCompile Include="..\..\lib\src\frame\websocket\sendframe.cpp" />
     <ClCompile Include="..\..\lib\src\frame\websocket\sha1.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\websocket\gamewebsocket.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib\include\frame\accepter.h" />
@@ -53,7 +52,6 @@
     <ClInclude Include="..\..\lib\include\frame\websocket\sendframe.h" />
     <ClInclude Include="..\..\lib\include\frame\websocket\sha1.h" />
     <ClInclude Include="..\..\lib\include\frame\websocket\stdint.h" />
-    <ClInclude Include="..\..\lib\include\frame\websocket\gamewebsocket.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{55622656-EDAF-46C0-B360-7A6671FD941D}</ProjectGuid>
@@ -65,7 +63,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">

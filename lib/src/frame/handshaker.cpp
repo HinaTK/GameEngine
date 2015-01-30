@@ -38,22 +38,12 @@ void HandShaker::OnCanRead()
 	if (!HandShake())
 	{
 		// 删除
-		NetCommon::Close(m_net_id);
 		m_net_manager->RemoveHandler(m_handle);
 		return;
 	}
-	// 将Listener加入监听
-	static struct sockaddr_in addr;
-	static SOCKET_LEN len = sizeof(struct sockaddr);
-	NetID new_net_id = accept(m_net_id, (struct sockaddr*)&addr, &len);
-	if (new_net_id != INVALID_SOCKET)
-	{
-		WebListener *handler = new WebListener(m_net_manager, NetHandler::LISTENER);
-		handler->m_net_id = new_net_id;
-		m_net_manager->AddNetHandler(handler);
-	}
-	// 将握手者移除
-	m_net_manager->RemoveHandler(m_handle);
+
+	WebListener *handler = new WebListener(m_net_manager, NetHandler::LISTENER);
+	m_net_manager->ReplaceHandler(m_handle, handler);
 }
 
 bool HandShaker::HandShake()

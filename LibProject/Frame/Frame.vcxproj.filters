@@ -37,9 +37,6 @@
     <ClCompile Include="..\..\lib\src\frame\websocket\sha1.cpp">
       <Filter>src\websocket</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\frame\websocket\gamewebsocket.cpp">
-      <Filter>src\websocket</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\lib\src\frame\accepter.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -108,9 +105,6 @@
       <Filter>src\websocket</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\websocket\stdint.h">
-      <Filter>src\websocket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\websocket\gamewebsocket.h">
       <Filter>src\websocket</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\accepter.h">

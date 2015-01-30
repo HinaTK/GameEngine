@@ -10,7 +10,7 @@ Frame::Frame()
 , m_ex_send_sleep_time(30)
 , m_in_send_sleep_time(30)
 {
-	//m_in_com.SetFrame(this);
+	
 }
 
 void *Listen(void * arg)
@@ -20,7 +20,7 @@ void *Listen(void * arg)
 	{
 		return NULL;
 	}
-	//frame->GetInCom()->Listen();
+	
 	frame->GetNetManager()->Listen();
 	return NULL;
 }
@@ -67,9 +67,9 @@ bool Frame::Run()
 			msg = recvQueue->Val();
 			if ((*msg) != NULL)
 			{
-				if ((*msg)->net_id > 0)
+				if ((*msg)->handle > 0)
 				{
-					this->InteanalRecv((*msg)->net_id, (*msg)->data.mem, (*msg)->length);
+					this->Recv((*msg)->handle, (*msg)->data.mem, (*msg)->length);
 				}
 				delete (*msg);
 			}

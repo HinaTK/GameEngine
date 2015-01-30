@@ -203,8 +203,7 @@ void NetManager::Listen()
 
 NetHandle NetManager::AddNetHandler(NetHandler *handler)
 {
-	NetHandle handle = m_net_handler.Insert(handler);
-	handler->m_handle = handle;
+	handler->m_handle = m_net_handler.Insert(handler);
 	// ÉèÖÃ³É·Ç×èÈû
 	unsigned long b;
 	NetCommon::Ioctl(handler->m_net_id, FIONBIO, &b);
@@ -223,12 +222,22 @@ NetHandle NetManager::AddNetHandler(NetHandler *handler)
 		// Ìí¼ÓÊ§°Ü
 	}
 #endif
-	return handle;
+	return handler->m_handle;
 }
 
 void NetManager::RemoveHandler(NetHandle handle)
 {
 	m_invalid_handle.Push(handle);
+}
+
+void NetManager::ReplaceHandler( NetHandle handle, NetHandler *handler )
+{
+	NET_HANDLER_ARRAY::iterator itr = m_net_handler.Find(handle);
+	if (itr != m_net_handler.End())
+	{
+		delete *itr;
+		*itr = handler;
+	}
 }
 
 void NetManager::ClearHandler()
@@ -244,6 +253,7 @@ void NetManager::ClearHandler()
 		{
 #ifdef WIN32
 			FD_CLR(handler->m_net_id, &m_read_set);
+			NetCommon::Close(handler->m_net_id);
 #endif
 #ifdef __unix
 			epoll_ctl(m_epoll_fd, EPOLL_CTL_DEL, handler->m_net_id, &ev);
