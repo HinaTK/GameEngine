@@ -28,9 +28,6 @@
     <ClCompile Include="..\..\lib\src\frame\websocket\dataframeheader.cpp">
       <Filter>src\websocket</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\frame\websocket\recvframe.cpp">
-      <Filter>src\websocket</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\lib\src\frame\websocket\sendframe.cpp">
       <Filter>src\websocket</Filter>
     </ClCompile>
@@ -93,9 +90,6 @@
       <Filter>src\websocket</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\websocket\dataframeheader.h">
-      <Filter>src\websocket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\websocket\recvframe.h">
       <Filter>src\websocket</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\websocket\sendframe.h">

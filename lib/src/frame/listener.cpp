@@ -79,7 +79,7 @@ void Listener::OnCanWrite()
 			m_send_buf_read->AddReadLength(ret);
 		}
 		UnRegisterWriteFD();
-		m_send_buf_read->ReSetBuf();
+		m_send_buf_read->ResetBuf();
 	}
 }
 

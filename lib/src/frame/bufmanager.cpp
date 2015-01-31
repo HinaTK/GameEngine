@@ -9,6 +9,7 @@ REGISTER_MEMORYPOOL(memorypool, BufManager, 256);
 BufManager::BufManager(unsigned int size)
 : m_size(size)
 , m_length(0)
+, m_read_length(0)
 {
 	Init();
 }
@@ -66,7 +67,7 @@ void BufManager::RemoveBuf(unsigned int len)
 	m_length = m_length - len;
 }
 
-void BufManager::ReSetBuf()
+void BufManager::ResetBuf()
 {
 	m_read_length = 0;
 	m_length = 0;

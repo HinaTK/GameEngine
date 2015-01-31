@@ -8,7 +8,7 @@
 REGISTER_MEMORYPOOL(memorypool, WebListener, 256);
 
 #define CHECK_BUF_LEN()\
-	if ( buf_len <= (int)buf_offset)\
+	if ( buf_len < (int)buf_offset)\
 	{\
 		if (remove_len > 0)\
 		{\
@@ -58,15 +58,30 @@ bool WebListener::AnalyzeBuf()
 		{
 			buf_offset += FrameHeader::MASK_LEN;
 			CHECK_BUF_LEN();
-			//memcpy(mask_data, buf + frame_offset, DataFrameHeader::MASK_LEN);
+			char mask_data[FrameHeader::MASK_LEN];
+			memcpy(mask_data, buf + frame_offset, FrameHeader::MASK_LEN);
 			frame_offset += FrameHeader::MASK_LEN;
-		}
 
-		buf_offset += length;
-		CHECK_BUF_LEN();
-		m_net_manager->GetMsgQueue()->Push(m_handle, buf + frame_offset, length);
+			buf_offset += length;
+			CHECK_BUF_LEN();
+			char *data = (char *)(buf + frame_offset);
+			for (int i = 0; i < length; ++i)
+			{
+				data[i] = (data[i] ^ mask_data[i % FrameHeader::MASK_LEN]);
+			}
+			m_net_manager->GetMsgQueue()->Push(m_handle, data, length);
+		}
+		else
+		{
+			buf_offset += length;
+			CHECK_BUF_LEN();
+
+			m_net_manager->GetMsgQueue()->Push(m_handle, buf + frame_offset, length);
+		}
+		
 		buf_len -= buf_offset;
 		remove_len += buf_offset;
+		
 		//m_recv_buf.RemoveBuf(buf_offset);
 	} while (true);
 	if (remove_len > 0)
@@ -90,18 +105,18 @@ void WebListener::Send(const char *buf, unsigned int len)
 	int extend_len = 0;
 	if (frame_length < 126)
 	{
-		ConstructFrameHeader(true, false, false, false, 1, frame_length, frame.mem);	
+		ConstructFrameHeader(true, false, false, false, 1, len, (unsigned char *)frame.mem);
 	}
 	else if (frame_length < 65536)
 	{
-		ConstructFrameHeader(true, false, false, false, 1, 126, frame.mem);
+		ConstructFrameHeader(true, false, false, false, 1, 126, (unsigned char *)frame.mem);
 		extend_len = (int)FrameHeader::MID_EXTEND_LEN;
 		*(frame.mem + offset) = len / 256;
 		*(frame.mem + offset + 1) = len % 256;
 	}
 	else
 	{
-		ConstructFrameHeader(true, false, false, false, 1, 127, frame.mem);
+		ConstructFrameHeader(true, false, false, false, 1, 127, (unsigned char *)frame.mem);
 		extend_len = (int)FrameHeader::MAX_EXTEND_LEN;
 		unsigned int left = len;
 		for (int i = extend_len - 1; i >= 0; --i)

@@ -38,12 +38,10 @@ void HandShaker::OnCanRead()
 	if (!HandShake())
 	{
 		// 删除
+		m_is_clear = true;
 		m_net_manager->RemoveHandler(m_handle);
 		return;
 	}
-
-	WebListener *handler = new WebListener(m_net_manager, NetHandler::LISTENER);
-	m_net_manager->ReplaceHandler(m_handle, handler);
 }
 
 bool HandShaker::HandShake()
@@ -75,32 +73,69 @@ bool HandShaker::HandShake()
 			int err = SHA1Reset(&sha1);
 			if (err)
 			{
-				// fprintf(stderr, "SHA1Reset Error %d.\n", err);
 				return false;
 			}
 			err = SHA1Input(&sha1, (const unsigned char *)server_str.c_str(), server_str.length());
 			if (err)
 			{
-				// fprintf(stderr, "SHA1Input Error %d.\n", err);
 				return false;
 			}
 			unsigned char sha1_hash[20];
 			err = SHA1Result(&sha1, sha1_hash);
 			if (err)
 			{
-				// fprintf(stderr, "SHA1Result Error %d, could not compute message digest.\n", err);
 				return false;
 			}
 			Base64 base64;
 			std::string accept_key = base64.Encode(sha1_hash, sizeof(sha1_hash));
-			char handshake[256] = { 0 };
-			sprintf(handshake, ws.handshake.c_str(), accept_key.c_str());
-			// 这里不应该直接发送
-			if (send(m_net_id, handshake, strlen(handshake), 0) == -1)
+			sprintf(m_handshake_data, ws.handshake.c_str(), accept_key.c_str());
+			m_data_length = (int)strlen(m_handshake_data);
+
+#ifdef WIN32
+			FD_SET(m_net_id, m_net_manager->GetWriteSet());
+#endif // !WIN32
+
+#ifdef __unix
+			struct epoll_event ev;
+			ev.events = EPOLLIN | EPOLLOUT | EPOLLET;
+			ev.data.ptr = (void *)this;
+			if (epoll_ctl(m_net_manager->GetEpollFD(), EPOLL_CTL_MOD, m_net_id, &ev) == -1)
 			{
-				return false;
+				// 注册写失败
 			}
+#endif		
 		}
 	}
 	return true;
+}
+
+void HandShaker::OnCanWrite()
+{
+	while (true)
+	{
+		int ret = NetCommon::Send(m_net_id, m_handshake_data + m_send_length, m_data_length);
+		if (ret == SOCKET_ERROR)
+		{
+			if (NetCommon::Error() == WOULDBLOCK)
+			{
+				// 缓冲区已经满
+				break;
+			}
+			m_is_clear = true;
+			m_net_manager->RemoveHandler(m_handle);
+			return;
+		}
+
+		m_data_length -= ret;
+		if (m_data_length <= 0)
+		{
+			// 删除
+			m_net_manager->RemoveHandler(m_handle);
+			WebListener *handler = new WebListener(m_net_manager, NetHandler::LISTENER);
+			handler->m_net_id = m_net_id;
+			m_net_manager->ReplaceHandler(handler);
+			return;
+		}
+		m_send_length += ret;
+	}
 }

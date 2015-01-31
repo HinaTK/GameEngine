@@ -12,7 +12,7 @@ public:
 	Frame();
 	~Frame(){};
 
-	virtual	void	Recv(NetHandle handle, char *msg, unsigned int length){};
+	virtual	void	Recv(NetHandle handle, char *msg, unsigned int length) = 0;
 
 	virtual	void	Update(time_t now){};  //¸üÐÂ
 

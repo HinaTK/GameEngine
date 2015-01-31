@@ -32,6 +32,6 @@ private:
 };
 
 // ππ‘Ï÷°Õ∑
-void ConstructFrameHeader(bool fin, bool rsv1, bool rsv2, bool rsv3, char opcode, unsigned char length, char *data, bool hasmask = false);
+void ConstructFrameHeader(bool fin, bool rsv1, bool rsv2, bool rsv3, char opcode, unsigned char length, unsigned char *data, bool hasmask = false);
 
 #endif

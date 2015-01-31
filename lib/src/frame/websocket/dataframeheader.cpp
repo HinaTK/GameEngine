@@ -18,9 +18,9 @@ FrameHeader::FrameHeader(const char *buffer)
 }
 
 
-void ConstructFrameHeader( bool fin, bool rsv1, bool rsv2, bool rsv3, char opcode, unsigned char length, char *data, bool hasmask /*= false*/ )
+void ConstructFrameHeader(bool fin, bool rsv1, bool rsv2, bool rsv3, char opcode, unsigned char length, unsigned char *data, bool hasmask /*= false*/)
 {
-	memset(data, 0, sizeof(data));
+	memset(data, 0, 2);
 
 	if (fin) data[0] ^= 0x80;
 	if (rsv1) data[0] ^= 0x40;

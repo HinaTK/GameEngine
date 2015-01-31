@@ -67,7 +67,7 @@ bool Frame::Run()
 			msg = recvQueue->Val();
 			if ((*msg) != NULL)
 			{
-				if ((*msg)->handle > 0)
+				if ((int)(*msg)->handle >= (int)0)
 				{
 					this->Recv((*msg)->handle, (*msg)->data.mem, (*msg)->length);
 				}

@@ -18,7 +18,7 @@ public:
 
 	const char *	GetBuf(){ return m_buf.mem; }
 	void			RemoveBuf(unsigned int len);
-	void			ReSetBuf();
+	void			ResetBuf();
 
 	char *			GetFreeBuf(){ return (m_buf.mem + m_length); }
 

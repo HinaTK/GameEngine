@@ -7,6 +7,7 @@
 #include "webaccepter.h"
 #include "baselistener.h"
 #include "weblistener.h"
+#include "handshaker.h"
 
 NetManager::~NetManager()
 {
@@ -192,6 +193,7 @@ void NetManager::Listen()
 					((NetHandler*)events[i].data.ptr)->OnCanWrite();
 				}
 			}
+			ClearHandler();
 		}
 		else
 		{
@@ -230,14 +232,18 @@ void NetManager::RemoveHandler(NetHandle handle)
 	m_invalid_handle.Push(handle);
 }
 
-void NetManager::ReplaceHandler( NetHandle handle, NetHandler *handler )
+void NetManager::ReplaceHandler(NetHandler *handler )
 {
-	NET_HANDLER_ARRAY::iterator itr = m_net_handler.Find(handle);
-	if (itr != m_net_handler.End())
+	handler->m_handle = m_net_handler.Insert(handler);
+#ifdef __unix
+	struct epoll_event ev;
+	ev.events = EPOLLIN | EPOLLET;
+	ev.data.ptr = (void *)handler;
+	if (epoll_ctl(m_epoll_fd, EPOLL_CTL_MOD, handler->m_net_id, &ev) == -1)
 	{
-		delete *itr;
-		*itr = handler;
+		// Ìí¼ÓÊ§°Ü
 	}
+#endif
 }
 
 void NetManager::ClearHandler()
@@ -251,6 +257,18 @@ void NetManager::ClearHandler()
 		NetHandler *handler = 0;
 		if (m_net_handler.Erase(*itr, handler))
 		{
+			if (handler->Type() == NetHandler::HANDSHAKER)
+			{
+				HandShaker *shaker = (HandShaker *)handler;
+				if (shaker != 0)
+				{
+					if (!shaker->IsClear())
+					{
+						delete handler;
+						continue;
+					}
+				}
+			}
 #ifdef WIN32
 			FD_CLR(handler->m_net_id, &m_read_set);
 			NetCommon::Close(handler->m_net_id);

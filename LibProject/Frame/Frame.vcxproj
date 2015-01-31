@@ -27,7 +27,6 @@
     <ClCompile Include="..\..\lib\src\frame\websocket\base64.cpp" />
     <ClCompile Include="..\..\lib\src\frame\websocket\dataframe.cpp" />
     <ClCompile Include="..\..\lib\src\frame\websocket\dataframeheader.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\websocket\recvframe.cpp" />
     <ClCompile Include="..\..\lib\src\frame\websocket\sendframe.cpp" />
     <ClCompile Include="..\..\lib\src\frame\websocket\sha1.cpp" />
   </ItemGroup>
@@ -48,7 +47,6 @@
     <ClInclude Include="..\..\lib\include\frame\websocket\base64.h" />
     <ClInclude Include="..\..\lib\include\frame\websocket\dataframe.h" />
     <ClInclude Include="..\..\lib\include\frame\websocket\dataframeheader.h" />
-    <ClInclude Include="..\..\lib\include\frame\websocket\recvframe.h" />
     <ClInclude Include="..\..\lib\include\frame\websocket\sendframe.h" />
     <ClInclude Include="..\..\lib\include\frame\websocket\sha1.h" />
     <ClInclude Include="..\..\lib\include\frame\websocket\stdint.h" />
@@ -63,7 +61,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
