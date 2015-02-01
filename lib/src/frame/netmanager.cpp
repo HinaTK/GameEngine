@@ -144,10 +144,24 @@ void NetManager::Listen()
 	fd_set	temp_write_set;
 	FD_ZERO(&temp_read_set);
 	FD_ZERO(&temp_write_set);
+	struct timeval tv;	//≥¨ ±≤Œ ˝
+	tv.tv_sec = 0;		//√Î
+	tv.tv_usec = 10000;	//Œ¢√Î,10∫¡√Î
 	while (1)
 	{
+		if (m_net_handler.Size() <= 0)
+		{
+#ifdef WIN32
+			Sleep(1);
+#endif
+#ifdef __unix 	// usleep( time * 1000 );
+			usleep(1000);
+			//usleep((timems << 10) - (timems << 4) - (timems << 3));
+#endif
+			continue;
+		}
 		max_fd = GetSocketInfo(temp_read_set, temp_write_set);
-		ret = select(max_fd + 1, &temp_read_set, &temp_write_set, NULL, NULL);
+		ret = select(max_fd + 1, &temp_read_set, &temp_write_set, NULL, &tv);
 		if (ret > 0)
 		{
 			NetManager::NET_HANDLER_ARRAY::iterator itr = m_net_handler.Begin();
@@ -164,10 +178,6 @@ void NetManager::Listen()
 			}
 
 			ClearHandler();
-		}
-		else
-		{
-			// –¥log
 		}
 	}
 #endif

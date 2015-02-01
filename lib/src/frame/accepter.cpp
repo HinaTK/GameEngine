@@ -17,7 +17,9 @@ void Accepter::OnCanRead()
 		{
 			return;
 		}
+#ifdef WIN32
 		printf("connect server ip = %s\n", inet_ntoa(addr.sin_addr));
+#endif
 		BaseListener *handler = new BaseListener(m_net_manager, NetHandler::LISTENER);
 		handler->m_net_id = new_net_id;
 		m_net_manager->AddNetHandler(handler);

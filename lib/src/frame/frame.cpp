@@ -7,8 +7,8 @@
 
 Frame::Frame()
 : m_update_interval(200)
-, m_ex_send_sleep_time(30)
-, m_in_send_sleep_time(30)
+// , m_ex_send_sleep_time(30)
+// , m_in_send_sleep_time(30)
 {
 	
 }
@@ -52,16 +52,16 @@ bool Frame::Run()
 {
 	GameMsg		**msg = NULL;
 	MsgQueue	*recvQueue = m_net_manager.GetMsgQueue();
-	int		lastTime = GameTime::GetMilliSecond();	// 上一次更新时间
-	int		curTime = 0;
-	int		second = 0;
-	int		oneMinute = 60000;
+	unsigned long long		last_time = GameTime::MilliSecond();	// 上一次更新时间
+	unsigned long long		cur_time = 0;
+	unsigned long long		second = 0;
+	unsigned long long		oneMinute = 60000;
 
 	m_log_thread.Create(WriteLog);
 	this->Listen();
 	while (1)
 	{
-		curTime = GameTime::GetMilliSecond();
+		cur_time = GameTime::MilliSecond();
 		if (!recvQueue->IsEmpty())
 		{
 			msg = recvQueue->Val();
@@ -76,21 +76,17 @@ bool Frame::Run()
 		}
 		else
 		{
-			second = curTime < lastTime ? oneMinute : 0;
-			int interval = (curTime + second) - lastTime;
+			unsigned long long interval = cur_time - last_time - 1;
 			if (interval < m_update_interval)
 			{
-				GameTime::GameSleep(m_in_send_sleep_time < m_update_interval - interval ? m_in_send_sleep_time : m_update_interval - interval);
+				GameTime::GameSleep((unsigned int)(m_update_interval - interval));
 			}
-			curTime = (lastTime + m_update_interval) % oneMinute;
 		}
 
-		second = curTime < lastTime ? oneMinute : 0;
-		if ((curTime + second) - lastTime >= m_update_interval)
+		if ((cur_time - last_time) >= m_update_interval)
 		{
-			//timeNow = GameTime::Instance().Time();
 			Update(GameTime::Time());
-			lastTime = curTime;
+			last_time = cur_time;
 		}
 	}
 	return true;

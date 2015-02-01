@@ -1,4 +1,5 @@
 
+#include <stdio.h>
 #include "handshaker.h"
 #include "weblistener.h"
 #include "netmanager.h"

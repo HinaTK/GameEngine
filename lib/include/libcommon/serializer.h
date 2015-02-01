@@ -84,7 +84,7 @@ public:
 	bool	_Push(const T &data)
 	{
 		static unsigned int		length = sizeof(T);
-		static unsigned char	data_type = DataType(T);
+		static unsigned char	data_type = DataType(data);
 		static unsigned int		data_len = length + LEN_CHAR;
 		if (m_begin + data_len > m_end)
 		{

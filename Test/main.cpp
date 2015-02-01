@@ -11,6 +11,7 @@
 #include "testserializer.h"
 #include "testmemory.h"
 #include "testsocket.h"
+#include "testother.h"
 
 
 void login()
@@ -51,18 +52,20 @@ int main()
 	//TestLog::WriteLog();
 	//TestSerializer::Normal();
 	//TestSerializer::ShowLength();
-	TestSerializer::NormalDB();
+	//TestSerializer::NormalDB();
 	//TestMemory::TestMemoryVL();
 	//TestSocket::Connect();
 	//TestDataStructure::TestArray();
 	//TestDataStructure::TestArrayCmpMap();
 	//TestDataStructure::TestVector();
 	//TestDataStructure::TestRankList();
-	//TestDataStructure::TestRankList2();
+	//TestDataStructure::TestSortMap2();
 	//TestDataStructure::TestGameMapOnly();
 	//TestDataStructure::TestGameMapCmpMap();
 	//TestDataStructure::TestList();
 	//TestDataStructure::TestHash();
+	//TestOther::Test1();
+	TestOther::Test2();
 	return 0;
 }
 

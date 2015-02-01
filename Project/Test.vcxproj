@@ -24,6 +24,7 @@
     <ClInclude Include="..\Test\other\logtest.h" />
     <ClInclude Include="..\Test\testlog.h" />
     <ClInclude Include="..\Test\testmemory.h" />
+    <ClInclude Include="..\Test\testother.h" />
     <ClInclude Include="..\Test\testserializer.h" />
     <ClInclude Include="..\Test\testsocket.h" />
     <ClInclude Include="..\Test\thread\threadtest.h" />

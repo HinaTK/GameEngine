@@ -22,8 +22,8 @@ time_t GameTime::Time()
 int GameTime::Day()
 {
     static tm     *t       = NULL;
-    static time_t gametime = NULL;
-    static int    day      = NULL;
+    static time_t gametime = 0;
+    static int    day      = 0;
     time(&gametime);
     t = localtime(&gametime);
 
@@ -36,7 +36,7 @@ int GameTime::Day()
 int GameTime::Hour()
 {
 	static tm     *t = NULL;
-	static time_t gametime = NULL;
+	static time_t gametime = 0;
 	time(&gametime);
 	t = localtime(&gametime);
 	return t->tm_hour;
@@ -45,7 +45,7 @@ int GameTime::Hour()
 int GameTime::Second()
 {
     static tm     *t       = NULL;
-    static time_t gametime = NULL;
+    static time_t gametime = 0;
     static int    second   = 0;
     time(&gametime);
     t = localtime(&gametime);
@@ -164,25 +164,26 @@ bool GameTime::TimeIntervalOne(int s,int ms)
 void GameTime::GameSleep( unsigned int ms )
 {
 #ifdef __unix
-	usleep(ms * 1000);
+	//usleep(ms * 1000);
+	usleep((ms << 10) - (ms << 4) - (ms << 3));		// 经测试，这种方法在linux下执行得更快一些（windows下差不多）
 #endif
-
 #ifdef WIN32
 	Sleep(ms);
 #endif
 }
 
-int GameTime::GetMilliSecond()
+unsigned long long GameTime::MilliSecond()
 {
 #ifdef __unix
 	static struct timeval tv;
 	gettimeofday(&tv, NULL);
-	return tv.tv_sec * 1000 + tv.tv_usec * 0.001;
+	return (unsigned long long)(tv.tv_sec * 1000 + tv.tv_usec * 0.001);
 #endif
 #ifdef WIN32
-	static SYSTEMTIME st;
-	GetLocalTime(&st);
-	return st.wSecond * 1000 + st.wMilliseconds;
+	return (unsigned long long)GetTickCount64();
+// 	static SYSTEMTIME st;
+// 	GetLocalTime(&st);
+// 	return st.wSecond * 1000 + st.wMilliseconds;
 #endif
 }
 

@@ -2,6 +2,9 @@
 #ifndef BUF_MANAGER_H
 #define BUF_MANAGER_H
 
+#ifdef __unix
+#include <unistd.h>
+#endif
 #include "libcommon/memoryvl.h"
 
 class BufManager

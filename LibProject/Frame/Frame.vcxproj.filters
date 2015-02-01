@@ -22,13 +22,7 @@
     <ClCompile Include="..\..\lib\src\frame\websocket\base64.cpp">
       <Filter>src\websocket</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\frame\websocket\dataframe.cpp">
-      <Filter>src\websocket</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\lib\src\frame\websocket\dataframeheader.cpp">
-      <Filter>src\websocket</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\lib\src\frame\websocket\sendframe.cpp">
       <Filter>src\websocket</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\frame\websocket\sha1.cpp">
@@ -86,13 +80,7 @@
     <ClInclude Include="..\..\lib\include\frame\websocket\base64.h">
       <Filter>src\websocket</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\websocket\dataframe.h">
-      <Filter>src\websocket</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\websocket\dataframeheader.h">
-      <Filter>src\websocket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\websocket\sendframe.h">
       <Filter>src\websocket</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\websocket\sha1.h">

@@ -12,31 +12,31 @@ public:
 	Frame();
 	~Frame(){};
 
-	virtual	void	Recv(NetHandle handle, char *msg, unsigned int length) = 0;
+	virtual	void		Recv(NetHandle handle, char *msg, unsigned int length) = 0;
 
-	virtual	void	Update(time_t now){};  //更新
+	virtual	void		Update(time_t now){};  //更新
 
-	virtual void	Accept(NetID net_id){};
+	virtual void		Accept(NetID net_id){};
 
-	virtual void	DisConnet(NetID net_id){};
+	virtual void		DisConnet(NetID net_id){};
 
-	void			Send(NetHandle handle, const char *buf, unsigned int length);
+	void				Send(NetHandle handle, const char *buf, unsigned int length);
 
-	void			Listen();
+	void				Listen();
 
-	bool			Run();
+	bool				Run();
 
-	NetManager		*GetNetManager(){ return &m_net_manager; }
+	NetManager			*GetNetManager(){ return &m_net_manager; }
 
-	void			SetUpdateInternal(int ms){ m_update_interval = ms; };
+	void				SetUpdateInternal(int ms){ m_update_interval = ms; };
 
-	int				InSendSleepTime(){ return m_in_send_sleep_time; }
+//	int				InSendSleepTime(){ return m_in_send_sleep_time; }
 
 protected:
-	int				UpdateInternal(){ return m_update_interval; }
-	void			SetInSendSleepTime(int ms){ m_in_send_sleep_time = ms; };
-	void			SetExSendSleepTime(int ms){ m_ex_send_sleep_time = ms; };
-	int				ExSendSleepTime(){ return m_ex_send_sleep_time; }
+	unsigned long long	UpdateInternal(){ return m_update_interval; }
+// 	void			SetInSendSleepTime(int ms){ m_in_send_sleep_time = ms; };
+// 	void			SetExSendSleepTime(int ms){ m_ex_send_sleep_time = ms; };
+// 	int				ExSendSleepTime(){ return m_ex_send_sleep_time; }
 
 	NetManager		m_net_manager;
 private:
@@ -48,9 +48,9 @@ private:
 	Thread		m_log_thread;
 	
 
-	int			m_update_interval;		// 毫秒
-	int			m_in_send_sleep_time;
-	int			m_ex_send_sleep_time;
+	unsigned long long	m_update_interval;		// 毫秒
+// 	unsigned long long	m_in_send_sleep_time;
+// 	unsigned long long	m_ex_send_sleep_time;
 };
 
 

@@ -150,7 +150,7 @@ namespace TestDataStructure
 		game::Map<int, int> game_map;
 		std::map<int, int> _map;
 		int loop_time = 50000;
-		printf("%d\n", GameTime::GetMilliSecond());
+		printf("%d\n", GameTime::MilliSecond());
 		for (int i = 0; i < loop_time; ++i)
 		{
 			_map[i] = i;
@@ -163,7 +163,7 @@ namespace TestDataStructure
 		{
 			_map.erase(i);
 		}
-		printf("%d\n", GameTime::GetMilliSecond());
+		printf("%d\n", GameTime::MilliSecond());
 		for (int i = 0; i < loop_time; ++i)
 		{
 			game_map.Insert(i, i);
@@ -176,7 +176,7 @@ namespace TestDataStructure
 		{
 			game_map.Erase(i);
 		}
-		printf("%d\n", GameTime::GetMilliSecond());
+		printf("%d\n", GameTime::MilliSecond());
 	}
 
 /****************************** 数组 ******************************/
@@ -224,7 +224,7 @@ namespace TestDataStructure
 		int loop_time = 100000;
 		game::Array<int> game_array;
 		std::map<int, int> game_map;
-		printf("%d\n", GameTime::GetMilliSecond());
+		printf("%d\n", GameTime::MilliSecond());
 		for (int i = 0; i < loop_time; ++i)
 		{
 			game_map[i] = i;
@@ -233,7 +233,7 @@ namespace TestDataStructure
 		{
 			game_map.erase(i);
 		}
-		printf("%d\n", GameTime::GetMilliSecond());
+		printf("%d\n", GameTime::MilliSecond());
 		for (int i = 0; i < loop_time; ++i)
 		{
 			game_array.Insert(i);
@@ -242,7 +242,7 @@ namespace TestDataStructure
 		{
 			game_array.Erase(i);
 		}
-		printf("%d\n", GameTime::GetMilliSecond());
+		printf("%d\n", GameTime::MilliSecond());
 	}
 
 	void TestVector()
@@ -291,7 +291,7 @@ namespace TestDataStructure
 // 		test.Show();
 	}
 
-	void TestRankList2()
+	void TestSortMap2()
 	{
 		game::SortMap<int, int> test;
 		int k = 1; int v = 23;

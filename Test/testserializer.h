@@ -4,7 +4,6 @@
 
 #include <vector>
 #include "libcommon/serializer.h"
-#include "libcommon/dbserializer.h"
 #ifdef WIN32
 #include <windows.h>
 #endif // WIN32
@@ -87,58 +86,6 @@ namespace TestSerializer
 	}
 
 	typedef char GameName[32];		// ½ÇÉ«Ãû³Æ
-
-	class TestDBSerialize
-	{
-	public:
-		TestDBSerialize(){};
-		~TestDBSerialize(){};
-
-		bool		Serialize(DBSerializer &stream)
-		{
-			stream.Push(ROLE_ID, _ROLE_ID);
-			stream.PushStr(ROLE_NAME, _ROLE_NAME);
-			stream.Push(FRIENDS, _FRIENDS.size());
-			for (std::vector<unsigned int>::iterator itr = _FRIENDS.begin(); itr != _FRIENDS.end(); ++itr)
-			{
-				stream.Push(FRIENDS, *itr);
-			}
-			return true;
-		}
-		bool		Unserialize(DBSerializer &stream)
-		{
-			const char *_name;
-			unsigned int length = 0;
-			unsigned int size = 0;
-			stream.Pop(ROLE_ID, _ROLE_ID);
-			stream.PopStr(ROLE_NAME, &_name, length);
-			memcpy(_ROLE_NAME, _name, length);
-			stream.Pop(FRIENDS, size);
-			for (unsigned int i = 0; i < size; ++i)
-			{
-				unsigned int friend_id;
-				stream.Pop(FRIENDS, friend_id);
-				_FRIENDS.push_back(friend_id);
-			}
-			return true;
-		}
-
-		enum
-		{
-			ROLE_ID,
-			ROLE_NAME,
-			FRIENDS,
-			MAX_FIELD
-		};
-
-		unsigned int _ROLE_ID;
-		GameName	_ROLE_NAME;
-		std::vector<unsigned int> _FRIENDS;
-		
-
-		TLV	data[MAX_FIELD];
-	};
-
 	
 	void Normal()
 	{
@@ -182,44 +129,27 @@ namespace TestSerializer
 // 		printf("%d ms\n", GetTickCount() - begin);
 	}
 
-	void NormalDB()
-	{
-		TestDBSerialize src_data;
-		TestDBSerialize des_data;
-
-		src_data._ROLE_ID = 123;
-		memcpy(src_data._ROLE_NAME, "xjm", sizeof(src_data._ROLE_NAME));
-		src_data._FRIENDS.push_back(456);
-		src_data._FRIENDS.push_back(789);
-
-		char data[1024] = { 0 };
-		DBSerializer temp1(data, 1024);
-		src_data.Serialize(temp1);
-
-		DBSerializer temp2(data, 1024);
-		des_data.Unserialize(temp2);
-	}
 
 	void ShowLength()
 	{
-		struct StructA
-		{
-			int		a[10];
-			short	b;
-			char	c[2];
-		};
-
-		struct StructB
-		{
-			char	a[10];
-			short	b;
-		};
-		StructA s_a;
-		StructB s_b;
-		char data[1024] = { 0 };
-		Serializer temp1(data, 1024);
-		temp1.Push(s_a);
-		temp1.Push(s_b);
+// 		struct StructA
+// 		{
+// 			int		a[10];
+// 			short	b;
+// 			char	c[2];
+// 		};
+// 
+// 		struct StructB
+// 		{
+// 			char	a[10];
+// 			short	b;
+// 		};
+// 		StructA s_a;
+// 		StructB s_b;
+// 		char data[1024] = { 0 };
+// 		Serializer temp1(data, 1024);
+// 		temp1.Push(s_a);
+// 		temp1.Push(s_b);
 	}
 }
 

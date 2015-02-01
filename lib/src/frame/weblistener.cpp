@@ -65,10 +65,20 @@ bool WebListener::AnalyzeBuf()
 			buf_offset += length;
 			CHECK_BUF_LEN();
 			char *data = (char *)(buf + frame_offset);
-			for (int i = 0; i < length; ++i)
+			// 去掉模，效率更快
+			int size = length - (length % FrameHeader::MASK_LEN);
+			for (int i = 0; i < size; i = i + FrameHeader::MASK_LEN)
 			{
-				data[i] = (data[i] ^ mask_data[i % FrameHeader::MASK_LEN]);
+				data[i]		= (data[i]		^ mask_data[0]);
+				data[i + 1] = (data[i + 1]	^ mask_data[1]);
+				data[i + 2] = (data[i + 2]	^ mask_data[2]);
+				data[i + 3] = (data[i + 3]	^ mask_data[3]);
 			}
+			for (int i = size; i < length; ++i)
+			{
+				data[i] = (data[i] ^ mask_data[i - size]);
+			}
+
 			m_net_manager->GetMsgQueue()->Push(m_handle, data, length);
 		}
 		else
@@ -105,23 +115,23 @@ void WebListener::Send(const char *buf, unsigned int len)
 	int extend_len = 0;
 	if (frame_length < 126)
 	{
-		ConstructFrameHeader(true, false, false, false, 1, len, (unsigned char *)frame.mem);
+		ConstructFrameHeader(true, false, false, false, 2, len, (unsigned char *)frame.mem);
 	}
 	else if (frame_length < 65536)
 	{
-		ConstructFrameHeader(true, false, false, false, 1, 126, (unsigned char *)frame.mem);
+		ConstructFrameHeader(true, false, false, false, 2, 126, (unsigned char *)frame.mem);
 		extend_len = (int)FrameHeader::MID_EXTEND_LEN;
 		*(frame.mem + offset) = len / 256;
 		*(frame.mem + offset + 1) = len % 256;
 	}
 	else
 	{
-		ConstructFrameHeader(true, false, false, false, 1, 127, (unsigned char *)frame.mem);
+		ConstructFrameHeader(true, false, false, false, 2, 127, (unsigned char *)frame.mem);
 		extend_len = (int)FrameHeader::MAX_EXTEND_LEN;
 		unsigned int left = len;
 		for (int i = extend_len - 1; i >= 0; --i)
 		{
-			*(frame.mem + offset + i) = (byte)(left % 256);
+			*(frame.mem + offset + i) = (unsigned char)(left % 256);
 			left = left / 256;
 
 			if (left == 0) break;

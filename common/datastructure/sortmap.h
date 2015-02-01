@@ -32,7 +32,12 @@ public:
 		V second;
 	};
 
-	template<class V, class Handle = SortMap>
+private:
+	typedef Map<K, RankData* >	INDEX_MAP;
+	typedef Vector<RankData* >	RANK_DATA;
+
+public:
+	template<class T, class Handle = SortMap>
 	class Iterator
 	{
 		friend class SortMap;
@@ -41,13 +46,13 @@ public:
 		Iterator(unsigned int index, Handle *hadle = 0) :m_index(index), m_handle(hadle){}
 		~Iterator(){}
 
-		Iterator<V, Handle>& operator ++()
+		Iterator<T, Handle>& operator ++()
 		{
 			++m_index;
 			return *this;
 		}
 
-		Iterator<V, Handle>& operator --()
+		Iterator<T, Handle>& operator --()
 		{
 			--m_index;
 			return *this;
@@ -56,8 +61,8 @@ public:
 		RankData* operator->() { return m_handle->m_data[m_index]; }
 		RankData& operator*() { return *m_handle->m_data[m_index]; }
 
-		bool operator==(const Iterator<V, Handle> &right) const { return (m_index == right.m_index && m_handle == right.m_handle); }
-		bool operator!=(const Iterator<V, Handle> &right) const { return (m_index != right.m_index || m_handle != right.m_handle); }
+		bool operator==(const Iterator<T, Handle> &right) const { return (m_index == right.m_index && m_handle == right.m_handle); }
+		bool operator!=(const Iterator<T, Handle> &right) const { return (m_index != right.m_index || m_handle != right.m_handle); }
 
 		unsigned m_index;
 	private:
@@ -70,7 +75,7 @@ public:
 
 	iterator		Find(K &key)
 	{
-		INDEX_MAP::iterator itr = m_index.Find(key);
+		typename INDEX_MAP::iterator itr = m_index.Find(key);
 		if (itr == m_index)
 		{
 			return End();
@@ -82,9 +87,7 @@ public:
 
 	iterator		End(){ return iterator(m_data.Size(), this); }
 
-private:
-	typedef Map<K, RankData* >	INDEX_MAP;
-	typedef Vector<RankData* >	RANK_DATA;
+
 private:
 	INDEX_MAP m_index;
 	RANK_DATA m_data;
@@ -94,7 +97,7 @@ private:
 template<class K, class V>
 unsigned int SortMap<K, V>::Insert(K &key, V &data)
 {
-	INDEX_MAP::iterator itr = m_index.Find(key);
+	typename INDEX_MAP::iterator itr = m_index.Find(key);
 	if (itr == m_index.End())
 	{
 		RankData *rank_data = (RankData *)m_memory_pool.Alloc();
