@@ -7,10 +7,13 @@
 
 Frame::Frame()
 : m_update_interval(200)
-// , m_ex_send_sleep_time(30)
-// , m_in_send_sleep_time(30)
 {
 	
+}
+
+Frame::~Frame()
+{
+
 }
 
 void *Listen(void * arg)
@@ -64,7 +67,7 @@ bool Frame::Run()
 		cur_time = GameTime::MilliSecond();
 		if (!recvQueue->IsEmpty())
 		{
-			msg = recvQueue->Val();
+			msg = recvQueue->Pop();
 			if ((*msg) != NULL)
 			{
 				if ((int)(*msg)->handle >= (int)0)

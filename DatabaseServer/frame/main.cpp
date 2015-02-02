@@ -9,21 +9,11 @@ bool DatabaseFrame::Init()		// 框架初始化
 	return true;
 }
 
-
-void DatabaseFrame::OnRecv(NetID userID, char *msg, unsigned int length)
+void DatabaseFrame::Recv(NetHandle handle, char *msg, unsigned int length)
 {
-	m_message_handler.HandleMessage(msg);
-// 	static int num = 1;
-// 	printf("num = %d, recv = %s\n",num++, msg);  
-// 	OnSend(userID, msg, length);
-	
+
 }
 
-void DatabaseFrame::InteanalRecv(NetID net_id, char *msg, unsigned int length)
-{
-	printf("recv ...%s\n", msg);
-	//m_message_handler.HandleMessage(msg);
-}
 
 void DatabaseFrame::Update(time_t now)	// 构架更新
 {

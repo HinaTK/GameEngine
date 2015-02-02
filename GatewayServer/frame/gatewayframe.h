@@ -27,7 +27,7 @@ public:
 
     void	Exit();
 
-	virtual void	Recv(NetHandle handle, char *msg, unsigned int length);
+	void	Recv(NetHandle handle, char *msg, unsigned int length);
 
 
 

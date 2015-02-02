@@ -3,18 +3,16 @@
 #include "gatewayframe.h"
 #include "libcommon/serverconfig.h"
 #include "common/commonfunction.h"
-//#include "common/datastructure/hashlist.h"
 #include "common/protocol/messageheader.h"
 
 
 GatewayFrame::GatewayFrame()
 {
-	//m_ex_com.SetFrame(this);
+
 }
 
 GatewayFrame::~GatewayFrame()
 {
-	Exit();
 }
 
 bool GatewayFrame::InitConfig()

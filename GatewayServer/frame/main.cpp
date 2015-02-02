@@ -37,8 +37,8 @@ void GatewayFrame::Recv(NetHandle handle, char *msg, unsigned int length)
 // 	char *b = "123h";
 // 	Send(handle, (const char *)b, strlen(b));
 
-//  	char *b = "家明a";
-//  	Send(handle, (const char *)b, strlen(b));
+	char *b = "中文";
+	Send(handle, (const char *)b, strlen(b));
 
 // 	char c[6];
 // 	c[0] = -27;

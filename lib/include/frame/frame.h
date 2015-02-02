@@ -10,7 +10,7 @@ class Frame
 {
 public:
 	Frame();
-	~Frame(){};
+	virtual ~Frame();
 
 	virtual	void		Recv(NetHandle handle, char *msg, unsigned int length) = 0;
 
@@ -19,6 +19,7 @@ public:
 	virtual void		Accept(NetID net_id){};
 
 	virtual void		DisConnet(NetID net_id){};
+
 
 	void				Send(NetHandle handle, const char *buf, unsigned int length);
 

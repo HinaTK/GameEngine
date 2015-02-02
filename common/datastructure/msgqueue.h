@@ -22,9 +22,9 @@ public:
 
 	bool IsEmpty(){ return m_msg_queue.IsEmpty(); }
 
-	GameMsg ** Val()
+	GameMsg ** Pop()
 	{
-		return m_msg_queue.Val();
+		return m_msg_queue.Pop();
 	}
 
 private:

@@ -40,6 +40,9 @@
     <Filter Include="base">
       <UniqueIdentifier>{9ee4c2f3-1d16-473f-a61e-1e37a9576243}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ai">
+      <UniqueIdentifier>{4f35f6c9-7fc2-4b38-b3cc-2f0e1c09418e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\common\commonfunction.cpp">

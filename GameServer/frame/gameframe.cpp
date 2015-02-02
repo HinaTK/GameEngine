@@ -35,9 +35,6 @@ bool GameFrame::InitConfig()
 	{
 		return false;
 	}
-
-// 	ListenServer();
-// 	ListenClient();
 	
 	struct Test
 	{
