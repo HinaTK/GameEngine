@@ -1,5 +1,6 @@
-#ifndef GAMEMYSQL_H
-#define GAMEMYSQL_H
+
+#ifndef GAME_MYSQL_H
+#define GAME_MYSQL_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -36,9 +37,8 @@ struct Cell
     };
 };
 
-
 //template <class T>
-class GameMysql:public DataBase
+class GameMysql : public DataBase
 { 
 public:
     enum GDATATYPE
@@ -57,9 +57,6 @@ public:
         GSELECT,
 		MAX_SQL
 	};
-
-
-
 
     typedef struct gamemysql_allrows
     {
@@ -119,7 +116,6 @@ private:
 	std::string m_insertkey;
 	std::string m_insertval;
 
-    //std::string m_updateval;
     std::string m_updateval;
     std::string m_findval;
 
