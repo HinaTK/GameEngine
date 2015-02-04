@@ -141,7 +141,7 @@ void Log::Flush()
 	}
 	do 
 	{
-		fprintf(m_log_fp, "%s", m_queue.Val()->c_str());
+		fprintf(m_log_fp, "%s", m_queue.Pop()->c_str());
 	} while (!m_queue.IsEmpty());
 }
 

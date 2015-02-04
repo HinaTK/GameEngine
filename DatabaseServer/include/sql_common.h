@@ -29,35 +29,6 @@ extern const char	*unknown_sqlstate;
 extern const char	*cant_connect_sqlstate;
 extern const char	*not_error_sqlstate;
 
-/*
-  Access to MYSQL::extension member.
-
-  Note: functions mysql_extension_{init,free}() are defined
-  in client.c.
-*/
-
-struct st_mysql_trace_info;
-
-struct st_mysql_extension {
-  struct st_mysql_trace_info *trace_data;
-};
-
-/* "Constructor/destructor" for MYSQL extension structure. */
-struct st_mysql_extension* mysql_extension_init(struct st_mysql*);
-void mysql_extension_free(struct st_mysql_extension*);
-
-/*
-  Note: Allocated extension structure is freed in mysql_close().
-*/
-#define MYSQL_EXTENSION(H)                                        \
-(                                                                 \
- (struct st_mysql_extension*)                                     \
- ( (H)->extension ?                                               \
-   (H)->extension : ((H)->extension= mysql_extension_init(H))     \
- )                                                                \
-)
-
-
 struct st_mysql_options_extention {
   char *plugin_dir;
   char *default_auth;
@@ -67,8 +38,6 @@ struct st_mysql_options_extention {
   char *server_public_key_path;
   size_t connection_attributes_length;
   my_bool enable_cleartext_plugin;
-  /** false if it is possible to fall back on unencrypted connections */
-  my_bool ssl_enforce;
 };
 
 typedef struct st_mysql_methods
@@ -99,7 +68,6 @@ typedef struct st_mysql_methods
   const char *(*read_statistics)(MYSQL *mysql);
   my_bool (*next_result)(MYSQL *mysql);
   int (*read_rows_from_cursor)(MYSQL_STMT *stmt);
-  void (*free_rows)(MYSQL_DATA *cur);
 #endif
 } MYSQL_METHODS;
 

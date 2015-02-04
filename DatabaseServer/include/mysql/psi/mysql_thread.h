@@ -56,22 +56,6 @@
 
 #include "mysql/psi/psi.h"
 
-#ifndef PSI_MUTEX_CALL
-#define PSI_MUTEX_CALL(M) PSI_DYNAMIC_CALL(M)
-#endif
-
-#ifndef PSI_RWLOCK_CALL
-#define PSI_RWLOCK_CALL(M) PSI_DYNAMIC_CALL(M)
-#endif
-
-#ifndef PSI_COND_CALL
-#define PSI_COND_CALL(M) PSI_DYNAMIC_CALL(M)
-#endif
-
-#ifndef PSI_THREAD_CALL
-#define PSI_THREAD_CALL(M) PSI_DYNAMIC_CALL(M)
-#endif
-
 /**
   @defgroup Thread_instrumentation Thread Instrumentation
   @ingroup Instrumentation_interface
@@ -235,19 +219,11 @@ typedef struct st_mysql_cond mysql_cond_t;
 #define mysql_mutex_assert_not_owner(M) \
   safe_mutex_assert_not_owner(&(M)->m_mutex)
 
-/**
-  @def mysql_prlock_assert_write_owner(M)
-  Drop-in replacement
-  for @c rw_pr_lock_assert_write_owner.
-*/
+/** Wrappers for instrumented prlock objects.  */
+
 #define mysql_prlock_assert_write_owner(M) \
   rw_pr_lock_assert_write_owner(&(M)->m_prlock)
 
-/**
-  @def mysql_prlock_assert_not_write_owner(M)
-  Drop-in replacement
-  for @c rw_pr_lock_assert_not_write_owner.
-*/
 #define mysql_prlock_assert_not_write_owner(M) \
   rw_pr_lock_assert_not_write_owner(&(M)->m_prlock)
 
@@ -1191,7 +1167,7 @@ static inline int inline_mysql_cond_wait(
 static inline int inline_mysql_cond_timedwait(
   mysql_cond_t *that,
   mysql_mutex_t *mutex,
-  struct timespec *abstime
+  const struct timespec *abstime
 #ifdef HAVE_PSI_COND_INTERFACE
   , const char *src_file, uint src_line
 #endif

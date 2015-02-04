@@ -67,7 +67,7 @@ typedef struct unicase_info_char_st
 typedef struct unicase_info_st
 {
   my_wc_t maxchar;
-  const MY_UNICASE_CHARACTER **page;
+  MY_UNICASE_CHARACTER **page;
 } MY_UNICASE_INFO;
 
 
@@ -221,9 +221,9 @@ extern MY_UNI_CTYPE my_uni_ctype[256];
 
 typedef struct my_uni_idx_st
 {
-  uint16      from;
-  uint16      to;
-  const uchar *tab;
+  uint16 from;
+  uint16 to;
+  uchar  *tab;
 } MY_UNI_IDX;
 
 typedef struct
@@ -408,16 +408,16 @@ typedef struct charset_info_st
   const char *name;
   const char *comment;
   const char *tailoring;
-  const uchar *ctype;
-  const uchar *to_lower;
-  const uchar *to_upper;
-  const uchar *sort_order;
-  MY_UCA_INFO *uca; /* This can be changed in apply_one_rule() */
-  const uint16     *tab_to_uni;
-  const MY_UNI_IDX *tab_from_uni;
-  const MY_UNICASE_INFO *caseinfo;
-  const uchar *state_map;
-  const uchar *ident_map;
+  uchar    *ctype;
+  uchar    *to_lower;
+  uchar    *to_upper;
+  uchar    *sort_order;
+  MY_UCA_INFO *uca;
+  uint16      *tab_to_uni;
+  MY_UNI_IDX  *tab_from_uni;
+  MY_UNICASE_INFO *caseinfo;
+  uchar     *state_map;
+  uchar     *ident_map;
   uint      strxfrm_multiply;
   uchar     caseup_multiply;
   uchar     casedn_multiply;
@@ -681,15 +681,14 @@ int my_wildcmp_unicode(const CHARSET_INFO *cs,
                        const char *str, const char *str_end,
                        const char *wildstr, const char *wildend,
                        int escape, int w_one, int w_many,
-                       const MY_UNICASE_INFO *weights);
+                       MY_UNICASE_INFO *weights);
 
 extern my_bool my_parse_charset_xml(MY_CHARSET_LOADER *loader,
                                     const char *buf, size_t buflen);
 extern char *my_strchr(const CHARSET_INFO *cs, const char *str,
                        const char *end, pchar c);
 extern size_t my_strcspn(const CHARSET_INFO *cs, const char *str,
-                         const char *end, const char *reject,
-                         int reject_length);
+                         const char *end, const char *accept);
 
 my_bool my_propagate_simple(const CHARSET_INFO *cs, const uchar *str,
                             size_t len);
@@ -768,7 +767,11 @@ uint32 my_convert(char *to, uint32 to_length, const CHARSET_INFO *to_cs,
 
 #define use_mb(s)                     ((s)->cset->ismbchar != NULL)
 #define my_ismbchar(s, a, b)          ((s)->cset->ismbchar((s), (a), (b)))
+#ifdef USE_MB
 #define my_mbcharlen(s, a)            ((s)->cset->mbcharlen((s),(a)))
+#else
+#define my_mbcharlen(s, a)            1
+#endif
 
 #define my_caseup_str(s, a)           ((s)->cset->caseup_str((s), (a)))
 #define my_casedn_str(s, a)           ((s)->cset->casedn_str((s), (a)))

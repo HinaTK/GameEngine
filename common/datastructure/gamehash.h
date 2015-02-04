@@ -177,8 +177,8 @@ public:
 
 	struct ListNode
 	{
-		MemoryVL::MemoryInfo key;
-		MemoryVL::MemoryInfo val;
+		char* key;
+		char* val;
 		ListNode *next;
 	};
 
@@ -252,21 +252,21 @@ public:
 		if (m_hash_list[index] == NULL)
 		{
 			m_hash_list[index] = (ListNode *)m_memory_pool.Alloc();
-			MemoryVL::Instance().Malloc(key_len, m_hash_list[index]->key);
-			memcpy(m_hash_list[index]->key.mem, key, key_len);
-			MemoryVL::Instance().Malloc(len, m_hash_list[index]->val);
-			memcpy(m_hash_list[index]->val.mem, val, len);
-			m_hash_list[index]->val.mem[len] = 0;
+			m_hash_list[index]->key = (char *)MemoryVL::Instance().Malloc(key_len);
+			memcpy(m_hash_list[index]->key, key, key_len);
+			m_hash_list[index]->val = (char *)MemoryVL::Instance().Malloc(len);
+			memcpy(m_hash_list[index]->val, val, len);
+			m_hash_list[index]->val[len] = 0;
 			m_hash_list[index]->next = NULL;
 		}
 		else
 		{
 			ListNode *node = (ListNode *)m_memory_pool.Alloc();
-			MemoryVL::Instance().Malloc(key_len, node->key);
-			memcpy(node->key.mem, key, key_len);
-			MemoryVL::Instance().Malloc(len, node->val);
-			memcpy(node->val.mem, val, len);
-			node->val.mem[len] = 0;
+			node->key = (char *)MemoryVL::Instance().Malloc(key_len);
+			memcpy(node->key, key, key_len);
+			node->val = (char *)MemoryVL::Instance().Malloc(len);
+			memcpy(node->val, val, len);
+			node->val[len] = 0;
 			node->next = m_hash_list[index];
 			m_hash_list[index] = node;
 		}
@@ -292,7 +292,7 @@ public:
 		node = m_hash_list[index];
 		while (node != NULL)
 		{
-			if (memcmp(node->key.mem, key, len) == 0)
+			if (memcmp(node->key, key, len) == 0)
 			{
 				goto HASVAL;
 			}
@@ -300,7 +300,7 @@ public:
 		}
 		return m_nil;
 	HASVAL:;
-		return (node->val.mem);
+		return (node->val);
 	}
 
 	const char*		Nil(){ return m_nil; }

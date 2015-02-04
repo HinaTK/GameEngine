@@ -1,4 +1,4 @@
-/* Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved.
+/* Copyright (c) 2000, 2012, Oracle and/or its affiliates. All rights reserved.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -53,10 +53,10 @@
 #define LOCAL_HOST_NAMEDPIPE "."
 
 
-#if defined(_WIN32)
+#if defined(__WIN__) && !defined( _CUSTOMCONFIG_)
 #define MYSQL_NAMEDPIPE "MySQL"
 #define MYSQL_SERVICENAME "MySQL"
-#endif /* _WIN32 */
+#endif /* __WIN__ */
 
 /*
   You should add new commands to the end of this list, otherwise old
@@ -72,7 +72,7 @@ enum enum_server_command
   COM_TABLE_DUMP, COM_CONNECT_OUT, COM_REGISTER_SLAVE,
   COM_STMT_PREPARE, COM_STMT_EXECUTE, COM_STMT_SEND_LONG_DATA, COM_STMT_CLOSE,
   COM_STMT_RESET, COM_SET_OPTION, COM_STMT_FETCH, COM_DAEMON,
-  COM_BINLOG_DUMP_GTID, COM_RESET_CONNECTION,
+  COM_BINLOG_DUMP_GTID,
   /* don't forget to update const char *command_name[] in sql_parse.cc */
 
   /* Must be last */
@@ -125,8 +125,6 @@ enum enum_server_command
 #define FIELD_FLAGS_COLUMN_FORMAT 24    /* Field column format, bit 24-25 */
 #define FIELD_FLAGS_COLUMN_FORMAT_MASK (3 << FIELD_FLAGS_COLUMN_FORMAT)
 #define FIELD_IS_DROPPED (1<< 26)       /* Intern: Field is being dropped */
-#define EXPLICIT_NULL_FLAG (1<< 27)     /* Field is explicitly specified as
-                                           NULL by the user */
 
 #define REFRESH_GRANT		1	/* Refresh grant tables */
 #define REFRESH_LOG		2	/* Start on new log file */
@@ -316,6 +314,7 @@ typedef struct st_vio Vio;
 #define MAX_BLOB_WIDTH		16777216	/* Default width for blob */
 
 typedef struct st_net {
+#if !defined(CHECK_EMBEDDED_DIFFERENCES) || !defined(EMBEDDED_LIBRARY)
   Vio *vio;
   unsigned char *buff,*buff_end,*write_pos,*read_pos;
   my_socket fd;					/* For Perl DBI/dbd */
@@ -340,6 +339,7 @@ typedef struct st_net {
     Pointer to query object in query cache, do not equal NULL (0) for
     queries in cache that have not stored its results yet
   */
+#endif
   /*
     Unused, please remove with the next incompatible ABI change.
   */

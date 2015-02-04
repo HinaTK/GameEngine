@@ -1,4 +1,4 @@
-/* Copyright (c) 2010, 2013, Oracle and/or its affiliates. All rights reserved.
+/* Copyright (c) 2010, 2012, Oracle and/or its affiliates. All rights reserved.
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -22,10 +22,6 @@
 */
 
 #include "mysql/psi/psi.h"
-
-#ifndef PSI_TABLE_CALL
-#define PSI_TABLE_CALL(M) PSI_DYNAMIC_CALL(M)
-#endif
 
 /**
   @defgroup Table_instrumentation Table Instrumentation
@@ -92,8 +88,8 @@
   This instrumentation marks the start of a wait event.
   @param PSI the instrumented table
   @param OP the table operation to be performed
+  @param INDEX the table index used if any, or MAY_KEY.
   @param FLAGS per table operation flags.
-  @param PAYLOAD the code to instrument.
   @sa MYSQL_END_TABLE_WAIT.
 */
 #ifdef HAVE_PSI_TABLE_INTERFACE
@@ -155,14 +151,6 @@
 #endif
 
 #ifdef HAVE_PSI_TABLE_INTERFACE
-  #define MYSQL_UNLOCK_TABLE(T) \
-    inline_mysql_unlock_table(T)
-#else
-  #define MYSQL_UNLOCK_TABLE(T) \
-    do {} while (0)
-#endif
-
-#ifdef HAVE_PSI_TABLE_INTERFACE
 /**
   Instrumentation calls for MYSQL_START_TABLE_LOCK_WAIT.
   @sa MYSQL_END_TABLE_LOCK_WAIT.
@@ -192,13 +180,6 @@ inline_mysql_end_table_lock_wait(struct PSI_table_locker *locker)
 {
   if (locker != NULL)
     PSI_TABLE_CALL(end_table_lock_wait)(locker);
-}
-
-static inline void
-inline_mysql_unlock_table(struct PSI_table *table)
-{
-  if (table != NULL)
-    PSI_TABLE_CALL(unlock_table)(table);
 }
 #endif
 

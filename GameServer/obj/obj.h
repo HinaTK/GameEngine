@@ -13,7 +13,7 @@ public:
 	{
 
 	}
-	~Obj();
+	~Obj(){};
 
 	static const int INVALID_OBJ_ID = -1;
 	/*

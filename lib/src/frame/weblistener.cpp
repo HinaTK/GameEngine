@@ -105,33 +105,29 @@ void WebListener::Send(const char *buf, unsigned int len)
 {
 	// 构造websocket发送帧
 	static const unsigned int BASE_LEN = FrameHeader::HEADER_LEN + FrameHeader::MAX_EXTEND_LEN + FrameHeader::MASK_LEN;
-	MemoryVL::MemoryInfo frame;
 	unsigned int frame_length = BASE_LEN + len;
 	unsigned int offset = FrameHeader::HEADER_LEN;
-	if (!MemoryVL::Instance().Malloc(frame_length, frame))
-	{
-		return;
-	}
+	unsigned char *frame = (unsigned char *)MemoryVL::Instance().Malloc(frame_length);
 	int extend_len = 0;
 	if (frame_length < 126)
 	{
-		ConstructFrameHeader(true, false, false, false, 2, len, (unsigned char *)frame.mem);
+		ConstructFrameHeader(true, false, false, false, 2, len, frame);
 	}
 	else if (frame_length < 65536)
 	{
-		ConstructFrameHeader(true, false, false, false, 2, 126, (unsigned char *)frame.mem);
+		ConstructFrameHeader(true, false, false, false, 2, 126, frame);
 		extend_len = (int)FrameHeader::MID_EXTEND_LEN;
-		*(frame.mem + offset) = len / 256;
-		*(frame.mem + offset + 1) = len % 256;
+		*(frame + offset) = len / 256;
+		*(frame + offset + 1) = len % 256;
 	}
 	else
 	{
-		ConstructFrameHeader(true, false, false, false, 2, 127, (unsigned char *)frame.mem);
+		ConstructFrameHeader(true, false, false, false, 2, 127, frame);
 		extend_len = (int)FrameHeader::MAX_EXTEND_LEN;
 		unsigned int left = len;
 		for (int i = extend_len - 1; i >= 0; --i)
 		{
-			*(frame.mem + offset + i) = (unsigned char)(left % 256);
+			*(frame + offset + i) = (unsigned char)(left % 256);
 			left = left / 256;
 
 			if (left == 0) break;
@@ -142,10 +138,10 @@ void WebListener::Send(const char *buf, unsigned int len)
 
 	// 不用mask,这里不处理mask数据
 
-	memcpy(frame.mem + offset, buf, len);
+	memcpy(frame + offset, buf, len);
 	{
 		MutexLock ml(&m_send_mutex);
-		m_send_buf_write->Push(frame.mem, offset + len);
+		m_send_buf_write->Push((char *)frame, offset + len);
 	}
 	
 	MemoryVL::Instance().Free(frame);

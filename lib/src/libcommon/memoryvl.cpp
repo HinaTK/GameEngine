@@ -3,51 +3,68 @@
 #include "memoryvl.h"
 #include "commonconfig.h"
 
-// static const unsigned int sizes[] = { 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144 };
-// static const int nums[] = { 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1 };
+static const unsigned int LEN_INT = sizeof(unsigned int);
 static CommonConfig::MEMORY_VL_VECTOR mv = CommonConfig::Instance().GetMemoryVLVector();
+Mutex g_init_mutex;
 MemoryVL::MemoryVL()
 : m_size(0)
 {
+	MutexLock lock(&g_init_mutex);
 	CommonConfig::MEMORY_VL_VECTOR::iterator itr = mv.begin();
 	m_size = mv.size();
 	m_memory = new MemoryPool[m_size];
+	m_mutex = new Mutex[m_size];
 	unsigned int i = 0;
 	for (; itr != mv.end() && i < m_size; ++itr, ++i)
 	{
-		m_memory[i].Init(itr->size, itr->num);
+		m_memory[i].Init(itr->size + LEN_INT , itr->num);
 	}
 }
 
-bool MemoryVL::Malloc(unsigned int size, MemoryInfo &info)
+MemoryVL::~MemoryVL()
 {
+	delete[]m_memory;
+	delete[]m_mutex;
+}
+
+void  *MemoryVL::Malloc(unsigned int size)
+{
+	unsigned real_size = size + LEN_INT;
 	unsigned int i = 0;
 	for (; i < m_size; ++i)
 	{
-		if (size < mv[i].size)
+		if (real_size < mv[i].size)
 		{
 			break;
 		}
 	}
 	if (i >= m_size)
 	{
-		return false;
+		return new char[real_size];
 	}
-
-	info.index = i;
-	info.mem = (char *)m_memory[i].Alloc();
-	return true;
+	char *mem = 0;
+	{
+		MutexLock lock(&m_mutex[i]);
+		mem = (char *)m_memory[i].Alloc();
+	}
+	
+	return (mem + LEN_INT);
 }
 
 
-bool MemoryVL::Free(MemoryInfo &info)
+bool MemoryVL::Free(void *mem)
 {
-	if (info.index >= m_size)
+	char *real_mem = ((char *)mem) - LEN_INT;
+	unsigned int index = *(unsigned int*)real_mem;
+	if (index >= m_size)
 	{
-		//::free(info.mem);
-		return false;
+		::free(mem);
 	}
-
-	m_memory[info.index].Free(info.mem);
+	else
+	{
+		MutexLock lock(&m_mutex[index]);
+		m_memory[index].Free(mem);
+	}
+	
 	return true;
 }

@@ -31,7 +31,7 @@ namespace TestDataStructure
 	void Test()
 	{
 		Push();
-		printf("%s\n", test.Val()->c_str());
+		printf("%s\n", test.Pop()->c_str());
 		std::string temp1 = "456";
 		test.Push(temp1);
 	}

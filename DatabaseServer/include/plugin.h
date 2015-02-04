@@ -1,4 +1,4 @@
-/* Copyright (c) 2005, 2013, Oracle and/or its affiliates. All rights reserved.
+/* Copyright (c) 2005, 2014, Oracle and/or its affiliates. All rights reserved.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 #define _my_plugin_h
 
 /*
-  On Windows, exports from DLL need to be declared.
+  On Windows, exports from DLL need to be declared
   Also, plugin needs to be declared as extern "C" because MSVC 
   unlike other compilers, uses C++ mangling for variables not only
   for functions.
@@ -73,7 +73,7 @@ typedef struct st_mysql_xid MYSQL_XID;
   Plugin API. Common for all plugin types.
 */
 
-#define MYSQL_PLUGIN_INTERFACE_VERSION 0x0105
+#define MYSQL_PLUGIN_INTERFACE_VERSION 0x0104
 
 /*
   The allowable types of plugins
@@ -508,7 +508,7 @@ struct handlerton;
 /*
   API for Replication plugin. (MYSQL_REPLICATION_PLUGIN)
 */
- #define MYSQL_REPLICATION_INTERFACE_VERSION 0x0300
+ #define MYSQL_REPLICATION_INTERFACE_VERSION 0x0200
  
  /**
     Replication plugin descriptor

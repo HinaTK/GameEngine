@@ -11,7 +11,7 @@
 	但是select不行，因为客户端在等待，这样会影响在线人数。
 */
 
-class GameMysqlStmt:public DataBase
+class GameMysqlStmt : public DataBase
 {
 public:
 	GameMysqlStmt(std::string tablename);

@@ -8,10 +8,10 @@ namespace TestMemory
 {
 	void TestMemoryVL()
 	{
-		MemoryVL::MemoryInfo info;
-		MemoryVL::Instance().Malloc(sizeof(int), info);
-		*((int*)info.mem) = 12;
-		MemoryVL::Instance().Free(info);
+// 		MemoryVL::MemoryInfo info;
+// 		MemoryVL::Instance().Malloc(sizeof(int), info);
+// 		*((int*)info.mem) = 12;
+// 		MemoryVL::Instance().Free(info);
 	}
 }
 

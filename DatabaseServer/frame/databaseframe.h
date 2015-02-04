@@ -18,31 +18,15 @@ public:
     }
 
 	bool InitConfig();
-    /*
-     *Init 主要是加载配置，及将dll加载到框架当中
-     */
+
     bool	Init();    //初始化
 
-    /*
-     *Update 主要是更新一些状态，例如当客户端发送过来的一些数据，进程间通信的一些数据；可设定一定的时间间隔来进行update
-     */
+ 
     void	Update(time_t now);  //更新
 
-    /*
-     *Run 当状态更新后，将对游戏逻辑进行处理
-     */
-    //bool Run();     //运行
-
-    /*
-     *对游戏进行析构
-     */
     void	Exit();
 
-	void	OnRecv(NetID user_id, char *msg, unsigned int length);
-
-	//void	OnSend(NetID user_id, char *msg, UInt16 length);
-
-	void	InteanalRecv(NetID net_id, char *msg, unsigned int length);
+	void	Recv(NetHandle handle, char *msg, unsigned int length);
 
 public:
 	Thread	m_recv_client_thread;

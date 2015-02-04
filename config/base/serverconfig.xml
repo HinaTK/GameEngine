@@ -1,10 +1,10 @@
 <serverconfig>
 	<databaseserver>
 		<mysql>
-			<ip>127.0.0.1</ip>
-			<dbname>guimigame</dbname>
+			<ip>192.168.1.123</ip>
+			<dbname>mmo_arpg_xjm</dbname>
 			<username>root</username>
-			<password>a8154135</password>
+			<password>root</password>
 		</mysql>
 		<socket>
 			<ip>127.0.0.1</ip>

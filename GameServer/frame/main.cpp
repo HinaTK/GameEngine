@@ -11,17 +11,12 @@ bool GameFrame::Init()		// 框架初始化
 	return true;
 }
 
-void GameFrame::InteanalRecv( NetID net_id, char *msg, UInt16 length )
+
+void GameFrame::Recv(NetHandle handle, char *msg, unsigned int length)
 {
-	if (msg == NULL || length < sizeof(EProtocol::MessageHeader))
-	{
-		return;
-	}
-// 	static int num = 1;
-// 	printf("GameFrame num = %d, recv = %s\n",num++, msg);  
-// 	Send(net_id, msg, length);
-	
+
 }
+
 
 void GameFrame::Update(time_t now)	// 构架更新
 {

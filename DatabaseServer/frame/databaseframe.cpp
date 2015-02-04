@@ -40,7 +40,7 @@ bool DatabaseFrame::InitConfig()
 		return false;
 	}
 	printf("m_game_net_id = %d\n", m_game_net_id);
-	
+
 	if (!DataBase::Instance().Init(
 		ServerConfig::Instance().m_db_ip,
 		ServerConfig::Instance().m_db_name,
@@ -48,8 +48,12 @@ bool DatabaseFrame::InitConfig()
 		ServerConfig::Instance().m_password
 		))
 	{
-		//return false;
+#ifdef WIN32
+		printf("connect database error\n");
+#endif
+		return false;
 	}
+	printf("connect database success\n");
 	//ListenClient();
 	//Log::Instance().Init(Function::GetServerName(DATABASE_SERVER));
 	return Init();

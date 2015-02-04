@@ -1,9 +1,15 @@
+
 #ifndef DATATABLE_STMT_H
 #define DATATABLE_STMT_H
 
 #include <stdio.h>
 #include <string>
+
+#ifdef WIN32
 #include <windows.h>
+#include <winsock2.h>
+#endif
+
 #include "include/mysql.h"
 
 /*

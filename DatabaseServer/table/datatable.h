@@ -1,5 +1,6 @@
-#ifndef DATATABLE_H
-#define DATATABLE_H
+
+#ifndef DATA_TABLE_H
+#define DATA_TABLE_H
 
 #include "database/gamemysql.h"
 #include "database/gamemysqlstmt.h"

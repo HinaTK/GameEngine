@@ -13,11 +13,11 @@ public:
 		: handle(_handle)
 		, length(_length)
 	{
-		if (!MemoryVL::Instance().Malloc(length, data))
+		data = (char *)MemoryVL::Instance().Malloc(length);
+		if (data == NULL)
 		{
-			return;
+			data = new char[length];
 		}
-		memcpy(data.mem, _data, length);
 	}
 	~GameMsg()
 	{
@@ -30,7 +30,8 @@ public:
 	NetHandle		handle;
 	//NetID			net_id;
 	unsigned int	length;
-	MemoryVL::MemoryInfo data;
+	char *			data;
+	//MemoryVL::MemoryInfo data;
 };
 
 #endif

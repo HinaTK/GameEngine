@@ -1,4 +1,4 @@
-/* Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved.
+/* Copyright (c) 2000, 2012, Oracle and/or its affiliates. All rights reserved.
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -26,6 +26,18 @@
 #ifndef _mysql_h
 #define _mysql_h
 
+#ifdef _AIX           /* large-file support will break without this */
+#include <standards.h>
+#endif
+
+#ifdef __CYGWIN__     /* CYGWIN implements a UNIX API */
+#undef WIN
+#undef _WIN
+#undef _WIN32
+#undef _WIN64
+#undef __WIN__
+#endif
+
 #ifdef	__cplusplus
 extern "C" {
 #endif
@@ -34,20 +46,25 @@ extern "C" {
 #ifndef MYSQL_ABI_CHECK
 #include <sys/types.h>
 #endif
+#ifdef __LCC__
+#include <winsock2.h>				/* For windows */
+#endif
 typedef char my_bool;
-#if !defined(_WIN32)
+#if (defined(_WIN32) || defined(_WIN64)) && !defined(__WIN__)
+#define __WIN__
+#endif
+#if !defined(__WIN__)
 #define STDCALL
 #else
 #define STDCALL __stdcall
 #endif
 
 #ifndef my_socket_defined
-#ifdef _WIN32
-#include <winsock2.h>
+#ifdef __WIN__
 #define my_socket SOCKET
 #else
 typedef int my_socket;
-#endif /* _WIN32 */
+#endif /* __WIN__ */
 #endif /* my_socket_defined */
 #endif /* MY_GLOBAL_INCLUDED */
 
@@ -56,9 +73,6 @@ typedef int my_socket;
 #include "mysql_time.h"
 
 #include "my_list.h" /* for LISTs used in 'MYSQL' and 'MYSQL_STMT' */
-
-/* Include declarations of plug-in API */
-#include "mysql/client_plugin.h"
 
 extern unsigned int mysql_port;
 extern char *mysql_unix_port;
@@ -105,7 +119,9 @@ typedef char **MYSQL_ROW;		/* return data as array of strings */
 typedef unsigned int MYSQL_FIELD_OFFSET; /* offset to current field */
 
 #ifndef MY_GLOBAL_INCLUDED
-#if defined (_WIN32)
+#if defined(NO_CLIENT_LONG_LONG)
+typedef unsigned long my_ulonglong;
+#elif defined (__WIN__)
 typedef unsigned __int64 my_ulonglong;
 #else
 typedef unsigned long long my_ulonglong;
@@ -159,8 +175,7 @@ enum mysql_option
   MYSQL_OPT_CONNECT_ATTR_DELETE,
   MYSQL_SERVER_PUBLIC_KEY,
   MYSQL_ENABLE_CLEARTEXT_PLUGIN,
-  MYSQL_OPT_CAN_HANDLE_EXPIRED_PASSWORDS,
-  MYSQL_OPT_SSL_ENFORCE
+  MYSQL_OPT_CAN_HANDLE_EXPIRED_PASSWORDS
 };
 
 /**
@@ -452,8 +467,6 @@ int		STDCALL mysql_options(MYSQL *mysql,enum mysql_option option,
 				      const void *arg);
 int		STDCALL mysql_options4(MYSQL *mysql,enum mysql_option option,
                                        const void *arg1, const void *arg2);
-int             STDCALL mysql_get_option(MYSQL *mysql, enum mysql_option option,
-                                         const void *arg);
 void		STDCALL mysql_free_result(MYSQL_RES *result);
 void		STDCALL mysql_data_seek(MYSQL_RES *result,
 					my_ulonglong offset);
@@ -478,7 +491,7 @@ void 		STDCALL myodbc_remove_escape(MYSQL *mysql,char *name);
 unsigned int	STDCALL mysql_thread_safe(void);
 my_bool		STDCALL mysql_embedded(void);
 my_bool         STDCALL mysql_read_query_result(MYSQL *mysql);
-int             STDCALL mysql_reset_connection(MYSQL *mysql);
+
 
 /*
   The following definitions are added for the enhanced 
@@ -711,6 +724,12 @@ void STDCALL mysql_close(MYSQL *sock);
 
 #define mysql_reload(mysql) mysql_refresh((mysql),REFRESH_GRANT)
 
+#ifdef USE_OLD_FUNCTIONS
+MYSQL *		STDCALL mysql_connect(MYSQL *mysql, const char *host,
+				      const char *user, const char *passwd);
+int		STDCALL mysql_create_db(MYSQL *mysql, const char *DB);
+int		STDCALL mysql_drop_db(MYSQL *mysql, const char *DB);
+#endif
 #define HAVE_MYSQL_REAL_CONNECT
 
 #ifdef	__cplusplus
