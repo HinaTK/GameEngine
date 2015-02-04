@@ -10,7 +10,6 @@ class CircleQueue
 public:
 	CircleQueue(unsigned int size = 64):m_size((size <= 0) ? 1:size),m_head(0),m_tail(0)
 	{
-		//m_queue = (T *)malloc(m_size * sizeof(T));
 		m_queue = new T[m_size];
 		// 这里不可以memset,因为如果T是类的话，会将内部的类表结构置0
 		// memset(m_queue, 0, m_size * sizeof(T));
@@ -18,7 +17,6 @@ public:
 
     ~CircleQueue()
 	{
-		//free(m_queue);
 		delete[]m_queue;
 	};
 	bool	Push(T &val);
@@ -31,9 +29,10 @@ public:
 	
 	bool	IsEmpty();
 
-	bool	Resize();
-
 	void	Clear();
+
+protected:
+	bool	Resize();
 
 private:
 	T *	m_queue;

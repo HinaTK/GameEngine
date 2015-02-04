@@ -9,6 +9,15 @@ MemoryPool::MemoryPool()
 
 }
 
+MemoryPool::MemoryPool(unsigned int size, unsigned int increase /*= 64*/)
+: m_size(size)
+, m_increase(increase)
+, m_init(false)
+{
+	Resize();
+	m_init = true;
+}
+
 MemoryPool::~MemoryPool()
 {
 	for (std::vector<void *>::iterator itr = m_has_malloc.begin(); itr != m_has_malloc.end(); ++itr)
@@ -17,11 +26,14 @@ MemoryPool::~MemoryPool()
 	}
 }
 
-MemoryPool::MemoryPool( unsigned int size, unsigned int increase /*= 64*/ )
-: m_size(size)
-, m_increase(increase)
-, m_init(false)
+void MemoryPool::Init(unsigned int size, unsigned int increase /*= 64*/)
 {
+	if (m_init)
+	{
+		return;
+	}
+	m_size = size;
+	m_increase = increase;
 	Resize();
 	m_init = true;
 }
@@ -60,14 +72,3 @@ void MemoryPool::Free(void *m)
 	m_pool.push_back(m);
 }
 
-void MemoryPool::Init(unsigned int size, unsigned int increase /*= 64*/)
-{
-	if (m_init)
-	{
-		return;
-	}
-	m_size = size;
-	m_increase = increase;
-	Resize();
-	m_init = true;
-}

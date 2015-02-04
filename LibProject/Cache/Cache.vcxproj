@@ -13,15 +13,12 @@
   <ItemGroup>
     <ClInclude Include="..\..\lib\include\cache\dataadapter.h" />
     <ClInclude Include="..\..\lib\include\cache\datacache.h" />
+    <ClInclude Include="..\..\lib\include\cache\dataqueue.h" />
     <ClInclude Include="..\..\lib\include\cache\fielddef.h" />
-    <ClInclude Include="..\..\lib\include\cache\hashcache.h" />
-    <ClInclude Include="..\..\lib\include\cache\listcacheint.h" />
-    <ClInclude Include="..\..\lib\include\cache\mapcache.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\cache\datacache.cpp" />
-    <ClCompile Include="..\..\lib\src\cache\listcache.cpp" />
-    <ClCompile Include="..\..\lib\src\cache\mapcache.cpp" />
+    <ClCompile Include="..\..\lib\src\cache\dataqueue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\lib\include\cache\设计.txt" />
