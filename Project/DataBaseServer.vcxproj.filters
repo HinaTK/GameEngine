@@ -25,8 +25,8 @@
     <Filter Include="other">
       <UniqueIdentifier>{de9ff4d7-906a-469a-b9a5-92eb89d1d120}</UniqueIdentifier>
     </Filter>
-    <Filter Include="msghandler">
-      <UniqueIdentifier>{42e81474-1325-4764-bb8f-9b27b6f83b46}</UniqueIdentifier>
+    <Filter Include="message">
+      <UniqueIdentifier>{31be55f7-097e-45a4-8c2a-f215522732cd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -57,14 +57,14 @@
     <ClCompile Include="..\DatabaseServer\cache\testcache.cpp">
       <Filter>cache</Filter>
     </ClCompile>
-    <ClCompile Include="..\DatabaseServer\msghandler\messagehandler.cpp">
-      <Filter>msghandler</Filter>
-    </ClCompile>
     <ClCompile Include="..\DatabaseServer\database\database.cpp">
       <Filter>database</Filter>
     </ClCompile>
     <ClCompile Include="..\common\commonfunction.cpp">
       <Filter>commom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DatabaseServer\message\messagehandler.cpp">
+      <Filter>message</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -107,11 +107,14 @@
     <ClInclude Include="..\DatabaseServer\other\example.h">
       <Filter>other</Filter>
     </ClInclude>
-    <ClInclude Include="..\DatabaseServer\msghandler\messagehandler.h">
-      <Filter>msghandler</Filter>
-    </ClInclude>
     <ClInclude Include="..\common\commonfunction.h">
       <Filter>commom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DatabaseServer\message\messagehandler.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DatabaseServer\message\msgtype.h">
+      <Filter>message</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

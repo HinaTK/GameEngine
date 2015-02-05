@@ -12,14 +12,13 @@ public:
 	Frame();
 	virtual ~Frame();
 
-	virtual	void		Recv(NetHandle handle, char *msg, unsigned int length) = 0;
+	virtual	void		Recv(GameMsg *msg) = 0;
 
 	virtual	void		Update(time_t now){};  //¸üÐÂ
 
 	virtual void		Accept(NetID net_id){};
 
 	virtual void		DisConnet(NetID net_id){};
-
 
 	void				Send(NetHandle handle, const char *buf, unsigned int length);
 
@@ -31,15 +30,11 @@ public:
 
 	void				SetUpdateInternal(int ms){ m_update_interval = ms; };
 
-//	int				InSendSleepTime(){ return m_in_send_sleep_time; }
 
 protected:
 	unsigned long long	UpdateInternal(){ return m_update_interval; }
-// 	void			SetInSendSleepTime(int ms){ m_in_send_sleep_time = ms; };
-// 	void			SetExSendSleepTime(int ms){ m_ex_send_sleep_time = ms; };
-// 	int				ExSendSleepTime(){ return m_ex_send_sleep_time; }
-
 	NetManager		m_net_manager;
+
 private:
 	
 	Thread		m_recv_external_thread;
@@ -48,10 +43,8 @@ private:
 	Thread		m_listen_thread;
 	Thread		m_log_thread;
 	
-
 	unsigned long long	m_update_interval;		// ºÁÃë
-// 	unsigned long long	m_in_send_sleep_time;
-// 	unsigned long long	m_ex_send_sleep_time;
+
 };
 
 

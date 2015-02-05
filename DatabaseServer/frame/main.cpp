@@ -9,11 +9,10 @@ bool DatabaseFrame::Init()		// 框架初始化
 	return true;
 }
 
-void DatabaseFrame::Recv(NetHandle handle, char *msg, unsigned int length)
+void DatabaseFrame::Recv(GameMsg *msg)
 {
-
+	m_message_handler.HandleMessage(msg);
 }
-
 
 void DatabaseFrame::Update(time_t now)	// 构架更新
 {

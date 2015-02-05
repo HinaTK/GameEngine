@@ -1,12 +1,10 @@
+
 #ifndef THREAD_H
 #define THREAD_H
-
 
 #ifdef __unix
 #include <pthread.h>
 #endif
-
-
 
 class Thread
 {

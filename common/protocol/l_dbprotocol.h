@@ -10,7 +10,7 @@ namespace IProtocol
 {
 	struct Test
 	{
-		Test() :header(MT_TEST){}
+		Test() :header(0){}
 		MessageHeader	header;
 		char a;
 		short b;
@@ -20,7 +20,7 @@ namespace IProtocol
 
 	struct LDBLogin
 	{
-		LDBLogin():header(MT_L_DB_LOGIN){}
+		LDBLogin():header(0){}
 		MessageHeader	header;
 		UInt32			account;
 		UInt32			passward;

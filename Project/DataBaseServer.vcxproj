@@ -164,6 +164,7 @@
     <ClCompile Include="..\DatabaseServer\database\database.cpp" />
     <ClCompile Include="..\DatabaseServer\database\gamemysql.cpp" />
     <ClCompile Include="..\DatabaseServer\database\gamemysqlstmt.cpp" />
+    <ClCompile Include="..\DatabaseServer\message\messagehandler.cpp" />
     <ClCompile Include="..\DatabaseServer\table\datatable.cpp" />
     <ClCompile Include="..\DatabaseServer\table\datatablestmt.cpp" />
     <ClCompile Include="..\DatabaseServer\table\tb_login.cpp" />
@@ -171,13 +172,14 @@
     <ClCompile Include="..\DatabaseServer\frame\databaseframe.cpp" />
     <ClCompile Include="..\DatabaseServer\frame\main.cpp" />
     <ClCompile Include="..\DatabaseServer\cache\testcache.cpp" />
-    <ClCompile Include="..\DatabaseServer\msghandler\messagehandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\commonfunction.h" />
     <ClInclude Include="..\DatabaseServer\database\database.h" />
     <ClInclude Include="..\DatabaseServer\database\gamemysql.h" />
     <ClInclude Include="..\DatabaseServer\database\gamemysqlstmt.h" />
+    <ClInclude Include="..\DatabaseServer\message\messagehandler.h" />
+    <ClInclude Include="..\DatabaseServer\message\msgtype.h" />
     <ClInclude Include="..\DatabaseServer\table\datatable.h" />
     <ClInclude Include="..\DatabaseServer\table\datatablestmt.h" />
     <ClInclude Include="..\DatabaseServer\table\tb_login.h" />
@@ -188,7 +190,6 @@
     <ClInclude Include="..\DatabaseServer\frame\databaseframe.h" />
     <ClInclude Include="..\DatabaseServer\cache\testcache.h" />
     <ClInclude Include="..\DatabaseServer\other\example.h" />
-    <ClInclude Include="..\DatabaseServer\msghandler\messagehandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

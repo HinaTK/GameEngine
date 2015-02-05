@@ -72,9 +72,10 @@ bool Frame::Run()
 			{
 				if ((int)(*msg)->handle >= (int)0)
 				{
-					this->Recv((*msg)->handle, (*msg)->data, (*msg)->length);
+					this->Recv(*msg);
 				}
-				delete (*msg);
+				// 内存交给下游处理
+				// delete (*msg);
 			}
 		}
 		else

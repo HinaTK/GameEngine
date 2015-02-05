@@ -3,7 +3,7 @@
 
 #include "libtimemanager.h"
 #include "frame/frame.h"
-#include "../msghandler/messagehandler.h"
+#include "message/messagehandler.h"
 
 class DatabaseFrame : public Frame
 {
@@ -17,7 +17,7 @@ public:
         return frame;
     }
 
-	bool InitConfig();
+	bool	InitConfig();
 
     bool	Init();    //初始化
 
@@ -26,7 +26,7 @@ public:
 
     void	Exit();
 
-	void	Recv(NetHandle handle, char *msg, unsigned int length);
+	void	Recv(GameMsg *msg);
 
 public:
 	Thread	m_recv_client_thread;

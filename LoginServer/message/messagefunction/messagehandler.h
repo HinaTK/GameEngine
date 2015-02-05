@@ -1,5 +1,6 @@
-#ifndef MESSAGEHANDLER_H
-#define MESSAGEHANDLER_H
+
+#ifndef MESSAGE_HANDLER_H
+#define MESSAGE_HANDLER_H
 
 #include "common/commonvariable.h"
 #include "common/protocol/messagetype.h"

@@ -1,5 +1,6 @@
-#ifndef GAMETIMEMANAGER_H
-#define GAMETIMEMANAGER_H
+
+#ifndef TIME_MANAGER_H
+#define TIME_MANAGER_H
 
 #include <time.h>
 #include <list>
