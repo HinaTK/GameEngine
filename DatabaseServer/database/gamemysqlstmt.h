@@ -63,9 +63,14 @@ private:
 };
 
 #define VAR_DEFINE(class, val)\
-	class m_##val;\
+class m_##val;
 
-#define GET_FIELD(val)\
-	m_##val\
+#define FIELD(val)\
+	m_##val
+
+#define PARAM_BIND(field, type)\
+	m_param[field].buffer_type = type; \
+	m_param[field].buffer = &FIELD(field); \
+	m_param[field].length = 0;
 
 #endif

@@ -5,12 +5,12 @@
 #include "dataadapter.h"
 #include "common/datastructure/gamehash.h"
 
-static DataField field;
-#define FIELD_DEFINE(Obj, Name, Type, Length)\
-	field.name = Name;\
-	field.type = Type;\
-	field.length = Length;\
-	Obj.##m_fields.push_back(field);\
+// static DataField field;
+// #define FIELD_DEFINE(Obj, Name, Type, Length)\
+// 	field.name = Name;\
+// 	field.type = Type;\
+// 	field.length = Length;\
+// 	Obj.##m_fields.push_back(field);\
 
 
 class DataCache
@@ -18,7 +18,6 @@ class DataCache
 public:
 	typedef std::vector<DataField> DATAFIELD_VECTOR;
 	typedef std::vector<DataValue> DATAVALUE_VECTOR;
-	//typedef IntHashList<DATAVALUE_VECTOR *> DATAVALUE_HASH;
 
 public:
 	DataCache(unsigned int hash_size = 256, unsigned int data_size = 1024)

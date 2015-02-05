@@ -28,5 +28,31 @@ bool Thread::Create(void *func(void *), void *arg)
 	 return true;
 }
 
+bool Thread::Join()
+{
+#ifdef __unix
+	if (m_thread != 0)
+	{
+		void *v;
+		int ret = pthread_join(m_thread, &v);
+		if (ret == 0)
+		{
+			m_thread = 0;
+		}
+
+		return ret == 0;
+	}
+#endif
+#ifdef WIN32
+	if (WaitForSingleObject(m_thread, INFINITE) == WAIT_OBJECT_0)
+	{
+		CloseHandle(m_thread);
+		m_thread = NULL;
+		return true;
+	}
+#endif
+	return false;
+}
+
 
 

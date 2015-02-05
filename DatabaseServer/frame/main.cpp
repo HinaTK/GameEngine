@@ -26,7 +26,7 @@ void DatabaseFrame::Update(time_t now)	// 构架更新
 
 void DatabaseFrame::Exit()
 {
-	// 进程退出，线程也随之退出
+	m_message_handler.Exit();
 	printf("database server exit\n");
 }
 

@@ -16,10 +16,10 @@ GameMysqlStmt(table_name)
 	m_field_name[TestTable::ROLE_ID] = "roleid";
 
 	m_param[TestTable::ID].buffer_type = MYSQL_TYPE_LONG;
-	m_param[TestTable::ID].buffer = &GET_FIELD(ID);
+	m_param[TestTable::ID].buffer = &FIELD(ID);
 
 	m_param[TestTable::ROLE_ID].buffer_type = MYSQL_TYPE_LONG;
-	m_param[TestTable::ROLE_ID].buffer = &GET_FIELD(ROLE_ID);
+	m_param[TestTable::ROLE_ID].buffer = &FIELD(ROLE_ID);
 
 	/*
 		设置cache,现在要做的是统一接口，操作mysql和cache的接口要一致，减少复杂度;
@@ -37,7 +37,7 @@ GameMysqlStmt(table_name)
 void TestTable::Show()
 {
 	while(mysql_stmt_fetch(DataBase::Instance().GetStmt()) == 0) //返回结果集中的下一行
-         printf("%d\t%d\n", GET_FIELD(ID), GET_FIELD(ROLE_ID));
+         printf("%d\t%d\n", FIELD(ID), FIELD(ROLE_ID));
 
 	//GET_FIELD(id);
     printf("fuck\n");

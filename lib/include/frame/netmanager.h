@@ -20,6 +20,7 @@ public:
 	bool			ConnectServer(char *ip, unsigned short port, NetID &net_id);
 
 	void			Listen();
+	void			Send(NetHandle handle, const char *buf, unsigned int length);
 
 	NetHandle		AddNetHandler(NetHandler *handler);			
 	void			RemoveHandler(NetHandle handle);
@@ -27,8 +28,7 @@ public:
 	void			ClearHandler();
 	
 	MsgQueue		*GetMsgQueue(){ return &m_queue; }
-
-	void			Send(NetHandle handle, const char *buf, unsigned int length);
+	void			Exit(){ m_is_run = false; }
 
 public:
 	typedef game::Array<NetHandler*>	NET_HANDLER_ARRAY;
@@ -38,6 +38,7 @@ protected:
 
 	MsgQueue		m_queue;
 	INVALID_HANDLE	m_invalid_handle;
+	bool			m_is_run;
 
 #ifdef WIN32
 public:

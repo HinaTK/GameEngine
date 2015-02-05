@@ -2,7 +2,7 @@
 #ifndef TB_LOGIN_H
 #define TB_LOGIN_H
 
-#include "../database/gamemysqlstmt.h"
+#include "database/gamemysqlstmt.h"
 #include "cache/datacache.h"
 
 class TB_Login : public GameMysqlStmt

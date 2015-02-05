@@ -14,6 +14,7 @@ public:
 
 	// ×Ö¶Î
 	virtual unsigned short Size() = 0;
+
 private:
 };
 

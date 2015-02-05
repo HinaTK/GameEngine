@@ -1,3 +1,4 @@
+
 #include "database.h"
 #include "libtinyxml.h"
 
@@ -20,21 +21,23 @@ bool DataBase::Init( char *server, char *dbname, char *username, char *password 
 	MYSQL *mysql;
 	mysql = mysql_init(NULL);
 	m_db_handle = mysql_real_connect(mysql,server,username,password,dbname,0,0,0);
-
-	if (m_db_handle == NULL)
+	do 
 	{
-		printf("%s\n",mysql_error(mysql));
-		printf("init database error\n");
-		return false;
-	}
-	m_stmt = mysql_stmt_init(mysql);
-	if (m_stmt == NULL)
-	{
-		printf("%s\n",mysql_error(mysql));
-		printf("init database error\n");
-		return false;
-	}
-	return true;
+		if (m_db_handle == NULL)
+		{
+			break;
+		}
+		m_stmt = mysql_stmt_init(mysql);
+		if (m_stmt == NULL)
+		{
+			break;
+		}
+		return true;
+	} while (false);
+	
+	printf("%s\n", mysql_error(mysql));
+	printf("init database error\n");
+	return false;
 }
 
 

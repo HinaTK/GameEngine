@@ -19,13 +19,15 @@ NetManager::~NetManager()
 
 #ifdef WIN32
 NetManager::NetManager()
-: m_max_fd(0)
+: m_is_run(true)
+, m_max_fd(0)
 {
 
 }
 #endif // WIN32
 #ifdef __unix
 NetManager::NetManager()
+: m_is_run(true)
 {
 
 }
@@ -147,7 +149,7 @@ void NetManager::Listen()
 	struct timeval tv;	//³¬Ê±²ÎÊı
 	tv.tv_sec = 0;		//Ãë
 	tv.tv_usec = 10000;	//Î¢Ãë,10ºÁÃë
-	while (1)
+	while (m_is_run)
 	{
 		if (m_net_handler.Size() <= 0)
 		{
@@ -155,8 +157,8 @@ void NetManager::Listen()
 			Sleep(1);
 #endif
 #ifdef __unix 	// usleep( time * 1000 );
-			usleep(1000);
-			//usleep((timems << 10) - (timems << 4) - (timems << 3));
+			//usleep(1000);
+			usleep((timems << 10) - (timems << 4) - (timems << 3));
 #endif
 			continue;
 		}

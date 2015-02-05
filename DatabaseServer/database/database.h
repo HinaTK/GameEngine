@@ -58,7 +58,6 @@ public:
 protected:
 	DataBase(){}
 
-    
 private:
     MYSQL *m_db_handle;
     MYSQL_STMT *m_stmt;

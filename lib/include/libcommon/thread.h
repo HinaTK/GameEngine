@@ -14,6 +14,7 @@ public:
 
     bool Create(void * func(void *), void *arg = NULL);
 
+	bool Join();
 private:
 
 #ifdef __unix

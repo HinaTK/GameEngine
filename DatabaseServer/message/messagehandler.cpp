@@ -10,7 +10,7 @@ void *FlushQueue(void * arg)
 	static const unsigned int sleepTime = 60 * 1000;
 	MessageHandler *handler = (MessageHandler *)arg;
 	CircleQueue<GameMsg *> data_queue = handler->DataQueue();
-	while (true)
+	while (1)
 	{
 		if (!data_queue.IsEmpty())
 		{
@@ -18,15 +18,20 @@ void *FlushQueue(void * arg)
 			// 处理数据
 			delete (*msg);
 		}
-		else
+		else if (handler->m_is_run)
 		{
 			GameTime::GameSleep(50);
+		}
+		else
+		{
+			break;
 		}
 	}
 	return NULL;
 }
 
 MessageHandler::MessageHandler()
+: m_is_run(true)
 {
 	m_flush_thread.Create(FlushQueue, this);
 // 	m_function_list[IProtocol::MT_TEST]					= HandlerItem(&MessageHandler::Test, sizeof(IProtocol::Test));
@@ -42,7 +47,7 @@ void MessageHandler::HandleMessage(GameMsg *msg)
 {
 	do 
 	{
-		IProtocol::MessageHeader * header = (IProtocol::MessageHeader *)msg->data;
+		IProtocol::MessageHeader *header = (IProtocol::MessageHeader *)msg->data;
 		if (header->msg_type >= IProtocol::MT_MAX_DATABASE_SERVER_TYPE || header->msg_type <= IProtocol::MT_MIN_DATABASE_SERVER_TYPE)
 		{
 			break;
@@ -56,6 +61,13 @@ void MessageHandler::HandleMessage(GameMsg *msg)
 	} while (false);
 	
 	delete msg;
+}
+
+void MessageHandler::Exit()
+{
+	// 冲刷m_queue
+	m_is_run = false;
+	m_flush_thread.Join();
 }
 
 void MessageHandler::Test(char *msg)

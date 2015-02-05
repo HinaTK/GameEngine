@@ -14,8 +14,10 @@ public:
 	~MessageHandler();
 
 	void	HandleMessage(GameMsg *msg);
+	void	Exit();
 
 	CircleQueue<GameMsg *> &DataQueue(){ return m_queue; }
+	bool	m_is_run;
 protected:
 	typedef void (MessageHandler::*HandleFunc)(char *msg);
 	struct HandlerItem 

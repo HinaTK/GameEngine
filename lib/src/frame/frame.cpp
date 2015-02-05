@@ -1,14 +1,30 @@
 
+#include <signal.h>
 #include "frame/frame.h"
 #include "libtimemanager.h"
 #include "frame/netcommon.h"
 #include "log/log.h"
 #include "frame/message.h"
 
+namespace SignalCatch
+{
+	Frame *g_frame;
+	void Catch(int sig)
+	{
+		if (g_frame != NULL)
+		{
+			g_frame->SetExit();
+			signal(sig, SignalCatch::Catch);
+		}
+	}
+}
+
 Frame::Frame()
 : m_update_interval(200)
+, m_is_run(true)
 {
-	
+	SignalCatch::g_frame = this;
+	signal(SIGINT, SignalCatch::Catch);
 }
 
 Frame::~Frame()
@@ -62,7 +78,7 @@ bool Frame::Run()
 
 	m_log_thread.Create(WriteLog);
 	this->Listen();
-	while (1)
+	while (m_is_run)
 	{
 		cur_time = GameTime::MilliSecond();
 		if (!recvQueue->IsEmpty())
@@ -93,6 +109,9 @@ bool Frame::Run()
 			last_time = cur_time;
 		}
 	}
+	m_net_manager.Exit();
+	m_listen_thread.Join();
+	Exit();
 	return true;
 }
 
