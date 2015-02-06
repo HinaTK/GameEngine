@@ -66,6 +66,9 @@
     <ClCompile Include="..\DatabaseServer\message\messagehandler.cpp">
       <Filter>message</Filter>
     </ClCompile>
+    <ClCompile Include="..\DatabaseServer\database\tablebase.cpp">
+      <Filter>database</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DatabaseServer\database\database.h">
@@ -115,6 +118,12 @@
     </ClInclude>
     <ClInclude Include="..\DatabaseServer\message\msgtype.h">
       <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DatabaseServer\database\tableid.h">
+      <Filter>database</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DatabaseServer\database\tablebase.h">
+      <Filter>database</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

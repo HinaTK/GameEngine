@@ -164,6 +164,7 @@
     <ClCompile Include="..\DatabaseServer\database\database.cpp" />
     <ClCompile Include="..\DatabaseServer\database\gamemysql.cpp" />
     <ClCompile Include="..\DatabaseServer\database\gamemysqlstmt.cpp" />
+    <ClCompile Include="..\DatabaseServer\database\tablebase.cpp" />
     <ClCompile Include="..\DatabaseServer\message\messagehandler.cpp" />
     <ClCompile Include="..\DatabaseServer\table\datatable.cpp" />
     <ClCompile Include="..\DatabaseServer\table\datatablestmt.cpp" />
@@ -178,6 +179,8 @@
     <ClInclude Include="..\DatabaseServer\database\database.h" />
     <ClInclude Include="..\DatabaseServer\database\gamemysql.h" />
     <ClInclude Include="..\DatabaseServer\database\gamemysqlstmt.h" />
+    <ClInclude Include="..\DatabaseServer\database\tablebase.h" />
+    <ClInclude Include="..\DatabaseServer\database\tableid.h" />
     <ClInclude Include="..\DatabaseServer\message\messagehandler.h" />
     <ClInclude Include="..\DatabaseServer\message\msgtype.h" />
     <ClInclude Include="..\DatabaseServer\table\datatable.h" />
