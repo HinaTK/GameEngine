@@ -2,7 +2,7 @@
 	<databaseserver>
 		<mysql>
 			<ip>192.168.1.123</ip>
-			<dbname>mmo_arpg_xjm</dbname>
+			<dbname>mmo_arpg_xjm2</dbname>
 			<username>root</username>
 			<password>root</password>
 		</mysql>

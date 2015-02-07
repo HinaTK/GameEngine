@@ -14,11 +14,6 @@
 #include "testother.h"
 
 
-void login()
-{
-
-}
-
 int main()
 {
 	//printf("%s\n", Function::WorkDir().c_str());
@@ -65,7 +60,7 @@ int main()
 	//TestDataStructure::TestList();
 	//TestDataStructure::TestHash();
 	//TestOther::Test1();
-	TestOther::Test2();
+	//TestOther::Test2();
 	return 0;
 }
 

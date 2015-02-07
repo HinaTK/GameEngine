@@ -11,14 +11,8 @@ public:
 	TB_Login(unsigned short type, std::string table_name, MYSQL_STMT* stmt);
 	~TB_Login()
 	{
-		//m_cache.m_data.FreePointer();
 	};
 
-// 	static TB_Login & Instance()
-// 	{
-// 		static TB_Login login("login");
-// 		return login;
-// 	}
 	enum Fields
 	{
 		ID,
@@ -32,18 +26,23 @@ public:
 	VAR_DEFINE(unsigned int, ID );
 	VAR_DEFINE(unsigned int, ACCOUNT);
 	VAR_DEFINE(unsigned int, PASSWORD);
-	VAR_DEFINE(char* , NAME);
+	// VAR_DEFINE(char* , NAME);
+	STR_DEFINE(NAME);
 	VAR_DEFINE(unsigned int, LAST_TIME);
 
 	// ³éÏóº¯ÊýÐ´³Éºê£¬·½±ã±àÐ´
-	std::string *	FieldsName();
+	std::string *	FieldsName(){ return m_field_name; }
 
 	unsigned int	MaxField(){ return MAX_FIELD; }
 
 	MYSQL_BIND *	GetParam(){return m_param;}
 
-private:
-	
+	bool			BindResult();
+
+	bool			HasResult();
+
+protected:
+	void			BindParam();
 
 private:
 	MYSQL_BIND	m_param[MAX_FIELD];

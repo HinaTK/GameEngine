@@ -33,11 +33,6 @@ bool DataBase::Init( char *server, char *dbname, char *username, char *password 
 		{
 			break;
 		}
-		TB_Login test(0, "login", m_stmt);
-		test.Init();
-		test.m_ID = 123;
-		test.m_ACCOUNT = 456;
-		test.Insert();
 
 		return true;
 	} while (false);

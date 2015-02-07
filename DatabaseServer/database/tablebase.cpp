@@ -1,5 +1,6 @@
 
 #include "tablebase.h"
+#include "libcommon/memoryvl.h"
 
 static const char *relationType[] = { ">", "=", "<", ">=", "<=", "<>" };
 static const char *connectType[] = { " AND ", " OR " };
@@ -32,6 +33,7 @@ TableBase::TableBase(unsigned short table_type, std::string table_name, MYSQL_ST
 : m_table_type(table_type)
 , m_table_name(table_name)
 , m_stmt(stmt)
+, m_result(NULL)
 {
 	
 }
@@ -72,6 +74,7 @@ void TableBase::Init()
 
 bool TableBase::Insert()
 {
+	BindParam();
 	if (0 != mysql_stmt_prepare(m_stmt, m_insert_base.c_str(), m_insert_base.size()) ||
 		0 != mysql_stmt_bind_param(m_stmt, GetParam()) ||
 		0 != mysql_stmt_execute(m_stmt))
@@ -90,13 +93,14 @@ bool TableBase::Select()
 		m_condition[SELECT_OPER] = "";
 	}
 
-	if (0 != mysql_stmt_prepare(m_stmt, select_sql.c_str(), select_sql.size()) ||
-		0 != mysql_stmt_bind_result(m_stmt, GetParam()) ||
-		0 != mysql_stmt_execute(m_stmt) ||
-		0 != mysql_stmt_store_result(m_stmt))
+	select_sql += ";";
+	if (0 != mysql_stmt_prepare(m_stmt, select_sql.c_str(), select_sql.length() + 1) ||
+		//0 != mysql_stmt_bind_param(m_stmt, GetParam()) ||
+		0 != mysql_stmt_execute(m_stmt))
 	{
 		return false;
 	}
+	
 	return true;
 }
 
@@ -155,4 +159,47 @@ void TableBase::SetCondition(std::string field, std::string val, unsigned int re
 
 	m_condition[oper] = m_condition[oper] + field + relationType[relation] + val + symbol;
 }
+
+bool TableBase::HasResult()
+{
+	if (mysql_stmt_fetch(m_stmt) == 0)
+	{
+		return true;
+	}
+	return false;
+}
+
+// bool TableBase::BindResult(std::vector<unsigned int> &results)
+// {
+// 	if (results.size() <= 0)
+// 	{
+// 		return true;
+// 	}
+// 	MYSQL_RES *m_metadata = mysql_stmt_result_metadata(m_stmt);
+// 	if (NULL == m_metadata)
+// 	{
+// 		return false;
+// 	}
+// 	unsigned int field_num = mysql_num_fields(m_metadata);
+// 	MYSQL_FIELD* fields = mysql_fetch_fields(m_metadata);
+// 	if (fields == NULL)
+// 	{
+// 		return false;
+// 	}
+// 	MYSQL_BIND *bind_result = GetParam();
+// 	for (std::vector<unsigned int>::iterator itr = results.begin(); itr != results.end(); ++itr)
+// 	{
+// 		if ((*itr) >= field_num)
+// 		{
+// 			continue;
+// 		}
+// 		bind_result[(*itr)].buffer = (char *)MemoryVL::Instance().Malloc(fields[(*itr)].length);
+// 		bind_result[(*itr)].buffer_length = fields[(*itr)].length;
+// 	}
+// 	if (0 != mysql_stmt_bind_result(m_stmt, bind_result))
+// 	{
+// 		return false;
+// 	}
+// 	return true;
+// }
 

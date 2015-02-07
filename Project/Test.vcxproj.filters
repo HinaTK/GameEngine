@@ -43,7 +43,6 @@
     </ClInclude>
     <ClInclude Include="..\Test\testserializer.h" />
     <ClInclude Include="..\Test\testmemory.h" />
-    <ClInclude Include="..\Test\testsocket.h" />
     <ClInclude Include="..\Test\testother.h" />
   </ItemGroup>
   <ItemGroup>

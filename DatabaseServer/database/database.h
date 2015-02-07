@@ -12,7 +12,6 @@
 #include <string>
 
 // http://dev.mysql.com/downloads/mysql/
-//#pragma comment(lib,"../lib/libmysql.lib")
 
 class DataBase
 {
