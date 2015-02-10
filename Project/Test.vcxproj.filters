@@ -44,6 +44,8 @@
     <ClInclude Include="..\Test\testserializer.h" />
     <ClInclude Include="..\Test\testmemory.h" />
     <ClInclude Include="..\Test\testother.h" />
+    <ClInclude Include="..\Test\testsocket.h" />
+    <ClInclude Include="..\Test\testcache.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Test\main.cpp" />

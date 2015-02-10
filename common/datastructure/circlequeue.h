@@ -107,7 +107,8 @@ bool CircleQueue<T>::Push( T &val )
 	
 	/* 
 		当类中有成员指针变量时，memcpy只会把指针地址，一同复制过来。
-		因此当原来的数据改变时，这里的数据也会改变，例如string
+		因此当原来的数据改变时，这里的数据也会改变，例如string。
+		这里要求类重载拷贝函数
 	*/
 	//memcpy(&m_queue[m_tail], &val, sizeof(T));
 	m_queue[m_tail] = val;
