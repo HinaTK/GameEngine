@@ -12,6 +12,7 @@
 #include "testmemory.h"
 #include "testsocket.h"
 #include "testother.h"
+#include "testcache.h"
 
 
 int main()
@@ -61,6 +62,7 @@ int main()
 	//TestDataStructure::TestHash();
 	//TestOther::Test1();
 	//TestOther::Test2();
+	TestCache::TestDataQueue();
 	return 0;
 }
 

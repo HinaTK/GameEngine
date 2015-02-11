@@ -14,17 +14,19 @@ public:
 	DataQueue();
 	~DataQueue();
 
-	typedef void(*CallBack)(const char *data, unsigned int length);
+	typedef void(*CallBackFunc)(const char *data, unsigned int length);
 	struct DataInfo
 	{
 		const char		*data;
 		unsigned int	length;
-		CallBack		_CallBack;
+		CallBackFunc	func;
 	};
 
-	bool		Push(const char *data, unsigned int length, void(*CallBack)(const char *data, unsigned int length));
+	bool		Push(const char *data, unsigned int length, CallBackFunc func = NULL);
 
 	bool		Pop(char *data, unsigned int &length);
+
+	bool		Pop();
 
 private:
 	CircleQueue<DataInfo> m_queue;

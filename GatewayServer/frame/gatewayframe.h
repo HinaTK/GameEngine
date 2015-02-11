@@ -25,9 +25,9 @@ public:
 
     void	Update(time_t now);  //¸üÐÂ
 
-    void	Exit();
+	void	Exit();
 
-	void	Recv(NetHandle handle, char *msg, unsigned int length);
+	void	Recv(GameMsg *msg);
 
 
 

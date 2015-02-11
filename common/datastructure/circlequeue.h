@@ -50,12 +50,11 @@ void CircleQueue<T>::Clear()
 template<class T>
 T * CircleQueue<T>::Pop()
 {
-	++m_head;
 	if (m_head >= m_size)
 	{
 		m_head -= m_size;
 	}
-	return &m_queue[m_head];
+	return &m_queue[m_head++];
 }
 
 template<class T>

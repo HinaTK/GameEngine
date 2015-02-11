@@ -27,27 +27,32 @@ bool GatewayFrame::Init()
 // 	}
 // }
 
-void GatewayFrame::Recv(NetHandle handle, char *msg, unsigned int length)
+void GatewayFrame::Recv(GameMsg *msg)
 {
-	//printf("%s\n", msg);
-//	Send(handle, msg, length);
-// 	int a = 1234;
-// 	Send(handle, (const char *)&a, sizeof(int));
 
-// 	char *b = "123h";
-// 	Send(handle, (const char *)b, strlen(b));
- 	char *b = "家明a";
-	Send(handle, (const char *)b, strlen(b));
-
-// 	char c[6];
-// 	c[0] = -27;
-// 	c[1] = -82;
-// 	c[2] = -74;
-// 	c[3] = -26;
-// 	c[4] = -104;
-// 	c[5] = -114;
-// 	Send(handle, (const char *)c, 6);
 }
+
+// void GatewayFrame::Recv(NetHandle handle, char *msg, unsigned int length)
+// {
+// 	//printf("%s\n", msg);
+// //	Send(handle, msg, length);
+// // 	int a = 1234;
+// // 	Send(handle, (const char *)&a, sizeof(int));
+// 
+// // 	char *b = "123h";
+// // 	Send(handle, (const char *)b, strlen(b));
+//  	char *b = "家明a";
+// 	Send(handle, (const char *)b, strlen(b));
+// 
+// // 	char c[6];
+// // 	c[0] = -27;
+// // 	c[1] = -82;
+// // 	c[2] = -74;
+// // 	c[3] = -26;
+// // 	c[4] = -104;
+// // 	c[5] = -114;
+// // 	Send(handle, (const char *)c, 6);
+// }
 
 void GatewayFrame::Update(time_t now)
 {
