@@ -75,7 +75,6 @@ void DatabaseFrame::Recv(GameMsg *msg)
 
 void DatabaseFrame::Update(time_t now)	// ¹¹¼Ü¸üÐÂ
 {
-	m_time_event_manager.Update(now);
 	//StmtSelect();
 	//StmtInsert();
 	//StmtUpdate();

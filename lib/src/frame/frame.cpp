@@ -1,7 +1,7 @@
 
 #include <signal.h>
 #include "frame/frame.h"
-#include "libtimemanager.h"
+
 #include "frame/netcommon.h"
 #include "log/log.h"
 #include "frame/message.h"
@@ -67,12 +67,18 @@ void Frame::Send( NetHandle handle, const char *buf, unsigned int length )
 	m_net_manager.Send(handle, buf, length);
 }
 
+void Frame::UpdateAll()
+{
+	m_time_manager.Update();
+	Update(m_time_manager.Time());
+}
+
 bool Frame::Run()
 {
 	GameMsg		**msg = NULL;
 	MsgQueue	*recvQueue = m_net_manager.GetMsgQueue();
-	unsigned long long		last_time = GameTime::MilliSecond();	// 上一次更新时间
-	unsigned long long		cur_time = 0;
+	unsigned long long		last_time_ms = m_time_manager.MilliSecond();	// 上一次更新时间
+	unsigned long long		cur_time_ms = 0;
 	unsigned long long		second = 0;
 	unsigned long long		oneMinute = 60000;
 
@@ -80,7 +86,7 @@ bool Frame::Run()
 	this->Listen();
 	while (m_is_run)
 	{
-		cur_time = GameTime::MilliSecond();
+		cur_time_ms = m_time_manager.MilliSecond();
 		if (!recvQueue->IsEmpty())
 		{
 			msg = recvQueue->Pop();
@@ -96,17 +102,17 @@ bool Frame::Run()
 		}
 		else
 		{
-			unsigned long long interval = cur_time - last_time - 1;
+			unsigned long long interval = cur_time_ms - last_time_ms - 1;
 			if (interval < m_update_interval)
 			{
 				GameTime::GameSleep((unsigned int)(m_update_interval - interval));
 			}
 		}
 
-		if ((cur_time - last_time) >= m_update_interval)
+		if ((cur_time_ms - last_time_ms) >= m_update_interval)
 		{
-			Update(GameTime::Time());
-			last_time = cur_time;
+			UpdateAll();
+			last_time_ms = cur_time_ms;
 		}
 	}
 	m_net_manager.Exit();

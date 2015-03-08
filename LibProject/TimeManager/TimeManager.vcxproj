@@ -50,7 +50,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\..\lib\windows</OutDir>
     <IntDir>..\..\lib\temp</IntDir>
-    <IncludePath>..\..\common;..\..\lib\include;..\..\lib\include\timemanager;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\;..\..\lib\include;..\..\lib\include\timemanager;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
