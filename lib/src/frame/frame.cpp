@@ -25,11 +25,18 @@ Frame::Frame()
 {
 	SignalCatch::g_frame = this;
 	signal(SIGINT, SignalCatch::Catch);
+	m_log_manager.SetGameTime(m_time_manager.GetGameTime());
 }
 
 Frame::~Frame()
 {
 
+}
+
+void Frame::SetExit()
+{
+	m_is_run = false;
+	m_log_manager.Flush();
 }
 
 void *Listen(void * arg)
@@ -47,10 +54,12 @@ void *Listen(void * arg)
 
 void *WriteLog(void * arg)
 {
+	// 读取配置多少秒写log
 	static const unsigned int sleepTime = 60 * 1000;
-	while (true)
+	Frame *frame = (Frame *)arg;
+	while (frame->IsRun())
 	{
-		//Log::Instance().Flush();
+		frame->GetLogManager()->Flush();
 		GameTime::GameSleep(sleepTime);
 	}
 	return NULL;
@@ -61,7 +70,6 @@ void Frame::Listen()
 	m_listen_thread.Create(::Listen, this);
 }
 
-
 void Frame::Send( NetHandle handle, const char *buf, unsigned int length )
 {
 	m_net_manager.Send(handle, buf, length);
@@ -70,23 +78,23 @@ void Frame::Send( NetHandle handle, const char *buf, unsigned int length )
 void Frame::UpdateAll()
 {
 	m_time_manager.Update();
-	Update(m_time_manager.Time());
+	Update(m_time_manager.GetGameTime()->Time());
 }
 
 bool Frame::Run()
 {
 	GameMsg		**msg = NULL;
 	MsgQueue	*recvQueue = m_net_manager.GetMsgQueue();
-	unsigned long long		last_time_ms = m_time_manager.MilliSecond();	// 上一次更新时间
+	unsigned long long		last_time_ms = m_time_manager.GetGameTime()->MilliSecond();	// 上一次更新时间
 	unsigned long long		cur_time_ms = 0;
 	unsigned long long		second = 0;
 	unsigned long long		oneMinute = 60000;
 
-	m_log_thread.Create(WriteLog);
+	m_log_thread.Create(WriteLog, this);
 	this->Listen();
 	while (m_is_run)
 	{
-		cur_time_ms = m_time_manager.MilliSecond();
+		cur_time_ms = m_time_manager.GetGameTime()->MilliSecond();
 		if (!recvQueue->IsEmpty())
 		{
 			msg = recvQueue->Pop();
@@ -120,6 +128,7 @@ bool Frame::Run()
 	Exit();
 	return true;
 }
+
 
 
 

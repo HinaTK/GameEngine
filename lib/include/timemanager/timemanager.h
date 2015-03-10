@@ -24,8 +24,9 @@ public:
 	TimeEventManager();
 	~TimeEventManager();
 
-	time_t				Time(){ return m_game_time.Time(); }
-	unsigned long long	MilliSecond(){ return m_game_time.MilliSecond(); }
+	GameTime			*GetGameTime(){ return &m_game_time; }
+// 	time_t				Time(){ return m_game_time.Time(); }
+// 	unsigned long long	MilliSecond(){ return m_game_time.MilliSecond(); }
 	void				AddEvent(time_t interval, TimeEvent *e);
 	void				Update();
 protected:

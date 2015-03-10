@@ -11,6 +11,11 @@
 #endif
 
 GameTime::GameTime()
+: m_now(0)
+, m_now_ms(0)
+, m_tm(NULL)
+, m_day_id(0)
+, m_sceond_id(0)
 {
 }
 
@@ -26,10 +31,7 @@ unsigned long long GameTime::MilliSecond()
 
 int GameTime::Day()
 {
-	int day = m_tm->tm_mday;
-	day = (m_tm->tm_mon + 1) * 100 + day;
-	day = (m_tm->tm_year + 1900) * 10000 + day;
-    return day;
+    return m_day_id;
 }
 
 int GameTime::Hour()
@@ -39,10 +41,7 @@ int GameTime::Hour()
 
 int GameTime::Second()
 {
-	int second = m_tm->tm_sec;
-	second = m_tm->tm_min * 100 + second;
-	second = m_tm->tm_hour * 10000 + second;
-	return second;
+	return m_sceond_id;
 }
 
 void GameTime::GameSleep( unsigned int ms )
@@ -60,6 +59,15 @@ void GameTime::Update()
 {
 	m_now = time(NULL);
 	m_tm = localtime(&m_now);
+
+	m_day_id = m_tm->tm_mday;
+	m_day_id = (m_tm->tm_mon + 1) * 100 + m_day_id;
+	m_day_id = (m_tm->tm_year + 1900) * 10000 + m_day_id;
+
+	m_sceond_id = m_tm->tm_sec;
+	m_sceond_id = m_tm->tm_min * 100 + m_sceond_id;
+	m_sceond_id = m_tm->tm_hour * 10000 + m_sceond_id;
+
 #ifdef __unix
 	static struct timeval tv;
 	gettimeofday(&tv, NULL);

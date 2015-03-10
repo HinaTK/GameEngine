@@ -5,6 +5,7 @@
 #include "libcommon/mutex.h"
 #include "libcommon/thread.h"
 #include "timemanager/timemanager.h"
+#include "log/logmanager.h"
 #include "netmanager.h"
 
 class Frame
@@ -28,15 +29,19 @@ public:
 	bool				Run();
 
 	NetManager			*GetNetManager(){ return &m_net_manager; }
+	LogManager			*GetLogManager(){ return &m_log_manager; }
 
 	void				SetUpdateInternal(int ms){ m_update_interval = ms; };
 
-	void				SetExit(){ m_is_run = false; }
+	void				SetExit();
+
+	bool				IsRun(){ return m_is_run; }
 
 protected:
 	unsigned long long	UpdateInternal(){ return m_update_interval; }
 	NetManager			m_net_manager;
 	TimeEventManager	m_time_manager;
+	LogManager			m_log_manager;
 
 private:
 	

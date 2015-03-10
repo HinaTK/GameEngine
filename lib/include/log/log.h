@@ -18,14 +18,14 @@ public:
 
 	void	Error(char *log, ...);
 
-	void	Flush();				// 冲洗队列
+	void	Flush(int day, int hour);				// 冲洗队列
 
 	void *		operator new(size_t c);
 	void		operator delete(void *m);
 
 private:
-	int		Day();
-	int		Hour();
+// 	int		Day();
+// 	int		Hour();
 	bool	MakeDayDir();
 	bool	MakeHourDir();
 	bool	MakeFile();

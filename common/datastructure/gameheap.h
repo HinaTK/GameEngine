@@ -30,7 +30,7 @@ public:
 		while (s > 0)
 		{
 			int f = ((s - 1) >> 1);
-			if (!(val < m_data[f])) break;
+			if (val >= m_data[f]) break;
 
 			m_data[s] = m_data[f];
 			s = f;

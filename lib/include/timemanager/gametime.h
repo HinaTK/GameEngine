@@ -23,6 +23,8 @@ private:
 	time_t				m_now;
 	unsigned long long	m_now_ms;
 	tm					*m_tm;
+	int					m_day_id;
+	int					m_sceond_id;
 };
 
 #endif // GAMETIME_H

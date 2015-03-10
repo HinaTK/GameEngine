@@ -57,7 +57,7 @@ Log::Log(const char *server_name, const char *log_name)
 
 Log::~Log()
 {
-	Flush();
+	Flush(m_day, m_hour);
 	if (m_log_fp != NULL)
 	{
 		fclose(m_log_fp);
@@ -103,13 +103,13 @@ void Log::Error(char *log, ...)
 	m_queue.Clear();\
 	return;\
 
-void Log::Flush()
+void Log::Flush(int day, int hour)
 {
 	if (m_queue.IsEmpty())
 	{
 		return;
 	}
-	if (m_day != Day())
+	if (m_day != day)
 	{
 		if (!MakeDayDir())
 		{
@@ -124,7 +124,7 @@ void Log::Flush()
 			RETURN_AND_CLEAR();
 		}
 	}
-	else if (m_hour != Hour())
+	else if (m_hour != hour)
 	{
 		if (!MakeHourDir())
 		{
@@ -202,25 +202,25 @@ bool Log::MakeFile()
 	return true;
 }
 
-int Log::Day()
-{
-	static tm     *t = NULL;
-	static time_t gametime = 0;
-	static int    day = 0;
-	time(&gametime);
-	t = localtime(&gametime);
-
-	day = t->tm_mday;
-	day = (t->tm_mon + 1) * 100 + day;
-	day = (t->tm_year + 1900) * 10000 + day;
-	return day;
-}
-
-int Log::Hour()
-{
-	static tm     *t = NULL;
-	static time_t gametime = 0;
-	time(&gametime);
-	t = localtime(&gametime);
-	return t->tm_hour;
-}
+// int Log::Day()
+// {
+// 	static tm     *t = NULL;
+// 	static time_t gametime = 0;
+// 	static int    day = 0;
+// 	time(&gametime);
+// 	t = localtime(&gametime);
+// 
+// 	day = t->tm_mday;
+// 	day = (t->tm_mon + 1) * 100 + day;
+// 	day = (t->tm_year + 1900) * 10000 + day;
+// 	return day;
+// }
+// 
+// int Log::Hour()
+// {
+// 	static tm     *t = NULL;
+// 	static time_t gametime = 0;
+// 	time(&gametime);
+// 	t = localtime(&gametime);
+// 	return t->tm_hour;
+// }
