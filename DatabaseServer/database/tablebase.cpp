@@ -29,11 +29,12 @@ if (o >= TableBase::MAX_OPERATION)\
 }
 
 
-TableBase::TableBase(unsigned short table_type, std::string table_name, MYSQL_STMT* stmt)
+TableBase::TableBase(unsigned int max_field, unsigned short table_type, std::string table_name, MYSQL_STMT* stmt)
 : m_table_type(table_type)
 , m_table_name(table_name)
 , m_stmt(stmt)
 , m_result(NULL)
+, m_max_field(max_field)
 {
 	
 }
@@ -74,7 +75,7 @@ void TableBase::Init()
 
 bool TableBase::Insert()
 {
-	BindParam();
+//	BindParam();
 	if (0 != mysql_stmt_prepare(m_stmt, m_insert_base.c_str(), m_insert_base.size()) ||
 		0 != mysql_stmt_bind_param(m_stmt, GetParam()) ||
 		0 != mysql_stmt_execute(m_stmt))
@@ -95,12 +96,17 @@ bool TableBase::Select()
 
 	select_sql += ";";
 	if (0 != mysql_stmt_prepare(m_stmt, select_sql.c_str(), select_sql.length() + 1) ||
-		//0 != mysql_stmt_bind_param(m_stmt, GetParam()) ||
 		0 != mysql_stmt_execute(m_stmt))
 	{
 		return false;
 	}
 	
+	ResetBufferLength();		// 重置字符串缓冲区为默认大小
+
+	if (0 != mysql_stmt_bind_result(m_stmt, GetParam()))
+	{
+		return false; 
+	}
 	return true;
 }
 
@@ -112,6 +118,7 @@ bool TableBase::Update()
 	}
 	std::string update_sql = m_update_base;
 	update_sql += " WHERE " + m_condition[UPDATE_OPER] + ";";
+	m_condition[UPDATE_OPER] = "";
 	if (0 != mysql_stmt_prepare(m_stmt, update_sql.c_str(), update_sql.size()) ||
 		0 != mysql_stmt_bind_param(m_stmt, GetParam()) ||
 		0 != mysql_stmt_execute(m_stmt))
@@ -127,6 +134,7 @@ bool TableBase::Delete()
 	if (m_condition[DELETE_OPER] != "")
 	{
 		delete_sql += " WHERE " + m_condition[DELETE_OPER];
+		m_condition[DELETE_OPER] = "";
 	}
 	delete_sql += ";";
 	if (0 != mysql_stmt_prepare(m_stmt, delete_sql.c_str(), delete_sql.size()) ||
@@ -167,6 +175,37 @@ bool TableBase::HasResult()
 		return true;
 	}
 	return false;
+}
+
+void TableBase::ResetBufferLength()
+{
+	if (m_str_length.size() <= 0)
+	{
+		return;
+	}
+	
+	unsigned int max_field = MaxField();
+	MYSQL_BIND *param = GetParam();
+
+	for (STR_LENGTH::iterator itr = m_str_length.begin(); itr != m_str_length.end(); ++itr)
+	{
+		if (itr->field >= max_field)
+		{
+			continue;
+		}
+		param[itr->field].buffer_length = itr->length;
+	}
+	
+}
+
+void TableBase::SetBufferLength(unsigned int field, unsigned int length)
+{
+	MYSQL_BIND *param = GetParam();
+	if (field < MaxField())
+	{
+		param[field].buffer_length = length;
+	}
+
 }
 
 // bool TableBase::BindResult(std::vector<unsigned int> &results)

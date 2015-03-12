@@ -9,9 +9,7 @@ class TB_Login : public TableBase
 {
 public:
 	TB_Login(unsigned short type, std::string table_name, MYSQL_STMT* stmt);
-	~TB_Login()
-	{
-	};
+	~TB_Login(){}
 
 	enum Fields
 	{
@@ -26,23 +24,17 @@ public:
 	VAR_DEFINE(unsigned int, ID );
 	VAR_DEFINE(unsigned int, ACCOUNT);
 	VAR_DEFINE(unsigned int, PASSWORD);
-	// VAR_DEFINE(char* , NAME);
 	STR_DEFINE(NAME);
 	VAR_DEFINE(unsigned int, LAST_TIME);
 
 	// ³éÏóº¯ÊýÐ´³Éºê£¬·½±ã±àÐ´
 	std::string *	FieldsName(){ return m_field_name; }
 
-	unsigned int	MaxField(){ return MAX_FIELD; }
-
 	MYSQL_BIND *	GetParam(){return m_param;}
 
-	bool			BindResult();
 
-	bool			HasResult();
-
-protected:
-	void			BindParam();
+// protected:
+// 	bool			BindResult();
 
 private:
 	MYSQL_BIND	m_param[MAX_FIELD];

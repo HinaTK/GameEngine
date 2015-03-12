@@ -54,7 +54,7 @@ public:
 			int s = (f << 1) + 1;
 			if (s + 1 < m_size && m_data[s + 1] < m_data[s]) ++s;
 
-			if (!(m_data[s] < tmp)) break;
+			if (m_data[s] >= tmp) break;
 
 			m_data[f] = m_data[s];
 			f = s;

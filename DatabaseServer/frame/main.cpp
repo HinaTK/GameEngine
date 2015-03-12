@@ -15,22 +15,25 @@ bool DatabaseFrame::Init()		// ¿ò¼Ü³õÊ¼»¯
 
 	if (0)
 	{
-		test.m_ID = 123;
-		test.m_ACCOUNT = 456;
-		test.m_PASSWORD = 789;
-		test.m_NAME.length = 3;
-		test.m_NAME.data = (char *)MemoryVL::Instance().Malloc(test.m_NAME.length);
-		memcpy(test.m_NAME.data, "jia", test.m_NAME.length);
+		test.m_ID = 111;
+		test.m_ACCOUNT = 222;
+		test.m_PASSWORD = 333;
+		//memset(test.m_NAME.data, 0, 32);
+		test.SetBufferLength(TB_Login::NAME, 4);
+		memcpy(test.m_NAME.data, "xian", 4);
 		test.Insert();
 	}
 	
+	if (1)
+	{
+		//test.SetCondition()
+	}
 	test.m_ID = 0;
 	if (!test.Select())
 	{
 		return false;
 	}
 
-	test.BindResult();
 	while (test.HasResult())
 	{
 		printf("%d\n", test.m_ID);

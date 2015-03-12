@@ -50,10 +50,10 @@ public:
         return instance;
     }
 
-    bool Init(char *server, char *dbname, char *username, char *password);
-	void ErrorInfo(int error);
-    MYSQL *GetHandle(){return m_db_handle;}
-    MYSQL_STMT *GetStmt(){return m_stmt;}
+    bool		Init(char *server, char *dbname, char *username, char *password);
+	void		ErrorInfo(int error);
+    MYSQL		*GetHandle(){return m_db_handle;}
+    MYSQL_STMT	*GetStmt(){return m_stmt;}
 protected:
 	DataBase(){}
 

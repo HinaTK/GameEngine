@@ -54,8 +54,6 @@ bool DatabaseFrame::InitConfig()
 		return false;
 	}
 	printf("connect database success\n");
-	//ListenClient();
-	//Log::Instance().Init(Function::GetServerName(DATABASE_SERVER));
 	return Init();
 }
 
