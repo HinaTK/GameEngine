@@ -147,36 +147,36 @@ namespace TestDataStructure
 	}
 	void TestGameMapCmpMap()
 	{
-		game::Map<int, int> game_map;
-		std::map<int, int> _map;
-		int loop_time = 50000;
-		printf("%d\n", GameTime::MilliSecond());
-		for (int i = 0; i < loop_time; ++i)
-		{
-			_map[i] = i;
-		}
-		for (int i = 0; i < loop_time; ++i)
-		{
-			_map[i] = i;
-		}
-		for (int i = 0; i < loop_time; ++i)
-		{
-			_map.erase(i);
-		}
-		printf("%d\n", GameTime::MilliSecond());
-		for (int i = 0; i < loop_time; ++i)
-		{
-			game_map.Insert(i, i);
-		}
-		for (int i = 0; i < loop_time; ++i)
-		{
-			game_map.Insert(i, i);
-		}
-		for (int i = 0; i < loop_time; ++i)
-		{
-			game_map.Erase(i);
-		}
-		printf("%d\n", GameTime::MilliSecond());
+// 		game::Map<int, int> game_map;
+// 		std::map<int, int> _map;
+// 		int loop_time = 50000;
+// 		printf("%d\n", GameTime::MilliSecond());
+// 		for (int i = 0; i < loop_time; ++i)
+// 		{
+// 			_map[i] = i;
+// 		}
+// 		for (int i = 0; i < loop_time; ++i)
+// 		{
+// 			_map[i] = i;
+// 		}
+// 		for (int i = 0; i < loop_time; ++i)
+// 		{
+// 			_map.erase(i);
+// 		}
+// 		printf("%d\n", GameTime::MilliSecond());
+// 		for (int i = 0; i < loop_time; ++i)
+// 		{
+// 			game_map.Insert(i, i);
+// 		}
+// 		for (int i = 0; i < loop_time; ++i)
+// 		{
+// 			game_map.Insert(i, i);
+// 		}
+// 		for (int i = 0; i < loop_time; ++i)
+// 		{
+// 			game_map.Erase(i);
+// 		}
+// 		printf("%d\n", GameTime::MilliSecond());
 	}
 
 /****************************** 数组 ******************************/
@@ -221,28 +221,28 @@ namespace TestDataStructure
 
 	void TestArrayCmpMap()
 	{
-		int loop_time = 100000;
-		game::Array<int> game_array;
-		std::map<int, int> game_map;
-		printf("%d\n", GameTime::MilliSecond());
-		for (int i = 0; i < loop_time; ++i)
-		{
-			game_map[i] = i;
-		}
-		for (int i = 0; i < loop_time; ++i)
-		{
-			game_map.erase(i);
-		}
-		printf("%d\n", GameTime::MilliSecond());
-		for (int i = 0; i < loop_time; ++i)
-		{
-			game_array.Insert(i);
-		}
-		for (int i = 0; i < loop_time; ++i)
-		{
-			game_array.Erase(i);
-		}
-		printf("%d\n", GameTime::MilliSecond());
+// 		int loop_time = 100000;
+// 		game::Array<int> game_array;
+// 		std::map<int, int> game_map;
+// 		printf("%d\n", GameTime::MilliSecond());
+// 		for (int i = 0; i < loop_time; ++i)
+// 		{
+// 			game_map[i] = i;
+// 		}
+// 		for (int i = 0; i < loop_time; ++i)
+// 		{
+// 			game_map.erase(i);
+// 		}
+// 		printf("%d\n", GameTime::MilliSecond());
+// 		for (int i = 0; i < loop_time; ++i)
+// 		{
+// 			game_array.Insert(i);
+// 		}
+// 		for (int i = 0; i < loop_time; ++i)
+// 		{
+// 			game_array.Erase(i);
+// 		}
+// 		printf("%d\n", GameTime::MilliSecond());
 	}
 
 	void TestVector()

@@ -3,7 +3,7 @@
 #define GAME_MAP_H
 
 #include <stdlib.h>
-#include "libcommon/memorypool.h"
+//#include "libcommon/memorypool.h"
 
 #define GAME_MAP
 #include "rbtree.h"

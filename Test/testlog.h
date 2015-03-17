@@ -9,9 +9,9 @@ namespace TestLog
 {
 	void WriteLog()
 	{
-		Log	g_log("GameServer", "test.txt");
-		g_log.Normal("testlog");
-		g_log.Flush();
+// 		Log	g_log("GameServer", "test.txt");
+// 		g_log.Normal("testlog");
+// 		g_log.Flush();
 	}
 }
 

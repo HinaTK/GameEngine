@@ -12,6 +12,7 @@ class RBTree
 {
 public:
 	RBTree(unsigned int increase = 64);
+	~RBTree();
 		
 	void	Insert( K key);
 	void	Insert(K key, V &val);
@@ -48,6 +49,12 @@ RBTree<K, V>::RBTree(unsigned int increase /*= 64*/)
 	nil->parent = 0;
 	nil->right = 0;
 	nil->color = _BLACK;
+}
+
+template <class K, class V>
+RBTree<K, V>::~RBTree()
+{
+
 }
 
 template <class K, class V>

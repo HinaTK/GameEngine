@@ -62,7 +62,8 @@ int main()
 	//TestDataStructure::TestHash();
 	//TestOther::Test1();
 	//TestOther::Test2();
-	TestCache::TestDataQueue();
+	//TestCache::TestDataQueue();
+	TestCache::TestDataMap();
 	return 0;
 }
 
