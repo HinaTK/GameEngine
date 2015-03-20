@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\lib\include\cache\cachebase.h" />
     <ClInclude Include="..\..\lib\include\cache\dataadapter.h" />
-    <ClInclude Include="..\..\lib\include\cache\database.h" />
     <ClInclude Include="..\..\lib\include\cache\datacache.h" />
     <ClInclude Include="..\..\lib\include\cache\datamap.h" />
     <ClInclude Include="..\..\lib\include\cache\dataqueue.h" />
@@ -20,7 +20,6 @@
     <ClInclude Include="..\..\lib\include\cache\table.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lib\src\cache\database.cpp" />
     <ClCompile Include="..\..\lib\src\cache\datacache.cpp" />
     <ClCompile Include="..\..\lib\src\cache\datamap.cpp" />
     <ClCompile Include="..\..\lib\src\cache\dataqueue.cpp" />

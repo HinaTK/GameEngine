@@ -1,6 +1,6 @@
 
-#ifndef DATA_BASE_H
-#define DATA_BASE_H
+#ifndef CACHE_BASE_H
+#define CACHE_BASE_H
 
 class DataCallBack
 {

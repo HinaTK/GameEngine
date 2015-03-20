@@ -24,7 +24,7 @@
     <ClInclude Include="..\..\lib\include\cache\datamap.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\cache\database.h">
+    <ClInclude Include="..\..\lib\include\cache\cachebase.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
@@ -36,9 +36,6 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\cache\datamap.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\lib\src\cache\database.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
