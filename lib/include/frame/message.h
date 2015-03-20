@@ -4,7 +4,7 @@
 
 #include <string.h>
 #include "common/systemdef.h"
-#include "libcommon/memoryvl.h"
+#include "lib/include/common/memoryvl.h"
 
 class GameMsg
 {

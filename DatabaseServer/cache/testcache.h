@@ -2,7 +2,7 @@
 #ifndef TESTCACHE_H
 #define TESTCACHE_H
 
-#include "cache/datacache.h"
+#include "lib/include/cache/datacache.h"
 
 class TestCache
 {

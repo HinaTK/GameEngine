@@ -1,10 +1,11 @@
 
 #include <string.h>
 #include "databaseframe.h"
-#include "libcommon/serverconfig.h"
+#include "lib/include/common/serverconfig.h"
 #include "common/globalclass.h"
 #include "common/commonfunction.h"
-#include "cache/datacache.h"
+#include "lib/include/cache/datacache.h"
+#include "cache/datamapmanager.h"
 #include "../cache/testcache.h"
 #include "../other/example.h"
 #include "../database/database.h"
@@ -54,6 +55,8 @@ bool DatabaseFrame::InitConfig()
 		return false;
 	}
 	printf("connect database success\n");
+
+	//m_data_thread.Create()
 	return Init();
 }
 

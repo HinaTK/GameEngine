@@ -2,11 +2,12 @@
 #include <stdio.h>
 #include <time.h>
 #include "databaseframe.h"
-#include "log/log.h"
+#include "lib/include/log/log.h"
+#include "lib/include/common/memoryvl.h"
 #include "database/database.h"
 #include "table/tb_login.h"
 #include "common/protocol/messageheader.h"
-#include "libcommon/memoryvl.h"
+
 
 bool DatabaseFrame::Init()		// ¿ò¼Ü³õÊ¼»¯
 {

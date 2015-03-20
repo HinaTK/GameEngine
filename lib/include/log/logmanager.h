@@ -3,7 +3,7 @@
 #define LOG_MANAGER_H
 
 #include <vector>
-#include "timemanager/gametime.h"
+#include "lib/include/timemanager/gametime.h"
 
 class Log;
 class LogManager

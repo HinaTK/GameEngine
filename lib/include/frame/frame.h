@@ -2,10 +2,10 @@
 #ifndef FRAME_H
 #define FRAME_H
 
-#include "libcommon/mutex.h"
-#include "libcommon/thread.h"
-#include "timemanager/timemanager.h"
-#include "log/logmanager.h"
+#include "lib/include/common/mutex.h"
+#include "lib/include/common/thread.h"
+#include "lib/include/timemanager/timemanager.h"
+#include "lib/include/log/logmanager.h"
 #include "netmanager.h"
 
 class Frame

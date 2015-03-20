@@ -11,12 +11,11 @@ DataQueue::~DataQueue()
 
 }
 
-bool DataQueue::Push(const char *data, unsigned int length, CallBackFunc func)
+bool DataQueue::Push(const char *data, unsigned int length)
 {
 	DataInfo info;
 	info.data = data;
 	info.length = length;
-	info.func = func;
 	return m_queue.Push(info);
 }
 
@@ -39,10 +38,6 @@ bool DataQueue::Pop()
 		return false;
 	}
 	DataInfo *info = m_queue.Pop();
-	if (info->func != NULL)
-	{
-		info->func(info->data, info->length);
-	}
 	return true;
 }
 

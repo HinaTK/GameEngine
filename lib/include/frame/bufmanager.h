@@ -5,7 +5,7 @@
 #ifdef __unix
 #include <unistd.h>
 #endif
-#include "libcommon/memoryvl.h"
+#include "lib/include/common/memoryvl.h"
 
 class BufManager
 {

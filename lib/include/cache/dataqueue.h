@@ -9,13 +9,19 @@
 	*只支持字符串，一般数据可以通过序列化成字符串来进行保存
 */
 
-class DataQueue : public DataBase
+class DataQueue : public CacheBase
 {
 public:
 	DataQueue();
 	~DataQueue();
 
-	bool		Push(const char *data, unsigned int length, CallBackFunc func = NULL);
+	struct DataInfo
+	{
+		const char		*data;
+		unsigned int	length;
+	};
+
+	bool		Push(const char *data, unsigned int length);
 
 	bool		Pop(char *data, unsigned int &length);
 

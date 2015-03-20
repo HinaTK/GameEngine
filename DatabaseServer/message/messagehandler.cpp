@@ -2,7 +2,7 @@
 #include "messagehandler.h"
 #include "table/tb_login.h"
 #include "common/protocol/l_dbprotocol.h"
-#include "timemanager/gametime.h"
+#include "lib/include/timemanager/gametime.h"
 //#include "messageheader.h"
 
 void *FlushQueue(void * arg)

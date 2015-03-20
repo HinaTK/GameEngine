@@ -10,7 +10,7 @@
 #include <time.h>
 #include <stdio.h>
 #include "log.h"
-#include "libcommon/memorypool.h"
+#include "lib/include/common/memorypool.h"
 
 REGISTER_MEMORYPOOL(poolspace, Log, 16);
 

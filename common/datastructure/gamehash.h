@@ -2,8 +2,8 @@
 #ifndef GAME_HASH_H
 #define GAME_HASH_H
 
-#include "libcommon/memorypool.h"
-#include "libcommon/memoryvl.h"
+#include "lib/include/common/memorypool.h"
+#include "lib/include/common/memoryvl.h"
 #include "gamearray.h"
 
 /*

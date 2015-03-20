@@ -1,12 +1,12 @@
 
 #include "database.h"
 
-DataBase::DataBase()
+CacheBase::CacheBase()
 {
 
 }
 
-DataBase::~DataBase()
+CacheBase::~CacheBase()
 {
 
 }

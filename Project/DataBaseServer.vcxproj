@@ -70,7 +70,7 @@
     <OutDir>..\Debug\</OutDir>
     <IntDir>..\Debug\DatabaseServer\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..;..\DatabaseServer;..\lib\include;$(IncludePath)</IncludePath>
+    <IncludePath>..;..\DatabaseServer;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -161,6 +161,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\common\commonfunction.cpp" />
+    <ClCompile Include="..\DatabaseServer\cache\datamapmanager.cpp" />
     <ClCompile Include="..\DatabaseServer\database\database.cpp" />
     <ClCompile Include="..\DatabaseServer\database\gamemysql.cpp" />
     <ClCompile Include="..\DatabaseServer\database\gamemysqlstmt.cpp" />
@@ -176,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\commonfunction.h" />
+    <ClInclude Include="..\DatabaseServer\cache\datamapmanager.h" />
     <ClInclude Include="..\DatabaseServer\database\database.h" />
     <ClInclude Include="..\DatabaseServer\database\gamemysql.h" />
     <ClInclude Include="..\DatabaseServer\database\gamemysqlstmt.h" />

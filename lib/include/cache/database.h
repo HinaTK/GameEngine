@@ -2,25 +2,32 @@
 #ifndef DATA_BASE_H
 #define DATA_BASE_H
 
-class DataBase
+class DataCallBack
 {
 public:
-	DataBase();
-	~DataBase();
+	DataCallBack(){}
+	~DataCallBack(){}
 
-	typedef void(*CallBackFunc)(const char *data, unsigned int length);
-	struct DataInfo
+	virtual void OnCallBack(char *key, int operater, const char *data, unsigned int length) = 0;
+};
+
+class CacheBase
+{
+public:
+	CacheBase();
+	~CacheBase();
+
+	enum 
 	{
-		const char		*data;
-		unsigned int	length;
-		CallBackFunc	func;
+		INVALID,
+		DB_INSERT,
+		DB_DELETE,
+		DB_FIND,
+		DB_UPDATE
 	};
+	
+	virtual void	Flush(){}
 
-// 	bool		Push(const char *data, unsigned int length, CallBackFunc func = NULL);
-// 
-// 	bool		Pop(char *data, unsigned int &length);
-// 
-// 	bool		Pop();
 };
 
 #endif

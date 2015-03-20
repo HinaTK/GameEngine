@@ -72,8 +72,11 @@ public:
 
 	void			Erase(iterator &itr);
 
+	void			Clear();
+
 protected:
 	void			Resize();
+	void			Realease(ListNode *node);
 private:
 	unsigned int	m_size;				// 数据大小
 	unsigned int    m_buf_len;			// 容器大小
@@ -122,7 +125,7 @@ List<T>::~List()
 template<class T>
 bool List<T>::PushFront(T &val)
 {
-	memcpy(&m_list_head->val, &val, sizeof(T));
+	m_list_head->val = val;
 	if (m_node_pool != NULL)
 	{
 		ListNode *temp_node = m_node_pool->next;
@@ -160,7 +163,6 @@ bool List<T>::PushBack(T &val)
 			Resize();
 		}
 	}
-	//memcpy(&m_list_tail->next.val, &val, sizeof(T));
 	m_list_tail->next->val = val;
 	m_list_tail = m_list_tail->next;
 	++m_size;
@@ -185,13 +187,31 @@ void List<T>::Resize()
 template<class T>
 void game::List<T>::Erase(iterator &itr)
 {
-// 	if (itr == End())
-// 	{
-// 		return;
-// 	}
 	ListNode *node = NULL;
 	itr.Erase(&node);
 	
+	Realease(node);
+	
+	--m_size;
+}
+
+template<class T>
+void game::List<T>::Clear()
+{
+	ListNode *first_node = m_list_head->next;
+	ListNode *temp_node = NULL;
+	while (first_node != NULL)
+	{
+		temp_node = first_node;
+		first_node = first_node->next;
+		Realease(temp_node);
+	}
+}
+
+
+template<class T>
+void game::List<T>::Realease(ListNode *node)
+{
 	// 放入节点池
 	node->front = NULL;
 	if (m_node_pool != NULL)
@@ -205,26 +225,6 @@ void game::List<T>::Erase(iterator &itr)
 	}
 }
 
-// template<class T>
-// void List<T>::Erase(iterator itr)
-// {
-// 	if (itr == m_list_head)
-// 	{
-// 		return;
-// 	}
-// 	itr->front->next = itr->next;
-// 	itr->next->front = itr->front;
-// 	itr->front = NULL;
-// 	if (m_node_pool != NULL)
-// 	{
-// 		itr->next = m_node_pool;
-// 		m_node_pool->front = itr;
-// 	}
-// 	else
-// 	{
-// 		m_node_pool = itr;
-// 	}
-// }
 }
 
 #endif

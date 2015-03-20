@@ -2,10 +2,10 @@
 #ifndef MESSAGE_HANDLER_H
 #define MESSAGE_HANDLER_H
 
-#include "frame/message.h"
+#include "lib/include/frame/message.h"
 #include "common/protocol/internaltype.h"
 #include "common/datastructure/circlequeue.h"
-#include "libcommon/thread.h"
+#include "lib/include/common/thread.h"
 
 class MessageHandler
 {

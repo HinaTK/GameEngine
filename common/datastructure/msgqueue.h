@@ -5,7 +5,7 @@
 #include "circlequeue.h"
 #include "common/systemdef.h"
 //#include "common/memoryvl.h"
-#include "frame/message.h"
+#include "lib/include/frame/message.h"
 
 class MsgQueue
 {

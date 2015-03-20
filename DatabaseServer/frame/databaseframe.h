@@ -1,8 +1,8 @@
 #ifndef DATABASEFRAME_H
 #define DATABASEFRAME_H
 
-#include "timemanager/timemanager.h"
-#include "frame/frame.h"
+#include "lib/include/timemanager/timemanager.h"
+#include "lib/include/frame/frame.h"
 #include "message/messagehandler.h"
 
 class DatabaseFrame : public Frame
@@ -39,6 +39,7 @@ public:
 private:
 	DatabaseFrame();
 	MessageHandler		m_message_handler;
+	Thread				m_data_thread;
 	
 };
 
