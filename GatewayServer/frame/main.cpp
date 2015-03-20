@@ -63,3 +63,8 @@ void GatewayFrame::Exit()
 {
 
 }
+
+void GatewayFrame::Wait()
+{
+
+}

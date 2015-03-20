@@ -1,5 +1,6 @@
-#ifndef DATABASEFRAME_H
-#define DATABASEFRAME_H
+
+#ifndef DATA_BASE_FRAME_H
+#define DATA_BASE_FRAME_H
 
 #include "lib/include/timemanager/timemanager.h"
 #include "lib/include/frame/frame.h"
@@ -26,6 +27,8 @@ public:
 
     void	Exit();
 
+	void	Wait();
+
 	void	Recv(GameMsg *msg);
 
 public:
@@ -39,7 +42,6 @@ public:
 private:
 	DatabaseFrame();
 	MessageHandler		m_message_handler;
-	Thread				m_data_thread;
 	
 };
 

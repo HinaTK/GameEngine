@@ -5,7 +5,7 @@
 #include "libcommon/mutex.h"
 #include "common/datastructure/gamemap.h"
 #include "common/datastructure/gamelist.h"
-#include "database.h"
+#include "cachebase.h"
 
 /*
 	一个集合，用一个DataMap，因为Key需要唯一

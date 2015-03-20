@@ -1,8 +1,8 @@
 
 #include "globalclass.h"
-#include "log/log.h"
+
 
 namespace GlobalClass
 {
-	Log	g_log("GameServer", "test.txt");
+	bool g_is_exit = false;		// 进程是否退出
 }

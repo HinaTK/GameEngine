@@ -3,9 +3,9 @@
 
 #include "common/commonvariable.h"
 #include "common/datastructure/msgqueue.h"
-#include "libcommon/thread.h"
-#include "frame/frame.h"
-#include "libtimemanager.h"
+#include "lib/include/common/thread.h"
+#include "lib/include/frame/frame.h"
+#include "lib/include/timemanager/timemanager.h"
 
 
 class GameFrame : public Frame
@@ -31,8 +31,8 @@ public:
     void	Update(time_t now);  //更新
 
     void	Exit();
-
-	void	Recv(NetHandle handle, char *msg, unsigned int length);
+	void	Wait();
+	void	Recv(GameMsg *msg);
 
 public:
 

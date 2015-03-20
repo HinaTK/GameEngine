@@ -33,10 +33,9 @@ public:
      */
     void Update();  //更新
 
-    /*
-     *对游戏进行析构
-     */
-    void Exit();
+	void	Exit();
+	void	Wait();
+	void	Recv(GameMsg *msg);
 
 	void OnRecv(NetID user_id, char *msg, UInt16 length);
 

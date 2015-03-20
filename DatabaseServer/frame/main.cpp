@@ -6,6 +6,7 @@
 #include "lib/include/common/memoryvl.h"
 #include "database/database.h"
 #include "table/tb_login.h"
+#include "cache/datamapmanager.h"
 #include "common/protocol/messageheader.h"
 
 
@@ -89,6 +90,14 @@ void DatabaseFrame::Update(time_t now)	// ¹¹¼Ü¸üÐÂ
 void DatabaseFrame::Exit()
 {
 	m_message_handler.Exit();
+	DataMapManager::Instance().Exit();
+
 	printf("database server exit\n");
 }
 
+
+void DatabaseFrame::Wait()
+{
+	m_message_handler.Wait();
+	DataMapManager::Instance().Wait();
+}

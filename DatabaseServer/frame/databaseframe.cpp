@@ -2,9 +2,9 @@
 #include <string.h>
 #include "databaseframe.h"
 #include "lib/include/common/serverconfig.h"
+#include "lib/include/cache/datacache.h"
 #include "common/globalclass.h"
 #include "common/commonfunction.h"
-#include "lib/include/cache/datacache.h"
 #include "cache/datamapmanager.h"
 #include "../cache/testcache.h"
 #include "../other/example.h"
@@ -56,7 +56,7 @@ bool DatabaseFrame::InitConfig()
 	}
 	printf("connect database success\n");
 
-	//m_data_thread.Create()
+	DataMapManager::Instance().Init();
 	return Init();
 }
 

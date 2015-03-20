@@ -3,7 +3,7 @@
 #include <time.h>
 #include "gameframe.h"
 #include "common/protocol/messageheader.h"
-#include "libtinyxml.h"
+#include "lib/include/tinyxml/tinyxml.h"
 
 
 bool GameFrame::Init()		// 框架初始化
@@ -12,11 +12,10 @@ bool GameFrame::Init()		// 框架初始化
 }
 
 
-void GameFrame::Recv(NetHandle handle, char *msg, unsigned int length)
+void GameFrame::Recv(GameMsg *msg)
 {
 
 }
-
 
 void GameFrame::Update(time_t now)	// 构架更新
 {
@@ -35,3 +34,7 @@ void GameFrame::Exit()
 	printf("game server exit\n");
 }
 
+void GameFrame::Wait()
+{
+
+}

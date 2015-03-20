@@ -67,6 +67,10 @@ void MessageHandler::Exit()
 {
 	// ³åË¢m_queue
 	m_is_run = false;
+}
+
+void MessageHandler::Wait()
+{
 	m_flush_thread.Join();
 }
 

@@ -3,9 +3,9 @@
 
 
 #include "common/commonvariable.h"
-#include "libcommon/serverconfig.h"
-#include "libtimemanager.h"
-#include "frame/frame.h"
+#include "lib/include/common/serverconfig.h"
+#include "lib/include/timemanager/timemanager.h"
+#include "lib/include/frame/frame.h"
 
 class GatewayFrame : public Frame
 {
@@ -26,7 +26,7 @@ public:
     void	Update(time_t now);  //¸üÐÂ
 
 	void	Exit();
-
+	void	Wait();
 	void	Recv(GameMsg *msg);
 
 

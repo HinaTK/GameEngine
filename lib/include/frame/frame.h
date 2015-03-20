@@ -20,6 +20,8 @@ public:
 
 	virtual void		Exit() = 0;
 
+	virtual	void		Wait() = 0;
+
 	void				UpdateAll();
 
 	void				Send(NetHandle handle, const char *buf, unsigned int length);

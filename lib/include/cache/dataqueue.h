@@ -3,7 +3,7 @@
 #define DATA_QUEUE_H
 
 #include "common/datastructure/circlequeue.h"
-#include "database.h"
+#include "cachebase.h"
 
 /*
 	*只支持字符串，一般数据可以通过序列化成字符串来进行保存

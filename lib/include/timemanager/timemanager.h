@@ -41,6 +41,11 @@ protected:
 		{
 			return trigger_time < v.trigger_time;
 		}
+
+		bool operator >= (const Timer &v) const
+		{
+			return trigger_time >= v.trigger_time;
+		}
 	};
 
 	typedef game::Heap<Timer>		TIME_EVENT_HEAP;

@@ -36,7 +36,10 @@ Frame::~Frame()
 void Frame::SetExit()
 {
 	m_is_run = false;
-	m_log_manager.Flush();
+	m_net_manager.Exit();
+	Exit();
+	Wait();
+	m_log_thread.Join();
 }
 
 void *Listen(void * arg)
@@ -62,6 +65,7 @@ void *WriteLog(void * arg)
 		frame->GetLogManager()->Flush();
 		GameTime::GameSleep(sleepTime);
 	}
+	frame->GetLogManager()->Flush();
 	return NULL;
 }
 

@@ -3,7 +3,7 @@
 #include "common/datastructure/msgqueue.h"
 #include "common/commonfunction.h"
 #include "common/protocol/messageheader.h"
-#include "libcommon/serverconfig.h"
+#include "lib/include/common/serverconfig.h"
 #include "poolconfig/test.h"
 
 
@@ -44,15 +44,16 @@ bool GameFrame::InitConfig()
 		short b;
 		int c;
 	};
-	Test test;
-	test.a = 1;
-	test.b = 2;
-	test.c = 3;
-	test.header.msg_len = (sizeof(Test));
-	m_net_manager.Send(m_database_server_net_id, (const char *)&test, test.header.msg_len);
-// 	send(m_database_server_net_id, (const char *)&test, 1288, 0);
+// 	Test test;
+// 	test.a = 1;
+// 	test.b = 2;
+// 	test.c = 3;
+// 	test.header.msg_len = (sizeof(Test));
+// 	m_net_manager.Send(m_database_server_net_id, (const char *)&test, test.header.msg_len);
+// // 	send(m_database_server_net_id, (const char *)&test, 1288, 0);
 	return this->Init();
 }
+
 
 
 int main()

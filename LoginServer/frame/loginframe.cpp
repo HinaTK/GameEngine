@@ -1,7 +1,7 @@
 
 #include "loginframe.h"
-#include "libcommon/serverconfig.h"
-#include "libtimemanager.h"
+#include "lib/include/common/serverconfig.h"
+#include "lib/include/timemanager/timemanager.h"
 #include "common/commonfunction.h"
 
 

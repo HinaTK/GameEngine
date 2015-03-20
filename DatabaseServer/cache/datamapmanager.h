@@ -4,6 +4,7 @@
 
 #include <vector>
 #include "lib/include/cache/cachebase.h"
+#include "lib/include/common/thread.h"
 
 class DataMapManager
 {
@@ -25,9 +26,15 @@ public:
 
 	void	Flush();
 
+	void	Exit();
+	void	Wait();
+	bool	IsRun(){ return m_is_run; }
+
 private:
 	DataMapManager();
 	DATA_VECTOR	m_data_vector;
+	Thread		m_data_thread;
+	bool		m_is_run;
 };
 
 #endif

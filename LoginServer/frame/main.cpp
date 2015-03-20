@@ -7,11 +7,11 @@ bool LoginFrame::Init()
 }
 
 
-
-void LoginFrame::OnRecv( NetID user_id, char *msg, UInt16 length )
+void LoginFrame::Recv(GameMsg *msg)
 {
-	m_message_handler.HandleMessage(msg, length);
+
 }
+
 
 void LoginFrame::Update()
 {
@@ -23,3 +23,8 @@ void LoginFrame::Exit()
 
 }
 
+
+void LoginFrame::Wait()
+{
+
+}

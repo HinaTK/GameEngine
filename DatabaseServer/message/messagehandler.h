@@ -15,6 +15,7 @@ public:
 
 	void	HandleMessage(GameMsg *msg);
 	void	Exit();
+	void	Wait();
 
 	CircleQueue<GameMsg *> &DataQueue(){ return m_queue; }
 	bool	m_is_run;
