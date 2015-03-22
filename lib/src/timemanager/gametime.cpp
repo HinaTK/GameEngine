@@ -17,6 +17,7 @@ GameTime::GameTime()
 , m_day_id(0)
 , m_sceond_id(0)
 {
+	Update();
 }
 
 time_t GameTime::Time()

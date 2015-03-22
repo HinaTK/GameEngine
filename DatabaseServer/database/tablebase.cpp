@@ -1,6 +1,6 @@
 
 #include "tablebase.h"
-#include "libcommon/memoryvl.h"
+#include "lib/include/common/memoryvl.h"
 
 static const char *relationType[] = { ">", "=", "<", ">=", "<=", "<>" };
 static const char *connectType[] = { " AND ", " OR " };

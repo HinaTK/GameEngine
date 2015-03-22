@@ -1,7 +1,7 @@
 
 #include <stdlib.h>
 #include "timemanager.h"
-
+#include "gametime.h"
 
 
 TimeEventManager::TimeEventManager() 
@@ -21,8 +21,7 @@ void TimeEventManager::AddEvent(time_t interval, TimeEvent *e)
 
 void TimeEventManager::Update()
 {	
-	m_game_time.Update();
-	time_t now = m_game_time.Time();
+	time_t now = GameTime::Instance().Time();
 	if (now >= m_update_time)
 	{
 		Timer timer;

@@ -78,7 +78,7 @@ void DatabaseFrame::Recv(GameMsg *msg)
 	m_message_handler.HandleMessage(msg);
 }
 
-void DatabaseFrame::Update(time_t now)	// 构架更新
+void DatabaseFrame::Update(unsigned int interval, time_t now)	// 构架更新
 {
 	//StmtSelect();
 	//StmtInsert();

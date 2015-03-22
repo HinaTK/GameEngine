@@ -1,10 +1,11 @@
 
 #include <signal.h>
 #include "frame/frame.h"
-
 #include "frame/netcommon.h"
-#include "log/log.h"
 #include "frame/message.h"
+#include "log/log.h"
+#include "lib/include/timemanager/gametime.h"
+
 
 namespace SignalCatch
 {
@@ -25,7 +26,7 @@ Frame::Frame()
 {
 	SignalCatch::g_frame = this;
 	signal(SIGINT, SignalCatch::Catch);
-	m_log_manager.SetGameTime(m_time_manager.GetGameTime());
+	m_log_manager.SetGameTime(&GameTime::Instance());
 }
 
 Frame::~Frame()
@@ -79,17 +80,17 @@ void Frame::Send( NetHandle handle, const char *buf, unsigned int length )
 	m_net_manager.Send(handle, buf, length);
 }
 
-void Frame::UpdateAll()
+void Frame::UpdateAll(unsigned long long interval)
 {
-	m_time_manager.Update();
-	Update(m_time_manager.GetGameTime()->Time());
+	m_time_event_manager.Update();
+	Update((unsigned int)interval, GameTime::Instance().Time());
 }
 
 bool Frame::Run()
 {
 	GameMsg		**msg = NULL;
 	MsgQueue	*recvQueue = m_net_manager.GetMsgQueue();
-	unsigned long long		last_time_ms = m_time_manager.GetGameTime()->MilliSecond();	// 上一次更新时间
+	unsigned long long		last_time_ms = GameTime::Instance().MilliSecond();	// 上一次更新时间
 	unsigned long long		cur_time_ms = 0;
 	unsigned long long		second = 0;
 	unsigned long long		oneMinute = 60000;
@@ -98,7 +99,7 @@ bool Frame::Run()
 	this->Listen();
 	while (m_is_run)
 	{
-		cur_time_ms = m_time_manager.GetGameTime()->MilliSecond();
+		cur_time_ms = GameTime::Instance().MilliSecond();
 		if (!recvQueue->IsEmpty())
 		{
 			msg = recvQueue->Pop();
@@ -123,7 +124,7 @@ bool Frame::Run()
 
 		if ((cur_time_ms - last_time_ms) >= m_update_interval)
 		{
-			UpdateAll();
+			UpdateAll(cur_time_ms - last_time_ms);
 			last_time_ms = cur_time_ms;
 		}
 	}

@@ -3,7 +3,6 @@
 #define TIME_MANAGER_H
 
 #include <time.h>
-#include "gametime.h"
 #include "common/datastructure/gameheap.h"
 
 /*
@@ -24,9 +23,6 @@ public:
 	TimeEventManager();
 	~TimeEventManager();
 
-	GameTime			*GetGameTime(){ return &m_game_time; }
-// 	time_t				Time(){ return m_game_time.Time(); }
-// 	unsigned long long	MilliSecond(){ return m_game_time.MilliSecond(); }
 	void				AddEvent(time_t interval, TimeEvent *e);
 	void				Update();
 protected:
@@ -51,7 +47,6 @@ protected:
 	typedef game::Heap<Timer>		TIME_EVENT_HEAP;
 protected:
 	TIME_EVENT_HEAP	m_event_heap;
-	GameTime		m_game_time;
 	time_t	m_update_time;				// 下次更新的时间
 };
 

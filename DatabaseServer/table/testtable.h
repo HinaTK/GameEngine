@@ -2,7 +2,7 @@
 #define TESTTABLE_H
 
 #include "../database/gamemysqlstmt.h"
-#include "cache/dataadapter.h"
+#include "lib/include/cache/dataadapter.h"
 
 class TestTable:public GameMysqlStmt
 {

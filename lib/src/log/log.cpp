@@ -18,6 +18,8 @@ Log::Log(const char *server_name, const char *log_name)
 : m_log_fp(NULL)
 , m_root_dir(server_name)
 , m_log_name(log_name)
+, m_day(0)
+, m_hour(0)
 {
 	char path[512];
 #ifdef WIN32
@@ -36,23 +38,6 @@ Log::Log(const char *server_name, const char *log_name)
 	m_root_dir = m_root_dir + "/" + server_name;
 	mkdir(m_root_dir.c_str(), 0777);
 #endif
-	do 
-	{
-		if (!MakeDayDir())
-		{
-			break;
-		}
-		if (!MakeHourDir())
-		{
-			break;
-		}
-		if (!MakeFile())
-		{
-			break;
-		}
-		return;
-	} while (false);
-	printf("Log Init error!!!\n");
 }
 
 Log::~Log()
@@ -109,13 +94,22 @@ void Log::Flush(int day, int hour)
 	{
 		return;
 	}
-	if (m_day != day)
+
+	do 
 	{
-		if (!MakeDayDir())
+		if (m_day != day)
 		{
-			RETURN_AND_CLEAR();
+			if (!MakeDayDir(day))
+			{
+				RETURN_AND_CLEAR();
+			}	
 		}
-		if (!MakeHourDir())
+		else if (m_hour == hour)
+		{
+			break;
+		}
+
+		if (!MakeHourDir(hour))
 		{
 			RETURN_AND_CLEAR();
 		}
@@ -123,18 +117,8 @@ void Log::Flush(int day, int hour)
 		{
 			RETURN_AND_CLEAR();
 		}
-	}
-	else if (m_hour != hour)
-	{
-		if (!MakeHourDir())
-		{
-			RETURN_AND_CLEAR();
-		}
-		if (!MakeFile())
-		{
-			RETURN_AND_CLEAR();
-		}
-	}
+	} while (false);
+	
 	if (m_log_fp == NULL)
 	{
 		RETURN_AND_CLEAR();
@@ -145,10 +129,10 @@ void Log::Flush(int day, int hour)
 	} while (!m_queue.IsEmpty());
 }
 
-bool Log::MakeDayDir()
+bool Log::MakeDayDir(int day)
 {
 	char dir[32];
-	m_day = Day();
+	m_day = day;
 #ifdef WIN32
 	sprintf(dir, "\\%d", m_day);
 	std::string temp = m_root_dir + dir;
@@ -163,10 +147,10 @@ bool Log::MakeDayDir()
 	return true;
 }
 
-bool Log::MakeHourDir()
+bool Log::MakeHourDir(int hour)
 {
 	char dir[32];
-	m_hour = Hour();
+	m_hour = hour;
 #ifdef WIN32
 	sprintf(dir, "\\%d", m_hour);
 	std::string temp = m_root_dir + m_day_dir + dir;

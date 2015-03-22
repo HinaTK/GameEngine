@@ -17,7 +17,7 @@ void GameFrame::Recv(GameMsg *msg)
 
 }
 
-void GameFrame::Update(time_t now)	// 构架更新
+void GameFrame::Update(unsigned int interval, time_t now)	// 构架更新
 {
 	//m_time_event_manager.Update(now);
 	//StmtSelect();

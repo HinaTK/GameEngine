@@ -24,10 +24,8 @@ public:
 	void		operator delete(void *m);
 
 private:
-// 	int		Day();
-// 	int		Hour();
-	bool	MakeDayDir();
-	bool	MakeHourDir();
+	bool	MakeDayDir(int day);
+	bool	MakeHourDir(int hour);
 	bool	MakeFile();
 
 	FILE		*m_log_fp;

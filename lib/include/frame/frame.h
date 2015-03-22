@@ -16,13 +16,13 @@ public:
 
 	virtual	void		Recv(GameMsg *msg) = 0;
 
-	virtual	void		Update(time_t now){};  //更新
+	virtual	void		Update(unsigned int interval, time_t now) = 0;  //更新
 
 	virtual void		Exit() = 0;
 
 	virtual	void		Wait() = 0;
 
-	void				UpdateAll();
+	void				UpdateAll(unsigned long long interval);
 
 	void				Send(NetHandle handle, const char *buf, unsigned int length);
 
@@ -42,7 +42,7 @@ public:
 protected:
 	unsigned long long	UpdateInternal(){ return m_update_interval; }
 	NetManager			m_net_manager;
-	TimeEventManager	m_time_manager;
+	TimeEventManager	m_time_event_manager;
 	LogManager			m_log_manager;
 
 private:
