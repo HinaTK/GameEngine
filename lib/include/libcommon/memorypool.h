@@ -2,7 +2,7 @@
 #ifndef MEMORY_POOL_H
 #define MEMORY_POOL_H
 
-#include <vector>
+#include "lib/gamevector.h"
 
 class MemoryPool
 {
@@ -19,8 +19,9 @@ private:
 private:
 	unsigned int m_size;
 	unsigned int m_increase;
-	std::vector<void *> m_pool;
-	std::vector<void *> m_has_malloc;
+
+	game::Vector<void *> m_pool;
+	game::Vector<void *> m_has_malloc;
 	bool		 m_init;
 };
 
@@ -31,12 +32,12 @@ namespace PoolNameSpace\
 {\
 	MemoryPool g_##ClassName##_mem_pool(sizeof(ClassName), IncreaseNum);\
 }\
-void *ClassName::operator new(size_t size)\
+	void *ClassName::operator new(size_t size)\
 {\
 	void *mem = PoolNameSpace::g_##ClassName##_mem_pool.Alloc();\
 	return mem;\
 }\
-void ClassName::operator delete(void *m)\
+	void ClassName::operator delete(void *m)\
 {\
 	PoolNameSpace::g_##ClassName##_mem_pool.Free(m);\
 }

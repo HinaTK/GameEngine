@@ -378,15 +378,15 @@ namespace TestDataStructure
 // 		test2.Push("234", a);
 // 		printf("%d\n", test2["234"]);
 // 
-// 		game::Hash<int, const char *> test3;
-// 		test3.Push(a, "4567");
-// 		printf("test3 %s\n", test3[a]);
+		game::Hash<int, const char *> test3;
+		const char *val = "jiaming";
+		test3.Push(a, val);
+		printf("test3 %s\n", test3[a]);
 // 
-// 		game::Hash<const char *, const char *> test4;
-// 		test4.Push("jjj", "hhhh");
-// 		test4.Push("kkk", "llll");
-// 
-// 		printf("test4 %s\n", test4["jjj"]);
+		game::Hash<const char *, const char *> test4;
+		test4.Push("xian", val);
+
+		printf("test4 %s\n", test4["xian"]);
 
 	}
 }

@@ -50,10 +50,6 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, NetID &n
 	}
 #endif
 
-//	unsigned long _ip = inet_addr(ip);
-// 	if (ip_n == INADDR_NONE) return false;
-// 
-// 	IP ip_host = ntohl(ip_n);
 	NetHandler *handler;
 	if (is_web)
 	{
@@ -283,17 +279,15 @@ void NetManager::ClearHandler()
 			}
 #ifdef WIN32
 			FD_CLR(handler->m_net_id, &m_read_set);
-			NetCommon::Close(handler->m_net_id);
 #endif
 #ifdef __unix
 			epoll_ctl(m_epoll_fd, EPOLL_CTL_DEL, handler->m_net_id, &ev);
 #endif
+			NetCommon::Close(handler->m_net_id);
 			delete handler;
 		}	
 	}
 	m_invalid_handle.Clear();
-
-
 }
 
 #ifdef WIN32

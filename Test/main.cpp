@@ -59,11 +59,11 @@ int main()
 	//TestDataStructure::TestGameMapOnly();
 	//TestDataStructure::TestGameMapCmpMap();
 	//TestDataStructure::TestList();
-	//TestDataStructure::TestHash();
+	TestDataStructure::TestHash();
 	//TestOther::Test1();
 	//TestOther::Test2();
 	//TestCache::TestDataQueue();
-	TestCache::TestDataMap();
+	//TestCache::TestDataMap();
 	return 0;
 }
 
