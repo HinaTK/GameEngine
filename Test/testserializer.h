@@ -3,7 +3,7 @@
 #define TEST_SERIALIZER_H
 
 #include <vector>
-#include "libcommon/serializer.h"
+#include "lib/include/common/serializer.h"
 #ifdef WIN32
 #include <windows.h>
 #endif // WIN32

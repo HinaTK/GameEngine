@@ -105,6 +105,7 @@ bool game::Hash<K, V>::Push(K key, V &val)
 	return true;
 }
 
+
 template<class K, class V>
 void game::Hash<K, V>::Erase(K key)
 {
@@ -153,149 +154,6 @@ HASVAL:;
 }
 
 /************************************************
-	key和val 都是是字符串
-*************************************************/
-// template<>
-// class Hash<const char*, const char*>
-// {
-// public:
-// 	HASH_HEADER();
-// 
-// 	struct ListNode
-// 	{
-// 		char* key;
-// 		char* val;
-// 		ListNode *next;
-// 	};
-// 
-// 	template<class V, class Handle = Hash>
-// 	class Iterator
-// 	{
-// 		friend class Hash;
-// 	public:
-// 		Iterator(unsigned int _index = 0, ListNode *_node = NULL, Handle *handle = NULL)
-// 			: index(_index)
-// 			, node(_node)
-// 			, m_handle(handle)
-// 		{
-// 		}
-// 		~Iterator(){}
-// 
-// 		Iterator<V, Handle>& operator ++()
-// 		{
-// 			while (1)
-// 			{
-// 				if (node->next != NULL)
-// 				{
-// 					node = node->next;
-// 					break;
-// 				}
-// 				++index;
-// 				if (index >= m_handle->m_size)
-// 				{
-// 					break;
-// 				}
-// 				node = m_handle->m_hash_list[index];
-// 			}
-// 
-// 			return *this;
-// 		}
-// 
-// 		V* operator->() { return &node->val.mem; }
-// 		V& operator*() { return node->val.mem; }
-// 
-// 		bool operator==(const Iterator<V, Handle> &right) const { return (index == right.index && m_handle == right.m_handle); }
-// 		bool operator!=(const Iterator<V, Handle> &right) const { return (index != right.index || m_handle != right.m_handle); }
-// 
-// 		unsigned int index;
-// 		ListNode *node;
-// 	private:
-// 		Handle *m_handle;
-// 	};
-// 
-// 	typedef Iterator<char*> iterator;
-// 
-// 	bool	Push(const char* key, const char *val, int len = 0)
-// 	{
-// 		if (len < 0)
-// 		{
-// 			return false;
-// 		}
-// 		else if (len == 0)
-// 		{
-// 			len = (int)strlen(val);
-// 		}
-// 
-// 		unsigned int key_len = (unsigned int)strlen(key);
-// 		unsigned int real_key = _RealKey(key, key_len);
-// 
-// 		unsigned int index = real_key % m_size;
-// 
-// 		ListNode *node = (ListNode *)m_memory_pool.Alloc();
-// 		node->key = (char *)MemoryVL::Instance().Malloc(key_len + 1);
-// 		memcpy(node->key, key, key_len);
-// 		node->key[key_len] = 0;
-// 
-// 		node->val = (char *)MemoryVL::Instance().Malloc(len + 1);
-// 		memcpy(node->val, val, len);
-// 		node->val[len] = 0;
-// 
-// 		if (m_hash_list[index] == NULL)
-// 		{
-// 			node->next = NULL;
-// 		}
-// 		else
-// 		{
-// 			node->next = m_hash_list[index];
-// 		}
-// 		m_hash_list[index] = node;
-// 		return true;
-// 	}
-// 
-// 	void	Erase(const char* key);
-// 
-// 	const char* 	operator[](const char* key)
-// 	{
-// 		if (key == NULL)
-// 		{
-// 			return m_nil;
-// 		}
-// 		static ListNode *node = NULL;
-// 		unsigned int len = (unsigned int)strlen(key);
-// 		if (len > 32)
-// 		{
-// 			return m_nil;
-// 		}
-// 		unsigned int real_key = _RealKey(key, len);
-// 		unsigned int index = real_key % m_size;
-// 
-// 		node = m_hash_list[index];
-// 		while (node != NULL)
-// 		{
-// 			if (memcmp(node->key, key, len) == 0)
-// 			{
-// 				goto HASVAL;
-// 			}
-// 			node = node->next;
-// 		}
-// 		return m_nil;
-// 	HASVAL:;
-// 		return (node->val);
-// 	}
-// 
-// 	const char*		Nil(){ return m_nil; }
-// 
-// 	iterator	Begin(){ return iterator(0, m_hash_list[0], this); }
-// 	iterator	End(){ return iterator(m_size - 1, NULL, this); }
-// 
-// private:
-// 	unsigned int	m_size;
-// 	ListNode		**m_hash_list;
-// 	MemoryPool		m_memory_pool;
-// 	const char*		m_nil;
-// };
-
-/************************************************
 	key 是字符串
 *************************************************/
 template<class V>
@@ -317,18 +175,18 @@ public:
 	typedef Array<V> _Array;
 	typedef typename _Array::iterator iterator;
 
-	bool	Push(const char *key, V &val);
-
-	V &		operator[](const char *key);
+	bool	Push(const char *key, V &val, unsigned int key_len = 0);
+	V &		Val(const char *key, unsigned int key_len = 0);
+	V &		operator[](const char *key){ return Val(key); };
+	V		Nil(){ return m_nil; }
 
 	struct KeyNode
 	{
-		const char		*key;
+		char			*key;
 		unsigned int	array_key;
 		KeyNode			*next;
 	};
 
-	
 private:
 	unsigned int	m_size;
 	KeyNode			**m_hash_list;
@@ -337,11 +195,13 @@ private:
 	V				m_nil;
 };
 
-
 template<class V>
-bool game::Hash<const char *, V>::Push(const char *key, V &val)
+bool game::Hash<const char *, V>::Push(const char *key, V &val, unsigned int key_len)
 {
-	unsigned int key_len = (unsigned int)strlen(key);
+	if (key_len == 0)
+	{
+		key_len = (unsigned int)strlen(key);
+	}
 	if (key_len > HASH_MAX_KEY_LEN)
 	{
 		return false;
@@ -350,7 +210,7 @@ bool game::Hash<const char *, V>::Push(const char *key, V &val)
 	unsigned int real_key = _key % m_size;
 
 	KeyNode *node = (KeyNode *)m_memory_pool.Alloc();
-	node->key = (const char *)MemoryVL::Instance().Malloc(key_len);
+	node->key = (char *)MemoryVL::Instance().Malloc(key_len);
 	memcpy(node->key, key, key_len);
 	node->array_key = m_value_array.Insert(val);
 
@@ -369,25 +229,24 @@ bool game::Hash<const char *, V>::Push(const char *key, V &val)
 }
 
 template<class V>
-V & game::Hash<const char *, V>::operator[](const char *key)
+V & game::Hash<const char *, V>::Val(const char *key, unsigned int key_len /*= 0*/)
 {
-	if (key == NULL)
+	if (key_len == 0)
 	{
-		return m_nil;
+		key_len = (unsigned int)strlen(key);
 	}
+	if (key == NULL) return m_nil;
+
+	if (key_len > HASH_MAX_KEY_LEN) return m_nil;
+
 	KeyNode *node = NULL;
-	unsigned int len = (unsigned int)strlen(key);
-	if (len > HASH_MAX_KEY_LEN)
-	{
-		return m_nil;
-	}
-	unsigned int _key = _RealKey(key, len);
+	unsigned int _key = _RealKey(key, key_len);
 	unsigned int real_key = _key % m_size;
-	
+
 	node = m_hash_list[real_key];
 	while (node != NULL)
 	{
-		if (memcmp(node->key, key, len) == 0)
+		if (memcmp(node->key, key, key_len) == 0)
 		{
 			goto HASVAL;
 		}

@@ -4,7 +4,7 @@
 
 #include "gamemap.h"
 #include "gamevector.h"
-#include "libcommon/memorypool.h"
+#include "lib/include/common/memorypool.h"
 
 /*
 	有序映射，具快速插入、查找及排序的能力

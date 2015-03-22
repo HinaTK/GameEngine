@@ -2,7 +2,7 @@
 #ifndef RB_TREE_H
 #define RB_TREE_H
 
-#include "libcommon/memorypool.h"
+#include "lib/include/common/memorypool.h"
 
 #define _BLACK	false
 #define _RED	true

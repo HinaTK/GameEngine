@@ -2,7 +2,7 @@
 #ifndef TEST_MEMORY_H
 #define TEST_MEMORY_H
 
-#include "libcommon/memoryvl.h"
+#include "lib/include/common/memoryvl.h"
 
 namespace TestMemory
 {

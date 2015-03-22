@@ -2,7 +2,7 @@
 #ifndef DATA_MAP_H
 #define	DATA_MAP_H
 
-#include "libcommon/mutex.h"
+#include "lib/include/common/mutex.h"
 #include "common/datastructure/gamemap.h"
 #include "common/datastructure/gamelist.h"
 #include "cachebase.h"

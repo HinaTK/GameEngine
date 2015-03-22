@@ -2,7 +2,7 @@
 #ifndef MEMORY_POOL_H
 #define MEMORY_POOL_H
 
-#include "lib/gamevector.h"
+#include "common/datastructure/gamevector.h"
 
 class MemoryPool
 {

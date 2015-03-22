@@ -6,54 +6,54 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\include\libcommon\commonconfig.h">
+    <ClInclude Include="..\..\lib\include\common\commonconfig.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\libcommon\md5.h">
+    <ClInclude Include="..\..\lib\include\common\md5.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\libcommon\memorypool.h">
+    <ClInclude Include="..\..\lib\include\common\memorypool.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\libcommon\memoryvl.h">
+    <ClInclude Include="..\..\lib\include\common\memoryvl.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\libcommon\mutex.h">
+    <ClInclude Include="..\..\lib\include\common\mutex.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\libcommon\serializer.h">
+    <ClInclude Include="..\..\lib\include\common\serializer.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\libcommon\serverconfig.h">
+    <ClInclude Include="..\..\lib\include\common\serverconfig.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\libcommon\thread.h">
+    <ClInclude Include="..\..\lib\include\common\thread.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lib\src\libcommon\commonconfig.cpp">
+    <ClCompile Include="..\..\lib\src\common\commonconfig.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\libcommon\md5.cpp">
+    <ClCompile Include="..\..\lib\src\common\md5.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\libcommon\memorypool.cpp">
+    <ClCompile Include="..\..\lib\src\common\memorypool.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\libcommon\memoryvl.cpp">
+    <ClCompile Include="..\..\lib\src\common\memoryvl.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\libcommon\mutex.cpp">
+    <ClCompile Include="..\..\lib\src\common\mutex.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\libcommon\serializer.cpp">
+    <ClCompile Include="..\..\lib\src\common\serializer.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\libcommon\serverconfig.cpp">
+    <ClCompile Include="..\..\lib\src\common\serverconfig.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\libcommon\thread.cpp">
+    <ClCompile Include="..\..\lib\src\common\thread.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
