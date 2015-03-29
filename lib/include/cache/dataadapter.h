@@ -2,7 +2,7 @@
 #ifndef DATAADAPTER_H
 #define DATAADAPTER_H
 
-#include <vector>
+//#include <vector>
 
 enum DataType
 {
@@ -15,7 +15,7 @@ enum DataType
 	DT_TIME
 };
 
-struct DataField
+struct FieldInfo
 {
 	unsigned short	name;
 	unsigned short	type;
@@ -35,24 +35,28 @@ union DataValue
 	long long		dv_time;
 };
 
-
-class DataAdapter
+struct FieldData
 {
-public:
-
-	enum DataType
-	{
-		DT_CHAR,
-		DT_INT,
-		DT_LONG,		// 64位整型
-		DT_FLOAT,
-		DT_DOUBLE,
-		DT_STR		// 字符串
-	};
-
-	std::vector<DataField> m_fields;
-private:
-	//std::vector<DataField> m_fields;
+	unsigned short	field;
+	DataValue		value;
 };
+
+
+// class DataAdapter
+// {
+// public:
+// 
+// 	enum DataType
+// 	{
+// 		DT_CHAR,
+// 		DT_INT,
+// 		DT_LONG,		// 64位整型
+// 		DT_FLOAT,
+// 		DT_DOUBLE,
+// 		DT_STR		// 字符串
+// 	};
+// 
+// 	std::vector<DataField> m_fields;
+// };
 
 #endif

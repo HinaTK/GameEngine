@@ -67,8 +67,6 @@ public:
 
 	bool			EraseIndex(unsigned int index);
 
-	bool			Resize();
-
 	iterator		Begin(){ return iterator(0, this); }
 
 	iterator		End(){ return iterator(m_index, this); }
@@ -87,6 +85,10 @@ public:
 
 	void			Clear();
 
+	bool			Init(unsigned int size);	// 初始化数据
+
+protected:
+	bool			Resize();
 private:
 	T * m_list;
 	unsigned int m_size;		// 容器容量
@@ -175,6 +177,19 @@ void Vector<T>::Clear()
 	}
 	m_index = 0;
 }
+
+
+template<class T>
+bool game::Vector<T>::Init(unsigned int size)
+{
+	if (size < m_size)
+	{
+		return false;
+	}
+	m_index = size;
+	return true;
+}
+
 }
 
 #endif

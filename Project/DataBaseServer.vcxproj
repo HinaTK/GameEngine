@@ -173,7 +173,6 @@
     <ClCompile Include="..\DatabaseServer\table\testtable.cpp" />
     <ClCompile Include="..\DatabaseServer\frame\databaseframe.cpp" />
     <ClCompile Include="..\DatabaseServer\frame\main.cpp" />
-    <ClCompile Include="..\DatabaseServer\cache\testcache.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\commonfunction.h" />
@@ -193,7 +192,6 @@
     <ClInclude Include="..\common\protocol\l_dbprotocol.h" />
     <ClInclude Include="..\common\protocol\messageheader.h" />
     <ClInclude Include="..\DatabaseServer\frame\databaseframe.h" />
-    <ClInclude Include="..\DatabaseServer\cache\testcache.h" />
     <ClInclude Include="..\DatabaseServer\other\example.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

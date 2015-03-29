@@ -4,6 +4,7 @@
 
 #include "cache/dataqueue.h"
 #include "cache/datamap.h"
+#include "cache/datacache.h"
 
 namespace TestCache
 {
@@ -72,6 +73,36 @@ namespace TestCache
 // 
 // 		const char *data = NULL;
 // 		m_data.Find(key2, &data, length);
+	}
+
+	void TestDataCache()
+	{
+		
+
+		enum CacheField
+		{
+			ROLE_ID,
+			ROLE_NAME,
+			GOLD,
+			COIN,
+			MAX_FIELD
+		};
+
+		DataCache<int> cache(MAX_FIELD);
+		cache.FieldDefine(ROLE_ID,		DT_INT, 4);
+		cache.FieldDefine(ROLE_NAME,	DT_STR, 32);
+		cache.FieldDefine(GOLD,			DT_INT, 4);
+		cache.FieldDefine(COIN,			DT_INT, 4);
+
+		DataList list;
+		FieldData data;
+		data.field = ROLE_ID;
+		data.value.dv_int = 789;
+		list.Push(data);
+		int key = 123;
+		cache.Update(key, list);
+		DataList list2;
+		cache.Find(key, list2);
 	}
 
 }

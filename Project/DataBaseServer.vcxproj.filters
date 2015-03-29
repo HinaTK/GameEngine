@@ -54,9 +54,6 @@
     <ClCompile Include="..\DatabaseServer\frame\main.cpp">
       <Filter>frame</Filter>
     </ClCompile>
-    <ClCompile Include="..\DatabaseServer\cache\testcache.cpp">
-      <Filter>cache</Filter>
-    </ClCompile>
     <ClCompile Include="..\DatabaseServer\database\database.cpp">
       <Filter>database</Filter>
     </ClCompile>
@@ -106,9 +103,6 @@
     </ClInclude>
     <ClInclude Include="..\DatabaseServer\frame\databaseframe.h">
       <Filter>frame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DatabaseServer\cache\testcache.h">
-      <Filter>cache</Filter>
     </ClInclude>
     <ClInclude Include="..\DatabaseServer\other\example.h">
       <Filter>other</Filter>
