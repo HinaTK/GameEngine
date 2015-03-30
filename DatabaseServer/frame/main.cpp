@@ -17,12 +17,12 @@ bool DatabaseFrame::Init()		// 框架初始化
 
 	if (0)
 	{
-		test.m_ID = 111;
-		test.m_ACCOUNT = 222;
-		test.m_PASSWORD = 333;
+		test.m_id = 111;
+		test.FIELD(account) = 222;
+		test.FIELD(password) = 333;
 		//memset(test.m_NAME.data, 0, 32);
-		test.SetBufferLength(TB_Login::NAME, 4);
-		memcpy(test.m_NAME.data, "xian", 4);
+		test.SetBufferLength(TB_Login::name, 4);
+		memcpy(test.m_name.data, "xian", 4);
 		test.Insert();
 	}
 	
@@ -30,7 +30,7 @@ bool DatabaseFrame::Init()		// 框架初始化
 	{
 		//test.SetCondition()
 	}
-	test.m_ID = 0;
+	test.m_id = 0;
 	if (!test.Select())
 	{
 		return false;
@@ -38,9 +38,9 @@ bool DatabaseFrame::Init()		// 框架初始化
 
 	while (test.HasResult())
 	{
-		printf("%d\n", test.m_ID);
-		printf("%d\n", test.m_ACCOUNT);
-		printf("%s\n", test.m_NAME.data);
+		printf("%d\n", test.m_id);
+		printf("%d\n", test.m_account);
+		printf("%s\n", test.m_name.data);
 	}
 
 //	char *query = "select id,name from login;";

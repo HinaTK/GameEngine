@@ -10,11 +10,11 @@
 typedef game::Vector<FieldData> DataList;
 typedef game::Vector<DataValue> DataVector;
 
-class DataCallBack
+class CallBack
 {
 public:
-	DataCallBack(){}
-	~DataCallBack(){}
+	CallBack(){}
+	~CallBack(){}
 
 	virtual void OnCallBack(char *key, int operater, DataVector &vector) = 0;
 };
@@ -81,7 +81,7 @@ public:
 	};
 
 	void			FieldDefine(unsigned short name, unsigned short type, unsigned int length);
-	void			SetCallBack(DataCallBack *call_back){ m_call_back = call_back; }
+	void			SetCallBack(CallBack *call_back){ m_call_back = call_back; }
 	void			SetDirtyList(DirtyDataList *list){ m_dirty_data_list = list; }
 	DirtyDataList  *GetDirtyList(){ return m_dirty_data_list; }
 	Mutex		   &GetMutex(){ return m_dirty_mutex; };
@@ -101,7 +101,7 @@ public:
 private:
 	DATA_MAP			m_data_map;
 	DirtyDataList		*m_dirty_data_list;
-	DataCallBack		*m_call_back;
+	CallBack		*m_call_back;
 	unsigned short		m_field_length;
 
 	Mutex				m_dirty_mutex;

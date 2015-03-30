@@ -36,19 +36,31 @@ TableBase::TableBase(unsigned int max_field, unsigned short table_type, std::str
 , m_result(NULL)
 , m_max_field(max_field)
 {
-	
+	m_param = new MYSQL_BIND[max_field];
+	m_field_name = new std::string[max_field];
+}
+
+TableBase::~TableBase()
+{
+	for (STR_FIELD::iterator itr = m_str_field.begin(); itr != m_str_field.end(); ++itr)
+	{
+		if (itr->field >= m_max_field)
+		{
+			continue;
+		}
+		MemoryVL::Instance().Free(m_param[itr->field].buffer);
+	}
+	delete[] m_param;
+	delete[] m_field_name;
 }
 
 void TableBase::Init()
 {
-	int max_field = MaxField();
-	std::string *fields = FieldsName();
-
 	m_insert_base = "INSERT INTO " + m_table_name + " (";
 	std::string val;
-	for (int i = 0; i < max_field; ++i)
+	for (unsigned int i = 0; i < m_max_field; ++i)
 	{
-		m_insert_base += fields[i] + ",";
+		m_insert_base += m_field_name[i] + ",";
 		val += "?,";
 	}
 	m_insert_base.replace(m_insert_base.size() - 1, 1, ") VALUES (");
@@ -56,17 +68,17 @@ void TableBase::Init()
 	m_insert_base += val;
 
 	m_select_base = "SELECT ";
-	for (int i = 0; i < max_field; ++i)
+	for (unsigned int i = 0; i < m_max_field; ++i)
 	{
-		m_select_base += fields[i] + ",";
+		m_select_base += m_field_name[i] + ",";
 	}
 	m_select_base.replace(m_select_base.size() - 1, 1, " FROM ");
 	m_select_base += m_table_name + " ";
 
 	m_update_base = "UPDATE " + m_table_name + "SET";
-	for (int i = 0; i <max_field; ++i)
+	for (unsigned int i = 0; i < m_max_field; ++i)
 	{
-		m_update_base += fields[i] + "=(?),";
+		m_update_base += m_field_name[i] + "=(?),";
 	}
 	m_update_base.replace(m_update_base.size() - 1, 1, "");
 
@@ -75,9 +87,8 @@ void TableBase::Init()
 
 bool TableBase::Insert()
 {
-//	BindParam();
 	if (0 != mysql_stmt_prepare(m_stmt, m_insert_base.c_str(), m_insert_base.size()) ||
-		0 != mysql_stmt_bind_param(m_stmt, GetParam()) ||
+		0 != mysql_stmt_bind_param(m_stmt, m_param) ||
 		0 != mysql_stmt_execute(m_stmt))
 	{
 		return false;
@@ -103,7 +114,7 @@ bool TableBase::Select()
 	
 	ResetBufferLength();		// 重置字符串缓冲区为默认大小
 
-	if (0 != mysql_stmt_bind_result(m_stmt, GetParam()))
+	if (0 != mysql_stmt_bind_result(m_stmt, m_param))
 	{
 		return false; 
 	}
@@ -120,7 +131,7 @@ bool TableBase::Update()
 	update_sql += " WHERE " + m_condition[UPDATE_OPER] + ";";
 	m_condition[UPDATE_OPER] = "";
 	if (0 != mysql_stmt_prepare(m_stmt, update_sql.c_str(), update_sql.size()) ||
-		0 != mysql_stmt_bind_param(m_stmt, GetParam()) ||
+		0 != mysql_stmt_bind_param(m_stmt, m_param) ||
 		0 != mysql_stmt_execute(m_stmt))
 	{
 		return false;
@@ -138,7 +149,7 @@ bool TableBase::Delete()
 	}
 	delete_sql += ";";
 	if (0 != mysql_stmt_prepare(m_stmt, delete_sql.c_str(), delete_sql.size()) ||
-		0 != mysql_stmt_bind_param(m_stmt, GetParam()) ||
+		0 != mysql_stmt_bind_param(m_stmt, m_param) ||
 		0 != mysql_stmt_execute(m_stmt))
 	{
 		return false;
@@ -179,31 +190,29 @@ bool TableBase::HasResult()
 
 void TableBase::ResetBufferLength()
 {
-	if (m_str_length.size() <= 0)
+	if (m_str_field.size() <= 0)
 	{
 		return;
 	}
 	
 	unsigned int max_field = MaxField();
-	MYSQL_BIND *param = GetParam();
 
-	for (STR_LENGTH::iterator itr = m_str_length.begin(); itr != m_str_length.end(); ++itr)
+	for (STR_FIELD::iterator itr = m_str_field.begin(); itr != m_str_field.end(); ++itr)
 	{
 		if (itr->field >= max_field)
 		{
 			continue;
 		}
-		param[itr->field].buffer_length = itr->length;
+		m_param[itr->field].buffer_length = itr->length;
 	}
 	
 }
 
 void TableBase::SetBufferLength(unsigned int field, unsigned int length)
 {
-	MYSQL_BIND *param = GetParam();
 	if (field < MaxField())
 	{
-		param[field].buffer_length = length;
+		m_param[field].buffer_length = length;
 	}
 
 }

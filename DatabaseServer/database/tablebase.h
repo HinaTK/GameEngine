@@ -12,11 +12,14 @@
 #include <string>
 #include <vector>
 
+/*
+	需要解决问题：多线程读写
+*/
 class TableBase
 {
 public:
 	TableBase(unsigned int max_field, unsigned short table_type, std::string table_name, MYSQL_STMT* stmt);
-	~TableBase(){};
+	virtual ~TableBase();
 
 	enum MysqlOperation
 	{
@@ -50,15 +53,11 @@ public:
 		char *			data;
 	};
 
-	struct StrLength
+	struct StrField
 	{
 		unsigned int	field;
 		unsigned int	length;
 	};
-
-	virtual std::string *	FieldsName() = 0;
-
-	virtual MYSQL_BIND *	GetParam() = 0;
 
 	void					Init();
 
@@ -79,16 +78,21 @@ public:
 	bool					HasResult();
 	void					ResetBufferLength();
 	void					SetBufferLength(unsigned int field, unsigned int length);
-	std::string				GetFieldName(unsigned int field);
+
+protected:
+
 private:
-	typedef std::vector<StrLength> STR_LENGTH;
+	typedef std::vector<StrField> STR_FIELD;
 
 protected:
 	unsigned short	m_table_type;
 	std::string		m_table_name;
+	std::string*	m_field_name;
 	MYSQL_STMT*		m_stmt;
-	MYSQL_BIND *	m_result;
-	STR_LENGTH		m_str_length;
+	MYSQL_BIND*		m_result;
+	MYSQL_BIND*		m_param;
+	
+	STR_FIELD		m_str_field;
 
 private:
 	std::string		m_insert_base;
@@ -101,7 +105,7 @@ private:
 
 
 #define VAR_DEFINE(class, val)\
-class m_##val;
+	class m_##val;
 
 #define STR_DEFINE(val)\
 	StrInfo m_##val;
@@ -121,10 +125,10 @@ class m_##val;
 	m_param[_field].buffer = FIELD(_field).data; \
 	m_param[_field].buffer_length = FIELD(_field).length; \
 	m_param[_field].length = 0; \
-	StrLength sl; \
-	sl.field = _field; \
-	sl.length = _length;\
-	m_str_length.push_back(sl);
+	StrField sf; \
+	sf.field = _field; \
+	sf.length = _length;\
+	m_str_field.push_back(sf);
 
 #define BIND_RESULT_BEGIN()\
 	MYSQL_RES *metadata = mysql_stmt_result_metadata(m_stmt);\

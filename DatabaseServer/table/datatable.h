@@ -4,7 +4,7 @@
 
 #include "database/gamemysql.h"
 #include "database/gamemysqlstmt.h"
-#include "globalvariable.h"
+
 
 namespace Table
 {

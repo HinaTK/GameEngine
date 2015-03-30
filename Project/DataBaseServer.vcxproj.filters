@@ -22,9 +22,6 @@
     <Filter Include="cache">
       <UniqueIdentifier>{0383b3a6-6a8a-4f54-8189-ca070b3ce4d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="other">
-      <UniqueIdentifier>{de9ff4d7-906a-469a-b9a5-92eb89d1d120}</UniqueIdentifier>
-    </Filter>
     <Filter Include="message">
       <UniqueIdentifier>{31be55f7-097e-45a4-8c2a-f215522732cd}</UniqueIdentifier>
     </Filter>
@@ -103,9 +100,6 @@
     </ClInclude>
     <ClInclude Include="..\DatabaseServer\frame\databaseframe.h">
       <Filter>frame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DatabaseServer\other\example.h">
-      <Filter>other</Filter>
     </ClInclude>
     <ClInclude Include="..\common\commonfunction.h">
       <Filter>commom</Filter>
