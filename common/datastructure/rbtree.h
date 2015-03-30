@@ -17,7 +17,7 @@ public:
 	void	Insert( K key);
 	void	Insert(K key, V &val);
 	V *		Find( K key );
-	void	Erase( K key );
+	V *		Erase(K key);
 	V *		Begin(){ return LeftMost(m_root); }
 	V *		End(){ return nil; }
 	void	NextNode(V **node);
@@ -221,13 +221,14 @@ V * RBTree<K, V>::Find( K key )
 }
 
 template <class K, class V>
-void RBTree<K, V>::Erase(K key)
+V * RBTree<K, V>::Erase(K key)
 {
 	V *node = Find( key );
 	if( node != nil )
 	{
 		Delete(node);
 	}
+	return node;
 }
 
 template <class K, class V>

@@ -42,7 +42,7 @@ public:
 	typedef MapTreeNode<K, V>* iterator;
 
 	void		Insert(K &key, V &val);
-	void		Erase(K &key){ m_rbtree.Erase(key); };
+	iterator	Erase(K &key){ return m_rbtree.Erase(key); };
 	iterator	Begin(){ return m_rbtree.Begin(); }
 	iterator	End(){ return m_rbtree.End(); }
 	iterator	Find(K &key){ return m_rbtree.Find(key); }

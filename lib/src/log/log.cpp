@@ -186,25 +186,3 @@ bool Log::MakeFile()
 	return true;
 }
 
-// int Log::Day()
-// {
-// 	static tm     *t = NULL;
-// 	static time_t gametime = 0;
-// 	static int    day = 0;
-// 	time(&gametime);
-// 	t = localtime(&gametime);
-// 
-// 	day = t->tm_mday;
-// 	day = (t->tm_mon + 1) * 100 + day;
-// 	day = (t->tm_year + 1900) * 10000 + day;
-// 	return day;
-// }
-// 
-// int Log::Hour()
-// {
-// 	static tm     *t = NULL;
-// 	static time_t gametime = 0;
-// 	time(&gametime);
-// 	t = localtime(&gametime);
-// 	return t->tm_hour;
-// }
