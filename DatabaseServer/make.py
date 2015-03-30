@@ -47,7 +47,7 @@ INCPATH 	= INCROOTPATH + "/common" + " " + INCROOTPATH + "/lib/include";
 SYSLIBS		= " -lmysqlclient -lpthread"
 LIBS		= LIBROOTPATH + "/lib/linux " + "-lFrame -lServerConfig  -lTimeManager -lCache -lCommon -lTinyxml" + SYSLIBS;
 CXX			= "g++";
-FLAGS		= '-g -Wall';
+FLAGS		= '-g3 -Wall';
 
 #########################################################################################################################
 #

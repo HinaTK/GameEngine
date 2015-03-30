@@ -47,7 +47,7 @@ INCPATH 	= INCROOTPATH + "/GameServer " + INCROOTPATH + "/common " + INCROOTPATH
 SYSLIBS		= " -lmysqlclient -lpthread"
 LIBS		= LIBROOTPATH + "/lib/linux " + "-lFrame -lServerConfig  -lTimeManager -lCommon -lTinyxml" + SYSLIBS;
 CXX			= "g++";
-FLAGS		= '-g -Wall';
+FLAGS		= '-g3 -Wall';
 
 #########################################################################################################################
 #
