@@ -39,7 +39,7 @@ void HandShaker::OnCanRead()
 	if (!HandShake())
 	{
 		// É¾³ý
-		m_is_clear = true;
+		m_is_remove = true;
 		m_net_manager->RemoveHandler(m_handle);
 		return;
 	}
@@ -94,6 +94,7 @@ bool HandShaker::HandShake()
 
 #ifdef WIN32
 			FD_SET(m_net_id, m_net_manager->GetWriteSet());
+			//FD_SET(m_net_id, m_net_manager->GetReadSet());
 #endif // !WIN32
 
 #ifdef __unix
@@ -122,7 +123,7 @@ void HandShaker::OnCanWrite()
 				// »º³åÇøÒÑ¾­Âú
 				break;
 			}
-			m_is_clear = true;
+			m_is_remove = true;
 			m_net_manager->RemoveHandler(m_handle);
 			return;
 		}
@@ -130,7 +131,7 @@ void HandShaker::OnCanWrite()
 		m_data_length -= ret;
 		if (m_data_length <= 0)
 		{
-			// É¾³ý
+			m_is_remove = false;	// ²»É¾³ý,ÓÃWebListenerÌæ»»HandShaker
 			m_net_manager->RemoveHandler(m_handle);
 			WebListener *handler = new WebListener(m_net_manager, NetHandler::LISTENER);
 			handler->m_net_id = m_net_id;

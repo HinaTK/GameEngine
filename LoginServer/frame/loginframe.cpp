@@ -21,7 +21,7 @@ bool LoginFrame::InitConfig()
 		ServerConfig::Instance().m_ip[ServerConfig::LOGIN_SERVER],
 		ServerConfig::Instance().m_server[ServerConfig::LOGIN_GATEWAY].port,
 		ServerConfig::Instance().m_server[ServerConfig::LOGIN_GATEWAY].backlog,
-		m_gateway_server_net_id))
+		m_login_server_net_id, true))
 	{
 		return false;
 	}

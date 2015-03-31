@@ -36,6 +36,7 @@ public:
 
 
 public:
+	NetID	m_login_server_net_id;
     NetID	m_database_server_net_id;
 	NetID	m_gateway_server_net_id;
 

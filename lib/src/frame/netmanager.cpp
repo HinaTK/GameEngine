@@ -147,17 +147,6 @@ void NetManager::Listen()
 	tv.tv_usec = 10000;	//Œ¢√Î,10∫¡√Î
 	while (m_is_run)
 	{
-		if (m_net_handler.Size() <= 0)
-		{
-#ifdef WIN32
-			Sleep(1);
-#endif
-#ifdef __unix 	// usleep( time * 1000 );
-			//usleep(1000);
-			usleep((timems << 10) - (timems << 4) - (timems << 3));
-#endif
-			continue;
-		}
 		max_fd = GetSocketInfo(temp_read_set, temp_write_set);
 		ret = select(max_fd + 1, &temp_read_set, &temp_write_set, NULL, &tv);
 		if (ret > 0)
@@ -176,6 +165,10 @@ void NetManager::Listen()
 			}
 
 			ClearHandler();
+		}
+		else
+		{
+			Sleep(10);
 		}
 	}
 #endif
@@ -243,6 +236,9 @@ void NetManager::RemoveHandler(NetHandle handle)
 void NetManager::ReplaceHandler(NetHandler *handler )
 {
 	handler->m_handle = m_net_handler.Insert(handler);
+#ifdef WIN32
+	FD_CLR(handler->m_net_id, &m_write_set);
+#endif
 #ifdef __unix
 	struct epoll_event ev;
 	ev.events = EPOLLIN | EPOLLET;
@@ -270,7 +266,7 @@ void NetManager::ClearHandler()
 				HandShaker *shaker = (HandShaker *)handler;
 				if (shaker != 0)
 				{
-					if (!shaker->IsClear())
+					if (!shaker->IsRemove())
 					{
 						delete handler;
 						continue;
@@ -279,6 +275,7 @@ void NetManager::ClearHandler()
 			}
 #ifdef WIN32
 			FD_CLR(handler->m_net_id, &m_read_set);
+			FD_CLR(handler->m_net_id, &m_write_set);
 #endif
 #ifdef __unix
 			epoll_ctl(m_epoll_fd, EPOLL_CTL_DEL, handler->m_net_id, &ev);

@@ -45,6 +45,7 @@ public:
 
 	NetID			GetSocketInfo(fd_set &read_set, fd_set &write_set);
 	fd_set			*GetWriteSet(){ return &m_write_set; }
+	fd_set			*GetReadSet(){ return &m_read_set; }
 
 protected:
 	NetID			m_max_fd;
