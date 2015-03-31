@@ -192,7 +192,6 @@
     <ClInclude Include="..\common\protocol\l_dbprotocol.h" />
     <ClInclude Include="..\common\protocol\messageheader.h" />
     <ClInclude Include="..\DatabaseServer\frame\databaseframe.h" />
-    <ClInclude Include="..\DatabaseServer\other\example.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

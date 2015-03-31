@@ -6,8 +6,6 @@
 #include "common/globalclass.h"
 #include "common/commonfunction.h"
 #include "cache/datamapmanager.h"
-#include "../cache/testcache.h"
-#include "../other/example.h"
 #include "../database/database.h"
 
 DatabaseFrame::DatabaseFrame()
