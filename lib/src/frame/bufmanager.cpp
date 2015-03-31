@@ -7,19 +7,13 @@
 REGISTER_MEMORYPOOL(memorypool, BufManager, 256);
 
 BufManager::BufManager(unsigned int size)
-: m_buf(NULL)
+: m_buf((char *)MemoryVL::Instance().Malloc(size))
 , m_size(size)
 , m_length(0)
 , m_read_length(0)
 {
-	Init();
 }
 
-//#include <stdio.h>
-void BufManager::Init()
-{
-	m_buf = (char *)MemoryVL::Instance().Malloc(m_size);
-}
 
 BufManager::~BufManager()
 {

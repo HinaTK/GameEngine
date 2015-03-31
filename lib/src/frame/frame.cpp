@@ -70,11 +70,6 @@ void *WriteLog(void * arg)
 	return NULL;
 }
 
-void Frame::Listen()
-{
-	m_listen_thread.Create(::Listen, this);
-}
-
 void Frame::Send( NetHandle handle, const char *buf, unsigned int length )
 {
 	m_net_manager.Send(handle, buf, length);
@@ -95,10 +90,11 @@ bool Frame::Run()
 	unsigned long long		second = 0;
 	unsigned long long		oneMinute = 60000;
 
-	m_log_thread.Create(WriteLog, this);
-	this->Listen();
+	m_log_thread.Create(::WriteLog, this);
+	m_listen_thread.Create(::Listen, this);
 	while (m_is_run)
 	{
+		GameTime::Instance().Update();
 		cur_time_ms = GameTime::Instance().MilliSecond();
 		if (!recvQueue->IsEmpty())
 		{

@@ -38,9 +38,6 @@ public:
 
 	void *		operator new(size_t c);
 	void		operator delete(void *m);
-
-protected:
-	void			Init();
 	
 private:
 	char *			m_buf;

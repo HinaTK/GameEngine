@@ -25,14 +25,15 @@ bool LoginFrame::InitConfig()
 	{
 		return false;
 	}
-	if (!m_net_manager.ConnectServer(
-		ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER],
-		ServerConfig::Instance().m_server[ServerConfig::DATABASE_LOGIN].port,
-		m_database_server_net_id))
-	{
-		return false;
-	}
 
+// 	if (!m_net_manager.ConnectServer(
+// 		ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER],
+// 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_LOGIN].port,
+// 		m_database_server_net_id))
+// 	{
+// 		return false;
+// 	}
+	printf("Init Success %s %d\n", ServerConfig::Instance().m_ip[ServerConfig::LOGIN_SERVER], ServerConfig::Instance().m_server[ServerConfig::LOGIN_GATEWAY].port);
 	return Init();
 }
 

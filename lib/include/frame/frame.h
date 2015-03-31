@@ -26,8 +26,6 @@ public:
 
 	void				Send(NetHandle handle, const char *buf, unsigned int length);
 
-	void				Listen();
-
 	bool				Run();
 
 	NetManager			*GetNetManager(){ return &m_net_manager; }

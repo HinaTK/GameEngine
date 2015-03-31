@@ -29,12 +29,7 @@ MemoryVL::~MemoryVL()
 
 void  *MemoryVL::Malloc(unsigned int size)
 {
-// 	static const unsigned int MAX_SIZE = 10 * 1024 * 1024;	// ×î´ó10M
-// 	if (size > MAX_SIZE)
-// 	{
-// 		return NULL;
-// 	}
-	unsigned real_size = size + LEN_INT;
+	unsigned int real_size = size + LEN_INT;
 	unsigned int i = 0;
 	for (; i < m_size; ++i)
 	{
@@ -51,6 +46,7 @@ void  *MemoryVL::Malloc(unsigned int size)
 	{
 		MutexLock lock(&m_mutex[i]);
 		mem = (char *)m_memory[i].Alloc();
+		*(unsigned int *)mem = i;
 	}
 	
 	return (mem + LEN_INT);
