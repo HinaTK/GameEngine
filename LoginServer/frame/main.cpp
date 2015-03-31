@@ -12,11 +12,11 @@ void LoginFrame::Recv(GameMsg *msg)
 
 }
 
-
-void LoginFrame::Update()
+void LoginFrame::Update(unsigned int interval, time_t now)
 {
 
 }
+
 
 void LoginFrame::Exit()
 {

@@ -1,7 +1,7 @@
 
 
 #include "gatewayframe.h"
-#include "libcommon/serverconfig.h"
+#include "lib/include/common/serverconfig.h"
 #include "common/commonfunction.h"
 #include "common/protocol/messageheader.h"
 

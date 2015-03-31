@@ -23,7 +23,7 @@ public:
  
     bool	Init();    //初始化
 
-    void	Update(time_t now);  //更新
+	void	Update(unsigned int interval, time_t now);
 
 	void	Exit();
 	void	Wait();

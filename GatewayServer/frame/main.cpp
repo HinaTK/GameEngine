@@ -54,7 +54,7 @@ void GatewayFrame::Recv(GameMsg *msg)
 // // 	Send(handle, (const char *)c, 6);
 // }
 
-void GatewayFrame::Update(time_t now)
+void GatewayFrame::Update(unsigned int interval, time_t now)
 {
 
 }

@@ -31,7 +31,7 @@
 		<socket>
 			<ip>127.0.0.1</ip>
 			<listen_gateway>
-				<port>12342</port>
+				<port>9999</port>
 				<backlog>16</backlog>
 			</listen_gateway>
 		</socket>
