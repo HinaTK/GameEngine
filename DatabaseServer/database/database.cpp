@@ -6,40 +6,36 @@
 
 DataBase::~DataBase()
 {
-	if (m_stmt != NULL)
-	{
-		mysql_stmt_close(m_stmt);
-	}
-    if (m_db_handle != NULL)
-    {
-        mysql_close(m_db_handle);
-    }
+// 	if (m_stmt != NULL)
+// 	{
+// 		mysql_stmt_close(m_stmt);
+// 	}
+// 	if (m_mysql != NULL)
+//     {
+// 		mysql_close(m_mysql);
+//     }
 }
 
 
 bool DataBase::Init( char *server, char *dbname, char *username, char *password )
 {
-	MYSQL *mysql;
-	mysql = mysql_init(NULL);
-	m_db_handle = mysql_real_connect(mysql, server, username, password, dbname,0,0,0);
-	do 
+	for (int i = 0; i < 3; ++i)
 	{
-		if (m_db_handle == NULL)
+		MysqlConnect mc;
+		mc.mysql = mysql_init(NULL);
+		MYSQL *temp = mysql_real_connect(mc.mysql, server, username, password, dbname, 0, 0, 0);
+		if (temp == NULL)
 		{
-			break;
+			return false;
 		}
-		m_stmt = mysql_stmt_init(mysql);
-		if (m_stmt == NULL)
+		mc.stmt = mysql_stmt_init(mc.mysql);
+		if (mc.stmt == NULL)
 		{
-			break;
+			return false;
 		}
-
-		return true;
-	} while (false);
-	
-	printf("%s\n", mysql_error(mysql));
-	printf("init database error\n");
-	return false;
+		m_connect_pool.PushBack(mc);
+	}
+	return true;
 }
 
 
@@ -59,4 +55,9 @@ void DataBase::ErrorInfo(int error)
 		printf("DataBase : Input connect is over the define\n");
 		break;
 	}
+}
+
+bool DataBase::GetMysqlConnect(MysqlConnect &mc)
+{
+	return m_connect_pool.PopFront(mc);
 }

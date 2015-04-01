@@ -163,14 +163,11 @@
     <ClCompile Include="..\common\commonfunction.cpp" />
     <ClCompile Include="..\DatabaseServer\cache\datamapmanager.cpp" />
     <ClCompile Include="..\DatabaseServer\database\database.cpp" />
-    <ClCompile Include="..\DatabaseServer\database\gamemysql.cpp" />
-    <ClCompile Include="..\DatabaseServer\database\gamemysqlstmt.cpp" />
     <ClCompile Include="..\DatabaseServer\database\tablebase.cpp" />
     <ClCompile Include="..\DatabaseServer\message\messagehandler.cpp" />
     <ClCompile Include="..\DatabaseServer\table\datatable.cpp" />
     <ClCompile Include="..\DatabaseServer\table\datatablestmt.cpp" />
     <ClCompile Include="..\DatabaseServer\table\tb_login.cpp" />
-    <ClCompile Include="..\DatabaseServer\table\testtable.cpp" />
     <ClCompile Include="..\DatabaseServer\frame\databaseframe.cpp" />
     <ClCompile Include="..\DatabaseServer\frame\main.cpp" />
   </ItemGroup>
@@ -178,8 +175,6 @@
     <ClInclude Include="..\common\commonfunction.h" />
     <ClInclude Include="..\DatabaseServer\cache\datamapmanager.h" />
     <ClInclude Include="..\DatabaseServer\database\database.h" />
-    <ClInclude Include="..\DatabaseServer\database\gamemysql.h" />
-    <ClInclude Include="..\DatabaseServer\database\gamemysqlstmt.h" />
     <ClInclude Include="..\DatabaseServer\database\tablebase.h" />
     <ClInclude Include="..\DatabaseServer\database\tableid.h" />
     <ClInclude Include="..\DatabaseServer\message\messagehandler.h" />
@@ -187,7 +182,6 @@
     <ClInclude Include="..\DatabaseServer\table\datatable.h" />
     <ClInclude Include="..\DatabaseServer\table\datatablestmt.h" />
     <ClInclude Include="..\DatabaseServer\table\tb_login.h" />
-    <ClInclude Include="..\DatabaseServer\table\testtable.h" />
     <ClInclude Include="..\common\protocol\internaltype.h" />
     <ClInclude Include="..\common\protocol\l_dbprotocol.h" />
     <ClInclude Include="..\common\protocol\messageheader.h" />

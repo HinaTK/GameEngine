@@ -11,6 +11,8 @@
 #endif
 #include <string>
 
+#include "common/datastructure/gamelist.h"
+
 // http://dev.mysql.com/downloads/mysql/
 
 class DataBase
@@ -50,16 +52,23 @@ public:
         return instance;
     }
 
+	struct MysqlConnect
+	{
+		MYSQL		*mysql;
+		MYSQL_STMT	*stmt;
+	};
+
     bool		Init(char *server, char *dbname, char *username, char *password);
 	void		ErrorInfo(int error);
-    MYSQL		*GetHandle(){return m_db_handle;}
-    MYSQL_STMT	*GetStmt(){return m_stmt;}
+	bool		GetMysqlConnect(MysqlConnect &mc);
+ //   MYSQL_STMT	*GetStmt(){return m_stmt;}
+
+
 protected:
 	DataBase(){}
 
 private:
-    MYSQL *m_db_handle;
-    MYSQL_STMT *m_stmt;
+	game::List<MysqlConnect> m_connect_pool;
 };
 
 #endif

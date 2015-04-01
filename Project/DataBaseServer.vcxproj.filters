@@ -27,12 +27,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\DatabaseServer\database\gamemysql.cpp">
-      <Filter>database</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DatabaseServer\database\gamemysqlstmt.cpp">
-      <Filter>database</Filter>
-    </ClCompile>
     <ClCompile Include="..\DatabaseServer\table\datatable.cpp">
       <Filter>table</Filter>
     </ClCompile>
@@ -40,9 +34,6 @@
       <Filter>table</Filter>
     </ClCompile>
     <ClCompile Include="..\DatabaseServer\table\tb_login.cpp">
-      <Filter>table</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DatabaseServer\table\testtable.cpp">
       <Filter>table</Filter>
     </ClCompile>
     <ClCompile Include="..\DatabaseServer\frame\databaseframe.cpp">
@@ -71,12 +62,6 @@
     <ClInclude Include="..\DatabaseServer\database\database.h">
       <Filter>database</Filter>
     </ClInclude>
-    <ClInclude Include="..\DatabaseServer\database\gamemysql.h">
-      <Filter>database</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DatabaseServer\database\gamemysqlstmt.h">
-      <Filter>database</Filter>
-    </ClInclude>
     <ClInclude Include="..\DatabaseServer\table\datatable.h">
       <Filter>table</Filter>
     </ClInclude>
@@ -84,9 +69,6 @@
       <Filter>table</Filter>
     </ClInclude>
     <ClInclude Include="..\DatabaseServer\table\tb_login.h">
-      <Filter>table</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DatabaseServer\table\testtable.h">
       <Filter>table</Filter>
     </ClInclude>
     <ClInclude Include="..\common\protocol\internaltype.h">

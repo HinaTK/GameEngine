@@ -12,36 +12,36 @@
 
 bool DatabaseFrame::Init()		// ¿ò¼Ü³õÊ¼»¯
 {
-	TB_Login test(0, "login", DataBase::Instance().GetStmt());
-	test.Init();
-
-	if (0)
-	{
-		test.m_id = 111;
-		test.FIELD(account) = 222;
-		test.FIELD(password) = 333;
-		//memset(test.m_NAME.data, 0, 32);
-		test.SetBufferLength(TB_Login::name, 4);
-		memcpy(test.m_name.data, "xian", 4);
-		test.Insert();
-	}
-	
-	if (1)
-	{
-		//test.SetCondition()
-	}
-	test.m_id = 0;
-	if (!test.Select())
-	{
-		return false;
-	}
-
-	while (test.HasResult())
-	{
-		printf("%d\n", test.m_id);
-		printf("%d\n", test.m_account);
-		printf("%s\n", test.m_name.data);
-	}
+// 	TB_Login test(0, "login", DataBase::Instance().GetStmt());
+// 	test.Init();
+// 
+// 	if (0)
+// 	{
+// 		test.m_id = 111;
+// 		test.FIELD(account) = 222;
+// 		test.FIELD(password) = 333;
+// 		//memset(test.m_NAME.data, 0, 32);
+// 		test.SetBufferLength(TB_Login::name, 4);
+// 		memcpy(test.m_name.data, "xian", 4);
+// 		test.Insert();
+// 	}
+// 	
+// 	if (1)
+// 	{
+// 		//test.SetCondition()
+// 	}
+// 	test.m_id = 0;
+// 	if (!test.Select())
+// 	{
+// 		return false;
+// 	}
+// 
+// 	while (test.HasResult())
+// 	{
+// 		printf("%d\n", test.m_id);
+// 		printf("%d\n", test.m_account);
+// 		printf("%s\n", test.m_name.data);
+// 	}
 
 //	char *query = "select id,name from login;";
 // 	char *query = "SELECT id, name FROM login;";
