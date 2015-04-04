@@ -79,7 +79,7 @@ bool DataMap<T>::Insert(T &key, const char *data, unsigned int length)
 template<class T>
 bool DataMap<T>::Update(T &key, const char *data, unsigned int length)
 {
-	game::Map<T, DataInfo>::iterator itr = m_data_map.Find(key);
+	typename game::Map<T, DataInfo>::iterator itr = m_data_map.Find(key);
 	if (itr == m_data_map.End())
 	{
 		return false;
@@ -109,7 +109,7 @@ bool DataMap<T>::UpdateAndInsert(T &key, const char *data, unsigned int length)
 template<class T>
 bool DataMap<T>::Find(T &key)
 {
-	game::Map<T, DataInfo>::iterator itr = m_data_map.Find(key);
+	typename game::Map<T, DataInfo>::iterator itr = m_data_map.Find(key);
 	if (itr == m_data_map.End())
 	{
 		return false;
@@ -122,7 +122,7 @@ bool DataMap<T>::Find(T &key)
 template<class T>
 bool DataMap<T>::Find(T &key, const char **data, unsigned int &length)
 {
-	game::Map<T, DataInfo>::iterator itr = m_data_map.Find(key);
+	typename game::Map<T, DataInfo>::iterator itr = m_data_map.Find(key);
 	if (itr == m_data_map.End())
 	{
 		return false;
@@ -135,7 +135,7 @@ bool DataMap<T>::Find(T &key, const char **data, unsigned int &length)
 template<class T>
 bool DataMap<T>::Delete(T &key)
 {
-	game::Map<T, DataInfo>::iterator itr = m_data_map.Find(key);
+	typename game::Map<T, DataInfo>::iterator itr = m_data_map.Find(key);
 	if (itr == m_data_map.End())
 	{
 		return false;
@@ -155,7 +155,7 @@ template<class T>
 void DataMap<T>::Flush()
 {
 	MutexLock lock(&m_mutex);
-	for (DIRTY_DATA_LIST::iterator itr = m_dirty_data_list.Begin(); itr != m_dirty_data_list.End(); ++itr)
+	for (typename DIRTY_DATA_LIST::iterator itr = m_dirty_data_list.Begin(); itr != m_dirty_data_list.End(); ++itr)
 	{
 		m_data_call_back->OnCallBack((char *)&itr->key, itr->type, itr->info.data, itr->info.length);
 	}

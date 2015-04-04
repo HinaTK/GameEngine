@@ -2,6 +2,8 @@
 #ifndef SORT_LIST_H
 #define SORT_LIST_H
 
+namespace game
+{
 template<class T>
 class SortList
 {
@@ -12,5 +14,7 @@ public:
 private:
 
 };
+}
+
 
 #endif

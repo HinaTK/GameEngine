@@ -36,9 +36,9 @@ protected:
 
 private:
 	T *	m_queue;
+	unsigned int	m_size;
 	unsigned int	m_head;
 	unsigned int	m_tail;
-	unsigned int	m_size;
 };
 
 template<class T>

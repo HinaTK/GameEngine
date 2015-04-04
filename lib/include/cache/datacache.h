@@ -50,7 +50,7 @@ class DataCache
 public:
 	typedef game::Vector<FieldInfo> DATAFIELD_VECTOR;	
 	typedef game::Map<K, RowData *>	DATA_MAP;
-	
+	//typedef typename DATA_MAP::iterator iterator;
 
 public:
 	DataCache(unsigned short length)
@@ -70,6 +70,7 @@ public:
 		RowData *row_data;
 	};
 	typedef game::List<DirtyData>	DirtyDataList;
+	
 
 	enum
 	{
@@ -101,7 +102,7 @@ public:
 private:
 	DATA_MAP			m_data_map;
 	DirtyDataList		*m_dirty_data_list;
-	CallBack		*m_call_back;
+	CallBack			*m_call_back;
 	unsigned short		m_field_length;
 
 	Mutex				m_dirty_mutex;
@@ -130,7 +131,7 @@ void DataCache<K>::SetDirtyData(int oper, K &key, RowData *row_data)
 template <class K>
 bool DataCache<K>::Find(K &key, DataList &list)
 {
-	DATA_MAP::iterator itr = m_data_map.Find(key);
+	typename DATA_MAP::iterator itr = m_data_map.Find(key);
 	if (itr == m_data_map.End())
 	{
 		return false;
@@ -141,7 +142,7 @@ bool DataCache<K>::Find(K &key, DataList &list)
 template <class K>
 bool DataCache<K>::Update(K &key, DataList &list, bool insert /*= true*/)
 {
-	DATA_MAP::iterator itr = m_data_map.Find(key);
+	typename DATA_MAP::iterator itr = m_data_map.Find(key);
 	if (itr == m_data_map.End())
 	{
 		if (insert)
@@ -165,7 +166,7 @@ bool DataCache<K>::Update(K &key, DataList &list, bool insert /*= true*/)
 template <class K>
 bool DataCache<K>::Delete(K &key)
 {
-	DATA_MAP::iterator itr = m_data_map.Erase(key);
+	typename DATA_MAP::iterator itr = m_data_map.Erase(key);
 	if (itr == m_data_map.End())
 	{
 		return false;

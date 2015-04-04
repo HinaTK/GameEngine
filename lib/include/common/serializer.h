@@ -10,7 +10,6 @@ public:
 		, m_begin(0)
 		, m_end(length)
 	{
-
 	};
 	~Serializer(){};
 

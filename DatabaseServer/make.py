@@ -43,11 +43,11 @@ OBJDIR		= BINDIR + "obj/";
 INCROOTPATH	= "-I " + ROOTPATH;
 LIBROOTPATH = "-L " + ROOTPATH;
 
-INCPATH 	= INCROOTPATH + "/common" + " " + INCROOTPATH + "/lib/include";
+INCPATH 	= INCROOTPATH + " " + INCROOTPATH + "/DatabaseServer";
 SYSLIBS		= " -lmysqlclient -lpthread"
-LIBS		= LIBROOTPATH + "/lib/linux " + "-lFrame -lServerConfig  -lTimeManager -lCache -lCommon -lTinyxml" + SYSLIBS;
+LIBS		= LIBROOTPATH + "/lib/linux " + "-lFrame -lLog -lTimeManager -lCache -lCommon -lTinyxml" + SYSLIBS;
 CXX			= "g++";
-FLAGS		= '-g3 -Wall';
+FLAGS		= '-fpermissive -g3 -Wall';
 
 #########################################################################################################################
 #
@@ -110,7 +110,7 @@ f.write("\n");
 for val in OBJ2SRC:
 	f.write(val[0] + ":" + val[1] +"\n");
 	f.write("	rm -f $@\n");
-	f.write("	$(CXX) -fpic -c $(INCPATH) $< -o $@\n");
+	f.write("	$(CXX) $(FLAGS) -fpic -c $(INCPATH) $< -o $@\n");
 	f.write("\n");
 
 f.close();

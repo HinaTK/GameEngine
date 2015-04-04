@@ -258,6 +258,41 @@ namespace TestDataStructure
 		}
 	}
 
+	class Temp
+	{
+	public:
+		Temp()
+		{
+			mem = new char;
+		}
+		~Temp()
+		{
+			delete mem;
+		}
+
+	private:
+		char *mem;
+	};
+
+	void TestVector2()
+	{
+		game::Vector<Temp *> test;
+		Temp *temp = new Temp;
+		test.Push(temp);
+		test.Clear();
+		printf("success\n");
+		// 经测试test.Clear()不会调用Temp的析构函数
+	}
+
+	void TestVector3()
+	{
+		game::Vector<Temp> test;
+		Temp temp;
+		test.Push(temp);
+		test.Clear();
+		printf("success\n");
+	}
+
 	void TestRankList()
 	{
 //		RankList<int, int> test;	

@@ -152,7 +152,7 @@ void Array<T>::Erase(unsigned int index)
 	{
 		return;
 	}
-	m_value[index].val.~T();
+
 	m_value[index].be_used = false;
 	m_index_pool.push(index);
 
@@ -192,7 +192,6 @@ bool Array<T>::Erase(unsigned int index, T &val)
 	}
 
 	val = m_value[index].val;
-	//m_value[index].val.~T();
 	m_value[index].be_used = false;
 	m_index_pool.push(index);
 

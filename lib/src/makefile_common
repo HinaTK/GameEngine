@@ -1,0 +1,52 @@
+PWD 				= /mnt/hgfs/GameEngine/lib/src
+AR           		= ar cqs
+CXX           		= g++
+INCPATH			= -I /mnt/hgfs/GameEngine/lib/../ -I /mnt/hgfs/GameEngine/lib/include -I /mnt/hgfs/GameEngine/lib/include/common
+BINDIR				= /mnt/hgfs/GameEngine/lib/linux/
+OBJDIR				= /mnt/hgfs/GameEngine/lib/linux/obj/
+BIN 				= libCommon.a
+SOURCES			= /mnt/hgfs/GameEngine/lib/src/common/commonconfig.cpp /mnt/hgfs/GameEngine/lib/src/common/md5.cpp /mnt/hgfs/GameEngine/lib/src/common/memorypool.cpp /mnt/hgfs/GameEngine/lib/src/common/memoryvl.cpp /mnt/hgfs/GameEngine/lib/src/common/mutex.cpp /mnt/hgfs/GameEngine/lib/src/common/serializer.cpp /mnt/hgfs/GameEngine/lib/src/common/serverconfig.cpp /mnt/hgfs/GameEngine/lib/src/common/thread.cpp 
+SOURCEFILES		= $(notdir $(SOURCES))
+OBJECTS			= $(addprefix $(OBJDIR), $(patsubst %.cpp,%.o,$(SOURCEFILES)))
+FLAGS				= -g3 -Wall
+ARFLAGS			= 
+
+all:makedir $(OBJECTS)
+	$(AR) $(ARFLAGS) $(BIN) $(OBJECTS);
+
+makedir:
+	$(shell if [ -n "$(OBJDIR)" -a ! -e "$(OBJDIR)" ];then mkdir -p $(OBJDIR); fi)
+	$(shell if [ -n "$(BINDIR)" -a ! -e "$(BINDIR)" ];then mkdir -p $(BINDIR); fi)
+
+/mnt/hgfs/GameEngine/lib/linux/obj/commonconfig.o:/mnt/hgfs/GameEngine/lib/src/common/commonconfig.cpp
+	rm -f $@
+	$(CXX)  $(FLAGS) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/md5.o:/mnt/hgfs/GameEngine/lib/src/common/md5.cpp
+	rm -f $@
+	$(CXX)  $(FLAGS) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/memorypool.o:/mnt/hgfs/GameEngine/lib/src/common/memorypool.cpp
+	rm -f $@
+	$(CXX)  $(FLAGS) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/memoryvl.o:/mnt/hgfs/GameEngine/lib/src/common/memoryvl.cpp
+	rm -f $@
+	$(CXX)  $(FLAGS) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/mutex.o:/mnt/hgfs/GameEngine/lib/src/common/mutex.cpp
+	rm -f $@
+	$(CXX)  $(FLAGS) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/serializer.o:/mnt/hgfs/GameEngine/lib/src/common/serializer.cpp
+	rm -f $@
+	$(CXX)  $(FLAGS) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/serverconfig.o:/mnt/hgfs/GameEngine/lib/src/common/serverconfig.cpp
+	rm -f $@
+	$(CXX)  $(FLAGS) -fpic -c $(INCPATH) $< -o $@
+
+/mnt/hgfs/GameEngine/lib/linux/obj/thread.o:/mnt/hgfs/GameEngine/lib/src/common/thread.cpp
+	rm -f $@
+	$(CXX)  $(FLAGS) -fpic -c $(INCPATH) $< -o $@
+

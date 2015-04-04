@@ -54,6 +54,8 @@ int main()
 	//TestDataStructure::TestArray();
 	//TestDataStructure::TestArrayCmpMap();
 	//TestDataStructure::TestVector();
+	//TestDataStructure::TestVector2();
+	TestDataStructure::TestVector3();
 	//TestDataStructure::TestRankList();
 	//TestDataStructure::TestSortMap2();
 	//TestDataStructure::TestGameMapOnly();
@@ -64,7 +66,7 @@ int main()
 	//TestOther::Test2();
 	//TestCache::TestDataQueue();
 	//TestCache::TestDataMap();
-	TestCache::TestDataCache();
+	//TestCache::TestDataCache();
 	return 0;
 }
 

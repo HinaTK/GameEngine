@@ -1,4 +1,5 @@
 
+#include <stdio.h>
 #include "tablebase.h"
 #include "lib/include/common/memoryvl.h"
 

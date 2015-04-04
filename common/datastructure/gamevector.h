@@ -121,6 +121,7 @@ unsigned int Vector<T>::Push( T &val )
 			return Vector<T>::INVALID_HANDLE;
 		}	
 	}
+	
 	m_list[m_index++] = val;
 	return m_index - 1;
 }
@@ -132,7 +133,6 @@ void Vector<T>::Erase( T &val )
 	{
 		if (m_list[i] == val)
 		{
-			m_list[i].~T();
 			m_list[i] = m_list[m_index - 1];
 			--m_index;
 			break;
@@ -147,7 +147,6 @@ bool Vector<T>::EraseIndex(unsigned int index)
 	{
 		return false;
 	}
-	m_list[index].~T();
 	m_list[index] = m_list[m_index - 1];
 	--m_index;
 	return true;
@@ -171,10 +170,6 @@ bool Vector<T>::Resize()
 template<class T>
 void Vector<T>::Clear()
 {
-	for (unsigned int i = 0; i < m_index; ++i)
-	{
-		m_list[i].~T();
-	}
 	m_index = 0;
 }
 

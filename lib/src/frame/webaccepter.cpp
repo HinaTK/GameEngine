@@ -4,7 +4,7 @@
 #include "netmanager.h"
 #include "common/socketdef.h"
 
-REGISTER_MEMORYPOOL(memorypool, WebAccepter, 16);
+REGISTER_MEMORYPOOL(memorypool, WebAccepter, 8);
 
 void WebAccepter::OnCanRead()
 {

@@ -76,13 +76,14 @@ public:
 	void Clear() { m_size = 0; }
 
 protected:
-	void Resize(int size)
+	void Resize(unsigned int size)
 	{
 		if (size <= m_max_size) return;
-		T *new_data = (T*)malloc(size * sizeof(T));
+		unsigned int alloc_size = size * sizeof(T);
+		T *new_data = (T *)malloc(alloc_size);
 		if (m_data != 0)
 		{
-			memcpy(new_data, m_data, m_size * sizeof(T));
+			memcpy(new_data, m_data, m_max_size * sizeof(T));
 			free(m_data);
 		}
 		m_data = new_data;
@@ -91,7 +92,7 @@ protected:
 protected:
 	T *m_data;
 	int m_size;
-	int m_max_size;
+	unsigned int m_max_size;
 };
 }
 

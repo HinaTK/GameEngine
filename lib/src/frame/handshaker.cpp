@@ -38,8 +38,6 @@ void HandShaker::OnCanRead()
 	// 处理握手协议
 	if (!HandShake())
 	{
-		// 删除
-		m_is_remove = true;
 		m_net_manager->RemoveHandler(m_handle);
 		return;
 	}
@@ -123,7 +121,6 @@ void HandShaker::OnCanWrite()
 				// 缓冲区已经满
 				break;
 			}
-			m_is_remove = true;
 			m_net_manager->RemoveHandler(m_handle);
 			return;
 		}
@@ -131,11 +128,10 @@ void HandShaker::OnCanWrite()
 		m_data_length -= ret;
 		if (m_data_length <= 0)
 		{
-			m_is_remove = false;	// 不删除,用WebListener替换HandShaker
-			m_net_manager->RemoveHandler(m_handle);
 			WebListener *handler = new WebListener(m_net_manager, NetHandler::LISTENER);
 			handler->m_net_id = m_net_id;
-			m_net_manager->ReplaceHandler(handler);
+			handler->m_handle = m_handle;	// 用于删除原来的handle
+			m_net_manager->AddReplaceHandler(handler);
 			return;
 		}
 		m_send_length += ret;

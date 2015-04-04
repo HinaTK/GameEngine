@@ -163,7 +163,7 @@ void NetManager::Listen()
 					(*itr)->OnCanWrite();
 				}
 			}
-
+			ReplaceHandler();
 			ClearHandler();
 		}
 		else
@@ -176,11 +176,9 @@ void NetManager::Listen()
 #ifdef __unix
 	static struct epoll_event events[MAX_EPOLL_SIZE];
 	int fd_num = 0;
-	int time_out = -1;
-
-	while (true)
+	while (m_is_run)
 	{
-		fd_num = epoll_wait(m_epoll_fd, events, MAX_EPOLL_SIZE, time_out);
+		fd_num = epoll_wait(m_epoll_fd, events, MAX_EPOLL_SIZE, 10);
 		if (fd_num > 0)
 		{
 			for (int i = 0; i < fd_num; ++i)
@@ -194,6 +192,7 @@ void NetManager::Listen()
 					((NetHandler*)events[i].data.ptr)->OnCanWrite();
 				}
 			}
+			ReplaceHandler();
 			ClearHandler();
 		}
 		else
@@ -233,21 +232,35 @@ void NetManager::RemoveHandler(NetHandle handle)
 	m_invalid_handle.Push(handle);
 }
 
-void NetManager::ReplaceHandler(NetHandler *handler )
+void NetManager::AddReplaceHandler(NetHandler *handler)
 {
+	m_net_handler.Erase(handler->m_handle);
 	handler->m_handle = m_net_handler.Insert(handler);
+	m_replace_handler.Push(handler);
+}
+
+void NetManager::ReplaceHandler()
+{
+	if (m_replace_handler.Size() <= 0)
+	{
+		return;
+	}
+	for (REPLACE_HANDLER::iterator itr = m_replace_handler.Begin(); itr != m_replace_handler.End(); ++itr)
+	{
 #ifdef WIN32
-	FD_CLR(handler->m_net_id, &m_write_set);
+		FD_CLR((*itr)->m_net_id, &m_write_set);
 #endif
 #ifdef __unix
-	struct epoll_event ev;
-	ev.events = EPOLLIN | EPOLLET;
-	ev.data.ptr = (void *)handler;
-	if (epoll_ctl(m_epoll_fd, EPOLL_CTL_MOD, handler->m_net_id, &ev) == -1)
-	{
-		// Ìí¼ÓÊ§°Ü
-	}
+		struct epoll_event ev;
+		ev.events = EPOLLIN | EPOLLET;
+		ev.data.ptr = (void *)(*itr);
+		if (epoll_ctl(m_epoll_fd, EPOLL_CTL_MOD, (*itr)->m_net_id, &ev) == -1)
+		{
+			// Ìí¼ÓÊ§°Ü
+		}
 #endif
+	}
+	m_replace_handler.Clear();
 }
 
 void NetManager::ClearHandler()
@@ -261,18 +274,6 @@ void NetManager::ClearHandler()
 		NetHandler *handler = 0;
 		if (m_net_handler.Erase(*itr, handler))
 		{
-			if (handler->Type() == NetHandler::HANDSHAKER)
-			{
-				HandShaker *shaker = (HandShaker *)handler;
-				if (shaker != 0)
-				{
-					if (!shaker->IsRemove())
-					{
-						delete handler;
-						continue;
-					}
-				}
-			}
 #ifdef WIN32
 			FD_CLR(handler->m_net_id, &m_read_set);
 			FD_CLR(handler->m_net_id, &m_write_set);

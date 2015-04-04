@@ -1,4 +1,5 @@
 
+#include <stdio.h>
 #include <string.h>
 #include "databaseframe.h"
 #include "lib/include/common/serverconfig.h"
@@ -47,9 +48,7 @@ bool DatabaseFrame::InitConfig()
 		ServerConfig::Instance().m_password
 		))
 	{
-#ifdef WIN32
 		printf("connect database error\n");
-#endif
 		return false;
 	}
 	printf("connect database success\n");

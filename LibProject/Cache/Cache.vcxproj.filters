@@ -15,9 +15,6 @@
     <ClInclude Include="..\..\lib\include\cache\fielddef.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\cache\dataqueue.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\lib\include\cache\table.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -30,9 +27,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\cache\datacache.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\lib\src\cache\dataqueue.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\cache\datamap.cpp">
