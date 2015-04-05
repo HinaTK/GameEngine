@@ -42,6 +42,9 @@ private:
 
 /*
 	考虑加上事务处理
+	* 设置该表的的事务状态(begin)
+	* 将期间操作的数据的操作类型，Key及DataList保存起来
+	* 直到commit或discard再操作保存起来的数据
 */
 
 template <class K>

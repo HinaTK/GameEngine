@@ -55,10 +55,10 @@ int main()
 	//TestDataStructure::TestArrayCmpMap();
 	//TestDataStructure::TestVector();
 	//TestDataStructure::TestVector2();
-	TestDataStructure::TestVector3();
+	//TestDataStructure::TestVector3();
 	//TestDataStructure::TestRankList();
 	//TestDataStructure::TestSortMap2();
-	//TestDataStructure::TestGameMapOnly();
+	TestDataStructure::TestGameMap();
 	//TestDataStructure::TestGameMapCmpMap();
 	//TestDataStructure::TestList();
 	//TestDataStructure::TestHash();

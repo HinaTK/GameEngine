@@ -15,8 +15,6 @@
     <ClInclude Include="..\..\lib\include\cache\dataadapter.h" />
     <ClInclude Include="..\..\lib\include\cache\datacache.h" />
     <ClInclude Include="..\..\lib\include\cache\datamap.h" />
-    <ClInclude Include="..\..\lib\include\cache\fielddef.h" />
-    <ClInclude Include="..\..\lib\include\cache\table.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\cache\datacache.cpp" />

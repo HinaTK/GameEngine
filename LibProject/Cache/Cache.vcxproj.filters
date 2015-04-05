@@ -12,12 +12,6 @@
     <ClInclude Include="..\..\lib\include\cache\datacache.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\cache\fielddef.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\include\cache\table.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\lib\include\cache\datamap.h">
       <Filter>src</Filter>
     </ClInclude>

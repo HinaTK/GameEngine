@@ -106,45 +106,31 @@ namespace TestDataStructure
 
 	void TestGameMap()
 	{
-// 		GameMap<int, int> game_map;
-// 		int k = 1; int v = 11;
-// 		game_map.Insert(k, v);
-// 		k = 2; v = 22;
-// 		game_map.Insert(k, v);
-// 		k = 3; v = 33;
-// 		game_map.Insert(k, v);
-// 		k = 4; v = 44;
-// 		game_map.Insert(k, v);
-// 		for (GameMap<int, int>::iterator itr = game_map.Begin(); itr != game_map.End(); game_map.NextNode(&itr))
-// 		{
-// 			printf("k = %d, v = %d\n", itr->key, itr->val);
-// 		}
-// 		k = 3;
-// 		GameMap<int, int>::iterator itr = game_map.Find(k);
-// 		if (itr != game_map.End())
-// 		{
-// 			printf("v = %d\n", itr->val);
-// 		}
-// 		k = 2;
-// 		game_map.Erase(k);
-// 		for (GameMap<int, int>::iterator itr = game_map.Begin(); itr != game_map.End(); game_map.NextNode(&itr))
-// 		{
-// 			printf("k = %d, v = %d\n", itr->key, itr->val);
-// 		}
+		game::Map<int, int> test;
+		int a = 1;
+		int b = 2;
+		test.Insert(a, b);
+		a = 3;
+		b = 4;
+		test.Insert(a, b);
+		a = 5;
+		b = 6;
+		test.Insert(a, b);
+		for (game::Map<int, int>::iterator itr = test.Begin(); itr != test.End(); )
+		{
+			if (itr->first == 3)
+			{
+				itr = test.Erase(itr->first);
+			}
+			else
+			{
+				printf("%d %d\n", itr->first, itr->second);
+				test.NextNode(&itr);
+			}
+			
+		}
 	}
 
-	void TestGameMapOnly()
-	{
-// 		GameMap<int, int> game_map;
-// 		int k = 1; int v = 11;
-// 		game_map.Insert(k, v);
-// 		k = 1; v = 22;
-// 		game_map.Insert(k, v);
-// 		for (GameMap<int, int>::iterator itr = game_map.Begin(); itr != game_map.End(); game_map.NextNode(&itr))
-// 		{
-// 			printf("k = %d, v = %d\n", itr->key, itr->val);
-// 		}
-	}
 	void TestGameMapCmpMap()
 	{
 // 		game::Map<int, int> game_map;

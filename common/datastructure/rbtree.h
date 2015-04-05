@@ -120,7 +120,8 @@ template <class K, class V>
 void RBTree<K, V>::Insert(K key, V &val)
 {
 	V* node = (V *)m_mem_pool.Alloc();
-	memcpy(node, &val, sizeof(V));
+	*node = val;
+	//memcpy(node, &val, sizeof(V));
 	V* n = m_root;
 	V* parent = nil;
 	node->first = key;
@@ -206,15 +207,19 @@ template <class K, class V>
 V * RBTree<K, V>::Find( K key )
 {
 	V * node = m_root;
-	while( node != nil && key != node->first )
+	while( node != nil)
 	{
 		if( key < node->first )
 		{
 			node = node->left;
 		}
-		else
+		else if (node->first < key)
 		{
 			node = node->right;
+		}
+		else
+		{
+			break;	// 相等
 		}
 	}
 	return node;
@@ -224,31 +229,33 @@ template <class K, class V>
 V * RBTree<K, V>::Erase(K key)
 {
 	V *node = Find( key );
+	V *ret = node;
 	if( node != nil )
 	{
+		NextNode(&ret);
 		Delete(node);
 	}
-	return node;
+	return ret;
 }
 
 template <class K, class V>
-V * RBTree<K, V>::TreeSuccessor(V *x)
+V * RBTree<K, V>::TreeSuccessor(V *node)
 {
-	if( x->right != nil )
+	if (node->right != nil)
 	{
-		while (x->left != nil)
+		while (node->left != nil)
 		{
-			x = x->left;
+			node = node->left;
 		}
-		return x;
+		return node;
 	}
-	V * y = x->parent;
-	while( y != nil && x == y->right )
+	V * parent = node->parent;
+	while (parent != nil && node == parent->right)
 	{
-		x = y;
-		y = y->parent;
+		node = parent;
+		parent = parent->parent;
 	}
-	return y;
+	return parent;
 }
 
 template <class K, class V>
@@ -352,7 +359,7 @@ void RBTree<K, V>::Delete(V *z)
 	{
 		DeleteFixup( x );
 	}
-	//delete y;
+
 	m_mem_pool.Free(y);
 }
 
