@@ -32,13 +32,15 @@ bool WebListener::AnalyzeBuf()
 		CHECK_BUF_LEN();
 		const char *buf = m_recv_buf.GetBuf();
 		FrameHeader header(buf);
-		if (header.Length() == 126)
+		if (header.Length() < 126)
+		{
+			length = header.Length();
+		}
+		else if (header.Length() == 126)
 		{
 			buf_offset += FrameHeader::MID_EXTEND_LEN;
 			CHECK_BUF_LEN();
-			//memcpy(extend_data, buf + frame_offset, DataFrameHeader::MID_EXTEND_LEN);
 			frame_offset += FrameHeader::MID_EXTEND_LEN;
-			//length = (unsigned int)extend_data[0] * 256 + (unsigned int)extend_data[1];
 			length = (unsigned int)*(buf + frame_offset) * 256 + (unsigned int)*(buf + frame_offset + 1);
 		}
 		else if (header.Length() == 127)
@@ -48,10 +50,6 @@ bool WebListener::AnalyzeBuf()
 				m_recv_buf.RemoveBuf(remove_len);
 			}
 			return false; // 数据太大,断开链接
-		}
-		else
-		{
-			length = header.Length();
 		}
 
 		if (header.HasMask())

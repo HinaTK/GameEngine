@@ -53,7 +53,6 @@ class DataCache
 public:
 	typedef game::Vector<FieldInfo> DATAFIELD_VECTOR;	
 	typedef game::Map<K, RowData *>	DATA_MAP;
-	//typedef typename DATA_MAP::iterator iterator;
 
 public:
 	DataCache(unsigned short length)
@@ -95,6 +94,9 @@ public:
 	bool			Update(K &key, DataList &list, bool insert = true);
 
 	bool			Delete(K &key);
+
+// 	// »º´æÊÂÎñ
+// 	void			
 
 protected:
 	void	SetDirtyData(int oper, K &key, RowData *row_data);

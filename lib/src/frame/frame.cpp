@@ -21,7 +21,8 @@ namespace SignalCatch
 }
 
 Frame::Frame()
-: m_update_interval(200)
+: m_FPS(200)
+, m_sleep_time_ms(1)
 , m_is_run(true)
 {
 	SignalCatch::g_frame = this;
@@ -109,20 +110,17 @@ bool Frame::Run()
 				// delete (*msg);
 			}
 		}
-		else
-		{
-			unsigned long long interval = cur_time_ms - last_time_ms - 1;
-			if (interval < m_update_interval)
-			{
-				GameTime::GameSleep((unsigned int)(m_update_interval - interval));
-			}
-		}
 
-		if ((cur_time_ms - last_time_ms) >= m_update_interval)
+		if ((cur_time_ms - last_time_ms) >= m_FPS)
 		{
 			UpdateAll(cur_time_ms - last_time_ms);
 			last_time_ms = cur_time_ms;
 		}
+		else
+		{
+			GameTime::GameSleep(m_sleep_time_ms);
+		}
+		
 	}
 	m_net_manager.Exit();
 	m_listen_thread.Join();

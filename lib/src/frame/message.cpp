@@ -13,6 +13,7 @@ GameMsg::GameMsg(NetHandle _handle, const char* _data, unsigned int _length)
 	{
 		data = new char[length];
 	}
+	memcpy(data, _data, length);
 }
 
 GameMsg::~GameMsg()

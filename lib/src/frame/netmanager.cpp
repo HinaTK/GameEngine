@@ -62,6 +62,7 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, NetID &n
 	}
 	handler->m_net_id = net_id;
 	AddNetHandler(handler);
+	printf("ip = %s, port = %d\n", ip, port);
 	return true;
 }
 

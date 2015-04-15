@@ -9,7 +9,15 @@ bool LoginFrame::Init()
 
 void LoginFrame::Recv(GameMsg *msg)
 {
+	struct test
+	{
+		int a;
+		int b;
+	};
 
+	test *c = (test *)msg->data;
+	Send(msg->handle, (const char *)c, sizeof(test));
+	delete msg;
 }
 
 void LoginFrame::Update(unsigned int interval, time_t now)
