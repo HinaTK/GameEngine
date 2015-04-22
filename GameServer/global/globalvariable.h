@@ -14,7 +14,8 @@
 
 
 typedef char ProgramName[PROGRAMNAMELEN];
-typedef Vector2D<unsigned short>		Posi;
+typedef unsigned short					Coord;		// ×ø±êÀàÐÍ
+typedef Vector2D<Coord>					Posi;
 
 
 //char *name123[] = { "DatabaseServer","23423" };

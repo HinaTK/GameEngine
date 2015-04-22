@@ -89,23 +89,33 @@ UInt32 AreaManager::GreateObserver(ObjID obj_id)
 	return obser_handle;
 }
 
+/* 
+	CreateAOI和GreateObserver一般是同时调用，达到相互通知进入视野
+	而例如掉落，它不需要CreateAOI，因为它不需要观察其它对象的状态，它只需要被其它对象观察
+*/
 void AreaManager::CreateAOI(ObjID obj_id, Posi center, Posi enter_radius, Posi leave_radius)
 {
     Posi offset_center(center.x < leave_radius.x ? leave_radius.x : center.x, center.y < leave_radius.y ? leave_radius.y : center.y);
     AOI aoi(obj_id, offset_center, enter_radius, leave_radius);
-    UInt32 aoiHandler = SaveAOI(aoi);
+	UInt32 aoiHandler = m_aoi_pool.Insert(aoi);
+
     Posi bottomLeft;
-    GetArea(bottomLeft, offset_center.x - leave_radius.x, offset_center.y - leave_radius.y);
-    Posi topRight;
+	Posi topRight;
+    GetArea(bottomLeft, offset_center.x - leave_radius.x, offset_center.y - leave_radius.y);  
     GetArea(topRight, offset_center.x + leave_radius.x, offset_center.y + leave_radius.y);
-	Obj * obj = m_obj_manager->GetObj(obj_id);
+
+	Obj *obj = m_obj_manager->GetObj(obj_id);
+	if (obj == NULL)
+	{
+		return;
+	}
 	/* 
 		前两个for循环是找到所有对obj所在的区域感兴趣的所有矩形区域
 		之后的for循环是找到每个矩形区域的所有其它的obj
 	*/
-    for (short i = bottomLeft.x; i <= topRight.x; ++i)
+	for (Coord i = bottomLeft.x; i <= topRight.x; ++i)
     {
-        for (short j = bottomLeft.y; j <= topRight.y; ++j)
+		for (Coord j = bottomLeft.y; j <= topRight.y; ++j)
         {
             Area *area = &m_area_matrix[i][j];
 			Area::OBSERVER_LIST *observer_list = area->GetObserverList();
@@ -114,38 +124,27 @@ void AreaManager::CreateAOI(ObjID obj_id, Posi center, Posi enter_radius, Posi l
 				Obj *otherObj = m_obj_manager->GetObj(*itr);
 				if (otherObj == NULL)
 				{
-					return;
+					continue;
 				}
 				if (aoi.IsIn(obj->GetPos()) && obj_id != otherObj->GetObjID())
 				{
-					obj->OnEnterAOI(otherObj->GetObjID());		// 相互通知
-					// 这里不可以将obj作为进入otherObj的AOI，因为obj对otherObj感兴趣，不一家otherObj对obj感兴趣
-					//otherObj->OnEnterAOI(obj->GetObjID());	
+					obj->OnEnterAOI(otherObj->GetObjID());
 				}
 			}
         }
     }
 }
 
-
-
-UInt32 AreaManager::SaveAOI(AOI &aoi)
+// 获得位置（x,y）所在的area(区域)
+void AreaManager::GetArea(Posi &area, Coord x, Coord y)
 {
-	return m_aoi_pool.Insert(aoi);
-}
-
-
-void AreaManager::GetArea(Posi &area, short x, short y)
-{
-    (x < 0) ? (x = 0) : 0;
-    (y < 0) ? (y = 0) : 0;
     area.x = x/m_unit_x;
     area.y = y/m_unit_y;
     (area.x > m_max_x) ? (area.x = m_max_x - 1) : 0;
     (area.y > m_max_y) ? (area.x = m_max_y - 1) : 0;
 }
 
-
+// 判断位置p的位置是否合法，并获得将p所在的area
 bool AreaManager::CheckArea( Posi &area, const Posi &p )
 {
 	area.x = p.x / m_unit_x;
@@ -162,28 +161,29 @@ void AreaManager::MoveObserver( UInt32 observer_handle )
 
 	Observer *obser = m_observer_pool[observer_handle];
 	ObjID objID = obser->obj_id;
-	Posi oldAreaPos = obser->be_observe_area_pos;
-	Posi obserPos = obser->pos;
+	Posi old_area_pos = obser->be_observe_area_pos;
+	Posi old_obser_pos = obser->pos;
 
 	Obj *obj = m_obj_manager->GetObj(objID);
 	obser->pos = obj->GetPos();
 
-	Posi areaPos;
-
-	if (CheckArea(areaPos, obser->pos))
+	Posi new_area_pos;
+	if (CheckArea(new_area_pos, obser->pos))
 	{
-		if (areaPos != obser->be_observe_area_pos)
+		if (new_area_pos != obser->be_observe_area_pos)
 		{
 			m_area_matrix[obser->be_observe_area_pos.x][obser->be_observe_area_pos.y].EraseObserver(obser->be_observer_index);
 
-			obser->be_observe_area_pos = areaPos;
-			obser->be_observer_index = m_area_matrix[areaPos.x][areaPos.y].AddObserver(objID);
+			obser->be_observe_area_pos = new_area_pos;
+			obser->be_observer_index = m_area_matrix[new_area_pos.x][new_area_pos.y].AddObserver(objID);
+		}
+		else
+		{
+			return;		// 对象在同一个区域移动，不需要通知其它观察者其进入和退出该区域的状态
 		}
 	}
 
-
-
-	Area *area = &m_area_matrix[oldAreaPos.x][oldAreaPos.y];
+	Area *area = &m_area_matrix[old_area_pos.x][old_area_pos.y];
 	int aoi_size = area->GetAOISize();
 	for (int i = 0; i < aoi_size; ++i)
 	{
@@ -194,12 +194,11 @@ void AreaManager::MoveObserver( UInt32 observer_handle )
 			continue;
 		}
 
-		if (!aoi->IsOut(obserPos) && aoi->IsOut(obser->pos))
+		if (aoi->IsIn(old_obser_pos) && aoi->IsOut(obser->pos))
 		{
 			m_obj_manager->GetObj(aoi->obj_id)->OnLeaveAOI(obser->obj_id);
 		}
 	}
-
 
 	area = &m_area_matrix[obser->be_observe_area_pos.x][obser->be_observe_area_pos.y];
 	aoi_size = area->GetAOISize();
@@ -210,7 +209,7 @@ void AreaManager::MoveObserver( UInt32 observer_handle )
 		{
 			continue;
 		}
-		if (!aoi->IsIn(obserPos) && aoi->IsIn(obser->pos))
+		if (aoi->IsOut(old_obser_pos) && aoi->IsIn(obser->pos))
 		{
 			m_obj_manager->GetObj(aoi->obj_id)->OnEnterAOI(obser->obj_id);
 		}
@@ -235,11 +234,8 @@ void AreaManager::MoveAOI( UInt32 aoi_handle )
 	(newCenter.x > m_max_x - leaveRadius.x) ? (newCenter.x = m_max_x - leaveRadius.x) : 0;
 	(newCenter.y > m_max_y - leaveRadius.y) ? (newCenter.y = m_max_y - leaveRadius.y) : 0;
 
-	static const int AOI_SENSITIVE_DISTANCE = 2;//(int)GlobalConfig::Instance().GetKeyConfig_RoleAoiSensitiveDistance();	// AOI模块中对两次MoveAOI小于这个时不加处理
-// 	if (!(newCenter - aoi->centre).IsLongerThan(AOI_SENSITIVE_DISTANCE))
-// 	{
-// 		return;
-// 	}
+	// AOI模块中对两次MoveAOI小于这个时不加处理
+	static const int AOI_SENSITIVE_DISTANCE = 2;
 
 	AOI aoi_old = *aoi;
 	Posi oldCenter = aoi->centre;

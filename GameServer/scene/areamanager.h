@@ -53,9 +53,10 @@ public:
 	void		EraseObserver(UInt32 observer_handle);
 	void		EraseAOI(UInt32 aoi_handle);
 
-    void        GetArea(Posi &area, short x, short y);				// 获得位置（x,y）所在的area(区域)
-	bool		CheckArea(Posi &area, const Posi &p);				// 判断位置p的位置是否合法，并获得将p所在的area
-    UInt32		SaveAOI(AOI &aoi);
+
+protected:
+	void        GetArea(Posi &area, Coord x, Coord y);				
+	bool		CheckArea(Posi &area, const Posi &p);				
 private:
 	
 	short m_max_x;			// 整个场景的最大x长度
@@ -64,8 +65,8 @@ private:
 	short m_unit_x;			// 每个area的x长度
 	short m_unit_y;			// 每个area的y长度
 
-	short m_x_num;			// 整个场景有多少个x个数
-	short m_y_num;			// 整个场景有多少个y个数
+	short m_x_num;			// 横坐标有x个area
+	short m_y_num;			// 纵坐标有y个area
 
 	Area **						m_area_matrix;
 	game::Array<AOI>			m_aoi_pool;

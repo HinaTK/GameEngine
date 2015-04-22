@@ -5,7 +5,7 @@ Area::~Area(void)
 {
 }
 
-void Area::Init( short bottom_x,short bottom_y,short top_x,short top_y )
+void Area::Init(Coord bottom_x, Coord bottom_y, Coord top_x, Coord top_y)
 {
 	m_bottom_x	= bottom_x;
 	m_bottom_y	= bottom_y;
@@ -32,6 +32,7 @@ int Area::GetAOIHandle( UInt32 index )
 	return m_aoi_handle_list[index];
 }
 
+// 获取该区域的AOI个数，也就是对该区域感兴趣的对象个数
 UInt32 Area::GetAOISize()
 {
 	return m_aoi_handle_list.Size();

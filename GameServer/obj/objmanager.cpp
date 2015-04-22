@@ -13,7 +13,5 @@ Obj * ObjManager::GetObj( ObjID obj_id )
 		return NULL;
 	}
 	return m_obj_list[obj_id];
-	//return m_obj_list[obj_id];
-	//return m_obj_list + obj_id;
 }
 
