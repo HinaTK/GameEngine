@@ -168,6 +168,7 @@ void AreaManager::MoveObserver( UInt32 observer_handle )
 	obser->pos = obj->GetPos();
 
 	Posi new_area_pos;
+	bool is_same_area = false;
 	if (CheckArea(new_area_pos, obser->pos))
 	{
 		if (new_area_pos != obser->be_observe_area_pos)
@@ -179,39 +180,73 @@ void AreaManager::MoveObserver( UInt32 observer_handle )
 		}
 		else
 		{
-			return;		// 对象在同一个区域移动，不需要通知其它观察者其进入和退出该区域的状态
+			is_same_area = true;
+			// return;		// 对象在同一个区域移动，不需要通知其它观察者其进入和退出该区域的状态
 		}
 	}
 
-	Area *area = &m_area_matrix[old_area_pos.x][old_area_pos.y];
-	int aoi_size = area->GetAOISize();
-	for (int i = 0; i < aoi_size; ++i)
+	if (is_same_area)
 	{
-		AOI *aoi = &m_aoi_pool[area->GetAOIHandle(i)];
-
-		if (aoi->obj_id == objID)
+		Area *area = &m_area_matrix[old_area_pos.x][old_area_pos.y];
+		int aoi_size = area->GetAOISize();
+		for (int i = 0; i < aoi_size; ++i)
 		{
-			continue;
-		}
+			AOI *aoi = &m_aoi_pool[area->GetAOIHandle(i)];
 
-		if (aoi->IsIn(old_obser_pos) && aoi->IsOut(obser->pos))
-		{
-			m_obj_manager->GetObj(aoi->obj_id)->OnLeaveAOI(obser->obj_id);
+			if (aoi->obj_id == objID)
+			{
+				continue;
+			}
+
+			if (aoi->IsIn(old_obser_pos))
+			{
+				if (aoi->IsOut(obser->pos))
+				{
+					m_obj_manager->GetObj(aoi->obj_id)->OnLeaveAOI(obser->obj_id);
+				}
+			}
+			else
+			{
+				if (aoi->IsIn(obser->pos))
+				{
+					m_obj_manager->GetObj(aoi->obj_id)->OnEnterAOI(obser->obj_id);
+				}
+				
+			}
 		}
 	}
-
-	area = &m_area_matrix[obser->be_observe_area_pos.x][obser->be_observe_area_pos.y];
-	aoi_size = area->GetAOISize();
-	for (int i = 0; i < aoi_size; ++i)
+	else
 	{
-		AOI *aoi = &m_aoi_pool[area->GetAOIHandle(i)];
-		if (aoi->obj_id == objID)
+		Area *area = &m_area_matrix[old_area_pos.x][old_area_pos.y];
+		int aoi_size = area->GetAOISize();
+		for (int i = 0; i < aoi_size; ++i)
 		{
-			continue;
+			AOI *aoi = &m_aoi_pool[area->GetAOIHandle(i)];
+
+			if (aoi->obj_id == objID)
+			{
+				continue;
+			}
+
+			if (aoi->IsIn(old_obser_pos) && aoi->IsOut(obser->pos))
+			{
+				m_obj_manager->GetObj(aoi->obj_id)->OnLeaveAOI(obser->obj_id);
+			}
 		}
-		if (aoi->IsOut(old_obser_pos) && aoi->IsIn(obser->pos))
+
+		area = &m_area_matrix[obser->be_observe_area_pos.x][obser->be_observe_area_pos.y];
+		aoi_size = area->GetAOISize();
+		for (int i = 0; i < aoi_size; ++i)
 		{
-			m_obj_manager->GetObj(aoi->obj_id)->OnEnterAOI(obser->obj_id);
+			AOI *aoi = &m_aoi_pool[area->GetAOIHandle(i)];
+			if (aoi->obj_id == objID)
+			{
+				continue;
+			}
+			if (aoi->IsOut(old_obser_pos) && aoi->IsIn(obser->pos))
+			{
+				m_obj_manager->GetObj(aoi->obj_id)->OnEnterAOI(obser->obj_id);
+			}
 		}
 	}
 }
