@@ -5,17 +5,36 @@
 #include "lib/include/common/mutex.h"
 #include "common/datastructure/gamemap.h"
 #include "common/datastructure/gamelist.h"
-#include "cachebase.h"
+
+// version:20150430
+
+class DataCallBack
+{
+public:
+	DataCallBack(){}
+	~DataCallBack(){}
+
+	virtual void OnCallBack(char *key, int operater, const char *data, unsigned int length) = 0;
+};
 
 /*
 	一个集合，用一个DataMap，因为Key需要唯一
 */
 template<class T>
-class DataMap : public CacheBase
+class DataMap
 {
 public:
 	DataMap();
 	~DataMap();
+
+	enum
+	{
+		INVALID,
+		DB_INSERT,
+		DB_DELETE,
+		DB_FIND,
+		DB_UPDATE
+	};
 
 	struct DataInfo
 	{
@@ -46,7 +65,8 @@ public:
 private:
 	DataCallBack			*m_data_call_back;
 	DATA_MAP				m_data_map;
-	DIRTY_DATA_LIST			m_dirty_data_list;
+	DIRTY_DATA_LIST			*m_dirty_data_list;
+	DIRTY_DATA_LIST			*m_flush_list;
 	Mutex					m_mutex;
 };
 
@@ -54,14 +74,22 @@ template<class T>
 DataMap<T>::DataMap()
 : m_data_call_back(NULL)
 {
-
+	m_dirty_data_list = new DIRTY_DATA_LIST;
+	m_flush_list = new DIRTY_DATA_LIST;
 }
 
 template<class T>
 DataMap<T>::~DataMap()
 {
+	if (m_data_call_back != NULL)
+	{
+		delete m_data_call_back;
+	}
 
+	delete m_dirty_data_list;
+	delete m_flush_list;
 }
+
 template<class T>
 bool DataMap<T>::Insert(T &key, const char *data, unsigned int length)
 {
@@ -72,7 +100,7 @@ bool DataMap<T>::Insert(T &key, const char *data, unsigned int length)
 	dd.info.length = length;
 	m_data_map.Insert(key, dd.info);
 	MutexLock lock(&m_mutex);
-	m_dirty_data_list.PushBack(dd);
+	m_dirty_data_list->PushBack(dd);
 	return true;
 }
 
@@ -93,7 +121,7 @@ bool DataMap<T>::Update(T &key, const char *data, unsigned int length)
 	dd.info.data = data;
 	dd.info.length = length;
 	MutexLock lock(&m_mutex);
-	m_dirty_data_list.PushBack(dd);
+	m_dirty_data_list->PushBack(dd);
 	return true;
 }
 
@@ -147,19 +175,24 @@ bool DataMap<T>::Delete(T &key)
 	dd.info.data = itr->second.data;
 	dd.info.length = itr->second.length;
 	MutexLock lock(&m_mutex);
-	m_dirty_data_list.PushBack(dd);
+	m_dirty_data_list->PushBack(dd);
 }
 
 
 template<class T>
 void DataMap<T>::Flush()
 {
-	MutexLock lock(&m_mutex);
-	for (typename DIRTY_DATA_LIST::iterator itr = m_dirty_data_list.Begin(); itr != m_dirty_data_list.End(); ++itr)
+	{
+		MutexLock lock(&m_mutex);
+		DIRTY_DATA_LIST *temp = m_dirty_data_list;
+		m_dirty_data_list = m_flush_list;
+		m_flush_list = temp;
+	}
+	for (typename DIRTY_DATA_LIST::iterator itr = m_flush_list->Begin(); itr != m_flush_list->End(); ++itr)
 	{
 		m_data_call_back->OnCallBack((char *)&itr->key, itr->type, itr->info.data, itr->info.length);
 	}
-	m_dirty_data_list.Clear();
+	m_flush_list->Clear();
 }
 
 #endif
