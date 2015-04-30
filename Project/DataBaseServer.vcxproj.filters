@@ -57,6 +57,9 @@
     <ClCompile Include="..\DatabaseServer\cache\datamapmanager.cpp">
       <Filter>cache</Filter>
     </ClCompile>
+    <ClCompile Include="..\DatabaseServer\table\tabledefine.cpp">
+      <Filter>table</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DatabaseServer\database\database.h">
@@ -100,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="..\DatabaseServer\cache\datamapmanager.h">
       <Filter>cache</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DatabaseServer\table\tabledefine.h">
+      <Filter>table</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -125,10 +125,13 @@ private:
 	m_param[_field].buffer = FIELD(_field).data; \
 	m_param[_field].buffer_length = FIELD(_field).length; \
 	m_param[_field].length = 0; \
-	StrField sf; \
-	sf.field = _field; \
-	sf.length = _length;\
-	m_str_field.push_back(sf);
+	{\
+		StrField sf; \
+		sf.field = _field; \
+		sf.length = _length; \
+		m_str_field.push_back(sf);\
+	}
+	
 
 #define BIND_RESULT_BEGIN()\
 	MYSQL_RES *metadata = mysql_stmt_result_metadata(m_stmt);\

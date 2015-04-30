@@ -29,11 +29,16 @@ namespace EProtocol
 	{
 		MT_INVALID = 0,
 	};
+
 	class MessageHeader
 	{
 	public:
-		MessageHeader(unsigned short type):msg_type(type){}
-		unsigned int	msg_type;
+		MessageHeader(int msg_id) : msgid(msg_id), svrid(-1), check(0), time_s(0){}
+
+		unsigned short		msgid;
+		unsigned short		svrid;
+		unsigned int		check;
+		unsigned int		time_s;
 	};
 
 	static const int LENGTH = sizeof(MessageHeader);

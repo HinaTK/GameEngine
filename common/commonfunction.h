@@ -1,5 +1,6 @@
-#ifndef COMMONFUNCTION_H
-#define COMMONFUNCTION_H
+
+#ifndef COMMON_FUNCTION_H
+#define COMMON_FUNCTION_H
 
 #include "systemdef.h"
 #ifdef __unix
@@ -19,6 +20,8 @@ namespace Function
 	unsigned long	GetThreadID();
 
 	const char		*GetServerName(unsigned int type);
+
+	bool			ProtocolDecode(const char *buf, unsigned int len);
 };
 
 #endif

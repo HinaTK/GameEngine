@@ -1,5 +1,6 @@
 
 #include "loginframe.h"
+#include "common/commonfunction.h"
 
 bool LoginFrame::Init()
 {
@@ -9,6 +10,11 @@ bool LoginFrame::Init()
 
 void LoginFrame::Recv(GameMsg *msg)
 {
+	if (!Function::ProtocolDecode(msg->data, msg->length))
+	{
+		return;
+	}
+
 	struct test
 	{
 		int a;

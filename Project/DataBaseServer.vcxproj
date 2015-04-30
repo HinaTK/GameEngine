@@ -167,6 +167,7 @@
     <ClCompile Include="..\DatabaseServer\message\messagehandler.cpp" />
     <ClCompile Include="..\DatabaseServer\table\datatable.cpp" />
     <ClCompile Include="..\DatabaseServer\table\datatablestmt.cpp" />
+    <ClCompile Include="..\DatabaseServer\table\tabledefine.cpp" />
     <ClCompile Include="..\DatabaseServer\table\tb_login.cpp" />
     <ClCompile Include="..\DatabaseServer\frame\databaseframe.cpp" />
     <ClCompile Include="..\DatabaseServer\frame\main.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="..\DatabaseServer\message\msgtype.h" />
     <ClInclude Include="..\DatabaseServer\table\datatable.h" />
     <ClInclude Include="..\DatabaseServer\table\datatablestmt.h" />
+    <ClInclude Include="..\DatabaseServer\table\tabledefine.h" />
     <ClInclude Include="..\DatabaseServer\table\tb_login.h" />
     <ClInclude Include="..\common\protocol\internaltype.h" />
     <ClInclude Include="..\common\protocol\l_dbprotocol.h" />

@@ -1,6 +1,7 @@
 
 #include "commonfunction.h"
 #include "commonvariable.h"
+#include "common/protocol/messageheader.h"
 
 void Function::WindowsPause()
 {
@@ -50,4 +51,25 @@ const char * Function::GetServerName(unsigned int type)
 		break;
 	}
 	return NULL;
+}
+
+bool Function::ProtocolDecode(const char *buf, unsigned int len)
+{
+	if (len < sizeof(EProtocol::MessageHeader))
+	{
+		return false;
+	}
+
+	EProtocol::MessageHeader *header = (EProtocol::MessageHeader *)buf;
+	const char *message_buf = buf + sizeof(EProtocol::MessageHeader);
+	int message_len = (int)(len - sizeof(EProtocol::MessageHeader));
+
+	unsigned int check = 0;
+	for (int i = 0; i < message_len; ++i)
+	{
+		check += (((unsigned int)*(unsigned char *)message_buf) << 16);
+		++message_buf;
+	}
+
+	return (header->check == check);
 }

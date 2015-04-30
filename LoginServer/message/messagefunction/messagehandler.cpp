@@ -12,12 +12,12 @@ MessageHandler::MessageHandler()
 
 void MessageHandler::HandleMessage( char * msg, UInt16 length )
 {
-	EProtocol::MessageHeader * header = (EProtocol::MessageHeader *)msg;
-	if (header->msg_type >= EProtocol::MT_LOGIN_END)
-	{
-		return;
-	}
-	(this->*m_function_list[header->msg_type].func)(msg, length);
+// 	EProtocol::MessageHeader * header = (EProtocol::MessageHeader *)msg;
+// 	if (header->msg_type >= EProtocol::MT_LOGIN_END)
+// 	{
+// 		return;
+// 	}
+// 	(this->*m_function_list[header->msg_type].func)(msg, length);
 }
 
 void MessageHandler::UserLogin( const char *msg, UInt16 length )
