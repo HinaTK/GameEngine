@@ -14,6 +14,8 @@ public:
 	Frame();
 	virtual ~Frame();
 
+	virtual bool		Init();
+
 	virtual	void		Recv(GameMsg *msg) = 0;
 
 	virtual	void		Update(unsigned int interval, time_t now) = 0;  //¸üÐÂ

@@ -9,32 +9,16 @@ if (m_begin + length > m_end)\
 	}\
 
 
-// bool Serializer::Push(const char * const data, unsigned int length)
-// {
-// 	CHECK_SIZE(length);
-// 	memcpy(m_data + m_begin, data, length);
-// 	m_begin += length;
-// 	return true;
-// }
-// 
-// bool Serializer::Pop(char *data, unsigned int length)
-// {
-// 	CHECK_SIZE(length);
-// 	memcpy(data, m_data + m_begin, length);
-// 	m_begin += length;
-// 	return true;
-// }
-
-bool Serializer::PushStr( const char *data )
+bool Serializer::PushStr(const char *data)
 {
 	return PushStr(data, strlen(data));
 }
 
 bool Serializer::PushStr(const char * data, unsigned int length)
 {
-	CHECK_SIZE(length + LEN_INT);
+	CHECK_SIZE(length + L_LEN);
 	*(unsigned int *)(m_data + m_begin) = length;
-	m_begin += LEN_INT;
+	m_begin += L_LEN;
 
 	memcpy(m_data + m_begin, data, length);
 	m_begin += length;
@@ -43,9 +27,9 @@ bool Serializer::PushStr(const char * data, unsigned int length)
 
 bool Serializer::PopStr(char **data, unsigned int &length)
 {
-	CHECK_SIZE(LEN_INT);
+	CHECK_SIZE(L_LEN);
 	length = *(unsigned int *)(m_data + m_begin);
-	m_begin += LEN_INT;
+	m_begin += L_LEN;
 
 	CHECK_SIZE(length);
 	*data = m_data + m_begin;
@@ -53,35 +37,35 @@ bool Serializer::PopStr(char **data, unsigned int &length)
 	return true;
 }
 
-bool Serializer::_PushStr( const char *data )
+bool Serializer::_PushStr(const char *data)
 {
 	return _PushStr(data, strlen(data));
 }
 
-bool Serializer::_PushStr( const char *data, unsigned int length )
+bool Serializer::_PushStr(const char *data, unsigned int length)
 {
-	if (m_begin + length + LEN_CHAR + LEN_INT > m_end)
+	if (m_begin + length + T_LEN + L_LEN > m_end)
 	{
 		return false;
 	}
 
 	*(unsigned char *)(m_data + m_begin) = STRING;
-	m_begin += LEN_CHAR;
+	m_begin += T_LEN;
 
 	*(unsigned int *)(m_data + m_begin) = length;
-	m_begin += LEN_INT;
+	m_begin += L_LEN;
 
 	memcpy(m_data + m_begin, data, length);
 	m_begin += length;
 	return true;
 }
 
-bool Serializer::_PopStr( char **data, unsigned int &length )
+bool Serializer::_PopStr(char **data, unsigned int &length)
 {
-	CHECK_SIZE(LEN_CHAR + LEN_INT);
-	m_begin += LEN_CHAR;
+	CHECK_SIZE(T_LEN + L_LEN);
+	m_begin += T_LEN;
 	length = *(unsigned int *)(m_data + m_begin);
-	m_begin += LEN_INT;
+	m_begin += L_LEN;
 
 	CHECK_SIZE(length);
 	*data = m_data + m_begin;

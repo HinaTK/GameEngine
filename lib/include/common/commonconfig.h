@@ -4,6 +4,7 @@
 
 #include <string>
 #include <vector>
+#include "memoryvl.h"
 
 class CommonConfig
 {	
@@ -16,23 +17,15 @@ public:
 		return config;
 	}
 
-	
-	struct MemoryVL
-	{
-		unsigned int size;
-		unsigned int num;
-	};
-
-	typedef std::vector<MemoryVL> MEMORY_VL_VECTOR;
 private:
 	bool	Init();
 
 public:
-	MEMORY_VL_VECTOR &GetMemoryVLVector(){ return m_memory_vl; }
+	MemoryVL::MEMORY_CONFIG &GetMemoryVLVector(){ return m_memory_vl; }
 private:
 	CommonConfig();
 	std::string m_config_file;
-	MEMORY_VL_VECTOR	m_memory_vl;
+	MemoryVL::MEMORY_CONFIG	m_memory_vl;
 };
 
 #endif

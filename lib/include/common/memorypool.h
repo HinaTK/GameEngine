@@ -13,6 +13,8 @@ public:
 	void *	Alloc();
 	void	Free(void *m);
 	void	Init(unsigned int size, unsigned int increase = 64);
+	unsigned int Size(){ return m_size; }
+
 private:
 	bool	Resize();
 

@@ -1,24 +1,14 @@
 
 #include <stdio.h>
 #include "memoryvl.h"
-#include "commonconfig.h"
 
 static const unsigned int LEN_INT = sizeof(unsigned int);
-static CommonConfig::MEMORY_VL_VECTOR mv = CommonConfig::Instance().GetMemoryVLVector();
 Mutex g_init_mutex;
+
 MemoryVL::MemoryVL()
 : m_size(0)
 {
-	MutexLock lock(&g_init_mutex);
-	CommonConfig::MEMORY_VL_VECTOR::iterator itr = mv.begin();
-	m_size = mv.size();
-	m_memory = new MemoryPool[m_size];
-	m_mutex = new Mutex[m_size];
-	unsigned int i = 0;
-	for (; itr != mv.end() && i < m_size; ++itr, ++i)
-	{
-		m_memory[i].Init(itr->size + LEN_INT , itr->num);
-	}
+
 }
 
 MemoryVL::~MemoryVL()
@@ -27,13 +17,29 @@ MemoryVL::~MemoryVL()
 	delete[]m_mutex;
 }
 
+bool MemoryVL::Init(MEMORY_CONFIG &config)
+{
+	MutexLock lock(&g_init_mutex);
+	MEMORY_CONFIG::iterator itr = config.begin();
+	m_size = config.size();
+	m_memory = new MemoryPool[m_size];
+	m_mutex = new Mutex[m_size];
+	unsigned int i = 0;
+	for (; itr != config.end() && i < m_size; ++itr, ++i)
+	{
+		m_memory[i].Init(itr->size + LEN_INT, itr->num);
+	}
+
+	return true;
+}
+
 void  *MemoryVL::Malloc(unsigned int size)
 {
 	unsigned int real_size = size + LEN_INT;
 	unsigned int i = 0;
 	for (; i < m_size; ++i)
 	{
-		if (real_size < mv[i].size)
+		if (real_size < m_memory[i].Size())
 		{
 			break;
 		}
@@ -48,7 +54,7 @@ void  *MemoryVL::Malloc(unsigned int size)
 		mem = (char *)m_memory[i].Alloc();
 		*(unsigned int *)mem = i;
 	}
-	
+
 	return (mem + LEN_INT);
 }
 
@@ -66,6 +72,6 @@ bool MemoryVL::Free(void *mem)
 		MutexLock lock(&m_mutex[index]);
 		m_memory[index].Free(mem);
 	}
-	
+
 	return true;
 }

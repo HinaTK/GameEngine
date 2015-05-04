@@ -5,6 +5,8 @@
 #include "frame/message.h"
 #include "log/log.h"
 #include "lib/include/timemanager/gametime.h"
+#include "lib/include/common/memoryvl.h"
+#include "lib/include/common/commonconfig.h"
 
 
 namespace SignalCatch
@@ -33,6 +35,12 @@ Frame::Frame()
 Frame::~Frame()
 {
 
+}
+
+bool Frame::Init()
+{
+	MemoryVL::Instance().Init(CommonConfig::Instance().GetMemoryVLVector());
+	return true;
 }
 
 void Frame::SetExit()

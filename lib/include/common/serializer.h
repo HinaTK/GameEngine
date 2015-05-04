@@ -2,6 +2,11 @@
 #ifndef SERIALIZER_H
 #define SERIALIZER_H
 
+/*
+T: type
+L: length
+V: value
+*/
 class Serializer
 {
 public:
@@ -13,8 +18,8 @@ public:
 	};
 	~Serializer(){};
 
-	static const unsigned int LEN_CHAR	= sizeof(char); 
-	static const unsigned int LEN_INT	= sizeof(int);
+	static const unsigned int T_LEN = sizeof(char);
+	static const unsigned int L_LEN = sizeof(int);
 
 	enum
 	{
@@ -27,21 +32,19 @@ public:
 		DOUBLE,			//64位浮点，
 		STRING,			//字符串	
 	};
+private:
+	unsigned char	DataType(char type){ return CHAR; }
+	unsigned char	DataType(unsigned char type){ return CHAR; }
+	unsigned char	DataType(short type){ return SHORT; }
+	unsigned char	DataType(unsigned short type){ return SHORT; }
+	unsigned char	DataType(int type){ return INT; }
+	unsigned char	DataType(unsigned int type){ return INT; }
+	unsigned char	DataType(long long type){ return LONG; }
+	unsigned char	DataType(unsigned long long type){ return LONG; }
+	unsigned char	DataType(float type){ return FLOAT; }
+	unsigned char	DataType(double type){ return DOUBLE; }
 
-	unsigned char	DataType(char type){return CHAR;}
-	unsigned char	DataType(unsigned char type){return CHAR;}
-	unsigned char	DataType(short type){return SHORT;}
-	unsigned char	DataType(unsigned short type){return SHORT;}
-	unsigned char	DataType(int type){return INT;}
-	unsigned char	DataType(unsigned int type){return INT;}
-	unsigned char	DataType(long long type){return LONG;}
-	unsigned char	DataType(unsigned long long type){return LONG;}
-	unsigned char	DataType(float type){return FLOAT;}
-	unsigned char	DataType(double type){return DOUBLE;}
-
-// 	bool	Push(const char * const data, unsigned int length);
-// 	bool	Pop(char *data, unsigned int length);
-
+public:
 	bool	PushStr(const char * data);
 	bool	PushStr(const char * data, unsigned int length);
 	bool	PopStr(char **data, unsigned int &length);
@@ -50,6 +53,7 @@ public:
 	bool	_PushStr(const char *data, unsigned int length);
 	bool	_PopStr(char **data, unsigned int &length);
 
+	// 只保存V
 	template<class T>
 	bool	Push(const T &data)
 	{
@@ -76,19 +80,21 @@ public:
 		return true;
 	}
 
+	// 只保存T V
 	template<class T>
 	bool	_Push(const T &data)
 	{
-		static unsigned int		length = sizeof(T);
-		static unsigned char	data_type = DataType(data);
-		static unsigned int		data_len = length + LEN_CHAR;
+		static const unsigned int	length = sizeof(T);
+		static const unsigned char	data_type = DataType(data);
+		static const unsigned int	data_len = length + T_LEN;
+
 		if (m_begin + data_len > m_end)
 		{
 			return false;
 		}
 
 		*(unsigned char *)(m_data + m_begin) = data_type;
-		m_begin += LEN_CHAR;
+		m_begin += T_LEN;
 
 		*(T *)(m_data + m_begin) = data;
 		m_begin += length;
@@ -98,14 +104,14 @@ public:
 	template<class T>
 	bool	_Pop(T &data)
 	{
-		static unsigned int		length = sizeof(T);
-		static unsigned int		data_len = length + LEN_CHAR + LEN_CHAR;
+		static const unsigned int	length = sizeof(T);
+		static const unsigned int	data_len = length + T_LEN;
 		if (m_begin + data_len > m_end)
 		{
 			return false;
 		}
 
-		m_begin += LEN_CHAR;
+		m_begin += T_LEN;
 
 		data = *(T *)(m_data + m_begin);
 		m_begin += length;

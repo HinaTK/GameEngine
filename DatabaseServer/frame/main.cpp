@@ -12,6 +12,7 @@
 
 bool DatabaseFrame::Init()		// ¿ò¼Ü³õÊ¼»¯
 {
+	Frame::Init();
 // 	TB_Login test(0, "login", DataBase::Instance().GetStmt());
 // 	test.Init();
 // 

@@ -30,7 +30,7 @@ bool CommonConfig::Init()
 			return false;
 		}
 		curElement = curElement->FirstChildElement("memory");
-		MemoryVL memory;
+		MemoryVL::MemoryConfig memory;
 		while (curElement != NULL)
 		{
 			if (!GetSubNodeValue(curElement, "size", memory.size, err) ||

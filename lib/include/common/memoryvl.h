@@ -2,11 +2,12 @@
 #ifndef MEMORY_V_L_H
 #define MEMORY_V_L_H
 
+#include <vector>
 #include "memorypool.h"
 #include "mutex.h"
 
 /*
-	不定长内存池
+不定长内存池
 */
 class MemoryVL
 {
@@ -24,6 +25,16 @@ public:
 		unsigned int	index;
 		char			*mem;
 	};
+
+	struct MemoryConfig
+	{
+		unsigned int size;
+		unsigned int num;
+	};
+
+	typedef std::vector<MemoryConfig> MEMORY_CONFIG;
+
+	bool	Init(MEMORY_CONFIG &config);
 
 	void	*Malloc(unsigned int size);
 
