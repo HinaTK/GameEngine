@@ -35,8 +35,8 @@ public:
 	Thread	m_recv_client_thread;
 	Thread	m_send_thread;
 
-	NetID	m_game_net_id;
-	NetID	m_login_net_id;
+	SOCKET	m_game_net_id;
+	SOCKET	m_login_net_id;
  
 
 private:

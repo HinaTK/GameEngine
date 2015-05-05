@@ -10,10 +10,10 @@ void Accepter::OnCanRead()
 {
 	static struct sockaddr_in addr;
 	static SOCKET_LEN len = sizeof(struct sockaddr);
-	NetID new_net_id = accept(m_net_id, (struct sockaddr*)&addr, &len);
-	if (new_net_id != INVALID_SOCKET)
+	SOCKET new_sock = accept(m_sock, (struct sockaddr*)&addr, &len);
+	if (new_sock != INVALID_SOCKET)
 	{
-		if (addr.sin_addr.s_addr != ip)
+		if (ip != 0 && addr.sin_addr.s_addr != ip)
 		{
 			return;
 		}
@@ -21,7 +21,7 @@ void Accepter::OnCanRead()
 		printf("connect server ip = %s\n", inet_ntoa(addr.sin_addr));
 #endif
 		BaseListener *handler = new BaseListener(m_net_manager, NetHandler::LISTENER);
-		handler->m_net_id = new_net_id;
+		handler->m_sock = new_sock;
 		m_net_manager->AddNetHandler(handler);
 	}
 }

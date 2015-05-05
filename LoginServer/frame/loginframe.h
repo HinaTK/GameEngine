@@ -32,13 +32,13 @@ public:
 	void		Wait();
 	void		Recv(GameMsg *msg);
 
-	void		OnSend(NetID user_id, char *msg, UInt16 length);
+	void		OnSend(SOCKET user_id, char *msg, UInt16 length);
 
 
 public:
-	NetID	m_login_server_net_id;
-    NetID	m_database_server_net_id;
-	NetID	m_gateway_server_net_id;
+	SOCKET	m_login_server_net_id;
+    SOCKET	m_database_server_net_id;
+	SOCKET	m_gateway_server_net_id;
 
 private:
 	LoginFrame();

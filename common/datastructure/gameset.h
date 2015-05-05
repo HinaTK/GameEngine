@@ -3,32 +3,31 @@
 #define GAME_SET_H
 
 #include <stdlib.h>
+
+#define GAME_SET
 #include "rbtree.h"
 
 template <class T>
-class GameSet;
+class Set;
 
 template <class T>
 class SetTreeNode
 {
 public:
 	friend class RBTree<T, SetTreeNode<T> >;
-	friend class GameSet<T>;
-
-	T key;
-private:
-	SetTreeNode *left;
-	SetTreeNode *right;
-	SetTreeNode *parent;		// ¸¸½áµã
-	bool color;		
+	friend class Set<T>;
+	
+	TreeNode(T, SetTreeNode);
 };
 
+namespace game
+{
 template <class T>
-class GameSet
+class Set
 {
 public:
-	GameSet(unsigned int increase = 64);
-	~GameSet();
+	Set(unsigned int increase = 64);
+	~Set();
 	
 public:
 	
@@ -46,16 +45,16 @@ private:
 };
 
 template <class T>
-GameSet<T>::GameSet(unsigned int increase /*= 64*/)
+Set<T>::Set(unsigned int increase /*= 64*/)
 : m_rbtree(increase)
 {
 
 }
 
 template <class T>
-GameSet<T>::~GameSet()
+Set<T>::~Set()
 {
 
 }
-
+}
 #endif

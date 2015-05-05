@@ -23,7 +23,7 @@ namespace SignalCatch
 }
 
 Frame::Frame()
-: m_FPS(200)
+: m_FPS(250)
 , m_sleep_time_ms(1)
 , m_is_run(true)
 {

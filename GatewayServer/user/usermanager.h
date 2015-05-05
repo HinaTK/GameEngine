@@ -16,7 +16,7 @@ public:
 private:
 	UserManager();
 private:
-	std::map<RoleID,NetID> m_user_map;
+	std::map<RoleID, SOCKET> m_user_map;
 };
 
 

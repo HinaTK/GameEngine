@@ -8,7 +8,7 @@ bool GatewayFrame::Init()
 	return true;
 }
 
-// void GatewayFrame::ExternalRecv( NetID user_id, char *msg, UInt16 length )
+// void GatewayFrame::ExternalRecv( SOCKET user_id, char *msg, UInt16 length )
 // {
 // 	EProtocol::MessageHeader * header = (EProtocol::MessageHeader *) msg;
 // 	printf("header->msg_type = %d\n", header->msg_type);

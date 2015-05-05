@@ -10,13 +10,18 @@ void Listener::OnCanRead()
 	{
 		m_net_manager->RemoveHandler(m_handle);
 	}
+
+	if (m_recv_buf.FreeLength() <= 0)
+	{
+		m_recv_buf.Resize(16);
+	}
 }
 
 bool Listener::RecvBuf()
 {
 	do
 	{
-		int ret = recv(m_net_id, m_recv_buf.GetFreeBuf(), m_recv_buf.FreeLength(), 0);
+		int ret = recv(m_sock, m_recv_buf.GetFreeBuf(), m_recv_buf.FreeLength(), 0);
 		if (ret <= 0)
 		{
 			if (ret == SOCKET_ERROR && NetCommon::Error() == WOULDBLOCK)
@@ -27,18 +32,19 @@ bool Listener::RecvBuf()
 		}
 		m_recv_buf.AddLength(ret);
 		unsigned long arg = 0;
-		NetCommon::Ioctl(m_net_id, FIONREAD, &arg);
+		NetCommon::Ioctl(m_sock, FIONREAD, &arg);
 		if (arg == 0)
 		{
 			break;
 		}
 		if (arg > m_recv_buf.FreeLength())
 		{
-			// Ô¤Áô¶à16×Ö½Ú
-			m_recv_buf.Resize(arg - m_recv_buf.FreeLength() + 16);
+			m_recv_buf.Resize(arg - m_recv_buf.FreeLength());
 		}
 
 	} while (true);
+
+	
 	return true;
 }
 
@@ -50,7 +56,7 @@ void Listener::OnCanWrite()
 		{
 			{
 				MutexLock ml(&m_send_mutex);
-				BufManager *temp_buf = m_send_buf_read;
+				SendBuffer *temp_buf = m_send_buf_read;
 				m_send_buf_read = m_send_buf_write;
 				m_send_buf_write = temp_buf;
 			}
@@ -62,7 +68,7 @@ void Listener::OnCanWrite()
 		}
 		while (m_send_buf_read->RemainReadLength() > 0)
 		{
-			int ret = NetCommon::Send(m_net_id, m_send_buf_read->GetReadBuf(), m_send_buf_read->RemainReadLength());
+			int ret = NetCommon::Send(m_sock, m_send_buf_read->GetReadBuf(), m_send_buf_read->RemainReadLength());
 
 			if (ret == SOCKET_ERROR)
 			{
@@ -90,14 +96,14 @@ void Listener::RegisterWriteFD()
 		return;
 	}
 #ifdef WIN32
-	FD_SET(m_net_id, m_net_manager->GetWriteSet());
+	FD_SET(m_sock, m_net_manager->GetWriteSet());
 #endif // !WIN32
 
 #ifdef __unix
 	struct epoll_event ev;
 	ev.events = EPOLLIN | EPOLLOUT | EPOLLET;
 	ev.data.ptr = (void *)this;
-	if (epoll_ctl(m_net_manager->GetEpollFD(), EPOLL_CTL_MOD, m_net_id, &ev) == -1)
+	if (epoll_ctl(m_net_manager->GetEpollFD(), EPOLL_CTL_MOD, m_sock, &ev) == -1)
 	{
 		// ×¢²áÐ´Ê§°Ü
 	}
@@ -113,14 +119,14 @@ void Listener::UnRegisterWriteFD()
 		return;
 	}
 #ifdef WIN32
-	FD_CLR(m_net_id, m_net_manager->GetWriteSet());
+	FD_CLR(m_sock, m_net_manager->GetWriteSet());
 #endif
 
 #ifdef __unix
 	struct epoll_event ev;
 	ev.events = EPOLLIN | EPOLLET;
 	ev.data.ptr = (void *)this;
-	if (epoll_ctl(m_net_manager->GetEpollFD(), EPOLL_CTL_MOD, m_net_id, &ev) == -1)
+	if (epoll_ctl(m_net_manager->GetEpollFD(), EPOLL_CTL_MOD, m_sock, &ev) == -1)
 	{
 		// ·´×¢²áÐ´Ê§°Ü
 	}

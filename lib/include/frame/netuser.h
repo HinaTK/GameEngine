@@ -10,7 +10,7 @@ class NetUser
 {
 public:
 	~NetUser(){};
-	NetUser(NetID net_id) :m_net_id(net_id)
+	NetUser(SOCKET sock) :m_sock(sock)
 	{};
 
 	/* 
@@ -19,14 +19,14 @@ public:
 	*/
 	BufManager	*GetBufManager(){ return &m_buf_manager; }		
 
-	NetID		GetNetID(){ return m_net_id; }
+	SOCKET		GetSocket(){ return m_sock; }
 
 	void *		operator new(size_t c);
 	void		operator delete(void *m);
 
 private:
 	BufManager	m_buf_manager;
-	NetID		m_net_id;
+	SOCKET		m_sock;
 };
 
 

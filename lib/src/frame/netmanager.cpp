@@ -33,7 +33,7 @@ NetManager::NetManager()
 }
 #endif
 
-bool NetManager::InitServer(char *ip, unsigned short port, int backlog, NetID &net_id, bool is_web)
+bool NetManager::InitServer(char *ip, unsigned short port, int backlog, SOCKET &net_id, bool is_web)
 {
 	NetCommon::StartUp();
 	if (!NetCommon::Init(ip, port, backlog, net_id))
@@ -60,13 +60,12 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, NetID &n
 		unsigned long _ip = inet_addr(ip);
 		handler = new Accepter(this, NetHandler::ACCEPTER, _ip);
 	}
-	handler->m_net_id = net_id;
+	handler->m_sock = net_id;
 	AddNetHandler(handler);
-	printf("ip = %s, port = %d\n", ip, port);
 	return true;
 }
 
-bool NetManager::ConnectServer(char *ip, unsigned short port, NetID &net_id)
+bool NetManager::ConnectServer(char *ip, unsigned short port, SOCKET &net_id)
 {
 	printf("connect to Server ip = %s, port = %d\n", ip, port);
 #ifdef WIN32
@@ -127,7 +126,7 @@ bool NetManager::ConnectServer(char *ip, unsigned short port, NetID &net_id)
 	}
 #endif
 	BaseListener *handler = new BaseListener(this, NetHandler::LISTENER);
-	handler->m_net_id = net_id;
+	handler->m_sock = net_id;
 	AddNetHandler(handler);
 
 	printf("Connect Server success\n");
@@ -138,7 +137,7 @@ void NetManager::Listen()
 {
 #ifdef WIN32
 	int ret = 0;
-	NetID	max_fd = 0;
+	SOCKET	max_fd = 0;
 	fd_set	temp_read_set;
 	fd_set	temp_write_set;
 	FD_ZERO(&temp_read_set);
@@ -155,11 +154,11 @@ void NetManager::Listen()
 			NetManager::NET_HANDLER_ARRAY::iterator itr = m_net_handler.Begin();
 			for (; itr != m_net_handler.End(); ++itr)
 			{
-				if (FD_ISSET((*itr)->m_net_id, &temp_read_set))
+				if (FD_ISSET((*itr)->m_sock, &temp_read_set))
 				{
 					(*itr)->OnCanRead();
 				}
-				if (FD_ISSET((*itr)->m_net_id, &temp_write_set))
+				if (FD_ISSET((*itr)->m_sock, &temp_write_set))
 				{
 					(*itr)->OnCanWrite();
 				}
@@ -209,10 +208,10 @@ NetHandle NetManager::AddNetHandler(NetHandler *handler)
 	handler->m_handle = m_net_handler.Insert(handler);
 	// 设置成非阻塞
 	unsigned long b;
-	NetCommon::Ioctl(handler->m_net_id, FIONBIO, &b);
+	NetCommon::Ioctl(handler->m_sock, FIONBIO, &b);
 #ifdef WIN32
-	FD_SET(handler->m_net_id, &m_read_set);
-	handler->m_net_id > m_max_fd ? m_max_fd = handler->m_net_id : 0;
+	FD_SET(handler->m_sock, &m_read_set);
+	handler->m_sock > m_max_fd ? m_max_fd = handler->m_sock : 0;
 	// 做一个网络id排序，方便删除时找到最大id
 #endif
 
@@ -220,7 +219,7 @@ NetHandle NetManager::AddNetHandler(NetHandler *handler)
 	struct epoll_event ev;
 	ev.events = EPOLLIN | EPOLLET;
 	ev.data.ptr = (void *)handler;
-	if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, handler->m_net_id, &ev) == -1)
+	if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, handler->m_sock, &ev) == -1)
 	{
 		// 添加失败
 	}
@@ -249,13 +248,13 @@ void NetManager::ReplaceHandler()
 	for (REPLACE_HANDLER::iterator itr = m_replace_handler.Begin(); itr != m_replace_handler.End(); ++itr)
 	{
 #ifdef WIN32
-		FD_CLR((*itr)->m_net_id, &m_write_set);
+		FD_CLR((*itr)->m_sock, &m_write_set);
 #endif
 #ifdef __unix
 		struct epoll_event ev;
 		ev.events = EPOLLIN | EPOLLET;
 		ev.data.ptr = (void *)(*itr);
-		if (epoll_ctl(m_epoll_fd, EPOLL_CTL_MOD, (*itr)->m_net_id, &ev) == -1)
+		if (epoll_ctl(m_epoll_fd, EPOLL_CTL_MOD, (*itr)->m_sock, &ev) == -1)
 		{
 			// 添加失败
 		}
@@ -276,13 +275,13 @@ void NetManager::ClearHandler()
 		if (m_net_handler.Erase(*itr, handler))
 		{
 #ifdef WIN32
-			FD_CLR(handler->m_net_id, &m_read_set);
-			FD_CLR(handler->m_net_id, &m_write_set);
+			FD_CLR(handler->m_sock, &m_read_set);
+			FD_CLR(handler->m_sock, &m_write_set);
 #endif
 #ifdef __unix
-			epoll_ctl(m_epoll_fd, EPOLL_CTL_DEL, handler->m_net_id, &ev);
+			epoll_ctl(m_epoll_fd, EPOLL_CTL_DEL, handler->m_sock, &ev);
 #endif
-			NetCommon::Close(handler->m_net_id);
+			NetCommon::Close(handler->m_sock);
 			delete handler;
 		}	
 	}
@@ -290,7 +289,7 @@ void NetManager::ClearHandler()
 }
 
 #ifdef WIN32
-NetID NetManager::GetSocketInfo(fd_set &read_set, fd_set &write_set)
+SOCKET NetManager::GetSocketInfo(fd_set &read_set, fd_set &write_set)
 {
 	read_set = m_read_set;
 	write_set = m_write_set;

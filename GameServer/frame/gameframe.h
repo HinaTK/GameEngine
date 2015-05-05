@@ -36,8 +36,8 @@ public:
 
 public:
 
-	NetID		m_database_server_net_id;
-	NetID		m_gateway_server_net_id;
+	SOCKET		m_database_server_net_id;
+	SOCKET		m_gateway_server_net_id;
 private:
 	GameFrame();
 

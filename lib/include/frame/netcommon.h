@@ -7,15 +7,18 @@
 
 namespace NetCommon
 {
-	bool	Init(char *ip, unsigned short port, int backlog, NetID &net_id);
+	bool	Init(char *ip, unsigned short port, int backlog, SOCKET &sock);
 
 	int		StartUp();
 
-	int		Send(NetID net_id, const char *msg, unsigned int length);
+	int		Send(SOCKET sock, const char *msg, unsigned int length);
 
-	void	Close(NetID net_id);
+	void	Close(SOCKET sock);
 
-	int		Ioctl(NetID net_id, long cmd, unsigned long *argp);
+	int		Ioctl(SOCKET sock, long cmd, unsigned long *argp);
+
+	// 设置套接字参数
+	int		SetSockopt(SOCKET sock, int level, int optname, const char *optval, int optlen);
 
 	// 获取错误信息
 	int		Error(void);

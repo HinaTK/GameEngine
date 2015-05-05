@@ -11,7 +11,7 @@ class NetHandler
 public:
 	NetHandler(NetManager *manager, int type)
 		: m_handle(0)
-		, m_net_id(0)
+		, m_sock(0)
 		, m_net_manager(manager)
 		, m_type(type)
 	{
@@ -33,7 +33,7 @@ public:
 	};
 
 	NetHandle	m_handle;	// ÄÚ²¿²Ù×÷¾ä±ú
-	NetID		m_net_id;	// socket id
+	SOCKET		m_sock;	// socket id
 protected:
 	NetManager	*m_net_manager;
 	int			m_type;

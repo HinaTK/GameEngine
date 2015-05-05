@@ -33,7 +33,7 @@ bool LoginFrame::InitConfig()
 // 	{
 // 		return false;
 // 	}
-	printf("Init Success %s %d\n", ServerConfig::Instance().m_ip[ServerConfig::LOGIN_SERVER], ServerConfig::Instance().m_server[ServerConfig::LOGIN_GATEWAY].port);
+	
 	return Init();
 }
 

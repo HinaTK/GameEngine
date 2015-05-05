@@ -5,12 +5,12 @@
 #include "bufmanager.h"
 
 REGISTER_MEMORYPOOL(memorypool, BufManager, 256);
+REGISTER_MEMORYPOOL(memorypool, SendBuffer, 256);
 
 BufManager::BufManager(unsigned int size)
 : m_buf((char *)MemoryVL::Instance().Malloc(size))
 , m_size(size)
 , m_length(0)
-, m_read_length(0)
 {
 }
 
@@ -21,19 +21,6 @@ BufManager::~BufManager()
 	{
 		MemoryVL::Instance().Free(m_buf);
 	}
-}
-
-void BufManager::Push(const char *buf, unsigned int len)
-{
-	if (len > (m_size - m_length))
-	{
-		if (!Resize(m_size + len))
-		{
-			return;
-		}
-	}
-	memcpy(m_buf + m_length, buf, len);
-	m_length += len;
 }
 
 bool BufManager::Resize(unsigned int size)
@@ -52,13 +39,57 @@ void BufManager::RemoveBuf(unsigned int len)
 	{
 		return;
 	}
-	memcpy(m_buf, m_buf + len, m_size - len);
-	m_length = m_length - len;
+	
+	if (len == m_length)
+	{
+		m_length = 0;
+	}
+	else
+	{
+		memcpy(m_buf, m_buf + len, m_size - len);
+		m_length = m_length - len;
+	}
 }
 
-void BufManager::ResetBuf()
+
+
+RecvBufffer::~RecvBufffer()
+{
+
+}
+
+RecvBufffer::RecvBufffer(unsigned int size /*= 64*/)
+: BufManager(size)
+{
+
+}
+
+SendBuffer::~SendBuffer()
+{
+
+}
+
+SendBuffer::SendBuffer(unsigned int size /*= 64*/)
+: BufManager(size)
+{
+
+}
+
+void SendBuffer::Push(const char *buf, unsigned int len)
+{
+	if (len > (m_size - m_length))
+	{
+		if (!Resize(m_size + len))
+		{
+			return;
+		}
+	}
+	memcpy(m_buf + m_length, buf, len);
+	m_length += len;
+}
+
+void SendBuffer::ResetBuf()
 {
 	m_read_length = 0;
 	m_length = 0;
 }
-

@@ -7,7 +7,7 @@
 REGISTER_MEMORYPOOL(memorypool, BaseListener, 256);
 
 #define CHECK_REMOVE()\
-	if (remove_len > 0)\
+if (remove_len > 0)\
 {\
 	m_recv_buf.RemoveBuf(remove_len);\
 }

@@ -14,9 +14,9 @@ public:
 	~MsgQueue(){};
 
 
-	bool Push(NetID net_id, const char *msg, unsigned int length)
+	bool Push(SOCKET sock, const char *msg, unsigned int length)
 	{
-		GameMsg *m = new GameMsg(net_id, msg, length);
+		GameMsg *m = new GameMsg(sock, msg, length);
 		return m_msg_queue.Push(m);
 	}
 

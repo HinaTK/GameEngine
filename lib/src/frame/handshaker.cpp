@@ -47,7 +47,7 @@ bool HandShaker::HandShake()
 {
 	static const HandShakeInfo ws;
 	char recv_buf[MAX_EXTERNAL_BUF] = { 0 };
-	int msg_len = recv(m_net_id, recv_buf, MAX_EXTERNAL_BUF, 0);
+	int msg_len = recv(m_sock, recv_buf, MAX_EXTERNAL_BUF, 0);
 	if (msg_len <= 0)
 	{
 		return false;
@@ -91,7 +91,7 @@ bool HandShaker::HandShake()
 			m_data_length = (int)strlen(m_handshake_data);
 
 #ifdef WIN32
-			FD_SET(m_net_id, m_net_manager->GetWriteSet());
+			FD_SET(m_sock, m_net_manager->GetWriteSet());
 			//FD_SET(m_net_id, m_net_manager->GetReadSet());
 #endif // !WIN32
 
@@ -99,7 +99,7 @@ bool HandShaker::HandShake()
 			struct epoll_event ev;
 			ev.events = EPOLLIN | EPOLLOUT | EPOLLET;
 			ev.data.ptr = (void *)this;
-			if (epoll_ctl(m_net_manager->GetEpollFD(), EPOLL_CTL_MOD, m_net_id, &ev) == -1)
+			if (epoll_ctl(m_net_manager->GetEpollFD(), EPOLL_CTL_MOD, m_sock, &ev) == -1)
 			{
 				// 注册写失败
 			}
@@ -113,7 +113,7 @@ void HandShaker::OnCanWrite()
 {
 	while (true)
 	{
-		int ret = NetCommon::Send(m_net_id, m_handshake_data + m_send_length, m_data_length);
+		int ret = NetCommon::Send(m_sock, m_handshake_data + m_send_length, m_data_length);
 		if (ret == SOCKET_ERROR)
 		{
 			if (NetCommon::Error() == WOULDBLOCK)
@@ -129,7 +129,7 @@ void HandShaker::OnCanWrite()
 		if (m_data_length <= 0)
 		{
 			WebListener *handler = new WebListener(m_net_manager, NetHandler::LISTENER);
-			handler->m_net_id = m_net_id;
+			handler->m_sock = m_sock;
 			handler->m_handle = m_handle;	// 用于删除原来的handle
 			m_net_manager->AddReplaceHandler(handler);
 			return;

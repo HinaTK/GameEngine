@@ -32,10 +32,10 @@ public:
 
 
 public:
-	NetID	m_gate_net_id;
-    NetID	m_game_server_net_id;
-	NetID	m_global_server_net_id;
-	NetID	m_login_server_net_id;
+	SOCKET	m_gate_net_id;
+    SOCKET	m_game_server_net_id;
+	SOCKET	m_global_server_net_id;
+	SOCKET	m_login_server_net_id;
 
 private:
 	GatewayFrame();

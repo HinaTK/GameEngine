@@ -16,8 +16,8 @@ public:
 	~NetManager();
 	NetManager();
 	
-	bool			InitServer(char *ip, unsigned short port, int backlog, NetID &net_id, bool is_web = false);
-	bool			ConnectServer(char *ip, unsigned short port, NetID &net_id);
+	bool			InitServer(char *ip, unsigned short port, int backlog, SOCKET &net_id, bool is_web = false);
+	bool			ConnectServer(char *ip, unsigned short port, SOCKET &net_id);
 
 	void			Listen();
 	void			Send(NetHandle handle, const char *buf, unsigned int length);
@@ -47,21 +47,21 @@ protected:
 #ifdef WIN32
 public:
 
-	NetID			GetSocketInfo(fd_set &read_set, fd_set &write_set);
+	SOCKET			GetSocketInfo(fd_set &read_set, fd_set &write_set);
 	fd_set			*GetWriteSet(){ return &m_write_set; }
 	fd_set			*GetReadSet(){ return &m_read_set; }
 
 protected:
-	NetID			m_max_fd;
+	SOCKET			m_max_fd;
 	fd_set			m_read_set;
 	fd_set			m_write_set;
 #endif
 
 #ifdef __unix
 public:
-	NetID			GetEpollFD(){return m_epoll_fd;}
+	SOCKET			GetEpollFD(){return m_epoll_fd;}
 protected:
-	NetID			m_epoll_fd;
+	SOCKET			m_epoll_fd;
 #endif
 
 };
