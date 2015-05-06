@@ -81,27 +81,27 @@ namespace TestDataStructure
 
 	void TestGameSet()
 	{
-		static const int MAX_TEST = 4000000;
-		GameSet<int> game_set;
-		
-		for (int i = 0; i < MAX_TEST; ++i)
-		{
-			//int val = rand() % 1000;
-			game_set.Insert(i);
-			//printf("input = %d\n", val);
-		}
-		time_t t1 = time(NULL);
-		for (GameSet<int>::iterator itr = game_set.Begin(); itr != game_set.End(); game_set.NextNode(&itr))
-		{
-			//
-			if (itr->key > MAX_TEST - 10)
-			{
-				printf("result = %d\n", itr->key);
-			}
-			
-		}
-		time_t t2 = time(NULL);
-		printf("t1 = %d,t2 = %d\n", (unsigned int)t1, (unsigned int)t2);
+// 		static const int MAX_TEST = 4000000;
+// 		GameSet<int> game_set;
+// 		
+// 		for (int i = 0; i < MAX_TEST; ++i)
+// 		{
+// 			//int val = rand() % 1000;
+// 			game_set.Insert(i);
+// 			//printf("input = %d\n", val);
+// 		}
+// 		time_t t1 = time(NULL);
+// 		for (GameSet<int>::iterator itr = game_set.Begin(); itr != game_set.End(); game_set.NextNode(&itr))
+// 		{
+// 			//
+// 			if (itr->key > MAX_TEST - 10)
+// 			{
+// 				printf("result = %d\n", itr->key);
+// 			}
+// 			
+// 		}
+// 		time_t t2 = time(NULL);
+// 		printf("t1 = %d,t2 = %d\n", (unsigned int)t1, (unsigned int)t2);
 	}
 
 	void TestGameMap()

@@ -4,6 +4,7 @@
 #include "databaseframe.h"
 #include "lib/include/log/log.h"
 #include "lib/include/common/memoryvl.h"
+#include "lib/include/rpc/rpcserver.h"
 #include "database/database.h"
 #include "table/tb_login.h"
 #include "cache/datamapmanager.h"
@@ -76,7 +77,9 @@ bool DatabaseFrame::Init()		// 框架初始化
 
 void DatabaseFrame::Recv(GameMsg *msg)
 {
-	m_message_handler.HandleMessage(msg);
+	unsigned int server_id = RPCServer::GetServerID(msg->data);
+	delete msg;
+	//m_message_handler.HandleMessage(msg);
 }
 
 void DatabaseFrame::Update(unsigned int interval, time_t now)	// 构架更新

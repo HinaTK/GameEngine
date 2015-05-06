@@ -17,7 +17,7 @@ public:
 	NetManager();
 	
 	bool			InitServer(char *ip, unsigned short port, int backlog, SOCKET &net_id, bool is_web = false);
-	bool			ConnectServer(char *ip, unsigned short port, SOCKET &net_id);
+	bool			ConnectServer(char *ip, unsigned short port, NetHandle &handle);
 
 	void			Listen();
 	void			Send(NetHandle handle, const char *buf, unsigned int length);

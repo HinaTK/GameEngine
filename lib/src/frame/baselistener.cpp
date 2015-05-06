@@ -21,6 +21,13 @@ bool BaseListener::AnalyzeBuf()
 		return true;
 	}
 
+	if (!m_is_tencent_pass)
+	{
+		m_is_tencent_pass = true;
+		m_recv_buf.RemoveBuf(buf_len);
+		return true;
+	}
+
 	NetCommon::Header *header = (NetCommon::Header *)buf;
 	unsigned int remove_len = 0;
 	while (header->msg_len <= buf_len)
@@ -31,10 +38,10 @@ bool BaseListener::AnalyzeBuf()
 			return false;
 		}
 
-		m_net_manager->GetMsgQueue()->Push(m_handle, buf + NetCommon::HEADER_LENGTH, header->msg_len - NetCommon::HEADER_LENGTH);
+		m_net_manager->GetMsgQueue()->Push(m_handle, buf + NetCommon::HEADER_LENGTH, header->msg_len);
 
 		remove_len += header->msg_len;
-		buf_len -= header->msg_len;
+		buf_len = buf_len - NetCommon::HEADER_LENGTH - header->msg_len;
 		if (buf_len <= NetCommon::HEADER_LENGTH)
 		{
 			break;
@@ -54,7 +61,11 @@ bool BaseListener::AnalyzeBuf()
 
 void BaseListener::Send( const char *buf, unsigned int len )
 {
+	NetCommon::Header header;
+	header.msg_len = len;
+
 	MutexLock ml(&m_send_mutex);
+	m_send_buf_write->Push((const char *)&header, NetCommon::HEADER_LENGTH);
 	m_send_buf_write->Push(buf, len);
 }
 

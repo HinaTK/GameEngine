@@ -1,6 +1,8 @@
 
 #include "loginframe.h"
 #include "common/commonfunction.h"
+#include "common/protocol/messageheader.h"
+#include "common/protocol/msgcode.h"
 
 bool LoginFrame::Init()
 {
@@ -10,19 +12,29 @@ bool LoginFrame::Init()
 
 void LoginFrame::Recv(GameMsg *msg)
 {
-	if (!Function::ProtocolDecode(msg->data, msg->length))
+// 	if (!Function::ProtocolDecode(msg->data, msg->length))
+// 	{
+// 		return;
+// 	}
+
+// 	struct test
+// 	{
+// 		int a;
+// 		int b;
+// 	};
+// 
+// 	test *c = (test *)msg->data;
+// 	Send(msg->handle, (const char *)c, sizeof(test));
+	EProtocol::MessageHeader *header = (EProtocol::MessageHeader *)msg->data;
+	switch (header->msgid)
 	{
-		return;
+	case EProtocol::MT_LOGIN_REQ_CS:
+		OnLoginReq(msg->handle, msg->data, msg->length);
+		break;
+	case EProtocol::MT_LOGIN_CREATE_ROLE_CS:
+//		OnCreateRole(net_id, data, length);
+		break;
 	}
-
-	struct test
-	{
-		int a;
-		int b;
-	};
-
-	test *c = (test *)msg->data;
-	Send(msg->handle, (const char *)c, sizeof(test));
 	delete msg;
 }
 

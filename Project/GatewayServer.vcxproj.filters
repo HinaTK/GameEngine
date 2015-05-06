@@ -44,9 +44,6 @@
     <ClInclude Include="..\common\commonvariable.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\common\systemdefine.h">
-      <Filter>common</Filter>
-    </ClInclude>
     <ClInclude Include="..\common\protocol\msgheader.h">
       <Filter>common\protocol</Filter>
     </ClInclude>

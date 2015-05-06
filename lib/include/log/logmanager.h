@@ -3,7 +3,6 @@
 #define LOG_MANAGER_H
 
 #include <vector>
-#include "lib/include/timemanager/gametime.h"
 
 class Log;
 class LogManager
@@ -18,15 +17,12 @@ public:
 // 		return manager;
 // 	}
 
-	void	SetGameTime(GameTime *game_time);
-
 	void	AddLog(Log *log);
 
 	void	Flush();
 private:
 	
 	std::vector<Log *>	m_log_vector;
-	GameTime			*m_game_time;
 };
 
 #endif

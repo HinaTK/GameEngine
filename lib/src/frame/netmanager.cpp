@@ -65,7 +65,7 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, SOCKET &
 	return true;
 }
 
-bool NetManager::ConnectServer(char *ip, unsigned short port, SOCKET &net_id)
+bool NetManager::ConnectServer(char *ip, unsigned short port, NetHandle &handle)
 {
 	printf("connect to Server ip = %s, port = %d\n", ip, port);
 #ifdef WIN32
@@ -79,19 +79,19 @@ bool NetManager::ConnectServer(char *ip, unsigned short port, SOCKET &net_id)
 	serverAddr.sin_port = htons(port);
 
 
-	net_id = socket(AF_INET, SOCK_STREAM, 0);
-	if (net_id == INVALID_SOCKET)
+	SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
+	if (sock == INVALID_SOCKET)
 	{
 		printf("init connect server error\n");
 		WSACleanup();
 		return false;
 	}
 
-	int ret = connect(net_id, (LPSOCKADDR)&serverAddr, sizeof(serverAddr));
+	int ret = connect(sock, (LPSOCKADDR)&serverAddr, sizeof(serverAddr));
 	if (ret == SOCKET_ERROR)
 	{
 		printf("can not connect server\n");
-		closesocket(net_id);
+		closesocket(sock);
 		WSACleanup();
 		return false;
 	}
@@ -104,30 +104,30 @@ bool NetManager::ConnectServer(char *ip, unsigned short port, SOCKET &net_id)
 	serverAddr.sin_addr.s_addr = inet_addr(ip);
 	serverAddr.sin_port = htons(port);
 
-	net_id = socket(AF_INET, SOCK_STREAM, 0);
-	if (net_id == -1)
+	sock = socket(AF_INET, SOCK_STREAM, 0);
+	if (sock == -1)
 	{
 		printf("init connect server error\n");
 		return false;
 	}
 
-	if (connect(net_id, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) < 0)
+	if (connect(sock, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) < 0)
 	{
 		printf("can not connect server\n");
-		NetCommon::Close(net_id);
+		NetCommon::Close(sock);
 		return false;
 	}
 	ev.events = EPOLLIN | EPOLLET;
-	ev.data.fd = net_id;
-	if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, net_id, &ev) < 0)
+	ev.data.fd = sock;
+	if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, sock, &ev) < 0)
 	{
-		fprintf(stderr, "epoll set insertion error: fd=%d\n", net_id);
+		fprintf(stderr, "epoll set insertion error: fd=%d\n", sock);
 		return false;
 	}
 #endif
-	BaseListener *handler = new BaseListener(this, NetHandler::LISTENER);
-	handler->m_sock = net_id;
-	AddNetHandler(handler);
+	BaseListener *handler = new BaseListener(this);
+	handler->m_sock = sock;
+	handle = AddNetHandler(handler);
 
 	printf("Connect Server success\n");
 	return true;
@@ -165,10 +165,6 @@ void NetManager::Listen()
 			}
 			ReplaceHandler();
 			ClearHandler();
-		}
-		else
-		{
-			Sleep(10);
 		}
 	}
 #endif
@@ -304,6 +300,7 @@ void NetManager::Send(NetHandle handle, const char *buf, unsigned int length)
 	{
 		return;
 	}
+
 	if ((*itr)->Type() == NetHandler::LISTENER)
 	{
 		Listener *listener = (Listener *)(*itr);

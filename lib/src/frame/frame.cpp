@@ -1,8 +1,9 @@
 
 #include <signal.h>
-#include "frame/frame.h"
-#include "frame/netcommon.h"
-#include "frame/message.h"
+#include <thread>
+#include "frame.h"
+#include "netcommon.h"
+#include "message.h"
 #include "log/log.h"
 #include "lib/include/timemanager/gametime.h"
 #include "lib/include/common/memoryvl.h"
@@ -23,13 +24,11 @@ namespace SignalCatch
 }
 
 Frame::Frame()
-: m_FPS(250)
-, m_sleep_time_ms(1)
+: m_sleep_time_ms(1)
 , m_is_run(true)
 {
 	SignalCatch::g_frame = this;
 	signal(SIGINT, SignalCatch::Catch);
-	m_log_manager.SetGameTime(&GameTime::Instance());
 }
 
 Frame::~Frame()
@@ -43,13 +42,17 @@ bool Frame::Init()
 	return true;
 }
 
+void Frame::SetFPS(int ms)
+{
+	GameTime::Instance().SetFPS(ms);
+}
+
 void Frame::SetExit()
 {
 	m_is_run = false;
 	m_net_manager.Exit();
 	Exit();
 	Wait();
-	m_log_thread.Join();
 }
 
 void *Listen(void * arg)
@@ -59,21 +62,20 @@ void *Listen(void * arg)
 	{
 		return NULL;
 	}
-	
+
 	frame->GetNetManager()->Listen();
+	
 	return NULL;
 }
 
 
 void *WriteLog(void * arg)
 {
-	// 读取配置多少秒写log
-	static const unsigned int sleepTime = 60 * 1000;
 	Frame *frame = (Frame *)arg;
 	while (frame->IsRun())
 	{
 		frame->GetLogManager()->Flush();
-		GameTime::GameSleep(sleepTime);
+		GameTime::GameSleep(1000);
 	}
 	frame->GetLogManager()->Flush();
 	return NULL;
@@ -94,17 +96,17 @@ bool Frame::Run()
 {
 	GameMsg		**msg = NULL;
 	MsgQueue	*recvQueue = m_net_manager.GetMsgQueue();
-	unsigned long long		last_time_ms = GameTime::Instance().MilliSecond();	// 上一次更新时间
+	unsigned long long		last_time_ms = GameTime::Instance().FrameTime();	// 上一次更新时间
 	unsigned long long		cur_time_ms = 0;
 	unsigned long long		second = 0;
 	unsigned long long		oneMinute = 60000;
 
-	m_log_thread.Create(::WriteLog, this);
-	m_listen_thread.Create(::Listen, this);
+	std::thread log_thread(::WriteLog, this);
+	std::thread listen_thread(::Listen, this);
+// 	m_log_thread.Create(::WriteLog, this);
+// 	m_listen_thread.Create(::Listen, this);
 	while (m_is_run)
 	{
-		GameTime::Instance().Update();
-		cur_time_ms = GameTime::Instance().MilliSecond();
 		if (!recvQueue->IsEmpty())
 		{
 			msg = recvQueue->Pop();
@@ -119,7 +121,9 @@ bool Frame::Run()
 			}
 		}
 
-		if ((cur_time_ms - last_time_ms) >= m_FPS)
+		GameTime::Instance().Update();
+		cur_time_ms = GameTime::Instance().FrameTime();
+		if (cur_time_ms != last_time_ms)
 		{
 			UpdateAll(cur_time_ms - last_time_ms);
 			last_time_ms = cur_time_ms;
@@ -130,9 +134,11 @@ bool Frame::Run()
 		}
 		
 	}
-	m_net_manager.Exit();
-	m_listen_thread.Join();
-	Exit();
+//	m_net_manager.Exit();
+	log_thread.join();
+	listen_thread.join();
+//	m_listen_thread.Join();
+//	Exit();
 	return true;
 }
 

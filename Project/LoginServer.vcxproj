@@ -67,7 +67,7 @@
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>..\lib\windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Frame.lib;Tinyxml.lib;TimeManager.lib;Common.lib;Log.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Frame.lib;Tinyxml.lib;TimeManager.lib;Common.lib;Log.lib;RPC.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -99,6 +99,7 @@
     <ClInclude Include="..\common\libheader\libinternal.h" />
     <ClInclude Include="..\common\libheader\libtimemanager.h" />
     <ClInclude Include="..\common\libheader\libtinyxml.h" />
+    <ClInclude Include="..\common\protocol\msgcode.h" />
     <ClInclude Include="..\LoginServer\frame\loginframe.h" />
     <ClInclude Include="..\common\commonfunction.h" />
     <ClInclude Include="..\common\commonvariable.h" />

@@ -75,6 +75,7 @@ SendBuffer::SendBuffer(unsigned int size /*= 64*/)
 
 }
 
+// 可不可保存buf的指针，减少内存拷贝？！
 void SendBuffer::Push(const char *buf, unsigned int len)
 {
 	if (len > (m_size - m_length))

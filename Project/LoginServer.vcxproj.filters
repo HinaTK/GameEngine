@@ -59,5 +59,8 @@
     <ClInclude Include="..\common\libheader\libtimemanager.h">
       <Filter>common\libheader</Filter>
     </ClInclude>
+    <ClInclude Include="..\common\protocol\msgcode.h">
+      <Filter>message</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

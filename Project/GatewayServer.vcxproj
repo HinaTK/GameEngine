@@ -104,7 +104,6 @@
     <ClInclude Include="..\common\libheader\libinternal.h" />
     <ClInclude Include="..\common\libheader\libtimemanager.h" />
     <ClInclude Include="..\common\libheader\libtinyxml.h" />
-    <ClInclude Include="..\common\systemdefine.h" />
     <ClInclude Include="..\common\protocol\msgheader.h" />
     <ClInclude Include="..\GatewayServer\frame\gatewayframe.h" />
     <ClInclude Include="..\GatewayServer\user\usermanager.h" />

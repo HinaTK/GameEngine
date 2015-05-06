@@ -113,9 +113,6 @@
     <ClInclude Include="..\common\commonfunction.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\common\systemdefine.h">
-      <Filter>common</Filter>
-    </ClInclude>
     <ClInclude Include="..\common\protocol\msggame.h">
       <Filter>common\protocol</Filter>
     </ClInclude>

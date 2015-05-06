@@ -116,7 +116,6 @@
     <ClInclude Include="..\common\commonfunction.h" />
     <ClInclude Include="..\common\commonvariable.h" />
     <ClInclude Include="..\common\globalclass.h" />
-    <ClInclude Include="..\common\systemdefine.h" />
     <ClInclude Include="..\common\protocol\msggame.h" />
     <ClInclude Include="..\common\protocol\msgheader.h" />
     <ClInclude Include="..\GameServer\base\knapsack.h" />

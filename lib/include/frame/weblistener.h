@@ -12,7 +12,7 @@
 class WebListener : public Listener
 {
 public:
-	WebListener(NetManager *manager, int type): Listener(manager, type){}
+	WebListener(NetManager *manager): Listener(manager){}
 	virtual ~WebListener(){}
 
 	void *		operator new(size_t c);

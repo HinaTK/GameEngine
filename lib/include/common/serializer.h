@@ -16,7 +16,7 @@ public:
 		, m_end(length)
 	{
 	};
-	~Serializer(){};
+	virtual ~Serializer(){};
 
 	static const unsigned int T_LEN = sizeof(char);
 	static const unsigned int L_LEN = sizeof(int);
@@ -45,6 +45,10 @@ private:
 	unsigned char	DataType(double type){ return DOUBLE; }
 
 public:
+
+	unsigned int	DataLength();
+	char *			Data();
+
 	bool	PushStr(const char * data);
 	bool	PushStr(const char * data, unsigned int length);
 	bool	PopStr(char **data, unsigned int &length);
@@ -117,7 +121,7 @@ public:
 		m_begin += length;
 		return true;
 	}
-private:
+protected:
 	char	*m_data;
 	unsigned int m_begin;
 	unsigned int m_end;

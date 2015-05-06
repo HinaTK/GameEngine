@@ -12,7 +12,9 @@
 class BaseListener : public Listener
 {
 public:
-	BaseListener(NetManager *manager, int type): Listener(manager, type){}
+	BaseListener(NetManager *manager)
+		: Listener(manager)
+		, m_is_tencent_pass(false){}
 	virtual ~BaseListener(){}
 
 	void *		operator new(size_t c);
@@ -21,6 +23,7 @@ public:
 	void			Send(const char *buf, unsigned int len);
 protected:
 	virtual bool	AnalyzeBuf();
+	bool			m_is_tencent_pass;
 
 };
 

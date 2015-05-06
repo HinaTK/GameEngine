@@ -128,7 +128,7 @@ void HandShaker::OnCanWrite()
 		m_data_length -= ret;
 		if (m_data_length <= 0)
 		{
-			WebListener *handler = new WebListener(m_net_manager, NetHandler::LISTENER);
+			WebListener *handler = new WebListener(m_net_manager);
 			handler->m_sock = m_sock;
 			handler->m_handle = m_handle;	// 用于删除原来的handle
 			m_net_manager->AddReplaceHandler(handler);

@@ -7,7 +7,6 @@
 MessageHandler::MessageHandler()
 {
 	memset(m_function_list, 0, sizeof(m_function_list));
-	m_function_list[REAL_TYPE(EProtocol::MT_USER_LOGIN)] = HandlerItem(&MessageHandler::UserLogin,sizeof(EProtocol::CSUserLogin));
 }
 
 void MessageHandler::HandleMessage( char * msg, UInt16 length )

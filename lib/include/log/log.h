@@ -6,6 +6,11 @@
 #include <string>
 #include "common/datastructure/circlequeue.h"
 
+/*
+	存储格式：
+	20150505->a.log
+	20150506->a.log
+*/
 class Log
 {
 public:
@@ -18,24 +23,21 @@ public:
 
 	void	Error(char *log, ...);
 
-	void	Flush(int day, int hour);				// 冲洗队列
+	void	Flush();				// 冲洗队列
 
 	void *		operator new(size_t c);
 	void		operator delete(void *m);
 
 private:
 	bool	MakeDayDir(int day);
-	bool	MakeHourDir(int hour);
 	bool	MakeFile();
 
 	FILE		*m_log_fp;
 	std::string	m_root_dir;
 	std::string	m_day_dir;
-	std::string m_hour_dir;
 	std::string m_log_name;
 	CircleQueue<std::string > m_queue;
 	int			m_day;
-	int			m_hour;
 
 };
 

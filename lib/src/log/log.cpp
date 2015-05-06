@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include "log.h"
 #include "lib/include/common/memorypool.h"
+#include "lib/include/timemanager/gametime.h"
 
 REGISTER_MEMORYPOOL(poolspace, Log, 16);
 
@@ -19,7 +20,6 @@ Log::Log(const char *server_name, const char *log_name)
 , m_root_dir(server_name)
 , m_log_name(log_name)
 , m_day(0)
-, m_hour(0)
 {
 	char path[512];
 #ifdef WIN32
@@ -42,7 +42,7 @@ Log::Log(const char *server_name, const char *log_name)
 
 Log::~Log()
 {
-	Flush(m_day, m_hour);
+	Flush();
 	if (m_log_fp != NULL)
 	{
 		fclose(m_log_fp);
@@ -57,9 +57,7 @@ Log::~Log()
 	vsprintf(temp, log, args); \
 	va_end(args); \
 	static tm *t = NULL;\
-	static time_t gametime = 0;\
-	time(&gametime);\
-	t = localtime(&gametime);\
+	t = GameTime::Instance().LocalTime(); \
 	sprintf(logHeader, format, t->tm_hour, t->tm_min, t->tm_sec); \
 	std::string strLog = logHeader;\
 	strLog = strLog + temp + "\n";\
@@ -88,36 +86,26 @@ void Log::Error(char *log, ...)
 	m_queue.Clear();\
 	return;\
 
-void Log::Flush(int day, int hour)
+void Log::Flush()
 {
 	if (m_queue.IsEmpty())
 	{
 		return;
 	}
 
-	do 
+	int day = GameTime::Instance().Day();
+	if (m_day != day)
 	{
-		if (m_day != day)
-		{
-			if (!MakeDayDir(day))
-			{
-				RETURN_AND_CLEAR();
-			}	
-		}
-		else if (m_hour == hour)
-		{
-			break;
-		}
-
-		if (!MakeHourDir(hour))
+		if (!MakeDayDir(day))
 		{
 			RETURN_AND_CLEAR();
 		}
+
 		if (!MakeFile())
 		{
 			RETURN_AND_CLEAR();
 		}
-	} while (false);
+	}
 	
 	if (m_log_fp == NULL)
 	{
@@ -147,31 +135,13 @@ bool Log::MakeDayDir(int day)
 	return true;
 }
 
-bool Log::MakeHourDir(int hour)
-{
-	char dir[32];
-	m_hour = hour;
-#ifdef WIN32
-	sprintf(dir, "\\%d", m_hour);
-	std::string temp = m_root_dir + m_day_dir + dir;
-	_mkdir(temp.c_str());
-#endif
-#ifdef __unix
-	sprintf(dir, "/%d", m_hour);
-	std::string temp = m_root_dir + m_day_dir + dir;
-	mkdir(temp.c_str(), 0777);
-#endif
-	m_hour_dir = dir;
-	return true;
-}
-
 bool Log::MakeFile()
 {
 #ifdef WIN32
-	std::string strFile = m_root_dir + m_day_dir + m_hour_dir + "\\" + m_log_name;
+	std::string strFile = m_root_dir + m_day_dir + "\\" + m_log_name;
 #endif
 #ifdef __unix
-	std::string strFile = m_root_dir + m_day_dir + m_hour_dir + "/" + m_log_name;
+	std::string strFile = m_root_dir + m_day_dir + "/" + m_log_name;
 #endif // __unix
 
 	if (m_log_fp != NULL)

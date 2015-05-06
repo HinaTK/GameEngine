@@ -41,17 +41,17 @@ bool DatabaseFrame::InitConfig()
 	}
 	printf("m_game_net_id = %d\n", m_game_net_id);
 
-	if (!DataBase::Instance().Init(
-		ServerConfig::Instance().m_db_ip,
-		ServerConfig::Instance().m_db_name,
-		ServerConfig::Instance().m_user_name,
-		ServerConfig::Instance().m_password
-		))
-	{
-		printf("connect database error\n");
-		return false;
-	}
-	printf("connect database success\n");
+// 	if (!DataBase::Instance().Init(
+// 		ServerConfig::Instance().m_db_ip,
+// 		ServerConfig::Instance().m_db_name,
+// 		ServerConfig::Instance().m_user_name,
+// 		ServerConfig::Instance().m_password
+// 		))
+// 	{
+// 		printf("connect database error\n");
+// 		return false;
+// 	}
+// 	printf("connect database success\n");
 
 	DataMapManager::Instance().Init();
 	return Init();

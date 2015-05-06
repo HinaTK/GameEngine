@@ -9,6 +9,16 @@ if (m_begin + length > m_end)\
 	}\
 
 
+unsigned int Serializer::DataLength()
+{
+	return m_begin;
+}
+
+char * Serializer::Data()
+{
+	return m_data;
+}
+
 bool Serializer::PushStr(const char *data)
 {
 	return PushStr(data, strlen(data));

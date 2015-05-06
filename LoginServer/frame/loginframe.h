@@ -5,6 +5,7 @@
 #include "common/commonvariable.h"
 #include "common/datastructure/msgqueue.h"
 #include "lib/include/common/thread.h"
+#include "lib/include/rpc/rpcserver.h"
 #include "message/messagefunction/messagehandler.h"
 
 class LoginFrame : public Frame
@@ -32,20 +33,19 @@ public:
 	void		Wait();
 	void		Recv(GameMsg *msg);
 
-	void		OnSend(SOCKET user_id, char *msg, UInt16 length);
-
-
 public:
-	SOCKET	m_login_server_net_id;
-    SOCKET	m_database_server_net_id;
-	SOCKET	m_gateway_server_net_id;
+	void		OnLoginReq(NetHandle handle, char *data, unsigned int length);
+public:
+	SOCKET		m_login_server_net_id;
+    NetHandle	m_database_server_handle;
+	SOCKET		m_gateway_server_net_id;
 
 private:
 	LoginFrame();
 
 	//TimeEventManager m_time_event_manager;
 	MessageHandler		m_message_handler;
-
+	RPCServer			m_rpc_server;
 };
 
 #endif
