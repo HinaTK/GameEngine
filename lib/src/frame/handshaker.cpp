@@ -46,14 +46,14 @@ void HandShaker::OnCanRead()
 bool HandShaker::HandShake()
 {
 	static const HandShakeInfo ws;
-	char recv_buf[MAX_EXTERNAL_BUF] = { 0 };
-	int msg_len = recv(m_sock, recv_buf, MAX_EXTERNAL_BUF, 0);
+	static char recv_buf[2048] = { 0 };
+	int msg_len = recv(m_sock, recv_buf, 2048, 0);
 	if (msg_len <= 0)
 	{
 		return false;
 	}
 	
-	std::string		recv_str(recv_buf);
+	std::string	recv_str(recv_buf);
 	int pos = recv_str.find(ws.header);
 	if (pos >= 0)
 	{

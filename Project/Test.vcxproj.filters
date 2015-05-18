@@ -7,9 +7,6 @@
     <Filter Include="websocket">
       <UniqueIdentifier>{c2691f45-999a-4c94-9196-ec38c314ff99}</UniqueIdentifier>
     </Filter>
-    <Filter Include="thread">
-      <UniqueIdentifier>{906e8fac-ead1-4893-aac6-1d9f165dda7e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="other">
       <UniqueIdentifier>{31661adf-b8cb-47b3-9e3e-70dc8840554c}</UniqueIdentifier>
     </Filter>
@@ -23,9 +20,6 @@
     </ClInclude>
     <ClInclude Include="..\Test\websocket\websockettest.h">
       <Filter>websocket</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Test\thread\threadtest.h">
-      <Filter>thread</Filter>
     </ClInclude>
     <ClInclude Include="..\Test\other\hashlisttest.h">
       <Filter>other</Filter>
@@ -46,6 +40,7 @@
     <ClInclude Include="..\Test\testother.h" />
     <ClInclude Include="..\Test\testsocket.h" />
     <ClInclude Include="..\Test\testcache.h" />
+    <ClInclude Include="..\Test\testthread.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Test\main.cpp" />
