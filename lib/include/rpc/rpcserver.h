@@ -28,14 +28,17 @@ public:
 	virtual void CallBack(RPCSerializer &serializer) = 0;
 };
 
-
+/*
+	* 将server_id发送到远端，远端再将server_id发送回来，找到对应的RPCServer CallBack
+	* 向Array注册一个RPC，返回唯一的session_id, 实现进程间通信
+*/
 class RPCServer
 {
 public:
 	RPCServer();
 	~RPCServer();
 
-	void		Init(NetManager *net_manager, NetHandle handle, unsigned int max_id);
+	void		Init(NetManager *net_manager, NetHandle handle, unsigned int server_id, unsigned int max_id);
 
 	bool		RegisterRPC(unsigned int id, RPC *rpc);
 
@@ -51,5 +54,15 @@ private:
 	NetHandle		m_net_handle;
 	unsigned int	m_max_id;
 	RPC				**m_rpc_vector;
+};
+
+class RPCManager
+{
+public:
+	~RPCManager(){}
+
+	bool		RegisterRPCServer(unsigned int server_id, RPCServer *rpc_server);
+private:
+	RPCManager(){}
 };
 #endif
