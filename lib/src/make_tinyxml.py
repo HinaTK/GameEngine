@@ -110,7 +110,7 @@ for val in OBJ2SRC:
 f.close();
 
 os.system("make -f " + FILENAME);
-os.system("cp -f " + BIN + " " + BINDIR);
+os.system("mv -f " + BIN + " " + BINDIR);
 os.system("cd " + OBJDIR + ";rm -f *.o");
 
 
