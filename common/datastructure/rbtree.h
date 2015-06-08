@@ -40,7 +40,8 @@ private:
 	void	Delete(V *);
 	void	DeleteFixup(V *);
 
-	V *		Uncle(V *);
+	V *		Uncle(V *node);
+	V *		GrandParent(V *node){ return node->parent->parent; }
 	V *		TreeSuccessor(V *);
 	V *		LeftMost(V * parent);
 
@@ -70,11 +71,11 @@ RBTree<K, V>::~RBTree()
 template <class K, class V>
 V * RBTree<K, V>::Uncle(V * node)
 {
-	if (node->parent == node->parent->parent->left)
+	if (node->parent == GrandParent(node)->left)
 	{
-		return node->parent->parent->right;
+		return GrandParent(node)->right;
 	}
-	return node->parent->parent->left;
+	return GrandParent(node)->left;
 }
 
 
@@ -131,7 +132,6 @@ void RBTree<K, V>::Insert(K &key, V &val)
 {
 	V* node = (V *)m_mem_pool.Alloc();
 	*node = val;
-	//memcpy(node, &val, sizeof(V));
 	V* n = m_root;
 	V* parent = nil;
 	node->first = key;
@@ -174,17 +174,16 @@ void RBTree<K, V>::InsertFixup(V *node)
 {
 	while (node->parent->color == _RED)
 	{
-		V *uncle = Uncle(node);
-		if (uncle->color == _RED)
+		if (Uncle(node)->color == _RED)
 		{
 			node->parent->color = _BLACK;
-			uncle->color = _BLACK;
-			node->parent->parent->color = _RED;
-			node = node->parent->parent;
+			Uncle(node)->color = _BLACK;
+			GrandParent(node)->color = _RED;
+			node = GrandParent(node);
 		}
 		else
 		{
-			if (node->parent == node->parent->parent->left)
+			if (node->parent == GrandParent(node)->left)
 			{
 				if (node == node->parent->right)
 				{
@@ -192,9 +191,9 @@ void RBTree<K, V>::InsertFixup(V *node)
 					LeftRotate(node);
 				}//
 				node->parent->color = _BLACK;
-				node->parent->parent->color = _RED;
+				GrandParent(node)->color = _RED;
 				node->parent->right->color = _BLACK;
-				RightRotate(node->parent->parent);
+				RightRotate(GrandParent(node));
 			}
 			else
 			{
@@ -204,9 +203,9 @@ void RBTree<K, V>::InsertFixup(V *node)
 					RightRotate(node);
 				}
 				node->parent->color = _BLACK;
-				node->parent->parent->color = _RED;
+				GrandParent(node)->color = _RED;
 				node->parent->left->color = _BLACK;
-				LeftRotate(node->parent->parent);
+				LeftRotate(GrandParent(node));
 			}
 		}
 	}

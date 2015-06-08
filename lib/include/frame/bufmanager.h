@@ -11,7 +11,7 @@
 class BufManager
 {
 public:
-	~BufManager();
+	virtual ~BufManager();
 	BufManager(unsigned int size = 64);
 
 	unsigned int	Length(){ return m_length; }
@@ -41,7 +41,7 @@ protected:
 class RecvBufffer : public BufManager
 {
 public:
-	~RecvBufffer();
+	virtual ~RecvBufffer();
 	RecvBufffer(unsigned int size = 64);
 
 };

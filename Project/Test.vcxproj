@@ -28,7 +28,7 @@
     <ClInclude Include="..\Test\testother.h" />
     <ClInclude Include="..\Test\testserializer.h" />
     <ClInclude Include="..\Test\testsocket.h" />
-    <ClInclude Include="..\Test\thread\threadtest.h" />
+    <ClInclude Include="..\Test\testthread.h" />
     <ClInclude Include="..\Test\websocket\websockettest.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

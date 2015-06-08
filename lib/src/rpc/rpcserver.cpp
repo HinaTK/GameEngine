@@ -34,7 +34,7 @@ RPCServer::~RPCServer()
 	}	
 }
 
-void RPCServer::Init(NetManager *net_manager, NetHandle handle, unsigned int max_id)
+void RPCServer::Init(NetManager *net_manager, NetHandle handle, unsigned int server_id, unsigned int max_id)
 {
 	m_net_manager = net_manager;
 	m_net_handle = handle;

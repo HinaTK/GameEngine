@@ -3,7 +3,6 @@
 // #include "common/commonfunction.h"
 // //#include "lua/luatest.h"
 // #include "websocket/websockettest.h"
-// #include "thread/threadtest.h"
 // #include "other/hashlisttest.h"
 #include "testdatastructure.h"
 // #include "other/bridge.h"
@@ -13,6 +12,7 @@
 #include "testsocket.h"
 #include "testother.h"
 #include "testcache.h"
+#include "testthread.h"
 
 
 int main()
@@ -58,7 +58,7 @@ int main()
 	//TestDataStructure::TestVector3();
 	//TestDataStructure::TestRankList();
 	//TestDataStructure::TestSortMap2();
-	TestDataStructure::TestGameMap();
+	//TestDataStructure::TestGameMap();
 	//TestDataStructure::TestGameMapCmpMap();
 	//TestDataStructure::TestList();
 	//TestDataStructure::TestHash();
@@ -67,6 +67,7 @@ int main()
 	//TestCache::TestDataQueue();
 	//TestCache::TestDataMap();
 	//TestCache::TestDataCache();
+	TestThread::Test1();
 	return 0;
 }
 

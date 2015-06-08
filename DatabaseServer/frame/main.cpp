@@ -9,11 +9,13 @@
 #include "table/tb_login.h"
 #include "cache/datamapmanager.h"
 #include "common/protocol/messageheader.h"
+#include "common/systemdef.h"
 
 
 bool DatabaseFrame::Init()		// ¿ò¼Ü³õÊ¼»¯
 {
 	Frame::Init();
+
 // 	TB_Login test(0, "login", DataBase::Instance().GetStmt());
 // 	test.Init();
 // 
@@ -78,6 +80,8 @@ bool DatabaseFrame::Init()		// ¿ò¼Ü³õÊ¼»¯
 void DatabaseFrame::Recv(GameMsg *msg)
 {
 	unsigned int server_id = RPCServer::GetServerID(msg->data);
+
+
 	delete msg;
 	//m_message_handler.HandleMessage(msg);
 }

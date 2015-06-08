@@ -13,8 +13,6 @@
 #endif
 
 
-#define MAX_EXTERNAL_BUF	4096
-#define MAX_INTERNAL_BUF	4096
 #define MAX_EPOLL_SIZE		8192
 
 static const int RECV_BUF_SIZE = 64 * 1024; // 64K
