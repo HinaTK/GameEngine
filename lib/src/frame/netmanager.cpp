@@ -104,7 +104,7 @@ bool NetManager::ConnectServer(char *ip, unsigned short port, NetHandle &handle)
 	serverAddr.sin_addr.s_addr = inet_addr(ip);
 	serverAddr.sin_port = htons(port);
 
-	sock = socket(AF_INET, SOCK_STREAM, 0);
+	SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (sock == -1)
 	{
 		printf("init connect server error\n");

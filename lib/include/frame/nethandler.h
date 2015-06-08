@@ -2,7 +2,7 @@
 #ifndef NET_HANDLER_H
 #define NET_HANDLER_H
 
-#include "common/systemdef.h"
+#include "common/socketdef.h"
 #include "common/datastructure/msgqueue.h"
 
 class NetManager;

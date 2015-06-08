@@ -21,6 +21,7 @@
 #define INVALID_SOCKET	-1
 #define WOULDBLOCK		EWOULDBLOCK
 #define SOCKET_ERROR	-1
+#define SOCKET			int
 #endif
 
 #endif

@@ -24,7 +24,7 @@ bool Init(char *ip, unsigned short port, int backlog, SOCKET &sock)
 	if (SOCKET_ERROR == SetSockopt(sock, SOL_SOCKET, SO_REUSEADDR, (const char*)&enable, sizeof(unsigned long)))
 	{
 		Close(sock);
-		return SOCKET_ERROR;
+		return false;
 	}
 
 	sockaddr_in sa;
