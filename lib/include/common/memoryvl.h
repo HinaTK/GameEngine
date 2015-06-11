@@ -7,7 +7,7 @@
 #include "mutex.h"
 
 /*
-不定长内存池
+	不定长内存池
 */
 class MemoryVL
 {
@@ -44,7 +44,7 @@ private:
 	MemoryVL();
 	unsigned int	m_size;
 	MemoryPool		*m_memory;
-	Mutex			*m_mutex;
+	std::mutex		*m_mutex;
 };
 
 #endif

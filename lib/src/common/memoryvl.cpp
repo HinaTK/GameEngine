@@ -3,7 +3,7 @@
 #include "memoryvl.h"
 
 static const unsigned int LEN_INT = sizeof(unsigned int);
-Mutex g_init_mutex;
+std::mutex g_init_mutex;
 
 MemoryVL::MemoryVL()
 : m_size(0)
@@ -19,17 +19,17 @@ MemoryVL::~MemoryVL()
 
 bool MemoryVL::Init(MEMORY_CONFIG &config)
 {
-	MutexLock lock(&g_init_mutex);
+	LOCK(g_init_mutex);
 	MEMORY_CONFIG::iterator itr = config.begin();
 	m_size = config.size();
 	m_memory = new MemoryPool[m_size];
-	m_mutex = new Mutex[m_size];
+	m_mutex = new std::mutex[m_size];
 	unsigned int i = 0;
 	for (; itr != config.end() && i < m_size; ++itr, ++i)
 	{
 		m_memory[i].Init(itr->size + LEN_INT, itr->num);
 	}
-
+	UNLOCK(g_init_mutex);
 	return true;
 }
 
@@ -39,22 +39,26 @@ void  *MemoryVL::Malloc(unsigned int size)
 	unsigned int i = 0;
 	for (; i < m_size; ++i)
 	{
-		if (real_size < m_memory[i].Size())
+		if (real_size <= m_memory[i].Size())
 		{
 			break;
 		}
 	}
+
+	char *mem = 0;
+
 	if (i >= m_size)
 	{
-		return new char[real_size];
+		mem = (char *)::malloc(real_size);	// 线程安全，不用加锁
 	}
-	char *mem = 0;
+	else
 	{
-		MutexLock lock(&m_mutex[i]);
-		mem = (char *)m_memory[i].Alloc();
-		*(unsigned int *)mem = i;
+		LOCK(m_mutex[i]);
+		mem = (char *)m_memory[i].Alloc();	
+		UNLOCK(m_mutex[i]);
 	}
 
+	*(unsigned int *)mem = i;
 	return (mem + LEN_INT);
 }
 
@@ -69,8 +73,9 @@ bool MemoryVL::Free(void *mem)
 	}
 	else
 	{
-		MutexLock lock(&m_mutex[index]);
+		LOCK(m_mutex[index]);
 		m_memory[index].Free(mem);
+		UNLOCK(m_mutex[index]);
 	}
 
 	return true;
