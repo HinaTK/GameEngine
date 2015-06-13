@@ -2,35 +2,8 @@
 #ifndef MSG_QUEUE_H
 #define MSG_QUEUE_H
 
-#include "common/systemdef.h"
 #include <mutex>
 #include "gamelist.h"
-#include "circlequeue.h"
-
-// class MsgQueue
-// {
-// public:
-// 	MsgQueue() :m_msg_queue(1024){}
-// 	~MsgQueue(){};
-// 
-// 
-// 	bool Push(SOCKET sock, const char *msg, unsigned int length)
-// 	{
-// 		GameMsg *m = new GameMsg(sock, msg, length);
-// 		return m_msg_queue.Push(m);
-// 	}
-// 
-// 	// bool IsEmpty(){ return m_msg_queue.IsEmpty(); }
-// 
-// 	GameMsg ** Pop()
-// 	{
-// 		return m_msg_queue.Pop();
-// 	}
-// 
-// private:
-// 
-// 	CircleQueue<GameMsg *> m_msg_queue;
-// };
 
 template<class T>
 class MsgQueue

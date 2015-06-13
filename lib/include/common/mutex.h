@@ -4,7 +4,9 @@
 
 #include <mutex>
 
-#include "common/systemdef.h"
+#ifdef WIN32
+#include <windows.h>
+#endif
 #ifdef __unix
 #include <pthread.h>
 #endif // __unix

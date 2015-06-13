@@ -2,13 +2,6 @@
 #ifndef COMMON_FUNCTION_H
 #define COMMON_FUNCTION_H
 
-#include "systemdef.h"
-#ifdef __unix
-	
-#endif
-
-
-
 #include <string>
 
 namespace Function

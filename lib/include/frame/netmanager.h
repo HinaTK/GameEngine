@@ -6,7 +6,7 @@
 #include "netuser.h"
 #include "nethandler.h"
 #include "lib/include/frame/message.h"
-#include "common/systemdef.h"
+#include "common/socketdef.h"
 #include "common/datastructure/gamevector.h"
 #include "common/datastructure/gamearray.h"
 #include "common/datastructure/msgqueue.h"

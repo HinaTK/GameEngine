@@ -9,7 +9,7 @@
 #include "table/tb_login.h"
 #include "cache/datamapmanager.h"
 #include "common/protocol/messageheader.h"
-#include "common/systemdef.h"
+#include "common/socketdef.h"
 
 
 bool DatabaseFrame::Init()		// ¿ò¼Ü³õÊ¼»¯

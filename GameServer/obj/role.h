@@ -3,7 +3,7 @@
 #define ROLE_H
 
 #include "obj.h"
-#include "common/systemdef.h"
+#include "common/socketdef.h"
 
 class Role:public Obj
 {
