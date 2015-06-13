@@ -14,7 +14,6 @@
 #include "testcache.h"
 #include "testthread.h"
 
-
 int main()
 {
 	//printf("%s\n", Function::WorkDir().c_str());
@@ -61,13 +60,17 @@ int main()
 	//TestDataStructure::TestGameMap();
 	//TestDataStructure::TestGameMapCmpMap();
 	//TestDataStructure::TestList();
+	//TestDataStructure::TestList2();
+	//TestDataStructure::TestList3();
 	//TestDataStructure::TestHash();
+	
+	//TestDataStructure::TestMsgQueue2();
 	//TestOther::Test1();
 	//TestOther::Test2();
 	//TestCache::TestDataQueue();
 	//TestCache::TestDataMap();
 	//TestCache::TestDataCache();
-	TestThread::Test1();
+	//TestThread::Test1();
 	return 0;
 }
 

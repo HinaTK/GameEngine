@@ -86,9 +86,6 @@
     <ClInclude Include="..\..\lib\include\frame\websocket\sha1.h">
       <Filter>src\websocket</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\websocket\stdint.h">
-      <Filter>src\websocket</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\accepter.h">
       <Filter>src</Filter>
     </ClInclude>

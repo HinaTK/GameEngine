@@ -45,7 +45,6 @@
     <ClInclude Include="..\..\lib\include\frame\websocket\base64.h" />
     <ClInclude Include="..\..\lib\include\frame\websocket\dataframeheader.h" />
     <ClInclude Include="..\..\lib\include\frame\websocket\sha1.h" />
-    <ClInclude Include="..\..\lib\include\frame\websocket\stdint.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{55622656-EDAF-46C0-B360-7A6671FD941D}</ProjectGuid>

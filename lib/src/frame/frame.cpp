@@ -94,8 +94,8 @@ void Frame::UpdateAll(unsigned long long interval)
 
 bool Frame::Run()
 {
-	GameMsg		**msg = NULL;
-	MsgQueue	*recvQueue = m_net_manager.GetMsgQueue();
+	GameMsg		*msg = NULL;
+	NetMessage	*recvQueue = m_net_manager.GetMsgQueue();
 	unsigned long long		last_time_ms = GameTime::Instance().FrameTime();	// 上一次更新时间
 	unsigned long long		cur_time_ms = 0;
 	unsigned long long		second = 0;
@@ -105,20 +105,25 @@ bool Frame::Run()
 	std::thread listen_thread(::Listen, this);
 // 	m_log_thread.Create(::WriteLog, this);
 // 	m_listen_thread.Create(::Listen, this);
+	bool cur_sleep_state = false;
+	bool last_sleep_state = false;
 	while (m_is_run)
 	{
-		if (!recvQueue->IsEmpty())
+		if (recvQueue->Pop(msg))
 		{
-			msg = recvQueue->Pop();
-			if ((*msg) != NULL)
+			if (msg != NULL)
 			{
-				if ((int)(*msg)->handle >= (int)0)
+				if ((int)msg->handle >= (int)0)
 				{
-					this->Recv(*msg);
+					this->Recv(msg);
 				}
 				// 内存交给下游处理
 				// delete (*msg);
 			}
+		}	
+		else
+		{
+			cur_sleep_state = !cur_sleep_state;
 		}
 
 		GameTime::Instance().Update();
@@ -128,9 +133,10 @@ bool Frame::Run()
 			UpdateAll(cur_time_ms - last_time_ms);
 			last_time_ms = cur_time_ms;
 		}
-		else
+		else if (cur_sleep_state != last_sleep_state)
 		{
 			GameTime::GameSleep(m_sleep_time_ms);
+			last_sleep_state = cur_sleep_state;
 		}
 		
 	}

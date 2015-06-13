@@ -88,7 +88,8 @@ void Log::Error(char *log, ...)
 
 void Log::Flush()
 {
-	if (m_queue.IsEmpty())
+	std::string *log = m_queue.Pop();
+	if (log == NULL)
 	{
 		return;
 	}
@@ -111,10 +112,12 @@ void Log::Flush()
 	{
 		RETURN_AND_CLEAR();
 	}
+
 	do 
 	{
-		fprintf(m_log_fp, "%s", m_queue.Pop()->c_str());
-	} while (!m_queue.IsEmpty());
+		fprintf(m_log_fp, "%s", log->c_str());
+		log = m_queue.Pop();
+	} while (log != NULL);
 }
 
 bool Log::MakeDayDir(int day)

@@ -3,13 +3,15 @@
 #define NET_MANAGER_H
 
 #include <map>
-//#include "frame.h"
 #include "netuser.h"
 #include "nethandler.h"
+#include "lib/include/frame/message.h"
 #include "common/systemdef.h"
 #include "common/datastructure/gamevector.h"
 #include "common/datastructure/gamearray.h"
+#include "common/datastructure/msgqueue.h"
 
+typedef MsgQueue<GameMsg *> NetMessage;
 class NetManager
 {
 public:
@@ -29,7 +31,7 @@ public:
 	void			ReplaceHandler();		// 将该句柄的控制者替换（用于将握手者-->监听者）
 	void			ClearHandler();
 	
-	MsgQueue		*GetMsgQueue(){ return &m_queue; }
+	NetMessage		*GetMsgQueue(){ return &m_queue; }
 	void			Exit(){ m_is_run = false; }
 
 public:
@@ -39,7 +41,7 @@ protected:
 	typedef game::Vector<NetHandle>		INVALID_HANDLE;
 	typedef game::Vector<NetHandler*>	REPLACE_HANDLER;
 
-	MsgQueue			m_queue;
+	NetMessage			m_queue;
 	INVALID_HANDLE		m_invalid_handle;
 	REPLACE_HANDLER		m_replace_handler;
 	bool				m_is_run;

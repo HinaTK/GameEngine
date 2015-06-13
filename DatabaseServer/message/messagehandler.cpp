@@ -5,35 +5,35 @@
 #include "lib/include/timemanager/gametime.h"
 //#include "messageheader.h"
 
-void *FlushQueue(void * arg)
-{
-	static const unsigned int sleepTime = 60 * 1000;
-	MessageHandler *handler = (MessageHandler *)arg;
-	CircleQueue<GameMsg *> data_queue = handler->DataQueue();
-	while (1)
-	{
-		if (!data_queue.IsEmpty())
-		{
-			GameMsg **msg = data_queue.Pop();
-			// 处理数据
-			delete (*msg);
-		}
-		else if (handler->m_is_run)
-		{
-			GameTime::GameSleep(50);
-		}
-		else
-		{
-			break;
-		}
-	}
-	return NULL;
-}
+// void *FlushQueue(void * arg)
+// {
+// 	static const unsigned int sleepTime = 60 * 1000;
+// 	MessageHandler *handler = (MessageHandler *)arg;
+// 	CircleQueue<GameMsg *> data_queue = handler->DataQueue();
+// 	while (1)
+// 	{
+// // 		GameMsg **msg = data_queue.Pop();
+// // 		if (msg != NULL)
+// // 		{
+// // 			// 处理数据
+// // 			delete (*msg);
+// // 		}
+// // 		else if (handler->m_is_run)
+// // 		{
+// // 			GameTime::GameSleep(50);
+// // 		}
+// // 		else
+// // 		{
+// // 			break;
+// // 		}
+// 	}
+// 	return NULL;
+// }
 
 MessageHandler::MessageHandler()
 : m_is_run(true)
 {
-	m_flush_thread.Create(FlushQueue, this);
+//	m_flush_thread.Create(FlushQueue, this);
 // 	m_function_list[IProtocol::MT_TEST]					= HandlerItem(&MessageHandler::Test, sizeof(IProtocol::Test));
 // 	m_function_list[IProtocol::MT_L_DB_LOGIN]			= HandlerItem(&MessageHandler::UserLogin, sizeof(IProtocol::LDBLogin));
 }
