@@ -57,9 +57,9 @@ void LoginFrame::OnLoginReq(NetHandle handle, char *data, unsigned int length)
 
 	// 去数据库查找数据
 	//Send(m_database_server_handle, data, length);
-	char buf[16];
-	RPCSerializer s(buf, 16);
-	m_rpc_server.Call(1, 2, s);
+	//char buf[16];
+	//RPCSerializer s(buf, 16);
+	//m_rpc_server.Call(1, 2, s);
 }
 
 int main()

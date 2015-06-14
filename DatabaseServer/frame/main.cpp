@@ -79,7 +79,7 @@ bool DatabaseFrame::Init()		// ¿ò¼Ü³õÊ¼»¯
 
 void DatabaseFrame::Recv(GameMsg *msg)
 {
-	unsigned int server_id = RPCServer::GetServerID(msg->data);
+	
 
 
 	delete msg;

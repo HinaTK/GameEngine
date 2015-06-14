@@ -6,16 +6,16 @@
 #include "lib/include/frame/netmanager.h"
 #include "lib/include/common/serializer.h"
 
-// 用4个字节保存协议id + 4个字节保留位
+//  2个字节服务索引 + 用2个字节消息id
 class RPCSerializer : public Serializer
 {
 public:
 	RPCSerializer(char *data, unsigned int length);
 
-	static const unsigned int INT_LEN = sizeof(unsigned int);
-	static const unsigned int INT_LEN_2 = INT_LEN + INT_LEN;
+	static const unsigned int SHORT_LEN = sizeof(unsigned short);
+	static const unsigned int HEAD_LEN = 2 * SHORT_LEN;
 
-	bool	PushFront(unsigned int server_id, unsigned int msg_id);
+	bool	PushFront(unsigned short server_index, unsigned short msg_id);
 };
 
 
@@ -32,37 +32,80 @@ public:
 	* 将server_id发送到远端，远端再将server_id发送回来，找到对应的RPCServer CallBack
 	* 向Array注册一个RPC，返回唯一的session_id, 实现进程间通信
 */
-class RPCServer
+
+class RPCCaller
 {
 public:
-	RPCServer();
-	~RPCServer();
+	RPCCaller(NetHandle handle, unsigned short max_msg_id);
+	~RPCCaller();
 
-	void		Init(NetManager *net_manager, NetHandle handle, unsigned int server_id, unsigned int max_id);
-
-	bool		RegisterRPC(unsigned int id, RPC *rpc);
-
-	bool		Call(unsigned int server_id, unsigned int msg_id, RPCSerializer &serializer);
-
-	bool		CallBack(const char *data, unsigned int length);
-
-	static unsigned int GetServerID(const char *data);
+	NetHandle		GetNetHandle(){ return m_net_handle; }
+	unsigned short	GetMaxMsgID(){ return m_max_msg_id; }
 
 private:
-	
-	NetManager		*m_net_manager;
 	NetHandle		m_net_handle;
-	unsigned int	m_max_id;
-	RPC				**m_rpc_vector;
+	unsigned short	m_max_msg_id;
 };
 
-class RPCManager
+class RPCCallee
 {
 public:
-	~RPCManager(){}
+	RPCCallee(unsigned short max_msg_id);
+	~RPCCallee();
 
-	bool		RegisterRPCServer(unsigned int server_id, RPCServer *rpc_server);
+	bool			RegisterRPC(unsigned short msg_id, RPC *rpc);
+	unsigned short	GetMaxMsgID(){ return m_max_msg_id; }
+	bool			OnCall(unsigned short msg_id, RPCSerializer &serializer);
+
 private:
-	RPCManager(){}
+	unsigned short	m_max_msg_id;
+	RPC				**m_rpcs;
+};
+
+class RPCCallerManager
+{
+public:
+	~RPCCallerManager();
+
+	static RPCCallerManager &Instance()
+	{
+		static RPCCallerManager manager;
+		return manager;
+	}
+
+	void		Init(NetManager *net_manager, unsigned short max_server_index);
+
+	bool		RegisterRPCCaller(unsigned short server_index, RPCCaller *caller);
+
+	bool		Call(unsigned short server_index, unsigned short msg_id, RPCSerializer &serializer);
+
+private:
+	RPCCallerManager();
+
+	NetManager		*m_net_manager;
+	RPCCaller		**m_rpc_callers;
+	unsigned short	m_max_server_index;
+};
+
+class RPCCalleeManager
+{
+public:
+	~RPCCalleeManager();
+
+	static RPCCalleeManager &Instance()
+	{
+		static RPCCalleeManager manager;
+		return manager;
+	}
+
+	void		Init(NetManager *net_manager, unsigned short max_server_index);
+	bool		RegisterRPCCallee(unsigned short server_index, RPCCallee *callee);
+	bool		OnCall(const char *data, unsigned int length);
+
+private:
+	RPCCalleeManager();
+	NetManager		*m_net_manager;
+	RPCCallee		**m_rpc_callees;
+	unsigned short	m_max_server_index;
 };
 #endif

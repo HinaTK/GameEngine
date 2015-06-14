@@ -1,11 +1,7 @@
 
 #include <stdio.h>
-// #include "common/commonfunction.h"
-// //#include "lua/luatest.h"
-// #include "websocket/websockettest.h"
-// #include "other/hashlisttest.h"
+#include <string>
 #include "testdatastructure.h"
-// #include "other/bridge.h"
 #include "testlog.h"
 #include "testserializer.h"
 #include "testmemory.h"
@@ -64,13 +60,23 @@ int main()
 	//TestDataStructure::TestList3();
 	//TestDataStructure::TestHash();
 	
-	TestDataStructure::TestMsgQueue2();
+	//TestDataStructure::TestMsgQueue2();
 	//TestOther::Test1();
 	//TestOther::Test2();
 	//TestCache::TestDataQueue();
 	//TestCache::TestDataMap();
 	//TestCache::TestDataCache();
 	//TestThread::Test1();
+	std::string a = "122";
+	std::string b = "123";
+	if (a < b)
+	{
+		printf("fsdf");
+	}
+	else
+	{
+		printf("fffff");
+	}
 	return 0;
 }
 

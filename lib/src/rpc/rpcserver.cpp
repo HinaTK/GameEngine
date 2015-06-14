@@ -6,91 +6,186 @@
 RPCSerializer::RPCSerializer(char *data, unsigned int length)
 : Serializer(data, length)
 {
-	m_begin = m_begin + INT_LEN_2;
+	m_begin = m_begin + HEAD_LEN;
 }
 
-bool RPCSerializer::PushFront(unsigned int server_id, unsigned int msg_id)
+bool RPCSerializer::PushFront(unsigned short server_index, unsigned short msg_id)
 {
-	*(unsigned int *)(m_data) = server_id;
-	*(unsigned int *)(m_data + INT_LEN) = msg_id;
+	*(unsigned short *)(m_data) = server_index;
+	*(unsigned short *)(m_data + SHORT_LEN) = msg_id;
 	return true;
 }
 
-RPCServer::RPCServer()
-: m_net_manager(NULL)
-, m_net_handle(0)
-, m_max_id(0)
-, m_rpc_vector(NULL)
+RPCCaller::RPCCaller(NetHandle handle, unsigned short max_msg_id)
+: m_net_handle(handle)
+, m_max_msg_id(max_msg_id)
 {
-
+	
 }
 
-RPCServer::~RPCServer()
+RPCCaller::~RPCCaller()
 {
-	if (m_rpc_vector != NULL)
+	
+}
+
+RPCCallee::RPCCallee(unsigned short max_msg_id)
+: m_max_msg_id(max_msg_id)
+{
+	m_rpcs = (RPC	**)malloc(max_msg_id * sizeof(RPC *));
+	memset(m_rpcs, NULL, max_msg_id * sizeof(RPC *));
+}
+
+RPCCallee::~RPCCallee()
+{
+	if (m_rpcs != NULL)
 	{
-		free(m_rpc_vector);
-		m_rpc_vector = NULL;
-	}	
+		::free(m_rpcs);
+		m_rpcs = NULL;
+	}
 }
 
-void RPCServer::Init(NetManager *net_manager, NetHandle handle, unsigned int server_id, unsigned int max_id)
+bool RPCCallee::RegisterRPC(unsigned short msg_id, RPC *rpc)
+{
+	if (msg_id >= m_max_msg_id)
+	{
+		return false;
+	}
+
+	m_rpcs[msg_id] = rpc;
+	return true;
+}
+
+bool RPCCallee::OnCall(unsigned short msg_id, RPCSerializer &serializer)
+{
+	if (msg_id >= m_max_msg_id)
+	{
+		return false;
+	}
+
+	if (m_rpcs[msg_id] == NULL)
+	{
+		return false;
+	}
+
+	m_rpcs[msg_id]->CallBack(serializer);
+	return true;
+}
+
+RPCCallerManager::~RPCCallerManager()
+{
+	if (m_rpc_callers != NULL)
+	{
+		::free(m_rpc_callers);
+		m_rpc_callers = NULL;
+	}
+}
+
+RPCCallerManager::RPCCallerManager()
+: m_net_manager(NULL)
+, m_rpc_callers(NULL)
+, m_max_server_index(0)
+{
+	
+}
+
+void RPCCallerManager::Init(NetManager *net_manager, unsigned short max_server_index)
 {
 	m_net_manager = net_manager;
-	m_net_handle = handle;
-	m_max_id = max_id;
-	m_rpc_vector = (RPC	**)malloc(max_id * sizeof(RPC *));
-	memset(m_rpc_vector, NULL, max_id * sizeof(RPC *));
+	m_rpc_callers = (RPCCaller **)malloc(max_server_index * sizeof(RPCCaller *));
+	memset(m_rpc_callers, NULL, max_server_index * sizeof(RPCCaller *));
+	m_max_server_index = max_server_index;
 }
 
-bool RPCServer::RegisterRPC(unsigned int id, RPC *rpc)
+bool RPCCallerManager::RegisterRPCCaller(unsigned short server_index, RPCCaller *caller)
 {
-	if (id >= m_max_id)
+	if (server_index >= m_max_server_index)
 	{
 		return false;
 	}
 
-	m_rpc_vector[id] = rpc;
+	m_rpc_callers[server_index] = caller;
 	return true;
 }
 
-bool RPCServer::Call(unsigned int server_id, unsigned int msg_id, RPCSerializer &serializer)
+bool RPCCallerManager::Call(unsigned short server_index, unsigned short msg_id, RPCSerializer &serializer)
 {
-	if (msg_id >= m_max_id)
+	if (server_index >= m_max_server_index)
 	{
 		return false;
 	}
 
-	serializer.PushFront(server_id, msg_id);
- 
- 	m_net_manager->Send(m_net_handle, (const char *)serializer.Data(), serializer.DataLength());
+	if (m_rpc_callers[server_index] == NULL)
+	{
+		return false;
+	}
+
+	if (msg_id >= m_rpc_callers[server_index]->GetMaxMsgID())
+	{
+		return false;
+	}
+
+	serializer.PushFront(server_index, msg_id);
+	m_net_manager->Send(m_rpc_callers[server_index]->GetNetHandle(), (const char *)serializer.Data(), serializer.DataLength());
+
 	return true;
 }
 
-bool RPCServer::CallBack(const char *data, unsigned int length)
+RPCCalleeManager::~RPCCalleeManager()
 {
-	if (length < RPCSerializer::INT_LEN_2)
+	if (m_rpc_callees != NULL)
+	{
+		::free(m_rpc_callees);
+		m_rpc_callees = NULL;
+	}
+}
+
+RPCCalleeManager::RPCCalleeManager()
+: m_net_manager(NULL)
+, m_rpc_callees(NULL)
+, m_max_server_index(0)
+{
+
+}
+
+void RPCCalleeManager::Init(NetManager *net_manager, unsigned short max_server_index)
+{
+	m_net_manager = net_manager;
+	m_rpc_callees = (RPCCallee **)malloc(max_server_index * sizeof(RPCCallee *));
+	memset(m_rpc_callees, NULL, max_server_index * sizeof(RPCCallee *));
+	m_max_server_index = max_server_index;
+}
+
+bool RPCCalleeManager::RegisterRPCCallee(unsigned short server_index, RPCCallee *callee)
+{
+	if (server_index >= m_max_server_index)
 	{
 		return false;
 	}
 
-	unsigned int id = *(unsigned int *)data;
-	if (id >= m_max_id)
-	{
-		return false;
-	}
-
-	if (m_rpc_vector[id] == NULL)
-	{
-		return false;
-	}
-
-	RPCSerializer serializer((char *)data + RPCSerializer::INT_LEN_2, length - RPCSerializer::INT_LEN_2);
-	m_rpc_vector[id]->CallBack(serializer);
+	m_rpc_callees[server_index] = callee;
 	return true;
 }
 
-unsigned int RPCServer::GetServerID(const char *data)
+bool RPCCalleeManager::OnCall(const char *data, unsigned int length)
 {
-	return *(unsigned int *)data;
+	if (length < RPCSerializer::HEAD_LEN)
+	{
+		return false;
+	}
+
+	unsigned short server_index = *(unsigned short *)data;
+	if (server_index >= m_max_server_index)
+	{
+		return false;
+	}
+
+	if (m_rpc_callees[server_index] == NULL)
+	{
+		return false;
+	}
+
+	unsigned short msg_id = *(unsigned short *)(data + RPCSerializer::SHORT_LEN);
+
+	RPCSerializer serializer((char *)data + RPCSerializer::HEAD_LEN, length - RPCSerializer::HEAD_LEN);
+	return m_rpc_callees[server_index]->OnCall(msg_id, serializer);
 }

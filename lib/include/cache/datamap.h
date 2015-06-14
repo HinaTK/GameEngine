@@ -2,23 +2,28 @@
 #ifndef DATA_MAP_H
 #define	DATA_MAP_H
 
-#include "lib/include/common/mutex.h"
+#include <mutex>
 #include "common/datastructure/gamemap.h"
 #include "common/datastructure/gamelist.h"
 
-// version:20150430
-
+/*
+version:20150504
+data(数据)空间由外部申请, 设置回调进行释放
+*/
 class DataCallBack
 {
 public:
 	DataCallBack(){}
 	~DataCallBack(){}
 
-	virtual void OnCallBack(char *key, int operater, const char *data, unsigned int length) = 0;
+	virtual void OnCallBack(unsigned char *key, int operater, const char *data, unsigned int length) = 0;
+
+	virtual void OnDelete(const char *data){ delete data; }
 };
 
 /*
-	一个集合，用一个DataMap，因为Key需要唯一
+	* 一个集合，用一个DataMap，因为Key需要唯一
+	* 当key是字符串，请使用使用std::string表示
 */
 template<class T>
 class DataMap
@@ -51,31 +56,49 @@ public:
 
 	typedef game::Map<T, DataInfo>	DATA_MAP;
 	typedef game::List<DirtyData>	DIRTY_DATA_LIST;
+	typedef game::List<const char *>		DELETE_DATA_LIST;
 
 	void		SetCallBack(DataCallBack *callback){ m_data_call_back = callback; }
 	bool		Insert(T &key, const char *data, unsigned int length);
 	bool		Update(T &key, const char *data, unsigned int length);
-	bool		UpdateAndInsert(T &key, const char *data, unsigned int length);
+	bool		UpdateOrInsert(T &key, const char *data, unsigned int length);
 	bool		Find(T &key);
 	bool		Find(T &key, const char **data, unsigned int &length);
 	bool		Delete(T &key);
 
 	void		Flush();		// 冲刷脏数据
 
+	// 事务
+	void		Begin(){ m_is_transaction = true; }
+	void		RollBack();
+	void		Commit();
 private:
 	DataCallBack			*m_data_call_back;
 	DATA_MAP				m_data_map;
 	DIRTY_DATA_LIST			*m_dirty_data_list;
 	DIRTY_DATA_LIST			*m_flush_list;
-	Mutex					m_mutex;
+	DIRTY_DATA_LIST			m_transaction_list;		// 事务临时数据列表
+	DELETE_DATA_LIST		m_delete_data_list;
+	std::mutex				m_mutex;
+	bool					m_is_transaction;
 };
+
+#define MUTEX_LOCK()\
+	m_mutex.lock(); \
+{
+
+#define MUTEX_UNLOCK()\
+}\
+	m_mutex.unlock();
 
 template<class T>
 DataMap<T>::DataMap()
 : m_data_call_back(NULL)
+, m_is_transaction(false)
 {
 	m_dirty_data_list = new DIRTY_DATA_LIST;
 	m_flush_list = new DIRTY_DATA_LIST;
+
 }
 
 template<class T>
@@ -98,9 +121,19 @@ bool DataMap<T>::Insert(T &key, const char *data, unsigned int length)
 	dd.key = key;
 	dd.info.data = data;
 	dd.info.length = length;
-	m_data_map.Insert(key, dd.info);
-	MutexLock lock(&m_mutex);
-	m_dirty_data_list->PushBack(dd);
+
+	if (m_is_transaction)
+	{
+		m_transaction_list.PushBack(dd);
+	}
+	else
+	{
+		m_data_map.Insert(key, dd.info);
+		MUTEX_LOCK();
+		m_dirty_data_list->PushBack(dd);
+		MUTEX_UNLOCK();
+	}
+
 	return true;
 }
 
@@ -112,21 +145,33 @@ bool DataMap<T>::Update(T &key, const char *data, unsigned int length)
 	{
 		return false;
 	}
-	itr->second.data = data;
-	itr->second.length = length;
 
 	DirtyData dd;
 	dd.type = DB_UPDATE;
 	dd.key = key;
 	dd.info.data = data;
 	dd.info.length = length;
-	MutexLock lock(&m_mutex);
-	m_dirty_data_list->PushBack(dd);
+
+	if (m_is_transaction)
+	{
+		m_transaction_list.PushBack(dd);
+	}
+	else
+	{
+		m_delete_data_list.PushBack(itr->second.data);
+
+		itr->second.data = data;
+		itr->second.length = length;
+
+		MUTEX_LOCK();
+		m_dirty_data_list->PushBack(dd);
+		MUTEX_UNLOCK();
+	}
 	return true;
 }
 
 template<class T>
-bool DataMap<T>::UpdateAndInsert(T &key, const char *data, unsigned int length)
+bool DataMap<T>::UpdateOrInsert(T &key, const char *data, unsigned int length)
 {
 	if (!Update(key, data, length))
 	{
@@ -143,7 +188,7 @@ bool DataMap<T>::Find(T &key)
 		return false;
 	}
 
-	m_data_call_back->OnCallBack((char *)&key, DB_FIND, itr->second.data, itr->second.length);
+	m_data_call_back->OnCallBack((unsigned char *)&key, DB_FIND, itr->second.data, itr->second.length);
 	return true;
 }
 
@@ -174,11 +219,24 @@ bool DataMap<T>::Delete(T &key)
 	dd.key = key;
 	dd.info.data = itr->second.data;
 	dd.info.length = itr->second.length;
-	MutexLock lock(&m_mutex);
-	m_dirty_data_list->PushBack(dd);
+
+	if (m_is_transaction)
+	{
+		m_transaction_list.PushBack(dd);
+	}
+	else
+	{
+		MUTEX_LOCK();
+		m_dirty_data_list->PushBack(dd);
+		MUTEX_UNLOCK();
+
+		m_delete_data_list.PushBack(itr->second.data);
+		m_data_map.Erase(itr->first);
+	}
+	return true;
 }
 
-
+// 这里不对OnCallBack统一加锁，需要加锁时，到指定函数进行加锁
 template<class T>
 void DataMap<T>::Flush()
 {
@@ -188,11 +246,49 @@ void DataMap<T>::Flush()
 		m_dirty_data_list = m_flush_list;
 		m_flush_list = temp;
 	}
+
 	for (typename DIRTY_DATA_LIST::iterator itr = m_flush_list->Begin(); itr != m_flush_list->End(); ++itr)
 	{
-		m_data_call_back->OnCallBack((char *)&itr->key, itr->type, itr->info.data, itr->info.length);
+		m_data_call_back->OnCallBack((unsigned char *)&itr->key, itr->type, itr->info.data, itr->info.length);
 	}
 	m_flush_list->Clear();
+
+	for (typename DELETE_DATA_LIST::iterator itr = m_delete_data_list.Begin(); itr != m_delete_data_list.End(); ++itr)
+	{
+		m_data_call_back->OnDelete(itr->second.data);
+	}
+	m_delete_data_list.Clear();
+}
+
+
+template<class T>
+void DataMap<T>::RollBack()
+{
+	m_is_transaction = false;
+	m_transaction_list.Clear();
+}
+
+
+template<class T>
+void DataMap<T>::Commit()
+{
+	m_is_transaction = false;
+	for (typename DIRTY_DATA_LIST::iterator itr = m_transaction_list.Begin(); itr != m_transaction_list.End(); ++itr)
+	{
+		switch (itr->type)
+		{
+		case DB_INSERT:
+			Insert(itr->key, itr->info.data, itr->info.length);
+			break;
+		case DB_UPDATE:
+			Update(itr->key, itr->info.data, itr->info.length);
+			break;
+		case DB_DELETE:
+			Delete(itr->key);
+			break;
+		}
+	}
+	m_transaction_list.Clear();
 }
 
 #endif

@@ -18,7 +18,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\cache\datacache.cpp" />
-    <ClCompile Include="..\..\lib\src\cache\datamap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\lib\include\cache\设计.txt" />

@@ -45,7 +45,7 @@ private:
 
 	//TimeEventManager m_time_event_manager;
 	MessageHandler		m_message_handler;
-	RPCServer			m_rpc_server;
+	//RPCServer			m_rpc_server;
 };
 
 #endif
