@@ -10,44 +10,23 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\lib\include\common\commonconfig.h" />
-    <ClInclude Include="..\..\lib\include\common\md5.h" />
-    <ClInclude Include="..\..\lib\include\common\memorypool.h" />
-    <ClInclude Include="..\..\lib\include\common\memoryvl.h" />
-    <ClInclude Include="..\..\lib\include\common\mutex.h" />
-    <ClInclude Include="..\..\lib\include\common\serializer.h" />
-    <ClInclude Include="..\..\lib\include\common\serverconfig.h" />
-    <ClInclude Include="..\..\lib\include\common\thread.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\lib\src\common\commonconfig.cpp" />
-    <ClCompile Include="..\..\lib\src\common\md5.cpp" />
-    <ClCompile Include="..\..\lib\src\common\memorypool.cpp" />
-    <ClCompile Include="..\..\lib\src\common\memoryvl.cpp" />
-    <ClCompile Include="..\..\lib\src\common\serializer.cpp" />
-    <ClCompile Include="..\..\lib\src\common\serverconfig.cpp" />
-    <ClCompile Include="..\..\lib\src\common\thread.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8F0F74CF-3672-4629-98D4-322BA0ACFC7B}</ProjectGuid>
-    <Keyword>Win32Proj</Keyword>
-    <RootNamespace>common</RootNamespace>
-    <ProjectName>Common</ProjectName>
+    <ProjectGuid>{2FBA8C54-D15C-4EA0-8B30-8ACA56683578}</ProjectGuid>
+    <RootNamespace>Redis</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -60,42 +39,39 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\..\lib\windows</OutDir>
-    <IntDir>..\..\lib\temp</IntDir>
-    <IncludePath>..\..\lib\include\common;..\..\lib\include;..\..\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\lib\include;..\..\;..\..\lib\include\redis;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\lib\include\redis\redis.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\lib\src\redis\redis.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

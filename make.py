@@ -25,7 +25,7 @@ import sys
 #
 #########################################################################################################################
 FILENAME 	= 'makefile';
-BIN			= "DatabaseServer"
+BIN			= "DatabaseServer";
 
 ROOTPATH 	= os.path.dirname(os.path.dirname(os.path.abspath(__file__)));
 PWD 		= os.getcwd();
@@ -66,9 +66,7 @@ def SearchFiles(path):
 	for file in listFile:
 		if os.path.isdir(os.path.join(path, file)):
 			SearchFiles(os.path.join(path, file));
-		elif file.find(".cpp") > 0:
-			if file.find(".cpp~") > 0:
-				continue;
+		elif file.endswith(".cpp") > 0:
 			OBJFILE = file;
 			OBJFILE = OBJFILE.replace('.cpp','.o');
 			OBJ2SRC.append([OBJDIR + OBJFILE,path + "/" + file]);

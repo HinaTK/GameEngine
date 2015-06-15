@@ -69,9 +69,7 @@ def SearchFiles(path):
 	for file in listFile:
 		if os.path.isdir(os.path.join(path, file)):
 			SearchFiles(os.path.join(path, file));
-		elif file.find(SUFFIX) > 0:
-			if file.find(SUFFIX + "~") > 0:
-				continue;
+		elif file.endswith(SUFFIX) > 0:
 			OBJFILE = file;
 			OBJFILE = OBJFILE.replace(SUFFIX,'.o');
 			OBJ2SRC.append([OBJDIR + OBJFILE,path + "/" + file]);

@@ -65,15 +65,19 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, SOCKET &
 	return true;
 }
 
-bool NetManager::ConnectServer(char *ip, unsigned short port, NetHandle &handle)
+/*
+	
+*/
+NetHandle NetManager::ConnectServer(char *ip, unsigned short port, Listener *listener)
 {
 	printf("connect to Server ip = %s, port = %d\n", ip, port);
+
 #ifdef WIN32
 	WSADATA data;
-	SOCKADDR_IN serverAddr;
-
 	WSAStartup(MAKEWORD(1, 1), &data);
+#endif
 
+	struct sockaddr_in serverAddr;
 	serverAddr.sin_family = AF_INET;
 	serverAddr.sin_addr.s_addr = inet_addr(ip);
 	serverAddr.sin_port = htons(port);
@@ -84,53 +88,41 @@ bool NetManager::ConnectServer(char *ip, unsigned short port, NetHandle &handle)
 	{
 		printf("init connect server error\n");
 		WSACleanup();
-		return false;
-	}
-
-	int ret = connect(sock, (LPSOCKADDR)&serverAddr, sizeof(serverAddr));
-	if (ret == SOCKET_ERROR)
-	{
-		printf("can not connect server\n");
-		closesocket(sock);
-		WSACleanup();
-		return false;
-	}
-#endif
-#ifdef __unix
-	struct epoll_event ev;
-	struct sockaddr_in serverAddr;
-
-	serverAddr.sin_family = AF_INET;
-	serverAddr.sin_addr.s_addr = inet_addr(ip);
-	serverAddr.sin_port = htons(port);
-
-	SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
-	if (sock == -1)
-	{
-		printf("init connect server error\n");
-		return false;
+		return INVALID_NET_HANDLE;
 	}
 
 	if (connect(sock, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) < 0)
 	{
 		printf("can not connect server\n");
-		NetCommon::Close(sock);
-		return false;
+		closesocket(sock);
+		WSACleanup();
+		return INVALID_NET_HANDLE;
 	}
+
+#ifdef __unix
+	struct epoll_event ev;
 	ev.events = EPOLLIN | EPOLLET;
 	ev.data.fd = sock;
 	if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, sock, &ev) < 0)
 	{
 		fprintf(stderr, "epoll set insertion error: fd=%d\n", sock);
-		return false;
+		return INVALID_NET_HANDLE;
 	}
 #endif
-	BaseListener *handler = new BaseListener(this);
-	handler->m_sock = sock;
-	handle = AddNetHandler(handler);
 
-	printf("Connect Server success\n");
-	return true;
+	printf("Connect Server Success\n");
+
+	if (listener == NULL)
+	{
+		BaseListener *handler = new BaseListener(this);
+		handler->m_sock = sock;
+		return AddNetHandler(handler);
+	}
+	else
+	{
+		listener->m_sock = sock;
+		return AddNetHandler(listener);
+	}
 }
 
 void NetManager::Listen()

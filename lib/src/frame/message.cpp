@@ -9,10 +9,6 @@ GameMsg::GameMsg(NetHandle _handle, const char* _data, unsigned int _length)
 , length(_length)
 {
 	data = (char *)MemoryVL::Instance().Malloc(length);
-	if (data == NULL)
-	{
-		data = new char[length];
-	}
 	memcpy(data, _data, length);
 }
 

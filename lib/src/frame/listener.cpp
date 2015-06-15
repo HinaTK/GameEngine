@@ -89,6 +89,12 @@ void Listener::OnCanWrite()
 	}
 }
 
+void Listener::Send(const char *buf, unsigned int len)
+{
+	MutexLock ml(&m_send_mutex);
+	m_send_buf_write->Push(buf, len);
+}
+
 void Listener::RegisterWriteFD()
 {
 	if (m_is_register_write)
