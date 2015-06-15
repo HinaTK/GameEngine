@@ -4,17 +4,21 @@
 
 #include "common/socketdef.h"
 
+class Listener;
+class NetManager;
 class Redis
 {
 public:
 	Redis();
 	~Redis();
 
-	void	SetNetHandle(NetHandle handle){ m_net_handle = handle; }
+	void	SetNetManager(NetManager *manager){ m_net_manager = manager; }
 
+	bool	Connect(char *ip, unsigned short port, Listener *lister);
 
+	void	Command(const char *command);
 private:
-
+	NetManager	*m_net_manager;
 	NetHandle	m_net_handle;
 };
 
