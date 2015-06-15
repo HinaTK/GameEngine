@@ -8,6 +8,8 @@
 #include "lib/include/timemanager/gametime.h"
 #include "lib/include/common/memoryvl.h"
 #include "lib/include/common/commonconfig.h"
+// #include "DLL/export.h"
+// #include "DLL/dll.h"
 
 
 namespace SignalCatch
@@ -39,6 +41,9 @@ Frame::~Frame()
 bool Frame::Init()
 {
 	MemoryVL::Instance().Init(CommonConfig::Instance().GetMemoryVLVector());
+// 	DLL *dll;
+// 	Register(&dll);
+// 	dll->Show();
 	return true;
 }
 

@@ -14,9 +14,32 @@
 #include "testcache.h"
 #include "testthread.h"
 
+class A
+{
+public:
+
+	virtual void Show()
+	{
+		printf("class A\n");
+	}
+};
+
+class B : public A
+{
+public:
+
+	void Show()
+	{
+		A::Show();
+		printf("class B\n");
+	}
+};
 
 int main()
 {
+// 	A *a = new B;
+// 	a->Show();
+// 	delete a;
 	//printf("%s\n", Function::WorkDir().c_str());
 	//VariableSave();
 	// WebSocketTest::Listen();
@@ -64,10 +87,14 @@ int main()
 	//TestDataStructure::TestHash();
 	//TestOther::Test1();
 	//TestOther::Test2();
+	//TestOther::Test3();
+	TestOther::Test4();
 	//TestCache::TestDataQueue();
 	//TestCache::TestDataMap();
 	//TestCache::TestDataCache();
-	TestThread::Test1();
+	//TestThread::Test1();
+
+
 	return 0;
 }
 
