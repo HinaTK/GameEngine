@@ -2,7 +2,11 @@
 #ifndef MUTEX_LOCK_H
 #define MUTEX_LOCK_H
 
-#include "common/systemdef.h"
+#include <mutex>
+
+#ifdef WIN32
+#include <windows.h>
+#endif
 #ifdef __unix
 #include <pthread.h>
 #endif // __unix
@@ -52,5 +56,12 @@ private:
 	Mutex *m_mutex;
 };
 
+#define LOCK(mutex)\
+	mutex.lock(); \
+{
+
+#define UNLOCK(mutex)\
+}\
+	mutex.unlock();
 
 #endif // !MUTEX_LOCK_H

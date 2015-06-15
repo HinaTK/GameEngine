@@ -38,7 +38,8 @@ bool BaseListener::AnalyzeBuf()
 			return false;
 		}
 
-		m_net_manager->GetMsgQueue()->Push(m_handle, buf + NetCommon::HEADER_LENGTH, header->msg_len);
+		GameMsg *msg = new GameMsg(m_handle, buf + NetCommon::HEADER_LENGTH, header->msg_len);
+		m_net_manager->GetMsgQueue()->Push(msg);
 
 		remove_len += header->msg_len;
 		buf_len = buf_len - NetCommon::HEADER_LENGTH - header->msg_len;

@@ -36,7 +36,7 @@ bool LoginFrame::InitConfig()
 	}
 	
 
-	m_rpc_server.Init(&m_net_manager, m_database_server_handle, 999);
+//	m_rpc_server.Init(&m_net_manager, m_database_server_handle, 999);
 	return Init();
 }
 

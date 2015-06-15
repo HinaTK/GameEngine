@@ -42,7 +42,7 @@ INCROOTPATH	= "-I " + ROOTPATH;
 INCPATH 	= INCROOTPATH + "/../" + " " + INCROOTPATH + "/include" + " " + INCROOTPATH + "/include/frame";
 CXX			= "g++"
 AR			= "ar cqs";
-FLAGS		= '-fpermissive';
+FLAGS		= '-fpermissive -std=c++11';
 ARFLAGS		= '';
 
 #########################################################################################################################
@@ -110,7 +110,7 @@ for val in OBJ2SRC:
 f.close();
 
 os.system("make -f " + FILENAME);
-os.system("cp -f " + BIN + " " + BINDIR);
+os.system("mv -f " + BIN + " " + BINDIR);
 os.system("cd " + OBJDIR + ";rm -f *.o");
 
 

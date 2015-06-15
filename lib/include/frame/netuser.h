@@ -3,7 +3,7 @@
 #define NET_USER_H
 
 #include "bufmanager.h"
-#include "common/systemdef.h"
+#include "common/socketdef.h"
 
 
 class NetUser

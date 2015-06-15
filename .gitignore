@@ -16,3 +16,11 @@ serializer/Debug/serializer.log
 Debug/serializer.exe
 *.opensdf
 lib/temp/Frame.log
+lib/windows/Tinyxml.lib
+lib/windows/TimeManager.lib
+lib/windows/RPC.lib
+lib/windows/Cache.lib
+lib/windows/Common.lib
+lib/windows/Frame.lib
+lib/windows/Log.lib
+lib/windows/LuaScript.lib

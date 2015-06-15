@@ -14,6 +14,7 @@
 #include "testcache.h"
 #include "testthread.h"
 
+<<<<<<< HEAD
 class A
 {
 public:
@@ -35,6 +36,8 @@ public:
 	}
 };
 
+=======
+>>>>>>> 5a49417596d423012ff6d1d328a4dca2cdeb9a26
 int main()
 {
 // 	A *a = new B;
@@ -84,7 +87,11 @@ int main()
 	//TestDataStructure::TestGameMap();
 	//TestDataStructure::TestGameMapCmpMap();
 	//TestDataStructure::TestList();
+	//TestDataStructure::TestList2();
+	//TestDataStructure::TestList3();
 	//TestDataStructure::TestHash();
+	
+	TestDataStructure::TestMsgQueue2();
 	//TestOther::Test1();
 	//TestOther::Test2();
 	//TestOther::Test3();
@@ -93,8 +100,11 @@ int main()
 	//TestCache::TestDataMap();
 	//TestCache::TestDataCache();
 	//TestThread::Test1();
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 5a49417596d423012ff6d1d328a4dca2cdeb9a26
 	return 0;
 }
 

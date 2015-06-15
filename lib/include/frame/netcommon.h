@@ -3,7 +3,7 @@
 #define NET_COMMON_H
 
 #include <string>
-#include "common/systemdef.h"
+#include "common/socketdef.h"
 
 namespace NetCommon
 {

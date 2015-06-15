@@ -3,7 +3,7 @@
 #define MESSAGE_H
 
 #include <string.h>
-#include "common/systemdef.h"
+#include "common/socketdef.h"
 #include "lib/include/common/memoryvl.h"
 
 class GameMsg

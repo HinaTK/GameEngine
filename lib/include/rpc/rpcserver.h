@@ -2,7 +2,7 @@
 #ifndef RPC_SERVER_H
 #define RPC_SERVER_H
 
-#include "common/systemdef.h"
+#include "common/socketdef.h"
 #include "lib/include/frame/netmanager.h"
 #include "lib/include/common/serializer.h"
 

@@ -7,7 +7,9 @@
 #include <set>
 #include <map>
 #include <list>
+#include <thread>
 #include "common/datastructure/circlequeue.h"
+#include "common/datastructure/msgqueue.h"
 #include "common/datastructure/gameset.h"
 #include "common/datastructure/gamemap.h"
 #include "common/datastructure/gamearray.h"
@@ -372,6 +374,42 @@ namespace TestDataStructure
 // 		test2.erase(itr);
 	}
 
+	void TestList2()
+	{
+		game::List<int> test(64);
+		for (int i = 0; i < 1000; ++i)
+		{
+			test.PushBack(i);
+		}
+
+		int temp;
+		for (int i = 0; i < 500; ++i)
+		{
+			test.PopFront(temp);
+		}
+
+		for (int i = 0; i < 1000; ++i)
+		{
+			temp = i + 2000;
+			test.PushFront(temp);
+		}
+		printf("complete\n");
+	}
+
+	void TestList3()
+	{
+		game::List<int> test;
+
+		for (int i = 0; i < 10; ++i)
+		{
+			test.PushBack(i);
+		}
+
+		for (game::List<int>::iterator itr = test.Begin(); itr != test.End(); ++itr)
+		{
+			printf("%d\n", *itr);
+		}
+	}
 	void TestHash()
 	{
 		int a = 324;
@@ -409,6 +447,42 @@ namespace TestDataStructure
 
 		printf("test4 %s\n", test4["xian"]);
 
+	}
+
+	int test_time = 500000;
+	MsgQueue<int> test_msg_queue1;
+	void TestMsgQueue3()
+ 	{
+		for (int i = 0; i < test_time; ++i)
+		{
+			test_msg_queue1.Push(i);
+		}
+	}
+
+	void TestMsgQueue2()
+	{
+		unsigned long begin = GetTickCount();
+		std::thread thread1(TestMsgQueue3);
+		for (int i = 0; i < test_time;)
+		{
+			int val = 0;
+			if (test_msg_queue1.Pop(val))
+			{
+				if (val != i)
+				{
+					printf("val = %d, i = %d\n", val, i);
+					break;
+				}
+				++i;
+			}
+			else
+			{
+				Sleep(10);
+			}
+		}
+
+		thread1.join();
+		printf("two %d ms\n", GetTickCount() - begin);
 	}
 }
 

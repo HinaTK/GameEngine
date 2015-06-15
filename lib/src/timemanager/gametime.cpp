@@ -94,6 +94,8 @@ void GameTime::Update()
 		m_sceond_id = m_tm->tm_sec;
 		m_sceond_id = m_tm->tm_min * 100 + m_sceond_id;
 		m_sceond_id = m_tm->tm_hour * 10000 + m_sceond_id;
+
+		m_frame_time_ms = now_ms;
 	}
 }
 

@@ -46,8 +46,8 @@ protected:
 	unsigned int		m_sleep_time_ms;
 private:
 	
-	Thread		m_listen_thread;
-	Thread		m_log_thread;
+// 	Thread		m_listen_thread;
+// 	Thread		m_log_thread;
 	
 	
 	bool		m_is_run;

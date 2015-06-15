@@ -5,7 +5,7 @@
 #include <string>
 #include <stdlib.h>
 #include <time.h>
-//#include "systemdefine.h"
+
 /*
 	多个server可以共同包含
 */

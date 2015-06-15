@@ -10,10 +10,12 @@ public:
 	Redis();
 	~Redis();
 
-	void	SetNetHandle();
+	void	SetNetHandle(NetHandle handle){ m_net_handle = handle; }
+
+
 private:
 
-	SOCKET	m_net_handle;
+	NetHandle	m_net_handle;
 };
 
 #endif

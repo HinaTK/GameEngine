@@ -68,12 +68,13 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, SOCKET &
 bool NetManager::ConnectServer(char *ip, unsigned short port, NetHandle &handle)
 {
 	printf("connect to Server ip = %s, port = %d\n", ip, port);
+
 #ifdef WIN32
 	WSADATA data;
-	SOCKADDR_IN serverAddr;
-
 	WSAStartup(MAKEWORD(1, 1), &data);
+#endif
 
+	struct sockaddr_in serverAddr;
 	serverAddr.sin_family = AF_INET;
 	serverAddr.sin_addr.s_addr = inet_addr(ip);
 	serverAddr.sin_port = htons(port);
@@ -87,36 +88,16 @@ bool NetManager::ConnectServer(char *ip, unsigned short port, NetHandle &handle)
 		return false;
 	}
 
-	int ret = connect(sock, (LPSOCKADDR)&serverAddr, sizeof(serverAddr));
-	if (ret == SOCKET_ERROR)
+	if (connect(sock, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) < 0)
 	{
 		printf("can not connect server\n");
 		closesocket(sock);
 		WSACleanup();
 		return false;
 	}
-#endif
+
 #ifdef __unix
 	struct epoll_event ev;
-	struct sockaddr_in serverAddr;
-
-	serverAddr.sin_family = AF_INET;
-	serverAddr.sin_addr.s_addr = inet_addr(ip);
-	serverAddr.sin_port = htons(port);
-
-	sock = socket(AF_INET, SOCK_STREAM, 0);
-	if (sock == -1)
-	{
-		printf("init connect server error\n");
-		return false;
-	}
-
-	if (connect(sock, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) < 0)
-	{
-		printf("can not connect server\n");
-		NetCommon::Close(sock);
-		return false;
-	}
 	ev.events = EPOLLIN | EPOLLET;
 	ev.data.fd = sock;
 	if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, sock, &ev) < 0)
@@ -129,7 +110,7 @@ bool NetManager::ConnectServer(char *ip, unsigned short port, NetHandle &handle)
 	handler->m_sock = sock;
 	handle = AddNetHandler(handler);
 
-	printf("Connect Server success\n");
+	printf("Connect Server Success\n");
 	return true;
 }
 

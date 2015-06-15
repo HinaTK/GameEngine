@@ -8,7 +8,7 @@ template<class T>
 class List
 {
 public:
-	List(unsigned int increase = 1);
+	List(unsigned int increase = 4);
 	~List();
 
 private:
@@ -70,71 +70,70 @@ public:
 
 	iterator		Begin(){ return iterator(m_list_head->next); }
 
-	iterator		End(){ return iterator(m_list_tail->next); }
+	iterator		End(){ return iterator(m_list_tail); }
 
 	void			Erase(iterator &itr);
 
 	void			Clear();
 
 protected:
-	void			Resize();
+	void			ResizeTail();
+	void			ResizeHead();
 	void			Realease(ListNode *node);
 private:
 	unsigned int	m_size;				// 数据大小
 	unsigned int	m_increase;			// 增加数量
 	ListNode		*m_list_head;		// 作为列表头，不保存数据,所以地址永远不为NULL
 	ListNode		*m_list_tail;		// 数据尾结点
-	ListNode		*m_node_pool;		// 节点池
+	ListNode		*m_real_head;
+	ListNode		*m_real_tail;
 };
-
+/*
+	* 头结点不保存数据
+	┏━━┳━━┓
+	┃head┃tail┃
+	┗━━┻━━┛
+*/
 template<class T>
 List<T>::List(unsigned int increase)
 	: m_size(0)
 	, m_increase(increase == 0 ? 1 : increase)
-	, m_list_head(NULL)
-	, m_list_tail(NULL)
-	, m_node_pool(NULL)
 {
 	m_list_head = new ListNode;
+	m_list_tail = new ListNode;
+
 	m_list_head->front = NULL;
-	m_list_head->next = NULL;
-	m_list_tail = m_list_head;
-	Resize();
+	m_list_head->next = m_list_tail;
+	m_list_tail->front = m_list_head;
+	m_list_tail->next = NULL;
+
+	m_real_head = m_list_head;
+	m_real_tail = m_list_tail;
+	ResizeTail();
 }
 
 template<class T>
 List<T>::~List()
 {
-	ListNode *temp_node = m_list_head;
+	ListNode *temp_node = m_real_head;
 	while (temp_node != NULL)
 	{
-		m_list_head = m_list_head->next;
+		m_real_head = m_real_head->next;
 		delete temp_node;
-		temp_node = m_list_head;
-	}
-	temp_node = m_node_pool;
-	while (temp_node != NULL)
-	{
-		m_node_pool = m_node_pool->next;
-		delete temp_node;
-		temp_node = m_node_pool;
+		temp_node = m_real_head;
 	}
 }
 
 template<class T>
 bool List<T>::PushFront(T &val)
 {
-	if (m_node_pool == NULL)
+	if (m_list_head == m_real_head)
 	{
-		Resize();
+		ResizeHead();
 	}
-	ListNode *temp_node = m_node_pool;
-	m_node_pool = m_node_pool->next;
-	
-	temp_node->val = val;
-	temp_node->next = m_list_head->next;
-	temp_node->front = m_list_head;
-	m_list_head->next = temp_node;
+
+	m_list_head->val = val;
+	m_list_head = m_list_head->front;
 
 	++m_size;
 	return true;
@@ -143,16 +142,14 @@ bool List<T>::PushFront(T &val)
 template<class T>
 bool List<T>::PushBack(T &val)
 {
-	if (m_node_pool == NULL)
+	if (m_list_tail == m_real_tail)
 	{
-		Resize();
+		ResizeTail();
 	}
-	m_list_tail->next = m_node_pool;
-	m_node_pool = m_node_pool->next;
 
-	m_list_tail->next->next = NULL;
-	m_list_tail->next->val = val;
+	m_list_tail->val = val;
 	m_list_tail = m_list_tail->next;
+
 	++m_size;
 	return true;
 }
@@ -160,26 +157,57 @@ bool List<T>::PushBack(T &val)
 template<class T>
 bool game::List<T>::PopFront(T &val)
 {
-	if (m_list_head->next == NULL)
+	if (m_list_head->next == m_list_tail)
 	{
 		return false;
 	}
+
 	val = m_list_head->next->val;
 	m_list_head->next = m_list_head->next->next;
+	--m_size;
 	return true;
 }
 
 template<class T>
-void List<T>::Resize()
+void List<T>::ResizeTail()
 {
-	ListNode *temp_node = NULL;
+	ListNode *head_node = new ListNode;
+	ListNode *tail_node = NULL;
+	ListNode *temp_node = head_node;
+
 	for (unsigned int i = 0; i < m_increase; ++i)
 	{
-		temp_node = new ListNode;
-		temp_node->next = m_node_pool;
-		temp_node->front = NULL;
+		tail_node = new ListNode;
+		tail_node->front = temp_node;
+		temp_node->next = tail_node;
+		temp_node = tail_node;
 	}
-	m_node_pool = temp_node;
+	m_real_tail->next = head_node;
+	head_node->front = m_real_tail;
+	m_real_tail = tail_node;
+	m_real_tail->next = NULL;
+}
+
+template<class T>
+void game::List<T>::ResizeHead()
+{
+	ListNode *head_node = new ListNode;
+	ListNode *tail_node = NULL;
+	ListNode *temp_node = head_node;
+
+	for (unsigned int i = 0; i < m_increase; ++i)
+	{
+		tail_node = new ListNode;
+		tail_node->front = temp_node;
+		temp_node->next = tail_node;
+		temp_node = tail_node;
+	}
+
+	m_real_head->front = tail_node;
+	tail_node->next = m_real_head;	
+	m_real_head = head_node;
+	m_real_head->front = NULL;
+
 }
 
 template<class T>
@@ -196,14 +224,8 @@ void game::List<T>::Erase(iterator &itr)
 template<class T>
 void game::List<T>::Clear()
 {
-	ListNode *first_node = m_list_head->next;
-	ListNode *temp_node = NULL;
-	while (first_node != NULL)
-	{
-		temp_node = first_node;
-		first_node = first_node->next;
-		Realease(temp_node);
-	}
+	m_list_tail = m_list_head->next;
+	m_size = 0;
 }
 
 
@@ -211,16 +233,12 @@ template<class T>
 void game::List<T>::Realease(ListNode *node)
 {
 	// 放入节点池
+	node->front = m_real_tail->front;
+	m_real_tail->front->next = node;
+	
+	m_real_tail->front = node;
+	node->next = m_real_tail;
 	node->next = NULL;
-	if (m_node_pool != NULL)
-	{
-		m_node_pool->next = node;
-		node->front = m_node_pool;
-	}
-	else
-	{
-		m_node_pool = node;
-	}
 }
 
 }
