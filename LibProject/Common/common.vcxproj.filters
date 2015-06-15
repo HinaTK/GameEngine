@@ -44,9 +44,6 @@
     <ClCompile Include="..\..\lib\src\common\memoryvl.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\common\mutex.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\lib\src\common\serializer.cpp">
       <Filter>src</Filter>
     </ClCompile>

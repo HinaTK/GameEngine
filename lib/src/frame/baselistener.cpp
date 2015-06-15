@@ -21,13 +21,6 @@ bool BaseListener::AnalyzeBuf()
 		return true;
 	}
 
-	if (!m_is_tencent_pass)
-	{
-		m_is_tencent_pass = true;
-		m_recv_buf.RemoveBuf(buf_len);
-		return true;
-	}
-
 	NetCommon::Header *header = (NetCommon::Header *)buf;
 	unsigned int remove_len = 0;
 	while (header->msg_len <= buf_len)

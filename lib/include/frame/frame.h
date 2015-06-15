@@ -44,12 +44,8 @@ protected:
 	TimeEventManager	m_time_event_manager;
 	LogManager			m_log_manager;
 	unsigned int		m_sleep_time_ms;
+
 private:
-	
-// 	Thread		m_listen_thread;
-// 	Thread		m_log_thread;
-	
-	
 	bool		m_is_run;
 
 };

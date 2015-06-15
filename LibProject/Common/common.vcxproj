@@ -25,7 +25,6 @@
     <ClCompile Include="..\..\lib\src\common\md5.cpp" />
     <ClCompile Include="..\..\lib\src\common\memorypool.cpp" />
     <ClCompile Include="..\..\lib\src\common\memoryvl.cpp" />
-    <ClCompile Include="..\..\lib\src\common\mutex.cpp" />
     <ClCompile Include="..\..\lib\src\common\serializer.cpp" />
     <ClCompile Include="..\..\lib\src\common\serverconfig.cpp" />
     <ClCompile Include="..\..\lib\src\common\thread.cpp" />

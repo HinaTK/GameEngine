@@ -12,6 +12,8 @@
 #include "common/datastructure/msgqueue.h"
 
 typedef MsgQueue<GameMsg *> NetMessage;
+
+class Listener;
 class NetManager
 {
 public:
@@ -19,7 +21,7 @@ public:
 	NetManager();
 	
 	bool			InitServer(char *ip, unsigned short port, int backlog, SOCKET &net_id, bool is_web = false);
-	bool			ConnectServer(char *ip, unsigned short port, NetHandle &handle);
+	NetHandle		ConnectServer(char *ip, unsigned short port, Listener *lister = NULL);
 
 	void			Listen();
 	void			Send(NetHandle handle, const char *buf, unsigned int length);

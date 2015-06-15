@@ -39,7 +39,7 @@ public:
 	virtual void	OnCanRead();
 	virtual void	OnCanWrite();
 
-	virtual void	Send(const char *buf, unsigned int len) = 0;
+	virtual void	Send(const char *buf, unsigned int len);
 
 	bool			IsRegisterWrite(){ return m_is_register_write; }
 	void			RegisterWriteFD();
@@ -55,8 +55,8 @@ protected:
 	SendBuffer	*m_send_buf_read;	// Ö»¶Á
 	SendBuffer	*m_send_buf_write;	// Ö»Ð´
 	bool		m_is_register_write;
-	Mutex		m_send_mutex;
-	Mutex		m_register_write_mutex;
+	std::mutex	m_send_mutex;
+	std::mutex	m_register_write_mutex;
 };
 
 #endif
