@@ -77,7 +77,7 @@ void Listener::OnCanWrite()
 					// »º³åÇøÒÑ¾­Âú
 					break;
 				}
-
+				printf("send error %d", NetCommon::Error());
 				m_net_manager->RemoveHandler(m_handle);
 				return;
 			}

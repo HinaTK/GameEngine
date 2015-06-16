@@ -24,7 +24,7 @@ bool Redis::Connect(char *ip, unsigned short port, Listener *lister)
 	return true;
 }
 
-void Redis::Command(const char *command)
+void Redis::Command(const char *command, unsigned int length)
 {
-	m_net_manager->Send(m_net_handle, command, 999999);
+	m_net_manager->Send(m_net_handle, command, length);
 }

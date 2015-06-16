@@ -87,7 +87,7 @@ public:
 	void			SetCallBack(CallBack *call_back){ m_call_back = call_back; }
 	void			SetDirtyList(DirtyDataList *list){ m_dirty_data_list = list; }
 	DirtyDataList  *GetDirtyList(){ return m_dirty_data_list; }
-	Mutex		   &GetMutex(){ return m_dirty_mutex; };
+	std::mutex		&GetMutex(){ return m_dirty_mutex; };
 
 	bool			Find(K &key, DataList &list);
 
@@ -110,7 +110,7 @@ private:
 	CallBack			*m_call_back;
 	unsigned short		m_field_length;
 
-	Mutex				m_dirty_mutex;
+	std::mutex			m_dirty_mutex;
 };
 
 template <class K>

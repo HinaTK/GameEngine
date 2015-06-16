@@ -38,13 +38,13 @@ protected:
 
 };
 
-class RecvBufffer : public BufManager
-{
-public:
-	virtual ~RecvBufffer();
-	RecvBufffer(unsigned int size = 64);
-
-};
+// class RecvBufffer : public BufManager
+// {
+// public:
+// 	virtual ~RecvBufffer();
+// 	RecvBufffer(unsigned int size = 64);
+// 
+// };
 
 
 class SendBuffer : public BufManager

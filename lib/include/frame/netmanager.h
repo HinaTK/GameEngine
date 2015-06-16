@@ -5,7 +5,8 @@
 #include <map>
 #include "netuser.h"
 #include "nethandler.h"
-#include "lib/include/frame/message.h"
+#include "message.h"
+#include "msgcallback.h"
 #include "common/socketdef.h"
 #include "common/datastructure/gamevector.h"
 #include "common/datastructure/gamearray.h"
@@ -25,6 +26,8 @@ public:
 
 	void			Listen();
 	void			Send(NetHandle handle, const char *buf, unsigned int length);
+
+	int				RegisterCallBack(MsgCallBack *call_back);
 
 	NetHandle		AddNetHandler(NetHandler *handler);			
 	void			RemoveHandler(NetHandle handle);
@@ -46,7 +49,10 @@ protected:
 	NetMessage			m_queue;
 	INVALID_HANDLE		m_invalid_handle;
 	REPLACE_HANDLER		m_replace_handler;
+	int					m_call_back_num;
 	bool				m_is_run;
+
+	MsgCallBack			*m_msg_call_back[4];
 
 #ifdef WIN32
 public:

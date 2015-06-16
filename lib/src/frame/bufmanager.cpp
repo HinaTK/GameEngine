@@ -52,17 +52,17 @@ void BufManager::RemoveBuf(unsigned int len)
 }
 
 
-
-RecvBufffer::~RecvBufffer()
-{
-
-}
-
-RecvBufffer::RecvBufffer(unsigned int size /*= 64*/)
-: BufManager(size)
-{
-
-}
+// 
+// RecvBufffer::~RecvBufffer()
+// {
+// 
+// }
+// 
+// RecvBufffer::RecvBufffer(unsigned int size /*= 64*/)
+// : BufManager(size)
+// {
+// 
+// }
 
 SendBuffer::~SendBuffer()
 {
@@ -71,6 +71,7 @@ SendBuffer::~SendBuffer()
 
 SendBuffer::SendBuffer(unsigned int size /*= 64*/)
 : BufManager(size)
+, m_read_length(0)
 {
 
 }

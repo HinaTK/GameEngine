@@ -36,6 +36,7 @@
     <ClInclude Include="..\..\lib\include\frame\handshaker.h" />
     <ClInclude Include="..\..\lib\include\frame\listener.h" />
     <ClInclude Include="..\..\lib\include\frame\message.h" />
+    <ClInclude Include="..\..\lib\include\frame\msgcallback.h" />
     <ClInclude Include="..\..\lib\include\frame\netcommon.h" />
     <ClInclude Include="..\..\lib\include\frame\nethandler.h" />
     <ClInclude Include="..\..\lib\include\frame\netmanager.h" />

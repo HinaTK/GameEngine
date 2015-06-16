@@ -16,7 +16,7 @@ public:
 
 	bool	Connect(char *ip, unsigned short port, Listener *lister);
 
-	void	Command(const char *command);
+	void	Command(const char *command, unsigned int length);
 private:
 	NetManager	*m_net_manager;
 	NetHandle	m_net_handle;

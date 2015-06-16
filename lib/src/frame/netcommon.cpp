@@ -61,9 +61,16 @@ int StartUp()
 {
 #ifdef WIN32
 	WSAData wsaData;
-	WORD wVersion = MAKEWORD(2, 2);
-	return WSAStartup(wVersion, &wsaData);
+	return WSAStartup(MAKEWORD(2, 2), &wsaData);
 #endif // WIN32
+	return 0;
+}
+
+int CleanUp()
+{
+#ifdef WIN32
+	return WSACleanup();
+#endif
 	return 0;
 }
 
@@ -78,7 +85,6 @@ void Close(SOCKET sock)
 {
 #ifdef WIN32
 	closesocket(sock);
-	printf("close = %d\n", sock);
 #endif // WIN32
 #ifdef _unix
 	close(sock);

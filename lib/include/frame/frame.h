@@ -2,12 +2,12 @@
 #ifndef FRAME_H
 #define FRAME_H
 
-#include "lib/include/common/mutex.h"
-#include "lib/include/common/thread.h"
+#include "netmanager.h"
 #include "lib/include/timemanager/timemanager.h"
 #include "lib/include/log/logmanager.h"
-#include "netmanager.h"
 
+
+class BaseCallBack;
 class Frame
 {
 public:
@@ -44,11 +44,12 @@ protected:
 	TimeEventManager	m_time_event_manager;
 	LogManager			m_log_manager;
 	unsigned int		m_sleep_time_ms;
-
+	BaseCallBack		*m_call_back;
 private:
 	bool		m_is_run;
 
 };
+
 
 
 #endif // !SCENEFRAME_H

@@ -8,6 +8,8 @@
 #include "common/commonfunction.h"
 #include "cache/datamapmanager.h"
 #include "../database/database.h"
+#include "lib/include/redis/redis.h"
+#include "lib/include/frame/listener.h"
 
 DatabaseFrame::DatabaseFrame()
 {
@@ -18,6 +20,17 @@ DatabaseFrame::~DatabaseFrame()
 {
 	Exit();
 }
+
+class RedisListener : public Listener
+{
+public:
+	RedisListener(NetManager *manager) :Listener(manager){}
+	~RedisListener(){}
+	bool AnalyzeBuf()
+	{
+		return true;
+	};
+};
 
 bool DatabaseFrame::InitConfig()
 {
@@ -54,6 +67,16 @@ bool DatabaseFrame::InitConfig()
 // 	printf("connect database success\n");
 
 	DataMapManager::Instance().Init();
+
+	Redis redis;
+	RedisListener *listener = new RedisListener(&m_net_manager);
+	redis.SetNetManager(&m_net_manager);
+	redis.Connect("192.168.1.105", 6379, listener);
+// 	char *command = "set name jiaming\r\n";
+// 	redis.Command(command, strlen(command));
+
+	char *command = "get name\r\n";
+	redis.Command(command, strlen(command));
 	return Init();
 }
 

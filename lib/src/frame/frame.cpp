@@ -4,12 +4,12 @@
 #include "frame.h"
 #include "netcommon.h"
 #include "message.h"
+#include "msgcallback.h"
 #include "log/log.h"
+#include "lib/include/common/mutex.h"
 #include "lib/include/timemanager/gametime.h"
 #include "lib/include/common/memoryvl.h"
 #include "lib/include/common/commonconfig.h"
-// #include "DLL/export.h"
-// #include "DLL/dll.h"
 
 
 namespace SignalCatch
@@ -25,8 +25,27 @@ namespace SignalCatch
 	}
 }
 
+class BaseCallBack : public MsgCallBack
+{
+public:
+	BaseCallBack(Frame *frame)
+		: m_frame(frame){}
+	~BaseCallBack(){}
+
+	void	Recv(GameMsg *msg)
+	{
+		m_frame->Recv(msg);
+	}
+
+
+private:
+	Frame *m_frame;
+};
+
+
 Frame::Frame()
 : m_sleep_time_ms(1)
+, m_call_back(new BaseCallBack(this))
 , m_is_run(true)
 {
 	SignalCatch::g_frame = this;
@@ -35,15 +54,13 @@ Frame::Frame()
 
 Frame::~Frame()
 {
-
+	delete m_call_back;
 }
 
 bool Frame::Init()
 {
 	MemoryVL::Instance().Init(CommonConfig::Instance().GetMemoryVLVector());
-// 	DLL *dll;
-// 	Register(&dll);
-// 	dll->Show();
+	m_net_manager.RegisterCallBack(m_call_back);
 	return true;
 }
 
@@ -154,7 +171,6 @@ bool Frame::Run()
 
 	return true;
 }
-
 
 
 

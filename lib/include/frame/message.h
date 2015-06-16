@@ -2,9 +2,21 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
-#include <string.h>
 #include "common/socketdef.h"
-#include "lib/include/common/memoryvl.h"
+
+// class _Msg
+// {
+// public:
+// 	_Msg();
+// 	~_Msg();
+// 
+// 	void *		operator new(size_t c);
+// 	void		operator delete(void *m);
+// 
+// 	NetHandle		handle;
+// 	unsigned int	length;
+// 	char *			data;
+// };
 
 class GameMsg
 {
@@ -15,6 +27,7 @@ public:
 	void *		operator new(size_t c);
 	void		operator delete(void *m);
 
+	int				call_back_handle;
 	NetHandle		handle;
 	unsigned int	length;
 	char *			data;

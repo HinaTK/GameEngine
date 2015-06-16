@@ -17,24 +17,20 @@ NetManager::~NetManager()
 #endif
 }
 
+
+NetManager::NetManager()
+: m_call_back_num(0)
+, m_is_run(true)
 #ifdef WIN32
-NetManager::NetManager()
-: m_is_run(true)
 , m_max_fd(0)
-{
-
-}
-#endif // WIN32
-#ifdef __unix
-NetManager::NetManager()
-: m_is_run(true)
-{
-
-}
 #endif
+{
+	memset(m_msg_call_back, NULL, sizeof(m_msg_call_back));
+}
 
 bool NetManager::InitServer(char *ip, unsigned short port, int backlog, SOCKET &net_id, bool is_web)
 {
+	printf("Init Server ip = %s, port = %d\n", ip, port);
 	NetCommon::StartUp();
 	if (!NetCommon::Init(ip, port, backlog, net_id))
 	{
@@ -62,6 +58,7 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, SOCKET &
 	}
 	handler->m_sock = net_id;
 	AddNetHandler(handler);
+	printf("Init Server Success\n");
 	return true;
 }
 
@@ -72,30 +69,28 @@ NetHandle NetManager::ConnectServer(char *ip, unsigned short port, Listener *lis
 {
 	printf("connect to Server ip = %s, port = %d\n", ip, port);
 
-#ifdef WIN32
-	WSADATA data;
-	WSAStartup(MAKEWORD(1, 1), &data);
-#endif
+
+	NetCommon::StartUp();
 
 	struct sockaddr_in serverAddr;
+	memset(&serverAddr, 0, sizeof(serverAddr));
 	serverAddr.sin_family = AF_INET;
 	serverAddr.sin_addr.s_addr = inet_addr(ip);
 	serverAddr.sin_port = htons(port);
 
-
 	SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (sock == INVALID_SOCKET)
 	{
-		printf("init connect server error\n");
-		WSACleanup();
+		printf("Create socket error\n");
+		NetCommon::CleanUp();
 		return INVALID_NET_HANDLE;
 	}
 
 	if (connect(sock, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) < 0)
 	{
-		printf("can not connect server\n");
-		closesocket(sock);
-		WSACleanup();
+		printf("Connect server error %d\n", NetCommon::Error());
+		NetCommon::Close(sock);
+		NetCommon::CleanUp();
 		return INVALID_NET_HANDLE;
 	}
 
@@ -307,6 +302,8 @@ void NetManager::Send(NetHandle handle, const char *buf, unsigned int length)
 	}
 }
 
-
-
-
+int NetManager::RegisterCallBack(MsgCallBack *call_back)
+{
+	m_msg_call_back[m_call_back_num] = call_back;
+	return m_call_back_num++;
+}

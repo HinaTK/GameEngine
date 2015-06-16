@@ -107,5 +107,8 @@
     <ClInclude Include="..\..\lib\include\frame\baselistener.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\lib\include\frame\msgcallback.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

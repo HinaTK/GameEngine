@@ -11,6 +11,8 @@ namespace NetCommon
 
 	int		StartUp();
 
+	int		CleanUp();
+
 	int		Send(SOCKET sock, const char *msg, unsigned int length);
 
 	void	Close(SOCKET sock);
