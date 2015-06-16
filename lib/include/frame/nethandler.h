@@ -24,6 +24,8 @@ public:
 
 	int	Type(){ return m_type; }
 
+	NetManager *GetNetManager(){ return m_net_manager; }
+
 	enum 
 	{
 		ACCEPTER,

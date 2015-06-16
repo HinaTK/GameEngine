@@ -461,28 +461,28 @@ namespace TestDataStructure
 
 	void TestMsgQueue2()
 	{
-		unsigned long begin = GetTickCount();
-		std::thread thread1(TestMsgQueue3);
-		for (int i = 0; i < test_time;)
-		{
-			int val = 0;
-			if (test_msg_queue1.Pop(val))
-			{
-				if (val != i)
-				{
-					printf("val = %d, i = %d\n", val, i);
-					break;
-				}
-				++i;
-			}
-			else
-			{
-				Sleep(10);
-			}
-		}
-
-		thread1.join();
-		printf("two %d ms\n", GetTickCount() - begin);
+// 		unsigned long begin = GetTickCount();
+// 		std::thread thread1(TestMsgQueue3);
+// 		for (int i = 0; i < test_time;)
+// 		{
+// 			int val = 0;
+// 			if (test_msg_queue1.Pop(val))
+// 			{
+// 				if (val != i)
+// 				{
+// 					printf("val = %d, i = %d\n", val, i);
+// 					break;
+// 				}
+// 				++i;
+// 			}
+// 			else
+// 			{
+// 				Sleep(10);
+// 			}
+// 		}
+// 
+// 		thread1.join();
+// 		printf("two %d ms\n", GetTickCount() - begin);
 	}
 }
 

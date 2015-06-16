@@ -8,7 +8,7 @@
 
 namespace TestThread
 {
-	Mutex g_mutex;
+	std::mutex g_mutex;
 	void thread1()
 	{
 		printf("thread__1\n");

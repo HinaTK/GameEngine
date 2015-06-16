@@ -10,7 +10,6 @@
 #include "testcache.h"
 #include "testthread.h"
 
-<<<<<<< HEAD
 class A
 {
 public:
@@ -32,8 +31,6 @@ public:
 	}
 };
 
-=======
->>>>>>> 5a49417596d423012ff6d1d328a4dca2cdeb9a26
 int main()
 {
 // 	A *a = new B;
@@ -96,7 +93,7 @@ int main()
 	//TestCache::TestDataMap();
 	//TestCache::TestDataCache();
 	//TestThread::Test1();
-<<<<<<< HEAD
+
 	std::string a = "122";
 	std::string b = "123";
 	if (a < b)
@@ -107,13 +104,7 @@ int main()
 	{
 		printf("fffff");
 	}
-=======
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 5a49417596d423012ff6d1d328a4dca2cdeb9a26
->>>>>>> acf3e0c81b5752c558b9b0fc45ff9e0a46b57e84
 	return 0;
 }
 

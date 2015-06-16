@@ -14,6 +14,7 @@
     <ClCompile Include="..\common\commonfunction.cpp" />
     <ClCompile Include="..\common\globalclass.cpp" />
     <ClCompile Include="..\Test\main.cpp" />
+    <ClCompile Include="..\Test\testframe.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\globalclass.h" />
@@ -23,6 +24,7 @@
     <ClInclude Include="..\Test\other\bridge.h" />
     <ClInclude Include="..\Test\other\hashlisttest.h" />
     <ClInclude Include="..\Test\other\logtest.h" />
+    <ClInclude Include="..\Test\testframe.h" />
     <ClInclude Include="..\Test\testlog.h" />
     <ClInclude Include="..\Test\testmemory.h" />
     <ClInclude Include="..\Test\testother.h" />
@@ -84,7 +86,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\lib\windows;F:\GameEngine\lib\windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Tinyxml.lib;Frame.lib;Common.lib;TimeManager.lib;Log.lib;Cache.lib;DLL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Tinyxml.lib;Frame.lib;Common.lib;TimeManager.lib;Log.lib;Cache.lib;DLL.lib;Redis.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

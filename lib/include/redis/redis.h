@@ -12,8 +12,6 @@ public:
 	Redis();
 	~Redis();
 
-	void	SetNetManager(NetManager *manager){ m_net_manager = manager; }
-
 	bool	Connect(char *ip, unsigned short port, Listener *lister);
 
 	void	Command(const char *command, unsigned int length);

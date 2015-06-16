@@ -1,6 +1,7 @@
 
 #include "redis.h"
 #include "lib/include/frame/netmanager.h"
+#include "lib/include/frame/listener.h"
 
 Redis::Redis()
 : m_net_manager(NULL)
@@ -16,6 +17,7 @@ Redis::~Redis()
 
 bool Redis::Connect(char *ip, unsigned short port, Listener *lister)
 {
+	m_net_manager = lister->GetNetManager();
 	m_net_handle = m_net_manager->ConnectServer(ip, port, lister);
 	if (m_net_handle == INVALID_NET_HANDLE)
 	{
