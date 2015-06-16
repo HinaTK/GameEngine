@@ -24,3 +24,4 @@ lib/windows/Common.lib
 lib/windows/Frame.lib
 lib/windows/Log.lib
 lib/windows/LuaScript.lib
+lib/windows/DLL.*
