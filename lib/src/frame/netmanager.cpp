@@ -302,6 +302,34 @@ void NetManager::Send(NetHandle handle, const char *buf, unsigned int length)
 	}
 }
 
+void NetManager::Update()
+{
+	static GameMsg *msg;
+	do
+	{
+		if (m_queue.Pop(msg))
+		{
+			if (msg != NULL)
+			{
+				if (msg->handle >= 0)
+				{
+					m_msg_call_back[msg->call_back_handle]->Recv(msg);
+					// 内存交给下游处理
+					// delete (*msg);
+				}
+				else
+				{
+					delete msg;
+				}
+			}
+		}
+		else
+		{
+			break;
+		}
+	} while (true);
+}
+
 int NetManager::RegisterCallBack(MsgCallBack *call_back)
 {
 	m_msg_call_back[m_call_back_num] = call_back;

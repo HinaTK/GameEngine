@@ -24,13 +24,36 @@ DatabaseFrame::~DatabaseFrame()
 class RedisListener : public Listener
 {
 public:
-	RedisListener(NetManager *manager) :Listener(manager){}
+	RedisListener(NetManager *manager, int call_back_handle) 
+		: Listener(manager)
+		, m_call_back_handle(call_back_handle){}
 	~RedisListener(){}
 	bool AnalyzeBuf()
 	{
+		const char *buf = m_recv_buf.GetBuf();
+		GameMsg *msg = new GameMsg(m_handle, buf, m_recv_buf.Length());
+		msg->call_back_handle = m_call_back_handle;
+		m_net_manager->GetMsgQueue()->Push(msg);
 		return true;
 	};
+
+private:
+	int m_call_back_handle;
 };
+
+class RedisCallBack : public MsgCallBack
+{
+public:
+	RedisCallBack(){}
+	~RedisCallBack(){}
+
+	void	Recv(GameMsg *msg)
+	{
+		printf("fuck\n");
+	}
+};
+
+RedisCallBack g_call_back;
 
 bool DatabaseFrame::InitConfig()
 {
@@ -68,9 +91,12 @@ bool DatabaseFrame::InitConfig()
 
 	DataMapManager::Instance().Init();
 
+	int handle = m_net_manager.RegisterCallBack(&g_call_back);
+
 	Redis redis;
-	RedisListener *listener = new RedisListener(&m_net_manager);
+	RedisListener *listener = new RedisListener(&m_net_manager, handle);
 	redis.SetNetManager(&m_net_manager);
+	
 	redis.Connect("192.168.1.105", 6379, listener);
 // 	char *command = "set name jiaming\r\n";
 // 	redis.Command(command, strlen(command));

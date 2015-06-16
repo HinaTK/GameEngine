@@ -86,7 +86,6 @@ void *Listen(void * arg)
 	}
 
 	frame->GetNetManager()->Listen();
-	
 	return NULL;
 }
 
@@ -116,8 +115,6 @@ void Frame::UpdateAll(unsigned long long interval)
 
 bool Frame::Run()
 {
-	GameMsg		*msg = NULL;
-	NetMessage	*recvQueue = m_net_manager.GetMsgQueue();
 	unsigned long long		last_time_ms = GameTime::Instance().FrameTime();	// 上一次更新时间
 	unsigned long long		cur_time_ms = 0;
 	unsigned long long		second = 0;
@@ -127,29 +124,7 @@ bool Frame::Run()
 	std::thread listen_thread(::Listen, this);
 	while (m_is_run)
 	{
-		do 
-		{
-			if (recvQueue->Pop(msg))
-			{
-				if (msg != NULL)
-				{
-					if (msg->handle >= 0)
-					{
-						this->Recv(msg);
-						// 内存交给下游处理
-						// delete (*msg);
-					}
-					else
-					{
-						delete msg;
-					}
-				}
-			}
-			else
-			{
-				break;
-			}
-		} while (true);
+		m_net_manager.Update();
 
 		// update 机制需要修改
 		GameTime::Instance().Update();

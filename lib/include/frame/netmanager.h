@@ -27,6 +27,8 @@ public:
 	void			Listen();
 	void			Send(NetHandle handle, const char *buf, unsigned int length);
 
+	void			Update();
+
 	int				RegisterCallBack(MsgCallBack *call_back);
 
 	NetHandle		AddNetHandler(NetHandler *handler);			
