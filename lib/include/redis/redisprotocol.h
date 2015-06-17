@@ -10,7 +10,8 @@ struct RedisData
 
 struct RedisBlukData
 {
-	unsigned short m_data_num;
+	unsigned short data_num;
+	RedisData **redis_data;
 };
 
 class RedisProtocol
@@ -20,6 +21,8 @@ public:
 	~RedisProtocol();
 
 	bool	Decode(char *buf, unsigned int len);
+
+	int		FindNextLine(char *buf, unsigned int len);
 private:
 	unsigned short m_data_num;		// 返回数据个数
 	RedisData **m_redis_data;

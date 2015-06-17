@@ -26,9 +26,16 @@ bool RedisProtocol::Decode(char *buf, unsigned int len)
 	{
 		return false;
 	}
+	int data_len = 0;
 	switch (buf[0])
 	{
-	case '+':
+	case '+':		
+		data_len = FindNextLine(buf + 1, len - 1);
+		if (data_len == 0)
+		{
+			return false;
+		}
+
 		break;
 	case '-':
 		break;
@@ -41,4 +48,18 @@ bool RedisProtocol::Decode(char *buf, unsigned int len)
 	default:
 		return false;
 	}
+}
+
+int RedisProtocol::FindNextLine(char *buf, unsigned int len)
+{
+	int i = 0;
+	while (i < (len - 1))
+	{
+		if (buf[i] == '\r' && buf[i + 1] == '\n')
+		{
+			return i;
+		}
+		++i;
+	}
+	return 0;
 }
