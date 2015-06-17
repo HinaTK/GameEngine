@@ -38,7 +38,6 @@
     <ClInclude Include="..\Test\testserializer.h" />
     <ClInclude Include="..\Test\testmemory.h" />
     <ClInclude Include="..\Test\testother.h" />
-    <ClInclude Include="..\Test\testsocket.h" />
     <ClInclude Include="..\Test\testcache.h" />
     <ClInclude Include="..\Test\testthread.h" />
     <ClInclude Include="..\Test\testframe.h" />

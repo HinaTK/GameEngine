@@ -70,9 +70,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib\include\redis\redis.h" />
+    <ClInclude Include="..\..\lib\include\redis\redisprotocol.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\redis\redis.cpp" />
+    <ClCompile Include="..\..\lib\src\redis\redisprotocol.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

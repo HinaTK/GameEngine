@@ -2,9 +2,7 @@
 #ifndef BUF_MANAGER_H
 #define BUF_MANAGER_H
 
-#ifdef __unix
-#include <unistd.h>
-#endif
+#include "common/serverdef.h"
 #include "lib/include/common/memoryvl.h"
 
 // 需要改进，尽量避免内存拷贝
@@ -55,7 +53,7 @@ public:
 
 	void			Push(const char *buf, unsigned int len);
 
-	char			*GetReadBuf(){ return m_buf + m_read_length; }
+	char *			GetReadBuf(){ return m_buf + m_read_length; }
 	void			AddReadLength(unsigned int length){ m_read_length += length; }
 	unsigned int	GetReadLength(){ return m_read_length; }
 	int				RemainReadLength(){ return int(m_length - m_read_length); }		// 剩余可读取内容

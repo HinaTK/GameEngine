@@ -2,22 +2,22 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="src">
-      <UniqueIdentifier>{a6048e6d-dd13-4289-866d-985211093ddb}</UniqueIdentifier>
+      <UniqueIdentifier>{d5bf70cc-858a-4f1d-ac61-2402a1eeb246}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\include\redis\redis.h">
+    <ClInclude Include="..\..\lib\include\dll\dll.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\redis\redisprotocol.h">
+    <ClInclude Include="..\..\lib\include\dll\export.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lib\src\redis\redis.cpp">
+    <ClCompile Include="..\..\lib\src\dll\dll.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\redis\redisprotocol.cpp">
+    <ClCompile Include="..\..\lib\src\dll\export.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

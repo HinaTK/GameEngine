@@ -5,10 +5,10 @@
 #include "testlog.h"
 #include "testserializer.h"
 #include "testmemory.h"
-#include "testsocket.h"
 #include "testother.h"
 #include "testcache.h"
 #include "testthread.h"
+#include "testframe.h"
 
 class A
 {
@@ -88,23 +88,25 @@ int main()
 	//TestOther::Test1();
 	//TestOther::Test2();
 	//TestOther::Test3();
-	TestOther::Test4();
+	//TestOther::Test4();
 	//TestCache::TestDataQueue();
 	//TestCache::TestDataMap();
 	//TestCache::TestDataCache();
 	//TestThread::Test1();
 
-	std::string a = "122";
-	std::string b = "123";
-	if (a < b)
-	{
-		printf("fsdf");
-	}
-	else
-	{
-		printf("fffff");
-	}
+// 	std::string a = "122";
+// 	std::string b = "123";
+// 	if (a < b)
+// 	{
+// 		printf("fsdf");
+// 	}
+// 	else
+// 	{
+// 		printf("fffff");
+// 	}
 
+	TestFrame::Instance().Init();
+	TestFrame::Instance().Run();
 	return 0;
 }
 

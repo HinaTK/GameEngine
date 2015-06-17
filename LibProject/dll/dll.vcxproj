@@ -10,6 +10,14 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\lib\include\dll\dll.h" />
+    <ClInclude Include="..\..\lib\include\dll\export.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\lib\src\dll\dll.cpp" />
+    <ClCompile Include="..\..\lib\src\dll\export.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DBEF1BD2-1343-464A-99A3-943BBBABB50B}</ProjectGuid>
     <RootNamespace>DLL</RootNamespace>
@@ -39,8 +47,9 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\Debug</OutDir>
-    <IntDir>..\..\lib\temp</IntDir>
+    <OutDir>..\..\lib\windows</OutDir>
+    <IntDir>..\..\lib\dll</IntDir>
+    <IncludePath>..\..\lib\include\dll;..\..\lib\include;..\..\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -66,14 +75,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="dll.cpp" />
-    <ClCompile Include="export.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="dll.h" />
-    <ClInclude Include="export.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

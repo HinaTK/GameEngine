@@ -1,0 +1,19 @@
+﻿生成启动时间为 2015/6/17 10:40:03。
+     1>项目“F:\GameEngine\LibProject\dll\dll.vcxproj”在节点 2 上(Build 个目标)。
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(356,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(357,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+     1>ClCompile:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _WINDLL /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"..\..\lib\dll\\" /Fd"..\..\lib\dll\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\lib\src\dll\dll.cpp ..\..\lib\src\dll\export.cpp
+         export.cpp
+         dll.cpp
+         正在生成代码...
+       Link:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\..\lib\windows\dll.dll" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\..\lib\windows\dll.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\..\lib\windows\dll.lib" /MACHINE:X86 /DLL ..\..\lib\dll\dll.obj
+         ..\..\lib\dll\export.obj
+            正在创建库 ..\..\lib\windows\dll.lib 和对象 ..\..\lib\windows\dll.exp
+         dll.vcxproj -> F:\GameEngine\LibProject\dll\..\..\lib\windows\dll.dll
+     1>已完成生成项目“F:\GameEngine\LibProject\dll\dll.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:00.54

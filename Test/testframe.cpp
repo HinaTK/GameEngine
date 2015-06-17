@@ -11,7 +11,7 @@ public:
 
 	void	Recv(GameMsg *msg)
 	{
-		printf("fuck\n");
+		printf("msg = %s\n",msg->data);
 	}
 };
 
@@ -56,10 +56,13 @@ bool TestFrame::Init()
 	RedisListener *listener = new RedisListener(&m_net_manager, m_redis_call_back);
 	Redis redis;
 	redis.Connect("192.168.1.105", 6379, listener);
-	// 	char *command = "set name jiaming\r\n";
-	// 	redis.Command(command, strlen(command));
+	//char *command = "set name jiaming\r\n";
 
-	char *command = "get name\r\n";
+	//char *command = "get name1\r\n";
+
+	//char *command = "mset name1 jiaming1 name2 jiaming2\r\n";
+
+	char *command = "mget name1 name2\r\n";
 	redis.Command(command, strlen(command));
 	return true;
 }
