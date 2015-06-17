@@ -25,18 +25,18 @@ void DataMapManager::Init()
 	m_data_thread.Create(DataFlush);
 }
 
-void DataMapManager::RegisterTable(CacheBase * data)
-{
-	m_data_vector.push_back(data);
-}
+// void DataMapManager::RegisterTable(CacheBase * data)
+// {
+// 	m_data_vector.push_back(data);
+// }
 
 void DataMapManager::Flush()
 {
-	DATA_VECTOR::iterator itr = m_data_vector.begin();
-	for (DATA_VECTOR::iterator itr = m_data_vector.begin(); itr != m_data_vector.end(); ++itr)
-	{
-		(*itr)->Flush();
-	}
+// 	DATA_VECTOR::iterator itr = m_data_vector.begin();
+// 	for (DATA_VECTOR::iterator itr = m_data_vector.begin(); itr != m_data_vector.end(); ++itr)
+// 	{
+// 		(*itr)->Flush();
+// 	}
 }
 
 void DataMapManager::Exit()

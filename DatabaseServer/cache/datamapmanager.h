@@ -3,7 +3,6 @@
 #define DATA_MAP_MANAGER_H
 
 #include <vector>
-#include "lib/include/cache/cachebase.h"
 #include "lib/include/common/thread.h"
 
 class DataMapManager
@@ -12,7 +11,7 @@ public:
 	
 	~DataMapManager(){}
 
-	typedef std::vector<CacheBase *> DATA_VECTOR;
+//	typedef std::vector<CacheBase *> DATA_VECTOR;
 
 	static DataMapManager &Instance()
 	{
@@ -22,7 +21,7 @@ public:
 
 	void	Init();
 
-	void	RegisterTable(CacheBase *data);
+//	void	RegisterTable(CacheBase *data);
 
 	void	Flush();
 
@@ -32,7 +31,7 @@ public:
 
 private:
 	DataMapManager();
-	DATA_VECTOR	m_data_vector;
+//	DATA_VECTOR	m_data_vector;
 	Thread		m_data_thread;
 	bool		m_is_run;
 };
