@@ -107,6 +107,7 @@ int main()
 
 	TestFrame::Instance().Init();
 	TestFrame::Instance().Run();
+	
 	return 0;
 }
 
