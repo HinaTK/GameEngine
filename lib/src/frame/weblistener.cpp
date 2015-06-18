@@ -108,7 +108,9 @@ void WebListener::Send(const char *buf, unsigned int len)
 	static const unsigned int BASE_LEN = FrameHeader::HEADER_LEN + FrameHeader::MAX_EXTEND_LEN + FrameHeader::MASK_LEN;
 	unsigned int frame_length = BASE_LEN + len;
 	unsigned int offset = FrameHeader::HEADER_LEN;
-	unsigned char *frame = (unsigned char *)MemoryVL::Instance().Malloc(frame_length);
+//	unsigned char *frame = (unsigned char *)MemoryVL::Instance().Malloc(frame_length);
+	Mem *temp = new Mem[frame_length];
+	unsigned char *frame = (unsigned char *)temp;
 	int extend_len = 0;
 	if (frame_length < 126)
 	{
@@ -145,5 +147,5 @@ void WebListener::Send(const char *buf, unsigned int len)
 		m_send_buf_write->Push((char *)frame, offset + len);
 	}
 	
-	MemoryVL::Instance().Free(frame);
+	delete []temp;
 }

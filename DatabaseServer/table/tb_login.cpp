@@ -10,7 +10,7 @@ TB_Login::TB_Login(unsigned short type, std::string table_name, MYSQL_STMT* stmt
 	PARAM_BIND(id,			MYSQL_TYPE_LONG);
 	PARAM_BIND(account,		MYSQL_TYPE_LONG);
 	PARAM_BIND(password,	MYSQL_TYPE_LONG);
-	PARAM_BIND_STR(name, MYSQL_TYPE_VAR_STRING, 32);
+	PARAM_BIND_STR(name,	MYSQL_TYPE_VAR_STRING, 32);
 	PARAM_BIND(last_time,	MYSQL_TYPE_TIMESTAMP);
 
 	m_field_name[id]		= "id";

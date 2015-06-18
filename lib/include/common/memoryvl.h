@@ -12,13 +12,8 @@
 class MemoryVL
 {
 public:
+	MemoryVL(unsigned int config[][2], unsigned int num);
 	~MemoryVL();
-
-	static MemoryVL &Instance()
-	{
-		static MemoryVL vl;
-		return vl;
-	}
 
 	struct MemoryInfo
 	{
@@ -34,14 +29,12 @@ public:
 
 	typedef std::vector<MemoryConfig> MEMORY_CONFIG;
 
-	bool	Init(MEMORY_CONFIG &config);
-
 	void	*Malloc(unsigned int size);
 
 	bool	Free(void *mem);
 
 private:
-	MemoryVL();
+	
 	unsigned int	m_size;
 	MemoryPool		*m_memory;
 	std::mutex		*m_mutex;

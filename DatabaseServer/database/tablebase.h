@@ -12,6 +12,8 @@
 #include <string>
 #include <vector>
 
+#include "lib/include/common/mem.h"
+
 /*
 	需要解决问题：多线程读写
 */
@@ -50,7 +52,7 @@ public:
 	struct StrInfo
 	{
 		unsigned int	length;
-		char *			data;
+		Mem *			data;
 	};
 
 	struct StrField
@@ -105,7 +107,7 @@ private:
 
 
 #define VAR_DEFINE(class, val)\
-	class m_##val;
+class m_##val;
 
 #define STR_DEFINE(val)\
 	StrInfo m_##val;
@@ -121,7 +123,7 @@ private:
 #define PARAM_BIND_STR(_field, type, _length)\
 	m_param[_field].buffer_type = type; \
 	FIELD(_field).length = _length; \
-	FIELD(_field).data = (char *)MemoryVL::Instance().Malloc(_length); \
+	FIELD(_field).data = new Mem[_length]; \
 	m_param[_field].buffer = FIELD(_field).data; \
 	m_param[_field].buffer_length = FIELD(_field).length; \
 	m_param[_field].length = 0; \

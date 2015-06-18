@@ -3,12 +3,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include "bufmanager.h"
+#include "lib/include/common/memorypool.h"
 
 REGISTER_MEMORYPOOL(memorypool, BufManager, 256);
 REGISTER_MEMORYPOOL(memorypool, SendBuffer, 256);
 
 BufManager::BufManager(unsigned int size)
-: m_buf((char *)MemoryVL::Instance().Malloc(size))
+: m_buf(new Mem[(unsigned int)size])
 , m_size(size)
 , m_length(0)
 {
@@ -19,15 +20,15 @@ BufManager::~BufManager()
 {
 	if (m_buf != NULL)
 	{
-		MemoryVL::Instance().Free(m_buf);
+		delete []m_buf;
 	}
 }
 
 bool BufManager::Resize(unsigned int size)
 {
-	char *new_buf = (char *)MemoryVL::Instance().Malloc(size);
+	Mem *new_buf = new Mem[size];
 	memcpy(new_buf, m_buf, m_length);
-	MemoryVL::Instance().Free(m_buf);
+	delete []m_buf;
 	m_buf = new_buf;
 	m_size = size;
 	return true;

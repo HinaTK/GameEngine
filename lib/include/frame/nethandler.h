@@ -4,6 +4,7 @@
 
 #include "common/socketdef.h"
 #include "common/datastructure/msgqueue.h"
+#include "lib/include/common/memorypool.h"
 
 class NetManager;
 class NetHandler

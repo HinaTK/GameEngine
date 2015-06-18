@@ -57,7 +57,7 @@ void MessageHandler::HandleMessage(GameMsg *msg)
 			m_queue.Push(msg);
 			return;
 		}
-		(this->*m_function_list[header->msg_type].func)(msg->data);
+		(this->*m_function_list[header->msg_type].func)((char *)msg->data);
 	} while (false);
 	
 	delete msg;
