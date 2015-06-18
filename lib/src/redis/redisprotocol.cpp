@@ -171,7 +171,7 @@ char ReadArray(const char *buf, unsigned int left_len, RedisBulkData **bulk_data
 	else
 	{
 		*bulk_data = new RedisBulkData();
-
+		(*bulk_data)->SetType(RedisProtocol::REPLY_TYPE_ARRAY);
 		for (int i = 0; i < number; ++i)
 		{
 			RedisData *data = NULL;
