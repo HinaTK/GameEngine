@@ -21,8 +21,7 @@ public:
 class RedisBulkData
 {
 public:
-	RedisBulkData()
-		: m_type(-1){}
+	RedisBulkData(): m_type(-1){}
 	~RedisBulkData()
 	{
 		std::list<RedisData *>::iterator itr = m_data_list.begin();
