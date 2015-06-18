@@ -1,6 +1,7 @@
 
 #include "testframe.h"
 #include "lib/include/redis/redis.h"
+#include "lib/include/redis/redisprotocol.h"
 #include "lib/include/frame/listener.h"
 
 class RedisListener : public Listener
@@ -15,6 +16,12 @@ public:
 	bool AnalyzeBuf()
 	{
 		const char *buf = m_recv_buf.GetBuf();
+		RedisBlukData *bulk_data = NULL;
+		unsigned read_len = RedisProtocol::Decode(buf, m_recv_buf.Length(), &bulk_data);
+		if (read_len > 0)
+		{
+
+		}
 		GameMsg *msg = new GameMsg(m_handle, buf, m_recv_buf.Length());
 		msg->call_back_handle = m_call_back_handle;
 		m_net_manager->GetMsgQueue()->Push(msg);
@@ -56,13 +63,13 @@ bool TestFrame::Init()
 	RedisListener *listener = new RedisListener(&m_net_manager, m_redis_call_back);
 	Redis redis;
 	redis.Connect("192.168.1.105", 6379, listener);
-	//char *command = "set name jiaming\r\n";
+	char *command = "set name jiaming\r\n";
 
 	//char *command = "get name1\r\n";
 
 	//char *command = "mset name1 jiaming1 name2 jiaming2\r\n";
 
-	char *command = "mget name1 name2\r\n";
+	//char *command = "mget name1 name2\r\n";
 	redis.Command(command, strlen(command));
 	return true;
 }

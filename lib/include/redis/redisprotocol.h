@@ -7,7 +7,7 @@
 class RedisData
 {
 public:
-	RedisData(char *buf, unsigned int _len)
+	RedisData(const char *buf, unsigned int _len)
 		: len(_len)
 	{
 		data = new char(len);
@@ -27,7 +27,7 @@ public:
 	~RedisBlukData();
 
 	void	SetType(char type){ m_type = type; }
-	bool	Push(char *buf, unsigned int len);
+	bool	Push(const char *buf, unsigned int len);
 
 private:
 	char	m_type;
@@ -38,16 +38,16 @@ namespace RedisProtocol
 {
 	enum ReplyType
 	{
-		RT_OK,
-		RT_ERROR,
-		RT_INTEGER,
-		RT_STRING,
-		RT_ARRAY,
+		REPLY_TYPE_OK,
+		REPLY_TYPE_ERROR,
+		REPLY_TYPE_INTEGER,
+		REPLY_TYPE_STRING,
+		REPLY_TYPE_ARRAY
 	};
 
-	unsigned int	Decode(char *buf, unsigned int len, RedisBlukData **bulk_data);
+	unsigned int	Decode(const char *buf, unsigned int len, RedisBlukData **bulk_data);
 
-	unsigned int	EndLine(char *buf, unsigned int len);
+	unsigned int	EndLine(const char *buf, unsigned int len);
 };
 
 #endif

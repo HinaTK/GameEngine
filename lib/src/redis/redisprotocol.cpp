@@ -4,7 +4,7 @@
 #include "lib/include/common/memoryvl.h"
 
 
-bool RedisBlukData::Push(char *buf, unsigned int len)
+bool RedisBlukData::Push(const char *buf, unsigned int len)
 {
 	RedisData *data = new RedisData(buf, len);
 	m_data_list.push_back(data);
@@ -15,7 +15,7 @@ bool RedisBlukData::Push(char *buf, unsigned int len)
 /*
 	+OK\r\n	前缀 + 结果 + 结束 最少也要有4个字节
 */
-unsigned int RedisProtocol::Decode(char *buf, unsigned int len, RedisBlukData **bulk_data)
+unsigned int RedisProtocol::Decode(const char *buf, unsigned int len, RedisBlukData **bulk_data)
 {
 	if (len < 4)
 	{
@@ -31,7 +31,7 @@ unsigned int RedisProtocol::Decode(char *buf, unsigned int len, RedisBlukData **
 			return 0;
 		}
 		*bulk_data = new RedisBlukData();
-		(*bulk_data)->SetType(RT_OK);
+		(*bulk_data)->SetType(REPLY_TYPE_OK);
 		(*bulk_data)->Push(buf + 1, read_len);
 		break;
 	case '-':
@@ -49,7 +49,7 @@ unsigned int RedisProtocol::Decode(char *buf, unsigned int len, RedisBlukData **
 	return read_len;
 }
 
-unsigned int RedisProtocol::EndLine(char *buf, unsigned int len)
+unsigned int RedisProtocol::EndLine(const char *buf, unsigned int len)
 {
 	unsigned int i = 0;
 	while (i < (len - 1))
@@ -58,6 +58,7 @@ unsigned int RedisProtocol::EndLine(char *buf, unsigned int len)
 		{
 			return i;
 		}
+		++i;
 	}
 
 	if (i >= (len - 1))
