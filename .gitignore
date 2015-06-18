@@ -7,6 +7,7 @@ lib/temp/
 lib/redis/
 lib/linux/
 lib/windows/
+lib/dll/
 *.sdf
 *.tlog
 *.pdb
