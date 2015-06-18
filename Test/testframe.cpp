@@ -3,18 +3,6 @@
 #include "lib/include/redis/redis.h"
 #include "lib/include/frame/listener.h"
 
-class RedisCallBack : public MsgCallBack
-{
-public:
-	RedisCallBack(){}
-	~RedisCallBack(){}
-
-	void	Recv(GameMsg *msg)
-	{
-		printf("msg = %s\n",msg->data);
-	}
-};
-
 class RedisListener : public Listener
 {
 public:
@@ -35,6 +23,18 @@ public:
 
 private:
 	int m_call_back_handle;
+};
+
+class RedisCallBack : public MsgCallBack
+{
+public:
+	RedisCallBack(){}
+	~RedisCallBack(){}
+
+	void	Recv(GameMsg *msg)
+	{
+		printf("msg = %s\n", msg->data);
+	}
 };
 
 TestFrame::TestFrame()
