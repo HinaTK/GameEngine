@@ -5,7 +5,7 @@
 class Mem
 {
 public:
-	void *operator new[](size_t c);
+	void *operator new[](size_t s);
 	void operator delete[](void *m);
 };
 

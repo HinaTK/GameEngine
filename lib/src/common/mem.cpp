@@ -22,9 +22,9 @@ unsigned int mem_config[][2] = {
 };
 static MemoryVL g_mem_pool(mem_config, 15);
 
-void * Mem::operator new[](size_t c)
+void * Mem::operator new[](size_t s)
 {
-	return g_mem_pool.Malloc((unsigned int)c);
+	return g_mem_pool.Malloc((unsigned int)s);
 }
 
 void Mem::operator delete[](void *m)
