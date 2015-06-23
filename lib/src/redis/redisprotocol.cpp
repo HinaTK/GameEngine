@@ -53,6 +53,7 @@ int RedisProtocol::Decode(const char *buf, unsigned int len, RedisBulkData **bul
 				*bulk_data = new RedisBulkData();
 				(*bulk_data)->SetType(ret);
 				(*bulk_data)->Push(data);
+				return ret;
 			}
 			else
 			{
@@ -67,7 +68,7 @@ int RedisProtocol::Decode(const char *buf, unsigned int len, RedisBulkData **bul
 		return 0;
 	}
 
-	return read_len;
+	return 0;
 }
 
 unsigned int EndLine(const char *buf, unsigned int len)
