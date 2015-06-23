@@ -335,3 +335,10 @@ int NetManager::RegisterCallBack(MsgCallBack *call_back)
 	m_msg_call_back[m_call_back_num] = call_back;
 	return m_call_back_num++;
 }
+
+void NetManager::PushMsg(Listener *listener, const char *msg, unsigned int len)
+{
+	GameMsg *game_msg = new GameMsg(listener->m_handle, listener->GetCallBackHandle(), msg, len);
+	m_queue.Push(game_msg);
+}
+

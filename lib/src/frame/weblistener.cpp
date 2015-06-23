@@ -77,17 +77,14 @@ bool WebListener::AnalyzeBuf()
 				data[i] = (data[i] ^ mask_data[i - size]);
 			}
 
-			GameMsg *msg = new GameMsg(m_handle, data, length);
-
-			m_net_manager->GetMsgQueue()->Push(msg);
+			m_net_manager->PushMsg(this, data, length);
 		}
 		else
 		{
 			buf_offset += length;
 			CHECK_BUF_LEN();
 
-			GameMsg *msg = new GameMsg(m_handle, buf + frame_offset, length);
-			m_net_manager->GetMsgQueue()->Push(msg);
+			m_net_manager->PushMsg(this, buf + frame_offset, length);
 		}
 		
 		buf_len -= buf_offset;

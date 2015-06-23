@@ -26,18 +26,13 @@ public:
 				return true;
 			}
 
-			GameMsg *msg = new GameMsg(m_handle, buf, m_recv_buf.Length());
-			msg->call_back_handle = m_call_back_handle;
-			m_net_manager->GetMsgQueue()->Push(msg);
+			m_net_manager->PushMsg(this, buf, read_len);
 
 			m_recv_buf.RemoveBuf(read_len);
 		} while (true);
 		
 		return true;
 	};
-
-private:
-	int m_call_back_handle;
 };
 
 class RedisCallBack : public MsgCallBack
@@ -71,13 +66,16 @@ bool TestFrame::Init()
 	RedisListener *listener = new RedisListener(&m_net_manager, m_redis_call_back);
 	Redis redis;
 	redis.Connect("192.168.1.105", 6379, listener);
-	//char *command = "set name jiaming\r\n";
+	//char *command = "seet name4 jiaming\r\n";
 
-	//char *command = "get name\r\n";
+	//char *command = "get name22222\r\n";
 
 	//char *command = "mset name1 jiaming1 name2 jiaming2\r\n";
 
-	char *command = "mget name1 name2\r\n";
+	//char *command = "mget name22 age22\r\n";
+
+	//char *command = "incr age\r\n";
+	char *command = "blpop jjjj 1\r\n";
 	redis.Command(command, strlen(command));
 	return true;
 }

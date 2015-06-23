@@ -38,6 +38,8 @@ public:
 	void			ReplaceHandler();		// 将该句柄的控制者替换（用于将握手者-->监听者）
 	void			ClearHandler();
 	
+	void			PushMsg(Listener *listener, const char *msg, unsigned int len);
+
 	NetMessage		*GetMsgQueue(){ return &m_queue; }
 	void			Exit(){ m_is_run = false; }
 

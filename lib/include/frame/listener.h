@@ -20,6 +20,7 @@ public:
 		, m_send_buf_read(new SendBuffer(BASE_BUFFER_LENGTH))
 		, m_send_buf_write(new SendBuffer(BASE_BUFFER_LENGTH))
 		, m_is_register_write(false)
+		, m_call_back_handle(0)
 	{
 	}
 	virtual ~Listener()
@@ -44,7 +45,7 @@ public:
 	bool			IsRegisterWrite(){ return m_is_register_write; }
 	void			RegisterWriteFD();
 
-
+	int				GetCallBackHandle(){ return m_call_back_handle; }
 protected:
 	bool			RecvBuf();
 	virtual bool	AnalyzeBuf() = 0;
@@ -57,6 +58,7 @@ protected:
 	bool		m_is_register_write;
 	std::mutex	m_send_mutex;
 	std::mutex	m_register_write_mutex;
+	int			m_call_back_handle;
 };
 
 #endif

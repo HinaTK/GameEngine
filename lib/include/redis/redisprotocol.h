@@ -4,43 +4,21 @@
 
 #include <list>
 
-class RedisData
-{
-public:
-	RedisData(const char *buf, unsigned int _len)
-		: len(_len)
-	{
-		data = new char(len);
-		memcpy(data, buf, len);
-	}
-	~RedisData(){ delete data; }
-	unsigned int	len;
-	char *			data;
-};
-
+class RedisData;
 class RedisBulkData
 {
 public:
-	RedisBulkData(): m_type(-1){}
-	~RedisBulkData()
-	{
-		std::list<RedisData *>::iterator itr = m_data_list.begin();
-		for (; itr != m_data_list.begin(); ++itr)
-		{
-			if ((*itr) != NULL)
-			{
-				delete (*itr);
-				(*itr) = NULL;
-			}
-		}
-	};
+	RedisBulkData(): type(-1){}
+	~RedisBulkData();
 
-	void	SetType(char type){ m_type = type; }
 	bool	Push(const char *buf, unsigned int len);
-	void	Push(RedisData *data){ m_data_list.push_back(data); }
-private:
-	char	m_type;
-	std::list<RedisData *>	m_data_list;
+	void	Push(RedisData *data){ data_list.push_back(data); }
+
+	void *	operator new(size_t c);
+	void	operator delete(void *m);
+
+	char	type;
+	std::list<RedisData *>	data_list;
 };
 
 namespace RedisProtocol

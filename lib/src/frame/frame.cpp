@@ -9,7 +9,7 @@
 #include "lib/include/common/mutex.h"
 #include "lib/include/timemanager/gametime.h"
 #include "lib/include/common/memoryvl.h"
-#include "lib/include/common/commonconfig.h"
+//#include "lib/include/common/commonconfig.h"
 
 
 namespace SignalCatch

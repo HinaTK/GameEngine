@@ -21,7 +21,7 @@ class Mem;
 class GameMsg
 {
 public:
-	GameMsg(NetHandle _handle, const char* _data, unsigned int _length);
+	GameMsg(NetHandle _handle, int _call_back_handle, const char* _data, unsigned int _length);
 	~GameMsg();
 
 	void *		operator new(size_t c);
