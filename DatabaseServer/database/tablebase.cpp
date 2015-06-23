@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 #include "tablebase.h"
-#include "lib/include/common/memoryvl.h"
+//#include "lib/include/common/memoryvl.h"
 
 static const char *relationType[] = { ">", "=", "<", ">=", "<=", "<>" };
 static const char *connectType[] = { " AND ", " OR " };
@@ -49,7 +49,7 @@ TableBase::~TableBase()
 		{
 			continue;
 		}
-		MemoryVL::Instance().Free(m_param[itr->field].buffer);
+		//MemoryVL::Instance().Free(m_param[itr->field].buffer);
 	}
 	delete[] m_param;
 	delete[] m_field_name;

@@ -6,9 +6,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\include\common\commonconfig.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\lib\include\common\md5.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -30,11 +27,11 @@
     <ClInclude Include="..\..\lib\include\common\thread.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\lib\include\common\mem.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lib\src\common\commonconfig.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\lib\src\common\md5.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -51,6 +48,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\common\thread.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\common\mem.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\include\common\commonconfig.h" />
     <ClInclude Include="..\..\lib\include\common\md5.h" />
+    <ClInclude Include="..\..\lib\include\common\mem.h" />
     <ClInclude Include="..\..\lib\include\common\memorypool.h" />
     <ClInclude Include="..\..\lib\include\common\memoryvl.h" />
     <ClInclude Include="..\..\lib\include\common\mutex.h" />
@@ -21,8 +21,8 @@
     <ClInclude Include="..\..\lib\include\common\thread.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lib\src\common\commonconfig.cpp" />
     <ClCompile Include="..\..\lib\src\common\md5.cpp" />
+    <ClCompile Include="..\..\lib\src\common\mem.cpp" />
     <ClCompile Include="..\..\lib\src\common\memorypool.cpp" />
     <ClCompile Include="..\..\lib\src\common\memoryvl.cpp" />
     <ClCompile Include="..\..\lib\src\common\serializer.cpp" />

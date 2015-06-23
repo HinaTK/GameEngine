@@ -5,9 +5,15 @@
 static const unsigned int LEN_INT = sizeof(unsigned int);
 std::mutex g_init_mutex;
 
-MemoryVL::MemoryVL()
-: m_size(0)
+MemoryVL::MemoryVL(unsigned int config[][2], unsigned int num)
+: m_size(num)
 {
+	m_memory = new MemoryPool[m_size];
+	m_mutex = new std::mutex[m_size];
+	for (unsigned int i = 0; i < m_size; ++i)
+	{
+		m_memory[i].Init(12, 12);
+	}
 
 }
 
@@ -15,22 +21,6 @@ MemoryVL::~MemoryVL()
 {
 	delete[]m_memory;
 	delete[]m_mutex;
-}
-
-bool MemoryVL::Init(MEMORY_CONFIG &config)
-{
-	LOCK(g_init_mutex);
-	MEMORY_CONFIG::iterator itr = config.begin();
-	m_size = config.size();
-	m_memory = new MemoryPool[m_size];
-	m_mutex = new std::mutex[m_size];
-	unsigned int i = 0;
-	for (; itr != config.end() && i < m_size; ++itr, ++i)
-	{
-		m_memory[i].Init(itr->size + LEN_INT, itr->num);
-	}
-	UNLOCK(g_init_mutex);
-	return true;
 }
 
 void  *MemoryVL::Malloc(unsigned int size)

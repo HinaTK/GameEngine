@@ -210,7 +210,7 @@ bool game::Hash<const char *, V>::Push(const char *key, V &val, unsigned int key
 	unsigned int real_key = _key % m_size;
 
 	KeyNode *node = (KeyNode *)m_memory_pool.Alloc();
-	node->key = (char *)MemoryVL::Instance().Malloc(key_len);
+	node->key = (char *)new Mem[key_len];
 	memcpy(node->key, key, key_len);
 	node->array_key = m_value_array.Insert(val);
 

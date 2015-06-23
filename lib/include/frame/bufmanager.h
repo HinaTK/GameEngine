@@ -3,7 +3,7 @@
 #define BUF_MANAGER_H
 
 #include "common/serverdef.h"
-#include "lib/include/common/memoryvl.h"
+#include "lib/include/common/mem.h"
 
 // 需要改进，尽量避免内存拷贝
 class BufManager
@@ -16,11 +16,11 @@ public:
 	unsigned int	FreeLength(){ return m_size - m_length; }
 	void			AddLength(unsigned int length){ m_length = m_length + length; }
 
-	const char *	GetBuf(){ return m_buf; }
+	const char *	GetBuf(){ return (const char *)m_buf; }
 	void			RemoveBuf(unsigned int len);
 	
 
-	char *			GetFreeBuf(){ return (m_buf + m_length); }
+	char *			GetFreeBuf(){ return ((char *)m_buf + m_length); }
 
 	bool			Resize(unsigned int size);
 
@@ -30,7 +30,7 @@ public:
 	void		operator delete(void *m);
 	
 protected:
-	char *			m_buf;
+	Mem *			m_buf;
 	unsigned int	m_size;				// 容量大小
 	unsigned int	m_length;			// 数据大小
 
@@ -53,7 +53,7 @@ public:
 
 	void			Push(const char *buf, unsigned int len);
 
-	char *			GetReadBuf(){ return m_buf + m_read_length; }
+	char *			GetReadBuf(){ return (char *)m_buf + m_read_length; }
 	void			AddReadLength(unsigned int length){ m_read_length += length; }
 	unsigned int	GetReadLength(){ return m_read_length; }
 	int				RemainReadLength(){ return int(m_length - m_read_length); }		// 剩余可读取内容
