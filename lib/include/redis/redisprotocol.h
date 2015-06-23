@@ -26,6 +26,7 @@ namespace RedisProtocol
 	enum ReplyType
 	{
 		REPLY_TYPE_DATA_INVALID = -1,
+		REPLY_TYPE_MORE_DATA,
 		REPLY_TYPE_OK,
 		REPLY_TYPE_ERROR,
 		REPLY_TYPE_INTEGER,

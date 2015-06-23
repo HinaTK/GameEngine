@@ -20,9 +20,13 @@ public:
 			const char *buf = m_recv_buf.GetBuf();
 			RedisBulkData *bulk_data = NULL;
 			int read_len = RedisProtocol::Decode(buf, m_recv_buf.Length(), &bulk_data);
-			if (read_len < 0)
+			if (read_len == RedisProtocol::REPLY_TYPE_DATA_INVALID)
 			{
 				// 数据出错，需要用log记录
+				return false;
+			}
+			else if (read_len == RedisProtocol::REPLY_TYPE_MORE_DATA)
+			{
 				return true;
 			}
 

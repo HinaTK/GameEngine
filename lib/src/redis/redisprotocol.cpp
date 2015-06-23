@@ -59,13 +59,13 @@ int RedisProtocol::Decode(const char *buf, unsigned int len, RedisBulkData **bul
 {
 	if (len < 4)
 	{
-		return 0;
+		return REPLY_TYPE_DATA_INVALID;
 	}
 
 	unsigned int end_len = EndLine(buf + 1, len - 1);
 	if (end_len == 0)
 	{
-		return 0;
+		return REPLY_TYPE_DATA_INVALID;
 	}
 
 	switch (buf[0])
@@ -84,7 +84,7 @@ int RedisProtocol::Decode(const char *buf, unsigned int len, RedisBulkData **bul
 		return REPLY_TYPE_DATA_INVALID;
 	}
 
-	return 0;
+	return REPLY_TYPE_DATA_INVALID;
 }
 
 unsigned int EndLine(const char *buf, unsigned int len)
@@ -101,7 +101,7 @@ unsigned int EndLine(const char *buf, unsigned int len)
 
 	if (i >= (len - 1))
 	{
-		return 0;
+		return RedisProtocol::REPLY_TYPE_MORE_DATA;
 	}
 	return i;
 }
@@ -205,7 +205,7 @@ int ReadArray(const char *buf, unsigned int left_len, RedisBulkData **bulk_data)
 	unsigned int end_len = EndLine(buf, left_len);
 	if (end_len == 0)
 	{
-		return -1;
+		return RedisProtocol::REPLY_TYPE_DATA_INVALID;
 	}
 	int number = ReadNumber(buf, end_len);
 
