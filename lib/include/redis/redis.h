@@ -3,9 +3,10 @@
 #define REDIS_H
 
 #include "common/socketdef.h"
+#include "lib/include/frame/listener.h"
 
-class Listener;
 class NetManager;
+class MsgCallBack;
 class Redis
 {
 public:
@@ -20,4 +21,11 @@ private:
 	NetHandle	m_net_handle;
 };
 
+class RedisListener : public Listener
+{
+public:
+	RedisListener(NetManager *manager, MsgCallBack *call_back);
+	~RedisListener(){}
+	bool AnalyzeBuf();
+};
 #endif
