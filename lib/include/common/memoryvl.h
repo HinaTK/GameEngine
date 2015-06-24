@@ -2,13 +2,12 @@
 #ifndef MEMORY_V_L_H
 #define MEMORY_V_L_H
 
-#include <vector>
-#include "memorypool.h"
 #include "mutex.h"
 
 /*
 	不定长内存池
 */
+class MemoryPool;
 class MemoryVL
 {
 public:
@@ -27,9 +26,7 @@ public:
 		unsigned int num;
 	};
 
-	typedef std::vector<MemoryConfig> MEMORY_CONFIG;
-
-	void	*Malloc(unsigned int size);
+	void	*Alloc(unsigned int size);
 
 	bool	Free(void *mem);
 

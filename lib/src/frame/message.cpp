@@ -10,7 +10,7 @@ GameMsg::GameMsg(NetHandle _handle, int _call_back_handle, const char* _data, un
 , handle(_handle)
 , length(_length)
 {
-	data = new Mem[length];
+	data = Mem::Alloc(length);
 	memcpy(data, _data, length);
 }
 

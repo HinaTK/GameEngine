@@ -17,7 +17,7 @@
 // 	unsigned int	length;
 // 	char *			data;
 // };
-class Mem;
+
 class GameMsg
 {
 public:
@@ -30,7 +30,7 @@ public:
 	int				call_back_handle;
 	NetHandle		handle;
 	unsigned int	length;
-	Mem *			data;
+	char *			data;
 };
 
 #endif

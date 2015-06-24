@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include "memorypool.h"
 #include "memoryvl.h"
 
 static const unsigned int LEN_INT = sizeof(unsigned int);
@@ -12,7 +13,7 @@ MemoryVL::MemoryVL(unsigned int config[][2], unsigned int num)
 	m_mutex = new std::mutex[m_size];
 	for (unsigned int i = 0; i < m_size; ++i)
 	{
-		m_memory[i].Init(12, 12);
+		m_memory[i].Init(config[i][0], config[i][1]);
 	}
 
 }
@@ -23,7 +24,7 @@ MemoryVL::~MemoryVL()
 	delete[]m_mutex;
 }
 
-void  *MemoryVL::Malloc(unsigned int size)
+void  *MemoryVL::Alloc(unsigned int size)
 {
 	unsigned int real_size = size + LEN_INT;
 	unsigned int i = 0;

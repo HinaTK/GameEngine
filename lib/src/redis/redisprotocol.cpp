@@ -10,12 +10,12 @@ public:
 	RedisData(const char *buf, unsigned int _len)
 		: len(_len)
 	{
-		data = new Mem[len];
+		data = Mem::Alloc(len);
 		memcpy(data, buf, len);
 	}
-	~RedisData(){ delete[]data; }
+	~RedisData(){ Mem::Free(data); }
 	unsigned int	len;
-	Mem *			data;
+	char *			data;
 
 	void *	operator new(size_t c);
 	void	operator delete(void *m);
@@ -59,7 +59,7 @@ int RedisProtocol::Decode(const char *buf, unsigned int len, RedisBulkData **bul
 {
 	if (len < 4)
 	{
-		return REPLY_TYPE_DATA_INVALID;
+		return REPLY_TYPE_MORE_DATA;
 	}
 
 	unsigned int end_len = EndLine(buf + 1, len - 1);

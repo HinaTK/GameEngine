@@ -52,7 +52,7 @@ public:
 	struct StrInfo
 	{
 		unsigned int	length;
-		Mem *			data;
+		char *			data;
 	};
 
 	struct StrField
@@ -123,7 +123,7 @@ class m_##val;
 #define PARAM_BIND_STR(_field, type, _length)\
 	m_param[_field].buffer_type = type; \
 	FIELD(_field).length = _length; \
-	FIELD(_field).data = new Mem[_length]; \
+	FIELD(_field).data = Mem::Alloc(_length); \
 	m_param[_field].buffer = FIELD(_field).data; \
 	m_param[_field].buffer_length = FIELD(_field).length; \
 	m_param[_field].length = 0; \

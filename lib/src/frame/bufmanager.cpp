@@ -9,7 +9,7 @@ REGISTER_MEMORYPOOL(memorypool, BufManager, 256);
 REGISTER_MEMORYPOOL(memorypool, SendBuffer, 256);
 
 BufManager::BufManager(unsigned int size)
-: m_buf(new Mem[(unsigned int)size])
+: m_buf(Mem::Alloc(size))
 , m_size(size)
 , m_length(0)
 {
@@ -20,15 +20,16 @@ BufManager::~BufManager()
 {
 	if (m_buf != NULL)
 	{
-		delete []m_buf;
+		Mem::Free(m_buf);
+		m_buf = NULL;
 	}
 }
 
 bool BufManager::Resize(unsigned int size)
 {
-	Mem *new_buf = new Mem[size];
+	char *new_buf = Mem::Alloc(size);
 	memcpy(new_buf, m_buf, m_length);
-	delete []m_buf;
+	Mem::Free(m_buf);
 	m_buf = new_buf;
 	m_size = size;
 	return true;

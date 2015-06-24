@@ -3,12 +3,13 @@
 #define GAME_HASH_H
 
 #include "lib/include/common/memorypool.h"
-#include "lib/include/common/memoryvl.h"
+#include "lib/include/common/mem.h"
 #include "gamearray.h"
 
 /*
 	* 散列
-	* key只支持基本数据类型，不支持结构体和类
+	* key只支持基本数据类型，不支持浮点型，结构体和类
+	* 可以通过序列化来将浮点型，结构体和类转化成字符串，从而得到支持
 */
 
 namespace game
@@ -27,26 +28,37 @@ static unsigned int _RealKey(const char *key, unsigned int length)
 	return real_key;
 }
 
-
-/************************************************
-	key不是字符串
-*************************************************/
 template<class K, class V>
-class Hash
+class HashBase
 {
 public:
-	Hash(unsigned int size = 256)
+	HashBase(unsigned int size)
 		: m_size((size <= 0) ? 1 : size)
 		, m_memory_pool(sizeof(KeyNode), m_size)
 	{
 		m_hash_list = (KeyNode **)malloc(m_size * sizeof(KeyNode*));
 		memset(m_hash_list, NULL, m_size * sizeof(KeyNode*));
 	}
-	~Hash()
-	{
-		free(m_hash_list); 
-	}
 
+	virtual ~HashBase()
+	{
+		for (unsigned int i = 0; i < m_size; ++i)
+		{
+			if (m_hash_list[i] == NULL)
+			{
+				continue;
+			}
+			KeyNode *next_node = m_hash_list[i];
+			KeyNode *temp_node = NULL;
+			do 
+			{
+				temp_node = next_node->next;
+				m_memory_pool.Free(next_node);
+				next_node = temp_node;
+			} while (next_node != NULL);
+		}
+		free(m_hash_list);
+	}
 	struct KeyNode
 	{
 		K				key;
@@ -57,10 +69,31 @@ public:
 	typedef Array<V> _Array;
 	typedef typename _Array::iterator iterator;
 
+	V			Nil(){ return m_nil; }
+	iterator	Begin(){ return m_value_array.Begin(); }
+	iterator	End(){ return m_value_array.End(); }
+
+protected:
+	unsigned int	m_size;
+	KeyNode			**m_hash_list;
+	_Array			m_value_array;	// 所有数据保存的数据结构
+	MemoryPool		m_memory_pool;
+	V				m_nil;
+};
+
+/************************************************
+	key不是字符串
+*************************************************/
+template<class K, class V>
+class Hash : public HashBase<K, V>
+{
+public:
+	Hash(unsigned int size = 256): HashBase(size){}
+	virtual ~Hash(){}
+
 	bool		Push(K key, V &val);
 	void		Erase(K key);
 	V &			operator[](K key);
-	V			Nil(){ return m_nil; }
 
 	iterator	Find(K key)
 	{
@@ -72,14 +105,6 @@ public:
 		}
 		return End();
 	}
-	iterator	Begin(){ return m_value_array.Begin(); }
-	iterator	End(){ return m_value_array.End(); }
-private:
-	unsigned int	m_size;
-	KeyNode			**m_hash_list;
-	_Array			m_value_array;	// 所有数据保存的数据结构
-	MemoryPool		m_memory_pool;
-	V				m_nil;
 };
 
 template<class K, class V>
@@ -157,42 +182,15 @@ HASVAL:;
 	key 是字符串
 *************************************************/
 template<class V>
-class Hash<const char *, V>
+class Hash<const char *, V> : public HashBase<char *, V>
 {
 public:
-	Hash(unsigned int size = 256)
-		: m_size((size <= 0) ? 1 : size)
-		, m_memory_pool(sizeof(KeyNode), m_size)
-	{
-		m_hash_list = (KeyNode **)malloc(m_size * sizeof(KeyNode*));
-		memset(m_hash_list, NULL, m_size * sizeof(KeyNode*));
-	}
-	~Hash()
-	{
-		free(m_hash_list);
-	}
-
-	typedef Array<V> _Array;
-	typedef typename _Array::iterator iterator;
+	Hash(unsigned int size = 256) : HashBase(size){}
+	virtual ~Hash(){}
 
 	bool	Push(const char *key, V &val, unsigned int key_len = 0);
 	V &		Val(const char *key, unsigned int key_len = 0);
 	V &		operator[](const char *key){ return Val(key); };
-	V		Nil(){ return m_nil; }
-
-	struct KeyNode
-	{
-		char			*key;
-		unsigned int	array_key;
-		KeyNode			*next;
-	};
-
-private:
-	unsigned int	m_size;
-	KeyNode			**m_hash_list;
-	_Array			m_value_array;	// 所有数据保存的数据结构
-	MemoryPool		m_memory_pool;
-	V				m_nil;
 };
 
 template<class V>
@@ -210,7 +208,7 @@ bool game::Hash<const char *, V>::Push(const char *key, V &val, unsigned int key
 	unsigned int real_key = _key % m_size;
 
 	KeyNode *node = (KeyNode *)m_memory_pool.Alloc();
-	node->key = (char *)new Mem[key_len];
+	node->key = Mem::Alloc(key_len);
 	memcpy(node->key, key, key_len);
 	node->array_key = m_value_array.Insert(val);
 

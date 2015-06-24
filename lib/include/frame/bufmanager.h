@@ -30,7 +30,7 @@ public:
 	void		operator delete(void *m);
 	
 protected:
-	Mem *			m_buf;
+	char *			m_buf;
 	unsigned int	m_size;				// 容量大小
 	unsigned int	m_length;			// 数据大小
 
