@@ -43,7 +43,10 @@ bool TestFrame::Init()
 	//char *command = "mget name22 age22\r\n";
 
 	//char *command = "incr age\r\n";
-	char *command = "blpop jjjj 1\r\n";
+	//char *command = "blpop jjjj 1\r\n";
+	//char *command = "eval \"return redis.call('set', 'ggg', 'bar')\" 0\r\n";
+	//char *command = "get name1\r\nget name2\r\n";
+	char *command = "get name1\r\nget name2\r\n";
 	redis.Command(command, strlen(command));
 	return true;
 }

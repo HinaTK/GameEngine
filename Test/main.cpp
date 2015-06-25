@@ -82,7 +82,7 @@ int main()
 	//TestDataStructure::TestList();
 	//TestDataStructure::TestList2();
 	//TestDataStructure::TestList3();
-	TestDataStructure::TestHash();
+	//TestDataStructure::TestHash();
 	
 	//TestDataStructure::TestMsgQueue2();
 	//TestOther::Test1();
@@ -107,7 +107,6 @@ int main()
 	
 	TestFrame::Instance().Init();
 	TestFrame::Instance().Run();
-	
 	return 0;
 }
 
