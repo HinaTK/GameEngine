@@ -92,6 +92,7 @@ int main()
 	//TestCache::TestDataQueue();
 	//TestCache::TestDataMap();
 	//TestCache::TestDataCache();
+	TestCache::TestCache1();
 	//TestThread::Test1();
 
 // 	std::string a = "122";
@@ -105,8 +106,8 @@ int main()
 // 		printf("fffff");
 // 	}
 	
-	TestFrame::Instance().Init();
-	TestFrame::Instance().Run();
+//	TestFrame::Instance().Init();
+//	TestFrame::Instance().Run();
 	return 0;
 }
 

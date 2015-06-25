@@ -20,6 +20,7 @@ public:
 	Vector(unsigned int size = 64):m_size((size <= 0) ? 1:size),m_index(0)
 	{
 		m_list = new T[m_size];
+		memset(m_list, NULL, m_size);
 	}
 	~Vector()
 	{
@@ -49,7 +50,7 @@ public:
 		}
 
 		V* operator->() { return &m_handle->m_list[m_index]; }
-		V& operator*() { return m_handle->m_list[m_index]; }
+		V& operator*() { return m_handle->m_list[m_index];}
 
 		bool operator==(const Iterator<V, Handle> &right) const { return (m_index == right.m_index && m_handle == right.m_handle); }
 		bool operator!=(const Iterator<V, Handle> &right) const { return (m_index != right.m_index || m_handle != right.m_handle); }
@@ -155,15 +156,17 @@ bool Vector<T>::EraseIndex(unsigned int index)
 template<class T>
 bool Vector<T>::Resize()
 {
-	T *newList = new T[(m_size << 1)];
-	if (newList == NULL || m_list == NULL)
+	unsigned int new_size = (m_size << 1);
+	T *new_list = new T[new_size];
+	if (new_list == NULL || m_list == NULL)
 	{
 		return false;
 	}
-	memcpy(newList, m_list, m_size);
+	memset(new_list, NULL, new_size);
+	memcpy(new_list, m_list, m_size * sizeof(T));
 	delete[]m_list;
-	m_list = newList;
-	m_size = m_size<<1;
+	m_list = new_list;
+	m_size = new_size;
 	return true;
 }
 

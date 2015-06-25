@@ -1,5 +1,6 @@
 
 #include <stdlib.h>
+#include <stdio.h>
 #include "memorypool.h"
 
 MemoryPool::MemoryPool()
@@ -12,7 +13,7 @@ MemoryPool::~MemoryPool()
 {
 	for (game::Vector<void *>::iterator itr = m_has_malloc.Begin(); itr != m_has_malloc.End(); ++itr)
 	{
-		free(*itr);
+		::free(*itr);
 	}
 }
 
@@ -39,7 +40,7 @@ void MemoryPool::Init(unsigned int size, unsigned int increase /*= 64*/)
 
 bool MemoryPool::Resize()
 {
-	void *mem = malloc(m_size * m_increase);
+	void *mem = ::malloc(m_size * m_increase);
 	if (mem == NULL)
 	{
 		return false;
