@@ -2,6 +2,7 @@
 #include "redis.h"
 #include "redisprotocol.h"
 #include "lib/include/frame/netmanager.h"
+#include "lib/include/frame/msgcallback.h"
 
 Redis::Redis()
 : m_net_manager(NULL)
@@ -44,12 +45,12 @@ bool RedisListener::AnalyzeBuf()
 		const char *buf = m_recv_buf.GetBuf();
 		RedisBulkData *bulk_data = NULL;
 		int read_len = RedisProtocol::Decode(buf, m_recv_buf.Length(), &bulk_data);
-		if (read_len == RedisProtocol::REPLY_TYPE_DATA_INVALID)
+		if (read_len == RedisProtocol::OPR_DATA_INVALID)
 		{
 			// 数据出错，需要用log记录
 			return false;
 		}
-		else if (read_len == RedisProtocol::REPLY_TYPE_MORE_DATA)
+		else if (read_len == RedisProtocol::OPR_MORE_DATA)
 		{
 			return true;
 		}

@@ -4,25 +4,19 @@
 #include "lib/include/common/memorypool.h"
 #include "lib/include/common/mem.h"
 
-class RedisData
+
+RedisData::RedisData(char _type, unsigned int _len, const char *buf)
+: type(_type)
+, len(_len)
 {
-public:
-	RedisData(const char *buf, unsigned int _len)
-		: len(_len)
-	{
-		data = Mem::Alloc(len);
-		memcpy(data, buf, len);
-	}
-	~RedisData(){ Mem::Free(data); }
-	unsigned int	len;
-	char *			data;
+	data = Mem::Alloc(len);
+	memcpy(data, buf, len);
+}
 
-	void *	operator new(size_t c);
-	void	operator delete(void *m);
-};
-
-REGISTER_MEMORYPOOL(gamememorypool, RedisData, 64);
-REGISTER_MEMORYPOOL(gamememorypool, RedisBulkData, 64);
+RedisData::~RedisData()
+{
+	Mem::Free(data);
+}
 
 RedisBulkData::~RedisBulkData()
 {
@@ -37,18 +31,21 @@ RedisBulkData::~RedisBulkData()
 	}
 }
 
-bool RedisBulkData::Push(const char *buf, unsigned int len)
+REGISTER_MEMORYPOOL(gamememorypool, RedisData, 64);
+REGISTER_MEMORYPOOL(gamememorypool, RedisBulkData, 64);
+
+bool RedisBulkData::Push(char type, unsigned int len, const char *buf)
 {
-	RedisData *data = new RedisData(buf, len);
+	RedisData *data = new RedisData(type, len, buf);
 	data_list.push_back(data);
 	return true;
 }
 
 #define CheckEndLine(buf, len)\
-	unsigned int end_len = EndLine(buf + 1, len - 1);\
-	if (end_len == 0)\
+	unsigned int end_len = EndLine(buf, len);\
+	if (end_len == RedisProtocol::OPR_MORE_DATA)\
 	{\
-		return RedisProtocol::REPLY_TYPE_DATA_INVALID; \
+		return RedisProtocol::OPR_MORE_DATA; \
 	}
 
 static unsigned int	EndLine(const char *buf, unsigned int len);
@@ -60,13 +57,13 @@ static int			ReadString(const char *buf, unsigned int len, RedisBulkData **bulk_
 static int			ReadArray(const char *buf, unsigned int left_len, RedisBulkData **bulk_data);
 
 /*
-	+OK\r\n	前缀 + 结果 + 结束 最少也要有4个字节
+	:1\r\n	前缀 + 结果 + 结束 最少也要有4个字节
 */
 int RedisProtocol::Decode(const char *buf, unsigned int len, RedisBulkData **bulk_data)
 {
 	if (len < 4)
 	{
-		return REPLY_TYPE_MORE_DATA;
+		return OPR_MORE_DATA;
 	}
 
 	switch (buf[0])
@@ -78,14 +75,14 @@ int RedisProtocol::Decode(const char *buf, unsigned int len, RedisBulkData **bul
 	case ':':
 		return ReadInteger(buf + 1, len - 1, bulk_data);
 	case '$':
-		return ReadString(buf + 1, len - 1, bulk_data) + 1;
+		return ReadString(buf + 1, len - 1, bulk_data);
 	case '*':
-		return ReadArray(buf + 1, len - 1, bulk_data) + 1;
+		return ReadArray(buf + 1, len - 1, bulk_data);
 	default:
-		return REPLY_TYPE_DATA_INVALID;
+		return OPR_DATA_INVALID;
 	}
 
-	return REPLY_TYPE_DATA_INVALID;
+	return OPR_DATA_INVALID;
 }
 
 unsigned int EndLine(const char *buf, unsigned int len)
@@ -102,7 +99,7 @@ unsigned int EndLine(const char *buf, unsigned int len)
 
 	if (i >= (len - 1))
 	{
-		return RedisProtocol::REPLY_TYPE_MORE_DATA;
+		return RedisProtocol::OPR_MORE_DATA;
 	}
 	return i;
 }
@@ -145,30 +142,27 @@ char _ReadString(const char *buf, unsigned int left_len, int &read_len, RedisDat
 	int number = ReadNumber(buf, end_len);
 	if (number <= 0)
 	{
-		*data = new RedisData((const char *)&number, sizeof(number));
-		return RedisProtocol::REPLY_TYPE_STRING_ERROR;
+		*data = new RedisData(RedisProtocol::REPLY_TYPE_STRING_ERROR, sizeof(number), (const char *)&number);
 	}
 	else
 	{
 		end_len = EndLine(buf + read_len, left_len - read_len);
-		if (end_len == 0)
+		if (end_len == RedisProtocol::OPR_MORE_DATA)
 		{
-			return RedisProtocol::REPLY_TYPE_DATA_INVALID;
+			return RedisProtocol::OPR_MORE_DATA;
 		}
 
-		*data = new RedisData(buf + read_len, end_len);
+		*data = new RedisData(RedisProtocol::REPLY_TYPE_STRING, end_len, buf + read_len);
 		read_len = read_len + end_len + 2;
-		return RedisProtocol::REPLY_TYPE_STRING;
 	}
-	return RedisProtocol::REPLY_TYPE_DATA_INVALID;
+	return RedisProtocol::OPR_SUCCESS;
 }
 
 int ReadMessage(char type, const char *buf, unsigned int len, RedisBulkData **bulk_data)
 {
 	CheckEndLine(buf, len);
 	*bulk_data = new RedisBulkData();
-	(*bulk_data)->type = type;
-	(*bulk_data)->Push(buf + 1, end_len);
+	(*bulk_data)->Push(type, end_len, buf);
 	// 前缀 + 结束符 = 3字节
 	return end_len + 3;
 }
@@ -178,23 +172,21 @@ int ReadInteger(const char *buf, unsigned int len, RedisBulkData **bulk_data)
 	CheckEndLine(buf, len);
 	int number = ReadNumber(buf, end_len);
 	*bulk_data = new RedisBulkData();
-	(*bulk_data)->type = RedisProtocol::REPLY_TYPE_INTEGER;
-	(*bulk_data)->Push((const char *)&number, sizeof(number));
+	(*bulk_data)->Push(RedisProtocol::REPLY_TYPE_INTEGER, sizeof(number), (const char *)&number);
 	// 前缀 + 结束符 = 3字节
 	return end_len + 3;
 }
 
-int ReadString(const char *buf, unsigned int len, RedisBulkData **bulk_data)
+int ReadString(const char *buf, unsigned int left_len, RedisBulkData **bulk_data)
 {
 	RedisData *data;
 	int read_len = 0;
-	int ret = _ReadString(buf + 1, len - 1, read_len, &data);
-	if (ret != RedisProtocol::REPLY_TYPE_DATA_INVALID)
+	int ret = _ReadString(buf, left_len, read_len, &data);
+	if (ret != RedisProtocol::OPR_DATA_INVALID)
 	{
 		*bulk_data = new RedisBulkData();
-		(*bulk_data)->type = ret;
 		(*bulk_data)->Push(data);
-		return read_len;
+		return read_len + 1;
 	}
 	return ret;
 }
@@ -211,23 +203,21 @@ int ReadArray(const char *buf, unsigned int left_len, RedisBulkData **bulk_data)
 	if (number <= 0)
 	{
 		*bulk_data = new RedisBulkData();
-		(*bulk_data)->type = RedisProtocol::REPLY_TYPE_ARRAY_ERROR;
-		(*bulk_data)->Push((const char *)&number, sizeof(number));
+		(*bulk_data)->Push(RedisProtocol::REPLY_TYPE_ARRAY_ERROR, sizeof(number), (const char *)&number);
 	}
 	else
 	{
 		*bulk_data = new RedisBulkData();
-		(*bulk_data)->type = RedisProtocol::REPLY_TYPE_ARRAY;
 		for (int i = 0; i < number; ++i)
 		{
 			RedisData *data = NULL;
 			sub_read_len = 0;
 			int ret = _ReadString(buf + 1, left_len - read_len, sub_read_len, &data);
-			if (ret == RedisProtocol::REPLY_TYPE_DATA_INVALID)
+			if (ret == RedisProtocol::OPR_DATA_INVALID)
 			{
 				delete *bulk_data;
 				*bulk_data = NULL;
-				return RedisProtocol::REPLY_TYPE_DATA_INVALID;
+				return ret;
 			}
 
 			(*bulk_data)->Push(data);
@@ -237,5 +227,5 @@ int ReadArray(const char *buf, unsigned int left_len, RedisBulkData **bulk_data)
 		}	
 	}
 	
-	return read_len;
+	return read_len + 1;
 }

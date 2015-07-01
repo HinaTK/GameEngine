@@ -9,6 +9,7 @@
 #include "testcache.h"
 #include "testthread.h"
 #include "testframe.h"
+#include "testredis.h"
 
 class A
 {
@@ -70,6 +71,7 @@ int main()
 	//TestSerializer::NormalDB();
 	//TestMemory::TestMemoryVL();
 	//TestSocket::Connect();
+
 	//TestDataStructure::TestArray();
 	//TestDataStructure::TestArrayCmpMap();
 	//TestDataStructure::TestVector();
@@ -89,11 +91,18 @@ int main()
 	//TestOther::Test2();
 	//TestOther::Test3();
 	//TestOther::Test4();
+
 	//TestCache::TestDataQueue();
 	//TestCache::TestDataMap();
 	//TestCache::TestDataCache();
-	TestCache::TestCache1();
+	//TestCache::TestCache1();
 	//TestThread::Test1();
+
+	TestRedis::Test1();
+	//TestRedis::Test2();
+	//TestRedis::Test3();
+	//TestRedis::Test4();
+	//TestRedis::Test5();
 
 // 	std::string a = "122";
 // 	std::string b = "123";
