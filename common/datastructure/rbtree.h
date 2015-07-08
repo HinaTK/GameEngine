@@ -69,7 +69,7 @@ RBTree<K, V>::~RBTree()
 }
 
 template <class K, class V>
-V * RBTree<K, V>::Uncle(V * node)
+inline V * RBTree<K, V>::Uncle(V * node)
 {
 	if (node->parent == GrandParent(node)->left)
 	{

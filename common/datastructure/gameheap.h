@@ -10,15 +10,17 @@ template<class T>
 class Heap
 {
 public:
-	Heap() :m_data(0), m_size(0), m_max_size(0)
+	Heap() :m_data(NULL), m_size(0), m_max_size(0)
 	{
 		Resize(128);
 	}
 
 	~Heap()
 	{
-		if (m_data != 0)
+		if (m_data != NULL)
+		{
 			free(m_data);
+		}
 	}
 
 	void Push(const T &val)

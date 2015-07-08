@@ -98,7 +98,7 @@ int main()
 	//TestCache::TestCache1();
 	//TestThread::Test1();
 
-	TestRedis::Test1();
+	//TestRedis::Test1();
 	//TestRedis::Test2();
 	//TestRedis::Test3();
 	//TestRedis::Test4();
@@ -117,6 +117,24 @@ int main()
 	
 //	TestFrame::Instance().Init();
 //	TestFrame::Instance().Run();
+
+	struct S1
+	{
+		char	a;
+		int		b;
+		double	c;
+	};
+
+	struct S2
+	{
+		char	a;
+		double	b;
+		int		c;
+		double	d;
+	};
+
+	printf("S1 = %d\n", sizeof(S1));
+	printf("S2 = %d\n", sizeof(S2));
 	return 0;
 }
 
