@@ -19,6 +19,7 @@
   <ItemGroup>
     <ClInclude Include="..\common\globalclass.h" />
     <ClInclude Include="..\Test\testcache.h" />
+    <ClInclude Include="..\Test\testchrono.h" />
     <ClInclude Include="..\Test\testdatastructure.h" />
     <ClInclude Include="..\Test\lua\luatest.h" />
     <ClInclude Include="..\Test\other\bridge.h" />

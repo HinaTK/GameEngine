@@ -10,6 +10,7 @@
 #include "testthread.h"
 #include "testframe.h"
 #include "testredis.h"
+#include "testchrono.h"
 
 class A
 {
@@ -97,6 +98,7 @@ int main()
 	//TestCache::TestDataCache();
 	//TestCache::TestCache1();
 	//TestThread::Test1();
+	//TestThread::Test2();
 
 	//TestRedis::Test1();
 	//TestRedis::Test2();
@@ -104,37 +106,30 @@ int main()
 	//TestRedis::Test4();
 	//TestRedis::Test5();
 
-// 	std::string a = "122";
-// 	std::string b = "123";
-// 	if (a < b)
-// 	{
-// 		printf("fsdf");
-// 	}
-// 	else
-// 	{
-// 		printf("fffff");
-// 	}
-	
+	//TestChrono::Test1();
+	//TestChrono::Test2();
+	TestChrono::Test3();
+
 //	TestFrame::Instance().Init();
 //	TestFrame::Instance().Run();
 
-	struct S1
-	{
-		char	a;
-		int		b;
-		double	c;
-	};
-
-	struct S2
-	{
-		char	a;
-		double	b;
-		int		c;
-		double	d;
-	};
-
-	printf("S1 = %d\n", sizeof(S1));
-	printf("S2 = %d\n", sizeof(S2));
+// 	struct S1
+// 	{
+// 		char	a;
+// 		int		b;
+// 		double	c;
+// 	};
+// 
+// 	struct S2
+// 	{
+// 		char	a;
+// 		double	b;
+// 		int		c;
+// 		double	d;
+// 	};
+// 
+// 	printf("S1 = %d\n", sizeof(S1));
+// 	printf("S2 = %d\n", sizeof(S2));
 	return 0;
 }
 

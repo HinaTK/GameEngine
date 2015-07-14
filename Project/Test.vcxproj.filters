@@ -42,6 +42,7 @@
     <ClInclude Include="..\Test\testthread.h" />
     <ClInclude Include="..\Test\testframe.h" />
     <ClInclude Include="..\Test\testredis.h" />
+    <ClInclude Include="..\Test\testchrono.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Test\main.cpp" />

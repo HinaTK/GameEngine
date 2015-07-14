@@ -59,7 +59,6 @@ Frame::~Frame()
 
 bool Frame::Init()
 {
-	//MemoryVL::Instance().Init(CommonConfig::Instance().GetMemoryVLVector());
 	m_net_manager.RegisterCallBack(m_call_back);
 	return true;
 }

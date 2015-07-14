@@ -30,6 +30,12 @@ namespace TestThread
 		return NULL;
 	}
 
+	void *eeethread3(void *arpg)
+	{
+		printf("thread3\n");
+		return NULL;
+	}
+
 	void Test1()
 	{
 		{
@@ -43,6 +49,14 @@ namespace TestThread
 			//test_thread.join();
 		}
 		//Sleep(2000);
+	}
+
+	void Test2()
+	{
+		std::thread test;
+		printf("begin\n");
+		test = std::thread(TestThread::eeethread3, (void *)NULL);
+		test.join();
 	}
 }
 
