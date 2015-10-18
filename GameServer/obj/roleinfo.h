@@ -11,7 +11,7 @@
 class RoleInfo
 {
 public:
-	~RoleInfo();
+	~RoleInfo(){};
 	RoleInfo()
 		: m_level(0)
 	{
