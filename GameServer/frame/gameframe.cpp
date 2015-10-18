@@ -28,10 +28,11 @@ bool GameFrame::InitConfig()
 		return false;
 	}
 
-	if (!m_net_manager.ConnectServer(
+	m_database_server_net_id = m_net_manager.ConnectServer(
 		ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER],
-		ServerConfig::Instance().m_server[ServerConfig::DATABASE_GAME].port,
-		m_database_server_net_id))
+		ServerConfig::Instance().m_server[ServerConfig::DATABASE_GAME].port);
+
+	if (m_database_server_net_id == INVALID_NET_HANDLE)
 	{
 		return false;
 	}

@@ -94,6 +94,8 @@
     <ClCompile Include="..\common\globalclass.cpp" />
     <ClCompile Include="..\GameServer\base\knapsack.cpp" />
     <ClCompile Include="..\GameServer\global\globalfunction.cpp" />
+    <ClCompile Include="..\GameServer\obj\roleinfo.cpp" />
+    <ClCompile Include="..\GameServer\obj\roleinfomanager.cpp" />
     <ClCompile Include="..\GameServer\other\dll.cpp" />
     <ClCompile Include="..\GameServer\other\MyDll.cpp" />
     <ClCompile Include="..\GameServer\other\showcrash.cpp" />
@@ -121,6 +123,8 @@
     <ClInclude Include="..\GameServer\base\knapsack.h" />
     <ClInclude Include="..\GameServer\global\globalfunction.h" />
     <ClInclude Include="..\GameServer\global\globalvariable.h" />
+    <ClInclude Include="..\GameServer\obj\roleinfo.h" />
+    <ClInclude Include="..\GameServer\obj\roleinfomanager.h" />
     <ClInclude Include="..\GameServer\other\dll.h" />
     <ClInclude Include="..\GameServer\other\example.h" />
     <ClInclude Include="..\GameServer\other\ipc.h" />

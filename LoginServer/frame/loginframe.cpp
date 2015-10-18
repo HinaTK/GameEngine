@@ -27,10 +27,11 @@ bool LoginFrame::InitConfig()
 		return false;
 	}
 
-	if (!m_net_manager.ConnectServer(
+	m_database_server_handle = m_net_manager.ConnectServer(
 		ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER],
-		ServerConfig::Instance().m_server[ServerConfig::DATABASE_LOGIN].port,
-		m_database_server_handle))
+		ServerConfig::Instance().m_server[ServerConfig::DATABASE_LOGIN].port);
+
+	if (m_database_server_handle == INVALID_NET_HANDLE)
 	{
 		return false;
 	}

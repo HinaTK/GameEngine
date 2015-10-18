@@ -1,10 +1,13 @@
-#ifndef OBJMANAGER_H
-#define OBJMANAGER_H
+#ifndef OBJ_MANAGER_H
+#define OBJ_MANAGER_H
 
 #include "global/globalvariable.h"
 #include "common/commonvariable.h"
 #include "common/datastructure/gamevector.h"
 
+/*
+	场景的对象管理
+*/
 
 class Obj;
 class ObjManager

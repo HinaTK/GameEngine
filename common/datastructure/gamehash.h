@@ -34,7 +34,7 @@ class HashBase
 public:
 	HashBase(unsigned int size)
 		: m_size((size <= 0) ? 1 : size)
-		, m_memory_pool(sizeof(KeyNode), m_size)
+		, m_memory_pool(sizeof(KeyNode), m_size/2)
 	{
 		m_hash_list = (KeyNode **)malloc(m_size * sizeof(KeyNode*));
 		memset(m_hash_list, NULL, m_size * sizeof(KeyNode*));
