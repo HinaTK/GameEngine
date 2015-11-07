@@ -322,6 +322,12 @@ void NetManager::Send(NetHandle handle, const char *buf, unsigned int length)
 	}
 }
 
+void NetManager::PushMsg(Listener *listener, const char *msg, unsigned int len)
+{
+	GameMsg *game_msg = new GameMsg(listener->m_handle, listener->GetCallBackHandle(), msg, len);
+	m_queue.Push(game_msg);
+}
+
 void NetManager::Update()
 {
 	static GameMsg *msg;
@@ -356,9 +362,4 @@ int NetManager::RegisterCallBack(MsgCallBack *call_back)
 	return m_msg_call_back.Size() - 1;
 }
 
-void NetManager::PushMsg(Listener *listener, const char *msg, unsigned int len)
-{
-	GameMsg *game_msg = new GameMsg(listener->m_handle, listener->GetCallBackHandle(), msg, len);
-	m_queue.Push(game_msg);
-}
 

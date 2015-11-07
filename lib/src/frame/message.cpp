@@ -16,5 +16,5 @@ GameMsg::GameMsg(NetHandle _handle, int _call_back_handle, const char* _data, un
 
 GameMsg::~GameMsg()
 {
-	delete []data;
+	Mem::Free(data);
 }
