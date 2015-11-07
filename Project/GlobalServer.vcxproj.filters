@@ -4,10 +4,27 @@
     <Filter Include="frame">
       <UniqueIdentifier>{6de9600d-dd75-4248-ba5e-9d077bab0e3d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="role">
+      <UniqueIdentifier>{5c8d46eb-b862-4dcc-9ef3-d5d44b5fa208}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\GlobalServer\frame\main.cpp">
       <Filter>frame</Filter>
     </ClCompile>
+    <ClCompile Include="..\GlobalServer\role\roleinfo.cpp">
+      <Filter>role</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GlobalServer\role\roleinfomanager.cpp">
+      <Filter>role</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\GlobalServer\role\roleinfo.h">
+      <Filter>role</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GlobalServer\role\roleinfomanager.h">
+      <Filter>role</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

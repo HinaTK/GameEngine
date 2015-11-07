@@ -14,7 +14,7 @@ void WebAccepter::OnCanRead()
 	SOCKET new_net_id = accept(m_sock, (struct sockaddr*)&addr, &len);
 	if (new_net_id != INVALID_SOCKET)
 	{
-		HandShaker *handler = new HandShaker(m_net_manager, NetHandler::HANDSHAKER);
+		HandShaker *handler = new HandShaker(m_net_manager, call_back);
 		handler->m_sock = new_net_id;
 		m_net_manager->AddNetHandler(handler);
 	}

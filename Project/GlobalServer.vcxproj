@@ -44,6 +44,7 @@
     <OutDir>..\Debug\</OutDir>
     <IntDir>..\Debug\globalserver\</IntDir>
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>..;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
@@ -65,6 +66,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>..\lib\windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libmysql.lib;Tinyxml.lib;TimeManager.lib;Frame.lib;Common.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -88,6 +91,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\GlobalServer\frame\main.cpp" />
+    <ClCompile Include="..\GlobalServer\role\roleinfo.cpp" />
+    <ClCompile Include="..\GlobalServer\role\roleinfomanager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\GlobalServer\role\roleinfo.h" />
+    <ClInclude Include="..\GlobalServer\role\roleinfomanager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

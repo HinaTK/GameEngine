@@ -11,13 +11,35 @@
 #include "lib/include/redis/redis.h"
 #include "lib/include/frame/listener.h"
 
+
+class InnerCallBack : public MsgCallBack
+{
+public:
+	InnerCallBack(DatabaseFrame *frame) : m_frame(frame){}
+	~InnerCallBack(){}
+
+	void	Recv(GameMsg *msg)
+	{
+		m_frame->Recv(msg);
+	}
+
+
+private:
+	DatabaseFrame *m_frame;
+};
+
 DatabaseFrame::DatabaseFrame()
 {
-
+	m_i_call_back = new InnerCallBack(this);
 }
 
 DatabaseFrame::~DatabaseFrame()
 {
+	if (m_i_call_back)
+	{
+		delete m_i_call_back;
+		m_i_call_back = NULL;
+	}
 	Exit();
 }
 
@@ -27,17 +49,20 @@ bool DatabaseFrame::InitConfig()
 		ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER],
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_LOGIN].port,
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_LOGIN].backlog,
-		m_login_net_id))
+		m_login_net_id,
+		new Accepter(&m_net_manager, ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER], m_i_call_back)))
 	{
 		return false;
 	}
+
 	printf("m_login_net_id = %d\n", m_login_net_id);
 
 	if (!m_net_manager.InitServer(
 		ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER],
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_GAME].port,
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_GAME].backlog,
-		m_game_net_id))
+		m_game_net_id,
+		new Accepter(&m_net_manager, ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER], m_i_call_back)))
 	{
 		return false;
 	}
@@ -59,16 +84,100 @@ bool DatabaseFrame::InitConfig()
 	return Init();
 }
 
-
-int main()
+bool DatabaseFrame::Init()		// 框架初始化
 {
-    if (!DatabaseFrame::Instance().InitConfig())
-    {
-		Function::WindowsPause();
-		return 0;
-    }
-	//Log::Instance().Error("writelog");
-	DatabaseFrame::Instance().Run();
-	Function::WindowsPause();
-    return 0;
+	Frame::Init();
+
+	// 	TB_Login test(0, "login", DataBase::Instance().GetStmt());
+	// 	test.Init();
+	// 
+	// 	if (0)
+	// 	{
+	// 		test.m_id = 111;
+	// 		test.FIELD(account) = 222;
+	// 		test.FIELD(password) = 333;
+	// 		//memset(test.m_NAME.data, 0, 32);
+	// 		test.SetBufferLength(TB_Login::name, 4);
+	// 		memcpy(test.m_name.data, "xian", 4);
+	// 		test.Insert();
+	// 	}
+	// 	
+	// 	if (1)
+	// 	{
+	// 		//test.SetCondition()
+	// 	}
+	// 	test.m_id = 0;
+	// 	if (!test.Select())
+	// 	{
+	// 		return false;
+	// 	}
+	// 
+	// 	while (test.HasResult())
+	// 	{
+	// 		printf("%d\n", test.m_id);
+	// 		printf("%d\n", test.m_account);
+	// 		printf("%s\n", test.m_name.data);
+	// 	}
+
+	//	char *query = "select id,name from login;";
+	// 	char *query = "SELECT id, name FROM login;";
+	// 	if (mysql_stmt_prepare(DataBase::Instance().GetStmt(), query, strlen(query)))
+	// 	{
+	// 		//fprintf(stderr, "mysql_stmt_prepare: %s\n", mysql_error(conn));
+	// 		return false;
+	// 	}
+	// 
+	// 	int id; 
+	// 	char name[20];
+	// 
+	// 	MYSQL_BIND params[2];
+	// 	memset(params, 0, sizeof(params));
+	// 	params[0].buffer_type = MYSQL_TYPE_LONG;
+	// 	params[0].buffer = &id;
+	// 	params[1].buffer_type = MYSQL_TYPE_STRING;
+	// 	params[1].buffer = name;
+	// 	params[1].buffer_length = 10;
+	// 
+	// //	mysql_stmt_bind_param(DataBase::Instance().GetStmt(), params);
+	// 	mysql_stmt_execute(DataBase::Instance().GetStmt());           //执行与语句句柄相关的预处理
+	// 	mysql_stmt_bind_result(DataBase::Instance().GetStmt(), params); //用于将结果集中的列与数据缓冲和长度缓冲关联（绑定）起来
+	// 	
+	// //	mysql_stmt_store_result(DataBase::Instance().GetStmt());      //以便后续的mysql_stmt_fetch()调用能返回缓冲数据
+	// 
+	// 	while (mysql_stmt_fetch(DataBase::Instance().GetStmt()) == 0) //返回结果集中的下一行
+	// 		printf("%d\t%s\n", id, name);
+	return true;
+}
+
+void DatabaseFrame::Recv(GameMsg *msg)
+{
+
+
+	printf("fuck ......\n");
+	delete msg;
+	//m_message_handler.HandleMessage(msg);
+}
+
+void DatabaseFrame::Update(unsigned int interval, time_t now)	// 构架更新
+{
+	//StmtSelect();
+	//StmtInsert();
+	//StmtUpdate();
+	//StmtDelete();
+	//exit(0);
+}
+
+void DatabaseFrame::Exit()
+{
+	m_message_handler.Exit();
+	DataMapManager::Instance().Exit();
+
+	printf("database server exit\n");
+}
+
+
+void DatabaseFrame::Wait()
+{
+	m_message_handler.Wait();
+	DataMapManager::Instance().Wait();
 }

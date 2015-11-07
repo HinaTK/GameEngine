@@ -103,7 +103,6 @@
     <ClInclude Include="..\LoginServer\frame\loginframe.h" />
     <ClInclude Include="..\common\commonfunction.h" />
     <ClInclude Include="..\common\commonvariable.h" />
-    <ClInclude Include="..\LoginServer\message\messagetype\msglogin.h" />
     <ClInclude Include="..\LoginServer\message\messagefunction\messagehandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

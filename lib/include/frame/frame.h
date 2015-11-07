@@ -5,6 +5,10 @@
 #include "netmanager.h"
 #include "lib/include/timemanager/timemanager.h"
 #include "lib/include/log/logmanager.h"
+#include "accepter.h"
+#include "webaccepter.h"
+#include "listener.h"
+#include "baselistener.h"
 
 
 class BaseCallBack;
@@ -44,7 +48,6 @@ protected:
 	TimeEventManager	m_time_event_manager;
 	LogManager			m_log_manager;
 	unsigned int		m_sleep_time_ms;
-	BaseCallBack		*m_call_back;
 private:
 	bool		m_is_run;
 

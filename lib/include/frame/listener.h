@@ -4,23 +4,25 @@
 
 #include "nethandler.h"
 #include "bufmanager.h"
+#include "netmanager.h"
 #include "lib/include/common/mutex.h"
 
 /*
 	监听者，监听所有数据的读写状态
 */
 
+class MsgCallBack;
 class Listener : public NetHandler
 {
 	static const unsigned int BASE_BUFFER_LENGTH = 512;
 public:
-	Listener(NetManager *manager)
+	Listener(NetManager *manager, MsgCallBack *call_back)
 		: NetHandler(manager, NetHandler::LISTENER)
 		, m_recv_buf(BASE_BUFFER_LENGTH)
 		, m_send_buf_read(new SendBuffer(BASE_BUFFER_LENGTH))
 		, m_send_buf_write(new SendBuffer(BASE_BUFFER_LENGTH))
 		, m_is_register_write(false)
-		, m_call_back_handle(0)
+		, m_call_back_handle(manager->RegisterCallBack(call_back))
 	{
 	}
 	virtual ~Listener()

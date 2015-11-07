@@ -3,11 +3,14 @@
 
 #include "common/commonvariable.h"
 #include "common/datastructure/msgqueue.h"
+#include "common/datastructure/gamehash.h"
 #include "lib/include/common/thread.h"
 #include "lib/include/frame/frame.h"
 #include "lib/include/timemanager/timemanager.h"
+#include "gamethread.h"
 
-
+class OuterCallBack;
+class InnerCallBack;
 class GameFrame : public Frame
 {
 public:
@@ -29,19 +32,32 @@ public:
     bool	Init();    //初始化
 
 	void	Update(unsigned int interval, time_t now);  //更新
-
+	virtual bool Run();
     void	Exit();
 	void	Wait();
 	void	Recv(GameMsg *msg);
 
+	void	PushMsg(GameMsg *msg, SceneID scene_id = 0);
+
+	void	ChangeServer();
+
 public:
 
-	SOCKET		m_database_server_net_id;
+	NetHandle	m_database_server_handle;
 	SOCKET		m_gateway_server_net_id;
 private:
 	GameFrame();
 
+	OuterCallBack		*m_o_call_back;
+	InnerCallBack		*m_i_call_back;
+
 	TimeEventManager	m_time_event_manager;
+
+	int					m_game_thread_num;
+	GameThread			**m_game_thread;
+
+	typedef game::Hash<NetHandle, int> NET_HANDLE_THREAD_HASH;
+	NET_HANDLE_THREAD_HASH m_net_handle_thread_hash;
 	
 };
 

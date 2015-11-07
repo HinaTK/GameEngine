@@ -20,7 +20,7 @@ void Accepter::OnCanRead()
 #ifdef WIN32
 		printf("connect server ip = %s\n", inet_ntoa(addr.sin_addr));
 #endif
-		BaseListener *handler = new BaseListener(m_net_manager);
+		BaseListener *handler = new BaseListener(m_net_manager, call_back);
 		handler->m_sock = new_sock;
 		m_net_manager->AddNetHandler(handler);
 	}

@@ -1,6 +1,5 @@
 
 #include "messagehandler.h"
-#include "message/messagetype/msglogin.h"
 #include "common/protocol/l_dbprotocol.h"
 #include "frame/loginframe.h"
 

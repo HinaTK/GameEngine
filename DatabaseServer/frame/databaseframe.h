@@ -6,6 +6,7 @@
 #include "lib/include/frame/frame.h"
 #include "message/messagehandler.h"
 
+class InnerCallBack;
 class DatabaseFrame : public Frame
 {
 public:
@@ -42,6 +43,8 @@ public:
 private:
 	DatabaseFrame();
 	MessageHandler		m_message_handler;
+
+	InnerCallBack		*m_i_call_back;
 	
 };
 

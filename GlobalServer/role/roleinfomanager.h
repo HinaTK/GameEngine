@@ -7,8 +7,10 @@
 #include "common/datastructure/gamehash.h"
 
 /*
-	主要用显示玩家信息(支持离线)
-	之后考虑移植到globalserver
+	* 主要用显示玩家信息(支持离线)
+	* 之后考虑移植到globalserver
+	* 玩家登录
+
 */
 
 class RoleInfoManager
@@ -22,12 +24,15 @@ public:
 		return rim;
 	};
 
-	// 初始化加载"最近活跃玩家列表"到hash列表
-	void	Init();	
-
+	void	OnRoleLogin();
 	void	checkRoleInfo(RoleID role_id);
+	void	checkRoleInfoEx(RoleID role_id);
+	void	flush();
 
 	void	AddRoleInfo(RoleID role_id, RoleInfo *info);
+	
+	// 玩家在线，需要更新其信息（如果写在gameserver,直接可以取得玩家信息，因此不需要实时更新，只需要在玩家下线时，更新一下）
+	// void	UpdateRoleInfo(RoleID role_)
 
 	const RoleInfo *FindRoleInfo(RoleID);
 

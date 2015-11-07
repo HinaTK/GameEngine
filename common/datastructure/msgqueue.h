@@ -5,6 +5,9 @@
 #include <mutex>
 #include "gamelist.h"
 
+/*
+	单一线程分别访问Push、Pop,则线程安全
+*/
 template<class T>
 class MsgQueue
 {

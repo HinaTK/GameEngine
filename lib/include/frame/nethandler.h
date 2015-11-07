@@ -7,6 +7,7 @@
 #include "lib/include/common/memorypool.h"
 
 class NetManager;
+class MsgCallBack;
 class NetHandler
 {
 public:

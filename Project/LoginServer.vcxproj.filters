@@ -10,9 +10,6 @@
     <Filter Include="message">
       <UniqueIdentifier>{c31a992e-de2d-457f-b3da-16a8b6eb8535}</UniqueIdentifier>
     </Filter>
-    <Filter Include="message\messagetype">
-      <UniqueIdentifier>{cf1250c5-9f55-4efa-b50e-4b38c417d19c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="message\messagefunction">
       <UniqueIdentifier>{b2cad4cb-6f61-46c9-ae38-d3fa824995ef}</UniqueIdentifier>
     </Filter>
@@ -43,9 +40,6 @@
     </ClInclude>
     <ClInclude Include="..\common\commonvariable.h">
       <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\LoginServer\message\messagetype\msglogin.h">
-      <Filter>message\messagetype</Filter>
     </ClInclude>
     <ClInclude Include="..\LoginServer\message\messagefunction\messagehandler.h">
       <Filter>message\messagefunction</Filter>

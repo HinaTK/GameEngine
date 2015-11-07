@@ -28,8 +28,7 @@ namespace SignalCatch
 class BaseCallBack : public MsgCallBack
 {
 public:
-	BaseCallBack(Frame *frame)
-		: m_frame(frame){}
+	BaseCallBack(Frame *frame): m_frame(frame){}
 	~BaseCallBack(){}
 
 	void	Recv(GameMsg *msg)
@@ -44,8 +43,7 @@ private:
 
 
 Frame::Frame()
-: m_sleep_time_ms(1)
-, m_call_back(new BaseCallBack(this))
+: m_sleep_time_ms(2)
 , m_is_run(true)
 {
 	SignalCatch::g_frame = this;
@@ -54,12 +52,11 @@ Frame::Frame()
 
 Frame::~Frame()
 {
-	delete m_call_back;
+	
 }
 
 bool Frame::Init()
 {
-	m_net_manager.RegisterCallBack(m_call_back);
 	return true;
 }
 

@@ -21,7 +21,7 @@ public:
 	~NetManager();
 	NetManager();
 	
-	bool			InitServer(char *ip, unsigned short port, int backlog, SOCKET &net_id, bool is_web = false);
+	bool			InitServer(char *ip, unsigned short port, int backlog, SOCKET &net_id, NetHandler *handler);
 	NetHandle		ConnectServer(char *ip, unsigned short port, Listener *lister = NULL);
 
 	void			Listen();
@@ -49,14 +49,14 @@ public:
 protected:
 	typedef game::Vector<NetHandle>		INVALID_HANDLE;
 	typedef game::Vector<NetHandler*>	REPLACE_HANDLER;
+	typedef game::Vector<MsgCallBack *> MSG_CALL_BACK;
 
 	NetMessage			m_queue;
 	INVALID_HANDLE		m_invalid_handle;
 	REPLACE_HANDLER		m_replace_handler;
-	int					m_call_back_num;
 	bool				m_is_run;
 
-	MsgCallBack			*m_msg_call_back[4];
+	MSG_CALL_BACK		m_msg_call_back;
 
 #ifdef WIN32
 public:

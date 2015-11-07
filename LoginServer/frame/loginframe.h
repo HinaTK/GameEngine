@@ -8,6 +8,8 @@
 #include "lib/include/rpc/rpcserver.h"
 #include "message/messagefunction/messagehandler.h"
 
+class OuterCallBack;
+class InnerCallBack;
 class LoginFrame : public Frame
 {
 public:
@@ -46,6 +48,8 @@ private:
 	//TimeEventManager m_time_event_manager;
 	MessageHandler		m_message_handler;
 	//RPCServer			m_rpc_server;
+	OuterCallBack		*m_o_call_back;
+	InnerCallBack		*m_i_call_back;
 };
 
 #endif

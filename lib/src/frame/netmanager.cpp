@@ -19,16 +19,50 @@ NetManager::~NetManager()
 
 
 NetManager::NetManager()
-: m_call_back_num(0)
-, m_is_run(true)
+: m_is_run(true)
+, m_msg_call_back(4)
 #ifdef WIN32
 , m_max_fd(0)
 #endif
 {
-	memset(m_msg_call_back, NULL, sizeof(m_msg_call_back));
+	
 }
 
-bool NetManager::InitServer(char *ip, unsigned short port, int backlog, SOCKET &net_id, bool is_web)
+// bool NetManager::InitServer(char *ip, unsigned short port, int backlog, SOCKET &net_id, bool is_web)
+// {
+// 	printf("Init Server ip = %s, port = %d\n", ip, port);
+// 	NetCommon::StartUp();
+// 	if (!NetCommon::Init(ip, port, backlog, net_id))
+// 	{
+// 		return false;
+// 	}
+// #ifdef __unix
+// 	struct epoll_event ev;
+// 	ev.events = EPOLLIN | EPOLLET;
+// 	ev.data.fd = net_id;
+// 	if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, net_id, &ev) < 0)
+// 	{
+// 		return false;	// дlog
+// 	}
+// #endif
+// 
+// 	NetHandler *handler;
+// 	if (is_web)
+// 	{
+// 		handler = new WebAccepter(this, NetHandler::WEB_ACCEPTER);
+// 	}
+// 	else
+// 	{
+// 		unsigned long _ip = inet_addr(ip);
+// 		handler = new Accepter(this, NetHandler::ACCEPTER, _ip);
+// 	}
+// 	handler->m_sock = net_id;
+// 	AddNetHandler(handler);
+// 	printf("Init Server Success\n");
+// 	return true;
+// }
+
+bool NetManager::InitServer(char *ip, unsigned short port, int backlog, SOCKET &net_id, NetHandler *handler)
 {
 	printf("Init Server ip = %s, port = %d\n", ip, port);
 	NetCommon::StartUp();
@@ -46,16 +80,6 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, SOCKET &
 	}
 #endif
 
-	NetHandler *handler;
-	if (is_web)
-	{
-		handler = new WebAccepter(this, NetHandler::WEB_ACCEPTER);
-	}
-	else
-	{
-		unsigned long _ip = inet_addr(ip);
-		handler = new Accepter(this, NetHandler::ACCEPTER, _ip);
-	}
 	handler->m_sock = net_id;
 	AddNetHandler(handler);
 	printf("Init Server Success\n");
@@ -107,17 +131,8 @@ NetHandle NetManager::ConnectServer(char *ip, unsigned short port, Listener *lis
 
 	printf("Connect Server Success\n");
 
-	if (listener == NULL)
-	{
-		BaseListener *handler = new BaseListener(this);
-		handler->m_sock = sock;
-		return AddNetHandler(handler);
-	}
-	else
-	{
-		listener->m_sock = sock;
-		return AddNetHandler(listener);
-	}
+	listener->m_sock = sock;
+	return AddNetHandler(listener);
 }
 
 void NetManager::Listen()
@@ -153,6 +168,10 @@ void NetManager::Listen()
 			ReplaceHandler();
 			ClearHandler();
 		}
+		else if (max_fd <= 0)
+		{
+			Sleep(10);
+		}
 	}
 #endif
 
@@ -181,6 +200,7 @@ void NetManager::Listen()
 		else
 		{
 			// дlog
+			//usleep(10000);
 		}
 	}
 #endif
@@ -332,8 +352,8 @@ void NetManager::Update()
 
 int NetManager::RegisterCallBack(MsgCallBack *call_back)
 {
-	m_msg_call_back[m_call_back_num] = call_back;
-	return m_call_back_num++;
+	m_msg_call_back.Push(call_back);
+	return m_msg_call_back.Size() - 1;
 }
 
 void NetManager::PushMsg(Listener *listener, const char *msg, unsigned int len)

@@ -108,11 +108,8 @@
     <ClCompile Include="..\GameServer\base\knapsack.cpp">
       <Filter>base</Filter>
     </ClCompile>
-    <ClCompile Include="..\GameServer\obj\roleinfo.cpp">
-      <Filter>obj</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GameServer\obj\roleinfomanager.cpp">
-      <Filter>obj</Filter>
+    <ClCompile Include="..\GameServer\frame\gamethread.cpp">
+      <Filter>frame</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -203,11 +200,8 @@
     <ClInclude Include="..\GameServer\base\knapsack.h">
       <Filter>base</Filter>
     </ClInclude>
-    <ClInclude Include="..\GameServer\obj\roleinfo.h">
-      <Filter>obj</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GameServer\obj\roleinfomanager.h">
-      <Filter>obj</Filter>
+    <ClInclude Include="..\GameServer\frame\gamethread.h">
+      <Filter>frame</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -10,9 +10,10 @@
 class Accepter : public NetHandler
 {
 public:
-	Accepter(NetManager *manager, int type, unsigned long _ip) 
-		: NetHandler(manager, type)
-		, ip(_ip)
+	Accepter(NetManager *manager, char *_ip, MsgCallBack *_call_back)
+		: NetHandler(manager, NetHandler::ACCEPTER)
+		, ip(inet_addr(_ip))
+		, call_back(_call_back)
 	{}
 	~Accepter(){};
 
@@ -21,7 +22,8 @@ public:
 	void *		operator new(size_t c);
 	void		operator delete(void *m);
 
-	unsigned long ip;
+	unsigned long	ip;
+	MsgCallBack *	call_back;
 private:
 
 };
