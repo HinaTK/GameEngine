@@ -9,20 +9,19 @@
 
 /*
 	监听者，监听所有数据的读写状态
+	虚基类
 */
 
-class MsgCallBack;
 class Listener : public NetHandler
 {
 	static const unsigned int BASE_BUFFER_LENGTH = 512;
 public:
-	Listener(NetManager *manager, MsgCallBack *call_back)
-		: NetHandler(manager, NetHandler::LISTENER)
+	Listener(NetManager *manager, BaseMsg *bm)
+		: NetHandler(manager, NetHandler::LISTENER, bm)
 		, m_recv_buf(BASE_BUFFER_LENGTH)
 		, m_send_buf_read(new SendBuffer(BASE_BUFFER_LENGTH))
 		, m_send_buf_write(new SendBuffer(BASE_BUFFER_LENGTH))
 		, m_is_register_write(false)
-		, m_call_back_handle(manager->RegisterCallBack(call_back))
 	{
 	}
 	virtual ~Listener()
@@ -47,7 +46,6 @@ public:
 	bool			IsRegisterWrite(){ return m_is_register_write; }
 	void			RegisterWriteFD();
 
-	int				GetCallBackHandle(){ return m_call_back_handle; }
 protected:
 	bool			RecvBuf();
 	virtual bool	AnalyzeBuf() = 0;
@@ -60,7 +58,6 @@ protected:
 	bool		m_is_register_write;
 	std::mutex	m_send_mutex;
 	std::mutex	m_register_write_mutex;
-	int			m_call_back_handle;
 };
 
 #endif

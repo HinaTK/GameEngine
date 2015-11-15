@@ -20,7 +20,7 @@ NetManager::~NetManager()
 
 NetManager::NetManager()
 : m_is_run(true)
-, m_msg_call_back(4)
+, m_msg_handle(32)
 #ifdef WIN32
 , m_max_fd(0)
 #endif
@@ -28,43 +28,10 @@ NetManager::NetManager()
 	
 }
 
-// bool NetManager::InitServer(char *ip, unsigned short port, int backlog, SOCKET &net_id, bool is_web)
-// {
-// 	printf("Init Server ip = %s, port = %d\n", ip, port);
-// 	NetCommon::StartUp();
-// 	if (!NetCommon::Init(ip, port, backlog, net_id))
-// 	{
-// 		return false;
-// 	}
-// #ifdef __unix
-// 	struct epoll_event ev;
-// 	ev.events = EPOLLIN | EPOLLET;
-// 	ev.data.fd = net_id;
-// 	if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, net_id, &ev) < 0)
-// 	{
-// 		return false;	// 写log
-// 	}
-// #endif
-// 
-// 	NetHandler *handler;
-// 	if (is_web)
-// 	{
-// 		handler = new WebAccepter(this, NetHandler::WEB_ACCEPTER);
-// 	}
-// 	else
-// 	{
-// 		unsigned long _ip = inet_addr(ip);
-// 		handler = new Accepter(this, NetHandler::ACCEPTER, _ip);
-// 	}
-// 	handler->m_sock = net_id;
-// 	AddNetHandler(handler);
-// 	printf("Init Server Success\n");
-// 	return true;
-// }
-
-bool NetManager::InitServer(char *ip, unsigned short port, int backlog, SOCKET &net_id, NetHandler *handler)
+bool NetManager::InitServer(char *ip, unsigned short port, int backlog, Accepter *accepter)
 {
 	printf("Init Server ip = %s, port = %d\n", ip, port);
+	SOCKET net_id = 0;
 	NetCommon::StartUp();
 	if (!NetCommon::Init(ip, port, backlog, net_id))
 	{
@@ -80,9 +47,9 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, SOCKET &
 	}
 #endif
 
-	handler->m_sock = net_id;
-	AddNetHandler(handler);
 	printf("Init Server Success\n");
+	accepter->m_sock = net_id;
+	AddNetHandler(accepter);
 	return true;
 }
 
@@ -206,9 +173,9 @@ void NetManager::Listen()
 #endif
 }
 
-NetHandle NetManager::AddNetHandler(NetHandler *handler)
+
+void NetManager::InitNetHandler(NetHandler *handler)
 {
-	handler->m_handle = m_net_handler.Insert(handler);
 	// 设置成非阻塞
 	unsigned long b;
 	NetCommon::Ioctl(handler->m_sock, FIONBIO, &b);
@@ -227,7 +194,18 @@ NetHandle NetManager::AddNetHandler(NetHandler *handler)
 		// 添加失败
 	}
 #endif
+}
+
+NetHandle NetManager::PushNetHandler(NetHandler *handler)
+{
+	handler->m_handle = m_net_handler.Insert(handler);
 	return handler->m_handle;
+}
+
+NetHandle NetManager::AddNetHandler(NetHandler *handler)
+{
+	InitNetHandler(handler);
+	return PushNetHandler(handler);
 }
 
 void NetManager::RemoveHandler(NetHandle handle)
@@ -275,6 +253,7 @@ void NetManager::ClearHandler()
 	{
 
 		NetHandler *handler = 0;
+		// 要加锁
 		if (m_net_handler.Erase(*itr, handler))
 		{
 #ifdef WIN32
@@ -284,7 +263,9 @@ void NetManager::ClearHandler()
 #ifdef __unix
 			epoll_ctl(m_epoll_fd, EPOLL_CTL_DEL, handler->m_sock, &ev);
 #endif
+			m_msg_handle.Erase(handler->m_call_back_handle);
 			NetCommon::Close(handler->m_sock);
+
 			delete handler;
 		}	
 	}
@@ -322,9 +303,9 @@ void NetManager::Send(NetHandle handle, const char *buf, unsigned int length)
 	}
 }
 
-void NetManager::PushMsg(Listener *listener, const char *msg, unsigned int len)
+void NetManager::PushMsg(NetHandler *handler, const char *msg, unsigned int len)
 {
-	GameMsg *game_msg = new GameMsg(listener->m_handle, listener->GetCallBackHandle(), msg, len);
+	GameMsg *game_msg = new GameMsg(handler->m_handle, handler->m_call_back_handle, msg, len);
 	m_queue.Push(game_msg);
 }
 
@@ -339,7 +320,7 @@ void NetManager::Update()
 			{
 				if (msg->handle >= 0)
 				{
-					m_msg_call_back[msg->call_back_handle]->Recv(msg);
+					m_msg_handle[msg->call_back_handle]->Recv(msg);
 					// 内存交给下游处理
 					// delete (*msg);
 				}
@@ -356,10 +337,14 @@ void NetManager::Update()
 	} while (true);
 }
 
-int NetManager::RegisterCallBack(MsgCallBack *call_back)
+int NetManager::RegisterMsgHandle(BaseMsg *msg)
 {
-	m_msg_call_back.Push(call_back);
-	return m_msg_call_back.Size() - 1;
+	return (int)m_msg_handle.Insert(msg);
+}
+
+void NetManager::RemoveMsgHandle(int handle)
+{
+	m_msg_handle.Erase(handle);
 }
 
 

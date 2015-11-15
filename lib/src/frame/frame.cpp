@@ -25,23 +25,6 @@ namespace SignalCatch
 	}
 }
 
-class BaseCallBack : public MsgCallBack
-{
-public:
-	BaseCallBack(Frame *frame): m_frame(frame){}
-	~BaseCallBack(){}
-
-	void	Recv(GameMsg *msg)
-	{
-		m_frame->Recv(msg);
-	}
-
-
-private:
-	Frame *m_frame;
-};
-
-
 Frame::Frame()
 : m_sleep_time_ms(2)
 , m_is_run(true)

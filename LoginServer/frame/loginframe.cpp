@@ -2,6 +2,7 @@
 #include "loginframe.h"
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/timemanager/timemanager.h"
+#include "lib/include/frame/baseaccepter.h"
 #include "common/commonfunction.h"
 #include "common/protocol/messageheader.h"
 #include "common/protocol/msgcode.h"
@@ -9,7 +10,7 @@
 class OuterCallBack : public MsgCallBack
 {
 public:
-	OuterCallBack(LoginFrame *frame) : m_frame(frame){}
+	OuterCallBack(NewFrame *frame) : m_frame(frame){}
 	~OuterCallBack(){}
 
 	void	Recv(GameMsg *msg)
@@ -19,14 +20,14 @@ public:
 
 
 private:
-	LoginFrame *m_frame;
+	NewFrame *m_frame;
 };
 
 
 class InnerCallBack : public MsgCallBack
 {
 public:
-	InnerCallBack(LoginFrame *frame) : m_frame(frame){}
+	InnerCallBack(NewFrame *frame) : m_frame(frame){}
 	~InnerCallBack(){}
 
 	void	Recv(GameMsg *msg)
@@ -36,16 +37,16 @@ public:
 
 
 private:
-	LoginFrame *m_frame;
+	NewFrame *m_frame;
 };
 
-LoginFrame::LoginFrame()
+NewFrame::NewFrame()
 {
 	m_i_call_back = new InnerCallBack(this);
 	m_o_call_back = new OuterCallBack(this);
 }
 
-LoginFrame::~LoginFrame()
+NewFrame::~NewFrame()
 {
 	if (m_i_call_back)
 	{
@@ -61,14 +62,15 @@ LoginFrame::~LoginFrame()
 	Exit();
 }
 
-bool LoginFrame::InitConfig()
+bool NewFrame::InitConfig()
 {
-	if (!m_net_manager.InitServer(
+	m_login_server_handle = m_net_manager.InitServer(
 		ServerConfig::Instance().m_ip[ServerConfig::LOGIN_SERVER],
 		ServerConfig::Instance().m_server[ServerConfig::LOGIN_GATEWAY].port,
 		ServerConfig::Instance().m_server[ServerConfig::LOGIN_GATEWAY].backlog,
-		m_login_server_net_id,
-		new Accepter(&m_net_manager, ServerConfig::Instance().m_ip[ServerConfig::LOGIN_SERVER], m_i_call_back)))
+		new Accepter(&m_net_manager, ServerConfig::Instance().m_ip[ServerConfig::GATEWAY_SERVER]));
+
+	if (m_login_server_handle == INVALID_NET_HANDLE)
 	{
 		return false;
 	}
@@ -89,14 +91,15 @@ bool LoginFrame::InitConfig()
 	return Init();
 }
 
-bool LoginFrame::Init()
+bool NewFrame::Init()
 {
 	return true;
 }
 
 
-void LoginFrame::Recv(GameMsg *msg)
+void NewFrame::Recv(GameMsg *msg)
 {
+	printf("FFFFDFDDFD\n");
 	// 	if (!Function::ProtocolDecode(msg->data, msg->length))
 	// 	{
 	// 		return;
@@ -110,37 +113,37 @@ void LoginFrame::Recv(GameMsg *msg)
 	// 
 	// 	test *c = (test *)msg->data;
 	// 	Send(msg->handle, (const char *)c, sizeof(test));
-	EProtocol::MessageHeader *header = (EProtocol::MessageHeader *)msg->data;
-	switch (header->msgid)
-	{
-	case EProtocol::MT_LOGIN_REQ_CS:
-		OnLoginReq(msg->handle, msg->data, msg->length);
-		break;
-	case EProtocol::MT_LOGIN_CREATE_ROLE_CS:
-		//		OnCreateRole(net_id, data, length);
-		break;
-	}
+// 	EProtocol::MessageHeader *header = (EProtocol::MessageHeader *)msg->data;
+// 	switch (header->msgid)
+// 	{
+// 	case EProtocol::MT_LOGIN_REQ_CS:
+// 		OnLoginReq(msg->handle, msg->data, msg->length);
+// 		break;
+// 	case EProtocol::MT_LOGIN_CREATE_ROLE_CS:
+// 		//		OnCreateRole(net_id, data, length);
+// 		break;
+// 	}
 	delete msg;
 }
 
-void LoginFrame::Update(unsigned int interval, time_t now)
+void NewFrame::Update(unsigned int interval, time_t now)
 {
 
 }
 
 
-void LoginFrame::Exit()
+void NewFrame::Exit()
 {
 
 }
 
 
-void LoginFrame::Wait()
+void NewFrame::Wait()
 {
 
 }
 
-void LoginFrame::OnLoginReq(NetHandle handle, char *data, unsigned int length)
+void NewFrame::OnLoginReq(NetHandle handle, char *data, unsigned int length)
 {
 // 	if (length < sizeof(EProtocol::CSLogin))
 // 	{

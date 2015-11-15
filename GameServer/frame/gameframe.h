@@ -35,7 +35,8 @@ public:
 	virtual bool Run();
     void	Exit();
 	void	Wait();
-	void	Recv(GameMsg *msg);
+	void	OuterRecv(GameMsg *msg);
+	void	InnerRecv(GameMsg *msg);
 
 	void	PushMsg(GameMsg *msg, SceneID scene_id = 0);
 

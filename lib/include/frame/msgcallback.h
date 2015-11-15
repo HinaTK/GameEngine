@@ -10,7 +10,11 @@ public:
 	MsgCallBack(){}
 	~MsgCallBack(){}
 
+	virtual void Accept(){}
+
 	virtual void Recv(GameMsg *msg) = 0;
+
+	virtual void Disconnect(NetHandle handle){};
 };
 
 

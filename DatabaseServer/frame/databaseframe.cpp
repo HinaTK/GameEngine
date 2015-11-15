@@ -18,6 +18,11 @@ public:
 	InnerCallBack(DatabaseFrame *frame) : m_frame(frame){}
 	~InnerCallBack(){}
 
+	void	Accept()
+	{
+		printf("fuck accept.................\n");
+	}
+
 	void	Recv(GameMsg *msg)
 	{
 		m_frame->Recv(msg);
@@ -45,28 +50,29 @@ DatabaseFrame::~DatabaseFrame()
 
 bool DatabaseFrame::InitConfig()
 {
-	if (!m_net_manager.InitServer(
-		ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER],
-		ServerConfig::Instance().m_server[ServerConfig::DATABASE_LOGIN].port,
-		ServerConfig::Instance().m_server[ServerConfig::DATABASE_LOGIN].backlog,
-		m_login_net_id,
-		new Accepter(&m_net_manager, ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER], m_i_call_back)))
-	{
-		return false;
-	}
-
-	printf("m_login_net_id = %d\n", m_login_net_id);
+// 	m_login_handle = m_net_manager.InitServer(
+// 		ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER],
+// 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_LOGIN].port,
+// 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_LOGIN].backlog,
+// 		new BaseAccepter(&m_net_manager, ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER], m_i_call_back));
+// 
+// 	if (m_login_handle == INVALID_NET_HANDLE)
+// 	{
+// 		return false;
+// 	}
+// 
+// 	printf("m_login_handle = %d\n", m_login_handle);
+// 
 
 	if (!m_net_manager.InitServer(
 		ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER],
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_GAME].port,
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_GAME].backlog,
-		m_game_net_id,
-		new Accepter(&m_net_manager, ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER], m_i_call_back)))
+		new Accepter(&m_net_manager, m_i_call_back)))
 	{
 		return false;
 	}
-	printf("m_game_net_id = %d\n", m_game_net_id);
+
 
 // 	if (!DataBase::Instance().Init(
 // 		ServerConfig::Instance().m_db_ip,
@@ -154,6 +160,8 @@ void DatabaseFrame::Recv(GameMsg *msg)
 
 
 	printf("fuck ......\n");
+	int a = 123;
+	Send(m_login_handle, (const char *)&a, 4);
 	delete msg;
 	//m_message_handler.HandleMessage(msg);
 }

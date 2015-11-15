@@ -4,8 +4,6 @@
 #include "netmanager.h"
 #include "common/socketdef.h"
 
-REGISTER_MEMORYPOOL(memorypool, WebAccepter, 8);
-
 void WebAccepter::OnCanRead()
 {
 	// 将握手者handshaker加入监听
@@ -14,8 +12,9 @@ void WebAccepter::OnCanRead()
 	SOCKET new_net_id = accept(m_sock, (struct sockaddr*)&addr, &len);
 	if (new_net_id != INVALID_SOCKET)
 	{
-		HandShaker *handler = new HandShaker(m_net_manager, call_back);
+		// 要将NULL修改
+		HandShaker *handler = new HandShaker(m_net_manager, NULL);
 		handler->m_sock = new_net_id;
-		m_net_manager->AddNetHandler(handler);
+		handler->m_handle = m_net_manager->AddNetHandler(handler);
 	}
 }

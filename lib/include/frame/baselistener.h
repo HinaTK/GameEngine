@@ -13,7 +13,7 @@ class BaseListener : public Listener
 {
 public:
 	BaseListener(NetManager *manager, MsgCallBack *call_back)
-		: Listener(manager, call_back){}
+		: Listener(manager, new RecvMsg(call_back)){}
 	virtual ~BaseListener(){}
 
 	void *		operator new(size_t c);

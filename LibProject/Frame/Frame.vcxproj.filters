@@ -49,6 +49,12 @@
     <ClCompile Include="..\..\lib\src\frame\baselistener.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\lib\src\frame\inneraccepter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\frame\msgproxy.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -108,6 +114,12 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\msgcallback.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\frame\inneraccepter.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\frame\msgproxy.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

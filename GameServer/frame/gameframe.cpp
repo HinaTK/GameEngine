@@ -12,12 +12,7 @@ public:
 	OuterCallBack(GameFrame *frame) : m_frame(frame){}
 	~OuterCallBack(){}
 
-	void	Recv(GameMsg *msg)
-	{
-		m_frame->Recv(msg);
-	}
-
-
+	void	Recv(GameMsg *msg){m_frame->OuterRecv(msg);}
 private:
 	GameFrame *m_frame;
 };
@@ -28,12 +23,7 @@ public:
 	InnerCallBack(GameFrame *frame) : m_frame(frame){}
 	~InnerCallBack(){}
 
-	void	Recv(GameMsg *msg)
-	{
-		m_frame->Recv(msg);
-	}
-
-
+	void	Recv(GameMsg *msg){m_frame->InnerRecv(msg);}
 private:
 	GameFrame *m_frame;
 };
@@ -80,8 +70,7 @@ bool GameFrame::InitConfig()
 		ServerConfig::Instance().m_ip[ServerConfig::GAME_SERVER],
 		ServerConfig::Instance().m_server[ServerConfig::GAME_GATEWAY].port,
 		ServerConfig::Instance().m_server[ServerConfig::GAME_GATEWAY].backlog,
-		m_gateway_server_net_id,
-		new Accepter(&m_net_manager, ServerConfig::Instance().m_ip[ServerConfig::GAME_SERVER], m_o_call_back)))
+		new Accepter(&m_net_manager, m_o_call_back)))
 	{
 		return false;
 	}
@@ -104,7 +93,7 @@ bool GameFrame::InitConfig()
 	}
 	
 	int a = 123;
-	m_net_manager.Send(m_database_server_handle, (const char *)&a, 4);
+	Send(m_database_server_handle, (const char *)&a, 4);
 // 	struct Test
 // 	{
 // 		Test() :header(0){}
@@ -151,7 +140,7 @@ void GameFrame::Update(unsigned int interval, time_t now)
 	//exit(0);
 }
 
-void GameFrame::Recv(GameMsg *msg)
+void GameFrame::OuterRecv(GameMsg *msg)
 {
 	NET_HANDLE_THREAD_HASH::iterator itr = m_net_handle_thread_hash.Find(msg->handle);
 	if (itr != m_net_handle_thread_hash.End())
@@ -164,6 +153,11 @@ void GameFrame::Recv(GameMsg *msg)
 	}
 }
 
+
+void GameFrame::InnerRecv(GameMsg *msg)
+{
+
+}
 
 /* 
 	工作线程相互通信

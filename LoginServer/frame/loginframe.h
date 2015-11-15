@@ -10,18 +10,18 @@
 
 class OuterCallBack;
 class InnerCallBack;
-class LoginFrame : public Frame
+class NewFrame : public Frame
 {
 public:
 	static const UInt32 UpdateSleepTime = 80;		// 单位毫秒，每隔80毫秒更新一次
 	static const UInt32 SendSleepTime = 50;			// 单位毫秒，当发送消息队列为空时，睡眠50毫秒
 	static const UInt32 RecvSleepTime = 50;			// 单位毫秒，当接收消息队列为空和没有到更新时间，睡眠50毫秒
 
-    ~LoginFrame();
+    ~NewFrame();
 
-    static LoginFrame &Instance()
+    static NewFrame &Instance()
     {
-        static LoginFrame frame;
+        static NewFrame frame;
         return frame;
     }
 
@@ -38,12 +38,12 @@ public:
 public:
 	void		OnLoginReq(NetHandle handle, char *data, unsigned int length);
 public:
-	SOCKET		m_login_server_net_id;
+	NetHandle	m_login_server_handle;
     NetHandle	m_database_server_handle;
 	SOCKET		m_gateway_server_net_id;
 
 private:
-	LoginFrame();
+	NewFrame();
 
 	//TimeEventManager m_time_event_manager;
 	MessageHandler		m_message_handler;

@@ -2,23 +2,19 @@
 #ifndef WEB_ACCEPTER_H
 #define WEB_ACCEPTER_H
 
-#include "nethandler.h"
+#include "accepter.h"
 
-class WebAccepter : public NetHandler
+class WebAccepter : public Accepter
 {
 public:
-	WebAccepter(NetManager *manager, MsgCallBack *_call_back) 
-		: NetHandler(manager, NetHandler::WEB_ACCEPTER)
-		, call_back(_call_back){};
+	WebAccepter(NetManager *manager, MsgCallBack *call_back) 
+		: Accepter(manager, call_back, NetHandler::WEB_ACCEPTER){};
 	~WebAccepter(){};
 
 	virtual void	OnCanRead();
 
-	void *		operator new(size_t c);
-	void		operator delete(void *m);
-
 protected:
-	MsgCallBack *call_back;
+	
 
 };
 

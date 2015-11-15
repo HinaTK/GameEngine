@@ -2,23 +2,18 @@
 #ifndef NET_HANDLER_H
 #define NET_HANDLER_H
 
+#include "msgproxy.h"
+#include "msgcallback.h"
 #include "common/socketdef.h"
 #include "common/datastructure/msgqueue.h"
 #include "lib/include/common/memorypool.h"
 
 class NetManager;
-class MsgCallBack;
 class NetHandler
 {
 public:
-	NetHandler(NetManager *manager, int type)
-		: m_handle(0)
-		, m_sock(0)
-		, m_net_manager(manager)
-		, m_type(type)
-	{
-	}
-	virtual ~NetHandler(){};
+	NetHandler(NetManager *manager, int type, BaseMsg *msg);
+	virtual ~NetHandler();
 
 	virtual void	OnCanRead() = 0;
 
@@ -31,6 +26,7 @@ public:
 	enum 
 	{
 		ACCEPTER,
+		INNER_ACCEPTER,
 		WEB_ACCEPTER,
 		HANDSHAKER,
 		LISTENER,
@@ -38,9 +34,11 @@ public:
 
 	NetHandle	m_handle;	// ÄÚ²¿²Ù×÷¾ä±ú
 	SOCKET		m_sock;	// socket id
+	int			m_call_back_handle;
 protected:
 	NetManager	*m_net_manager;
 	int			m_type;
+	MsgCallBack *m_call_back;
 };
 
 #endif

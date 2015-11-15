@@ -11,9 +11,8 @@
 class HandShaker : public NetHandler
 {
 public:
-	HandShaker(NetManager *manager, MsgCallBack *	_call_back)
-		: NetHandler(manager, NetHandler::HANDSHAKER)
-		, call_back(_call_back)
+	HandShaker(NetManager *manager, MsgCallBack *call_back)
+		: NetHandler(manager, NetHandler::HANDSHAKER, new BaseMsg(call_back))
 		, m_data_length(0)
 		, m_send_length(0)
 	{
@@ -27,7 +26,6 @@ public:
 	void *		operator new(size_t c);
 	void		operator delete(void *m);
 
-	MsgCallBack *	call_back;
 protected:
 	bool			HandShake();
 

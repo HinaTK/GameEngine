@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\frame\accepter.cpp" />
+    <ClCompile Include="..\..\lib\src\frame\inneraccepter.cpp" />
     <ClCompile Include="..\..\lib\src\frame\baselistener.cpp" />
     <ClCompile Include="..\..\lib\src\frame\bufmanager.cpp" />
     <ClCompile Include="..\..\lib\src\frame\frame.cpp" />
@@ -22,6 +23,7 @@
     <ClCompile Include="..\..\lib\src\frame\nethandler.cpp" />
     <ClCompile Include="..\..\lib\src\frame\netmanager.cpp" />
     <ClCompile Include="..\..\lib\src\frame\netuser.cpp" />
+    <ClCompile Include="..\..\lib\src\frame\msgproxy.cpp" />
     <ClCompile Include="..\..\lib\src\frame\webaccepter.cpp" />
     <ClCompile Include="..\..\lib\src\frame\weblistener.cpp" />
     <ClCompile Include="..\..\lib\src\frame\websocket\base64.cpp" />
@@ -30,6 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib\include\frame\accepter.h" />
+    <ClInclude Include="..\..\lib\include\frame\inneraccepter.h" />
     <ClInclude Include="..\..\lib\include\frame\baselistener.h" />
     <ClInclude Include="..\..\lib\include\frame\bufmanager.h" />
     <ClInclude Include="..\..\lib\include\frame\frame.h" />
@@ -41,6 +44,7 @@
     <ClInclude Include="..\..\lib\include\frame\nethandler.h" />
     <ClInclude Include="..\..\lib\include\frame\netmanager.h" />
     <ClInclude Include="..\..\lib\include\frame\netuser.h" />
+    <ClInclude Include="..\..\lib\include\frame\msgproxy.h" />
     <ClInclude Include="..\..\lib\include\frame\webaccepter.h" />
     <ClInclude Include="..\..\lib\include\frame\weblistener.h" />
     <ClInclude Include="..\..\lib\include\frame\websocket\base64.h" />

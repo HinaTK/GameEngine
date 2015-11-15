@@ -33,11 +33,11 @@ public:
 	void	Recv(GameMsg *msg);
 
 public:
-	Thread	m_recv_client_thread;
-	Thread	m_send_thread;
+	Thread		m_recv_client_thread;
+	Thread		m_send_thread;
 
-	SOCKET	m_game_net_id;
-	SOCKET	m_login_net_id;
+	NetHandle	m_game_handle;
+	NetHandle	m_login_handle;
  
 
 private:

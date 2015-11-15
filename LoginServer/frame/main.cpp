@@ -4,13 +4,13 @@
 
 int main()
 {
-	if (!LoginFrame::Instance().InitConfig())
+	if (!NewFrame::Instance().InitConfig())
 	{
 		Function::WindowsPause();
 		return 0;
 	}
 
-	LoginFrame::Instance().Run();
+	NewFrame::Instance().Run();
 	Function::WindowsPause();
 	return 0;
 }
