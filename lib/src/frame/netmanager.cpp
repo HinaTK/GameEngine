@@ -15,6 +15,11 @@ NetManager::~NetManager()
 	FD_ZERO(&m_read_set);
 	FD_ZERO(&m_write_set);
 #endif
+
+	for (MSG_HANDLER::iterator itr = m_msg_handler.Begin(); itr != m_msg_handler.End(); ++itr)
+	{
+		delete (*itr);
+	}
 }
 
 
@@ -274,7 +279,7 @@ void NetManager::ClearHandler()
 			epoll_ctl(m_epoll_fd, EPOLL_CTL_DEL, handler->m_sock, &ev);
 #endif
 			NetCommon::Close(handler->m_sock);
-
+			PushMsg(handler, BaseMsg::MSG_DISCONNECT, NULL, 0);
 			delete handler;
 		}	
 	}

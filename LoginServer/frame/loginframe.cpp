@@ -77,7 +77,7 @@ bool NewFrame::InitConfig()
 	m_database_server_handle = m_net_manager.ConnectServer(
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].ip,
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].port,
-		new BaseListener(&m_net_manager, m_o_call_back),
+		new BaseListener(&m_net_manager),
 		m_o_call_back);
 
 	if (m_database_server_handle == INVALID_NET_HANDLE)
