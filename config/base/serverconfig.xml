@@ -8,32 +8,22 @@
 		</mysql>
 		<socket>
 			<ip>127.0.0.1</ip>
-			<listen_game>
-				<port>12345</port>
-				<backlog>16</backlog>
-			</listen_game>
-			<listen_login>
-				<port>12344</port>
-				<backlog>16</backlog>		
-			</listen_login>
+			<port>12345</port>
+			<backlog>16</backlog>
 		</socket>
 	</databaseserver>
 	<gameserver>
 		<socket>
 			<ip>127.0.0.1</ip>
-			<listen_gateway>
-				<port>12343</port>
-				<backlog>16</backlog>		
-			</listen_gateway>
+			<port>12343</port>
+			<backlog>16</backlog>
 		</socket>
 	</gameserver>
 	<loginserver>
 		<socket>
 			<ip>0</ip>
-			<listen_gateway>
-				<port>9999</port>
-				<backlog>16</backlog>
-			</listen_gateway>
+			<port>9999</port>
+			<backlog>16</backlog>
 		</socket>
 	</loginserver>
 	<gatewayserver>

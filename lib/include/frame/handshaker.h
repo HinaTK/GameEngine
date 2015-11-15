@@ -11,8 +11,8 @@
 class HandShaker : public NetHandler
 {
 public:
-	HandShaker(NetManager *manager, MsgCallBack *call_back)
-		: NetHandler(manager, NetHandler::HANDSHAKER, new BaseMsg(call_back))
+	HandShaker(NetManager *manager)
+		: NetHandler(manager, NetHandler::HANDSHAKER)
 		, m_data_length(0)
 		, m_send_length(0)
 	{

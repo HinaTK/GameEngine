@@ -31,7 +31,7 @@ bool BaseListener::AnalyzeBuf()
 			return false;
 		}
 
-		m_net_manager->PushMsg(this, buf + NetCommon::HEADER_LENGTH, header->msg_len);
+		m_net_manager->PushMsg(this, BaseMsg::MSG_RECV, buf + NetCommon::HEADER_LENGTH, header->msg_len);
 
 		remove_len += header->msg_len;
 		buf_len = buf_len - NetCommon::HEADER_LENGTH - header->msg_len;

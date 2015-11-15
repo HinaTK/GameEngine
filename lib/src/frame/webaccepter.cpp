@@ -13,7 +13,8 @@ void WebAccepter::OnCanRead()
 	if (new_net_id != INVALID_SOCKET)
 	{
 		// Òª½«NULLĞŞ¸Ä
-		HandShaker *handler = new HandShaker(m_net_manager, NULL);
+		HandShaker *handler = new HandShaker(m_net_manager);
+		handler->m_msg_index = 0;
 		handler->m_sock = new_net_id;
 		handler->m_handle = m_net_manager->AddNetHandler(handler);
 	}

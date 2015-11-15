@@ -50,25 +50,12 @@ DatabaseFrame::~DatabaseFrame()
 
 bool DatabaseFrame::InitConfig()
 {
-// 	m_login_handle = m_net_manager.InitServer(
-// 		ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER],
-// 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_LOGIN].port,
-// 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_LOGIN].backlog,
-// 		new BaseAccepter(&m_net_manager, ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER], m_i_call_back));
-// 
-// 	if (m_login_handle == INVALID_NET_HANDLE)
-// 	{
-// 		return false;
-// 	}
-// 
-// 	printf("m_login_handle = %d\n", m_login_handle);
-// 
-
 	if (!m_net_manager.InitServer(
-		ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER],
-		ServerConfig::Instance().m_server[ServerConfig::DATABASE_GAME].port,
-		ServerConfig::Instance().m_server[ServerConfig::DATABASE_GAME].backlog,
-		new Accepter(&m_net_manager, m_i_call_back)))
+		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].ip,
+		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].port,
+		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].backlog,
+		new Accepter(&m_net_manager, m_i_call_back),
+		m_i_call_back))
 	{
 		return false;
 	}

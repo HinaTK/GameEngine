@@ -21,13 +21,14 @@
 class GameMsg
 {
 public:
-	GameMsg(NetHandle _handle, int _call_back_handle, const char* _data, unsigned int _length);
+	GameMsg(unsigned short _msg_index, unsigned short _msg_type, NetHandle _handle, const char* _data, unsigned int _length);
 	~GameMsg();
 
 	void *		operator new(size_t c);
 	void		operator delete(void *m);
 
-	int				call_back_handle;
+	unsigned short	msg_index;
+	unsigned short	msg_type;
 	NetHandle		handle;
 	unsigned int	length;
 	char *			data;

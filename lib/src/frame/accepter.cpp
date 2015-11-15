@@ -15,9 +15,10 @@ void Accepter::OnCanRead()
 	{
 		printf("connect server ip = %s\n", inet_ntoa(addr.sin_addr));
 
-		BaseListener *handler = new BaseListener(m_net_manager, m_call_back);
+		BaseListener *handler = new BaseListener(m_net_manager);
+		handler->m_msg_index = m_msg_index;
 		handler->m_sock = new_sock;
 		handler->m_handle = m_net_manager->AddNetHandler(handler);
-		m_net_manager->PushMsg(this, NULL, 0);
+		m_net_manager->PushMsg(this, BaseMsg::MSG_ACCEPT, NULL, 0);
 	}
 }

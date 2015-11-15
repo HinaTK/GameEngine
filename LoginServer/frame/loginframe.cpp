@@ -2,7 +2,6 @@
 #include "loginframe.h"
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/timemanager/timemanager.h"
-#include "lib/include/frame/baseaccepter.h"
 #include "common/commonfunction.h"
 #include "common/protocol/messageheader.h"
 #include "common/protocol/msgcode.h"
@@ -64,21 +63,22 @@ NewFrame::~NewFrame()
 
 bool NewFrame::InitConfig()
 {
-	m_login_server_handle = m_net_manager.InitServer(
-		ServerConfig::Instance().m_ip[ServerConfig::LOGIN_SERVER],
-		ServerConfig::Instance().m_server[ServerConfig::LOGIN_GATEWAY].port,
-		ServerConfig::Instance().m_server[ServerConfig::LOGIN_GATEWAY].backlog,
-		new Accepter(&m_net_manager, ServerConfig::Instance().m_ip[ServerConfig::GATEWAY_SERVER]));
-
-	if (m_login_server_handle == INVALID_NET_HANDLE)
-	{
-		return false;
-	}
+// 	m_login_server_handle = m_net_manager.InitServer(
+// 		ServerConfig::Instance().m_ip[ServerConfig::LOGIN_SERVER],
+// 		ServerConfig::Instance().m_server[ServerConfig::LOGIN_GATEWAY].port,
+// 		ServerConfig::Instance().m_server[ServerConfig::LOGIN_GATEWAY].backlog,
+// 		new Accepter(&m_net_manager, ServerConfig::Instance().m_ip[ServerConfig::GATEWAY_SERVER]));
+// 
+// 	if (m_login_server_handle == INVALID_NET_HANDLE)
+// 	{
+// 		return false;
+// 	}
 
 	m_database_server_handle = m_net_manager.ConnectServer(
-		ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER],
-		ServerConfig::Instance().m_server[ServerConfig::DATABASE_LOGIN].port,
-		new BaseListener(&m_net_manager, m_o_call_back));
+		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].ip,
+		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].port,
+		new BaseListener(&m_net_manager, m_o_call_back),
+		m_o_call_back);
 
 	if (m_database_server_handle == INVALID_NET_HANDLE)
 	{

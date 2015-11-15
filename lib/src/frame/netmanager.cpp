@@ -28,7 +28,17 @@ NetManager::NetManager()
 	
 }
 
-bool NetManager::InitServer(char *ip, unsigned short port, int backlog, Accepter *accepter)
+
+unsigned int NetManager::AddMsgHandler(MsgCallBack *call_back)
+{
+	MsgHandler *mh = new MsgHandler;
+	mh->msg[BaseMsg::MSG_ACCEPT] = new AcceptMsg(call_back);
+	mh->msg[BaseMsg::MSG_RECV] = new RecvMsg(call_back);
+	mh->msg[BaseMsg::MSG_DISCONNECT] = new DisconnectMsg(call_back);
+	return m_msg_handler.Insert(mh);
+}
+
+bool NetManager::InitServer(char *ip, unsigned short port, int backlog, Accepter *accepter, MsgCallBack *call_back)
 {
 	printf("Init Server ip = %s, port = %d\n", ip, port);
 	SOCKET net_id = 0;
@@ -47,16 +57,17 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, Accepter
 	}
 #endif
 
-	printf("Init Server Success\n");
+	accepter->m_msg_index = AddMsgHandler(call_back);
 	accepter->m_sock = net_id;
 	AddNetHandler(accepter);
+	printf("Init Server Success\n");
 	return true;
 }
 
 /*
 	
 */
-NetHandle NetManager::ConnectServer(char *ip, unsigned short port, Listener *listener)
+NetHandle NetManager::ConnectServer(char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back)
 {
 	printf("connect to Server ip = %s, port = %d\n", ip, port);
 
@@ -97,7 +108,7 @@ NetHandle NetManager::ConnectServer(char *ip, unsigned short port, Listener *lis
 #endif
 
 	printf("Connect Server Success\n");
-
+	listener->m_msg_index = AddMsgHandler(call_back);
 	listener->m_sock = sock;
 	return AddNetHandler(listener);
 }
@@ -253,7 +264,6 @@ void NetManager::ClearHandler()
 	{
 
 		NetHandler *handler = 0;
-		// 要加锁
 		if (m_net_handler.Erase(*itr, handler))
 		{
 #ifdef WIN32
@@ -263,7 +273,6 @@ void NetManager::ClearHandler()
 #ifdef __unix
 			epoll_ctl(m_epoll_fd, EPOLL_CTL_DEL, handler->m_sock, &ev);
 #endif
-			m_msg_handle.Erase(handler->m_call_back_handle);
 			NetCommon::Close(handler->m_sock);
 
 			delete handler;
@@ -303,9 +312,9 @@ void NetManager::Send(NetHandle handle, const char *buf, unsigned int length)
 	}
 }
 
-void NetManager::PushMsg(NetHandler *handler, const char *msg, unsigned int len)
+void NetManager::PushMsg(NetHandler *handler, unsigned short msg_type, const char *data, unsigned int len)
 {
-	GameMsg *game_msg = new GameMsg(handler->m_handle, handler->m_call_back_handle, msg, len);
+	GameMsg *game_msg = new GameMsg(handler->m_msg_index, msg_type, handler->m_handle, data, len);
 	m_queue.Push(game_msg);
 }
 
@@ -320,7 +329,8 @@ void NetManager::Update()
 			{
 				if (msg->handle >= 0)
 				{
-					m_msg_handle[msg->call_back_handle]->Recv(msg);
+					m_msg_handler[msg->msg_index]->msg[msg->msg_type]->Recv(msg);
+					//m_msg_handle[msg->call_back_handle]->Recv(msg);
 					// 内存交给下游处理
 					// delete (*msg);
 				}
@@ -335,16 +345,6 @@ void NetManager::Update()
 			break;
 		}
 	} while (true);
-}
-
-int NetManager::RegisterMsgHandle(BaseMsg *msg)
-{
-	return (int)m_msg_handle.Insert(msg);
-}
-
-void NetManager::RemoveMsgHandle(int handle)
-{
-	m_msg_handle.Erase(handle);
 }
 
 

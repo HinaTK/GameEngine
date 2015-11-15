@@ -67,18 +67,20 @@ GameFrame::~GameFrame()
 bool GameFrame::InitConfig()
 {
 	if (!m_net_manager.InitServer(
-		ServerConfig::Instance().m_ip[ServerConfig::GAME_SERVER],
-		ServerConfig::Instance().m_server[ServerConfig::GAME_GATEWAY].port,
-		ServerConfig::Instance().m_server[ServerConfig::GAME_GATEWAY].backlog,
-		new Accepter(&m_net_manager, m_o_call_back)))
+		ServerConfig::Instance().m_server[ServerConfig::GAME_SERVER].ip,
+		ServerConfig::Instance().m_server[ServerConfig::GAME_SERVER].port,
+		ServerConfig::Instance().m_server[ServerConfig::GAME_SERVER].backlog,
+		new Accepter(&m_net_manager, m_o_call_back), 
+		m_o_call_back))
 	{
 		return false;
 	}
 
 	m_database_server_handle = m_net_manager.ConnectServer(
-		ServerConfig::Instance().m_ip[ServerConfig::DATABASE_SERVER],
-		ServerConfig::Instance().m_server[ServerConfig::DATABASE_GAME].port,
-		new BaseListener(&m_net_manager, m_i_call_back));
+		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].ip,
+		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].port,
+		new BaseListener(&m_net_manager, m_i_call_back),
+		m_i_call_back);
 
 	if (m_database_server_handle == INVALID_NET_HANDLE)
 	{

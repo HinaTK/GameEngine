@@ -16,6 +16,14 @@ public:
 	BaseMsg(MsgCallBack *call_back):m_call_back(call_back){}
 	~BaseMsg(){}
 
+	enum MsgType
+	{
+		MSG_ACCEPT = 0,
+		MSG_RECV,
+		MSG_DISCONNECT,
+		MSG_MAX
+	};
+
 	virtual void Recv(GameMsg *msg){};
 	MsgCallBack *m_call_back;
 };

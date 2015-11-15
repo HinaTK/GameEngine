@@ -16,8 +16,8 @@ class Listener : public NetHandler
 {
 	static const unsigned int BASE_BUFFER_LENGTH = 512;
 public:
-	Listener(NetManager *manager, BaseMsg *bm)
-		: NetHandler(manager, NetHandler::LISTENER, bm)
+	Listener(NetManager *manager)
+		: NetHandler(manager, NetHandler::LISTENER)
 		, m_recv_buf(BASE_BUFFER_LENGTH)
 		, m_send_buf_read(new SendBuffer(BASE_BUFFER_LENGTH))
 		, m_send_buf_write(new SendBuffer(BASE_BUFFER_LENGTH))

@@ -5,8 +5,9 @@
 
 REGISTER_MEMORYPOOL(memorypool, GameMsg, 64);
 
-GameMsg::GameMsg(NetHandle _handle, int _call_back_handle, const char* _data, unsigned int _length)
-: call_back_handle(_call_back_handle)
+GameMsg::GameMsg(unsigned short _msg_index, unsigned short _msg_type, NetHandle _handle, const char* _data, unsigned int _length)
+: msg_index(_msg_index)
+, msg_type(_msg_type)
 , handle(_handle)
 , length(_length)
 {

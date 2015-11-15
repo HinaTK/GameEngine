@@ -12,8 +12,8 @@
 class WebListener : public Listener
 {
 public:
-	WebListener(NetManager *manager, MsgCallBack *call_back) 
-		: Listener(manager, new RecvMsg(call_back)){}
+	WebListener(NetManager *manager) 
+		: Listener(manager){}
 	virtual ~WebListener(){}
 
 	void *		operator new(size_t c);

@@ -86,31 +86,9 @@ bool ServerConfig::ReadDataBaseSocket()
 			ShowError(m_config_file.c_str(), "socket");
 			return false;
 		}
-		if (!GetSubNodeValue(curElement, "ip", m_ip[DATABASE_SERVER], err))
-		{
-			ShowError(m_config_file.c_str(), err.c_str());
-			return false;
-		}
-		TiXmlElement* subElement = curElement->FirstChildElement("listen_game");
-		if (subElement == NULL)
-		{
-			ShowError(m_config_file.c_str(), "listen_game");
-			return false;
-		}
-		if (!GetSubNodeValue(subElement, "port", m_server[DATABASE_GAME].port, err) ||
-			!GetSubNodeValue(subElement, "backlog", m_server[DATABASE_GAME].backlog, err))
-		{
-            ShowError(m_config_file.c_str(), err.c_str());
-			return false;
-		}
-		subElement = curElement->FirstChildElement("listen_login");
-		if (subElement == NULL)
-		{
-            ShowError(m_config_file.c_str(), "listen_login");
-			return false;
-		}
-		if (!GetSubNodeValue(subElement, "port", m_server[DATABASE_LOGIN].port, err) ||
-			!GetSubNodeValue(subElement, "backlog", m_server[DATABASE_LOGIN].backlog, err))
+		if (!GetSubNodeValue(curElement, "ip", m_server[DATABASE_SERVER].ip, err) ||
+			!GetSubNodeValue(curElement, "port", m_server[DATABASE_SERVER].port, err) ||
+			!GetSubNodeValue(curElement, "backlog", m_server[DATABASE_SERVER].backlog, err))
 		{
 			ShowError(m_config_file.c_str(), err.c_str());
 			return false;
@@ -147,21 +125,11 @@ bool ServerConfig::ReadGameSocket()
 			ShowError(m_config_file.c_str(), "socket");
 			return false;
 		}
-		if (!GetSubNodeValue(curElement, "ip", m_ip[GAME_SERVER], err))
+		if (!GetSubNodeValue(curElement, "ip", m_server[GAME_SERVER].ip, err) ||
+			!GetSubNodeValue(curElement, "port", m_server[GAME_SERVER].port, err) ||
+			!GetSubNodeValue(curElement, "backlog", m_server[GAME_SERVER].backlog, err))
 		{
-			ShowError(m_config_file.c_str(), "ip");
-			return false;
-		}
-		TiXmlElement* subElement = curElement->FirstChildElement("listen_gateway");
-		if (subElement == NULL)
-		{
-			ShowError(m_config_file.c_str(), "listen_gateway");
-			return false;
-		}
-		if (!GetSubNodeValue(subElement, "port", m_server[GAME_GATEWAY].port, err) ||
-			!GetSubNodeValue(subElement, "backlog", m_server[GAME_GATEWAY].backlog, err))
-		{
-			ShowError(m_config_file.c_str(), "port & backlog");
+			ShowError(m_config_file.c_str(), err.c_str());
 			return false;
 		}
 	}
@@ -196,21 +164,11 @@ bool ServerConfig::ReadLoginSocket()
 			ShowError(m_config_file.c_str(), "socket");
 			return false;
 		}
-		if (!GetSubNodeValue(curElement, "ip", m_ip[LOGIN_SERVER], err))
+		if (!GetSubNodeValue(curElement, "ip", m_server[LOGIN_SERVER].ip, err) ||
+			!GetSubNodeValue(curElement, "port", m_server[LOGIN_SERVER].port, err) ||
+			!GetSubNodeValue(curElement, "backlog", m_server[LOGIN_SERVER].backlog, err))
 		{
-			ShowError(m_config_file.c_str(), "ip");
-			return false;
-		}
-		TiXmlElement* subElement = curElement->FirstChildElement("listen_gateway");
-		if (subElement == NULL)
-		{
-			ShowError(m_config_file.c_str(), "listen_gateway");
-			return false;
-		}
-		if (!GetSubNodeValue(subElement, "port", m_server[LOGIN_GATEWAY].port, err) ||
-			!GetSubNodeValue(subElement, "backlog", m_server[LOGIN_GATEWAY].backlog, err))
-		{
-			ShowError(m_config_file.c_str(), "port & backlog");
+			ShowError(m_config_file.c_str(), err.c_str());
 			return false;
 		}
 	}
@@ -245,11 +203,11 @@ bool ServerConfig::ReadGatewaySocket( )
 			ShowError(m_config_file.c_str(), "socket");
 			return false;
 		}
-		if (!GetSubNodeValue(curElement, "ip", m_ip[GATEWAY_SERVER], err) ||
-			!GetSubNodeValue(curElement, "backlog", m_server[GATEWAY_CLIENT].backlog, err) ||
-			!GetSubNodeValue(curElement, "port", m_server[GATEWAY_CLIENT].port, err))
+		if (!GetSubNodeValue(curElement, "ip", m_server[GATEWAY_SERVER].ip, err) ||
+			!GetSubNodeValue(curElement, "port", m_server[GATEWAY_SERVER].port, err) ||
+			!GetSubNodeValue(curElement, "backlog", m_server[GATEWAY_SERVER].backlog, err))
 		{
-			ShowError(m_config_file.c_str(), "ip & backlog & port");
+			ShowError(m_config_file.c_str(), err.c_str());
 			return false;
 		}
 	}

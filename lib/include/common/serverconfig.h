@@ -14,17 +14,6 @@ public:
 		return config;
 	}
 
-	// server->client
-	enum InternalType
-	{
-		DATABASE_GAME,			// 
-		DATABASE_LOGIN,
-		GAME_GATEWAY,
-		LOGIN_GATEWAY,
-		GATEWAY_CLIENT,			// 对外的唯一接口
-		MAX_INTERNAL_TYPE
-	};
-
 	enum ServerType
 	{
 		DATABASE_SERVER,
@@ -36,6 +25,7 @@ public:
 
 	struct ServerInfo
 	{
+		char			ip[64];
 		unsigned short	port;
 		int				backlog;
 	};
@@ -54,13 +44,8 @@ public:
 	bool ReadGatewaySocket();
 
 public:
-	typedef char							IP[64];
-
-public:
-	struct ServerInfo	m_server[MAX_INTERNAL_TYPE];
-	IP					m_ip[MAX_SERVER_TYPE];
-	//unsigned short		m_internal[MAX_INTERNAL_TYPE];
-	IP		m_db_ip;
+	struct ServerInfo	m_server[MAX_SERVER_TYPE];
+	char	m_db_ip[64];
 	char	m_db_name[64];
 	char	m_user_name[64];
 	char	m_password[64];

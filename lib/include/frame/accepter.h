@@ -12,14 +12,14 @@ class Listener;
 class Accepter : public NetHandler
 {
 public:
-	Accepter(NetManager *manager, MsgCallBack *call_back, int type = NetHandler::ACCEPTER)
-		: NetHandler(manager, type, new AcceptMsg(call_back))
-	{
-
+	Accepter(NetManager *manager, int type = NetHandler::ACCEPTER)
+		: NetHandler(manager, type)
+	{	
 	}
 	~Accepter(){};
 
 	virtual void	OnCanRead();
+	
 };
 
 #endif

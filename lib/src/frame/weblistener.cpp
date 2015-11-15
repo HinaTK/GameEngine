@@ -77,14 +77,14 @@ bool WebListener::AnalyzeBuf()
 				data[i] = (data[i] ^ mask_data[i - size]);
 			}
 
-			m_net_manager->PushMsg(this, data, length);
+			m_net_manager->PushMsg(this, BaseMsg::MSG_RECV, data, length);
 		}
 		else
 		{
 			buf_offset += length;
 			CHECK_BUF_LEN();
 
-			m_net_manager->PushMsg(this, buf + frame_offset, length);
+			m_net_manager->PushMsg(this, BaseMsg::MSG_RECV, buf + frame_offset, length);
 		}
 		
 		buf_len -= buf_offset;

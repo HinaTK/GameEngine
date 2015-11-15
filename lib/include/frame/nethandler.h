@@ -12,7 +12,7 @@ class NetManager;
 class NetHandler
 {
 public:
-	NetHandler(NetManager *manager, int type, BaseMsg *msg);
+	NetHandler(NetManager *manager, int type);
 	virtual ~NetHandler();
 
 	virtual void	OnCanRead() = 0;
@@ -32,9 +32,9 @@ public:
 		LISTENER,
 	};
 
-	NetHandle	m_handle;	// 内部操作句柄
-	SOCKET		m_sock;	// socket id
-	int			m_call_back_handle;
+	NetHandle		m_handle;	// 内部操作句柄
+	SOCKET			m_sock;	// socket id
+	unsigned int	m_msg_index;	// 网络数据导向索引
 protected:
 	NetManager	*m_net_manager;
 	int			m_type;
