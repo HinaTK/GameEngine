@@ -13,7 +13,7 @@ MemoryVL::MemoryVL(unsigned int config[][2], unsigned int num)
 	m_mutex = new std::mutex[m_size];
 	for (unsigned int i = 0; i < m_size; ++i)
 	{
-		m_memory[i].Init(config[i][0], config[i][1]);
+		m_memory[i].Init(config[i][0] + LEN_INT, config[i][1]);
 	}
 
 }

@@ -3,6 +3,7 @@
 #define MEMORY_POOL_H
 
 #include "common/datastructure/gamevector.h"
+#include <vector>
 
 class MemoryPool
 {
@@ -22,7 +23,8 @@ private:
 	unsigned int m_size;
 	unsigned int m_increase;
 
-	game::Vector<void *> m_pool;
+	std::vector<void *>  m_pool;
+	//game::Vector<void *> m_pool;
 	game::Vector<void *> m_has_malloc;
 	bool		 m_init;
 };

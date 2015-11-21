@@ -33,7 +33,7 @@ static MemoryVL g_mem_pool(mem_config, 15);
 
 char * Mem::Alloc(unsigned int s)
 {
-	return (char *)g_mem_pool.Alloc((unsigned int)s);
+	return (char *)g_mem_pool.Alloc(s);
 }
 
 void Mem::Free(void *m)

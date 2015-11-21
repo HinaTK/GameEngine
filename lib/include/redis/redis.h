@@ -13,7 +13,7 @@ public:
 	Redis();
 	~Redis();
 
-	bool	Connect(char *ip, unsigned short port, Listener *lister);
+	//bool	Connect(char *ip, unsigned short port, Listener *lister);
 
 	void	Command(const char *command, unsigned int length);
 private:
@@ -21,11 +21,11 @@ private:
 	NetHandle	m_net_handle;
 };
 
-class RedisListener : public Listener
-{
-public:
-	RedisListener(NetManager *manager, MsgCallBack *call_back);
-	~RedisListener(){}
-	bool AnalyzeBuf();
-};
+// class RedisListener : public Listener
+// {
+// public:
+// 	RedisListener(NetManager *manager, MsgCallBack *call_back);
+// 	~RedisListener(){}
+// 	bool AnalyzeBuf();
+// };
 #endif

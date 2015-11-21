@@ -30,22 +30,17 @@ bool BaseListener::AnalyzeBuf()
 			CHECK_REMOVE();
 			return false;
 		}
+		buf += NetCommon::HEADER_LENGTH;
+		m_net_manager->PushMsg(this, BaseMsg::MSG_RECV, buf, header->msg_len);
 
-		m_net_manager->PushMsg(this, BaseMsg::MSG_RECV, buf + NetCommon::HEADER_LENGTH, header->msg_len);
-
-		remove_len += header->msg_len;
+		remove_len = remove_len + NetCommon::HEADER_LENGTH + header->msg_len;
 		buf_len = buf_len - NetCommon::HEADER_LENGTH - header->msg_len;
 		if (buf_len <= NetCommon::HEADER_LENGTH)
 		{
 			break;
 		}
-		buf = buf + header->msg_len;
+		buf += header->msg_len;
 		header = (NetCommon::Header *)buf;
-		if (header->msg_len <= NetCommon::HEADER_LENGTH)
-		{
-			CHECK_REMOVE();
-			return false;
-		}
 	}
 
 	CHECK_REMOVE();

@@ -41,7 +41,7 @@ void MemoryPool::Init(unsigned int size, unsigned int increase /*= 64*/)
 bool MemoryPool::Resize()
 {
 	void *mem = ::malloc(m_size * m_increase);
-	if (mem == NULL)
+	if (NULL == mem)
 	{
 		return false;
 	}
@@ -50,7 +50,7 @@ bool MemoryPool::Resize()
 	for (unsigned int i = 0; i < m_increase; ++i)
 	{
 		void *save_mem = (void *)unit_mem;
-		m_pool.Push(save_mem);
+		m_pool.push_back(save_mem);
 		unit_mem += m_size;
 	}
 	return true;
@@ -59,16 +59,16 @@ bool MemoryPool::Resize()
 void * MemoryPool::Alloc()
 {
 	void *mem = NULL;
-	if (m_pool.Size() <= 0)
+	if (m_pool.size() <= 0)
 	{
 		Resize();
 	}
-	mem = m_pool.Back();
-	m_pool.PopBack();
+	mem = m_pool.back();
+	m_pool.pop_back();
 	return mem;
 }
 
 void MemoryPool::Free(void *m)
 {
-	m_pool.Push(m);
+	m_pool.push_back(m);
 }
