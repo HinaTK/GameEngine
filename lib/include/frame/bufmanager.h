@@ -26,8 +26,7 @@ public:
 
 	bool			IsEmpty(){ return m_length == 0; }
 
-	void *		operator new(size_t c);
-	void		operator delete(void *m);
+	
 	
 protected:
 	char *			m_buf;
@@ -36,13 +35,15 @@ protected:
 
 };
 
-// class RecvBufffer : public BufManager
-// {
-// public:
-// 	virtual ~RecvBufffer();
-// 	RecvBufffer(unsigned int size = 64);
-// 
-// };
+class RecvBufffer : public BufManager
+{
+public:
+	virtual ~RecvBufffer();
+	RecvBufffer(unsigned int size = 64);
+
+	void *		operator new(size_t c);
+	void		operator delete(void *m);
+};
 
 
 class SendBuffer : public BufManager

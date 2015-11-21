@@ -52,7 +52,7 @@ protected:
 	
 	void			UnRegisterWriteFD();
 protected:
-	BufManager	m_recv_buf;
+	RecvBufffer	m_recv_buf;
 	SendBuffer	*m_send_buf_read;	// Ö»¶Á
 	SendBuffer	*m_send_buf_write;	// Ö»Ð´
 	bool		m_is_register_write;

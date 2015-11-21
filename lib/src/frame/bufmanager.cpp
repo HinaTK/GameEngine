@@ -5,7 +5,7 @@
 #include "bufmanager.h"
 #include "lib/include/common/memorypool.h"
 
-REGISTER_MEMORYPOOL(memorypool, BufManager, 256);
+REGISTER_MEMORYPOOL(memorypool, RecvBufffer, 256);
 REGISTER_MEMORYPOOL(memorypool, SendBuffer, 256);
 
 BufManager::BufManager(unsigned int size)
@@ -54,17 +54,17 @@ void BufManager::RemoveBuf(unsigned int len)
 }
 
 
-// 
-// RecvBufffer::~RecvBufffer()
-// {
-// 
-// }
-// 
-// RecvBufffer::RecvBufffer(unsigned int size /*= 64*/)
-// : BufManager(size)
-// {
-// 
-// }
+
+RecvBufffer::~RecvBufffer()
+{
+
+}
+
+RecvBufffer::RecvBufffer(unsigned int size /*= 64*/)
+: BufManager(size)
+{
+
+}
 
 SendBuffer::~SendBuffer()
 {

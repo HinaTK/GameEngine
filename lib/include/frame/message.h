@@ -4,19 +4,6 @@
 
 #include "common/socketdef.h"
 
-// class _Msg
-// {
-// public:
-// 	_Msg();
-// 	~_Msg();
-// 
-// 	void *		operator new(size_t c);
-// 	void		operator delete(void *m);
-// 
-// 	NetHandle		handle;
-// 	unsigned int	length;
-// 	char *			data;
-// };
 
 class GameMsg
 {
