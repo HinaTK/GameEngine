@@ -2,6 +2,7 @@
 #include "loginframe.h"
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/timemanager/timemanager.h"
+#include "lib/include/timemanager/gametime.h"
 #include "common/commonfunction.h"
 #include "common/protocol/messageheader.h"
 #include "common/protocol/msgcode.h"
@@ -85,8 +86,9 @@ bool NewFrame::InitConfig()
 		return false;
 	}
 	
-	int a = 123;
-	m_net_manager.Send(m_database_server_handle, (const char *)&a, 4);
+	int a = 1;
+	m_net_manager.Send(m_database_server_handle, (const char *)&a, sizeof(int));
+	printf("fffffffffffffffffffffffffffffff\n");
 //	m_rpc_server.Init(&m_net_manager, m_database_server_handle, 999);
 	return Init();
 }
@@ -99,7 +101,29 @@ bool NewFrame::Init()
 
 void NewFrame::Recv(GameMsg *msg)
 {
-	printf("FFFFDFDDFD\n");
+	static int i = 1;
+	int ret = *(int *)msg->data;
+	
+	if (i != ret)
+	{
+		exit(0);
+	}
+
+	if (ret % 100 == 0)
+	{
+		printf("ret = %d\n", ret);
+	}
+	if (i > 10000)
+	{
+		printf("success ret = %d\n", ret);
+	}
+	else
+	{
+		i++;
+		m_net_manager.Send(m_database_server_handle, (const char *)&i, sizeof(int));
+	}
+	
+	
 	// 	if (!Function::ProtocolDecode(msg->data, msg->length))
 	// 	{
 	// 		return;

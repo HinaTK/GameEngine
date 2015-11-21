@@ -147,11 +147,8 @@ bool DatabaseFrame::Init()		// ¿ò¼Ü³õÊ¼»¯
 
 void DatabaseFrame::Recv(GameMsg *msg)
 {
-
-
-	printf("fuck ......\n");
-	int a = 123;
-	Send(m_login_handle, (const char *)&a, 4);
+	//printf("ret = %d\n", *(int *)msg->data);
+	Send(msg->handle, msg->data, msg->length);
 	delete msg;
 	//m_message_handler.HandleMessage(msg);
 }

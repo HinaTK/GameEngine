@@ -88,14 +88,14 @@ bool GameFrame::InitConfig()
 	}
 
 	// 读取配置,设置m_game_thread_num的值
-	m_game_thread = new GameThread*[m_game_thread_num];
-	for (int i = 0; i < m_game_thread_num; ++i)
-	{
-		m_game_thread[i] = new GameThread(i + 1);
-	}
+// 	m_game_thread = new GameThread*[m_game_thread_num];
+// 	for (int i = 0; i < m_game_thread_num; ++i)
+// 	{
+// 		m_game_thread[i] = new GameThread(i + 1);
+// 	}
 	
-	int a = 123;
-	Send(m_database_server_handle, (const char *)&a, 4);
+	int a = 1;
+	m_net_manager.Send(m_database_server_handle, (const char *)&a, sizeof(int));
 // 	struct Test
 // 	{
 // 		Test() :header(0){}
@@ -123,10 +123,10 @@ bool GameFrame::Init()
 
 bool GameFrame::Run()
 {
-	for (int i = 0; i < m_game_thread_num; ++i)
-	{
-		m_game_thread[i]->Run();
-	}
+// 	for (int i = 0; i < m_game_thread_num; ++i)
+// 	{
+// 		m_game_thread[i]->Run();
+// 	}
 
 	return Frame::Run();
 }
@@ -158,7 +158,27 @@ void GameFrame::OuterRecv(GameMsg *msg)
 
 void GameFrame::InnerRecv(GameMsg *msg)
 {
+	static int i = 1;
+	int ret = *(int *)msg->data;
 
+	if (i != ret)
+	{
+		exit(0);
+	}
+
+	if (ret % 100 == 0)
+	{
+		printf("ret = %d\n", ret);
+	}
+	if (i > 10000)
+	{
+		printf("success ret = %d\n", ret);
+	}
+	else
+	{
+		i++;
+		m_net_manager.Send(m_database_server_handle, (const char *)&i, sizeof(int));
+	}
 }
 
 /* 

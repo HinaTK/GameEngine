@@ -31,9 +31,9 @@ bool TestFrame::Init()
 {
 	Frame::Init();
 
-	RedisListener *listener = new RedisListener(&m_net_manager, m_redis_call_back);
-	Redis redis;
-	redis.Connect("192.168.1.105", 6379, listener);
+// 	RedisListener *listener = new RedisListener(&m_net_manager, m_redis_call_back);
+// 	Redis redis;
+// 	redis.Connect("192.168.1.105", 6379, listener);
 	//char *command = "seet name4 jiaming\r\n";
 
 	//char *command = "get name22222\r\n";
@@ -46,8 +46,8 @@ bool TestFrame::Init()
 	//char *command = "blpop jjjj 1\r\n";
 	//char *command = "eval \"return redis.call('set', 'ggg', 'bar')\" 0\r\n";
 	//char *command = "get name1\r\nget name2\r\n";
-	char *command = "get name1\r\nget name2\r\n";
-	redis.Command(command, strlen(command));
+// 	char *command = "get name1\r\nget name2\r\n";
+// 	redis.Command(command, strlen(command));
 	return true;
 }
 
