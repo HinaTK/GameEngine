@@ -256,7 +256,7 @@ void DataMap<T>::Flush()
 
 	for (typename DELETE_DATA_LIST::iterator itr = m_delete_data_list.Begin(); itr != m_delete_data_list.End(); ++itr)
 	{
-		m_data_call_back->OnDelete(itr->second.data);
+		m_data_call_back->OnDelete(*itr);
 	}
 	m_delete_data_list.Clear();
 }
