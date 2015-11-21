@@ -43,7 +43,7 @@ OBJDIR		= PWD + "/obj/";
 INCROOTPATH	= "-I " + ROOTPATH;
 LIBROOTPATH = "-L " + ROOTPATH;
 
-INCPATH 	= INCROOTPATH + " " + INCROOTPATH + "/GameServer " + INCROOTPATH + "/common " + INCROOTPATH + "/lib/include";
+INCPATH 	= INCROOTPATH + " " + INCROOTPATH + "/GameServer " ;
 SYSLIBS		= " -lpthread"
 LIBS		= LIBROOTPATH + "/lib/linux " + "-lFrame -lServerConfig  -lTimeManager -lCommon -lTinyxml" + SYSLIBS;
 CXX			= "g++";
