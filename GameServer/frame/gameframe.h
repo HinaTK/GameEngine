@@ -2,7 +2,6 @@
 #define GAMEFRAME_H
 
 #include "common/commonvariable.h"
-#include "common/datastructure/msgqueue.h"
 #include "common/datastructure/gamehash.h"
 #include "lib/include/common/thread.h"
 #include "lib/include/frame/frame.h"

@@ -1,6 +1,5 @@
 
 #include <stdio.h>
-#include <time.h>
 #include "gameframe.h"
 #include "common/commonfunction.h"
 
