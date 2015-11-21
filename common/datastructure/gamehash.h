@@ -80,7 +80,6 @@ protected:
 	MemoryPool		m_memory_pool;
 	V				m_nil;
 };
-
 /************************************************
 	key不是字符串
 *************************************************/
@@ -88,14 +87,14 @@ template<class K, class V>
 class Hash : public HashBase<K, V>
 {
 public:
-	Hash(unsigned int size = 256): HashBase(size){}
+    Hash(unsigned int size = 256): HashBase<K,V>(size){}
 	virtual ~Hash(){}
 
 	bool		Push(K key, V &val);
 	void		Erase(K key);
 	V &			operator[](K key);
 
-	iterator	Find(K key)
+    typename game::HashBase<K, V>::iterator	Find(K key)
 	{
 		unsigned int real_key = key % m_size;
 		KeyNode *node = m_hash_list[real_key];

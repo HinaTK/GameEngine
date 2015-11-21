@@ -1,11 +1,11 @@
-PWD 				= /mnt/share/lib/src
+PWD 				= /home/jiaming/git/GameEngine/lib/src
 AR           		= ar cqs
 CXX           		= g++
-INCPATH			= -I /mnt/share/lib/../ -I /mnt/share/lib/include -I /mnt/share/lib/include/frame
-BINDIR				= /mnt/share/lib/linux/
-OBJDIR				= /mnt/share/lib/linux/obj/
+INCPATH			= -I /home/jiaming/git/GameEngine/lib/../ -I /home/jiaming/git/GameEngine/lib/include -I /home/jiaming/git/GameEngine/lib/include/frame
+BINDIR				= /home/jiaming/git/GameEngine/lib/linux/
+OBJDIR				= /home/jiaming/git/GameEngine/lib/linux/obj/
 BIN 				= libFrame.a
-SOURCES			= /mnt/share/lib/src/frame/accepter.cpp /mnt/share/lib/src/frame/baselistener.cpp /mnt/share/lib/src/frame/bufmanager.cpp /mnt/share/lib/src/frame/frame.cpp /mnt/share/lib/src/frame/handshaker.cpp /mnt/share/lib/src/frame/listener.cpp /mnt/share/lib/src/frame/message.cpp /mnt/share/lib/src/frame/netcommon.cpp /mnt/share/lib/src/frame/nethandler.cpp /mnt/share/lib/src/frame/netmanager.cpp /mnt/share/lib/src/frame/netuser.cpp /mnt/share/lib/src/frame/webaccepter.cpp /mnt/share/lib/src/frame/weblistener.cpp /mnt/share/lib/src/frame/websocket/base64.cpp /mnt/share/lib/src/frame/websocket/dataframeheader.cpp /mnt/share/lib/src/frame/websocket/sha1.cpp 
+SOURCES			= /home/jiaming/git/GameEngine/lib/src/frame/nethandler.cpp /home/jiaming/git/GameEngine/lib/src/frame/weblistener.cpp /home/jiaming/git/GameEngine/lib/src/frame/handshaker.cpp /home/jiaming/git/GameEngine/lib/src/frame/netcommon.cpp /home/jiaming/git/GameEngine/lib/src/frame/netmanager.cpp /home/jiaming/git/GameEngine/lib/src/frame/message.cpp /home/jiaming/git/GameEngine/lib/src/frame/msgproxy.cpp /home/jiaming/git/GameEngine/lib/src/frame/bufmanager.cpp /home/jiaming/git/GameEngine/lib/src/frame/webaccepter.cpp /home/jiaming/git/GameEngine/lib/src/frame/baselistener.cpp /home/jiaming/git/GameEngine/lib/src/frame/netuser.cpp /home/jiaming/git/GameEngine/lib/src/frame/inneraccepter.cpp /home/jiaming/git/GameEngine/lib/src/frame/accepter.cpp /home/jiaming/git/GameEngine/lib/src/frame/frame.cpp /home/jiaming/git/GameEngine/lib/src/frame/websocket/base64.cpp /home/jiaming/git/GameEngine/lib/src/frame/websocket/dataframeheader.cpp /home/jiaming/git/GameEngine/lib/src/frame/websocket/sha1.cpp /home/jiaming/git/GameEngine/lib/src/frame/listener.cpp 
 SOURCEFILES		= $(notdir $(SOURCES))
 OBJECTS			= $(addprefix $(OBJDIR), $(patsubst %.cpp,%.o,$(SOURCEFILES)))
 FLAGS				= -fpermissive -std=c++11
@@ -18,67 +18,75 @@ makedir:
 	$(shell if [ -n "$(OBJDIR)" -a ! -e "$(OBJDIR)" ];then mkdir -p $(OBJDIR); fi)
 	$(shell if [ -n "$(BINDIR)" -a ! -e "$(BINDIR)" ];then mkdir -p $(BINDIR); fi)
 
-/mnt/share/lib/linux/obj/accepter.o:/mnt/share/lib/src/frame/accepter.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/nethandler.o:/home/jiaming/git/GameEngine/lib/src/frame/nethandler.cpp
 	rm -f $@
 	$(CXX) $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/baselistener.o:/mnt/share/lib/src/frame/baselistener.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/weblistener.o:/home/jiaming/git/GameEngine/lib/src/frame/weblistener.cpp
 	rm -f $@
 	$(CXX) $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/bufmanager.o:/mnt/share/lib/src/frame/bufmanager.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/handshaker.o:/home/jiaming/git/GameEngine/lib/src/frame/handshaker.cpp
 	rm -f $@
 	$(CXX) $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/frame.o:/mnt/share/lib/src/frame/frame.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/netcommon.o:/home/jiaming/git/GameEngine/lib/src/frame/netcommon.cpp
 	rm -f $@
 	$(CXX) $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/handshaker.o:/mnt/share/lib/src/frame/handshaker.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/netmanager.o:/home/jiaming/git/GameEngine/lib/src/frame/netmanager.cpp
 	rm -f $@
 	$(CXX) $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/listener.o:/mnt/share/lib/src/frame/listener.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/message.o:/home/jiaming/git/GameEngine/lib/src/frame/message.cpp
 	rm -f $@
 	$(CXX) $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/message.o:/mnt/share/lib/src/frame/message.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/msgproxy.o:/home/jiaming/git/GameEngine/lib/src/frame/msgproxy.cpp
 	rm -f $@
 	$(CXX) $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/netcommon.o:/mnt/share/lib/src/frame/netcommon.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/bufmanager.o:/home/jiaming/git/GameEngine/lib/src/frame/bufmanager.cpp
 	rm -f $@
 	$(CXX) $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/nethandler.o:/mnt/share/lib/src/frame/nethandler.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/webaccepter.o:/home/jiaming/git/GameEngine/lib/src/frame/webaccepter.cpp
 	rm -f $@
 	$(CXX) $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/netmanager.o:/mnt/share/lib/src/frame/netmanager.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/baselistener.o:/home/jiaming/git/GameEngine/lib/src/frame/baselistener.cpp
 	rm -f $@
 	$(CXX) $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/netuser.o:/mnt/share/lib/src/frame/netuser.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/netuser.o:/home/jiaming/git/GameEngine/lib/src/frame/netuser.cpp
 	rm -f $@
 	$(CXX) $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/webaccepter.o:/mnt/share/lib/src/frame/webaccepter.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/inneraccepter.o:/home/jiaming/git/GameEngine/lib/src/frame/inneraccepter.cpp
 	rm -f $@
 	$(CXX) $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/weblistener.o:/mnt/share/lib/src/frame/weblistener.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/accepter.o:/home/jiaming/git/GameEngine/lib/src/frame/accepter.cpp
 	rm -f $@
 	$(CXX) $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/base64.o:/mnt/share/lib/src/frame/websocket/base64.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/frame.o:/home/jiaming/git/GameEngine/lib/src/frame/frame.cpp
 	rm -f $@
 	$(CXX) $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/dataframeheader.o:/mnt/share/lib/src/frame/websocket/dataframeheader.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/base64.o:/home/jiaming/git/GameEngine/lib/src/frame/websocket/base64.cpp
 	rm -f $@
 	$(CXX) $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/sha1.o:/mnt/share/lib/src/frame/websocket/sha1.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/dataframeheader.o:/home/jiaming/git/GameEngine/lib/src/frame/websocket/dataframeheader.cpp
+	rm -f $@
+	$(CXX) $(FLAGS) -fpic -c $(INCPATH) $< -o $@
+
+/home/jiaming/git/GameEngine/lib/linux/obj/sha1.o:/home/jiaming/git/GameEngine/lib/src/frame/websocket/sha1.cpp
+	rm -f $@
+	$(CXX) $(FLAGS) -fpic -c $(INCPATH) $< -o $@
+
+/home/jiaming/git/GameEngine/lib/linux/obj/listener.o:/home/jiaming/git/GameEngine/lib/src/frame/listener.cpp
 	rm -f $@
 	$(CXX) $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 

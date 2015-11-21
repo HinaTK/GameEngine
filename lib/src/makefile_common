@@ -1,14 +1,14 @@
-PWD 				= /mnt/share/lib/src
+PWD 				= /home/jiaming/git/GameEngine/lib/src
 AR           		= ar cqs
 CXX           		= g++
-INCPATH			= -I /mnt/share/lib/../ -I /mnt/share/lib/include -I /mnt/share/lib/include/common
-BINDIR				= /mnt/share/lib/linux/
-OBJDIR				= /mnt/share/lib/linux/obj/
+INCPATH			= -I /home/jiaming/git/GameEngine/lib/../ -I /home/jiaming/git/GameEngine/lib/include -I /home/jiaming/git/GameEngine/lib/include/common
+BINDIR				= /home/jiaming/git/GameEngine/lib/linux/
+OBJDIR				= /home/jiaming/git/GameEngine/lib/linux/obj/
 BIN 				= libCommon.a
-SOURCES			= /mnt/share/lib/src/common/commonconfig.cpp /mnt/share/lib/src/common/md5.cpp /mnt/share/lib/src/common/memorypool.cpp /mnt/share/lib/src/common/memoryvl.cpp /mnt/share/lib/src/common/mutex.cpp /mnt/share/lib/src/common/serializer.cpp /mnt/share/lib/src/common/serverconfig.cpp /mnt/share/lib/src/common/thread.cpp 
+SOURCES			= /home/jiaming/git/GameEngine/lib/src/common/md5.cpp /home/jiaming/git/GameEngine/lib/src/common/serverconfig.cpp /home/jiaming/git/GameEngine/lib/src/common/serializer.cpp /home/jiaming/git/GameEngine/lib/src/common/mem.cpp /home/jiaming/git/GameEngine/lib/src/common/memorypool.cpp /home/jiaming/git/GameEngine/lib/src/common/thread.cpp /home/jiaming/git/GameEngine/lib/src/common/memoryvl.cpp 
 SOURCEFILES		= $(notdir $(SOURCES))
 OBJECTS			= $(addprefix $(OBJDIR), $(patsubst %.cpp,%.o,$(SOURCEFILES)))
-FLAGS				= -g3 -Wall
+FLAGS				= -g3 -Wall -fpermissive -std=c++11
 ARFLAGS			= 
 
 all:makedir $(OBJECTS)
@@ -18,35 +18,31 @@ makedir:
 	$(shell if [ -n "$(OBJDIR)" -a ! -e "$(OBJDIR)" ];then mkdir -p $(OBJDIR); fi)
 	$(shell if [ -n "$(BINDIR)" -a ! -e "$(BINDIR)" ];then mkdir -p $(BINDIR); fi)
 
-/mnt/share/lib/linux/obj/commonconfig.o:/mnt/share/lib/src/common/commonconfig.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/md5.o:/home/jiaming/git/GameEngine/lib/src/common/md5.cpp
 	rm -f $@
 	$(CXX)  $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/md5.o:/mnt/share/lib/src/common/md5.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/serverconfig.o:/home/jiaming/git/GameEngine/lib/src/common/serverconfig.cpp
 	rm -f $@
 	$(CXX)  $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/memorypool.o:/mnt/share/lib/src/common/memorypool.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/serializer.o:/home/jiaming/git/GameEngine/lib/src/common/serializer.cpp
 	rm -f $@
 	$(CXX)  $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/memoryvl.o:/mnt/share/lib/src/common/memoryvl.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/mem.o:/home/jiaming/git/GameEngine/lib/src/common/mem.cpp
 	rm -f $@
 	$(CXX)  $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/mutex.o:/mnt/share/lib/src/common/mutex.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/memorypool.o:/home/jiaming/git/GameEngine/lib/src/common/memorypool.cpp
 	rm -f $@
 	$(CXX)  $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/serializer.o:/mnt/share/lib/src/common/serializer.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/thread.o:/home/jiaming/git/GameEngine/lib/src/common/thread.cpp
 	rm -f $@
 	$(CXX)  $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
-/mnt/share/lib/linux/obj/serverconfig.o:/mnt/share/lib/src/common/serverconfig.cpp
-	rm -f $@
-	$(CXX)  $(FLAGS) -fpic -c $(INCPATH) $< -o $@
-
-/mnt/share/lib/linux/obj/thread.o:/mnt/share/lib/src/common/thread.cpp
+/home/jiaming/git/GameEngine/lib/linux/obj/memoryvl.o:/home/jiaming/git/GameEngine/lib/src/common/memoryvl.cpp
 	rm -f $@
 	$(CXX)  $(FLAGS) -fpic -c $(INCPATH) $< -o $@
 
