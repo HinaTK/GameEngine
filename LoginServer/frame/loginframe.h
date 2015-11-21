@@ -1,11 +1,12 @@
 #ifndef LOGINFRAME_H
 #define LOGINFRAME_H
 
-#include "frame/frame.h"
-#include "common/commonvariable.h"
-#include "common/datastructure/msgqueue.h"
+#include "lib/include/frame/frame.h"
 #include "lib/include/common/thread.h"
 #include "lib/include/rpc/rpcserver.h"
+#include "common/commonvariable.h"
+#include "common/datastructure/msgqueue.h"
+
 #include "message/messagefunction/messagehandler.h"
 
 class OuterCallBack;

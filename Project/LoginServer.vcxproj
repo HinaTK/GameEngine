@@ -44,7 +44,7 @@
     <OutDir>..\Debug\</OutDir>
     <IntDir>..\Debug\loginserver\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..;..\lib\include;..\LoginServer;$(IncludePath)</IncludePath>
+    <IncludePath>..;..\LoginServer;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
