@@ -3,6 +3,7 @@
 #define	DATA_MAP_H
 
 #include <mutex>
+#include "lib/include/common/mutex.h"
 #include "common/datastructure/gamemap.h"
 #include "common/datastructure/gamelist.h"
 
