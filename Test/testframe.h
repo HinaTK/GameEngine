@@ -28,6 +28,9 @@ public:
 
 	void	Recv(GameMsg *msg);
 
+public:
+	void	Test1();
+
 private:
 	TestFrame();
 
