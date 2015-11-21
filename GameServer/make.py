@@ -44,10 +44,10 @@ INCROOTPATH	= "-I " + ROOTPATH;
 LIBROOTPATH = "-L " + ROOTPATH;
 
 INCPATH 	= INCROOTPATH + " " + INCROOTPATH + "/GameServer " + INCROOTPATH + "/common " + INCROOTPATH + "/lib/include";
-SYSLIBS		= " -lmysqlclient -lpthread"
+SYSLIBS		= " -lpthread"
 LIBS		= LIBROOTPATH + "/lib/linux " + "-lFrame -lServerConfig  -lTimeManager -lCommon -lTinyxml" + SYSLIBS;
 CXX			= "g++";
-FLAGS		= '-g3 -Wall';
+FLAGS		= '-fpermissive -g3 -Wall -std=c++11';
 
 #########################################################################################################################
 #
