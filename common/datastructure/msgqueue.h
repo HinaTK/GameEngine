@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef MSG_QUEUE_H
 #define MSG_QUEUE_H
 
@@ -6,7 +6,7 @@
 #include "gamelist.h"
 
 /*
-	µ¥Ò»Ïß³Ì·Ö±ğ·ÃÎÊPush¡¢Pop,ÔòÏß³Ì°²È«
+	å•ä¸€çº¿ç¨‹åˆ†åˆ«è®¿é—®Pushã€Pop,åˆ™çº¿ç¨‹å®‰å…¨
 */
 template<class T>
 class MsgQueue
@@ -27,7 +27,7 @@ public:
 		return ret;
 	}
 
-	// ÕÒ²»µ½Êı¾İÊ±£¬¿ÉÊÊµ±Ë¯Ãß
+	// æ‰¾ä¸åˆ°æ•°æ®æ—¶ï¼Œå¯é€‚å½“ç¡çœ 
 	bool Pop(T &val)
 	{
 		if (m_read_queue->PopFront(val))

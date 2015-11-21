@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef GAME_ARRAY_H
 #define GAME_ARRAY_H
 
@@ -6,8 +6,8 @@
 #include "gamevector.h"
 
 /*
-	array ²»Í¬ÓÚ vector,arrayÊ¼ÖÕÒÔÏÂ±êÀ´²éÕÒÊı¾İ£¬¾ßÓĞ¿ìËÙ¶¨Î»Êı¾İÄÜÁ¦
-	ÓÎÏ·ÖĞµÄ×÷ÓÃ£º¶ÔÏó¹ÜÀí£¬ÍøÂçÁ¬½Ó¹ÜÀí
+	array ä¸åŒäº vector,arrayå§‹ç»ˆä»¥ä¸‹æ ‡æ¥æŸ¥æ‰¾æ•°æ®ï¼Œå…·æœ‰å¿«é€Ÿå®šä½æ•°æ®èƒ½åŠ›
+	æ¸¸æˆä¸­çš„ä½œç”¨ï¼šå¯¹è±¡ç®¡ç†ï¼Œç½‘ç»œè¿æ¥ç®¡ç†
 */
 
 namespace game
@@ -91,7 +91,7 @@ public:
 		return m_end;
 	}
 
-	// index ÓÉÍâ²¿±£Ö¤
+	// index ç”±å¤–éƒ¨ä¿è¯
 	T&				operator[](unsigned int index){ return m_value[index].val; }
 
 	void			Clear();
@@ -114,7 +114,7 @@ Array<T>::Array(unsigned int size)
 	m_end.m_index		= 0;
 }
 
-// m_index_poolÕâÑù´¦ÀíÓĞÎÊÌâ£¬ÒòÎª·Åµ½³ØÀïµÄË÷Òı¿ÉÄÜºÜ´ó£¬ÔÙ¶Á³öÀ´µÄÊ±ºò£¬»áÀË·ÑĞÔÄÜ 2015.1.27
+// m_index_poolè¿™æ ·å¤„ç†æœ‰é—®é¢˜ï¼Œå› ä¸ºæ”¾åˆ°æ± é‡Œçš„ç´¢å¼•å¯èƒ½å¾ˆå¤§ï¼Œå†è¯»å‡ºæ¥çš„æ—¶å€™ï¼Œä¼šæµªè´¹æ€§èƒ½ 2015.1.27
 
 template<class T>
 unsigned int Array<T>::Insert(T &val)
@@ -217,7 +217,7 @@ bool Array<T>::Erase(unsigned int index, T &val)
 				break;
 			}
 		}
-		m_end.m_index = i + 1;		// ½áÊøË÷Òı£¨m_end.m_index£©µÈÓÚ×î´óÓĞĞ§Ë÷Òı¼Ó1
+		m_end.m_index = i + 1;		// ç»“æŸç´¢å¼•ï¼ˆm_end.m_indexï¼‰ç­‰äºæœ€å¤§æœ‰æ•ˆç´¢å¼•åŠ 1
 	}
 	--m_size;
 	return true;

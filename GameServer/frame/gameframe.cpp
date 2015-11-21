@@ -1,4 +1,4 @@
-
+ï»¿
 #include "gameframe.h"
 #include "common/datastructure/msgqueue.h"
 #include "common/protocol/messageheader.h"
@@ -87,7 +87,7 @@ bool GameFrame::InitConfig()
 		return false;
 	}
 
-	// ¶ÁÈ¡ÅäÖÃ,ÉèÖÃm_game_thread_numµÄÖµ
+	// è¯»å–é…ç½®,è®¾ç½®m_game_thread_numçš„å€¼
 // 	m_game_thread = new GameThread*[m_game_thread_num];
 // 	for (int i = 0; i < m_game_thread_num; ++i)
 // 	{
@@ -114,10 +114,10 @@ bool GameFrame::InitConfig()
 	return this->Init();
 }
 
-// ¿ò¼Ü³õÊ¼»¯
+// æ¡†æ¶åˆå§‹åŒ–
 bool GameFrame::Init()
 {
-	// ¶ÁÈ¡³¡¾°ÅäÖÃ,¸ù¾İ²»Í¬µÄÅäÖÃ½«²»Í¬µÄ³¡¾°·ÖÅäµ½²»Í¬µÄ¹¤×÷Ïß³Ì
+	// è¯»å–åœºæ™¯é…ç½®,æ ¹æ®ä¸åŒçš„é…ç½®å°†ä¸åŒçš„åœºæ™¯åˆ†é…åˆ°ä¸åŒçš„å·¥ä½œçº¿ç¨‹
 	return true;
 }
 
@@ -131,7 +131,7 @@ bool GameFrame::Run()
 	return Frame::Run();
 }
 
-// ¹¹¼Ü¸üĞÂ
+// æ„æ¶æ›´æ–°
 void GameFrame::Update(unsigned int interval, time_t now)
 {
 	//m_time_event_manager.Update(now);
@@ -182,8 +182,8 @@ void GameFrame::InnerRecv(GameMsg *msg)
 }
 
 /* 
-	¹¤×÷Ïß³ÌÏà»¥Í¨ĞÅ
-	scene_id µÈÓÚ0£¬±íÊ¾ÏûÏ¢·Åµ½È«¾ÖÏß³Ì´¦Àí
+	å·¥ä½œçº¿ç¨‹ç›¸äº’é€šä¿¡
+	scene_id ç­‰äº0ï¼Œè¡¨ç¤ºæ¶ˆæ¯æ”¾åˆ°å…¨å±€çº¿ç¨‹å¤„ç†
 */
 void GameFrame::PushMsg(GameMsg *msg, SceneID scene_id /*= 0*/)
 {
@@ -195,7 +195,7 @@ void GameFrame::PushMsg(GameMsg *msg, SceneID scene_id /*= 0*/)
 
 void GameFrame::Exit()
 {
-	// ½ø³ÌÍË³ö£¬Ïß³ÌÒ²ËæÖ®ÍË³ö
+	// è¿›ç¨‹é€€å‡ºï¼Œçº¿ç¨‹ä¹Ÿéšä¹‹é€€å‡º
 
 	printf("game server exit\n");
 }

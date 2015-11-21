@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef GAME_HASH_H
 #define GAME_HASH_H
 
@@ -7,9 +7,9 @@
 #include "gamearray.h"
 
 /*
-	* É¢ÁĞ
-	* keyÖ»Ö§³Ö»ù±¾Êı¾İÀàĞÍ£¬²»Ö§³Ö¸¡µãĞÍ£¬½á¹¹ÌåºÍÀà
-	* ¿ÉÒÔÍ¨¹ıĞòÁĞ»¯À´½«¸¡µãĞÍ£¬½á¹¹ÌåºÍÀà×ª»¯³É×Ö·û´®£¬´Ó¶øµÃµ½Ö§³Ö
+	* æ•£åˆ—
+	* keyåªæ”¯æŒåŸºæœ¬æ•°æ®ç±»å‹ï¼Œä¸æ”¯æŒæµ®ç‚¹å‹ï¼Œç»“æ„ä½“å’Œç±»
+	* å¯ä»¥é€šè¿‡åºåˆ—åŒ–æ¥å°†æµ®ç‚¹å‹ï¼Œç»“æ„ä½“å’Œç±»è½¬åŒ–æˆå­—ç¬¦ä¸²ï¼Œä»è€Œå¾—åˆ°æ”¯æŒ
 */
 
 namespace game
@@ -76,13 +76,13 @@ public:
 protected:
 	unsigned int	m_size;
 	KeyNode			**m_hash_list;
-	_Array			m_value_array;	// ËùÓĞÊı¾İ±£´æµÄÊı¾İ½á¹¹
+	_Array			m_value_array;	// æ‰€æœ‰æ•°æ®ä¿å­˜çš„æ•°æ®ç»“æ„
 	MemoryPool		m_memory_pool;
 	V				m_nil;
 };
 
 /************************************************
-	key²»ÊÇ×Ö·û´®
+	keyä¸æ˜¯å­—ç¬¦ä¸²
 *************************************************/
 template<class K, class V>
 class Hash : public HashBase<K, V>
@@ -95,7 +95,7 @@ public:
 	void		Erase(K key);
 	V &			operator[](K key);
 
-	typename _Array::iterator	Find(K key)
+	iterator	Find(K key)
 	{
 		unsigned int real_key = key % m_size;
 		KeyNode *node = m_hash_list[real_key];
@@ -116,7 +116,7 @@ bool game::Hash<K, V>::Push(K key, V &val)
 	node->key = key;
 	node->array_key = m_value_array.Insert(val);
 
-	// ÈôÍ·½áµãÎª¿Õ£¬²åÈë½áµã·ÅÖÃµ½Í·½áµã£»·ñÔò²åÈë½áµã³ÉÎªĞÂÍ·½áµã
+	// è‹¥å¤´ç»“ç‚¹ä¸ºç©ºï¼Œæ’å…¥ç»“ç‚¹æ”¾ç½®åˆ°å¤´ç»“ç‚¹ï¼›å¦åˆ™æ’å…¥ç»“ç‚¹æˆä¸ºæ–°å¤´ç»“ç‚¹
 	if (m_hash_list[real_key] == NULL)
 	{
 		node->next = NULL;
@@ -147,7 +147,7 @@ void game::Hash<K, V>::Erase(K key)
 			}
 			else
 			{
-				// É¾³ıµÄÊÇÍ·½áµã
+				// åˆ é™¤çš„æ˜¯å¤´ç»“ç‚¹
 				m_hash_list[real_key] = node->next;
 			}
 			m_value_array.Erase(node->array_key);
@@ -179,7 +179,7 @@ HASVAL:;
 }
 
 /************************************************
-	key ÊÇ×Ö·û´®
+	key æ˜¯å­—ç¬¦ä¸²
 *************************************************/
 template<class V>
 class Hash<const char *, V> : public HashBase<char *, V>
@@ -212,7 +212,7 @@ bool game::Hash<const char *, V>::Push(const char *key, V &val, unsigned int key
 	memcpy(node->key, key, key_len);
 	node->array_key = m_value_array.Insert(val);
 
-	// ÈôÍ·½áµãÎª¿Õ£¬²åÈë½áµã·ÅÖÃµ½Í·½áµã£»·ñÔò²åÈë½áµã³ÉÎªĞÂÍ·½áµã
+	// è‹¥å¤´ç»“ç‚¹ä¸ºç©ºï¼Œæ’å…¥ç»“ç‚¹æ”¾ç½®åˆ°å¤´ç»“ç‚¹ï¼›å¦åˆ™æ’å…¥ç»“ç‚¹æˆä¸ºæ–°å¤´ç»“ç‚¹
 	if (m_hash_list[real_key] == NULL)
 	{
 		node->next = NULL;
