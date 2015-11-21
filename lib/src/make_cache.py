@@ -42,7 +42,7 @@ INCROOTPATH	= "-I " + ROOTPATH;
 INCPATH 	= INCROOTPATH + "/../" + " " + INCROOTPATH + "/include" + " " + INCROOTPATH + "/include/cache";
 CXX			= "g++"
 AR			= "ar cqs";
-FLAGS		= '-g3 -Wall';
+FLAGS		= '-g3 -Wall -fpermissive -std=c++11';
 ARFLAGS		= '';
 
 #########################################################################################################################
