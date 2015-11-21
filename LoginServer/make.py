@@ -44,7 +44,7 @@ INCROOTPATH	= "-I " + ROOTPATH;
 LIBROOTPATH = "-L " + ROOTPATH;
 
 INCPATH 	= INCROOTPATH + " " + INCROOTPATH + "/LoginServer";
-SYSLIBS		= ""
+SYSLIBS		= " -lpthread"
 LIBS		= LIBROOTPATH + "/lib/linux " + "-lFrame -lLog -lTimeManager -lCommon -lTinyxml" + SYSLIBS;
 CXX			= "g++";
 FLAGS		= '-fpermissive -g3 -Wall -std=c++11';
