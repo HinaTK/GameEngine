@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef NET_USER_H
 #define NET_USER_H
 
@@ -14,8 +14,8 @@ public:
 	{};
 
 	/* 
-		²»ÒªÊ¹ÓÃBufManager	&GetBufManager(){ return m_buf_manager; }
-		ÒòÎªµ±ÕâÑùÊ¹ÓÃÊ±,BufManager manager = GetBufManager();»áÌáÇ°Îö¹¹
+		ä¸è¦ä½¿ç”¨BufManager	&GetBufManager(){ return m_buf_manager; }
+		å› ä¸ºå½“è¿™æ ·ä½¿ç”¨æ—¶,BufManager manager = GetBufManager();ä¼šæå‰ææ„
 	*/
 	BufManager	*GetBufManager(){ return &m_buf_manager; }		
 

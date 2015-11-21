@@ -1,11 +1,12 @@
-
+ï»¿
 #ifndef BUF_MANAGER_H
 #define BUF_MANAGER_H
 
+#include <stddef.h>
 #include "common/serverdef.h"
 #include "lib/include/common/mem.h"
 
-// ĞèÒª¸Ä½ø£¬¾¡Á¿±ÜÃâÄÚ´æ¿½±´
+// éœ€è¦æ”¹è¿›ï¼Œå°½é‡é¿å…å†…å­˜æ‹·è´
 class BufManager
 {
 public:
@@ -25,13 +26,11 @@ public:
 	bool			Resize(unsigned int size);
 
 	bool			IsEmpty(){ return m_length == 0; }
-
-	
 	
 protected:
 	char *			m_buf;
-	unsigned int	m_size;				// ÈİÁ¿´óĞ¡
-	unsigned int	m_length;			// Êı¾İ´óĞ¡
+	unsigned int	m_size;				// å®¹é‡å¤§å°
+	unsigned int	m_length;			// æ•°æ®å¤§å°
 
 };
 
@@ -49,7 +48,7 @@ public:
 class SendBuffer : public BufManager
 {
 public:
-	~SendBuffer();
+	virtual ~SendBuffer();
 	SendBuffer(unsigned int size = 64);
 
 	void			Push(const char *buf, unsigned int len);
@@ -57,7 +56,7 @@ public:
 	char *			GetReadBuf(){ return (char *)m_buf + m_read_length; }
 	void			AddReadLength(unsigned int length){ m_read_length += length; }
 	unsigned int	GetReadLength(){ return m_read_length; }
-	int				RemainReadLength(){ return int(m_length - m_read_length); }		// Ê£Óà¿É¶ÁÈ¡ÄÚÈİ
+	int				RemainReadLength(){ return int(m_length - m_read_length); }		// å‰©ä½™å¯è¯»å–å†…å®¹
 
 	void			ResetBuf();
 
