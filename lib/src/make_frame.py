@@ -42,7 +42,7 @@ INCROOTPATH	= "-I " + ROOTPATH;
 INCPATH 	= INCROOTPATH + "/../" + " " + INCROOTPATH + "/include" + " " + INCROOTPATH + "/include/frame";
 CXX			= "g++"
 AR			= "ar cqs";
-FLAGS		= '-fpermissive -std=c++11';
+FLAGS		= '-g3 -Wall -fpermissive -std=c++11';
 ARFLAGS		= '';
 
 #########################################################################################################################
