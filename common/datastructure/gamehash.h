@@ -95,7 +95,7 @@ public:
 	void		Erase(K key);
 	V &			operator[](K key);
 
-	iterator	Find(K key)
+	typename iterator	Find(K key)
 	{
 		unsigned int real_key = key % m_size;
 		KeyNode *node = m_hash_list[real_key];
