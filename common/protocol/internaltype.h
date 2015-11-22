@@ -1,4 +1,4 @@
-
+﻿
 #ifndef INTERNAL_TYPE_H
 #define INTERNAL_TYPE_H
 
@@ -8,11 +8,11 @@ namespace IProtocol
 {
 	enum _MessageType
 	{
-		// �����Խ���Ϊ׼
+		// 类型以接收为准
 		MT_MIN_DATABASE_SERVER_TYPE,
 		MT_LOGIN_TO_DATABASE_ROLE_LOGIN,
 
-		MT_PUSH_INTO_DATA_QUEUE,				// �����ݷŽ����ݶ���
+		MT_PUSH_INTO_DATA_QUEUE,				// 将数据放进数据队列
 
 		MT_MAX_DATABASE_SERVER_TYPE,
 

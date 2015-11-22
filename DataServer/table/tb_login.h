@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef TB_LOGIN_H
 #define TB_LOGIN_H
 
@@ -17,7 +17,7 @@ public:
 		account,
 		password,
 		name,
-		last_time,		// ×îºóµ÷ÓÃÊ±¼ä
+		last_time,		// æœ€åè°ƒç”¨æ—¶é—´
 		MAX_FIELD
 	};
 

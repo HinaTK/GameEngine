@@ -1,4 +1,4 @@
-
+ï»¿
 #include <stdio.h>
 #include <string.h>
 #include "databaseframe.h"
@@ -80,7 +80,7 @@ bool DatabaseFrame::InitConfig()
 	return Init();
 }
 
-bool DatabaseFrame::Init()		// ¿ò¼Ü³õÊ¼»¯
+bool DatabaseFrame::Init()		// æ¡†æ¶åˆå§‹åŒ–
 {
 	Frame::Init();
 
@@ -135,12 +135,12 @@ bool DatabaseFrame::Init()		// ¿ò¼Ü³õÊ¼»¯
 	// 	params[1].buffer_length = 10;
 	// 
 	// //	mysql_stmt_bind_param(DataBase::Instance().GetStmt(), params);
-	// 	mysql_stmt_execute(DataBase::Instance().GetStmt());           //Ö´ĞĞÓëÓï¾ä¾ä±úÏà¹ØµÄÔ¤´¦Àí
-	// 	mysql_stmt_bind_result(DataBase::Instance().GetStmt(), params); //ÓÃÓÚ½«½á¹û¼¯ÖĞµÄÁĞÓëÊı¾İ»º³åºÍ³¤¶È»º³å¹ØÁª£¨°ó¶¨£©ÆğÀ´
+	// 	mysql_stmt_execute(DataBase::Instance().GetStmt());           //æ‰§è¡Œä¸è¯­å¥å¥æŸ„ç›¸å…³çš„é¢„å¤„ç†
+	// 	mysql_stmt_bind_result(DataBase::Instance().GetStmt(), params); //ç”¨äºå°†ç»“æœé›†ä¸­çš„åˆ—ä¸æ•°æ®ç¼“å†²å’Œé•¿åº¦ç¼“å†²å…³è”ï¼ˆç»‘å®šï¼‰èµ·æ¥
 	// 	
-	// //	mysql_stmt_store_result(DataBase::Instance().GetStmt());      //ÒÔ±ãºóĞøµÄmysql_stmt_fetch()µ÷ÓÃÄÜ·µ»Ø»º³åÊı¾İ
+	// //	mysql_stmt_store_result(DataBase::Instance().GetStmt());      //ä»¥ä¾¿åç»­çš„mysql_stmt_fetch()è°ƒç”¨èƒ½è¿”å›ç¼“å†²æ•°æ®
 	// 
-	// 	while (mysql_stmt_fetch(DataBase::Instance().GetStmt()) == 0) //·µ»Ø½á¹û¼¯ÖĞµÄÏÂÒ»ĞĞ
+	// 	while (mysql_stmt_fetch(DataBase::Instance().GetStmt()) == 0) //è¿”å›ç»“æœé›†ä¸­çš„ä¸‹ä¸€è¡Œ
 	// 		printf("%d\t%s\n", id, name);
 	return true;
 }
@@ -153,7 +153,7 @@ void DatabaseFrame::Recv(GameMsg *msg)
 	//m_message_handler.HandleMessage(msg);
 }
 
-void DatabaseFrame::Update(unsigned int interval, time_t now)	// ¹¹¼Ü¸üĞÂ
+void DatabaseFrame::Update(unsigned int interval, time_t now)	// æ„æ¶æ›´æ–°
 {
 	//StmtSelect();
 	//StmtInsert();

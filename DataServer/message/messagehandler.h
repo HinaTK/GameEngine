@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef MESSAGE_HANDLER_H
 #define MESSAGE_HANDLER_H
 
@@ -31,7 +31,7 @@ protected:
 	HandlerItem m_function_list[IProtocol::MT_MAX_DATABASE_SERVER_TYPE - IProtocol::MT_MIN_DATABASE_SERVER_TYPE];
 
 	CircleQueue<GameMsg *>	m_queue;
-	Thread					m_flush_thread;		// ³åË¢¶ÓÁÐÏß³Ì
+	Thread					m_flush_thread;		// å†²åˆ·é˜Ÿåˆ—çº¿ç¨‹
 
 	void	UserLogin(char * msg);
 	void	Test(char *msg);

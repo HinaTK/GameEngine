@@ -1,4 +1,4 @@
-
+ï»¿
 #include <stdio.h>
 #include "tablebase.h"
 //#include "lib/include/common/memoryvl.h"
@@ -113,7 +113,7 @@ bool TableBase::Select()
 		return false;
 	}
 	
-	ResetBufferLength();		// ÖØÖÃ×Ö·û´®»º³åÇøÎªÄ¬ÈÏ´óĞ¡
+	ResetBufferLength();		// é‡ç½®å­—ç¬¦ä¸²ç¼“å†²åŒºä¸ºé»˜è®¤å¤§å°
 
 	if (0 != mysql_stmt_bind_result(m_stmt, m_param))
 	{

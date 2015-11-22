@@ -1,4 +1,4 @@
-
+﻿
 #ifndef L_DBPROTOCOL_H
 #define L_DBPROTOCOL_H
 

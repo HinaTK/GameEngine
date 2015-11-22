@@ -1,4 +1,4 @@
-
+﻿
 #ifndef COMMON_FUNCTION_H
 #define COMMON_FUNCTION_H
 

@@ -1,4 +1,4 @@
-
+﻿
 #include "commonfunction.h"
 #include "socketdef.h"
 #include "commonvariable.h"

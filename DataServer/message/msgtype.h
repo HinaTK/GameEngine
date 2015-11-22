@@ -1,4 +1,4 @@
-#ifndef MSGTYPE_H
+﻿#ifndef MSGTYPE_H
 #define MSGTYPE_H
 
 namespace Protocol

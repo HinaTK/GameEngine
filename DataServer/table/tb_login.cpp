@@ -1,4 +1,4 @@
-
+ï»¿
 #include <string.h>
 #include "tb_login.h"
 #include "lib/include/common/memoryvl.h"
@@ -21,7 +21,7 @@ TB_Login::TB_Login(unsigned short type, std::string table_name, MYSQL_STMT* stmt
 }
 
 
-// ×Ö·û´®ĞèÒªÖØĞÂ°ó¶¨»º³åÇø
+// å­—ç¬¦ä¸²éœ€è¦é‡æ–°ç»‘å®šç¼“å†²åŒº
 // bool TB_Login::BindResult()
 // {
 // 	BIND_RESULT_BEGIN();

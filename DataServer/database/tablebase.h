@@ -1,4 +1,4 @@
-
+﻿
 #ifndef TABLE_BASE_H
 #define TABLE_BASE_H
 
@@ -15,7 +15,7 @@
 #include "lib/include/common/mem.h"
 
 /*
-	��Ҫ������⣺���̶߳�д
+	需要解决问题：多线程读写
 */
 class TableBase
 {
@@ -40,12 +40,12 @@ public:
 
 	enum RELATION
 	{
-		GT,             //����
-		EQ,             //����
-		LT,             //С��
-		GTE,			//���ڵ���
-		LTE,			//С�ڵ���
-		NE,				//������
+		GT,             //大于
+		EQ,             //等于
+		LT,             //小于
+		GTE,			//大于等于
+		LTE,			//小于等于
+		NE,				//不等于
 		MAX_RELATION
 	};
 
@@ -63,7 +63,7 @@ public:
 
 	void					Init();
 
-	// Ŀǰֻ֧�ֲ���һ�����ݣ����������д(ԭ��˾����û�в������)
+	// 目前只支持插入一条数据，插入多条待写(原公司代码没有插入多条)
 	bool					Insert();
 
 	bool					Select();

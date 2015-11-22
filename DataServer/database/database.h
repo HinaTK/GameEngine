@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef DATABASE_H
 #define DATABASE_H
 
@@ -27,12 +27,12 @@ public:
 	
 	enum RELATION
 	{
-		GT,             //´óÓÚ
-		EQ,             //µÈÓÚ
-		LT,             //Ð¡ÓÚ
-		GTE,			//´óÓÚµÈÓÚ
-		LTE,			//Ð¡ÓÚµÈÓÚ
-		NE,				//²»µÈÓÚ
+		GT,             //å¤§äºŽ
+		EQ,             //ç­‰äºŽ
+		LT,             //å°äºŽ
+		GTE,			//å¤§äºŽç­‰äºŽ
+		LTE,			//å°äºŽç­‰äºŽ
+		NE,				//ä¸ç­‰äºŽ
 		MAX_RELATION
 	};
 	

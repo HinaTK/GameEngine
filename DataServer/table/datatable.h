@@ -1,4 +1,4 @@
-
+﻿
 #ifndef DATA_TABLE_H
 #define DATA_TABLE_H
 

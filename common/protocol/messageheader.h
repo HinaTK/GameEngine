@@ -1,4 +1,4 @@
-#ifndef MSGHEADER_H
+﻿#ifndef MSGHEADER_H
 #define MSGHEADER_H
 
 #include "../../common/commonvariable.h"

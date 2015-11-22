@@ -1,4 +1,4 @@
-
+﻿
 #ifndef DATATABLE_STMT_H
 #define DATATABLE_STMT_H
 
@@ -13,8 +13,8 @@
 #include "include/mysql.h"
 
 /*
-	mysql Ԥ����
-	1��mysql��Ԥ����������д�붼��󶨵�ַ
+	mysql 预处理
+	1、mysql的预处理读出与写入都会绑定地址
 */
 
 class Father

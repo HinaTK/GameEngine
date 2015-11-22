@@ -1,4 +1,4 @@
-
+ï»¿
 #include "messagehandler.h"
 #include "table/tb_login.h"
 #include "common/protocol/l_dbprotocol.h"
@@ -15,7 +15,7 @@
 // // 		GameMsg **msg = data_queue.Pop();
 // // 		if (msg != NULL)
 // // 		{
-// // 			// ´¦ÀíÊý¾Ý
+// // 			// å¤„ç†æ•°æ®
 // // 			delete (*msg);
 // // 		}
 // // 		else if (handler->m_is_run)
@@ -40,7 +40,7 @@ MessageHandler::MessageHandler()
 
 MessageHandler::~MessageHandler()
 {
-	//MessageBox(NULL, L"³õÊ¼»¯socketÊ§°Ü", L"ÏûÏ¢", MB_OK);
+	//MessageBox(NULL, L"åˆå§‹åŒ–socketå¤±è´¥", L"æ¶ˆæ¯", MB_OK);
 }
 
 void MessageHandler::HandleMessage(GameMsg *msg)
@@ -65,7 +65,7 @@ void MessageHandler::HandleMessage(GameMsg *msg)
 
 void MessageHandler::Exit()
 {
-	// ³åË¢m_queue
+	// å†²åˆ·m_queue
 	m_is_run = false;
 }
 
@@ -88,7 +88,7 @@ void MessageHandler::UserLogin( char * msg )
 // 	DataCache::DATAVALUE_VECTOR **field_data = TB_Login::Instance().GetCache()->m_data[login->account];
 // 	if (field_data == 0)
 // 	{
-// 		// ÔÚcacheÕÒ²»µ½£¬²éÕÒÊý¾Ý¿â
+// 		// åœ¨cacheæ‰¾ä¸åˆ°ï¼ŒæŸ¥æ‰¾æ•°æ®åº“
 // 		printf("account = %d, password = %d\n",login->account, login->passward);
 // 		DataValue val;
 // 		val.dv_uint = 0;
