@@ -94,8 +94,8 @@ bool NewFrame::InitConfig()
 // 		m_game_thread[i] = new GameThread(i + 1);
 // 	}
 	
-//	int a = 1;
-//	m_net_manager.Send(m_database_server_handle, (const char *)&a, sizeof(int));
+    int a = 1;
+    m_net_manager.Send(m_database_server_handle, (const char *)&a, sizeof(int));
 // 	struct Test
 // 	{
 // 		Test() :header(0){}
@@ -202,10 +202,10 @@ void NewFrame::Exit()
 
 void NewFrame::Wait()
 {
-	for (int i = 0; i < m_game_thread_num; ++i)
-	{
-		m_game_thread[i]->Wait();
-	}
+//	for (int i = 0; i < m_game_thread_num; ++i)
+//	{
+//		m_game_thread[i]->Wait();
+//	}
 }
 
 

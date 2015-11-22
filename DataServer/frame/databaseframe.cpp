@@ -147,7 +147,7 @@ bool DatabaseFrame::Init()		// 框架初始化
 
 void DatabaseFrame::Recv(GameMsg *msg)
 {
-	//printf("ret = %d\n", *(int *)msg->data);
+    //printf("ret = %d\n", *(int *)msg->data);
 	Send(msg->handle, msg->data, msg->length);
 	delete msg;
 	//m_message_handler.HandleMessage(msg);

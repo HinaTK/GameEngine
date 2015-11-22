@@ -58,7 +58,8 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, Accepter
 #ifdef __unix
 	struct epoll_event ev;
 	ev.events = EPOLLIN | EPOLLET;
-	ev.data.fd = net_id;
+    //ev.data.fd = net_id;
+    ev.data.ptr = (void *)accepter;
 	if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, net_id, &ev) < 0)
 	{
 		return false;	// 写log
@@ -107,7 +108,8 @@ NetHandle NetManager::ConnectServer(char *ip, unsigned short port, Listener *lis
 #ifdef __unix
 	struct epoll_event ev;
 	ev.events = EPOLLIN | EPOLLET;
-	ev.data.fd = sock;
+    //ev.data.fd = sock;
+    ev.data.ptr = (void *)listener;
 	if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, sock, &ev) < 0)
 	{
 		fprintf(stderr, "epoll set insertion error: fd=%d\n", sock);
@@ -186,7 +188,7 @@ void NetManager::Listen()
 		else
 		{
 			// 写log
-			//usleep(10000);
+            usleep(10000);
 		}
 	}
 #endif
