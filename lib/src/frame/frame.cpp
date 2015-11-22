@@ -31,6 +31,7 @@ Frame::Frame()
 {
 	SignalCatch::g_frame = this;
 	signal(SIGINT, SignalCatch::Catch);
+    signal(SIGPIPE, SIG_IGN); // socket send if close
 }
 
 Frame::~Frame()

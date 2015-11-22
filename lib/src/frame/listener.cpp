@@ -68,8 +68,8 @@ void Listener::OnCanWrite()
 		}
 		while (m_send_buf_read->RemainReadLength() > 0)
 		{
-			int ret = NetCommon::Send(m_sock, m_send_buf_read->GetReadBuf(), m_send_buf_read->RemainReadLength());
-
+            //int ret = NetCommon::Send(m_sock, m_send_buf_read->GetReadBuf(), m_send_buf_read->RemainReadLength());
+            int ret = send(m_sock, m_send_buf_read->GetReadBuf(), m_send_buf_read->RemainReadLength(), 0);
 			if (ret == SOCKET_ERROR)
 			{
 				if (NetCommon::Error() == WOULDBLOCK)
@@ -77,7 +77,7 @@ void Listener::OnCanWrite()
 					// 缓冲区已经满
 					break;
 				}
-				printf("send error %d", NetCommon::Error());
+                printf("send error %d\n", NetCommon::Error());
 				m_net_manager->RemoveHandler(m_handle);
 				return;
 			}
@@ -112,6 +112,7 @@ void Listener::RegisterWriteFD()
 	if (epoll_ctl(m_net_manager->GetEpollFD(), EPOLL_CTL_MOD, m_sock, &ev) == -1)
 	{
 		// 注册写失败
+         printf("RegisterWriteFD error %d\n", m_sock);
 	}
 #endif
 	MutexLock ml(&m_register_write_mutex);
@@ -135,6 +136,7 @@ void Listener::UnRegisterWriteFD()
 	if (epoll_ctl(m_net_manager->GetEpollFD(), EPOLL_CTL_MOD, m_sock, &ev) == -1)
 	{
 		// 反注册写失败
+        printf("UnRegisterWriteFD error %d\n", m_sock);
 	}
 #endif
 	MutexLock ml(&m_register_write_mutex);

@@ -7,21 +7,21 @@
 			<password>root</password>
 		</mysql>
 		<socket>
-			<ip>127.0.0.1</ip>
+			<ip>192.168.1.103</ip>
 			<port>12345</port>
 			<backlog>16</backlog>
 		</socket>
 	</databaseserver>
 	<gameserver>
 		<socket>
-			<ip>127.0.0.1</ip>
+			<ip>192.168.1.101</ip>
 			<port>12343</port>
 			<backlog>16</backlog>
 		</socket>
 	</gameserver>
 	<loginserver>
 		<socket>
-			<ip>0</ip>
+			<ip>127.0.0.1</ip>
 			<port>9999</port>
 			<backlog>16</backlog>
 		</socket>
