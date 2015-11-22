@@ -1,4 +1,4 @@
-#ifndef COMMON_VARIABLE_H
+ï»¿#ifndef COMMON_VARIABLE_H
 #define COMMON_VARIABLE_H
 
 #include <stdio.h>
@@ -7,7 +7,7 @@
 #include <time.h>
 
 /*
-	¶à¸öserver¿ÉÒÔ¹²Í¬°üº¬
+	å¤šä¸ªserverå¯ä»¥å…±åŒåŒ…å«
 */
 
 typedef short							Int16;

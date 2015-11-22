@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef VECTOR2D_H
 #define VECTOR2D_H
 
@@ -20,7 +20,7 @@ template<class T> struct TVector2
 	};
 
 	// =========================================================================
-	// ¹¹Ôìº¯Êı
+	// æ„é€ å‡½æ•°
 	//==========================================================================
 	TVector2(){}
 	TVector2( const T x, const T y ) : x(x), y(y) {}
@@ -28,54 +28,54 @@ template<class T> struct TVector2
 	TVector2( const T f[2]){ v[0] = f[0]; v[1] = f[1]; }
 
 	// =========================================================================
-	// ³õÊ¼»¯º¯Êı
+	// åˆå§‹åŒ–å‡½æ•°
 	// =========================================================================
 	void Init( T a=0, T b=0);
 	void Init(const TVector2& v);
 	void Init(const T f[2]);
 
 	// =========================================================================
-	// Ê¸Á¿µÄ»ù±¾ÔËËã
+	// çŸ¢é‡çš„åŸºæœ¬è¿ç®—
 	// =========================================================================		
-	// Ê¸Á¿³¤¶ÈµÄÆ½·½
+	// çŸ¢é‡é•¿åº¦çš„å¹³æ–¹
 	T MagSqr() const;
-	// Ê¸Á¿µÄ³¤¶È
+	// çŸ¢é‡çš„é•¿åº¦
 	T Mag() const;
-	// Ê¸Á¿³¤¶ÈµÄ¿ìËÙ¼ÆËã
+	// çŸ¢é‡é•¿åº¦çš„å¿«é€Ÿè®¡ç®—
 	T MagFast() const;
 
-	// ·µ»ØÒ»¸öÔ­Ê¸Á¿µÄµ¥Î»Ê¸Á¿£¬Ô­Ê¸Á¿²»¸Ä±ä
+	// è¿”å›ä¸€ä¸ªåŸçŸ¢é‡çš„å•ä½çŸ¢é‡ï¼ŒåŸçŸ¢é‡ä¸æ”¹å˜
 	const TVector2 Unit() const;
-	// ½«×ÔÉíµ¥Î»»¯
+	// å°†è‡ªèº«å•ä½åŒ–
 	const TVector2& Normalize();
 	// 
 	void Norm(T nVal = 1);
-	// Ê¸Á¿µ¥Î»»¯µÄ¿ìËÙ¼ÆËã
+	// çŸ¢é‡å•ä½åŒ–çš„å¿«é€Ÿè®¡ç®—
 	void NormFast(T nVal = 1);
 
 
-	// ÅĞ¶ÏÒ»¸öÊ¸Á¿ÊÇ·ñµÈÓÚÁã(ÔÚÖ¸¶¨µÄ¾«¶ÈÄÚ) £¬fTolÎª±È½ÏµÄ¾«¶È
+	// åˆ¤æ–­ä¸€ä¸ªçŸ¢é‡æ˜¯å¦ç­‰äºé›¶(åœ¨æŒ‡å®šçš„ç²¾åº¦å†…) ï¼ŒfTolä¸ºæ¯”è¾ƒçš„ç²¾åº¦
 	bool IsZero(float fTol = MATH_EPSILON)	const;
-	// ÅĞ¶ÏÊÇ·ñµÈÓÚÁíÒ»¸öÊ¸Á¿(ÔÚÖ¸¶¨µÄ¾«¶ÈÄÚ) £¬fTolÎª±È½ÏµÄ¾«¶È
+	// åˆ¤æ–­æ˜¯å¦ç­‰äºå¦ä¸€ä¸ªçŸ¢é‡(åœ¨æŒ‡å®šçš„ç²¾åº¦å†…) ï¼ŒfTolä¸ºæ¯”è¾ƒçš„ç²¾åº¦
 	bool IsEqual(const TVector2& b, const T r = MATH_EPSILON) const;
-	// ÅĞ¶ÏÒ»¸öÊ¸Á¿µÄ³¤¶ÈÊÇ·ñ´óÓÚlen
+	// åˆ¤æ–­ä¸€ä¸ªçŸ¢é‡çš„é•¿åº¦æ˜¯å¦å¤§äºlen
 	bool IsLongerThan(T len) const;
-	// ¼ÆËãÓëÁíÒ»¸öÊ¸Á¿¼äµÄ¾àÀë
+	// è®¡ç®—ä¸å¦ä¸€ä¸ªçŸ¢é‡é—´çš„è·ç¦»
 	float Dist( const TVector2& right ) const;
 
-	// ¼ÆËãÓëÁíÒ»¸öÊ¸Á¿¼äµÄ»¡¶È
+	// è®¡ç®—ä¸å¦ä¸€ä¸ªçŸ¢é‡é—´çš„å¼§åº¦
 	float Radian( const TVector2& tag ) const;
 	// =====================================================================
-	// Ê¸Á¿µÄÔËËã
+	// çŸ¢é‡çš„è¿ç®—
 	// =====================================================================
-	// Ê¸Á¿µÄµã»ı
+	// çŸ¢é‡çš„ç‚¹ç§¯
 	T Dot( const TVector2& b ) const;
 
 	TVector2	GetMaxAxis()const;
 	TVector2	GetMinAxis()const;
 
 	// =====================================================================
-	// ²Ù×÷·ûÖØÔØ
+	// æ“ä½œç¬¦é‡è½½
 	// =====================================================================
 	const T& operator [] ( const int i ) const;
 	T& operator [] ( const int i );
@@ -97,9 +97,9 @@ template<class T> struct TVector2
 	const TVector2& operator *= (const T s);
 	const TVector2& operator /= (const T s);
 
-	// µã»ı
+	// ç‚¹ç§¯
 	T operator * (const TVector2& v) const;    
-	// ²æ»ı
+	// å‰ç§¯
 	TVector2 operator ^ (const TVector2& v) const;   
 
 	bool operator == ( const TVector2& b ) const;
@@ -112,7 +112,7 @@ template<class T> struct TVector2
 };
 
 //====================================================================
-// ³õÊ¼»¯º¯Êı
+// åˆå§‹åŒ–å‡½æ•°
 //====================================================================
 template<class T> inline void TVector2<T>::Init( T a, T b)
 {
@@ -133,28 +133,28 @@ template<class T> inline void TVector2<T>::Init(const T f[2])
 }
 
 //========================================================================
-// Ê¸Á¿µÄ»ù±¾ÔËËã
+// çŸ¢é‡çš„åŸºæœ¬è¿ç®—
 //========================================================================
-// Ê¸Á¿µÄ³¤¶È
+// çŸ¢é‡çš„é•¿åº¦
 template<class T> inline T TVector2<T>::Mag() const
 {
 	return (T)sqrtf( (float)(x*x + y*y) );
 }
 
-// Ê¸Á¿³¤¶ÈµÄÆ½·½
+// çŸ¢é‡é•¿åº¦çš„å¹³æ–¹
 template<class T> inline T TVector2<T>::MagSqr() const
 {
 	return x*x + y*y;
 }
 
-// ·µ»ØÒ»¸öÔ­Ê¸Á¿µÄµ¥Î»Ê¸Á¿£¬Ô­Ê¸Á¿²»¸Ä±ä
+// è¿”å›ä¸€ä¸ªåŸçŸ¢é‡çš„å•ä½çŸ¢é‡ï¼ŒåŸçŸ¢é‡ä¸æ”¹å˜
 template<class T> inline const TVector2<T> TVector2<T>::Unit() const
 {
 	float fLen = this->Mag();
 	return (*this) / fLen;
 }
 
-// ½«×ÔÉíµ¥Î»»¯
+// å°†è‡ªèº«å•ä½åŒ–
 template<class T> inline const TVector2<T>& TVector2<T>::Normalize()
 {
 	float fLen = this->Mag();
@@ -168,7 +168,7 @@ inline bool gIsZero( float a, float fTol = MATH_EPSILON)
 	return ( a <= 0.0f ) ? ( a >= -fTol ) : ( a <= fTol ); 
 }
 
-// ÅĞ¶ÏÒ»¸öÊ¸Á¿ÊÇ·ñµÈÓÚÁã(ÔÚÖ¸¶¨µÄ¾«¶ÈÄÚ) £¬fTolÎª±È½ÏµÄ¾«¶È
+// åˆ¤æ–­ä¸€ä¸ªçŸ¢é‡æ˜¯å¦ç­‰äºé›¶(åœ¨æŒ‡å®šçš„ç²¾åº¦å†…) ï¼ŒfTolä¸ºæ¯”è¾ƒçš„ç²¾åº¦
 template<class T> inline bool TVector2<T>::IsZero(float fTol)	const
 {
 	if( gIsZero(x, fTol) && gIsZero(y, fTol))
@@ -177,7 +177,7 @@ template<class T> inline bool TVector2<T>::IsZero(float fTol)	const
 		return false;
 }
 
-// ÅĞ¶ÏÊÇ·ñµÈÓÚÁíÒ»¸öÊ¸Á¿(ÔÚÖ¸¶¨µÄ¾«¶ÈÄÚ) £¬fTolÎª±È½ÏµÄ¾«¶È
+// åˆ¤æ–­æ˜¯å¦ç­‰äºå¦ä¸€ä¸ªçŸ¢é‡(åœ¨æŒ‡å®šçš„ç²¾åº¦å†…) ï¼ŒfTolä¸ºæ¯”è¾ƒçš„ç²¾åº¦
 template<class T> inline bool TVector2<T>::IsEqual(const TVector2& b, const T r) const
 {
 	//within a tolerance
@@ -186,27 +186,27 @@ template<class T> inline bool TVector2<T>::IsEqual(const TVector2& b, const T r)
 	return t.Dot(t) <= r*r;//radius
 }
 
-// ÅĞ¶ÏÒ»¸öÊ¸Á¿µÄ³¤¶ÈÊÇ·ñ´óÓÚlen
+// åˆ¤æ–­ä¸€ä¸ªçŸ¢é‡çš„é•¿åº¦æ˜¯å¦å¤§äºlen
 template<class T> inline bool TVector2<T>::IsLongerThan(T len) const
 {
 	return (x*x + y*y) > (len * len);
 }
 
-// ¼ÆËãÓëÁíÒ»¸öÊ¸Á¿¼äµÄ¾àÀë
+// è®¡ç®—ä¸å¦ä¸€ä¸ªçŸ¢é‡é—´çš„è·ç¦»
 template<class T> inline float TVector2<T>::Dist( const TVector2& right ) const
 {
 	TVector2<T> DistVec( x - right.x, y - right.y );
 	return DistVec.Mag();
 }
 
-// ¼ÆËãÓëÁíÒ»¸öÊ¸Á¿¼äµÄ¾àÀë
+// è®¡ç®—ä¸å¦ä¸€ä¸ªçŸ¢é‡é—´çš„è·ç¦»
 template<class T> inline float TVector2<T>::Radian( const TVector2& tag ) const
 {
-	// Ö±½ÇµÄ±ß³¤
+	// ç›´è§’çš„è¾¹é•¿
 	float x1 = float(x - tag.x);
 	float y1 = float(y - tag.y);
 
-	// Ğ±±ß³¤    
+	// æ–œè¾¹é•¿    
 	float z1 = sqrt(x1 * x1 + y1 * y1);   
 
 	if (x1 < 0)
@@ -215,14 +215,14 @@ template<class T> inline float TVector2<T>::Radian( const TVector2& tag ) const
 	if (y1 < 0)
 		return float(PI + asin(y1 / z1));
 
-	// »¡¶È    
+	// å¼§åº¦    
 	return float((asin(y1 / z1) - PI));
 }
 
 //=================================================================================
-// Ê¸Á¿µÄÔËËã
+// çŸ¢é‡çš„è¿ç®—
 //=================================================================================
-// Ê¸Á¿µÄµã»ı
+// çŸ¢é‡çš„ç‚¹ç§¯
 template<class T> inline T TVector2<T>::Dot( const TVector2& b ) const
 {
 	return x*b.x + y*b.y;
@@ -230,9 +230,9 @@ template<class T> inline T TVector2<T>::Dot( const TVector2& b ) const
 
 //******************************************************************************
 /*! \fn     TVector2 TVector2<T>::GetMainAxis()const
-*   \brief  µÃµ½Ê¸Á¿µÄ×î´óÖá
-*           ·µ»ØÊ¸Á¿ÖĞ, x, y, z×î´óµÃ¶ÔÓ¦µÃÄÇ¸öÖá
-*   \return TVector2 µÃµ½µÃ×î´óÖá
+*   \brief  å¾—åˆ°çŸ¢é‡çš„æœ€å¤§è½´
+*           è¿”å›çŸ¢é‡ä¸­, x, y, zæœ€å¤§å¾—å¯¹åº”å¾—é‚£ä¸ªè½´
+*   \return TVector2 å¾—åˆ°å¾—æœ€å¤§è½´
 *   \sa     GetMinAxis
 *******************************************************************************/
 template<class T> inline TVector2<T> TVector2<T>::GetMaxAxis()const
@@ -245,9 +245,9 @@ template<class T> inline TVector2<T> TVector2<T>::GetMaxAxis()const
 
 //******************************************************************************
 /*! \fn    TVector2 TVector2<T>::GetMinAxis()const
-*   \brief  µÃµ½Ê¸Á¿µÄ×îĞ¡Öá
-*           ·µ»ØÊ¸Á¿ÖĞ, x, y, z×îĞ¡µÃ¶ÔÓ¦µÃÄÇ¸öÖá
-*   \return TVector2 µÃµ½µÃ×îĞ¡Öá
+*   \brief  å¾—åˆ°çŸ¢é‡çš„æœ€å°è½´
+*           è¿”å›çŸ¢é‡ä¸­, x, y, zæœ€å°å¾—å¯¹åº”å¾—é‚£ä¸ªè½´
+*   \return TVector2 å¾—åˆ°å¾—æœ€å°è½´
 *   \sa     GetMaxAxis
 *******************************************************************************/
 template<class T> inline TVector2<T> TVector2<T>::GetMinAxis()const
@@ -330,7 +330,7 @@ template<class T> inline const TVector2<T>& TVector2<T>::operator /= (const T s)
 }
 
 
-// µã»ı
+// ç‚¹ç§¯
 template<class T> inline T TVector2<T>::operator * (const TVector2& b) const     
 { 
 	return x*b.x + y*b.y; 

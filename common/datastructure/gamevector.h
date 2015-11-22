@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef GAME_VECTOR_H
 #define GAME_VECTOR_H
 
@@ -6,9 +6,9 @@
 #include <string.h>
 
 /*
-	Vector Óë std::vectorµÄÇø±ğÔÚÓÚ£º
-	VectorÔÚÉ¾³ıÊıÖÆµÄÊ±ºò²»ÔÚºõÈİÆ÷ÀïÃæµÄÊı¾İË³Ğò
-	¶østd::vectorĞèÒªÒÆ¶¯Êı¾İ
+	Vector ä¸ std::vectorçš„åŒºåˆ«åœ¨äºï¼š
+	Vectoråœ¨åˆ é™¤æ•°åˆ¶çš„æ—¶å€™ä¸åœ¨ä¹å®¹å™¨é‡Œé¢çš„æ•°æ®é¡ºåº
+	è€Œstd::vectoréœ€è¦ç§»åŠ¨æ•°æ®
 */
 namespace game
 {
@@ -74,9 +74,9 @@ public:
 
 	T&				Back(){ return m_list[m_index - 1]; }
 
-	T&				operator[](unsigned int index);			// ÒªÏÈÅĞ¶ÏÊÇ·ñ´æÔÚExist
+	T&				operator[](unsigned int index);			// è¦å…ˆåˆ¤æ–­æ˜¯å¦å­˜åœ¨Exist
 
-	void			PopBack(){ --m_index; }					// m_indexÊÇ·ñĞ¡ÓÚµÈÓÚ0ÓÉÍâ²¿È·±£
+	void			PopBack(){ --m_index; }					// m_indexæ˜¯å¦å°äºç­‰äº0ç”±å¤–éƒ¨ç¡®ä¿
 
 	unsigned int	MaxSize(){ return m_size;};
 
@@ -86,14 +86,14 @@ public:
 
 	void			Clear();
 
-	bool			Init(unsigned int size);	// ³õÊ¼»¯Êı¾İ
+	bool			Init(unsigned int size);	// åˆå§‹åŒ–æ•°æ®
 
 protected:
 	bool			Resize();
 private:
 	T * m_list;
-	unsigned int m_size;		// ÈİÆ÷ÈİÁ¿
-	unsigned int m_index;		// µ±Ç°Êı¾İË÷Òı
+	unsigned int m_size;		// å®¹å™¨å®¹é‡
+	unsigned int m_index;		// å½“å‰æ•°æ®ç´¢å¼•
 };
 
 template<class T>

@@ -1,8 +1,8 @@
-
+ï»¿
 #include "globalclass.h"
 
 
 namespace GlobalClass
 {
-	bool g_is_exit = false;		// ½ø³ÌÊÇ·ñÍË³ö
+	bool g_is_exit = false;		// è¿›ç¨‹æ˜¯å¦é€€å‡º
 }

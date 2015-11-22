@@ -1,4 +1,4 @@
-
+﻿
 #ifndef BASEDEF_H
 #define BASEDEF_H
 
