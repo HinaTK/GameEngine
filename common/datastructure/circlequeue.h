@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef CIRCLEQUEUE_H
 #define CIRCLEQUEUE_H
 
@@ -6,7 +6,7 @@
 #include <string.h>
 
 /*
-	²»Ö§³Ö¶àÏß³Ì
+	ä¸æ”¯æŒå¤šçº¿ç¨‹
 */
 template<class T>
 class CircleQueue
@@ -15,7 +15,7 @@ public:
 	CircleQueue(unsigned int size = 64):m_size((size <= 0) ? 1:size),m_head(0),m_tail(0)
 	{
 		m_queue = new T[m_size];
-		// ÕâÀï²»¿ÉÒÔmemset,ÒòÎªÈç¹ûTÊÇÀàµÄ»°£¬»á½«ÄÚ²¿µÄÀà±í½á¹¹ÖÃ0
+		// è¿™é‡Œä¸å¯ä»¥memset,å› ä¸ºå¦‚æœTæ˜¯ç±»çš„è¯ï¼Œä¼šå°†å†…éƒ¨çš„ç±»è¡¨ç»“æ„ç½®0
 		// memset(m_queue, 0, m_size * sizeof(T));
 	}
 
@@ -35,9 +35,9 @@ public:
 
 protected:
 	/*
-		µ± head µÈÓÚ tail 
-		* Èç¹ûÊÇ head ×·ÉÏ tail Îª empty
-		* Èç¹ûÊÇ tail ×·ÉÏ head Îª full
+		å½“ head ç­‰äº tail 
+		* å¦‚æœæ˜¯ head è¿½ä¸Š tail ä¸º empty
+		* å¦‚æœæ˜¯ tail è¿½ä¸Š head ä¸º full
 	*/
 
 	bool	Resize();
@@ -73,14 +73,14 @@ bool CircleQueue<T>::Push(T &val)
 	}
 
 	/*
-	µ±ÀàÖĞÓĞ³ÉÔ±Ö¸Õë±äÁ¿Ê±£¬memcpyÖ»»á°ÑÖ¸ÕëµØÖ·£¬Ò»Í¬¸´ÖÆ¹ıÀ´¡£
-	Òò´Ëµ±Ô­À´µÄÊı¾İ¸Ä±äÊ±£¬ÕâÀïµÄÊı¾İÒ²»á¸Ä±ä£¬ÀıÈçstring¡£
-	ÕâÀïÒªÇóÀàÖØÔØ¿½±´º¯Êı
+	å½“ç±»ä¸­æœ‰æˆå‘˜æŒ‡é’ˆå˜é‡æ—¶ï¼Œmemcpyåªä¼šæŠŠæŒ‡é’ˆåœ°å€ï¼Œä¸€åŒå¤åˆ¶è¿‡æ¥ã€‚
+	å› æ­¤å½“åŸæ¥çš„æ•°æ®æ”¹å˜æ—¶ï¼Œè¿™é‡Œçš„æ•°æ®ä¹Ÿä¼šæ”¹å˜ï¼Œä¾‹å¦‚stringã€‚
+	è¿™é‡Œè¦æ±‚ç±»é‡è½½æ‹·è´å‡½æ•°
 	*/
 	//memcpy(&m_queue[m_tail], &val, sizeof(T));
 	m_queue[m_tail] = val;
 
-	// ÓÉÓÚ¿ÉÄÜ»áÖØĞÂ·ÖÅä¿Õ¼ä£¬m_tail»á·¢Éú¸Ä±ä£¬Òò´Ë²»ÄÜÓÃnew_tail¸³Öµ
+	// ç”±äºå¯èƒ½ä¼šé‡æ–°åˆ†é…ç©ºé—´ï¼Œm_tailä¼šå‘ç”Ÿæ”¹å˜ï¼Œå› æ­¤ä¸èƒ½ç”¨new_tailèµ‹å€¼
 	m_tail = m_tail + 1;
 	if (m_tail >= m_size)
 	{

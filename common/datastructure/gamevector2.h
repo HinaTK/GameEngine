@@ -1,4 +1,4 @@
-#ifndef GameVector2_H
+﻿#ifndef GameVector2_H
 #define GameVector2_H
 
 template<class T>

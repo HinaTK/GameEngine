@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef SORT_MAP_H
 #define SORT_MAP_H
 
@@ -7,8 +7,8 @@
 #include "lib/include/common/memorypool.h"
 
 /*
-	ÓĞĞòÓ³Éä£¬¾ß¿ìËÙ²åÈë¡¢²éÕÒ¼°ÅÅĞòµÄÄÜÁ¦
-	ÓÎÏ·ÖĞµÄÓ¦ÓÃ£º»î¶¯¡¢¸±±¾µÈÊµÊ±»ı·ÖÅÅÃû
+	æœ‰åºæ˜ å°„ï¼Œå…·å¿«é€Ÿæ’å…¥ã€æŸ¥æ‰¾åŠæ’åºçš„èƒ½åŠ›
+	æ¸¸æˆä¸­çš„åº”ç”¨ï¼šæ´»åŠ¨ã€å‰¯æœ¬ç­‰å®æ—¶ç§¯åˆ†æ’å
 */
 
 namespace game
@@ -116,7 +116,7 @@ unsigned int SortMap<K, V>::Insert(K &key, V &data)
 	itr->second->second = data;
 	unsigned int new_rank = itr->second->rank;
 	RankData *temp_data;
-	// ÏòÉÏÃ°Åİ
+	// å‘ä¸Šå†’æ³¡
 	for (int i = (int)(itr->second->rank - 1); i > 0; --i)
 	{
 		if (m_data[i]->second <= m_data[i - 1]->second)
@@ -130,10 +130,10 @@ unsigned int SortMap<K, V>::Insert(K &key, V &data)
 		--new_rank;
 	}
 
-	// ÏòÏÂÃ°Åİ
+	// å‘ä¸‹å†’æ³¡
 	for (int i = (int)itr->second->rank; i < (int)m_data.Size(); ++i)
 	{
-		// ½á¹¹Ìå´«ÈëµÄÊ±ºòĞèÒªÖØÔØ
+		// ç»“æ„ä½“ä¼ å…¥çš„æ—¶å€™éœ€è¦é‡è½½
 		if (m_data[i - 1]->second >= m_data[i]->second)
 		{
 			break;

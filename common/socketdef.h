@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef SOCKET_DEF_H
 #define SOCKET_DEF_H
 
@@ -44,6 +44,6 @@ static const int RECV_BUF_SIZE = 64 * 1024; // 64K
 
 #define INVALID_NET_HANDLE	-1
 typedef char		IP[64];
-typedef int			NetHandle;	// ÄÚ²¿ÍøÂç±êÊ¶
+typedef int			NetHandle;	// å†…éƒ¨ç½‘ç»œæ ‡è¯†
 
 #endif

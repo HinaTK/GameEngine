@@ -1,4 +1,4 @@
-
+﻿
 #ifndef WEB_MSG_QUEUE_H
 #define WEB_MSG_QUEUE_H
 

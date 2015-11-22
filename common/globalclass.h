@@ -1,4 +1,4 @@
-
+﻿
 #ifndef GLOBAL_CLASS_H
 #define GLOBAL_CLASS_H
 
