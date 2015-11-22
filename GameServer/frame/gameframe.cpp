@@ -76,16 +76,16 @@ bool GameFrame::InitConfig()
 		return false;
 	}
 
-	m_database_server_handle = m_net_manager.ConnectServer(
-		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].ip,
-		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].port,
-		new BaseListener(&m_net_manager),
-		m_i_call_back);
+//	m_database_server_handle = m_net_manager.ConnectServer(
+//		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].ip,
+//		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].port,
+//		new BaseListener(&m_net_manager),
+//		m_i_call_back);
 
-	if (m_database_server_handle == INVALID_NET_HANDLE)
-	{
-		return false;
-	}
+//	if (m_database_server_handle == INVALID_NET_HANDLE)
+//	{
+//		return false;
+//	}
 
 	// 读取配置,设置m_game_thread_num的值
 // 	m_game_thread = new GameThread*[m_game_thread_num];
@@ -94,8 +94,8 @@ bool GameFrame::InitConfig()
 // 		m_game_thread[i] = new GameThread(i + 1);
 // 	}
 	
-	int a = 1;
-	m_net_manager.Send(m_database_server_handle, (const char *)&a, sizeof(int));
+//	int a = 1;
+//	m_net_manager.Send(m_database_server_handle, (const char *)&a, sizeof(int));
 // 	struct Test
 // 	{
 // 		Test() :header(0){}

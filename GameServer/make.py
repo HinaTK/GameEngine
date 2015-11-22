@@ -46,8 +46,8 @@ LIBROOTPATH = "-L " + ROOTPATH;
 INCPATH 	= INCROOTPATH + " " + INCROOTPATH + "/GameServer " ;
 SYSLIBS		= " -lpthread"
 LIBS		= LIBROOTPATH + "/lib/linux " + "-lFrame -lTimeManager -lCommon -lTinyxml" + SYSLIBS;
-CXX			= "g++";
-FLAGS		= '-fpermissive -g3 -Wall -std=c++11';
+CXX		= "g++";
+FLAGS		= '-g3 -Wall -std=c++11 -fpermissive';
 
 #########################################################################################################################
 #

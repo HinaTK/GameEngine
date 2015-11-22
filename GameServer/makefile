@@ -8,7 +8,7 @@ BIN 				= GameServer
 SOURCES			= /home/jiaming/git/GameEngine/GameServer/poolconfig/test.cpp /home/jiaming/git/GameEngine/GameServer/poolconfig/memorypoolconfig.cpp /home/jiaming/git/GameEngine/GameServer/frame/main.cpp /home/jiaming/git/GameEngine/GameServer/frame/gamethread.cpp /home/jiaming/git/GameEngine/GameServer/frame/gameframe.cpp /home/jiaming/git/GameEngine/GameServer/base/knapsack.cpp /home/jiaming/git/GameEngine/GameServer/global/globalfunction.cpp /home/jiaming/git/GameEngine/GameServer/obj/obj.cpp /home/jiaming/git/GameEngine/GameServer/obj/role.cpp /home/jiaming/git/GameEngine/GameServer/obj/objmanager.cpp /home/jiaming/git/GameEngine/GameServer/scene/observer.cpp /home/jiaming/git/GameEngine/GameServer/scene/area.cpp /home/jiaming/git/GameEngine/GameServer/scene/aoi.cpp /home/jiaming/git/GameEngine/GameServer/scene/areamanager.cpp /home/jiaming/git/GameEngine/GameServer/scene/scenemanager.cpp /home/jiaming/git/GameEngine/GameServer/scene/scene.cpp /home/jiaming/git/GameEngine/GameServer/message/messagefunction/messagehandler.cpp /home/jiaming/git/GameEngine/GameServer/other/showcrash.cpp /home/jiaming/git/GameEngine/GameServer/other/log.cpp /home/jiaming/git/GameEngine/GameServer/other/MyDll.cpp /home/jiaming/git/GameEngine/GameServer/other/dll.cpp /home/jiaming/git/GameEngine/common/commonfunction.cpp /home/jiaming/git/GameEngine/common/globalclass.cpp 
 SOURCEFILES		= $(notdir $(SOURCES))
 OBJECTS			= $(addprefix $(OBJDIR), $(patsubst %.cpp,%.o,$(SOURCEFILES)))
-FLAGS				= -fpermissive -g3 -Wall -std=c++11
+FLAGS				= -g3 -Wall -std=c++11 -fpermissive
 
 all:makedir $(OBJECTS)
 	$(CXX) $(FLAGS) $(INCPATH) -o $(BIN) $(OBJECTS) $(LIBS);
