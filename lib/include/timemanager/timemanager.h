@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef TIME_MANAGER_H
 #define TIME_MANAGER_H
 
@@ -6,8 +6,8 @@
 #include "common/datastructure/gameheap.h"
 
 /*
-	ÆäËüµÄÊ±¼äÊÂ¼ş¶¼Ó¦¸Ã¼Ì³ĞTimeEvent£»
-	²¢½«Ê±¼äÊÂ¼ş¼ÓÈëµ½TimeEventManager½øĞĞ¹ÜÀí
+	å…¶å®ƒçš„æ—¶é—´äº‹ä»¶éƒ½åº”è¯¥ç»§æ‰¿TimeEventï¼›
+	å¹¶å°†æ—¶é—´äº‹ä»¶åŠ å…¥åˆ°TimeEventManagerè¿›è¡Œç®¡ç†
 */
 class TimeEvent
 {
@@ -47,7 +47,7 @@ protected:
 	typedef game::Heap<Timer>		TIME_EVENT_HEAP;
 protected:
 	TIME_EVENT_HEAP	m_event_heap;
-	time_t	m_update_time;				// ÏÂ´Î¸üĞÂµÄÊ±¼ä
+	time_t	m_update_time;				// ä¸‹æ¬¡æ›´æ–°çš„æ—¶é—´
 };
 
 

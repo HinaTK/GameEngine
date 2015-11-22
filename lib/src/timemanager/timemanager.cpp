@@ -1,4 +1,4 @@
-
+﻿
 #include <stdlib.h>
 #include "timemanager.h"
 #include "gametime.h"

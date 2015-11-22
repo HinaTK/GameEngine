@@ -1,4 +1,4 @@
-
+ï»¿
 #include "gametime.h"
 
 #ifdef __unix
@@ -71,7 +71,7 @@ int GameTime::DaySecond()
 void GameTime::GameSleep( unsigned int ms )
 {
 #ifdef __unix
-	usleep((ms << 10) - (ms << 4) - (ms << 3));		// ¾­²âÊÔ£¬ÕâÖÖ·½·¨ÔÚlinuxÏÂÖ´ÐÐµÃ¸ü¿ìÒ»Ð©£¨windowsÏÂ²î²»¶à£©
+	usleep((ms << 10) - (ms << 4) - (ms << 3));		// ç»æµ‹è¯•ï¼Œè¿™ç§æ–¹æ³•åœ¨linuxä¸‹æ‰§è¡Œå¾—æ›´å¿«ä¸€äº›ï¼ˆwindowsä¸‹å·®ä¸å¤šï¼‰
 	//Sleep(ms);
 #endif
 #ifdef WIN32
