@@ -1,4 +1,4 @@
-
+﻿
 #ifndef WEB_ACCEPTER_H
 #define WEB_ACCEPTER_H
 

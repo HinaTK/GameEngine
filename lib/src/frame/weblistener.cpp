@@ -1,4 +1,4 @@
-
+ï»¿
 #include "weblistener.h"
 #include "netcommon.h"
 #include "netmanager.h"
@@ -17,7 +17,7 @@ REGISTER_MEMORYPOOL(memorypool, WebListener, 256);
 		return true;\
 	}
 
-// websocket ÔÚÊı¾İÖĞ²»ÓÃ¼ÓĞ­ÒéÍ·
+// websocket åœ¨æ•°æ®ä¸­ä¸ç”¨åŠ åè®®å¤´
 bool WebListener::AnalyzeBuf()
 {
 	//static char extend_data[DataFrameHeader::MID_EXTEND_LEN];
@@ -49,7 +49,7 @@ bool WebListener::AnalyzeBuf()
 			{
 				m_recv_buf.RemoveBuf(remove_len);
 			}
-			return false; // Êı¾İÌ«´ó,¶Ï¿ªÁ´½Ó
+			return false; // æ•°æ®å¤ªå¤§,æ–­å¼€é“¾æ¥
 		}
 
 		if (header.HasMask())
@@ -63,7 +63,7 @@ bool WebListener::AnalyzeBuf()
 			buf_offset += length;
 			CHECK_BUF_LEN();
 			char *data = (char *)(buf + frame_offset);
-			// È¥µôÄ££¬Ğ§ÂÊ¸ü¿ì
+			// å»æ‰æ¨¡ï¼Œæ•ˆç‡æ›´å¿«
 			int size = length - (length % FrameHeader::MASK_LEN);
 			for (int i = 0; i < size; i = i + FrameHeader::MASK_LEN)
 			{
@@ -101,7 +101,7 @@ bool WebListener::AnalyzeBuf()
 
 void WebListener::Send(const char *buf, unsigned int len)
 {
-	// ¹¹Ôìwebsocket·¢ËÍÖ¡
+	// æ„é€ websocketå‘é€å¸§
 	static const unsigned int BASE_LEN = FrameHeader::HEADER_LEN + FrameHeader::MAX_EXTEND_LEN + FrameHeader::MASK_LEN;
 	unsigned int frame_length = BASE_LEN + len;
 	unsigned int offset = FrameHeader::HEADER_LEN;
@@ -135,7 +135,7 @@ void WebListener::Send(const char *buf, unsigned int len)
 	
 	offset += extend_len;
 
-	// ²»ÓÃmask,ÕâÀï²»´¦ÀímaskÊı¾İ
+	// ä¸ç”¨mask,è¿™é‡Œä¸å¤„ç†maskæ•°æ®
 
 	memcpy(frame + offset, buf, len);
 	{

@@ -1,14 +1,14 @@
-
+ï»¿
 #ifndef MSG_PROXY_H
 #define MSG_PROXY_H
 
 #include "msgcallback.h"
 
 /*
-	ÏûÏ¢´úÀí
+	æ¶ˆæ¯ä»£ç†
 */
 
-// ÓÃÄÚ´æ³Ø
+// ç”¨å†…å­˜æ± 
 class GameMsg;
 class BaseMsg
 {

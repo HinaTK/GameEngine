@@ -1,4 +1,4 @@
-
+ï»¿
 #include "listener.h"
 #include "netcommon.h"
 #include "netmanager.h"
@@ -74,7 +74,7 @@ void Listener::OnCanWrite()
 			{
 				if (NetCommon::Error() == WOULDBLOCK)
 				{
-					// »º³åÇøÒÑ¾­Âú
+					// ç¼“å†²åŒºå·²ç»æ»¡
 					break;
 				}
 				printf("send error %d", NetCommon::Error());
@@ -111,7 +111,7 @@ void Listener::RegisterWriteFD()
 	ev.data.ptr = (void *)this;
 	if (epoll_ctl(m_net_manager->GetEpollFD(), EPOLL_CTL_MOD, m_sock, &ev) == -1)
 	{
-		// ×¢²áĞ´Ê§°Ü
+		// æ³¨å†Œå†™å¤±è´¥
 	}
 #endif
 	MutexLock ml(&m_register_write_mutex);
@@ -134,7 +134,7 @@ void Listener::UnRegisterWriteFD()
 	ev.data.ptr = (void *)this;
 	if (epoll_ctl(m_net_manager->GetEpollFD(), EPOLL_CTL_MOD, m_sock, &ev) == -1)
 	{
-		// ·´×¢²áĞ´Ê§°Ü
+		// åæ³¨å†Œå†™å¤±è´¥
 	}
 #endif
 	MutexLock ml(&m_register_write_mutex);

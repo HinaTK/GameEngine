@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef NET_MANAGER_H
 #define NET_MANAGER_H
 
@@ -37,7 +37,7 @@ public:
 	void			RemoveHandler(NetHandle handle);
 	void			AddReplaceHandler(NetHandler *handler);
 
-	void			ReplaceHandler();		// ½«¸Ã¾ä±úµÄ¿ØÖÆÕßÌæ»»£¨ÓÃÓÚ½«ÎÕÊÖÕß-->¼àÌıÕß£©
+	void			ReplaceHandler();		// å°†è¯¥å¥æŸ„çš„æ§åˆ¶è€…æ›¿æ¢ï¼ˆç”¨äºå°†æ¡æ‰‹è€…-->ç›‘å¬è€…ï¼‰
 	void			ClearHandler();
 	
 	void			PushMsg(NetHandler *handler, unsigned short msg_type, const char *data, unsigned int len);

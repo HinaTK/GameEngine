@@ -1,4 +1,4 @@
-
+ï»¿
 #include <signal.h>
 #include <thread>
 #include "frame.h"
@@ -94,7 +94,7 @@ void Frame::UpdateAll(unsigned long long interval)
 
 bool Frame::Run()
 {
-	unsigned long long		last_time_ms = GameTime::Instance().FrameTime();	// ÉÏÒ»´Î¸üĞÂÊ±¼ä
+	unsigned long long		last_time_ms = GameTime::Instance().FrameTime();	// ä¸Šä¸€æ¬¡æ›´æ–°æ—¶é—´
 	unsigned long long		cur_time_ms = 0;
 	unsigned long long		second = 0;
 	unsigned long long		oneMinute = 60000;
@@ -105,7 +105,7 @@ bool Frame::Run()
 	{
 		m_net_manager.Update();
 
-		// update »úÖÆĞèÒªĞŞ¸Ä
+		// update æœºåˆ¶éœ€è¦ä¿®æ”¹
 		GameTime::Instance().Update();
 		cur_time_ms = GameTime::Instance().FrameTime();
 		if (cur_time_ms != last_time_ms)

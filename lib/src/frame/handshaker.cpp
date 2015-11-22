@@ -1,4 +1,4 @@
-
+ï»¿
 #include <stdio.h>
 #include "handshaker.h"
 #include "weblistener.h"
@@ -35,7 +35,7 @@ public:
 
 void HandShaker::OnCanRead()
 {
-	// ´¦ÀíÎÕÊÖÐ­Òé
+	// å¤„ç†æ¡æ‰‹åè®®
 	if (!HandShake())
 	{
 		m_net_manager->RemoveHandler(m_handle);
@@ -101,7 +101,7 @@ bool HandShaker::HandShake()
 			ev.data.ptr = (void *)this;
 			if (epoll_ctl(m_net_manager->GetEpollFD(), EPOLL_CTL_MOD, m_sock, &ev) == -1)
 			{
-				// ×¢²áÐ´Ê§°Ü
+				// æ³¨å†Œå†™å¤±è´¥
 			}
 #endif		
 		}
@@ -118,7 +118,7 @@ void HandShaker::OnCanWrite()
 		{
 			if (NetCommon::Error() == WOULDBLOCK)
 			{
-				// »º³åÇøÒÑ¾­Âú
+				// ç¼“å†²åŒºå·²ç»æ»¡
 				break;
 			}
 			m_net_manager->RemoveHandler(m_handle);
@@ -131,7 +131,7 @@ void HandShaker::OnCanWrite()
 			WebListener *handler = new WebListener(m_net_manager);
 			handler->m_msg_index = m_msg_index;
 			handler->m_sock = m_sock;
-			handler->m_handle = m_handle;	// ÓÃÓÚÉ¾³ýÔ­À´µÄhandle
+			handler->m_handle = m_handle;	// ç”¨äºŽåˆ é™¤åŽŸæ¥çš„handle
 			m_net_manager->AddReplaceHandler(handler);
 			return;
 		}

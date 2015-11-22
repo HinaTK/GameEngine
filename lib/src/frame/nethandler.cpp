@@ -1,4 +1,4 @@
-
+﻿
 #include "nethandler.h"
 #include "netmanager.h"
 

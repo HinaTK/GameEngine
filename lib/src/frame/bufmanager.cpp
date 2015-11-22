@@ -1,4 +1,4 @@
-
+ï»¿
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -78,7 +78,7 @@ SendBuffer::SendBuffer(unsigned int size /*= 64*/)
 
 }
 
-// ¿É²»¿É±£´æbufµÄÖ¸Õë£¬¼õÉÙÄÚ´æ¿½±´£¿£¡
+// å¯ä¸å¯ä¿å­˜bufçš„æŒ‡é’ˆï¼Œå‡å°‘å†…å­˜æ‹·è´ï¼Ÿï¼
 void SendBuffer::Push(const char *buf, unsigned int len)
 {
 	if (len > (m_size - m_length))

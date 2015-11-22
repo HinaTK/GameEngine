@@ -1,11 +1,11 @@
-
+ï»¿
 #include "websocket/base64.h"
 
 string Base64::Encode(const unsigned char* Data, int DataByte)
 {
-	//±àÂë±í
+	//ç¼–ç è¡¨
 	const char EncodeTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-	//·µ»ØÖµ
+	//è¿”å›å€¼
 	string strEncode;
 	unsigned char Tmp[4] = { 0 };
 	int LineLength = 0;
@@ -20,7 +20,7 @@ string Base64::Encode(const unsigned char* Data, int DataByte)
 		strEncode += EncodeTable[Tmp[3] & 0x3F];
 		if (LineLength += 4, LineLength == 76) { strEncode += "\r\n"; LineLength = 0; }
 	}
-	//¶ÔÊ£ÓàÊı¾İ½øĞĞ±àÂë
+	//å¯¹å‰©ä½™æ•°æ®è¿›è¡Œç¼–ç 
 	int Mod = DataByte % 3;
 	if (Mod == 1)
 	{
@@ -44,7 +44,7 @@ string Base64::Encode(const unsigned char* Data, int DataByte)
 
 string Base64::Decode(const char* Data, int DataByte, int& OutByte)
 {
-	//½âÂë±í
+	//è§£ç è¡¨
 	const char DecodeTable[] =
 	{
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -60,7 +60,7 @@ string Base64::Decode(const char* Data, int DataByte, int& OutByte)
 		26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38,
 		39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, // 'a'-'z'
 	};
-	//·µ»ØÖµ
+	//è¿”å›å€¼
 	string strDecode;
 	int nValue;
 	int i = 0;
@@ -86,7 +86,7 @@ string Base64::Decode(const char* Data, int DataByte, int& OutByte)
 			}
 			i += 4;
 		}
-		else// »Ø³µ»»ĞĞ,Ìø¹ı
+		else// å›è½¦æ¢è¡Œ,è·³è¿‡
 		{
 			Data++;
 			i++;

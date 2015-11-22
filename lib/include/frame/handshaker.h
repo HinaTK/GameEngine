@@ -1,11 +1,11 @@
-
+ï»¿
 #ifndef HAND_SHAKER_H
 #define HAND_SHAKER_H
 
 #include "nethandler.h"
 
 /*
-	ÎÕÊÖÕß ×¨ÃÅ´¦ÀíwebsocketµÄÎÕÊÖ´¦Àí
+	æ¡æ‰‹è€… ä¸“é—¨å¤„ç†websocketçš„æ¡æ‰‹å¤„ç†
 */
 
 class HandShaker : public NetHandler
@@ -30,8 +30,8 @@ protected:
 	bool			HandShake();
 
 	char			m_handshake_data[256];
-	int				m_data_length;	// Êı¾İ³¤¶È
-	int				m_send_length;	// ÒÑ¾­·¢ËÍÊı¾İ³¤¶È
+	int				m_data_length;	// æ•°æ®é•¿åº¦
+	int				m_send_length;	// å·²ç»å‘é€æ•°æ®é•¿åº¦
 };
 
 #endif

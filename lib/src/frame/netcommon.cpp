@@ -1,4 +1,4 @@
-
+ï»¿
 #include "common/socketdef.h"
 #include <memory.h>
 #include <stdio.h>
@@ -76,7 +76,7 @@ int CleanUp()
 
 int Send(SOCKET sock, const char *msg, unsigned int length)
 {
-	// ÔÚsend ·µ»Ø -1²¢ÇÒ´íÎóÂëÊÇ (windows WSAEWOULDBLOCK)¡¢(linux EWOULDBLOCK),±íÊ¾»º³åÇøÒÑÂú
+	// åœ¨send è¿”å› -1å¹¶ä¸”é”™è¯¯ç æ˜¯ (windows WSAEWOULDBLOCK)ã€(linux EWOULDBLOCK),è¡¨ç¤ºç¼“å†²åŒºå·²æ»¡
 	return send(sock, msg, length, 0);
 }
 

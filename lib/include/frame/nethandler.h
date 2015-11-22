@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef NET_HANDLER_H
 #define NET_HANDLER_H
 
@@ -32,9 +32,9 @@ public:
 		LISTENER,
 	};
 
-	NetHandle		m_handle;	// ÄÚ²¿²Ù×÷¾ä±ú
+	NetHandle		m_handle;	// å†…éƒ¨æ“ä½œå¥æŸ„
 	SOCKET			m_sock;	// socket id
-	unsigned int	m_msg_index;	// ÍøÂçÊı¾İµ¼ÏòË÷Òı
+	unsigned int	m_msg_index;	// ç½‘ç»œæ•°æ®å¯¼å‘ç´¢å¼•
 protected:
 	NetManager	*m_net_manager;
 	int			m_type;

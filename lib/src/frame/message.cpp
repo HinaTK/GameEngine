@@ -1,4 +1,4 @@
-
+﻿
 #include "frame/message.h"
 #include "lib/include/common/memorypool.h"
 #include "lib/include/common/mem.h"

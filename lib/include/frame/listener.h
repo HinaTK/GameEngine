@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef LISTENER_H
 #define LISTENER_H
 
@@ -8,8 +8,8 @@
 #include "lib/include/common/mutex.h"
 
 /*
-	¼àÌıÕß£¬¼àÌıËùÓĞÊı¾İµÄ¶ÁĞ´×´Ì¬
-	Ğé»ùÀà
+	ç›‘å¬è€…ï¼Œç›‘å¬æ‰€æœ‰æ•°æ®çš„è¯»å†™çŠ¶æ€
+	è™šåŸºç±»
 */
 
 class Listener : public NetHandler
@@ -53,8 +53,8 @@ protected:
 	void			UnRegisterWriteFD();
 protected:
 	RecvBufffer	m_recv_buf;
-	SendBuffer	*m_send_buf_read;	// Ö»¶Á
-	SendBuffer	*m_send_buf_write;	// Ö»Ğ´
+	SendBuffer	*m_send_buf_read;	// åªè¯»
+	SendBuffer	*m_send_buf_write;	// åªå†™
 	bool		m_is_register_write;
 	std::mutex	m_send_mutex;
 	std::mutex	m_register_write_mutex;

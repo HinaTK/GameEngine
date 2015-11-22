@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef BASE64_H
 #define BASE64_H
 
@@ -8,17 +8,17 @@ using namespace std;
 class Base64
 {
 public:
-	/*±àÂë
+	/*ç¼–ç 
 	DataByte
-	[in]ÊäÈëµÄÊı¾İ³¤¶È,ÒÔ×Ö½ÚÎªµ¥Î»
+	[in]è¾“å…¥çš„æ•°æ®é•¿åº¦,ä»¥å­—èŠ‚ä¸ºå•ä½
 	*/
 	string Encode(const unsigned char* Data, int DataByte);
-	/*½âÂë
+	/*è§£ç 
 	DataByte
-	[in]ÊäÈëµÄÊı¾İ³¤¶È,ÒÔ×Ö½ÚÎªµ¥Î»
+	[in]è¾“å…¥çš„æ•°æ®é•¿åº¦,ä»¥å­—èŠ‚ä¸ºå•ä½
 	OutByte
-	[out]Êä³öµÄÊı¾İ³¤¶È,ÒÔ×Ö½ÚÎªµ¥Î»,Çë²»ÒªÍ¨¹ı·µ»ØÖµ¼ÆËã
-	Êä³öÊı¾İµÄ³¤¶È
+	[out]è¾“å‡ºçš„æ•°æ®é•¿åº¦,ä»¥å­—èŠ‚ä¸ºå•ä½,è¯·ä¸è¦é€šè¿‡è¿”å›å€¼è®¡ç®—
+	è¾“å‡ºæ•°æ®çš„é•¿åº¦
 	*/
 	string Decode(const char* Data, int DataByte, int& OutByte);
 };

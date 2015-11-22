@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef BASE_LISTENER_H
 #define BASE_LISTENER_H
 
@@ -6,7 +6,7 @@
 #include "bufmanager.h"
 #include "lib/include/common/mutex.h"
 /*
-	¼àÌıÕß£¬¼àÌıËùÓĞÊı¾İµÄ¶ÁĞ´×´Ì¬
+	ç›‘å¬è€…ï¼Œç›‘å¬æ‰€æœ‰æ•°æ®çš„è¯»å†™çŠ¶æ€
 */
 
 class BaseListener : public Listener

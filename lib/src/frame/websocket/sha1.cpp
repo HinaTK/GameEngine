@@ -1,23 +1,23 @@
-/*  sha1.c  */
-/*  ÒÔÏÂËùÓÃ¸÷ÖÖ²ÎÁ¿Ãû³Æ½ÔÎªsha-1ÔÚ³ö°æÎïÉÏËùÓÃÖ®¹«ÓÃÃû³Æ  */
+ï»¿/*  sha1.c  */
+/*  ä»¥ä¸‹æ‰€ç”¨å„ç§å‚é‡åç§°çš†ä¸ºsha-1åœ¨å‡ºç‰ˆç‰©ä¸Šæ‰€ç”¨ä¹‹å…¬ç”¨åç§°  */
  #include "websocket/sha1.h"
 
 /*
- *  ÒÔÏÂÊÇÎª SHA1 Ïò×ó»·ĞÎÒÆÎ»ºê Ö®¶¨Òå
+ *  ä»¥ä¸‹æ˜¯ä¸º SHA1 å‘å·¦ç¯å½¢ç§»ä½å® ä¹‹å®šä¹‰
  */
 #define SHA1CircularShift(bits,word) \
                 (((word) << (bits)) | ((word) >> (32-(bits))))
 
 
-/* ¾Ö²¿º¯ÊıÔ­ĞÍ */
-void SHA1PadMessage(SHA1Context *);    /*  ¶¨ÒåÌî³äĞÅÏ¢Ö¸Õë  */
+/* å±€éƒ¨å‡½æ•°åŸå‹ */
+void SHA1PadMessage(SHA1Context *);    /*  å®šä¹‰å¡«å……ä¿¡æ¯æŒ‡é’ˆ  */
 void SHA1ProcessMessageBlock(SHA1Context *);
 
 /*
  *  SHA1Reset
  *  
- *  ÒÔÏÂÎªÊı¾İ³õÊ¼»¯Ö®²Ù×÷
- *  Parameters:£¨²ÎÊıÉèÖÃ£©
+ *  ä»¥ä¸‹ä¸ºæ•°æ®åˆå§‹åŒ–ä¹‹æ“ä½œ
+ *  Parameters:ï¼ˆå‚æ•°è®¾ç½®ï¼‰
  *  context: [in/out]
  *  The context to reset.
  *
@@ -47,11 +47,11 @@ int SHA1Reset(SHA1Context *context)
 /*
  *  SHA1Result
  *
- *  ÒÔÏÂÎªsha-1½á¹ûÃèÊö£º
+ *  ä»¥ä¸‹ä¸ºsha-1ç»“æœæè¿°ï¼š
  *:
- *  ¸ÃËã·¨½«»á·µ»ØÒ»¸ö160±ÈÌØµÄÏûÏ¢ÕªÒª¶ÓÁĞ
+ *  è¯¥ç®—æ³•å°†ä¼šè¿”å›ä¸€ä¸ª160æ¯”ç‰¹çš„æ¶ˆæ¯æ‘˜è¦é˜Ÿåˆ—
  *
- *  »òÕßÊä³ö¼ÆËã´íÎó
+ *  æˆ–è€…è¾“å‡ºè®¡ç®—é”™è¯¯
  *
  */
 int SHA1Result( SHA1Context *context, uint8_t Message_Digest[SHA1HashSize])
@@ -73,10 +73,10 @@ int SHA1Result( SHA1Context *context, uint8_t Message_Digest[SHA1HashSize])
         SHA1PadMessage(context);
         for(i=0; i<64; ++i)
         {
-            /* ÏûÏ¢ÇåÁã */
+            /* æ¶ˆæ¯æ¸…é›¶ */
             context->Message_Block[i] = 0;
         }
-        context->Length_Low = 0;    /* ³¤¶ÈÇåÁã */
+        context->Length_Low = 0;    /* é•¿åº¦æ¸…é›¶ */
         context->Length_High = 0;
         context->Computed = 1;
     }
@@ -91,9 +91,9 @@ int SHA1Result( SHA1Context *context, uint8_t Message_Digest[SHA1HashSize])
 }
 
 /*
- *  ÒÔÏÂÎªsha-1ÊäÈëÃèÊö£º
+ *  ä»¥ä¸‹ä¸ºsha-1è¾“å…¥æè¿°ï¼š
  *
- *  ½ÓÊÕµ¥Î»³¤¶ÈÎª8×Ö½Ú±¶ÊıµÄÏûÏ¢
+ *  æ¥æ”¶å•ä½é•¿åº¦ä¸º8å­—èŠ‚å€æ•°çš„æ¶ˆæ¯
  *
  */
 int SHA1Input( SHA1Context *context, const uint8_t *message_array, unsigned  length)
@@ -146,9 +146,9 @@ int SHA1Input( SHA1Context *context, const uint8_t *message_array, unsigned  len
 }
 
 /*
- *  ÒÔÏÂÎªsha-1ÏûÏ¢¿éÃèÊö£º
+ *  ä»¥ä¸‹ä¸ºsha-1æ¶ˆæ¯å—æè¿°ï¼š
  *  
- *  ÏûÏ¢¿é³¤¶ÈÎª¹Ì¶¨Ö®512±ÈÌØ
+ *  æ¶ˆæ¯å—é•¿åº¦ä¸ºå›ºå®šä¹‹512æ¯”ç‰¹
  *
  */
 void SHA1ProcessMessageBlock(SHA1Context *context)
@@ -159,13 +159,13 @@ void SHA1ProcessMessageBlock(SHA1Context *context)
                             0x8F1BBCDC,
                             0xCA62C1D6
                             };
-    int           t;                 /* Ñ­»·¼ÆÊı */
-    uint32_t      temp;              /* ÁÙÊ±»º´æ */
-    uint32_t      W[80];             /* ×ÖË³Ğò   */
-    uint32_t      A, B, C, D, E;     /* ÉèÖÃÏµÍ³´ÅÅÌ»º´æ¿é */
+    int           t;                 /* å¾ªç¯è®¡æ•° */
+    uint32_t      temp;              /* ä¸´æ—¶ç¼“å­˜ */
+    uint32_t      W[80];             /* å­—é¡ºåº   */
+    uint32_t      A, B, C, D, E;     /* è®¾ç½®ç³»ç»Ÿç£ç›˜ç¼“å­˜å— */
 
     /*
-     *  ÒÔÏÂÎª³õÊ¼»¯ÔÚW¶ÓÁĞÖĞµÄÍ·16×ÖÊı¾İ
+     *  ä»¥ä¸‹ä¸ºåˆå§‹åŒ–åœ¨Wé˜Ÿåˆ—ä¸­çš„å¤´16å­—æ•°æ®
      */
     for(t = 0; t < 16; t++)
     {
@@ -187,7 +187,7 @@ void SHA1ProcessMessageBlock(SHA1Context *context)
     E = context->Intermediate_Hash[4];
 
     /*  
-     *  ÒÔÏÂÎª¶¨ÒåËã·¨ËùÓÃÖ®ÊıÑ§º¯Êı¼°Æäµü´úËã·¨ÃèÊö  
+     *  ä»¥ä¸‹ä¸ºå®šä¹‰ç®—æ³•æ‰€ç”¨ä¹‹æ•°å­¦å‡½æ•°åŠå…¶è¿­ä»£ç®—æ³•æè¿°  
      */
 
     for(t = 0; t < 20; t++)
@@ -234,7 +234,7 @@ void SHA1ProcessMessageBlock(SHA1Context *context)
 
   
     /*  
-     *  ÒÔÏÂÎªµü´úËã·¨µÚ80²½£¨×îºóÒ»²½£©ÃèÊö
+     *  ä»¥ä¸‹ä¸ºè¿­ä»£ç®—æ³•ç¬¬80æ­¥ï¼ˆæœ€åä¸€æ­¥ï¼‰æè¿°
      */
     context->Intermediate_Hash[0] += A;
     context->Intermediate_Hash[1] += B;
@@ -248,7 +248,7 @@ void SHA1ProcessMessageBlock(SHA1Context *context)
 
 /*
  *  SHA1PadMessage
- *  Êı¾İÌî³äÄ£¿é
+ *  æ•°æ®å¡«å……æ¨¡å—
  */
 
 void SHA1PadMessage(SHA1Context *context)
@@ -279,7 +279,7 @@ void SHA1PadMessage(SHA1Context *context)
     }
 
     /*
-     *  °Ñ×îºó64Î»±£´æÎªÊı¾İ³¤¶È
+     *  æŠŠæœ€å64ä½ä¿å­˜ä¸ºæ•°æ®é•¿åº¦
      */
     context->Message_Block[56] = context->Length_High >> 24;
     context->Message_Block[57] = context->Length_High >> 16;

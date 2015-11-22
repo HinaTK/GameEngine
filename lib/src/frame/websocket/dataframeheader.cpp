@@ -1,17 +1,17 @@
-
+ï»¿
 #include <string.h>
 #include "websocket/dataframeheader.h"
 
 FrameHeader::FrameHeader(const char *buffer)
 {
-	//µÚÒ»¸ö×Ö½Ú
+	//ç¬¬ä¸€ä¸ªå­—èŠ‚
 	m_fin = (buffer[0] & 0x80) == 0x80;
 	m_rsv1 = (buffer[0] & 0x40) == 0x40;
 	m_rsv2 = (buffer[0] & 0x20) == 0x20;
 	m_rsv3 = (buffer[0] & 0x10) == 0x10;
 	m_opcode = (buffer[0] & 0x0f);
 
-	//µÚ¶þ¸ö×Ö½Ú
+	//ç¬¬äºŒä¸ªå­—èŠ‚
 	m_maskcode = (buffer[1] & 0x80) == 0x80;
 	m_payloadlength = (buffer[1] & 0x7f);
 	

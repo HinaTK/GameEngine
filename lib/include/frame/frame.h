@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef FRAME_H
 #define FRAME_H
 
@@ -20,7 +20,7 @@ public:
 
 	virtual bool		Init();
 
-	virtual	void		Update(unsigned int interval, time_t now) = 0;  //¸üÐÂ
+	virtual	void		Update(unsigned int interval, time_t now) = 0;  //æ›´æ–°
 
 	virtual void		Exit() = 0;
 

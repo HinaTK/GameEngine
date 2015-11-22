@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef NET_COMMON_H
 #define NET_COMMON_H
 
@@ -19,16 +19,16 @@ namespace NetCommon
 
 	int		Ioctl(SOCKET sock, long cmd, unsigned long *argp);
 
-	// ÉèÖÃÌ×½Ó×Ö²ÎÊı
+	// è®¾ç½®å¥—æ¥å­—å‚æ•°
 	int		SetSockopt(SOCKET sock, int level, int optname, const char *optval, int optlen);
 
-	// »ñÈ¡´íÎóĞÅÏ¢
+	// è·å–é”™è¯¯ä¿¡æ¯
 	int		Error(void);
 
-	// Ğ­ÒéÍ·
+	// åè®®å¤´
 	struct Header
 	{
-		int	msg_len;		// ÏûÏ¢³¤¶È
+		int	msg_len;		// æ¶ˆæ¯é•¿åº¦
 	};
 
 	static const int HEADER_LENGTH = sizeof(Header);

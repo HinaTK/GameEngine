@@ -1,4 +1,4 @@
-
+ï»¿
 #include "frame/netmanager.h"
 #include "common/protocol/messageheader.h"
 #include "common/socketdef.h"
@@ -58,7 +58,7 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, Accepter
 	ev.data.fd = net_id;
 	if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, net_id, &ev) < 0)
 	{
-		return false;	// Ğ´log
+		return false;	// å†™log
 	}
 #endif
 
@@ -127,9 +127,9 @@ void NetManager::Listen()
 	fd_set	temp_write_set;
 	FD_ZERO(&temp_read_set);
 	FD_ZERO(&temp_write_set);
-	struct timeval tv;	//³¬Ê±²ÎÊı
-	tv.tv_sec = 0;		//Ãë
-	tv.tv_usec = 10000;	//Î¢Ãë,10ºÁÃë
+	struct timeval tv;	//è¶…æ—¶å‚æ•°
+	tv.tv_sec = 0;		//ç§’
+	tv.tv_usec = 10000;	//å¾®ç§’,10æ¯«ç§’
 	while (m_is_run)
 	{
 		max_fd = GetSocketInfo(temp_read_set, temp_write_set);
@@ -182,7 +182,7 @@ void NetManager::Listen()
 		}
 		else
 		{
-			// Ğ´log
+			// å†™log
 			//usleep(10000);
 		}
 	}
@@ -192,13 +192,13 @@ void NetManager::Listen()
 
 void NetManager::InitNetHandler(NetHandler *handler)
 {
-	// ÉèÖÃ³É·Ç×èÈû
+	// è®¾ç½®æˆéé˜»å¡
 	unsigned long b;
 	NetCommon::Ioctl(handler->m_sock, FIONBIO, &b);
 #ifdef WIN32
 	FD_SET(handler->m_sock, &m_read_set);
 	handler->m_sock > m_max_fd ? m_max_fd = handler->m_sock : 0;
-	// ×öÒ»¸öÍøÂçidÅÅĞò£¬·½±ãÉ¾³ıÊ±ÕÒµ½×î´óid
+	// åšä¸€ä¸ªç½‘ç»œidæ’åºï¼Œæ–¹ä¾¿åˆ é™¤æ—¶æ‰¾åˆ°æœ€å¤§id
 #endif
 
 #ifdef __unix
@@ -207,7 +207,7 @@ void NetManager::InitNetHandler(NetHandler *handler)
 	ev.data.ptr = (void *)handler;
 	if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, handler->m_sock, &ev) == -1)
 	{
-		// Ìí¼ÓÊ§°Ü
+		// æ·»åŠ å¤±è´¥
 	}
 #endif
 }
@@ -253,7 +253,7 @@ void NetManager::ReplaceHandler()
 		ev.data.ptr = (void *)(*itr);
 		if (epoll_ctl(m_epoll_fd, EPOLL_CTL_MOD, (*itr)->m_sock, &ev) == -1)
 		{
-			// Ìí¼ÓÊ§°Ü
+			// æ·»åŠ å¤±è´¥
 		}
 #endif
 	}
@@ -336,7 +336,7 @@ void NetManager::Update()
 				{
 					m_msg_handler[msg->msg_index]->msg[msg->msg_type]->Recv(msg);
 					//m_msg_handle[msg->call_back_handle]->Recv(msg);
-					// ÄÚ´æ½»¸øÏÂÓÎ´¦Àí
+					// å†…å­˜äº¤ç»™ä¸‹æ¸¸å¤„ç†
 					// delete (*msg);
 				}
 				else

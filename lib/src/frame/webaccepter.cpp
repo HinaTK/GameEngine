@@ -1,4 +1,4 @@
-
+ï»¿
 #include "webaccepter.h"
 #include "handshaker.h"
 #include "netmanager.h"
@@ -6,13 +6,13 @@
 
 void WebAccepter::OnCanRead()
 {
-	// ½«ÎÕÊÖÕßhandshaker¼ÓÈë¼àÌý
+	// å°†æ¡æ‰‹è€…handshakeråŠ å…¥ç›‘å¬
 	static struct sockaddr_in addr;
 	static SOCKET_LEN len = sizeof(struct sockaddr);
 	SOCKET new_net_id = accept(m_sock, (struct sockaddr*)&addr, &len);
 	if (new_net_id != INVALID_SOCKET)
 	{
-		// Òª½«NULLÐÞ¸Ä
+		// è¦å°†NULLä¿®æ”¹
 		HandShaker *handler = new HandShaker(m_net_manager);
 		handler->m_msg_index = 0;
 		handler->m_sock = new_net_id;

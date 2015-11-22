@@ -1,4 +1,4 @@
-#ifndef _SHA1_H_
+ï»¿#ifndef _SHA1_H_
 #define _SHA1_H_
 
 #include <stdint.h>
@@ -9,15 +9,15 @@
 enum
 {
     shaSuccess = 0,
-    shaNull,            /* ¿ÕÖ¸Ê¾²ÎÁ¿ */
-    shaInputTooLong,    /* ÊäÈëÊı¾İÌ«³¤ÌáÊ¾ */
-    shaStateError       /* called Input after Result --ÒÔÊäÈë½á¹ûÃüÃûÖ® */
+    shaNull,            /* ç©ºæŒ‡ç¤ºå‚é‡ */
+    shaInputTooLong,    /* è¾“å…¥æ•°æ®å¤ªé•¿æç¤º */
+    shaStateError       /* called Input after Result --ä»¥è¾“å…¥ç»“æœå‘½åä¹‹ */
 };
 #endif
 #define SHA1HashSize 20
 
 /*
- *  ÒÔÏÂÕâÖÖ½á¹¹½«»á¿ØÖÆÉÏÏÂÎÄÏûÏ¢ for the SHA-1
+ *  ä»¥ä¸‹è¿™ç§ç»“æ„å°†ä¼šæ§åˆ¶ä¸Šä¸‹æ–‡æ¶ˆæ¯ for the SHA-1
  *  hashing operation
  */
 typedef struct SHA1Context
@@ -36,7 +36,7 @@ typedef struct SHA1Context
 } SHA1Context;
 
 /*
- *  º¯ÊıÔ­ĞÍ
+ *  å‡½æ•°åŸå‹
  */
 int SHA1Reset(  SHA1Context *);
 int SHA1Input(  SHA1Context *, const uint8_t *, unsigned int);
