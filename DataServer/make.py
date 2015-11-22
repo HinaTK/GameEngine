@@ -26,7 +26,7 @@ import sys
 #
 #########################################################################################################################
 FILENAME 	= 'makefile';
-BIN			= "DatabaseServer";
+BIN			= "DataServer";
 SUFFIX 		= ".cpp";
 
 ROOTPATH 	= os.path.dirname(os.path.dirname(os.path.abspath(__file__)));
@@ -43,7 +43,7 @@ OBJDIR		= BINDIR + "obj/";
 INCROOTPATH	= "-I " + ROOTPATH;
 LIBROOTPATH = "-L " + ROOTPATH;
 
-INCPATH 	= INCROOTPATH + " " + INCROOTPATH + "/DatabaseServer";
+INCPATH 	= INCROOTPATH + " " + INCROOTPATH + "/DataServer";
 SYSLIBS		= " -lmysqlclient -lpthread"
 LIBS		= LIBROOTPATH + "/lib/linux " + "-lFrame -lLog -lTimeManager -lCache -lCommon -lTinyxml" + SYSLIBS;
 CXX			= "g++";
