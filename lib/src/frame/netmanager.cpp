@@ -1,7 +1,10 @@
 ﻿
+#ifdef __unix
+#include <unistd.h>
+#endif
+
 #include "frame/netmanager.h"
 #include "common/protocol/messageheader.h"
-#include "common/socketdef.h"
 #include "netcommon.h"
 #include "accepter.h"
 #include "webaccepter.h"

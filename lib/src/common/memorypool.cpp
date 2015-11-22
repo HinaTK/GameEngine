@@ -6,12 +6,11 @@
 MemoryPool::MemoryPool()
 	: m_init(false)
 {
-
 }
 
 MemoryPool::~MemoryPool()
 {
-	for (game::Vector<void *>::iterator itr = m_has_malloc.Begin(); itr != m_has_malloc.End(); ++itr)
+    for (game::Vector<void *>::iterator itr = m_has_malloc.Begin(); itr != m_has_malloc.End(); ++itr)
 	{
 		::free(*itr);
 	}
@@ -45,7 +44,7 @@ bool MemoryPool::Resize()
 	{
 		return false;
 	}
-	m_has_malloc.Push(mem);
+    m_has_malloc.Push(mem);
 	char *unit_mem = (char *)mem;
 	for (unsigned int i = 0; i < m_increase; ++i)
 	{
