@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef MUTEX_LOCK_H
 #define MUTEX_LOCK_H
 
@@ -17,7 +17,7 @@ public:
 	};
 
 private:
-	// ²»ÔÊĞí¸´ÖÆ
+	// ä¸å…è®¸å¤åˆ¶
 	MutexLock(const MutexLock&);
 	void operator=(const MutexLock&);
 

@@ -1,4 +1,4 @@
-
+ï»¿
 #include <stdio.h>
 #include "memorypool.h"
 #include "memoryvl.h"
@@ -40,7 +40,7 @@ void  *MemoryVL::Alloc(unsigned int size)
 
 	if (i >= m_size)
 	{
-		mem = (char *)::malloc(real_size);	// Ïß³Ì°²È«£¬²»ÓÃ¼ÓËø
+		mem = (char *)::malloc(real_size);	// çº¿ç¨‹å®‰å…¨ï¼Œä¸ç”¨åŠ é”
 	}
 	else
 	{

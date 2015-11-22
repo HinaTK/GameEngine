@@ -1,4 +1,4 @@
-#include <string.h>
+﻿#include <string.h>
 #include "md5.h"
 
 using namespace std;

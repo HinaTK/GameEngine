@@ -1,11 +1,11 @@
-
+ï»¿
 #ifndef MEMORY_V_L_H
 #define MEMORY_V_L_H
 
 #include "mutex.h"
 
 /*
-	²»¶¨³¤ÄÚ´æ³Ø
+	ä¸å®šé•¿å†…å­˜æ± 
 */
 class MemoryPool;
 class MemoryVL

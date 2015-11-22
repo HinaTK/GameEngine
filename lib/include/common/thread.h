@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef THREAD_H
 #define THREAD_H
 
@@ -21,7 +21,7 @@ private:
 	pthread_t m_thread;
 #endif
 #ifdef WIN32
-	// ÓÉÓÚwindows.h Óë winsock2.hµÄ°üº¬ÎÊÌâ£¬ÓÃvoid * ´úÌæHANDLE
+	// ç”±äºwindows.h ä¸ winsock2.hçš„åŒ…å«é—®é¢˜ï¼Œç”¨void * ä»£æ›¿HANDLE
 	//HANDLE m_thread;
 	void * m_thread;
 #endif
