@@ -10,7 +10,7 @@
 
 class OuterCallBack;
 class InnerCallBack;
-class GameFrame : public Frame
+class NewFrame : public Frame
 {
 public:
     
@@ -18,11 +18,11 @@ public:
 	static const UInt32 SendSleepTime = 50;			// 单位毫秒，当发送消息队列为空时，睡眠50毫秒
 	static const UInt32 RecvSleepTime = 50;			// 单位毫秒，当接收消息队列为空和没有到更新时间，睡眠50毫秒
 
-    ~GameFrame();
+    ~NewFrame();
 
-    static GameFrame &Instance()
+    static NewFrame &Instance()
     {
-        static GameFrame frame;
+        static NewFrame frame;
         return frame;
     }
 
@@ -46,7 +46,7 @@ public:
 	NetHandle	m_database_server_handle;
 	SOCKET		m_gateway_server_net_id;
 private:
-	GameFrame();
+	NewFrame();
 
 	OuterCallBack		*m_o_call_back;
 	InnerCallBack		*m_i_call_back;

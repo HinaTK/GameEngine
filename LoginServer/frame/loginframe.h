@@ -1,4 +1,4 @@
-#ifndef LOGINFRAME_H
+ï»¿#ifndef LOGINFRAME_H
 #define LOGINFRAME_H
 
 #include "lib/include/frame/frame.h"
@@ -14,9 +14,9 @@ class InnerCallBack;
 class NewFrame : public Frame
 {
 public:
-	static const UInt32 UpdateSleepTime = 80;		// µ¥Î»ºÁÃë£¬Ã¿¸ô80ºÁÃë¸üĞÂÒ»´Î
-	static const UInt32 SendSleepTime = 50;			// µ¥Î»ºÁÃë£¬µ±·¢ËÍÏûÏ¢¶ÓÁĞÎª¿ÕÊ±£¬Ë¯Ãß50ºÁÃë
-	static const UInt32 RecvSleepTime = 50;			// µ¥Î»ºÁÃë£¬µ±½ÓÊÕÏûÏ¢¶ÓÁĞÎª¿ÕºÍÃ»ÓĞµ½¸üĞÂÊ±¼ä£¬Ë¯Ãß50ºÁÃë
+	static const UInt32 UpdateSleepTime = 80;		// å•ä½æ¯«ç§’ï¼Œæ¯éš”80æ¯«ç§’æ›´æ–°ä¸€æ¬¡
+	static const UInt32 SendSleepTime = 50;			// å•ä½æ¯«ç§’ï¼Œå½“å‘é€æ¶ˆæ¯é˜Ÿåˆ—ä¸ºç©ºæ—¶ï¼Œç¡çœ 50æ¯«ç§’
+	static const UInt32 RecvSleepTime = 50;			// å•ä½æ¯«ç§’ï¼Œå½“æ¥æ”¶æ¶ˆæ¯é˜Ÿåˆ—ä¸ºç©ºå’Œæ²¡æœ‰åˆ°æ›´æ–°æ—¶é—´ï¼Œç¡çœ 50æ¯«ç§’
 
     ~NewFrame();
 
@@ -28,7 +28,7 @@ public:
 
 	bool		InitConfig();
    
-    bool		Init();    //³õÊ¼»¯
+    bool		Init();    //åˆå§‹åŒ–
 
 	void		Update(unsigned int interval, time_t now);
 

@@ -6,13 +6,13 @@
 
 int main()
 {
-	if (!GameFrame::Instance().InitConfig())
+	if (!NewFrame::Instance().InitConfig())
 	{
 		Function::WindowsPause();
 		return 0;
 	}
 
-	GameFrame::Instance().Run();
+	NewFrame::Instance().Run();
 	Function::WindowsPause();
 
 	return 0;

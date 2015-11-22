@@ -9,27 +9,27 @@
 class OuterCallBack : public MsgCallBack
 {
 public:
-	OuterCallBack(GameFrame *frame) : m_frame(frame){}
+	OuterCallBack(NewFrame *frame) : m_frame(frame){}
 	~OuterCallBack(){}
 
 	void	Recv(GameMsg *msg){m_frame->OuterRecv(msg);}
 private:
-	GameFrame *m_frame;
+	NewFrame *m_frame;
 };
 
 class InnerCallBack : public MsgCallBack
 {
 public:
-	InnerCallBack(GameFrame *frame) : m_frame(frame){}
+	InnerCallBack(NewFrame *frame) : m_frame(frame){}
 	~InnerCallBack(){}
 
 	void	Recv(GameMsg *msg){m_frame->InnerRecv(msg);}
 private:
-	GameFrame *m_frame;
+	NewFrame *m_frame;
 };
 
 
-GameFrame::GameFrame()
+NewFrame::NewFrame()
 : m_game_thread_num(10)
 , m_game_thread(NULL)
 {
@@ -37,7 +37,7 @@ GameFrame::GameFrame()
 	m_i_call_back = new InnerCallBack(this);
 }
 
-GameFrame::~GameFrame()
+NewFrame::~NewFrame()
 {
 	if (m_game_thread != NULL)
 	{
@@ -64,7 +64,7 @@ GameFrame::~GameFrame()
 
 }
 
-bool GameFrame::InitConfig()
+bool NewFrame::InitConfig()
 {
 	if (!m_net_manager.InitServer(
 		ServerConfig::Instance().m_server[ServerConfig::GAME_SERVER].ip,
@@ -115,13 +115,13 @@ bool GameFrame::InitConfig()
 }
 
 // 框架初始化
-bool GameFrame::Init()
+bool NewFrame::Init()
 {
 	// 读取场景配置,根据不同的配置将不同的场景分配到不同的工作线程
 	return true;
 }
 
-bool GameFrame::Run()
+bool NewFrame::Run()
 {
 // 	for (int i = 0; i < m_game_thread_num; ++i)
 // 	{
@@ -132,7 +132,7 @@ bool GameFrame::Run()
 }
 
 // 构架更新
-void GameFrame::Update(unsigned int interval, time_t now)
+void NewFrame::Update(unsigned int interval, time_t now)
 {
 	//m_time_event_manager.Update(now);
 	//StmtSelect();
@@ -142,7 +142,7 @@ void GameFrame::Update(unsigned int interval, time_t now)
 	//exit(0);
 }
 
-void GameFrame::OuterRecv(GameMsg *msg)
+void NewFrame::OuterRecv(GameMsg *msg)
 {
 	NET_HANDLE_THREAD_HASH::iterator itr = m_net_handle_thread_hash.Find(msg->handle);
 	if (itr != m_net_handle_thread_hash.End())
@@ -156,7 +156,7 @@ void GameFrame::OuterRecv(GameMsg *msg)
 }
 
 
-void GameFrame::InnerRecv(GameMsg *msg)
+void NewFrame::InnerRecv(GameMsg *msg)
 {
 	static int i = 1;
 	int ret = *(int *)msg->data;
@@ -185,7 +185,7 @@ void GameFrame::InnerRecv(GameMsg *msg)
 	工作线程相互通信
 	scene_id 等于0，表示消息放到全局线程处理
 */
-void GameFrame::PushMsg(GameMsg *msg, SceneID scene_id /*= 0*/)
+void NewFrame::PushMsg(GameMsg *msg, SceneID scene_id /*= 0*/)
 {
 	if (scene_id == 0)
 	{
@@ -193,14 +193,14 @@ void GameFrame::PushMsg(GameMsg *msg, SceneID scene_id /*= 0*/)
 }
 
 
-void GameFrame::Exit()
+void NewFrame::Exit()
 {
 	// 进程退出，线程也随之退出
 
 	printf("game server exit\n");
 }
 
-void GameFrame::Wait()
+void NewFrame::Wait()
 {
 	for (int i = 0; i < m_game_thread_num; ++i)
 	{
