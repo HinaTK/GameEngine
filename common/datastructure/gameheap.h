@@ -2,6 +2,7 @@
 #ifndef GAME_HEAP_H
 #define GAME_HEAP_H
 
+#include <stdlib.h>
 #include <string.h>
 
 namespace game

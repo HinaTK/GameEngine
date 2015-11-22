@@ -29,6 +29,9 @@ NetManager::NetManager()
 #ifdef WIN32
 , m_max_fd(0)
 #endif
+#ifdef __unix
+, m_epoll_fd(epoll_create(10240))
+#endif
 {
 	
 }
