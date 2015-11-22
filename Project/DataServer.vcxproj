@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>DatabaseServer</ProjectName>
+    <ProjectName>DataServer</ProjectName>
     <ProjectGuid>{CC4A00CE-9186-4DFC-A967-8F0D8829695C}</ProjectGuid>
     <RootNamespace>DataBase</RootNamespace>
     <Keyword>Win32Proj</Keyword>
@@ -68,13 +68,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\Debug\</OutDir>
-    <IntDir>..\Debug\DatabaseServer\</IntDir>
+    <IntDir>..\Debug\DataServer\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..;..\DatabaseServer;$(IncludePath)</IncludePath>
+    <IncludePath>..;..\DataServer;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..;..\DatabaseServer;..\lib\include;$(IncludePath)</IncludePath>
+    <IncludePath>..;..\DataServer;..\lib\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
@@ -161,33 +161,33 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\common\commonfunction.cpp" />
-    <ClCompile Include="..\DatabaseServer\cache\datamapmanager.cpp" />
-    <ClCompile Include="..\DatabaseServer\database\database.cpp" />
-    <ClCompile Include="..\DatabaseServer\database\tablebase.cpp" />
-    <ClCompile Include="..\DatabaseServer\message\messagehandler.cpp" />
-    <ClCompile Include="..\DatabaseServer\table\datatable.cpp" />
-    <ClCompile Include="..\DatabaseServer\table\datatablestmt.cpp" />
-    <ClCompile Include="..\DatabaseServer\table\tabledefine.cpp" />
-    <ClCompile Include="..\DatabaseServer\table\tb_login.cpp" />
-    <ClCompile Include="..\DatabaseServer\frame\databaseframe.cpp" />
-    <ClCompile Include="..\DatabaseServer\frame\main.cpp" />
+    <ClCompile Include="..\DataServer\cache\datamapmanager.cpp" />
+    <ClCompile Include="..\DataServer\database\database.cpp" />
+    <ClCompile Include="..\DataServer\database\tablebase.cpp" />
+    <ClCompile Include="..\DataServer\message\messagehandler.cpp" />
+    <ClCompile Include="..\DataServer\table\datatable.cpp" />
+    <ClCompile Include="..\DataServer\table\datatablestmt.cpp" />
+    <ClCompile Include="..\DataServer\table\tabledefine.cpp" />
+    <ClCompile Include="..\DataServer\table\tb_login.cpp" />
+    <ClCompile Include="..\DataServer\frame\databaseframe.cpp" />
+    <ClCompile Include="..\DataServer\frame\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\commonfunction.h" />
-    <ClInclude Include="..\DatabaseServer\cache\datamapmanager.h" />
-    <ClInclude Include="..\DatabaseServer\database\database.h" />
-    <ClInclude Include="..\DatabaseServer\database\tablebase.h" />
-    <ClInclude Include="..\DatabaseServer\database\tableid.h" />
-    <ClInclude Include="..\DatabaseServer\message\messagehandler.h" />
-    <ClInclude Include="..\DatabaseServer\message\msgtype.h" />
-    <ClInclude Include="..\DatabaseServer\table\datatable.h" />
-    <ClInclude Include="..\DatabaseServer\table\datatablestmt.h" />
-    <ClInclude Include="..\DatabaseServer\table\tabledefine.h" />
-    <ClInclude Include="..\DatabaseServer\table\tb_login.h" />
+    <ClInclude Include="..\DataServer\cache\datamapmanager.h" />
+    <ClInclude Include="..\DataServer\database\database.h" />
+    <ClInclude Include="..\DataServer\database\tablebase.h" />
+    <ClInclude Include="..\DataServer\database\tableid.h" />
+    <ClInclude Include="..\DataServer\message\messagehandler.h" />
+    <ClInclude Include="..\DataServer\message\msgtype.h" />
+    <ClInclude Include="..\DataServer\table\datatable.h" />
+    <ClInclude Include="..\DataServer\table\datatablestmt.h" />
+    <ClInclude Include="..\DataServer\table\tabledefine.h" />
+    <ClInclude Include="..\DataServer\table\tb_login.h" />
     <ClInclude Include="..\common\protocol\internaltype.h" />
     <ClInclude Include="..\common\protocol\l_dbprotocol.h" />
     <ClInclude Include="..\common\protocol\messageheader.h" />
-    <ClInclude Include="..\DatabaseServer\frame\databaseframe.h" />
+    <ClInclude Include="..\DataServer\frame\databaseframe.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

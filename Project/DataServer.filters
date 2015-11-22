@@ -27,51 +27,51 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\DatabaseServer\table\datatable.cpp">
+    <ClCompile Include="..\DataServer\table\datatable.cpp">
       <Filter>table</Filter>
     </ClCompile>
-    <ClCompile Include="..\DatabaseServer\table\datatablestmt.cpp">
+    <ClCompile Include="..\DataServer\table\datatablestmt.cpp">
       <Filter>table</Filter>
     </ClCompile>
-    <ClCompile Include="..\DatabaseServer\table\tb_login.cpp">
+    <ClCompile Include="..\DataServer\table\tb_login.cpp">
       <Filter>table</Filter>
     </ClCompile>
-    <ClCompile Include="..\DatabaseServer\frame\databaseframe.cpp">
+    <ClCompile Include="..\DataServer\frame\databaseframe.cpp">
       <Filter>frame</Filter>
     </ClCompile>
-    <ClCompile Include="..\DatabaseServer\frame\main.cpp">
+    <ClCompile Include="..\DataServer\frame\main.cpp">
       <Filter>frame</Filter>
     </ClCompile>
-    <ClCompile Include="..\DatabaseServer\database\database.cpp">
+    <ClCompile Include="..\DataServer\database\database.cpp">
       <Filter>database</Filter>
     </ClCompile>
     <ClCompile Include="..\common\commonfunction.cpp">
       <Filter>commom</Filter>
     </ClCompile>
-    <ClCompile Include="..\DatabaseServer\message\messagehandler.cpp">
+    <ClCompile Include="..\DataServer\message\messagehandler.cpp">
       <Filter>message</Filter>
     </ClCompile>
-    <ClCompile Include="..\DatabaseServer\database\tablebase.cpp">
+    <ClCompile Include="..\DataServer\database\tablebase.cpp">
       <Filter>database</Filter>
     </ClCompile>
-    <ClCompile Include="..\DatabaseServer\cache\datamapmanager.cpp">
+    <ClCompile Include="..\DataServer\cache\datamapmanager.cpp">
       <Filter>cache</Filter>
     </ClCompile>
-    <ClCompile Include="..\DatabaseServer\table\tabledefine.cpp">
+    <ClCompile Include="..\DataServer\table\tabledefine.cpp">
       <Filter>table</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\DatabaseServer\database\database.h">
+    <ClInclude Include="..\DataServer\database\database.h">
       <Filter>database</Filter>
     </ClInclude>
-    <ClInclude Include="..\DatabaseServer\table\datatable.h">
+    <ClInclude Include="..\DataServer\table\datatable.h">
       <Filter>table</Filter>
     </ClInclude>
-    <ClInclude Include="..\DatabaseServer\table\datatablestmt.h">
+    <ClInclude Include="..\DataServer\table\datatablestmt.h">
       <Filter>table</Filter>
     </ClInclude>
-    <ClInclude Include="..\DatabaseServer\table\tb_login.h">
+    <ClInclude Include="..\DataServer\table\tb_login.h">
       <Filter>table</Filter>
     </ClInclude>
     <ClInclude Include="..\common\protocol\internaltype.h">
@@ -83,28 +83,28 @@
     <ClInclude Include="..\common\protocol\messageheader.h">
       <Filter>commom\protocol</Filter>
     </ClInclude>
-    <ClInclude Include="..\DatabaseServer\frame\databaseframe.h">
+    <ClInclude Include="..\DataServer\frame\databaseframe.h">
       <Filter>frame</Filter>
     </ClInclude>
     <ClInclude Include="..\common\commonfunction.h">
       <Filter>commom</Filter>
     </ClInclude>
-    <ClInclude Include="..\DatabaseServer\message\messagehandler.h">
+    <ClInclude Include="..\DataServer\message\messagehandler.h">
       <Filter>message</Filter>
     </ClInclude>
-    <ClInclude Include="..\DatabaseServer\message\msgtype.h">
+    <ClInclude Include="..\DataServer\message\msgtype.h">
       <Filter>message</Filter>
     </ClInclude>
-    <ClInclude Include="..\DatabaseServer\database\tableid.h">
+    <ClInclude Include="..\DataServer\database\tableid.h">
       <Filter>database</Filter>
     </ClInclude>
-    <ClInclude Include="..\DatabaseServer\database\tablebase.h">
+    <ClInclude Include="..\DataServer\database\tablebase.h">
       <Filter>database</Filter>
     </ClInclude>
-    <ClInclude Include="..\DatabaseServer\cache\datamapmanager.h">
+    <ClInclude Include="..\DataServer\cache\datamapmanager.h">
       <Filter>cache</Filter>
     </ClInclude>
-    <ClInclude Include="..\DatabaseServer\table\tabledefine.h">
+    <ClInclude Include="..\DataServer\table\tabledefine.h">
       <Filter>table</Filter>
     </ClInclude>
   </ItemGroup>
