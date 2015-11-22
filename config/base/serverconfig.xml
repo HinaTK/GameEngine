@@ -7,7 +7,7 @@
 			<password>root</password>
 		</mysql>
 		<socket>
-			<ip>127.0.0.1</ip>
+			<ip>192.168.1.103</ip>
 			<port>12345</port>
 			<backlog>16</backlog>
 		</socket>
