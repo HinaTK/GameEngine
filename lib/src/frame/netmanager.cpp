@@ -316,11 +316,11 @@ void NetManager::Send(NetHandle handle, const char *buf, unsigned int length)
 		Listener *listener = (Listener *)(*itr);
 		if (listener != NULL)
 		{
+            listener->Send(buf, length);
 			if (!listener->IsRegisterWrite())
 			{
 				listener->RegisterWriteFD();
 			}
-			listener->Send(buf, length);
 		}
 	}
 }

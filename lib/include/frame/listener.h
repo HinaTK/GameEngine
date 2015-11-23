@@ -43,7 +43,7 @@ public:
 
 	virtual void	Send(const char *buf, unsigned int len);
 
-	bool			IsRegisterWrite(){ return m_is_register_write; }
+    bool			IsRegisterWrite(){ MutexLock ml(&m_register_write_mutex); return m_is_register_write; }
 	void			RegisterWriteFD();
 
 protected:

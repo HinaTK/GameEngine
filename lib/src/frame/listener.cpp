@@ -67,9 +67,10 @@ void Listener::OnCanWrite()
 				return;
 			}
 		}
-
+        printf("Listener::OnCanWrite 2\n");
 		while (m_send_buf_read->RemainReadLength() > 0)
         {
+            printf("Listener::OnCanWrite 3\n");
             int ret = send(m_sock, m_send_buf_read->GetReadBuf(), m_send_buf_read->RemainReadLength(), 0);
 			if (ret == SOCKET_ERROR)
 			{
@@ -98,10 +99,11 @@ void Listener::Send(const char *buf, unsigned int len)
 
 void Listener::RegisterWriteFD()
 {
-	if (m_is_register_write)
-	{
-		return;
-	}
+    if (IsRegisterWrite())
+    {
+        return;
+    }
+
 #ifdef WIN32
 	FD_SET(m_sock, m_net_manager->GetWriteSet());
 #endif // !WIN32
@@ -122,10 +124,10 @@ void Listener::RegisterWriteFD()
 
 void Listener::UnRegisterWriteFD()
 {
-	if (!m_is_register_write)
-	{
-		return;
-	}
+    if (!IsRegisterWrite())
+    {
+        return;
+    }
 #ifdef WIN32
 	FD_CLR(m_sock, m_net_manager->GetWriteSet());
 #endif
