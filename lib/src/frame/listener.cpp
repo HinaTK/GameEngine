@@ -50,6 +50,7 @@ bool Listener::RecvBuf()
 
 void Listener::OnCanWrite()
 {
+    printf("Listener::OnCanWrite 1\n");
 	while (true)
 	{
 		if (m_send_buf_read->Length() <= 0)
@@ -66,9 +67,9 @@ void Listener::OnCanWrite()
 				return;
 			}
 		}
+
 		while (m_send_buf_read->RemainReadLength() > 0)
-		{
-            //int ret = NetCommon::Send(m_sock, m_send_buf_read->GetReadBuf(), m_send_buf_read->RemainReadLength());
+        {
             int ret = send(m_sock, m_send_buf_read->GetReadBuf(), m_send_buf_read->RemainReadLength(), 0);
 			if (ret == SOCKET_ERROR)
 			{

@@ -84,6 +84,7 @@ bool NewFrame::InitConfig()
 
     if (m_database_server_handle == INVALID_NET_HANDLE)
     {
+        printf("connect data server fail ...\n");
         return false;
     }
 
