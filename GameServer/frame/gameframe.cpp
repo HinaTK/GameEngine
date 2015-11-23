@@ -164,6 +164,7 @@ void NewFrame::InnerRecv(GameMsg *msg)
 
 	if (i != ret)
 	{
+        printf("error ret = %d\n", ret);
 		exit(0);
 	}
 	printf("ret = %d\n", ret);
