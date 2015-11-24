@@ -321,10 +321,7 @@ void NetManager::Send(NetHandle handle, const char *buf, unsigned int length)
 		{
             listener->Send(buf, length);
             printf("NetManager::Send ...\n");
-			if (!listener->IsRegisterWrite())
-			{
-				listener->RegisterWriteFD();
-			}
+            listener->RegisterWriteFD();
 		}
 	}
 }

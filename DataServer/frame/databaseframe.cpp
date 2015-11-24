@@ -154,11 +154,11 @@ void DatabaseFrame::Recv(GameMsg *msg)
 	delete msg;
 	//m_message_handler.HandleMessage(msg);
 
-    if (ret > 100)
-    {
-        printf("fuck exit\n");
-        exit(0);
-    }
+//    if (ret > 100)
+//    {
+//        printf("fuck exit\n");
+//        exit(0);
+//    }
 }
 
 void DatabaseFrame::Update(unsigned int interval, time_t now)	// 构架更新
