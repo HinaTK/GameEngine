@@ -147,10 +147,18 @@ bool DatabaseFrame::Init()		// 框架初始化
 
 void DatabaseFrame::Recv(GameMsg *msg)
 {
-    printf("ret = %d\n", *(int *)msg->data);
+    int ret = *(int *)msg->data;
+    printf("ret = %d\n", ret);
 	Send(msg->handle, msg->data, msg->length);
+
 	delete msg;
 	//m_message_handler.HandleMessage(msg);
+
+    if (ret > 100)
+    {
+        printf("fuck exit\n");
+        exit(0);
+    }
 }
 
 void DatabaseFrame::Update(unsigned int interval, time_t now)	// 构架更新

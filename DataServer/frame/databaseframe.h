@@ -11,7 +11,7 @@ class DatabaseFrame : public Frame
 {
 public:
 
-    ~DatabaseFrame();
+    virtual ~DatabaseFrame();
 
     static DatabaseFrame &Instance()
     {

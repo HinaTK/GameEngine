@@ -21,6 +21,9 @@ NetManager::~NetManager()
 
 	for (MSG_HANDLER::iterator itr = m_msg_handler.Begin(); itr != m_msg_handler.End(); ++itr)
 	{
+        delete (*itr)->msg[BaseMsg::MSG_ACCEPT];
+        delete (*itr)->msg[BaseMsg::MSG_RECV];
+        delete (*itr)->msg[BaseMsg::MSG_DISCONNECT];
 		delete (*itr);
 	}
 }

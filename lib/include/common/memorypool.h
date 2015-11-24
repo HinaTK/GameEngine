@@ -8,12 +8,10 @@
 class MemoryPool
 {
 public:
-	MemoryPool();
 	MemoryPool(unsigned int size, unsigned int increase = 64);
 	~MemoryPool();
 	void *	Alloc();
-	void	Free(void *m);
-	void	Init(unsigned int size, unsigned int increase = 64);
+    void	Free(void *m);
 	unsigned int Size(){ return m_size; }
 
 private:

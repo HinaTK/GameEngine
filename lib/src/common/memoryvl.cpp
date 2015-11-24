@@ -65,7 +65,7 @@ bool MemoryVL::Free(void *mem)
 	unsigned int index = *(unsigned int*)real_mem;
 	if (index >= m_size)
 	{
-		::free(mem);
+        ::free(mem);
 	}
 	else
 	{
