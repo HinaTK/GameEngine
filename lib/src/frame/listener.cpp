@@ -4,6 +4,29 @@
 #include "netmanager.h"
 #include "common/socketdef.h"
 
+Listener::Listener(NetManager *manager)
+    : NetHandler(manager, NetHandler::LISTENER)
+  , m_recv_buf(BASE_BUFFER_LENGTH)
+  , m_send_buf_read(new SendBuffer(BASE_BUFFER_LENGTH))
+  , m_send_buf_write(new SendBuffer(BASE_BUFFER_LENGTH))
+  , m_register_state(-10)
+{
+}
+
+Listener::~Listener()
+{
+    if (m_send_buf_read != NULL)
+    {
+        delete m_send_buf_read;
+        m_send_buf_read = NULL;
+    }
+    if (m_send_buf_write != NULL)
+    {
+        delete m_send_buf_write;
+        m_send_buf_write = NULL;
+    }
+}
+
 void Listener::OnCanRead()
 {
 	if (!RecvBuf() || !AnalyzeBuf())
@@ -99,8 +122,10 @@ void Listener::Send(const char *buf, unsigned int len)
 
 void Listener::RegisterWriteFD()
 {
-    if (IsRegisterWrite())
+    MutexLock ml(&m_register_write_mutex);
+    if (m_register_state > -10)
     {
+        --m_register_state;
         return;
     }
 
@@ -118,16 +143,19 @@ void Listener::RegisterWriteFD()
          printf("RegisterWriteFD error %d\n", m_sock);
 	}
 #endif
-	MutexLock ml(&m_register_write_mutex);
-	m_is_register_write = true;
+    m_register_state = 0;
 }
 
 void Listener::UnRegisterWriteFD()
 {
-    if (!IsRegisterWrite())
     {
-        return;
+        MutexLock ml(&m_send_mutex);
+        if (m_send_buf_write->Length() > 0)
+        {
+            return;
+        }
     }
+    MutexLock ml(&m_register_write_mutex);
 #ifdef WIN32
 	FD_CLR(m_sock, m_net_manager->GetWriteSet());
 #endif
@@ -142,8 +170,7 @@ void Listener::UnRegisterWriteFD()
         printf("UnRegisterWriteFD error %d\n", m_sock);
 	}
 #endif
-	MutexLock ml(&m_register_write_mutex);
-	m_is_register_write = false;
+     m_register_state = -10;
 }
 
 
