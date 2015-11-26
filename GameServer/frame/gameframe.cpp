@@ -84,6 +84,7 @@ bool NewFrame::InitConfig()
 
     if (m_database_server_handle == INVALID_NET_HANDLE)
     {
+        printf("connect data server fail ...\n");
         return false;
     }
 
@@ -163,13 +164,14 @@ void NewFrame::InnerRecv(GameMsg *msg)
 
 	if (i != ret)
 	{
+        printf("error ret = %d\n", ret);
 		exit(0);
 	}
-
-	if (ret % 100 == 0)
-	{
-		printf("ret = %d\n", ret);
-	}
+	printf("ret = %d\n", ret);
+// 	if (ret % 100 == 0)
+// 	{
+// 		printf("ret = %d\n", ret);
+// 	}
 	if (i > 10000)
 	{
 		printf("success ret = %d\n", ret);

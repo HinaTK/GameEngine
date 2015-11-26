@@ -9,12 +9,10 @@
 class MemoryPool
 {
 public:
-	MemoryPool();
 	MemoryPool(unsigned int size, unsigned int increase = 64);
 	~MemoryPool();
 	void *	Alloc();
-	void	Free(void *m);
-	void	Init(unsigned int size, unsigned int increase = 64);
+    void	Free(void *m);
 	unsigned int Size(){ return m_size; }
 
 private:
@@ -26,8 +24,8 @@ private:
 
 	std::vector<void *>  m_pool;
 	//game::Vector<void *> m_pool;
-    //std::vector<void *> m_has_malloc;
-    game::Vector<void *> m_has_malloc;
+    std::vector<void *> m_has_malloc;
+    //game::Vector<void *> m_has_malloc;
 	bool		 m_init;
 };
 

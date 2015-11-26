@@ -9,19 +9,24 @@ std::mutex g_init_mutex;
 MemoryVL::MemoryVL(unsigned int config[][2], unsigned int num)
 : m_size(num)
 {
-	m_memory = new MemoryPool[m_size];
+    m_memory = new MemoryPool*[m_size];
 	m_mutex = new std::mutex[m_size];
 	for (unsigned int i = 0; i < m_size; ++i)
 	{
-		m_memory[i].Init(config[i][0] + LEN_INT, config[i][1]);
+        m_memory[i] = new MemoryPool(config[i][0] + LEN_INT, config[i][1]);
 	}
 
 }
 
 MemoryVL::~MemoryVL()
 {
-	delete[]m_memory;
-	delete[]m_mutex;
+    for (int i = 0; i < m_size; ++i)
+    {
+        delete m_memory[i];
+        m_memory[i] = NULL;
+    }
+    delete[]m_memory;
+    delete[]m_mutex;
 }
 
 void  *MemoryVL::Alloc(unsigned int size)
@@ -30,7 +35,7 @@ void  *MemoryVL::Alloc(unsigned int size)
 	unsigned int i = 0;
 	for (; i < m_size; ++i)
 	{
-		if (real_size <= m_memory[i].Size())
+        if (real_size <= m_memory[i]->Size())
 		{
 			break;
 		}
@@ -45,7 +50,7 @@ void  *MemoryVL::Alloc(unsigned int size)
 	else
 	{
 		LOCK(m_mutex[i]);
-		mem = (char *)m_memory[i].Alloc();	
+        mem = (char *)m_memory[i]->Alloc();
 		UNLOCK(m_mutex[i]);
 	}
 
@@ -60,12 +65,12 @@ bool MemoryVL::Free(void *mem)
 	unsigned int index = *(unsigned int*)real_mem;
 	if (index >= m_size)
 	{
-		::free(mem);
+        ::free(mem);
 	}
 	else
 	{
 		LOCK(m_mutex[index]);
-		m_memory[index].Free(mem);
+        m_memory[index]->Free(mem);
 		UNLOCK(m_mutex[index]);
 	}
 

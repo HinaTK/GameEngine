@@ -33,7 +33,7 @@ public:
 private:
 	
 	unsigned int	m_size;
-	MemoryPool		*m_memory;
+    MemoryPool		**m_memory;
 	std::mutex		*m_mutex;
 };
 

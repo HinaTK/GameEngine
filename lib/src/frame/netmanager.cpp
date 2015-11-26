@@ -21,6 +21,9 @@ NetManager::~NetManager()
 
 	for (MSG_HANDLER::iterator itr = m_msg_handler.Begin(); itr != m_msg_handler.End(); ++itr)
 	{
+        delete (*itr)->msg[BaseMsg::MSG_ACCEPT];
+        delete (*itr)->msg[BaseMsg::MSG_RECV];
+        delete (*itr)->msg[BaseMsg::MSG_DISCONNECT];
 		delete (*itr);
 	}
 }
@@ -316,11 +319,9 @@ void NetManager::Send(NetHandle handle, const char *buf, unsigned int length)
 		Listener *listener = (Listener *)(*itr);
 		if (listener != NULL)
 		{
-			if (!listener->IsRegisterWrite())
-			{
-				listener->RegisterWriteFD();
-			}
-			listener->Send(buf, length);
+            listener->Send(buf, length);
+            printf("NetManager::Send ...\n");
+            listener->RegisterWriteFD();
 		}
 	}
 }
