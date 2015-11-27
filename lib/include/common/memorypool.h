@@ -25,7 +25,6 @@ private:
 	//game::Vector<void *> m_pool;
     std::vector<void *> m_has_malloc;
     //game::Vector<void *> m_has_malloc;
-	bool		 m_init;
 };
 
 

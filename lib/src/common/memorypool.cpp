@@ -19,19 +19,6 @@ MemoryPool::MemoryPool( unsigned int size, unsigned int increase /*= 64*/ )
     Resize();
 }
 
-//void MemoryPool::Init(unsigned int size, unsigned int increase /*= 64*/)
-//{
-//	if (m_init)
-//	{
-//		return;
-//	}
-//	m_size = size;
-//	m_increase = increase;
-//	Resize();
-//	m_init = true;
-//}
-
-
 bool MemoryPool::Resize()
 {
 	void *mem = ::malloc(m_size * m_increase);
