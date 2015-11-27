@@ -2,6 +2,7 @@
 #ifndef MEMORY_POOL_H
 #define MEMORY_POOL_H
 
+#include <mutex>
 #include "common/datastructure/gamevector.h"
 #include <vector>
 
@@ -42,6 +43,26 @@ namespace PoolNameSpace\
 	void ClassName::operator delete(void *m)\
 {\
 	PoolNameSpace::g_##ClassName##_mem_pool.Free(m);\
+}
+
+#define REGISTER_SAFE_MEMORYPOOL(PoolNameSpace, ClassName, IncreaseNum) \
+namespace PoolNameSpace\
+{\
+    MemoryPool g_##ClassName##_mem_pool(sizeof(ClassName), IncreaseNum);\
+    std::mutex g_mem_##ClassName##_mutex;\
+}\
+    void *ClassName::operator new(size_t size)\
+{\
+    PoolNameSpace::g_mem_##ClassName##_mutex.lock();\
+    void *mem = PoolNameSpace::g_##ClassName##_mem_pool.Alloc();\
+    PoolNameSpace::g_mem_##ClassName##_mutex.unlock();\
+    return mem;\
+}\
+    void ClassName::operator delete(void *m)\
+{\
+    PoolNameSpace::g_mem_##ClassName##_mutex.lock();\
+    PoolNameSpace::g_##ClassName##_mem_pool.Free(m);\
+    PoolNameSpace::g_mem_##ClassName##_mutex.unlock();\
 }
 
 #endif
