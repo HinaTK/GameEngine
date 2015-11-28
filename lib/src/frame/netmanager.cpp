@@ -204,7 +204,7 @@ void NetManager::Listen()
 void NetManager::InitNetHandler(NetHandler *handler)
 {
 	// 设置成非阻塞
-	unsigned long b;
+    unsigned long b = 1;
 	NetCommon::Ioctl(handler->m_sock, FIONBIO, &b);
 #ifdef WIN32
 	FD_SET(handler->m_sock, &m_read_set);

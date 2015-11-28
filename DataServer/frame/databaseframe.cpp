@@ -12,42 +12,14 @@
 #include "lib/include/frame/listener.h"
 
 
-class InnerCallBack : public MsgCallBack
-{
-public:
-	InnerCallBack(DatabaseFrame *frame) : m_frame(frame){}
-	~InnerCallBack(){}
-
-	void	Accept()
-	{
-		printf("fuck accept.................\n");
-	}
-
-	void	Recv(GameMsg *msg)
-	{
-		m_frame->Recv(msg);
-	}
-
-	void	Disconnect(NetHandle handle)
-	{
-		printf("fuck disconnect.................\n");
-	}
-private:
-	DatabaseFrame *m_frame;
-};
-
 DatabaseFrame::DatabaseFrame()
+    : m_i_call_back(this)
 {
-	m_i_call_back = new InnerCallBack(this);
+
 }
 
 DatabaseFrame::~DatabaseFrame()
 {
-	if (m_i_call_back)
-	{
-		delete m_i_call_back;
-		m_i_call_back = NULL;
-	}
 	Exit();
 }
 
@@ -57,8 +29,7 @@ bool DatabaseFrame::InitConfig()
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].ip,
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].port,
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].backlog,
-		new Accepter(&m_net_manager),
-		m_i_call_back))
+        new Accepter(&m_net_manager), &m_i_call_back))
 	{
 		return false;
 	}
@@ -154,11 +125,11 @@ void DatabaseFrame::Recv(GameMsg *msg)
 	delete msg;
 	//m_message_handler.HandleMessage(msg);
 
-//    if (ret > 100)
-//    {
-//        printf("fuck exit\n");
-//        exit(0);
-//    }
+    if (ret >= 1000)
+    {
+        printf("fuck exit\n");
+        exit(0);
+    }
 }
 
 void DatabaseFrame::Update(unsigned int interval, time_t now)	// 构架更新

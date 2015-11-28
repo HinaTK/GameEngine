@@ -5,11 +5,16 @@
 
 MemoryPool::~MemoryPool()
 {
+    printf("MemoryPool::~MemoryPool() %xd\n", this);
+    int i = 1;
     for (std::vector<void *>::iterator itr = m_has_malloc.begin(); itr != m_has_malloc.end(); ++itr)
     {
         ::free(*itr);
         *itr = NULL;
+        printf("MemoryPool::~MemoryPool() i= %d\n", i);
+        i = i + 1;
     }
+    m_has_malloc.clear();
 }
 
 MemoryPool::MemoryPool( unsigned int size, unsigned int increase /*= 64*/ )
