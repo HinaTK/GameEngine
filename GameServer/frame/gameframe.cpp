@@ -63,8 +63,11 @@ bool NewFrame::InitConfig()
 // 		m_game_thread[i] = new GameThread(i + 1);
 // 	}
 	
-    int a = 1;
-    m_net_manager.Send(m_database_server_handle, (const char *)&a, sizeof(int));
+    for (int i = 1; i <= 10; ++i)
+    {
+        m_net_manager.Send(m_database_server_handle, (const char *)&i, sizeof(int));
+    }
+
 // 	struct Test
 // 	{
 // 		Test() :header(0){}
@@ -127,28 +130,22 @@ void NewFrame::OuterRecv(GameMsg *msg)
 
 void NewFrame::InnerRecv(GameMsg *msg)
 {
-	static int i = 1;
+
 	int ret = *(int *)msg->data;
 
-	if (i != ret)
+    if (ret > 10000 || ret <= 0)
 	{
         printf("error ret = %d\n", ret);
 		exit(0);
 	}
-//	printf("ret = %d\n", ret);
-// 	if (ret % 100 == 0)
-// 	{
-// 		printf("ret = %d\n", ret);
-// 	}
-    if (i > 1000)
-	{
-		printf("success ret = %d\n", ret);
-        exit(0);
-	}
 	else
 	{
-		i++;
-		m_net_manager.Send(m_database_server_handle, (const char *)&i, sizeof(int));
+        int begin = ret * 10 + 1;
+        for (int i = begin; i < begin + 10; ++i)
+        {
+            m_net_manager.Send(m_database_server_handle, (const char *)&i, sizeof(int));
+        }
+
 	}
 }
 
