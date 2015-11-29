@@ -1,64 +1,34 @@
 ﻿
 #include <stdio.h>
 #include <string.h>
-#include "databaseframe.h"
+#include "dataframe.h"
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/cache/datacache.h"
 #include "common/globalclass.h"
 #include "common/commonfunction.h"
 #include "cache/datamapmanager.h"
-#include "../database/database.h"
 #include "lib/include/redis/redis.h"
 #include "lib/include/frame/listener.h"
 
 
-class InnerCallBack : public MsgCallBack
+NewFrame::NewFrame()
+    : m_i_call_back(this)
 {
-public:
-	InnerCallBack(DatabaseFrame *frame) : m_frame(frame){}
-	~InnerCallBack(){}
 
-	void	Accept()
-	{
-		printf("fuck accept.................\n");
-	}
-
-	void	Recv(GameMsg *msg)
-	{
-		m_frame->Recv(msg);
-	}
-
-	void	Disconnect(NetHandle handle)
-	{
-		printf("fuck disconnect.................\n");
-	}
-private:
-	DatabaseFrame *m_frame;
-};
-
-DatabaseFrame::DatabaseFrame()
-{
-	m_i_call_back = new InnerCallBack(this);
 }
 
-DatabaseFrame::~DatabaseFrame()
+NewFrame::~NewFrame()
 {
-	if (m_i_call_back)
-	{
-		delete m_i_call_back;
-		m_i_call_back = NULL;
-	}
 	Exit();
 }
 
-bool DatabaseFrame::InitConfig()
+bool NewFrame::InitConfig()
 {
 	if (!m_net_manager.InitServer(
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].ip,
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].port,
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].backlog,
-		new Accepter(&m_net_manager),
-		m_i_call_back))
+        new Accepter(&m_net_manager), &m_i_call_back))
 	{
 		return false;
 	}
@@ -76,11 +46,10 @@ bool DatabaseFrame::InitConfig()
 // 	}
 // 	printf("connect database success\n");
 
-	DataMapManager::Instance().Init();
 	return Init();
 }
 
-bool DatabaseFrame::Init()		// 框架初始化
+bool NewFrame::Init()		// 框架初始化
 {
 	Frame::Init();
 
@@ -145,7 +114,7 @@ bool DatabaseFrame::Init()		// 框架初始化
 	return true;
 }
 
-void DatabaseFrame::Recv(GameMsg *msg)
+void NewFrame::Recv(GameMsg *msg)
 {
     int ret = *(int *)msg->data;
     printf("ret = %d\n", ret);
@@ -154,14 +123,14 @@ void DatabaseFrame::Recv(GameMsg *msg)
 	delete msg;
 	//m_message_handler.HandleMessage(msg);
 
-//    if (ret > 100)
-//    {
-//        printf("fuck exit\n");
-//        exit(0);
-//    }
+    if (ret >= 1000)
+    {
+        printf("fuck exit\n");
+        exit(0);
+    }
 }
 
-void DatabaseFrame::Update(unsigned int interval, time_t now)	// 构架更新
+void NewFrame::Update(unsigned int interval, time_t now)	// 构架更新
 {
 	//StmtSelect();
 	//StmtInsert();
@@ -170,17 +139,14 @@ void DatabaseFrame::Update(unsigned int interval, time_t now)	// 构架更新
 	//exit(0);
 }
 
-void DatabaseFrame::Exit()
+void NewFrame::Exit()
 {
-	m_message_handler.Exit();
-	DataMapManager::Instance().Exit();
 
 	printf("database server exit\n");
 }
 
 
-void DatabaseFrame::Wait()
+void NewFrame::Wait()
 {
-	m_message_handler.Wait();
-	DataMapManager::Instance().Wait();
+
 }

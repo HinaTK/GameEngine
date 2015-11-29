@@ -4,18 +4,17 @@
 
 #include "lib/include/timemanager/timemanager.h"
 #include "lib/include/frame/frame.h"
-#include "message/messagehandler.h"
+#include "callback.h"
 
-class InnerCallBack;
-class DatabaseFrame : public Frame
+class NewFrame : public Frame
 {
 public:
 
-    virtual ~DatabaseFrame();
+    virtual ~NewFrame();
 
-    static DatabaseFrame &Instance()
+    static NewFrame &Instance()
     {
-        static DatabaseFrame frame;
+        static NewFrame frame;
         return frame;
     }
 
@@ -33,18 +32,15 @@ public:
 	void	Recv(GameMsg *msg);
 
 public:
-	Thread		m_recv_client_thread;
-	Thread		m_send_thread;
 
 	NetHandle	m_game_handle;
 	NetHandle	m_login_handle;
  
 
 private:
-	DatabaseFrame();
-	MessageHandler		m_message_handler;
+	NewFrame();
 
-	InnerCallBack		*m_i_call_back;
+    InnerCallBack		m_i_call_back;
 	
 };
 

@@ -1,114 +1,24 @@
 QT += core
 QT -= gui
 
-TARGET = DataServer
+TARGET = LoginServer
 CONFIG += console
 CONFIG -= app_bundle
 CONFIG += c++11
 
 TEMPLATE = app
-INCLUDEPATH = ../ ../DataServer
-
-LIBS += -lmysqlclient
+INCLUDEPATH = ../ ../LoginServer
 
 SOURCES += \
-    ../DataServer/cache/datamapmanager.cpp \
-    ../DataServer/database/database.cpp \
-    ../DataServer/database/tablebase.cpp \
-    ../DataServer/frame/databaseframe.cpp \
-    ../DataServer/frame/main.cpp \
-    ../DataServer/message/messagehandler.cpp \
-    ../DataServer/table/datatable.cpp \
-    ../DataServer/table/datatablestmt.cpp \
-    ../DataServer/table/tabledefine.cpp \
-    ../DataServer/table/tb_login.cpp \
+    ../LoginServer/frame/loginframe.cpp \
+    ../LoginServer/frame/main.cpp \
+    ../LoginServer/message/messagefunction/messagehandler.cpp \
     ../common/commonfunction.cpp \
-    ../common/globalclass.cpp \
-    ../DataServer/frame/callback.cpp
+    ../common/globalclass.cpp
 
 HEADERS += \
-    ../DataServer/cache/datamapmanager.h \
-    ../DataServer/database/database.h \
-    ../DataServer/database/tablebase.h \
-    ../DataServer/database/tableid.h \
-    ../DataServer/frame/databaseframe.h \
-    ../DataServer/frame/rpc.h \
-    ../DataServer/include/mysql/psi/mysql_file.h \
-    ../DataServer/include/mysql/psi/mysql_idle.h \
-    ../DataServer/include/mysql/psi/mysql_socket.h \
-    ../DataServer/include/mysql/psi/mysql_stage.h \
-    ../DataServer/include/mysql/psi/mysql_statement.h \
-    ../DataServer/include/mysql/psi/mysql_table.h \
-    ../DataServer/include/mysql/psi/mysql_thread.h \
-    ../DataServer/include/mysql/psi/psi.h \
-    ../DataServer/include/mysql/client_authentication.h \
-    ../DataServer/include/mysql/client_plugin.h \
-    ../DataServer/include/mysql/get_password.h \
-    ../DataServer/include/mysql/innodb_priv.h \
-    ../DataServer/include/mysql/plugin.h \
-    ../DataServer/include/mysql/plugin_audit.h \
-    ../DataServer/include/mysql/plugin_auth.h \
-    ../DataServer/include/mysql/plugin_auth_common.h \
-    ../DataServer/include/mysql/plugin_ftparser.h \
-    ../DataServer/include/mysql/plugin_validate_password.h \
-    ../DataServer/include/mysql/service_my_plugin_log.h \
-    ../DataServer/include/mysql/service_my_snprintf.h \
-    ../DataServer/include/mysql/service_mysql_string.h \
-    ../DataServer/include/mysql/service_thd_alloc.h \
-    ../DataServer/include/mysql/service_thd_wait.h \
-    ../DataServer/include/mysql/service_thread_scheduler.h \
-    ../DataServer/include/mysql/services.h \
-    ../DataServer/include/mysql/thread_pool_priv.h \
-    ../DataServer/include/big_endian.h \
-    ../DataServer/include/byte_order_generic.h \
-    ../DataServer/include/byte_order_generic_x86.h \
-    ../DataServer/include/byte_order_generic_x86_64.h \
-    ../DataServer/include/decimal.h \
-    ../DataServer/include/errmsg.h \
-    ../DataServer/include/keycache.h \
-    ../DataServer/include/little_endian.h \
-    ../DataServer/include/m_ctype.h \
-    ../DataServer/include/m_string.h \
-    ../DataServer/include/my_alloc.h \
-    ../DataServer/include/my_attribute.h \
-    ../DataServer/include/my_byteorder.h \
-    ../DataServer/include/my_compiler.h \
-    ../DataServer/include/my_config.h \
-    ../DataServer/include/my_dbug.h \
-    ../DataServer/include/my_dir.h \
-    ../DataServer/include/my_getopt.h \
-    ../DataServer/include/my_global.h \
-    ../DataServer/include/my_list.h \
-    ../DataServer/include/my_net.h \
-    ../DataServer/include/my_pthread.h \
-    ../DataServer/include/my_sys.h \
-    ../DataServer/include/my_xml.h \
-    ../DataServer/include/mysql.h \
-    ../DataServer/include/mysql_com.h \
-    ../DataServer/include/mysql_com_server.h \
-    ../DataServer/include/mysql_embed.h \
-    ../DataServer/include/mysql_time.h \
-    ../DataServer/include/mysql_version.h \
-    ../DataServer/include/mysqld_ername.h \
-    ../DataServer/include/mysqld_error.h \
-    ../DataServer/include/plugin.h \
-    ../DataServer/include/plugin_audit.h \
-    ../DataServer/include/plugin_ftparser.h \
-    ../DataServer/include/plugin_validate_password.h \
-    ../DataServer/include/sql_common.h \
-    ../DataServer/include/sql_state.h \
-    ../DataServer/include/sslopt-case.h \
-    ../DataServer/include/sslopt-longopts.h \
-    ../DataServer/include/sslopt-vars.h \
-    ../DataServer/include/typelib.h \
-    ../DataServer/message/messagehandler.h \
-    ../DataServer/message/msgtype.h \
-    ../DataServer/protocol/msgheader.h \
-    ../DataServer/table/datatable.h \
-    ../DataServer/table/datatablestmt.h \
-    ../DataServer/table/tabledef.h \
-    ../DataServer/table/tabledefine.h \
-    ../DataServer/table/tb_login.h \
+    ../LoginServer/frame/loginframe.h \
+    ../LoginServer/message/messagefunction/messagehandler.h \
     ../common/datastructure/circlequeue.h \
     ../common/datastructure/gamearray.h \
     ../common/datastructure/gamehash - 副本.h \
@@ -139,8 +49,7 @@ HEADERS += \
     ../common/globalclass.h \
     ../common/serverdef.h \
     ../common/socketdef.h \
-    ../common/vector2d.h \
-    ../DataServer/frame/callback.h
+    ../common/vector2d.h
 
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../lib/linux/release/ -lFrame

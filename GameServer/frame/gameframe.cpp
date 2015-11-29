@@ -172,7 +172,7 @@ void NewFrame::InnerRecv(GameMsg *msg)
 // 	{
 // 		printf("ret = %d\n", ret);
 // 	}
-	if (i > 10000)
+    if (i > 1000)
 	{
 		printf("success ret = %d\n", ret);
 	}
