@@ -17,7 +17,8 @@ namespace TestMemory
 		{
 			for (int j = 0; j < test_num; ++j)
 			{
-				test[j] = Mem::Alloc((j + j + 1) * 2);
+                int val = (i + i + 1) * 2;
+                test[j] = Mem::Alloc(val);
 			}
 
 			for (int j = 0; j < test_num; ++j)
@@ -31,12 +32,15 @@ namespace TestMemory
 	{
 		static const int thread_num = 3;
 		std::thread *t[thread_num];
-		for (int i = 0; i < thread_num; ++i)
+        t[0] = new std::thread(TestMemory::update, (void *)NULL);
+        t[0]->join();
+
+        for (int i = 1; i < thread_num; ++i)
 		{
 			t[i] = new std::thread(TestMemory::update, (void *)NULL);
 		}
 
-		for (int i = 0; i < thread_num; ++i)
+        for (int i = 1; i < thread_num; ++i)
 		{
 			t[i]->join();
 		}

@@ -15,6 +15,8 @@ public:
     void	Free(void *m);
 	unsigned int Size(){ return m_size; }
 
+    void    Show(char *msg);
+
 private:
 	bool	Resize();
 
@@ -22,8 +24,8 @@ private:
 	unsigned int m_size;
 	unsigned int m_increase;
 
-	std::vector<void *>  m_pool;
-	//game::Vector<void *> m_pool;
+    std::vector<void *>  m_pool;
+    //game::Vector<void *> m_pool;
     std::vector<void *> m_has_malloc;
     //game::Vector<void *> m_has_malloc;
 };

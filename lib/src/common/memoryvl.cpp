@@ -14,7 +14,6 @@ MemoryVL::MemoryVL(unsigned int config[][2], unsigned int num)
 	for (unsigned int i = 0; i < m_size; ++i)
 	{
         m_memory[i] = new MemoryPool(config[i][0] + LEN_INT, config[i][1]);
-        printf("m_memory[i] = %xd\n", m_memory[i]);
 	}
 
 }
@@ -42,20 +41,21 @@ void  *MemoryVL::Alloc(unsigned int size)
 		}
 	}
 
-	char *mem = 0;
+    void *mem = 0;
 
 	if (i >= m_size)
 	{
-		mem = (char *)::malloc(real_size);	// 线程安全，不用加锁
+        mem = ::malloc(real_size);	// 线程安全，不用加锁
 	}
 	else
 	{
 		LOCK(m_mutex[i]);
-        mem = (char *)m_memory[i]->Alloc();
+        mem = m_memory[i]->Alloc();
 		UNLOCK(m_mutex[i]);
 	}
 
-	*(unsigned int *)mem = i;
+
+    *(unsigned int *)mem = i;
 	return (mem + LEN_INT);
 }
 
@@ -66,14 +66,15 @@ bool MemoryVL::Free(void *mem)
 	unsigned int index = *(unsigned int*)real_mem;
 	if (index >= m_size)
 	{
-        ::free(mem);
+        ::free(real_mem);
 	}
 	else
 	{
 		LOCK(m_mutex[index]);
-        m_memory[index]->Free(mem);
+        m_memory[index]->Free(real_mem);
 		UNLOCK(m_mutex[index]);
 	}
 
 	return true;
 }
+

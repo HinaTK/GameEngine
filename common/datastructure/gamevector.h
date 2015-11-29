@@ -122,7 +122,7 @@ unsigned int Vector<T>::Push( T &val )
 			return Vector<T>::INVALID_HANDLE;
 		}	
 	}
-	
+
 	m_list[m_index++] = val;
 	return m_index - 1;
 }

@@ -29,5 +29,6 @@ char * Mem::Alloc(unsigned int s)
 
 void Mem::Free(void *m)
 {
-	g_mem_pool.Free(m);
+    g_mem_pool.Free(m);
 }
+
