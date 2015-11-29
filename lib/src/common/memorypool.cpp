@@ -5,27 +5,29 @@
 
 MemoryPool::~MemoryPool()
 {
-    printf("MemoryPool::~MemoryPool() %xd\n", this);
-    int i = 1;
-    for (std::vector<void *>::iterator itr = m_has_malloc.begin(); itr != m_has_malloc.end(); ++itr)
-    {
-        ::free(*itr);
-        *itr = NULL;
-        printf("MemoryPool::~MemoryPool() i= %d\n", i);
-        i = i + 1;
-    }
-    m_has_malloc.clear();
+	for (unsigned int i = 0; i < m_has_malloc.size(); ++i)
+	{
+		::free(m_has_malloc[i]);
+	}
 }
 
 MemoryPool::MemoryPool( unsigned int size, unsigned int increase /*= 64*/ )
 	: m_size(size)
 	, m_increase(increase)
 {
-    Resize();
+    //Resize();
 }
 
 bool MemoryPool::Resize()
 {
+	for (unsigned int i = 0; i < m_pool.size(); ++i)
+	{
+		if (m_pool[i] == NULL)
+		{
+			printf("fuck\n");
+		}
+	}
+
 	void *mem = ::malloc(m_size * m_increase);
 	if (NULL == mem)
 	{
@@ -38,16 +40,27 @@ bool MemoryPool::Resize()
         m_pool.push_back((void *)unit_mem);
 		unit_mem += m_size;
 	}
+	
+	for (unsigned int i = 0; i < m_pool.size(); ++i)
+	{
+		if (m_pool[i] == NULL)
+		{
+			printf("fuck\n");
+		}
+	}
 	return true;
 }
 
 void * MemoryPool::Alloc()
 {
 	void *mem = NULL;
+	
+
 	if (m_pool.size() <= 0)
 	{
 		Resize();
 	}
+
 	mem = m_pool.back();
 	m_pool.pop_back();
 	return mem;
@@ -55,5 +68,17 @@ void * MemoryPool::Alloc()
 
 void MemoryPool::Free(void *m)
 {
+	if (m == NULL)
+	{
+		printf("fuck\n");
+	}
+	for (unsigned int i = 0; i < m_pool.size(); ++i)
+	{
+		if (m_pool[i] == NULL)
+		{
+			printf("fuck\n");
+		}
+	}
 	m_pool.push_back(m);
+
 }
