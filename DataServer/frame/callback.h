@@ -4,11 +4,11 @@
 
 #include "lib/include/frame/msgcallback.h"
 
-class DatabaseFrame;
+class NewFrame;
 class InnerCallBack : public MsgCallBack
 {
 public:
-    InnerCallBack(DatabaseFrame *frame) : m_frame(frame){}
+    InnerCallBack(NewFrame *frame) : m_frame(frame){}
     ~InnerCallBack(){}
 
     void	Accept();
@@ -18,7 +18,7 @@ public:
     void	Disconnect(NetHandle handle);
 
 private:
-    DatabaseFrame *m_frame;
+    NewFrame *m_frame;
 };
 
 #endif

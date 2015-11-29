@@ -20,7 +20,7 @@ MemoryVL::MemoryVL(unsigned int config[][2], unsigned int num)
 
 MemoryVL::~MemoryVL()
 {
-    for (int i = 0; i < m_size; ++i)
+    for (unsigned int i = 0; i < m_size; ++i)
     {
         delete m_memory[i];
         m_memory[i] = NULL;

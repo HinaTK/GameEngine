@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="frame">
+      <UniqueIdentifier>{e0ad2a8a-16c7-4c17-8b5b-9a880bb2a073}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{60cb8461-353f-4d6d-b2d3-3d1055b86f71}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\DataServer\frame\callback.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DataServer\frame\databaseframe.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DataServer\frame\main.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\commonfunction.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\DataServer\frame\callback.h">
+      <Filter>frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DataServer\frame\databaseframe.h">
+      <Filter>frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\commonfunction.h">
+      <Filter>common</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

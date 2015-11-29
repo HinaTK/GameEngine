@@ -7,13 +7,13 @@
 
 int main()
 {
-	if (!DatabaseFrame::Instance().InitConfig())
+	if (!NewFrame::Instance().InitConfig())
 	{
 		Function::WindowsPause();
 		return 0;
 	}
 	//Log::Instance().Error("writelog");
-	DatabaseFrame::Instance().Run();
+	NewFrame::Instance().Run();
 	Function::WindowsPause();
 	return 0;
 }
