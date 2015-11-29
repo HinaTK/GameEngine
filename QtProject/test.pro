@@ -130,3 +130,16 @@ else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../lib/linu
 else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../lib/linux/release/Log.lib
 else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../lib/linux/debug/Log.lib
 else:unix: PRE_TARGETDEPS += $$PWD/../lib/linux/libLog.a
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../lib/linux/release/ -lCache
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../lib/linux/debug/ -lCache
+else:unix: LIBS += -L$$PWD/../lib/linux/ -lCache
+
+INCLUDEPATH += $$PWD/../lib/linux
+DEPENDPATH += $$PWD/../lib/linux
+
+win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../lib/linux/release/libCache.a
+else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../lib/linux/debug/libCache.a
+else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../lib/linux/release/Cache.lib
+else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../lib/linux/debug/Cache.lib
+else:unix: PRE_TARGETDEPS += $$PWD/../lib/linux/libCache.a
