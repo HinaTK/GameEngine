@@ -12,25 +12,25 @@
     <ClCompile Include="..\DataServer\frame\callback.cpp">
       <Filter>frame</Filter>
     </ClCompile>
-    <ClCompile Include="..\DataServer\frame\databaseframe.cpp">
-      <Filter>frame</Filter>
-    </ClCompile>
     <ClCompile Include="..\DataServer\frame\main.cpp">
       <Filter>frame</Filter>
     </ClCompile>
     <ClCompile Include="..\common\commonfunction.cpp">
       <Filter>common</Filter>
     </ClCompile>
+    <ClCompile Include="..\DataServer\frame\dataframe.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DataServer\frame\callback.h">
       <Filter>frame</Filter>
     </ClInclude>
-    <ClInclude Include="..\DataServer\frame\databaseframe.h">
-      <Filter>frame</Filter>
-    </ClInclude>
     <ClInclude Include="..\common\commonfunction.h">
       <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DataServer\frame\dataframe.h">
+      <Filter>frame</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

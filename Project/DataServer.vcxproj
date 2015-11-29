@@ -21,13 +21,13 @@
   <ItemGroup>
     <ClCompile Include="..\common\commonfunction.cpp" />
     <ClCompile Include="..\DataServer\frame\callback.cpp" />
-    <ClCompile Include="..\DataServer\frame\databaseframe.cpp" />
+    <ClCompile Include="..\DataServer\frame\dataframe.cpp" />
     <ClCompile Include="..\DataServer\frame\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\commonfunction.h" />
     <ClInclude Include="..\DataServer\frame\callback.h" />
-    <ClInclude Include="..\DataServer\frame\databaseframe.h" />
+    <ClInclude Include="..\DataServer\frame\dataframe.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectName>DataServer</ProjectName>
