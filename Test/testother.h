@@ -2,16 +2,9 @@
 #ifndef TEST_OTHER_H
 #define TEST_OTHER_H
 
-#include "timemanager/gametime.h"
-#include "DLL/export.h"
-#include "DLL/dll.h"
+#include "lib/include/timemanager/gametime.h"
 
-class TTTT
-{
-public:
 
-	DLL *m_dll;
-};
 
 namespace TestOther
 {
@@ -66,16 +59,16 @@ namespace TestOther
 // 		printf("%lld\n", GameTime::MilliSecond());
 // 	}
 
-	void Test3()
-	{
-		Register();
-	}
+//	void Test3()
+//	{
+//		Register();
+//	}
 
-	void Test4()
-	{
-		Test test;
-		Register(test);
-	}
+//	void Test4()
+//	{
+//		Test test;
+//		Register(test);
+//	}
 }
 
 #endif

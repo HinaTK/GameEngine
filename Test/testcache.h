@@ -2,8 +2,8 @@
 #ifndef TEST_CACHE_H
 #define TEST_CACHE_H
 
-#include "cache/datamap.h"
-#include "cache/datacache.h"
+#include "lib/include/cache/datamap.h"
+#include "lib/include/cache/datacache.h"
 
 namespace TestCache
 {
@@ -106,14 +106,14 @@ namespace TestCache
 
 	void TestCache1()
 	{
-		DataMap<int> test;
-		unsigned long begin = GetTickCount();
-		int test_num = 100000;
-		for (int i = 0; i < test_num; ++i)
-		{
-			test.Insert(i, (const char *)&i, sizeof(int));
-		}
-		printf("time = %d\n", GetTickCount() - begin);
+//		DataMap<int> test;
+//		unsigned long begin = GetTickCount();
+//		int test_num = 100000;
+//		for (int i = 0; i < test_num; ++i)
+//		{
+//			test.Insert(i, (const char *)&i, sizeof(int));
+//		}
+//		printf("time = %d\n", GetTickCount() - begin);
 	}
 
 }

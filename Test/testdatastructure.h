@@ -17,7 +17,7 @@
 #include "common/datastructure/sortmap.h"
 #include "common/datastructure/gamelist.h"
 #include "common/datastructure/gamehash.h"
-#include "timemanager/gametime.h"
+#include "lib/include/timemanager/gametime.h"
 
 namespace TestDataStructure
 {
