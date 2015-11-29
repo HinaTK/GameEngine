@@ -6,35 +6,14 @@
 #include "lib/include/tinyxml/tinyxml.h"
 #include "poolconfig/test.h"
 
-class OuterCallBack : public MsgCallBack
-{
-public:
-	OuterCallBack(NewFrame *frame) : m_frame(frame){}
-	~OuterCallBack(){}
-
-	void	Recv(GameMsg *msg){m_frame->OuterRecv(msg);}
-private:
-	NewFrame *m_frame;
-};
-
-class InnerCallBack : public MsgCallBack
-{
-public:
-	InnerCallBack(NewFrame *frame) : m_frame(frame){}
-	~InnerCallBack(){}
-
-	void	Recv(GameMsg *msg){m_frame->InnerRecv(msg);}
-private:
-	NewFrame *m_frame;
-};
-
 
 NewFrame::NewFrame()
 : m_game_thread_num(10)
 , m_game_thread(NULL)
+, m_o_call_back(this)
+, m_i_call_back(this)
 {
-	m_o_call_back = new OuterCallBack(this);
-	m_i_call_back = new InnerCallBack(this);
+
 }
 
 NewFrame::~NewFrame()
@@ -49,17 +28,6 @@ NewFrame::~NewFrame()
 		m_game_thread = NULL;
 	}
 
-	if (m_o_call_back)
-	{
-		delete m_o_call_back;
-		m_o_call_back = NULL;
-	}
-
-	if (m_i_call_back)
-	{
-		delete m_i_call_back;
-		m_i_call_back = NULL;
-	}
 	Exit();
 
 }
@@ -71,7 +39,7 @@ bool NewFrame::InitConfig()
 		ServerConfig::Instance().m_server[ServerConfig::GAME_SERVER].port,
 		ServerConfig::Instance().m_server[ServerConfig::GAME_SERVER].backlog,
 		new Accepter(&m_net_manager), 
-		m_o_call_back))
+        &m_o_call_back))
 	{
 		return false;
 	}
@@ -80,7 +48,7 @@ bool NewFrame::InitConfig()
         ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].ip,
         ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].port,
         new BaseListener(&m_net_manager),
-        m_i_call_back);
+        &m_i_call_back);
 
     if (m_database_server_handle == INVALID_NET_HANDLE)
     {

@@ -32,7 +32,8 @@ SOURCES += \
     ../GameServer/scene/scene.cpp \
     ../GameServer/scene/scenemanager.cpp \
     ../common/commonfunction.cpp \
-    ../common/globalclass.cpp
+    ../common/globalclass.cpp \
+    ../GameServer/frame/callback.cpp
 
 HEADERS += \
     ../GameServer/base/knapsack.h \
@@ -95,7 +96,8 @@ HEADERS += \
     ../common/globalclass.h \
     ../common/serverdef.h \
     ../common/socketdef.h \
-    ../common/vector2d.h
+    ../common/vector2d.h \
+    ../GameServer/frame/callback.h
 
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../lib/linux/release/ -lFrame

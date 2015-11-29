@@ -5,7 +5,7 @@
 #include <thread>
 #include "common/datastructure/msgqueue.h"
 /*
-	目的：以多线程并行代替多进程并行
+	鐩殑锛氫互澶氱嚎绋嬪苟琛屼唬鏇垮杩涚▼骞惰
 */
 
 class GameMsg;
@@ -22,13 +22,13 @@ public:
 	void	PushMsg(GameMsg *msg);
 
 	void	Recv(GameMsg *msg);
-	// 等待线程执行完毕
+	// 绛夊緟绾跨▼鎵ц瀹屾瘯
 	void	Wait();
 
 	int		GetIndex(){ return m_index; }
 private:
 	std::thread		*m_thread;
-	int				m_index;	// 线程索引
+	int				m_index;	// 绾跨▼绱㈠紩
 	bool			m_is_exit;
 
 	
@@ -36,3 +36,4 @@ private:
 };
 
 #endif // !GAME_THREAD_H
+

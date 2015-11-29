@@ -7,9 +7,8 @@
 #include "lib/include/frame/frame.h"
 #include "lib/include/timemanager/timemanager.h"
 #include "gamethread.h"
+#include "callback.h"
 
-class OuterCallBack;
-class InnerCallBack;
 class NewFrame : public Frame
 {
 public:
@@ -48,8 +47,8 @@ public:
 private:
 	NewFrame();
 
-	OuterCallBack		*m_o_call_back;
-	InnerCallBack		*m_i_call_back;
+    OuterCallBack		m_o_call_back;
+    InnerCallBack		m_i_call_back;
 
 	TimeEventManager	m_time_event_manager;
 
