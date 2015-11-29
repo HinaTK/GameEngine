@@ -111,6 +111,9 @@
     <ClCompile Include="..\GameServer\frame\gamethread.cpp">
       <Filter>frame</Filter>
     </ClCompile>
+    <ClCompile Include="..\GameServer\frame\callback.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\commonfunction.h">
@@ -201,6 +204,9 @@
       <Filter>base</Filter>
     </ClInclude>
     <ClInclude Include="..\GameServer\frame\gamethread.h">
+      <Filter>frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\frame\callback.h">
       <Filter>frame</Filter>
     </ClInclude>
   </ItemGroup>

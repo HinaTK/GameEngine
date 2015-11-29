@@ -71,6 +71,7 @@ int main()
 	//TestSerializer::ShowLength();
 	//TestSerializer::NormalDB();
 	//TestMemory::TestMemoryVL();
+	TestMemory::Test1();
 	//TestSocket::Connect();
 
 	//TestDataStructure::TestArray();
@@ -108,7 +109,7 @@ int main()
 
 	//TestChrono::Test1();
 	//TestChrono::Test2();
-	TestChrono::Test3();
+	//TestChrono::Test3();
 
 //	TestFrame::Instance().Init();
 //	TestFrame::Instance().Run();

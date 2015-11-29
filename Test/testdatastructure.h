@@ -442,10 +442,10 @@ namespace TestDataStructure
 		test3.Push(a, val);
 		printf("test3 %s\n", test3[a]);
 // 
-		game::Hash<const char *, const char *> test4;
-		test4.Push("xian", val);
-
-		printf("test4 %s\n", test4["xian"]);
+// 		game::Hash<const char *, const char *> test4;
+// 		test4.Push("xian", val);
+// 
+// 		printf("test4 %s\n", test4["xian"]);
 
 	}
 
