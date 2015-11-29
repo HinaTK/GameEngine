@@ -3,7 +3,7 @@
 #define TEST_LOG_H
 
 #include "common/globalclass.h"
-#include "log/log.h"
+#include "lib/include/log/log.h"
 
 namespace TestLog
 {
