@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef TEST_FRAME_H
 #define TEST_FRAME_H
 
@@ -17,10 +17,10 @@ public:
 		return frame;
 	}
 
-	bool	Init();    //³õÊ¼»¯
+	bool	Init();    //åˆå§‹åŒ–
 
 
-	void	Update(unsigned int interval, time_t now);  //¸üĞÂ
+	void	Update(unsigned int interval, time_t now);  //æ›´æ–°
 
 	void	Exit();
 

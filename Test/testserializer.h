@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef TEST_SERIALIZER_H
 #define TEST_SERIALIZER_H
 
@@ -85,7 +85,7 @@ namespace TestSerializer
 		return true;
 	}
 
-	typedef char GameName[32];		// ½ÇÉ«Ãû³Æ
+	typedef char GameName[32];		// è§’è‰²åç§°
 	
 	void Normal()
 	{

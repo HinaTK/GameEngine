@@ -1,4 +1,4 @@
-
+ï»¿
 #ifndef TEST_REDIS_H
 #define TEST_REDIS_H
 
@@ -40,28 +40,28 @@ namespace TestRedis
 		delete data;
 	}
 
-	// ¶Ì×Ö·û´®
+	// çŸ­å­—ç¬¦ä¸²
 	void Test1()
 	{
 		char *reply = "+OK\r\n";
 		Decode(reply);
 	}
 
-	// ´íÎó
+	// é”™è¯¯
 	void Test2()
 	{
 		char *reply = "-ERR unknown command 'seet'\r\n";
 		Decode(reply);
 	}
 
-	// ÕûÊý
+	// æ•´æ•°
 	void Test3()
 	{
 		char *reply = ":11\r\n";
 		Decode(reply);
 	}
 
-	// ³¤×Ö·û´®
+	// é•¿å­—ç¬¦ä¸²
 	void Test4()
 	{
 		char *reply1 = "$3\r\ncat\r\n";
@@ -73,7 +73,7 @@ namespace TestRedis
 		Decode(reply2);
 	}
 
-	// Êý×é
+	// æ•°ç»„
 	void Test5()
 	{
 		char *reply1 = "*2\r\n$3\r\ncat\r\n$2\r\n11\r\n";
