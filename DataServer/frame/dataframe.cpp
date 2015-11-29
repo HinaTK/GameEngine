@@ -123,11 +123,11 @@ void NewFrame::Recv(GameMsg *msg)
 	delete msg;
 	//m_message_handler.HandleMessage(msg);
 
-    if (ret >= 1000)
-    {
-        printf("fuck exit\n");
-        exit(0);
-    }
+//    if (ret >= 1000)
+//    {
+//        printf("fuck exit\n");
+//        exit(0);
+//    }
 }
 
 void NewFrame::Update(unsigned int interval, time_t now)	// 构架更新

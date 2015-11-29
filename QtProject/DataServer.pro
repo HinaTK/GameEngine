@@ -15,7 +15,7 @@ SOURCES += \
     ../DataServer/cache/datamapmanager.cpp \
     ../DataServer/database/database.cpp \
     ../DataServer/database/tablebase.cpp \
-    ../DataServer/frame/databaseframe.cpp \
+    ../DataServer/frame/dataframe.cpp \
     ../DataServer/frame/main.cpp \
     ../DataServer/message/messagehandler.cpp \
     ../DataServer/table/datatable.cpp \
@@ -31,7 +31,7 @@ HEADERS += \
     ../DataServer/database/database.h \
     ../DataServer/database/tablebase.h \
     ../DataServer/database/tableid.h \
-    ../DataServer/frame/databaseframe.h \
+    ../DataServer/frame/dataframe.h \
     ../DataServer/frame/rpc.h \
     ../DataServer/include/mysql/psi/mysql_file.h \
     ../DataServer/include/mysql/psi/mysql_idle.h \

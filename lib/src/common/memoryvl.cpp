@@ -14,6 +14,7 @@ MemoryVL::MemoryVL(unsigned int config[][2], unsigned int num)
 	for (unsigned int i = 0; i < m_size; ++i)
 	{
         m_memory[i] = new MemoryPool(config[i][0] + LEN_INT, config[i][1]);
+        printf("m_memory[i] = %xd\n", m_memory[i]);
 	}
 
 }
