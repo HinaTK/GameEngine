@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\frame\accepter.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\inneraccepter.cpp" />
     <ClCompile Include="..\..\lib\src\frame\baselistener.cpp" />
     <ClCompile Include="..\..\lib\src\frame\bufmanager.cpp" />
     <ClCompile Include="..\..\lib\src\frame\frame.cpp" />
@@ -32,7 +31,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib\include\frame\accepter.h" />
-    <ClInclude Include="..\..\lib\include\frame\inneraccepter.h" />
     <ClInclude Include="..\..\lib\include\frame\baselistener.h" />
     <ClInclude Include="..\..\lib\include\frame\bufmanager.h" />
     <ClInclude Include="..\..\lib\include\frame\frame.h" />
