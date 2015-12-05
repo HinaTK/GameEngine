@@ -138,19 +138,15 @@ void NewFrame::InnerRecv(GameMsg *msg)
         printf("error ret = %d\n", ret);
 		exit(0);
 	}
-<<<<<<< HEAD
-
 	if (ret % 100 == 0)
 	{
 		printf("ret = %d\n", ret);
 	}
-    if (i > 10000)
+    if (ret > 10000)
 	{
 		printf("success ret = %d\n", ret);
         exit(0);
 	}
-=======
->>>>>>> 18b40547050097bcdfdbfd46face0901559b9cdb
 	else
 	{
         int begin = ret * 10 + 1;
