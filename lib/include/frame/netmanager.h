@@ -58,15 +58,12 @@ public:
 protected:
 	typedef game::Vector<NetHandle>		INVALID_HANDLE;
 	typedef game::Vector<NetHandler*>	REPLACE_HANDLER;
-	typedef game::Array<BaseMsg *>		MSG_HANDLE;
 	typedef game::Array<MsgHandler *>	MSG_HANDLER;
 
 	NetMessage			m_queue;
 	INVALID_HANDLE		m_invalid_handle;
 	REPLACE_HANDLER		m_replace_handler;
 	bool				m_is_run;
-
-	MSG_HANDLE			m_msg_handle;
 	MSG_HANDLER			m_msg_handler;
 
 #ifdef WIN32

@@ -31,7 +31,6 @@ NetManager::~NetManager()
 
 NetManager::NetManager()
 : m_is_run(true)
-, m_msg_handle(32)
 #ifdef WIN32
 , m_max_fd(0)
 #endif
