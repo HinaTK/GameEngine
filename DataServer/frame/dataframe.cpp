@@ -117,7 +117,7 @@ bool NewFrame::Init()		// 框架初始化
 void NewFrame::Recv(GameMsg *msg)
 {
     int ret = *(int *)msg->data;
-    printf("ret = %d\n", ret);
+//    printf("ret = %d\n", ret);
 	Send(msg->handle, msg->data, msg->length);
 
 	delete msg;

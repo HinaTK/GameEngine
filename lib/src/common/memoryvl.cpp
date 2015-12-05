@@ -54,9 +54,8 @@ void  *MemoryVL::Alloc(unsigned int size)
 		UNLOCK(m_mutex[i]);
 	}
 
-
     *(unsigned int *)mem = i;
-	return (mem + LEN_INT);
+	return ((char *)mem + LEN_INT);
 }
 
 
