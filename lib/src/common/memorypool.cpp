@@ -9,6 +9,9 @@ MemoryPool::~MemoryPool()
 	{
 		::free(m_has_malloc[i]);
 	}
+#ifdef TEST_MEMORY
+	printf("alloc time %d, free time %d\n", m_alloc_time, m_free_time);
+#endif
 }
 
 MemoryPool::MemoryPool( unsigned int size, unsigned int increase /*= 64*/ )
@@ -17,6 +20,7 @@ MemoryPool::MemoryPool( unsigned int size, unsigned int increase /*= 64*/ )
 #ifdef TEST_MEMORY
 	, m_alloc_time(0)
 	, m_free_time(0)
+	, m_resize_time(0)
 #endif // TEST_MEMORY
 
 {
@@ -40,6 +44,10 @@ bool MemoryPool::Resize()
 		unit_mem += m_size;
 	}
 	
+#ifdef TEST_MEMORY
+	++m_resize_time;
+	printf("resize time %d\n", m_resize_time);
+#endif
 	return true;
 }
 
@@ -47,9 +55,13 @@ void * MemoryPool::Alloc()
 {
 #ifdef TEST_MEMORY
 	++m_alloc_time;
-	if (m_alloc_time % 100 == 0)
+	if (m_alloc_time % 1000 == 0)
 	{
-		printf("alloc time %d, free time %d\n", m_alloc_time, m_free_time);
+		if (m_increase == 128)
+		{
+			printf("alloc time %d, free time %d\n", m_alloc_time, m_free_time);
+		}
+		
 	}
 #endif
 

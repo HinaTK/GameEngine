@@ -33,6 +33,7 @@ private:
 #ifdef TEST_MEMORY
 	int				m_alloc_time;
 	int				m_free_time;
+	int				m_resize_time;
 #endif
 };
 
