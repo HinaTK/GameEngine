@@ -21,7 +21,6 @@
     <ClCompile Include="..\..\lib\src\frame\netcommon.cpp" />
     <ClCompile Include="..\..\lib\src\frame\nethandler.cpp" />
     <ClCompile Include="..\..\lib\src\frame\netmanager.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\netuser.cpp" />
     <ClCompile Include="..\..\lib\src\frame\msgproxy.cpp" />
     <ClCompile Include="..\..\lib\src\frame\webaccepter.cpp" />
     <ClCompile Include="..\..\lib\src\frame\weblistener.cpp" />
@@ -41,7 +40,6 @@
     <ClInclude Include="..\..\lib\include\frame\netcommon.h" />
     <ClInclude Include="..\..\lib\include\frame\nethandler.h" />
     <ClInclude Include="..\..\lib\include\frame\netmanager.h" />
-    <ClInclude Include="..\..\lib\include\frame\netuser.h" />
     <ClInclude Include="..\..\lib\include\frame\msgproxy.h" />
     <ClInclude Include="..\..\lib\include\frame\webaccepter.h" />
     <ClInclude Include="..\..\lib\include\frame\weblistener.h" />

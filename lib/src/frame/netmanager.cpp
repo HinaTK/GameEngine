@@ -38,6 +38,10 @@ NetManager::NetManager()
 , m_epoll_fd(epoll_create(10240))
 #endif
 {
+	for (NET_HANDLER_ARRAY::iterator itr = m_net_handler.Begin(); itr != m_net_handler.End(); ++itr)
+	{
+		NetCommon::Close((*itr)->m_sock);
+	}
 	
 }
 
@@ -45,9 +49,9 @@ NetManager::NetManager()
 unsigned int NetManager::AddMsgHandler(MsgCallBack *call_back)
 {
 	MsgHandler *mh = new MsgHandler;
-	mh->msg[BaseMsg::MSG_ACCEPT] = new AcceptMsg(call_back);
-	mh->msg[BaseMsg::MSG_RECV] = new RecvMsg(call_back);
-	mh->msg[BaseMsg::MSG_DISCONNECT] = new DisconnectMsg(call_back);
+	mh->msg[BaseMsg::MSG_ACCEPT]		= new AcceptMsg(call_back);
+	mh->msg[BaseMsg::MSG_RECV]			= new RecvMsg(call_back);
+	mh->msg[BaseMsg::MSG_DISCONNECT]	= new DisconnectMsg(call_back);
 	return m_msg_handler.Insert(mh);
 }
 
@@ -85,7 +89,6 @@ NetHandle NetManager::ConnectServer(char *ip, unsigned short port, Listener *lis
 {
 	printf("connect to Server ip = %s, port = %d\n", ip, port);
 
-
 	NetCommon::StartUp();
 
 	struct sockaddr_in serverAddr;
@@ -113,7 +116,6 @@ NetHandle NetManager::ConnectServer(char *ip, unsigned short port, Listener *lis
 #ifdef __unix
 	struct epoll_event ev;
 	ev.events = EPOLLIN | EPOLLET;
-    //ev.data.fd = sock;
     ev.data.ptr = (void *)listener;
 	if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, sock, &ev) < 0)
 	{
@@ -342,7 +344,6 @@ void NetManager::Update()
 				if (msg->handle >= 0)
 				{
 					m_msg_handler[msg->msg_index]->msg[msg->msg_type]->Recv(msg);
-					//m_msg_handle[msg->call_back_handle]->Recv(msg);
 					// 内存交给下游处理
 					// delete (*msg);
 				}

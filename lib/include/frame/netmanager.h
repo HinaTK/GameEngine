@@ -3,7 +3,6 @@
 #define NET_MANAGER_H
 
 #include <map>
-#include "netuser.h"
 #include "nethandler.h"
 #include "message.h"
 #include "msgcallback.h"

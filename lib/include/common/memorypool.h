@@ -2,7 +2,8 @@
 #ifndef MEMORY_POOL_H
 #define MEMORY_POOL_H
 
-#include <mutex>
+#define TEST_MEMORY
+
 #include "common/datastructure/gamevector.h"
 #include <vector>
 
@@ -28,6 +29,11 @@ private:
     //game::Vector<void *> m_pool;
     std::vector<void *> m_has_malloc;
     //game::Vector<void *> m_has_malloc;
+
+#ifdef TEST_MEMORY
+	int				m_alloc_time;
+	int				m_free_time;
+#endif
 };
 
 
@@ -46,6 +52,8 @@ namespace PoolNameSpace\
 {\
 	PoolNameSpace::g_##ClassName##_mem_pool.Free(m);\
 }
+
+#include <mutex>
 
 #define REGISTER_SAFE_MEMORYPOOL(PoolNameSpace, ClassName, IncreaseNum) \
 namespace PoolNameSpace\

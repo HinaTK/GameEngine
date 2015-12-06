@@ -8,7 +8,6 @@
 	消息代理
 */
 
-// 用内存池
 class GameMsg;
 class BaseMsg
 {

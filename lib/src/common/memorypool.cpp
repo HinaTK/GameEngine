@@ -14,8 +14,13 @@ MemoryPool::~MemoryPool()
 MemoryPool::MemoryPool( unsigned int size, unsigned int increase /*= 64*/ )
 	: m_size(size)
 	, m_increase(increase)
+#ifdef TEST_MEMORY
+	, m_alloc_time(0)
+	, m_free_time(0)
+#endif // TEST_MEMORY
+
 {
-    //Resize();
+    
 }
 
 bool MemoryPool::Resize()
@@ -40,6 +45,14 @@ bool MemoryPool::Resize()
 
 void * MemoryPool::Alloc()
 {
+#ifdef TEST_MEMORY
+	++m_alloc_time;
+	if (m_alloc_time % 100 == 0)
+	{
+		printf("alloc time %d, free time %d\n", m_alloc_time, m_free_time);
+	}
+#endif
+
 	void *mem = NULL;
     if (m_pool.size() <= 0)
 	{
@@ -54,5 +67,9 @@ void * MemoryPool::Alloc()
 
 void MemoryPool::Free(void *m)
 {
+#ifdef TEST_MEMORY
+	++m_free_time;
+#endif
+
     m_pool.push_back(m);
 }
