@@ -3,12 +3,14 @@
 #include <string.h>
 #include "dataframe.h"
 #include "lib/include/common/serverconfig.h"
+#include "lib/include/timemanager/gametime.h"
 #include "lib/include/cache/datacache.h"
+#include "lib/include/redis/redis.h"
+#include "lib/include/frame/listener.h"
 #include "common/globalclass.h"
 #include "common/commonfunction.h"
 #include "cache/datamapmanager.h"
-#include "lib/include/redis/redis.h"
-#include "lib/include/frame/listener.h"
+
 
 
 NewFrame::NewFrame()
@@ -114,6 +116,7 @@ bool NewFrame::Init()		// 框架初始化
 	return true;
 }
 
+static unsigned long long begin = GameTime::Instance().MilliSecond();
 void NewFrame::Recv(GameMsg *msg)
 {
     int ret = *(int *)msg->data;
@@ -126,12 +129,16 @@ void NewFrame::Recv(GameMsg *msg)
 
 	delete msg;
 	//m_message_handler.HandleMessage(msg);
-
-//    if (ret >= 1000)
-//    {
-//        printf("fuck exit\n");
-//        exit(0);
-//    }
+	if (ret <= 1)
+	{
+		begin = GameTime::Instance().MilliSecond();
+	}
+	else if (ret >= 10000)
+	{
+		printf("fuck exit %d\n", GameTime::Instance().MilliSecond() - begin);
+		system("pause");
+		exit(0);
+	}
 }
 
 void NewFrame::Update(unsigned int interval, time_t now)	// 构架更新

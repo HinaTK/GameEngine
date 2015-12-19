@@ -2,7 +2,7 @@
 #ifndef MEMORY_POOL_H
 #define MEMORY_POOL_H
 
-#define TEST_MEMORY
+//#define TEST_MEMORY
 
 #include "common/datastructure/gamevector.h"
 #include <vector>

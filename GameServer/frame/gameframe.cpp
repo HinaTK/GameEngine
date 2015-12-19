@@ -133,7 +133,7 @@ void NewFrame::InnerRecv(GameMsg *msg)
 
 	int ret = *(int *)msg->data;
 
-    if (ret > 10000 || ret <= 0)
+    if (ret > 100000 || ret <= 0)
 	{
         printf("error ret = %d\n", ret);
 		SetExit();
