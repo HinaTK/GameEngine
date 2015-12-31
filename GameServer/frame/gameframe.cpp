@@ -63,7 +63,7 @@ bool NewFrame::InitConfig()
 // 		m_game_thread[i] = new GameThread(i + 1);
 // 	}
 	
-    for (int i = 1; i <= 10; ++i)
+    for (int i = 1; i <= 1; ++i)
     {
         m_net_manager.Send(m_database_server_handle, (const char *)&i, sizeof(int));
     }
@@ -140,15 +140,17 @@ void NewFrame::InnerRecv(GameMsg *msg)
 	}
 	else
 	{
-		int begin = ret * 10 + 1;
-		for (int i = begin; i < begin + 10; ++i)
-		{
-			m_net_manager.Send(m_database_server_handle, (const char *)&i, sizeof(int));
-		}
+        int i = ret + 1;
+        m_net_manager.Send(m_database_server_handle, (const char *)&i, sizeof(int));
+//		int begin = ret * 10 + 1;
+//		for (int i = begin; i < begin + 10; ++i)
+//		{
+//			m_net_manager.Send(m_database_server_handle, (const char *)&i, sizeof(int));
+//		}
 
 	}
 
-	if (ret % 100 == 0)
+    if (ret % 1000 == 0)
 	{
 		printf("ret = %d\n", ret);
 	}

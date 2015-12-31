@@ -126,20 +126,30 @@ void NewFrame::Recv(GameMsg *msg)
 //         printf("ret = %d\n", ret);
 //     }
 
-	Send(msg->handle, msg->data, msg->length);
 
-	delete msg;
-	//m_message_handler.HandleMessage(msg);
-	if (ret <= 1)
+
+
+    if (1 < ret && ret < 100000)
+    {
+        Send(msg->handle, msg->data, msg->length);
+        delete msg;
+    }
+    else if (ret <= 1)
 	{
 		begin = GameTime::Instance().MilliSecond();
+        Send(msg->handle, msg->data, msg->length);
+        delete msg;
 	}
-	else if (ret >= 10000)
+    else if (ret == 100000)
 	{
 		printf("fuck exit %d\n", GameTime::Instance().MilliSecond() - begin);
-		system("pause");
-		exit(0);
+        SetExit();
 	}
+    else
+    {
+        return;
+    }
+
 }
 
 void NewFrame::Update(unsigned int interval, time_t now)	// 构架更新
