@@ -30,7 +30,8 @@ bool NewFrame::InitConfig()
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].ip,
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].port,
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].backlog,
-        new Accepter(&m_net_manager), &m_i_call_back))
+        new Accepter(&m_net_manager),
+        &m_i_call_back))
 	{
 		return false;
 	}
