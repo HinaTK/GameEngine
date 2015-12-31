@@ -200,14 +200,14 @@ int ReadArray(const char *buf, unsigned int left_len, RedisBulkData **bulk_data)
 
 	read_len = end_len + 2;
 	buf = buf + end_len + 2;
+
+	*bulk_data = new RedisBulkData();
 	if (number <= 0)
 	{
-		*bulk_data = new RedisBulkData();
 		(*bulk_data)->Push(RedisProtocol::REPLY_TYPE_ARRAY_ERROR, sizeof(number), (const char *)&number);
 	}
 	else
 	{
-		*bulk_data = new RedisBulkData();
 		for (int i = 0; i < number; ++i)
 		{
 			RedisData *data = NULL;

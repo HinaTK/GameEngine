@@ -11,54 +11,27 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lib\src\frame\accepter.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\baselistener.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\bufmanager.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\frame.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\handshaker.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\listener.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\message.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\netcommon.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\nethandler.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\netmanager.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\msgproxy.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\webaccepter.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\weblistener.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\websocket\base64.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\websocket\dataframeheader.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\websocket\sha1.cpp" />
+    <ClInclude Include="..\..\lib\include\cache\dataadapter.h" />
+    <ClInclude Include="..\..\lib\include\cache\datacache.h" />
+    <ClInclude Include="..\..\lib\include\cache\datamap.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\include\frame\accepter.h" />
-    <ClInclude Include="..\..\lib\include\frame\baselistener.h" />
-    <ClInclude Include="..\..\lib\include\frame\bufmanager.h" />
-    <ClInclude Include="..\..\lib\include\frame\frame.h" />
-    <ClInclude Include="..\..\lib\include\frame\handshaker.h" />
-    <ClInclude Include="..\..\lib\include\frame\listener.h" />
-    <ClInclude Include="..\..\lib\include\frame\message.h" />
-    <ClInclude Include="..\..\lib\include\frame\msgcallback.h" />
-    <ClInclude Include="..\..\lib\include\frame\netcommon.h" />
-    <ClInclude Include="..\..\lib\include\frame\nethandler.h" />
-    <ClInclude Include="..\..\lib\include\frame\netmanager.h" />
-    <ClInclude Include="..\..\lib\include\frame\msgproxy.h" />
-    <ClInclude Include="..\..\lib\include\frame\webaccepter.h" />
-    <ClInclude Include="..\..\lib\include\frame\weblistener.h" />
-    <ClInclude Include="..\..\lib\include\frame\websocket\base64.h" />
-    <ClInclude Include="..\..\lib\include\frame\websocket\dataframeheader.h" />
-    <ClInclude Include="..\..\lib\include\frame\websocket\sha1.h" />
+    <ClCompile Include="..\..\lib\src\cache\datacache.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\lib\include\cache\设计.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{55622656-EDAF-46C0-B360-7A6671FD941D}</ProjectGuid>
+    <ProjectGuid>{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>GameSocket</RootNamespace>
-    <ProjectName>Frame</ProjectName>
+    <RootNamespace>Cache</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -78,7 +51,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\..\lib\include;..\..\;..\..\lib\include\frame;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\lib\include;..\..\lib\include\cache;..\..\;$(IncludePath)</IncludePath>
     <OutDir>..\..\lib\windows</OutDir>
     <IntDir>..\..\lib\temp</IntDir>
   </PropertyGroup>
@@ -88,14 +61,13 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <Lib />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

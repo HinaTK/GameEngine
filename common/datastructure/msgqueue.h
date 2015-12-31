@@ -40,10 +40,6 @@ public:
 		m_write_queue = temp;
 		m_write_mutex.unlock();
 
-		if (m_read_queue->PopFront(val))
-		{
-			return true;
-		}
 		return false;
 	}
 

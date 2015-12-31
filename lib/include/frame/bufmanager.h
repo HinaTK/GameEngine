@@ -3,6 +3,7 @@
 #define BUF_MANAGER_H
 
 #include <stddef.h>
+#include <stdio.h>
 #include "common/serverdef.h"
 #include "lib/include/common/mem.h"
 
@@ -13,6 +14,7 @@ public:
 	virtual ~BufManager();
 	BufManager(unsigned int size = 64);
 
+	unsigned int	Size(){ return m_size; }
 	unsigned int	Length(){ return m_length; }
 	unsigned int	FreeLength(){ return m_size - m_length; }
 	void			AddLength(unsigned int length){ m_length = m_length + length; }
@@ -34,11 +36,11 @@ protected:
 
 };
 
-class RecvBufffer : public BufManager
+class RecvBuffer : public BufManager
 {
 public:
-	virtual ~RecvBufffer();
-	RecvBufffer(unsigned int size = 64);
+	virtual ~RecvBuffer();
+	RecvBuffer(unsigned int size = 64);
 
 	void *		operator new(size_t c);
 	void		operator delete(void *m);

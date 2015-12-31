@@ -86,9 +86,12 @@ bool NewFrame::InitConfig()
 		return false;
 	}
 	
-	int a = 1;
-	m_net_manager.Send(m_database_server_handle, (const char *)&a, sizeof(int));
-	printf("fffffffffffffffffffffffffffffff\n");
+
+	for (int i = 0; i < 10; ++i)
+	{
+		m_net_manager.Send(m_database_server_handle, (const char *)&i, sizeof(int));
+	}
+	
 //	m_rpc_server.Init(&m_net_manager, m_database_server_handle, 999);
 	return Init();
 }
@@ -101,26 +104,25 @@ bool NewFrame::Init()
 
 void NewFrame::Recv(GameMsg *msg)
 {
-	static int i = 1;
 	int ret = *(int *)msg->data;
 	
-	if (i != ret)
-	{
-		exit(0);
-	}
 
 	if (ret % 100 == 0)
 	{
 		printf("ret = %d\n", ret);
 	}
-	if (i > 10000)
+	if (ret > 10000)
 	{
 		printf("success ret = %d\n", ret);
+		SetExit();
 	}
 	else
 	{
-		i++;
-		m_net_manager.Send(m_database_server_handle, (const char *)&i, sizeof(int));
+		int begin = ret * 10 + 1;
+		for (int i = begin; i < begin + 10; ++i)
+		{
+			m_net_manager.Send(m_database_server_handle, (const char *)&i, sizeof(int));
+		}
 	}
 	
 	
