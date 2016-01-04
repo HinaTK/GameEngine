@@ -120,35 +120,32 @@ bool NewFrame::Init()		// 框架初始化
 static unsigned long long begin = GameTime::Instance().MilliSecond();
 void NewFrame::Recv(GameMsg *msg)
 {
-    int ret = *(int *)msg->data;
-//     if (ret % 100 == 0)
-//     {
-//         printf("ret = %d\n", ret);
-//     }
+//    int ret = *(int *)msg->data;
+//    printf("ret = %d\n", ret);
 
 
+    Send(msg->handle, msg->data, msg->length);
 
-
-    if (1 < ret && ret < 100000)
-    {
-        Send(msg->handle, msg->data, msg->length);
-        delete msg;
-    }
-    else if (ret <= 1)
-	{
-		begin = GameTime::Instance().MilliSecond();
-        Send(msg->handle, msg->data, msg->length);
-        delete msg;
-	}
-    else if (ret == 100000)
-	{
-		printf("fuck exit %d\n", GameTime::Instance().MilliSecond() - begin);
-        SetExit();
-	}
-    else
-    {
-        return;
-    }
+//    if (1 < ret && ret < 100000)
+//    {
+//        Send(msg->handle, msg->data, msg->length);
+//        delete msg;
+//    }
+//    else if (ret <= 1)
+//	{
+//		begin = GameTime::Instance().MilliSecond();
+//        Send(msg->handle, msg->data, msg->length);
+//        delete msg;
+//	}
+//    else if (ret == 100000)
+//	{
+//		printf("fuck exit %d\n", GameTime::Instance().MilliSecond() - begin);
+//        SetExit();
+//	}
+//    else
+//    {
+//        return;
+//    }
 
 }
 

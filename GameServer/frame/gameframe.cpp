@@ -4,6 +4,7 @@
 #include "common/protocol/messageheader.h"
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/tinyxml/tinyxml.h"
+#include "lib/include/timemanager/gametime.h"
 #include "poolconfig/test.h"
 
 
@@ -30,6 +31,20 @@ NewFrame::~NewFrame()
 
 	Exit();
 
+}
+
+static const int test_num = 100000;
+std::thread *test_thread = NULL;
+static unsigned long long begin = GameTime::Instance().MilliSecond();
+void *ttt(void * arg)
+{
+    NewFrame *frame = (NewFrame *)arg;
+    NetManager *net_manager = frame->GetNetManager();
+    for (int i = 1; i <= test_num; ++i)
+    {
+        net_manager->Send(frame->m_database_server_handle, (const char *)&i, sizeof(int));
+    }
+    return NULL;
 }
 
 bool NewFrame::InitConfig()
@@ -63,11 +78,13 @@ bool NewFrame::InitConfig()
 // 		m_game_thread[i] = new GameThread(i + 1);
 // 	}
 	
-    for (int i = 1; i <= 1; ++i)
-    {
-        m_net_manager.Send(m_database_server_handle, (const char *)&i, sizeof(int));
-    }
+//    for (int i = 1; i <= 1; ++i)
+//    {
+//        m_net_manager.Send(m_database_server_handle, (const char *)&i, sizeof(int));
+//    }
 
+     test_thread = new std::thread(::ttt, this);
+     begin = GameTime::Instance().MilliSecond();
 // 	struct Test
 // 	{
 // 		Test() :header(0){}
@@ -133,15 +150,14 @@ void NewFrame::InnerRecv(GameMsg *msg)
 
 	int ret = *(int *)msg->data;
 
-    if (ret > 100000 || ret <= 0)
+    if (ret >= test_num || ret <= 0)
 	{
-        printf("error ret = %d\n", ret);
+        printf("fuck exit ret = %d %d\n", ret, GameTime::Instance().MilliSecond() - begin);
 		SetExit();
 	}
 	else
 	{
-        int i = ret + 1;
-        m_net_manager.Send(m_database_server_handle, (const char *)&i, sizeof(int));
+//        printf("ret = %d\n", ret);
 //		int begin = ret * 10 + 1;
 //		for (int i = begin; i < begin + 10; ++i)
 //		{
