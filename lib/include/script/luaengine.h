@@ -31,7 +31,7 @@ public:
 
     lua_State * GetLuaEnv()
     {
-        return m_luaEnv;
+        return m_state;
     };
 
     void    PushString(std::string str);
@@ -59,7 +59,7 @@ public:
     void    GetGlobalTable(char *field, int key, void *result, int dataType);
 
 private:
-    lua_State * m_luaEnv;
+    lua_State * m_state;
 	std::string m_luafile;
 };
 

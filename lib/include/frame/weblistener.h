@@ -3,7 +3,6 @@
 #define WEB_LISTENER_H
 
 #include "listener.h"
-#include "bufmanager.h"
 #include "lib/include/common/mutex.h"
 /*
 监听者，监听所有数据的读写状态
