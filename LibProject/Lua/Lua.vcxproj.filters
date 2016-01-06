@@ -9,9 +9,6 @@
     <ClCompile Include="..\..\lib\src\script\exportapi.cpp">
       <Filter>script</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\script\luascript.cpp">
-      <Filter>script</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\lib\src\script\luaengine.cpp">
       <Filter>script</Filter>
     </ClCompile>
@@ -21,9 +18,6 @@
       <Filter>script</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\script\luadef.h">
-      <Filter>script</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\include\script\luascript.h">
       <Filter>script</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\script\luaengine.h">

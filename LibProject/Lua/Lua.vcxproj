@@ -13,13 +13,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\script\exportapi.cpp" />
     <ClCompile Include="..\..\lib\src\script\luaengine.cpp" />
-    <ClCompile Include="..\..\lib\src\script\luascript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib\include\script\exportapi.h" />
     <ClInclude Include="..\..\lib\include\script\luadef.h" />
     <ClInclude Include="..\..\lib\include\script\luaengine.h" />
-    <ClInclude Include="..\..\lib\include\script\luascript.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9E9AF278-8803-45EE-BA94-7A36A128145D}</ProjectGuid>
@@ -70,7 +68,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>lua51.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lua52.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>..\..\lib\windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

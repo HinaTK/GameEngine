@@ -1,8 +1,6 @@
-#ifndef LUAENGINE_H
-#define LUAENGINE_H
 
-//#include <std::string.h>
-
+#ifndef LUA_ENGINE_H
+#define LUA_ENGINE_H
 
 
 extern "C"
@@ -10,7 +8,6 @@ extern "C"
     #include "lua/lua.h"
     #include "lua/lualib.h"
     #include "lua/lauxlib.h"
-    //#pragma comment(lib, "Lua/liblua.a")
 };
 
 #include <string>
