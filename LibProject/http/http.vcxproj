@@ -11,18 +11,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\include\cache\dataadapter.h" />
-    <ClInclude Include="..\..\lib\include\cache\datacache.h" />
-    <ClInclude Include="..\..\lib\include\cache\datamap.h" />
+    <ClInclude Include="..\..\lib\include\http\http.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lib\src\cache\datacache.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\..\lib\include\cache\设计.txt" />
+    <ClCompile Include="..\..\lib\src\http\http.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E}</ProjectGuid>
+    <ProjectGuid>{B16E656B-DA3B-48E7-A5E0-A8CC338A0673}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Cache</RootNamespace>
   </PropertyGroup>
