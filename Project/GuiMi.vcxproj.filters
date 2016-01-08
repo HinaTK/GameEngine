@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="frame">
+      <UniqueIdentifier>{08394562-94e4-4fb3-a976-72cdac4609c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{7b259557-25d4-46f7-bc1e-ac98d215e49b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\GuiMi\frame\guimi.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\frame\main.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\frame\callback.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\commonfunction.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\GuiMi\frame\guimi.h">
+      <Filter>frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\frame\callback.h">
+      <Filter>frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\commonfunction.h">
+      <Filter>common</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

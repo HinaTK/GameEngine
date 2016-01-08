@@ -1,5 +1,6 @@
-#ifndef GAMEFRAME_H
-#define GAMEFRAME_H
+
+#ifndef GAME_FRAME_H
+#define GAME_FRAME_H
 
 #include "common/commonvariable.h"
 #include "common/datastructure/gamehash.h"
