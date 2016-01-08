@@ -68,7 +68,6 @@ HEADERS += \
     ../GameServer/scene/scenemanager.h \
     ../common/datastructure/circlequeue.h \
     ../common/datastructure/gamearray.h \
-    ../common/datastructure/gamehash - 副本.h \
     ../common/datastructure/gamehash.h \
     ../common/datastructure/gameheap.h \
     ../common/datastructure/gamelist.h \
@@ -77,7 +76,6 @@ HEADERS += \
     ../common/datastructure/gamevector.h \
     ../common/datastructure/gamevector2.h \
     ../common/datastructure/msgqueue.h \
-    ../common/datastructure/rbtree - 副本.h \
     ../common/datastructure/rbtree.h \
     ../common/datastructure/sortlist.h \
     ../common/datastructure/sortmap.h \

@@ -118,7 +118,7 @@ bool Frame::Run()
 		}
 		else
 		{
-			GameTime::GameSleep(m_sleep_time_ms);
+            //GameTime::GameSleep(m_sleep_time_ms);
 		}
 		
 	}

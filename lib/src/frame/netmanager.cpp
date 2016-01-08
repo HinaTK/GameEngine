@@ -12,22 +12,6 @@
 #include "weblistener.h"
 #include "handshaker.h"
 
-NetManager::~NetManager()
-{
-#ifdef WIN32
-	FD_ZERO(&m_read_set);
-	FD_ZERO(&m_write_set);
-#endif
-
-	for (MSG_HANDLER::iterator itr = m_msg_handler.Begin(); itr != m_msg_handler.End(); ++itr)
-	{
-        delete (*itr)->msg[BaseMsg::MSG_ACCEPT];
-        delete (*itr)->msg[BaseMsg::MSG_RECV];
-        delete (*itr)->msg[BaseMsg::MSG_DISCONNECT];
-		delete (*itr);
-	}
-}
-
 
 NetManager::NetManager()
 : m_is_run(true)
@@ -38,13 +22,30 @@ NetManager::NetManager()
 , m_epoll_fd(epoll_create(10240))
 #endif
 {
-	for (NET_HANDLER_ARRAY::iterator itr = m_net_handler.Begin(); itr != m_net_handler.End(); ++itr)
-	{
-		NetCommon::Close((*itr)->m_sock);
-	}
 	
 }
 
+NetManager::~NetManager()
+{
+#ifdef WIN32
+    FD_ZERO(&m_read_set);
+    FD_ZERO(&m_write_set);
+#endif
+
+    for (MSG_HANDLER::iterator itr = m_msg_handler.Begin(); itr != m_msg_handler.End(); ++itr)
+    {
+        delete (*itr)->msg[BaseMsg::MSG_ACCEPT];
+        delete (*itr)->msg[BaseMsg::MSG_RECV];
+        delete (*itr)->msg[BaseMsg::MSG_DISCONNECT];
+        delete (*itr);
+    }
+
+    for (NET_HANDLER_ARRAY::iterator itr = m_net_handler.Begin(); itr != m_net_handler.End(); ++itr)
+    {
+        NetCommon::Close((*itr)->m_sock);
+        delete (*itr);
+    }
+}
 
 unsigned int NetManager::AddMsgHandler(MsgCallBack *call_back)
 {
@@ -62,15 +63,16 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, Accepter
 	NetCommon::StartUp();
 	if (!NetCommon::Init(ip, port, backlog, net_id))
 	{
+        delete accepter;
 		return false;
 	}
 #ifdef __unix
 	struct epoll_event ev;
 	ev.events = EPOLLIN | EPOLLET;
-    //ev.data.fd = net_id;
     ev.data.ptr = (void *)accepter;
 	if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, net_id, &ev) < 0)
 	{
+        delete accepter;
 		return false;	// 写log
 	}
 #endif

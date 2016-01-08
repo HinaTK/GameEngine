@@ -1,8 +1,6 @@
-#ifndef LUAENGINE_H
-#define LUAENGINE_H
 
-//#include <std::string.h>
-
+#ifndef LUA_ENGINE_H
+#define LUA_ENGINE_H
 
 
 extern "C"
@@ -10,7 +8,6 @@ extern "C"
     #include "lua/lua.h"
     #include "lua/lualib.h"
     #include "lua/lauxlib.h"
-    //#pragma comment(lib, "Lua/liblua.a")
 };
 
 #include <string>
@@ -31,7 +28,7 @@ public:
 
     lua_State * GetLuaEnv()
     {
-        return m_luaEnv;
+        return m_state;
     };
 
     void    PushString(std::string str);
@@ -59,7 +56,7 @@ public:
     void    GetGlobalTable(char *field, int key, void *result, int dataType);
 
 private:
-    lua_State * m_luaEnv;
+    lua_State * m_state;
 	std::string m_luafile;
 };
 
