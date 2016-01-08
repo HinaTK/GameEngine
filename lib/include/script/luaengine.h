@@ -2,15 +2,8 @@
 #ifndef LUA_ENGINE_H
 #define LUA_ENGINE_H
 
-
-extern "C"
-{
-    #include "lua/lua.h"
-    #include "lua/lualib.h"
-    #include "lua/lauxlib.h"
-};
-
 #include <string>
+#include "luadef.h"
 
 class LuaEngine
 {
@@ -23,12 +16,12 @@ public:
         DOUBLE
     };
     LuaEngine();
+	~LuaEngine();
     bool LoadLuaFile(std::string fileName);
-    lua_State * InitLuaEnv();
 
-    lua_State * GetLuaEnv()
+    lua_State * GetLuaState()
     {
-        return m_state;
+        return m_L;
     };
 
     void    PushString(std::string str);
@@ -37,7 +30,7 @@ public:
 
     void    PushDouble(double data);
 
-    bool    GetGlobalProc(const std::string& procName, int arg, int result);       //调用lua函数
+    bool    GetGlobalProc(const char *func, int arg = 0, int result = 0);       //调用lua函数
 
     int     GetGlobalVar(char *field, void **result/*,int type = NULLDATA*/);                             //获得全局变量
 
@@ -56,8 +49,8 @@ public:
     void    GetGlobalTable(char *field, int key, void *result, int dataType);
 
 private:
-    lua_State * m_state;
-	std::string m_luafile;
+    lua_State * m_L;
+	std::string m_lua_file;
 };
 
 #endif // LUAENGINE_H
