@@ -8,7 +8,6 @@
 #include "lib/include/frame/frame.h"
 #include "lib/include/timemanager/timemanager.h"
 #include "lua/interface.h"
-#include "callback.h"
 
 class NewFrame : public Frame
 {
@@ -37,6 +36,7 @@ public:
 
 	void	PushMsg(GameMsg *msg, SceneID scene_id = 0);
 
+	Interface *GetInterface(){ return &m_lua_interface; }
 	void	ChangeServer();
 
 public:
@@ -46,8 +46,6 @@ public:
 private:
 	NewFrame();
 
-	OuterCallBack		m_o_call_back;
-	InnerCallBack		m_i_call_back;
 
 	TimeEventManager	m_time_event_manager;
 

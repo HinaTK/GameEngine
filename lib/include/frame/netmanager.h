@@ -23,7 +23,7 @@ public:
 	NetManager();
 	
 	bool			InitServer(char *ip, unsigned short port, int backlog, Accepter *accepter, MsgCallBack *call_back);
-	NetHandle		ConnectServer(char *ip, unsigned short port, Listener *lister, MsgCallBack *call_back);
+	NetHandle		ConnectServer(const char *ip, unsigned short port, Listener *lister, MsgCallBack *call_back);
 
 	void			Listen();
 	void			Send(NetHandle handle, const char *buf, unsigned int length);

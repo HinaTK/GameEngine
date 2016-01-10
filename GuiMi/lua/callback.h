@@ -4,11 +4,11 @@
 
 #include "lib/include/frame/msgcallback.h"
 
-class NewFrame;
+class Interface;
 class InnerCallBack : public MsgCallBack
 {
 public:
-	InnerCallBack(NewFrame *frame) : m_frame(frame){}
+	InnerCallBack(Interface *interface) : m_interface(interface){}
 	~InnerCallBack(){}
 
 	void	Accept();
@@ -18,13 +18,13 @@ public:
 	void	Disconnect(NetHandle handle);
 
 private:
-	NewFrame *m_frame;
+	Interface *m_interface;
 };
 
 class OuterCallBack : public MsgCallBack
 {
 public:
-	OuterCallBack(NewFrame *frame) : m_frame(frame){}
+	OuterCallBack(Interface *interface) : m_interface(interface){}
 	~OuterCallBack(){}
 
 	void	Accept();
@@ -34,7 +34,7 @@ public:
 	void	Disconnect(NetHandle handle);
 
 private:
-	NewFrame *m_frame;
+	Interface *m_interface;
 };
 
 #endif

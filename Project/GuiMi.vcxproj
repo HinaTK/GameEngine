@@ -12,15 +12,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\common\commonfunction.cpp" />
-    <ClCompile Include="..\GuiMi\frame\callback.cpp" />
     <ClCompile Include="..\GuiMi\frame\guimi.cpp" />
     <ClCompile Include="..\GuiMi\frame\main.cpp" />
+    <ClCompile Include="..\GuiMi\lua\callback.cpp" />
     <ClCompile Include="..\GuiMi\lua\interface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\commonfunction.h" />
-    <ClInclude Include="..\GuiMi\frame\callback.h" />
     <ClInclude Include="..\GuiMi\frame\guimi.h" />
+    <ClInclude Include="..\GuiMi\lua\callback.h" />
     <ClInclude Include="..\GuiMi\lua\interface.h" />
     <ClInclude Include="..\GuiMi\lua\luadef.h" />
   </ItemGroup>

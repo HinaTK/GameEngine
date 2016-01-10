@@ -4,6 +4,7 @@
 
 #include "luadef.h"
 #include "common/socketdef.h"
+#include "callback.h"
 
 class Interface
 {
@@ -23,9 +24,13 @@ public:
 	void	OnInnerRecv(NetHandle netid, const char *name, const char *data);
 	void	OnInnerDisconnect(NetHandle netid);
 
-
+	OuterCallBack *GetOuterCallBack(){ return &m_o_call_back; }
+	InnerCallBack *GetInnerCallBack(){ return &m_i_call_back; }
 private:
 	lua_State *m_L;
+
+	OuterCallBack	m_o_call_back;
+	InnerCallBack	m_i_call_back;
 };
 
 #endif

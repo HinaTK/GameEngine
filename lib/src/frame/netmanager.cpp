@@ -87,7 +87,7 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, Accepter
 /*
 	
 */
-NetHandle NetManager::ConnectServer(char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back)
+NetHandle NetManager::ConnectServer(const char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back)
 {
 	printf("connect to Server ip = %s, port = %d\n", ip, port);
 

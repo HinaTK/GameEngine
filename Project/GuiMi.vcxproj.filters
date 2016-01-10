@@ -18,21 +18,18 @@
     <ClCompile Include="..\GuiMi\frame\main.cpp">
       <Filter>frame</Filter>
     </ClCompile>
-    <ClCompile Include="..\GuiMi\frame\callback.cpp">
-      <Filter>frame</Filter>
-    </ClCompile>
     <ClCompile Include="..\common\commonfunction.cpp">
       <Filter>common</Filter>
     </ClCompile>
     <ClCompile Include="..\GuiMi\lua\interface.cpp">
       <Filter>lua</Filter>
     </ClCompile>
+    <ClCompile Include="..\GuiMi\lua\callback.cpp">
+      <Filter>lua</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GuiMi\frame\guimi.h">
-      <Filter>frame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GuiMi\frame\callback.h">
       <Filter>frame</Filter>
     </ClInclude>
     <ClInclude Include="..\common\commonfunction.h">
@@ -42,6 +39,9 @@
       <Filter>lua</Filter>
     </ClInclude>
     <ClInclude Include="..\GuiMi\lua\luadef.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\lua\callback.h">
       <Filter>lua</Filter>
     </ClInclude>
   </ItemGroup>

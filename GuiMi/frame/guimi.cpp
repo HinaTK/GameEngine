@@ -8,8 +8,6 @@
 
 
 NewFrame::NewFrame()
-: m_o_call_back(this)
-, m_i_call_back(this)
 {
 
 }
@@ -22,7 +20,8 @@ NewFrame::~NewFrame()
 // ¿ò¼Ü³õÊ¼»¯
 bool NewFrame::Init(const char *config)
 {
-	m_lua_interface.LoadFile("/scripts/zmxd_master/Main.lua");
+	//m_lua_interface.LoadFile("/scripts/zmxd_master/Main.lua");
+	m_lua_interface.LoadFile("/scripts/test.lua");
 	m_lua_interface.OnInit();
 	m_lua_interface.OnUpdate(1, 2);
 	m_lua_interface.OnAccept(12, "127.0.0.1");

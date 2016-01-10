@@ -1,6 +1,6 @@
 
 #include "callback.h"
-#include "guimi.h"
+#include "interface.h"
 
 void InnerCallBack::Accept()
 {
@@ -9,7 +9,7 @@ void InnerCallBack::Accept()
 
 void InnerCallBack::Recv(GameMsg *msg)
 {
-	m_frame->InnerRecv(msg);
+	//m_frame->InnerRecv(msg);
 }
 
 void InnerCallBack::Disconnect(NetHandle handle)
@@ -25,7 +25,7 @@ void OuterCallBack::Accept()
 
 void OuterCallBack::Recv(GameMsg *msg)
 {
-	m_frame->OuterRecv(msg);
+	//m_frame->OuterRecv(msg);
 }
 
 void OuterCallBack::Disconnect(NetHandle handle)

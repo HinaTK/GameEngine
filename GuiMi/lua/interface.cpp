@@ -26,12 +26,42 @@ static int CppListen(lua_State *L)
 	int port = luaL_checkinteger(L, 2);
 	int back_log = luaL_checkinteger(L, 3);
 
-	net_manager->InitServer("127.0.0.1", port, back_log)
+	bool ret = false;
+	if (strcmp(flag, "inner") == 0)
+	{
+		ret = net_manager->InitServer("127.0.0.1", port, back_log, new Accepter(net_manager), NewFrame::Instance().GetInterface()->GetInnerCallBack());
+	}
+	else
+	{
+		ret = net_manager->InitServer("127.0.0.1", port, back_log, new Accepter(net_manager), NewFrame::Instance().GetInterface()->GetOuterCallBack());
+	}
+	lua_pushboolean(L, ret);
 	return 1;
 }
 
 static int CppConnect(lua_State *L)
 {
+	const char *flag = luaL_checkstring(L, 1);
+	const char *host = luaL_checkstring(L, 2);
+	int port = luaL_checkinteger(L, 3);
+	NetHandle handle = INVALID_NET_HANDLE;
+	if (strcmp(flag, "inner") == 0)
+	{
+		handle = net_manager->ConnectServer(host, port, new BaseListener(net_manager), NewFrame::Instance().GetInterface()->GetInnerCallBack());
+	}
+	else
+	{
+		handle = net_manager->ConnectServer(host, port, new BaseListener(net_manager), NewFrame::Instance().GetInterface()->GetOuterCallBack());
+	}
+	
+	if (handle == INVALID_NET_HANDLE)
+	{
+		lua_pushboolean(L, false);
+	}
+	else
+	{
+		lua_pushinteger(L, handle);
+	}
 	return 1;
 }
 
@@ -139,6 +169,8 @@ static int CppCreateTimerSecond(lua_State *L)
 // };
 
 Interface::Interface()
+: m_o_call_back(this)
+, m_i_call_back(this)
 {
 	m_L = luaL_newstate();
 	luaL_openlibs(m_L);
