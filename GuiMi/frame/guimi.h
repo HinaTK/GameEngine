@@ -7,7 +7,7 @@
 #include "lib/include/common/thread.h"
 #include "lib/include/frame/frame.h"
 #include "lib/include/timemanager/timemanager.h"
-#include "lib/include/script/luaengine.h"
+#include "lua/interface.h"
 #include "callback.h"
 
 class NewFrame : public Frame
@@ -26,9 +26,7 @@ public:
 		return frame;
 	}
 
-	bool	InitConfig();
-
-	bool	Init();    //初始化
+	bool	Init(const char *config);    //初始化
 
 	void	Update(unsigned int interval, time_t now);  //更新
 	virtual bool Run();
@@ -56,7 +54,7 @@ private:
 	typedef game::Hash<NetHandle, int> NET_HANDLE_THREAD_HASH;
 	NET_HANDLE_THREAD_HASH m_net_handle_thread_hash;
 
-	LuaEngine			m_lua_engine;
+	Interface			m_lua_interface;
 
 };
 

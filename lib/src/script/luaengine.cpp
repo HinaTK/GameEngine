@@ -35,6 +35,16 @@ static int pcall_handler(lua_State* L)
 	return 1;
 }
 
+static int traceback(lua_State *L) {
+	const char *msg = lua_tostring(L, 1);
+	if (msg)
+		luaL_traceback(L, L, msg, 1);
+	else {
+		lua_pushliteral(L, "(no error message)");
+	}
+	return 1;
+}
+
 bool LuaEngine::LoadLuaFile(std::string file_name)
 {
 	if (m_lua_file != "")
@@ -70,7 +80,7 @@ void LuaEngine::PushDouble(double data)
 // 获取全局函数.
 bool LuaEngine::GetGlobalProc(const char *func, int arg, int result)
 {
-	lua_pushcfunction(m_L, pcall_handler);
+	lua_pushcfunction(m_L, traceback);
 	lua_getglobal(m_L, func);
     if (!lua_isfunction(m_L, -1))
     {
@@ -78,7 +88,7 @@ bool LuaEngine::GetGlobalProc(const char *func, int arg, int result)
         return false;
     }
 
-	if (lua_pcall(m_L, arg, result, -2))
+	if (lua_pcall(m_L, arg, result, 1))
 	{
 		printf("%s\n", lua_tostring(m_L, -1));
 		return false;

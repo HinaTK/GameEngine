@@ -7,6 +7,9 @@
     <Filter Include="common">
       <UniqueIdentifier>{7b259557-25d4-46f7-bc1e-ac98d215e49b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lua">
+      <UniqueIdentifier>{d22422a4-beb0-426e-884a-9d036a210c58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\GuiMi\frame\guimi.cpp">
@@ -21,6 +24,9 @@
     <ClCompile Include="..\common\commonfunction.cpp">
       <Filter>common</Filter>
     </ClCompile>
+    <ClCompile Include="..\GuiMi\lua\interface.cpp">
+      <Filter>lua</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GuiMi\frame\guimi.h">
@@ -31,6 +37,12 @@
     </ClInclude>
     <ClInclude Include="..\common\commonfunction.h">
       <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\lua\interface.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\lua\luadef.h">
+      <Filter>lua</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,9 +3,15 @@
 #include "guimi.h"
 #include "common/commonfunction.h"
 
-int main()
+int main(int argc, char *argv[])
 {
-	NewFrame::Instance().Init();
+// 	if (argc < 2)
+// 	{
+// 		printf("lack argument ...\n");
+// 		return 0;
+// 	}
+
+	NewFrame::Instance().Init(argv[0]);
 	Function::WindowsPause();
 	
 	return 0;

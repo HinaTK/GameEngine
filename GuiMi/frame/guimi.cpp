@@ -19,17 +19,13 @@ NewFrame::~NewFrame()
 	Exit();
 }
 
-
-bool NewFrame::InitConfig()
-{
-	return this->Init();
-}
-
 // ¿ò¼Ü³õÊ¼»¯
-bool NewFrame::Init()
+bool NewFrame::Init(const char *config)
 {
-	m_lua_engine.LoadLuaFile("/luafile/test.lua");
-	m_lua_engine.GetGlobalProc("Main");
+	m_lua_interface.LoadFile("/scripts/zmxd_master/Main.lua");
+	m_lua_interface.OnInit();
+	m_lua_interface.OnUpdate(1, 2);
+	m_lua_interface.OnAccept(12, "127.0.0.1");
 	return true;
 }
 
