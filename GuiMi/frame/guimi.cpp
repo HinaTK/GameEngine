@@ -23,8 +23,8 @@ bool NewFrame::Init(const char *config)
 	m_lua_interface.LoadFile("/../scripts/zmxd_master/Main.lua");
 	//m_lua_interface.LoadFile("/../scripts/test.lua");
 	m_lua_interface.OnInit();
-	m_lua_interface.OnUpdate(1, 2);
-	m_lua_interface.OnAccept(12, "127.0.0.1");
+// 	m_lua_interface.OnUpdate(1, 2);
+// 	m_lua_interface.OnAccept(12, "127.0.0.1");
 	return true;
 }
 

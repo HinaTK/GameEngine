@@ -80,7 +80,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>Tinyxml.lib;TimeManager.lib;Frame.lib;Common.lib;Log.lib;LuaScript.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>TimeManager.lib;Frame.lib;Common.lib;Log.lib;LuaScript.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\lib\windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

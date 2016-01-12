@@ -102,7 +102,10 @@ static int CppSend(lua_State *L)
 
 static int CppPrint(lua_State *L)
 {
-	return 1;
+	const char *flag = luaL_checkstring(L, 1);
+	const char *msg = luaL_checkstring(L, 2);
+	printf("%s %s\n", flag, msg);
+	return 0;
 }
 
 static int CppDecGsNetid(lua_State *L)

@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
 // 	}
 
 	NewFrame::Instance().Init(argv[0]);
+	NewFrame::Instance().Run();
 	Function::WindowsPause();
 	
 	return 0;
