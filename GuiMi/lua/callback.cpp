@@ -29,11 +29,9 @@ void OuterCallBack::Accept(NetHandle handle, const char *ip)
 
 void OuterCallBack::Recv(GameMsg *msg)
 {
-	size_t nsz = *(size_t *)msg->data;
-	const char *name = msg->data + sizeof(int);
-	size_t dsz = *(size_t *)(name + nsz);
-	const char *data = msg->data + sizeof(size_t)* 2 + nsz;
-	m_interface->OnRecv(msg->handle, nsz, name, dsz, data);
+	int server_id = *(int *)msg->data;
+	const char *buf = msg->data + sizeof(int);
+	m_interface->OnRecv(msg->handle, server_id, msg->data + sizeof(int), msg->length - sizeof(int), buf);
 }
 
 void OuterCallBack::Disconnect(NetHandle handle)

@@ -4,6 +4,7 @@
 #include "frame/guimi.h"
 #include "common/commonfunction.h"
 #include "lib/include/common/mem.h"
+#include "lib/include/timemanager/gametime.h"
 
 static NetManager *net_manager = NewFrame::Instance().GetNetManager();
 
@@ -33,7 +34,7 @@ static int CppListen(lua_State *L)
 	}
 	else
 	{
-		ret = net_manager->InitServer("127.0.0.1", port, back_log, new Accepter(net_manager), NewFrame::Instance().GetInterface()->GetOuterCallBack());
+		ret = net_manager->InitServer("0.0.0.0", port, back_log, new Accepter(net_manager), NewFrame::Instance().GetInterface()->GetOuterCallBack());
 	}
 	lua_pushboolean(L, ret);
 	return 1;
@@ -79,24 +80,36 @@ static int CppSend(lua_State *L)
 	NetHandle  handle	= luaL_checkinteger(L, 2);
 	const char *name	= luaL_checklstring(L, 3, &nsz);
 	const char *data	= luaL_checklstring(L, 4, &dsz);
-	if (strcmp(flag, "inner") == 0)
-	{
-		size_t len = nsz + dsz + sizeof(size_t)* 2;
-		char *buf = Mem::Alloc(len);
-		*(size_t *)buf = nsz;
-		char *temp = buf + sizeof(size_t);
-		memcpy(temp, name, nsz);
-		temp += nsz;
-		*(size_t *)temp = dsz;
-		temp += sizeof(size_t);
-		memcpy(temp, data, dsz);
-		net_manager->Send(handle, buf, len);
-		Mem::Free(buf);
-	}
-	else
-	{
-		net_manager->Send(handle, data, dsz);
-	}
+	size_t len = nsz + dsz + sizeof(size_t)* 2;
+	char *buf = Mem::Alloc(len);
+	*(size_t *)buf = nsz;
+	char *temp = buf + sizeof(size_t);
+	memcpy(temp, name, nsz);
+	temp += nsz;
+	*(size_t *)temp = dsz;
+	temp += sizeof(size_t);
+	memcpy(temp, data, dsz);
+	lua_pushboolean(L, net_manager->Send(handle, buf, len));
+	Mem::Free(buf);
+
+// 	if (strcmp(flag, "inner") == 0)
+// 	{
+// 		size_t len = nsz + dsz + sizeof(size_t)* 2;
+// 		char *buf = Mem::Alloc(len);
+// 		*(size_t *)buf = nsz;
+// 		char *temp = buf + sizeof(size_t);
+// 		memcpy(temp, name, nsz);
+// 		temp += nsz;
+// 		*(size_t *)temp = dsz;
+// 		temp += sizeof(size_t);
+// 		memcpy(temp, data, dsz);
+// 		net_manager->Send(handle, buf, len);
+// 		Mem::Free(buf);
+// 	}
+// 	else
+// 	{
+// 		net_manager->Send(handle, data, dsz);
+// 	}
 	return 1;
 }
 
@@ -133,6 +146,7 @@ static int CppEncGsNetid(lua_State *L)
 
 static int CppTime(lua_State *L)
 {
+	lua_pushunsigned(L, (unsigned int)GameTime::Instance().Time());
 	return 1;
 }
 
@@ -285,13 +299,14 @@ void Interface::OnAccept(NetHandle netid, const char *ip)
 	}
 }
 
-void Interface::OnRecv(NetHandle netid, size_t nsz, const char *name, size_t dsz, const char *data)
+void Interface::OnRecv(NetHandle netid, int server_id, const char *name, size_t dsz, const char *data)
 {
 	lua_getglobal(m_L, "OnRecv");
 	lua_pushinteger(m_L, netid);
-	lua_pushlstring(m_L, name, nsz);
+	lua_pushinteger(m_L, server_id);
+	lua_pushstring(m_L, name);
 	lua_pushlstring(m_L, data, dsz);
-	if (lua_pcall(m_L, 3, 0, 1))
+	if (lua_pcall(m_L, 4, 0, 1))
 	{
 		printf("%s\n", lua_tostring(m_L, -1));
 		return;

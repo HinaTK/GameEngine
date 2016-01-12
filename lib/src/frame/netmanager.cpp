@@ -309,12 +309,12 @@ SOCKET NetManager::GetSocketInfo(fd_set &read_set, fd_set &write_set)
 }
 #endif	
 
-void NetManager::Send(NetHandle handle, const char *buf, unsigned int length)
+bool NetManager::Send(NetHandle handle, const char *buf, unsigned int length)
 {
 	NET_HANDLER_ARRAY::iterator itr = m_net_handler.Find(handle);
 	if (itr == m_net_handler.End())
 	{
-		return;
+		return false;
 	}
 
 	if ((*itr)->Type() == NetHandler::LISTENER)
@@ -324,8 +324,10 @@ void NetManager::Send(NetHandle handle, const char *buf, unsigned int length)
 		{
             listener->Send(buf, length);
             listener->RegisterWriteFD();
+			return true;
 		}
 	}
+	return false;
 }
 
 void NetManager::PushMsg(NetHandler *handler, unsigned short msg_type, const char *data, unsigned int len)

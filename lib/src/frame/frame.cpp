@@ -106,10 +106,10 @@ bool Frame::Run()
 	std::thread listen_thread(::Listen, this);
 	while (m_is_run)
 	{
-		m_net_manager.Update();
-
 		// update 机制需要修改
 		GameTime::Instance().Update();
+		m_net_manager.Update();
+		
 		cur_time_ms = GameTime::Instance().FrameTime();
 		if (cur_time_ms != last_time_ms)
 		{
@@ -118,7 +118,7 @@ bool Frame::Run()
 		}
 		else
 		{
-            //GameTime::GameSleep(m_sleep_time_ms);
+            GameTime::GameSleep(m_sleep_time_ms);
 		}
 		
 	}
