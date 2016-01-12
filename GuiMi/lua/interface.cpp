@@ -40,6 +40,17 @@ static int CppListen(lua_State *L)
 	return 1;
 }
 
+static int CppListenXXX(lua_State *L)
+{
+	const char *flag = luaL_checkstring(L, 1);
+	int port = luaL_checkinteger(L, 2);
+	int back_log = luaL_checkinteger(L, 3);
+
+	bool ret = net_manager->InitServer("0.0.0.0", port, back_log, new Accepter(net_manager), NewFrame::Instance().GetInterface()->GetXXXCallBack());
+	lua_pushboolean(L, ret);
+	return 1;
+}
+
 static int CppConnect(lua_State *L)
 {
 	const char *flag = luaL_checkstring(L, 1);
@@ -80,6 +91,8 @@ static int CppSend(lua_State *L)
 	NetHandle  handle	= luaL_checkinteger(L, 2);
 	const char *name	= luaL_checklstring(L, 3, &nsz);
 	const char *data	= luaL_checklstring(L, 4, &dsz);
+	char test[256] = { 0 };
+	memcpy(test, data, dsz);
 	size_t len = nsz + dsz + sizeof(size_t)* 2;
 	char *buf = Mem::Alloc(len);
 	*(size_t *)buf = nsz;
@@ -196,6 +209,7 @@ static int CppTest(lua_State *L)
 Interface::Interface()
 : m_o_call_back(this)
 , m_i_call_back(this)
+, m_x_call_back(this)
 {
 	m_L = luaL_newstate();
 	luaL_openlibs(m_L);
@@ -219,6 +233,9 @@ bool Interface::LoadFile(const char *file)
 
 	lua_pushcfunction(m_L, CppListen);
 	lua_setglobal(m_L, "CppListen");
+
+	lua_pushcfunction(m_L, CppListenXXX);
+	lua_setglobal(m_L, "CppListenXXX");
 
 	lua_pushcfunction(m_L, CppSend);
 	lua_setglobal(m_L, "CppSend");
@@ -299,14 +316,15 @@ void Interface::OnAccept(NetHandle netid, const char *ip)
 	}
 }
 
-void Interface::OnRecv(NetHandle netid, int server_id, const char *name, size_t dsz, const char *data)
+void Interface::OnRecv(NetHandle netid, size_t nsz, const char *name, size_t dsz, const char *data)
 {
+	char test[256] = { 0 };
+	memcpy(test, data, dsz);
 	lua_getglobal(m_L, "OnRecv");
 	lua_pushinteger(m_L, netid);
-	lua_pushinteger(m_L, server_id);
-	lua_pushstring(m_L, name);
+	lua_pushlstring(m_L, name, nsz);
 	lua_pushlstring(m_L, data, dsz);
-	if (lua_pcall(m_L, 4, 0, 1))
+	if (lua_pcall(m_L, 3, 0, 1))
 	{
 		printf("%s\n", lua_tostring(m_L, -1));
 		return;
@@ -372,13 +390,14 @@ void Interface::OnXXXAccept(NetHandle netid, const char *ip)
 	}
 }
 
-void Interface::OnXXXRecv(NetHandle netid, size_t nsz, const char *name, size_t dsz, const char *data)
+void Interface::OnXXXRecv(NetHandle netid, int server_id, const char *name, size_t dsz, const char *data)
 {
 	lua_getglobal(m_L, "OnXXXRecv");
 	lua_pushinteger(m_L, netid);
+	lua_pushinteger(m_L, server_id);
 	lua_pushstring(m_L, name);
 	lua_pushlstring(m_L, data, dsz);
-	if (lua_pcall(m_L, 3, 0, 1))
+	if (lua_pcall(m_L, 4, 0, 1))
 	{
 		printf("%s\n", lua_tostring(m_L, -1));
 		return;
