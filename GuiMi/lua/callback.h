@@ -11,7 +11,7 @@ public:
 	InnerCallBack(Interface *interface) : m_interface(interface){}
 	~InnerCallBack(){}
 
-	void	Accept();
+	void	Accept(NetHandle handle, const char *ip);
 
 	void	Recv(GameMsg *msg);
 
@@ -27,7 +27,7 @@ public:
 	OuterCallBack(Interface *interface) : m_interface(interface){}
 	~OuterCallBack(){}
 
-	void	Accept();
+	void	Accept(NetHandle handle, const char *ip);
 
 	void	Recv(GameMsg *msg);
 

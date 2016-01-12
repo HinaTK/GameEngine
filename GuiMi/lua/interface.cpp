@@ -81,14 +81,14 @@ static int CppSend(lua_State *L)
 	const char *data	= luaL_checklstring(L, 4, &dsz);
 	if (strcmp(flag, "inner") == 0)
 	{
-		int len = nsz + dsz + sizeof(int) * 2;
+		size_t len = nsz + dsz + sizeof(size_t)* 2;
 		char *buf = Mem::Alloc(len);
-		*(int *)buf = nsz;
-		char *temp = buf + sizeof(int);
+		*(size_t *)buf = nsz;
+		char *temp = buf + sizeof(size_t);
 		memcpy(temp, name, nsz);
 		temp += nsz;
-		*(int *)temp = dsz;
-		temp += sizeof(int);
+		*(size_t *)temp = dsz;
+		temp += sizeof(size_t);
 		memcpy(temp, data, dsz);
 		net_manager->Send(handle, buf, len);
 		Mem::Free(buf);
@@ -166,6 +166,14 @@ static int CppCreateTimerSecond(lua_State *L)
 	return 1;
 }
 
+static int CppTest(lua_State *L)
+{
+	size_t fsz = 0;
+	const char *flag = luaL_checklstring(L, 1, &fsz);
+	lua_pushlstring(L, flag, fsz);
+	return 1;
+}
+
 // static const struct luaL_Reg lib[] = {
 // 	{ "CppSend", CppSend },
 // 	{ NULL, NULL }
@@ -186,6 +194,9 @@ Interface::~Interface()
 
 bool Interface::LoadFile(const char *file)
 {
+	lua_pushcfunction(m_L, CppTest);
+	lua_setglobal(m_L, "CppTest");
+
 	lua_pushcfunction(m_L, CppConnect);
 	lua_setglobal(m_L, "CppConnect");
 
@@ -274,12 +285,12 @@ void Interface::OnAccept(NetHandle netid, const char *ip)
 	}
 }
 
-void Interface::OnRecv(NetHandle netid, const char *name, const char *data)
+void Interface::OnRecv(NetHandle netid, size_t nsz, const char *name, size_t dsz, const char *data)
 {
 	lua_getglobal(m_L, "OnRecv");
 	lua_pushinteger(m_L, netid);
-	lua_pushstring(m_L, name);
-	lua_pushstring(m_L, data);
+	lua_pushlstring(m_L, name, nsz);
+	lua_pushlstring(m_L, data, dsz);
 	if (lua_pcall(m_L, 3, 0, 1))
 	{
 		printf("%s\n", lua_tostring(m_L, -1));
@@ -310,12 +321,12 @@ void Interface::OnInnerAccept(NetHandle netid, const char *ip)
 	}
 }
 
-void Interface::OnInnerRecv(NetHandle netid, const char *name, const char *data)
+void Interface::OnInnerRecv(NetHandle netid, size_t nsz, const char *name, size_t dsz, const char *data)
 {
 	lua_getglobal(m_L, "OnInnerRecv");
 	lua_pushinteger(m_L, netid);
-	lua_pushstring(m_L, name);
-	lua_pushstring(m_L, data);
+	lua_pushlstring(m_L, name, nsz);
+	lua_pushlstring(m_L, data, dsz);
 	if (lua_pcall(m_L, 3, 0, 1))
 	{
 		printf("%s\n", lua_tostring(m_L, -1));

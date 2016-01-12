@@ -17,11 +17,11 @@ public:
 	void	OnUpdate(int interval, unsigned int now);
 
 	void	OnAccept(NetHandle netid, const char *ip);
-	void	OnRecv(NetHandle netid, const char *name, const char *data);
+	void	OnRecv(NetHandle netid, size_t nsz, const char *name, size_t dsz, const char *data);
 	void	OnDisconnect(NetHandle netid);
 
 	void	OnInnerAccept(NetHandle netid, const char *ip);
-	void	OnInnerRecv(NetHandle netid, const char *name, const char *data);
+	void	OnInnerRecv(NetHandle netid, size_t nsz, const char *name, size_t dsz, const char *data);
 	void	OnInnerDisconnect(NetHandle netid);
 
 	OuterCallBack *GetOuterCallBack(){ return &m_o_call_back; }
