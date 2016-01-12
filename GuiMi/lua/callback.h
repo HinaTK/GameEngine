@@ -5,6 +5,22 @@
 #include "lib/include/frame/msgcallback.h"
 
 class Interface;
+class XXXCallBack : public MsgCallBack
+{
+public:
+	XXXCallBack(Interface *interface) : m_interface(interface){}
+	~XXXCallBack(){}
+
+	void	Accept(NetHandle handle, const char *ip);
+
+	void	Recv(GameMsg *msg);
+
+	void	Disconnect(NetHandle handle);
+
+private:
+	Interface *m_interface;
+};
+
 class InnerCallBack : public MsgCallBack
 {
 public:

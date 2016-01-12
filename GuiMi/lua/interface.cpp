@@ -360,3 +360,39 @@ void Interface::OnInnerDisconnect(NetHandle netid)
 	}
 }
 
+void Interface::OnXXXAccept(NetHandle netid, const char *ip)
+{
+	lua_getglobal(m_L, "OnXXXAccept");
+	lua_pushinteger(m_L, netid);
+	lua_pushstring(m_L, ip);
+	if (lua_pcall(m_L, 2, 0, 1))
+	{
+		printf("%s\n", lua_tostring(m_L, -1));
+		return;
+	}
+}
+
+void Interface::OnXXXRecv(NetHandle netid, size_t nsz, const char *name, size_t dsz, const char *data)
+{
+	lua_getglobal(m_L, "OnXXXRecv");
+	lua_pushinteger(m_L, netid);
+	lua_pushstring(m_L, name);
+	lua_pushlstring(m_L, data, dsz);
+	if (lua_pcall(m_L, 3, 0, 1))
+	{
+		printf("%s\n", lua_tostring(m_L, -1));
+		return;
+	}
+}
+
+void Interface::OnXXXDisconnect(NetHandle netid)
+{
+	lua_getglobal(m_L, "OnXXXDisconnect");
+	lua_pushinteger(m_L, netid);
+	if (lua_pcall(m_L, 1, 0, 1))
+	{
+		printf("%s\n", lua_tostring(m_L, -1));
+		return;
+	}
+}
+

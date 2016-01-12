@@ -24,6 +24,10 @@ public:
 	void	OnInnerRecv(NetHandle netid, size_t nsz, const char *name, size_t dsz, const char *data);
 	void	OnInnerDisconnect(NetHandle netid);
 
+	void	OnXXXAccept(NetHandle netid, const char *ip);
+	void	OnXXXRecv(NetHandle netid, size_t nsz, const char *name, size_t dsz, const char *data);
+	void	OnXXXDisconnect(NetHandle netid);
+
 	OuterCallBack *GetOuterCallBack(){ return &m_o_call_back; }
 	InnerCallBack *GetInnerCallBack(){ return &m_i_call_back; }
 private:
