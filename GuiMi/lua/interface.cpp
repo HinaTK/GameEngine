@@ -90,23 +90,46 @@ static int CppSend(lua_State *L)
 	NetHandle  handle	= luaL_checkinteger(L, 2);
 	const char *name	= luaL_checklstring(L, 3, &nsz);
 	const char *data	= luaL_checklstring(L, 4, &dsz);
-	if (strcmp(name, "ssSend") == 0)
-	{
-		char test[256] = { 0 };
-		memcpy(test, data, dsz);
-	}
-	
-	size_t len = nsz + dsz + sizeof(size_t)* 2;
+
+	unsigned int len = (unsigned int)(4 + 24 + dsz);
 	char *buf = Mem::Alloc(len);
-	*(size_t *)buf = nsz;
-	char *temp = buf + sizeof(size_t);
+	memset(buf, 0, len);
+	*(unsigned int *)buf = len;
+	char *temp = buf + 4;
 	memcpy(temp, name, nsz);
-	temp += nsz;
-	*(size_t *)temp = dsz;
-	temp += sizeof(size_t);
+	temp += 24;
 	memcpy(temp, data, dsz);
 	lua_pushboolean(L, net_manager->Send(handle, buf, len));
 	Mem::Free(buf);
+
+// 	if (strcmp(flag, "gate") == 0)
+// 	{
+// 		unsigned int len = (int)(4 + 24 + dsz);
+// 		char *buf = Mem::Alloc(len);
+// 		*(unsigned int *)buf = len;
+// 		char *temp = buf + 4;
+// 		memcpy(temp, name, nsz);
+// 		temp += 24;
+// 		memcpy(temp, data, dsz);
+// 		lua_pushboolean(L, net_manager->Send(handle, buf, len));
+// 		Mem::Free(buf);
+// 	}
+// 	else
+// 	{
+// 		unsigned int len = (int)(nsz + dsz + sizeof(size_t)* 2);
+// 		char *buf = Mem::Alloc(len);
+// 		*(size_t *)buf = nsz;
+// 		char *temp = buf + sizeof(size_t);
+// 		memcpy(temp, name, nsz);
+// 		temp += nsz;
+// 		*(size_t *)temp = dsz;
+// 		temp += sizeof(size_t);
+// 		memcpy(temp, data, dsz);
+// 		lua_pushboolean(L, net_manager->Send(handle, buf, len));
+// 		Mem::Free(buf);
+// 	}
+// 	
+	
 
 // 	if (strcmp(flag, "inner") == 0)
 // 	{
@@ -322,13 +345,13 @@ void Interface::OnAccept(NetHandle netid, const char *ip)
 	}
 }
 
-void Interface::OnRecv(NetHandle netid, size_t nsz, const char *name, size_t dsz, const char *data)
+void Interface::OnRecv(NetHandle netid, const char *name, size_t dsz, const char *data)
 {
 	char test[256] = { 0 };
 	memcpy(test, data, dsz);
 	lua_getglobal(m_L, "OnRecv");
 	lua_pushinteger(m_L, netid);
-	lua_pushlstring(m_L, name, nsz);
+	lua_pushstring(m_L, name);
 	lua_pushlstring(m_L, data, dsz);
 	if (lua_pcall(m_L, 3, 0, 1))
 	{
@@ -360,11 +383,11 @@ void Interface::OnInnerAccept(NetHandle netid, const char *ip)
 	}
 }
 
-void Interface::OnInnerRecv(NetHandle netid, size_t nsz, const char *name, size_t dsz, const char *data)
+void Interface::OnInnerRecv(NetHandle netid, const char *name, size_t dsz, const char *data)
 {
 	lua_getglobal(m_L, "OnInnerRecv");
 	lua_pushinteger(m_L, netid);
-	lua_pushlstring(m_L, name, nsz);
+	lua_pushstring(m_L, name);
 	lua_pushlstring(m_L, data, dsz);
 	if (lua_pcall(m_L, 3, 0, 1))
 	{

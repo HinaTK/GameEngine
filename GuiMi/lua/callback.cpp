@@ -31,13 +31,21 @@ void InnerCallBack::Accept(NetHandle handle, const char *ip)
 
 void InnerCallBack::Recv(GameMsg *msg)
 {
-	size_t nsz = *(size_t *)msg->data;
-	const char *name = msg->data + sizeof(size_t);
-	size_t dsz = *(size_t *)(name + nsz);
-	const char *data = msg->data + sizeof(size_t)* 2 + nsz;
-	char test[256] = { 0 };
-	memcpy(test, data, dsz);
-	m_interface->OnInnerRecv(msg->handle, nsz, name, dsz, data);
+	unsigned int length = *(unsigned int *)msg->data;
+	int begin = sizeof(unsigned int);
+	char name[NAME_LEN] = { 0 };
+	memcpy(name, msg->data + begin, NAME_LEN);
+	begin += NAME_LEN;
+	const char *buf = msg->data + begin;
+	m_interface->OnInnerRecv(msg->handle, name, length - begin, buf);
+
+// 	size_t nsz = *(size_t *)msg->data;
+// 	const char *name = msg->data + sizeof(size_t);
+// 	size_t dsz = *(size_t *)(name + nsz);
+// 	const char *data = msg->data + sizeof(size_t)* 2 + nsz;
+// 	char test[256] = { 0 };
+// 	memcpy(test, data, dsz);
+// 	m_interface->OnInnerRecv(msg->handle, nsz, name, dsz, data);
 }
 
 void InnerCallBack::Disconnect(NetHandle handle)
@@ -53,11 +61,20 @@ void OuterCallBack::Accept(NetHandle handle, const char *ip)
 
 void OuterCallBack::Recv(GameMsg *msg)
 {
-	size_t nsz = *(size_t *)msg->data;
-	const char *name = msg->data + sizeof(size_t);
-	size_t dsz = *(size_t *)(name + nsz);
-	const char *data = msg->data + sizeof(size_t)* 2 + nsz;
-	m_interface->OnRecv(msg->handle, nsz, name, dsz, data);
+	unsigned int length = *(unsigned int *)msg->data;
+	int begin = sizeof(unsigned int);
+	char name[NAME_LEN] = { 0 };
+	memcpy(name, msg->data + begin, NAME_LEN);
+	name[NAME_LEN - 1] = 0;
+	begin += NAME_LEN;
+	const char *buf = msg->data + begin;
+	m_interface->OnRecv(msg->handle, name, length - begin, buf);
+
+// 	size_t nsz = *(size_t *)msg->data;
+// 	const char *name = msg->data + sizeof(size_t);
+// 	size_t dsz = *(size_t *)(name + nsz);
+// 	const char *data = msg->data + sizeof(size_t)* 2 + nsz;
+// 	m_interface->OnRecv(msg->handle, nsz, name, dsz, data);
 }
 
 void OuterCallBack::Disconnect(NetHandle handle)
