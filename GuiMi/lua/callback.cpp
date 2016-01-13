@@ -7,13 +7,18 @@ void XXXCallBack::Accept(NetHandle handle, const char *ip)
 	m_interface->OnXXXAccept(handle, ip);
 }
 
+static const int NAME_LEN = 24;
 void XXXCallBack::Recv(GameMsg *msg)
 {
 	int server_id = *(int *)msg->data;
-	const char *buf = msg->data + sizeof(int);
-	char test[256] = { 0 };
-	memcpy(test, buf, msg->length - sizeof(int));
-	m_interface->OnXXXRecv(msg->handle, server_id, msg->data + sizeof(int), msg->length - sizeof(int) - 24, buf);
+	int begin = sizeof(int);
+	char name[NAME_LEN] = { 0 };
+	memcpy(name, msg->data + begin, NAME_LEN);
+	begin += NAME_LEN;
+	const char *buf = msg->data + begin;
+// 	char test[256] = { 0 };
+// 	memcpy(test, buf, msg->length - sizeof(int));
+	m_interface->OnXXXRecv(msg->handle, server_id, name, msg->length - begin, buf);
 }
 
 void XXXCallBack::Disconnect(NetHandle handle)
