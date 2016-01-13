@@ -35,6 +35,7 @@ void InnerCallBack::Recv(GameMsg *msg)
 	int begin = sizeof(unsigned int);
 	char name[NAME_LEN] = { 0 };
 	memcpy(name, msg->data + begin, NAME_LEN);
+	name[NAME_LEN - 1] = 0;
 	begin += NAME_LEN;
 	const char *buf = msg->data + begin;
 	m_interface->OnInnerRecv(msg->handle, name, length - begin, buf);
