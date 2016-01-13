@@ -197,9 +197,12 @@ static int CppTest(lua_State *L)
 {
 	size_t fsz = 0;
 	const char *flag = luaL_checklstring(L, 1, &fsz);
+	char test[256] = { 0 };
+	memcpy(test, flag, fsz);
 	lua_pushlstring(L, flag, fsz);
 	return 1;
 }
+
 
 // static const struct luaL_Reg lib[] = {
 // 	{ "CppSend", CppSend },
