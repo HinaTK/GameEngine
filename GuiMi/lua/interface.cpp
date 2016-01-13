@@ -84,10 +84,9 @@ static int CppDisconnect(lua_State *L)
 
 static int CppSend(lua_State *L) 
 {
-	size_t fsz = 0;
 	size_t nsz = 0;
 	size_t dsz = 0;
-	const char *flag	= luaL_checklstring(L, 1, &fsz);
+	const char *flag	= luaL_checkstring(L, 1);
 	NetHandle  handle	= luaL_checkinteger(L, 2);
 	const char *name	= luaL_checklstring(L, 3, &nsz);
 	const char *data	= luaL_checklstring(L, 4, &dsz);

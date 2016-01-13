@@ -16,8 +16,6 @@ void XXXCallBack::Recv(GameMsg *msg)
 	memcpy(name, msg->data + begin, NAME_LEN);
 	begin += NAME_LEN;
 	const char *buf = msg->data + begin;
-// 	char test[256] = { 0 };
-// 	memcpy(test, buf, msg->length - sizeof(int));
 	m_interface->OnXXXRecv(msg->handle, server_id, name, msg->length - begin, buf);
 }
 
@@ -37,6 +35,8 @@ void InnerCallBack::Recv(GameMsg *msg)
 	const char *name = msg->data + sizeof(size_t);
 	size_t dsz = *(size_t *)(name + nsz);
 	const char *data = msg->data + sizeof(size_t)* 2 + nsz;
+	char test[256] = { 0 };
+	memcpy(test, data, dsz);
 	m_interface->OnInnerRecv(msg->handle, nsz, name, dsz, data);
 }
 
