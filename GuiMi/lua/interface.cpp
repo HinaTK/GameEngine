@@ -84,15 +84,18 @@ static int CppDisconnect(lua_State *L)
 
 static int CppSend(lua_State *L) 
 {
-	size_t fsz = 0;
 	size_t nsz = 0;
 	size_t dsz = 0;
-	const char *flag	= luaL_checklstring(L, 1, &fsz);
+	const char *flag	= luaL_checkstring(L, 1);
 	NetHandle  handle	= luaL_checkinteger(L, 2);
 	const char *name	= luaL_checklstring(L, 3, &nsz);
 	const char *data	= luaL_checklstring(L, 4, &dsz);
-	char test[256] = { 0 };
-	memcpy(test, data, dsz);
+	if (strcmp(name, "ssSend") == 0)
+	{
+		char test[256] = { 0 };
+		memcpy(test, data, dsz);
+	}
+	
 	size_t len = nsz + dsz + sizeof(size_t)* 2;
 	char *buf = Mem::Alloc(len);
 	*(size_t *)buf = nsz;
