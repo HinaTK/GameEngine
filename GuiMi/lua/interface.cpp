@@ -192,6 +192,7 @@ static int CppTime(lua_State *L)
 
 static int CppInitScene(lua_State *L)
 {
+	lua_pushboolean(L, true);	// ret
 	return 1;
 }
 
@@ -220,6 +221,7 @@ static int CppLeaveScene(lua_State *L)
 
 static int CppCreateObj(lua_State *L)
 {
+	lua_pushinteger(L, 123);
 	return 1;
 }
 
