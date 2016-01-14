@@ -197,12 +197,25 @@ static int CppInitScene(lua_State *L)
 
 static int CppEnterScene(lua_State *L)
 {
-	return 1;
+	lua_newtable(L);			// other_enter_list
+// 
+// 	lua_pushstring(L, "name");
+// 	lua_pushstring(L, "jiaming");
+// 	lua_settable(L, -3);
+
+	lua_newtable(L);			// enter_other_list
+	lua_newtable(L);			// leave_other_list
+	lua_pushinteger(L, 123);	// id
+	lua_pushboolean(L, true);	// ret
+	return 5;
 }
 
 static int CppLeaveScene(lua_State *L)
 {
-	return 1;
+	lua_newtable(L);			// leave_other_list
+	lua_pushinteger(L, 123);	// id
+	lua_pushboolean(L, true);	// ret
+	return 3;
 }
 
 static int CppCreateObj(lua_State *L)
