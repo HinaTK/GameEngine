@@ -31,14 +31,11 @@ void InnerCallBack::Accept(NetHandle handle, const char *ip)
 
 void InnerCallBack::Recv(GameMsg *msg)
 {
-	unsigned int length = *(unsigned int *)msg->data;
-	int begin = sizeof(unsigned int);
 	char name[NAME_LEN] = { 0 };
-	memcpy(name, msg->data + begin, NAME_LEN);
+	memcpy(name, msg->data, NAME_LEN);
 	name[NAME_LEN - 1] = 0;
-	begin += NAME_LEN;
-	const char *buf = msg->data + begin;
-	m_interface->OnInnerRecv(msg->handle, name, length - begin, buf);
+	const char *buf = msg->data + NAME_LEN;
+	m_interface->OnInnerRecv(msg->handle, name, msg->length - NAME_LEN, buf);
 
 // 	size_t nsz = *(size_t *)msg->data;
 // 	const char *name = msg->data + sizeof(size_t);
@@ -62,14 +59,11 @@ void OuterCallBack::Accept(NetHandle handle, const char *ip)
 
 void OuterCallBack::Recv(GameMsg *msg)
 {
-	unsigned int length = *(unsigned int *)msg->data;
-	int begin = sizeof(unsigned int);
 	char name[NAME_LEN] = { 0 };
-	memcpy(name, msg->data + begin, NAME_LEN);
+	memcpy(name, msg->data, NAME_LEN);
 	name[NAME_LEN - 1] = 0;
-	begin += NAME_LEN;
-	const char *buf = msg->data + begin;
-	m_interface->OnRecv(msg->handle, name, length - begin, buf);
+	const char *buf = msg->data + NAME_LEN;
+	m_interface->OnRecv(msg->handle, name, msg->length - NAME_LEN, buf);
 
 // 	size_t nsz = *(size_t *)msg->data;
 // 	const char *name = msg->data + sizeof(size_t);

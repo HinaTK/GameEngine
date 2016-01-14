@@ -91,14 +91,15 @@ static int CppSend(lua_State *L)
 	const char *name	= luaL_checklstring(L, 3, &nsz);
 	const char *data	= luaL_checklstring(L, 4, &dsz);
 
-	unsigned int len = (unsigned int)(4 + 24 + dsz);
+	unsigned int len = (unsigned int)(24 + dsz);
 	char *buf = Mem::Alloc(len);
 	memset(buf, 0, len);
-	*(unsigned int *)buf = len;
-	char *temp = buf + 4;
+	char *temp = buf;
 	memcpy(temp, name, nsz);
 	temp += 24;
 	memcpy(temp, data, dsz);
+	char test[256] = { 0 };
+	memcpy(test, buf, len);
 	lua_pushboolean(L, net_manager->Send(handle, buf, len));
 	Mem::Free(buf);
 
