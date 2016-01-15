@@ -6,6 +6,10 @@
 #include "lib/include/common/mem.h"
 #include "lib/include/timemanager/gametime.h"
 
+#define RegisterGlobalFunc(Name)\
+	lua_pushcfunction(m_L, Name); \
+	lua_setglobal(m_L, #Name);
+
 static NetManager *net_manager = NewFrame::Instance().GetNetManager();
 
 static int traceback(lua_State *L) {
@@ -98,8 +102,8 @@ static int CppSend(lua_State *L)
 	memcpy(temp, name, nsz);
 	temp += 24;
 	memcpy(temp, data, dsz);
-	char test[256] = { 0 };
-	memcpy(test, buf, len);
+// 	char test[256] = { 0 };
+// 	memcpy(test, buf, len);
 	lua_pushboolean(L, net_manager->Send(handle, buf, len));
 	Mem::Free(buf);
 
@@ -192,37 +196,88 @@ static int CppTime(lua_State *L)
 
 static int CppInitScene(lua_State *L)
 {
+	lua_pop(L, 5);
 	lua_pushboolean(L, true);	// ret
 	return 1;
 }
 
 static int CppEnterScene(lua_State *L)
 {
-	lua_newtable(L);			// other_enter_list
+	lua_pop(L, 6);
+	
 // 
 // 	lua_pushstring(L, "name");
 // 	lua_pushstring(L, "jiaming");
 // 	lua_settable(L, -3);
 
-	lua_newtable(L);			// enter_other_list
-	lua_newtable(L);			// leave_other_list
-	lua_pushinteger(L, 123);	// id
 	lua_pushboolean(L, true);	// ret
+	lua_pushinteger(L, 123);	// id
+	lua_newtable(L);			// leave_other_list
+	lua_newtable(L);			// enter_other_list
+	lua_newtable(L);			// other_enter_list
 	return 5;
 }
 
 static int CppLeaveScene(lua_State *L)
 {
-	lua_newtable(L);			// leave_other_list
-	lua_pushinteger(L, 123);	// id
+	lua_pop(L, 1);
+
 	lua_pushboolean(L, true);	// ret
+	lua_pushinteger(L, 123);	// id
+	lua_newtable(L);			// leave_other_list
 	return 3;
+}
+
+static int CppStartMove(lua_State *L)
+{
+	lua_pop(L, 1);
+
+	lua_pushboolean(L, true);	// ret
+	lua_pushinteger(L, 123);	// id
+	lua_newtable(L);			// notify_list
+	return 3;
+}
+
+static int CppStopMove(lua_State *L)
+{
+	lua_pop(L, 3);
+
+	lua_pushboolean(L, true);	// ret
+	lua_pushinteger(L, 123);	// id
+	lua_newtable(L);			// notify_list
+	lua_newtable(L);			// leave_other_list
+	lua_newtable(L);			// enter_other_list
+	lua_newtable(L);			// other_leave_list
+	lua_newtable(L);			// other_enter_list
+
+	return 7;
+}
+
+static int CppSynPosition(lua_State *L)
+{
+	lua_pop(L, 3);
+
+	lua_pushboolean(L, true);	// ret
+	lua_pushinteger(L, 123);	// id
+	lua_newtable(L);			// notify_list
+	lua_newtable(L);			// leave_other_list
+	lua_newtable(L);			// enter_other_list
+	lua_newtable(L);			// other_leave_list
+	lua_newtable(L);			// other_enter_list
+
+	return 7;
 }
 
 static int CppCreateObj(lua_State *L)
 {
 	lua_pushinteger(L, 123);
 	return 1;
+}
+
+static int CppDestroyObj(lua_State *L)
+{
+	lua_pop(L, 1);
+	return 0;
 }
 
 static int CppNextDayInterval(lua_State *L)
@@ -237,12 +292,17 @@ static int CppCreateTimerSecond(lua_State *L)
 
 static int CppTest(lua_State *L)
 {
-	size_t fsz = 0;
-	const char *flag = luaL_checklstring(L, 1, &fsz);
-	char test[256] = { 0 };
-	memcpy(test, flag, fsz);
-	lua_pushlstring(L, flag, fsz);
-	return 1;
+	lua_newtable(L);			// other_enter_list
+	// 
+	// 	lua_pushstring(L, "name");
+	// 	lua_pushstring(L, "jiaming");
+	// 	lua_settable(L, -3);
+
+	lua_newtable(L);			// enter_other_list
+	lua_newtable(L);			// leave_other_list
+	lua_pushinteger(L, 123);	// id
+	lua_pushboolean(L, true);	// ret
+	return 5;
 }
 
 
@@ -306,8 +366,15 @@ bool Interface::LoadFile(const char *file)
 	lua_pushcfunction(m_L, CppLeaveScene);
 	lua_setglobal(m_L, "CppLeaveScene");
 
-	lua_pushcfunction(m_L, CppCreateObj);
-	lua_setglobal(m_L, "CppCreateObj");
+	lua_pushcfunction(m_L, CppStartMove);
+	lua_setglobal(m_L, "CppStartMove");
+
+	lua_pushcfunction(m_L, CppStopMove);
+	lua_setglobal(m_L, "CppStopMove");
+
+	RegisterGlobalFunc(CppSynPosition);
+	RegisterGlobalFunc(CppCreateObj);
+	RegisterGlobalFunc(CppDestroyObj);
 
 	lua_pushcfunction(m_L, CppNextDayInterval);
 	lua_setglobal(m_L, "CppNextDayInterval");
