@@ -11,6 +11,7 @@
 	lua_setglobal(m_L, #Name);
 
 static NetManager *net_manager = NewFrame::Instance().GetNetManager();
+static const int NAME_LEN = 24;
 
 static int traceback(lua_State *L) {
 	const char *msg = lua_tostring(L, 1);
@@ -327,60 +328,26 @@ Interface::~Interface()
 
 bool Interface::LoadFile(const char *file)
 {
-	lua_pushcfunction(m_L, CppTest);
-	lua_setglobal(m_L, "CppTest");
-
-	lua_pushcfunction(m_L, CppConnect);
-	lua_setglobal(m_L, "CppConnect");
-
-	lua_pushcfunction(m_L, CppDisconnect);
-	lua_setglobal(m_L, "CppDisconnect");
-
-	lua_pushcfunction(m_L, CppListen);
-	lua_setglobal(m_L, "CppListen");
-
-	lua_pushcfunction(m_L, CppListenXXX);
-	lua_setglobal(m_L, "CppListenXXX");
-
-	lua_pushcfunction(m_L, CppSend);
-	lua_setglobal(m_L, "CppSend");
-
-	lua_pushcfunction(m_L, CppPrint);
-	lua_setglobal(m_L, "CppPrint");
-
-	lua_pushcfunction(m_L, CppDecGsNetid);
-	lua_setglobal(m_L, "CppDecGsNetid");
-
-	lua_pushcfunction(m_L, CppEncGsNetid);
-	lua_setglobal(m_L, "CppEncGsNetid");
-
-	lua_pushcfunction(m_L, CppTime);
-	lua_setglobal(m_L, "CppTime");
-
-	lua_pushcfunction(m_L, CppInitScene);
-	lua_setglobal(m_L, "CppInitScene");
-
-	lua_pushcfunction(m_L, CppEnterScene);
-	lua_setglobal(m_L, "CppEnterScene");
-	
-	lua_pushcfunction(m_L, CppLeaveScene);
-	lua_setglobal(m_L, "CppLeaveScene");
-
-	lua_pushcfunction(m_L, CppStartMove);
-	lua_setglobal(m_L, "CppStartMove");
-
-	lua_pushcfunction(m_L, CppStopMove);
-	lua_setglobal(m_L, "CppStopMove");
-
+	RegisterGlobalFunc(CppTest);
+	RegisterGlobalFunc(CppConnect);
+	RegisterGlobalFunc(CppDisconnect);
+	RegisterGlobalFunc(CppListen);
+	RegisterGlobalFunc(CppListenXXX);
+	RegisterGlobalFunc(CppSend);
+	RegisterGlobalFunc(CppPrint);
+	RegisterGlobalFunc(CppDecGsNetid);
+	RegisterGlobalFunc(CppEncGsNetid);
+	RegisterGlobalFunc(CppTime);
+	RegisterGlobalFunc(CppInitScene);
+	RegisterGlobalFunc(CppEnterScene);
+	RegisterGlobalFunc(CppLeaveScene);
+	RegisterGlobalFunc(CppStartMove);
+	RegisterGlobalFunc(CppStopMove);
 	RegisterGlobalFunc(CppSynPosition);
 	RegisterGlobalFunc(CppCreateObj);
 	RegisterGlobalFunc(CppDestroyObj);
-
-	lua_pushcfunction(m_L, CppNextDayInterval);
-	lua_setglobal(m_L, "CppNextDayInterval");
-
-	lua_pushcfunction(m_L, CppCreateTimerSecond);
-	lua_setglobal(m_L, "CppCreateTimerSecond");
+	RegisterGlobalFunc(CppNextDayInterval);
+	RegisterGlobalFunc(CppCreateTimerSecond);
 
 	std::string path = Function::WorkDir() + file;
 	if (luaL_loadfile(m_L, path.c_str()) || lua_pcall(m_L, 0, 0, 0))
@@ -428,14 +395,16 @@ void Interface::OnAccept(NetHandle netid, const char *ip)
 	}
 }
 
-void Interface::OnRecv(NetHandle netid, const char *name, size_t dsz, const char *data)
+void Interface::OnRecv(NetHandle netid, unsigned int length, const char *data)
 {
-	char test[256] = { 0 };
-	memcpy(test, data, dsz);
+	char name[NAME_LEN] = { 0 };
+	memcpy(name, data, NAME_LEN);
+	name[NAME_LEN - 1] = 0;
+
 	lua_getglobal(m_L, "OnRecv");
 	lua_pushinteger(m_L, netid);
 	lua_pushstring(m_L, name);
-	lua_pushlstring(m_L, data, dsz);
+	lua_pushlstring(m_L, data + NAME_LEN, length - NAME_LEN);
 	if (lua_pcall(m_L, 3, 0, 1))
 	{
 		printf("%s\n", lua_tostring(m_L, -1));
@@ -466,12 +435,16 @@ void Interface::OnInnerAccept(NetHandle netid, const char *ip)
 	}
 }
 
-void Interface::OnInnerRecv(NetHandle netid, const char *name, size_t dsz, const char *data)
+void Interface::OnInnerRecv(NetHandle netid, unsigned int length, const char *data)
 {
+	char name[NAME_LEN] = { 0 };
+	memcpy(name, data, NAME_LEN);
+	name[NAME_LEN - 1] = 0;
+
 	lua_getglobal(m_L, "OnInnerRecv");
 	lua_pushinteger(m_L, netid);
 	lua_pushstring(m_L, name);
-	lua_pushlstring(m_L, data, dsz);
+	lua_pushlstring(m_L, data + NAME_LEN, length - NAME_LEN);
 	if (lua_pcall(m_L, 3, 0, 1))
 	{
 		printf("%s\n", lua_tostring(m_L, -1));
@@ -502,13 +475,19 @@ void Interface::OnXXXAccept(NetHandle netid, const char *ip)
 	}
 }
 
-void Interface::OnXXXRecv(NetHandle netid, int server_id, const char *name, size_t dsz, const char *data)
+void Interface::OnXXXRecv(NetHandle netid, unsigned int length, const char *data)
 {
+	int begin = sizeof(int);
+	char name[NAME_LEN] = { 0 };
+	memcpy(name, data + begin, NAME_LEN);
+	name[NAME_LEN - 1] = 0;
+	begin += NAME_LEN;
+
 	lua_getglobal(m_L, "OnXXXRecv");
 	lua_pushinteger(m_L, netid);
-	lua_pushinteger(m_L, server_id);
+	lua_pushinteger(m_L, *(int *)data);
 	lua_pushstring(m_L, name);
-	lua_pushlstring(m_L, data, dsz);
+	lua_pushlstring(m_L, data + begin, length - begin);
 	if (lua_pcall(m_L, 4, 0, 1))
 	{
 		printf("%s\n", lua_tostring(m_L, -1));
