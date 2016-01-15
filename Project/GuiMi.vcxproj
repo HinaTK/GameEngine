@@ -16,13 +16,26 @@
     <ClCompile Include="..\GuiMi\frame\main.cpp" />
     <ClCompile Include="..\GuiMi\lua\callback.cpp" />
     <ClCompile Include="..\GuiMi\lua\interface.cpp" />
+    <ClCompile Include="..\GuiMi\obj\obj.cpp" />
+    <ClCompile Include="..\GuiMi\obj\objmanager.cpp" />
+    <ClCompile Include="..\GuiMi\scene\aoi.cpp" />
+    <ClCompile Include="..\GuiMi\scene\area.cpp" />
+    <ClCompile Include="..\GuiMi\scene\areamanager.cpp" />
+    <ClCompile Include="..\GuiMi\scene\observer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\commonfunction.h" />
+    <ClInclude Include="..\GuiMi\define.h" />
     <ClInclude Include="..\GuiMi\frame\guimi.h" />
     <ClInclude Include="..\GuiMi\lua\callback.h" />
     <ClInclude Include="..\GuiMi\lua\interface.h" />
     <ClInclude Include="..\GuiMi\lua\luadef.h" />
+    <ClInclude Include="..\GuiMi\obj\obj.h" />
+    <ClInclude Include="..\GuiMi\obj\objmanager.h" />
+    <ClInclude Include="..\GuiMi\scene\aoi.h" />
+    <ClInclude Include="..\GuiMi\scene\area.h" />
+    <ClInclude Include="..\GuiMi\scene\areamanager.h" />
+    <ClInclude Include="..\GuiMi\scene\observer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{489A5C4F-5166-4669-A5C1-4DB82AFC0C39}</ProjectGuid>
