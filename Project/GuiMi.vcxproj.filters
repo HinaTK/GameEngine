@@ -51,6 +51,12 @@
     <ClCompile Include="..\GuiMi\obj\objmanager.cpp">
       <Filter>obj</Filter>
     </ClCompile>
+    <ClCompile Include="..\GuiMi\scene\scene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\scene\scenemanager.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GuiMi\frame\guimi.h">
@@ -86,6 +92,12 @@
     </ClInclude>
     <ClInclude Include="..\GuiMi\obj\objmanager.h">
       <Filter>obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\scene\scene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\scene\scenemanager.h">
+      <Filter>scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

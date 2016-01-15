@@ -8,6 +8,7 @@
 #include "lib/include/frame/frame.h"
 #include "lib/include/timemanager/timemanager.h"
 #include "lua/interface.h"
+#include "scene/scenemanager.h"
 
 class NewFrame : public Frame
 {
@@ -53,6 +54,7 @@ private:
 	NET_HANDLE_THREAD_HASH m_net_handle_thread_hash;
 
 	Interface			m_lua_interface;
+	SceneManager		m_scene_manager;
 
 };
 

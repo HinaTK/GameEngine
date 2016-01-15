@@ -3,6 +3,7 @@
 
 #include "common/commonvariable.h"
 #include "common/datastructure/gamevector.h"
+#include "common/datastructure/gamearray.h"
 #include "define.h"
 
 /*
@@ -13,7 +14,7 @@ class Obj;
 class ObjManager
 {
 public:
-	ObjManager():m_obj_list(1024)
+	ObjManager():m_obj_list(128)
 	{
 
 	}
@@ -22,6 +23,6 @@ public:
 	Obj *	GetObj(ObjID obj_id);
 
 private:
-	game::Vector<Obj *> m_obj_list;
+	game::Array<Obj *> m_obj_list;
 };
 #endif

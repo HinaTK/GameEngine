@@ -10,7 +10,8 @@
 	lua_pushcfunction(m_L, Name); \
 	lua_setglobal(m_L, #Name);
 
-static NetManager *net_manager = NewFrame::Instance().GetNetManager();
+static NewFrame *frame = &NewFrame::Instance();
+static NetManager *net_manager = frame->GetNetManager();
 static const int NAME_LEN = 24;
 
 static int traceback(lua_State *L) {
@@ -103,58 +104,8 @@ static int CppSend(lua_State *L)
 	memcpy(temp, name, nsz);
 	temp += 24;
 	memcpy(temp, data, dsz);
-// 	char test[256] = { 0 };
-// 	memcpy(test, buf, len);
 	lua_pushboolean(L, net_manager->Send(handle, buf, len));
 	Mem::Free(buf);
-
-// 	if (strcmp(flag, "gate") == 0)
-// 	{
-// 		unsigned int len = (int)(4 + 24 + dsz);
-// 		char *buf = Mem::Alloc(len);
-// 		*(unsigned int *)buf = len;
-// 		char *temp = buf + 4;
-// 		memcpy(temp, name, nsz);
-// 		temp += 24;
-// 		memcpy(temp, data, dsz);
-// 		lua_pushboolean(L, net_manager->Send(handle, buf, len));
-// 		Mem::Free(buf);
-// 	}
-// 	else
-// 	{
-// 		unsigned int len = (int)(nsz + dsz + sizeof(size_t)* 2);
-// 		char *buf = Mem::Alloc(len);
-// 		*(size_t *)buf = nsz;
-// 		char *temp = buf + sizeof(size_t);
-// 		memcpy(temp, name, nsz);
-// 		temp += nsz;
-// 		*(size_t *)temp = dsz;
-// 		temp += sizeof(size_t);
-// 		memcpy(temp, data, dsz);
-// 		lua_pushboolean(L, net_manager->Send(handle, buf, len));
-// 		Mem::Free(buf);
-// 	}
-// 	
-	
-
-// 	if (strcmp(flag, "inner") == 0)
-// 	{
-// 		size_t len = nsz + dsz + sizeof(size_t)* 2;
-// 		char *buf = Mem::Alloc(len);
-// 		*(size_t *)buf = nsz;
-// 		char *temp = buf + sizeof(size_t);
-// 		memcpy(temp, name, nsz);
-// 		temp += nsz;
-// 		*(size_t *)temp = dsz;
-// 		temp += sizeof(size_t);
-// 		memcpy(temp, data, dsz);
-// 		net_manager->Send(handle, buf, len);
-// 		Mem::Free(buf);
-// 	}
-// 	else
-// 	{
-// 		net_manager->Send(handle, data, dsz);
-// 	}
 	return 1;
 }
 

@@ -22,6 +22,8 @@
     <ClCompile Include="..\GuiMi\scene\area.cpp" />
     <ClCompile Include="..\GuiMi\scene\areamanager.cpp" />
     <ClCompile Include="..\GuiMi\scene\observer.cpp" />
+    <ClCompile Include="..\GuiMi\scene\scene.cpp" />
+    <ClCompile Include="..\GuiMi\scene\scenemanager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\commonfunction.h" />
@@ -36,6 +38,8 @@
     <ClInclude Include="..\GuiMi\scene\area.h" />
     <ClInclude Include="..\GuiMi\scene\areamanager.h" />
     <ClInclude Include="..\GuiMi\scene\observer.h" />
+    <ClInclude Include="..\GuiMi\scene\scene.h" />
+    <ClInclude Include="..\GuiMi\scene\scenemanager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{489A5C4F-5166-4669-A5C1-4DB82AFC0C39}</ProjectGuid>

@@ -1,8 +1,9 @@
+
 #include "objmanager.h"
 
 int ObjManager::Add( Obj *obj )
 {
-	return m_obj_list.Push(obj);
+	return m_obj_list.Insert(obj);
 }
 
 
