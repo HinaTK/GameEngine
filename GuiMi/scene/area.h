@@ -2,7 +2,6 @@
 #define _AREA_H
 
 #include "define.h"
-#include "common/commonvariable.h"
 #include "common/datastructure/gamevector.h"
 
 /*

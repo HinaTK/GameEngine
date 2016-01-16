@@ -1,7 +1,7 @@
+
 #ifndef OBJ_MANAGER_H
 #define OBJ_MANAGER_H
 
-#include "common/commonvariable.h"
 #include "common/datastructure/gamevector.h"
 #include "common/datastructure/gamearray.h"
 #include "define.h"

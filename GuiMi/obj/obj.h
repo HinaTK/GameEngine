@@ -2,7 +2,6 @@
 #define OBJ_H
 
 #include "define.h"
-#include "common/commonvariable.h"
 
 class Obj
 {

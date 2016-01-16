@@ -148,15 +148,27 @@ static int CppTime(lua_State *L)
 
 static int CppInitScene(lua_State *L)
 {
-	lua_pop(L, 5);
-	lua_pushboolean(L, true);	// ret
+	// todo 由于 area 大小不变，这里之后做优化
+	int area_x	= luaL_checkinteger(L, 1);
+	int area_y	= luaL_checkinteger(L, 2);
+	int map_id	= luaL_checkinteger(L, 3);
+	int map_w	= luaL_checkinteger(L, 4);
+	int map_h	= luaL_checkinteger(L, 5);
+	
+	Scene *scene = new Scene(map_id, frame->GetSceneManager());
+	scene->Init(map_w, map_h, area_x, area_y);
+	lua_pushboolean(L, frame->GetSceneManager()->AddScene(scene));	// ret
 	return 1;
 }
 
 static int CppEnterScene(lua_State *L)
 {
-	lua_pop(L, 6);
-	
+	ObjID obj_id	= luaL_checkunsigned(L, 1);
+	MapID map_id	= luaL_checkinteger(L, 2);
+	int	x = luaL_checkinteger(L, 3);
+	int	y = luaL_checkinteger(L, 4);
+	int aoi_w = luaL_checkinteger(L, 5);
+	int aoi_h = luaL_checkinteger(L, 6);
 // 
 // 	lua_pushstring(L, "name");
 // 	lua_pushstring(L, "jiaming");
@@ -222,7 +234,7 @@ static int CppSynPosition(lua_State *L)
 
 static int CppCreateObj(lua_State *L)
 {
-	lua_pushinteger(L, 123);
+	lua_pushinteger(L, frame->GetSceneManager()->CreateRole());
 	return 1;
 }
 

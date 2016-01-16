@@ -1,8 +1,7 @@
 #ifndef AOI_H
 #define AOI_H
 
-#include "GuiMi/define.h"
-#include "common/commonvariable.h"
+#include "define.h"
 
 class AOI
 {

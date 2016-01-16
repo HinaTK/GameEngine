@@ -39,7 +39,7 @@ public:
 	}
 	~AreaManager();
 
-	void		Init(short unit_x,short unit_y,short max_x,short max_y);
+	void		Init(short unit_x, short unit_y, short max_x, short max_y);
 	static void CreateAreaMatrix(AreaManager *am, short unit_x, short unit_y, short max_x, short max_y);
 	void		ReleaseAreaMatrix();
 

@@ -1,4 +1,5 @@
-﻿#ifndef COMMON_VARIABLE_H
+﻿
+#ifndef COMMON_VARIABLE_H
 #define COMMON_VARIABLE_H
 
 #include <stdio.h>
@@ -15,10 +16,10 @@ typedef unsigned short					UInt16;
 typedef unsigned int					UInt32;
 typedef char							GameName[32];
 typedef unsigned int					RoleID;
-typedef unsigned short					ObjID;
+typedef unsigned int					ObjID;
 typedef int								SceneID;
 
-static const ObjID	INVALID_OBJ_ID = ObjID(0);
+//static const ObjID	INVALID_OBJ_ID = ObjID(0);
 static const int	GAME_NAME_LEN = sizeof(GameName)/sizeof(char);
 
 enum

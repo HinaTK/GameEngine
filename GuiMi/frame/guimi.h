@@ -2,7 +2,6 @@
 #ifndef GUIMI_H
 #define GUIMI_H
 
-#include "common/commonvariable.h"
 #include "common/datastructure/gamehash.h"
 #include "lib/include/common/thread.h"
 #include "lib/include/frame/frame.h"
@@ -38,6 +37,7 @@ public:
 	void	PushMsg(GameMsg *msg, SceneID scene_id = 0);
 
 	Interface *GetInterface(){ return &m_lua_interface; }
+	SceneManager *GetSceneManager(){ return &m_scene_manager; }
 	void	ChangeServer();
 
 public:

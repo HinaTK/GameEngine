@@ -20,8 +20,8 @@ public:
 	ObjID	obj_id;
 	Posi	pos;			// 所处位置
 
-	Posi	be_observe_area_pos;	// 被观察区域
-	UInt32	be_observer_index;	// 处在被观察区域的索引
+	Posi			be_observe_area_pos;	// 被观察区域
+	unsigned int	be_observer_index;	// 处在被观察区域的索引
 
 	void *	operator new(size_t c);
 	void	operator delete(void *m);

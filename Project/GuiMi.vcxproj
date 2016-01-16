@@ -11,7 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\common\commonfunction.cpp" />
+    <ClCompile Include="..\GuiMi\common\commonfunction.cpp" />
+    <ClCompile Include="..\GuiMi\frame\allocmemory.cpp" />
     <ClCompile Include="..\GuiMi\frame\guimi.cpp" />
     <ClCompile Include="..\GuiMi\frame\main.cpp" />
     <ClCompile Include="..\GuiMi\lua\callback.cpp" />
@@ -21,12 +22,13 @@
     <ClCompile Include="..\GuiMi\scene\aoi.cpp" />
     <ClCompile Include="..\GuiMi\scene\area.cpp" />
     <ClCompile Include="..\GuiMi\scene\areamanager.cpp" />
+    <ClCompile Include="..\GuiMi\scene\map.cpp" />
     <ClCompile Include="..\GuiMi\scene\observer.cpp" />
     <ClCompile Include="..\GuiMi\scene\scene.cpp" />
     <ClCompile Include="..\GuiMi\scene\scenemanager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\common\commonfunction.h" />
+    <ClInclude Include="..\GuiMi\common\commonfunction.h" />
     <ClInclude Include="..\GuiMi\define.h" />
     <ClInclude Include="..\GuiMi\frame\guimi.h" />
     <ClInclude Include="..\GuiMi\lua\callback.h" />
@@ -37,6 +39,7 @@
     <ClInclude Include="..\GuiMi\scene\aoi.h" />
     <ClInclude Include="..\GuiMi\scene\area.h" />
     <ClInclude Include="..\GuiMi\scene\areamanager.h" />
+    <ClInclude Include="..\GuiMi\scene\map.h" />
     <ClInclude Include="..\GuiMi\scene\observer.h" />
     <ClInclude Include="..\GuiMi\scene\scene.h" />
     <ClInclude Include="..\GuiMi\scene\scenemanager.h" />

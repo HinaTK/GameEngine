@@ -24,9 +24,6 @@
     <ClCompile Include="..\GuiMi\frame\main.cpp">
       <Filter>frame</Filter>
     </ClCompile>
-    <ClCompile Include="..\common\commonfunction.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
     <ClCompile Include="..\GuiMi\lua\interface.cpp">
       <Filter>lua</Filter>
     </ClCompile>
@@ -57,13 +54,19 @@
     <ClCompile Include="..\GuiMi\scene\scenemanager.cpp">
       <Filter>scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\GuiMi\frame\allocmemory.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\scene\map.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\common\commonfunction.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GuiMi\frame\guimi.h">
       <Filter>frame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\common\commonfunction.h">
-      <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="..\GuiMi\lua\interface.h">
       <Filter>lua</Filter>
@@ -98,6 +101,12 @@
     </ClInclude>
     <ClInclude Include="..\GuiMi\scene\scenemanager.h">
       <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\scene\map.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\common\commonfunction.h">
+      <Filter>common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
