@@ -14,15 +14,16 @@ class Obj;
 class ObjManager
 {
 public:
-	ObjManager():m_obj_list(128)
+	ObjManager():m_obj_array(128)
 	{
 
 	}
 	~ObjManager(){};
 	int		Add(Obj *obj);
+	bool	Del(ObjID obj_id);
 	Obj *	GetObj(ObjID obj_id);
 
 private:
-	game::Array<Obj *> m_obj_list;
+	game::Array<Obj *> m_obj_array;
 };
 #endif

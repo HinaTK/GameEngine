@@ -7,11 +7,12 @@
 typedef unsigned int			UInt32;
 typedef unsigned short			Coord;		// ×ø±êÀàÐÍ
 typedef Vector2D<Coord>			Posi;
-typedef unsigned int			ObjID;
+typedef int						ObjID;
+typedef int						RoleID;
 typedef int						SceneID;
 typedef int						MapID;
 
-static const ObjID	INVALID_OBJ_ID = ObjID(0);
+static const ObjID	INVALID_OBJ_ID = ObjID(-1);
 #endif // !DEFINE_H
 
 			Posi;

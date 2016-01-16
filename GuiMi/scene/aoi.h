@@ -7,9 +7,8 @@ class AOI
 {
 public:
 	AOI():
-	obj_id(INVALID_OBJ_ID)
-	{};
-	AOI(ObjID obj_id, const Posi &center, Posi enter_radius, Posi leave_radius);
+	obj_id(INVALID_OBJ_ID){};
+	AOI(ObjID _obj_id, const Posi &_center, Posi &_radius, bool _is_circle = false);
 
 
 	bool IsIn(const Posi &pos);
@@ -18,9 +17,8 @@ public:
 
 	ObjID obj_id;
 	bool is_circle;
-	Posi centre;
-	Posi enter_radius;
-	Posi leave_radius;
+	Posi center;
+	Posi radius;
 };
 
 #endif // AOI_H

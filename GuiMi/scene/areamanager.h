@@ -33,8 +33,9 @@ class ObjManager;
 class AreaManager
 {
 public:
-	AreaManager():
-	m_max_aoi_handle(0)
+	AreaManager(ObjManager *obj_manager)
+		: m_max_aoi_handle(0)
+		, m_obj_manager(obj_manager)
 	{
 	}
 	~AreaManager();
@@ -45,7 +46,8 @@ public:
 
 	//当一个新对象（obj）进入场景的时候，该obj的视野将会成为aoi；同时该对象又成为了观察者
 	UInt32		GreateObserver(ObjID obj_id);
-    void		CreateAOI(ObjID obj_id, Posi center, Posi enter_radius, Posi leave_radius);
+	void		CreateCircleAOI(ObjID obj_id, const Posi &centre, int radius);
+	void		CreateRectAOI(ObjID obj_id, const Posi &center, int aoi_x, int aoi_y);
 
 	void		MoveObserver(UInt32 observer_handle);
     void		MoveAOI(UInt32 aoi_handle);
@@ -55,6 +57,7 @@ public:
 
 
 protected:
+	void		CreateAOI(ObjID obj_id, const Posi &center, Posi &radius, bool is_circle = false);
 	void        GetArea(Posi &area, Coord x, Coord y);				
 	bool		CheckArea(Posi &area, const Posi &p);				
 private:

@@ -93,16 +93,16 @@ UInt32 AreaManager::GreateObserver(ObjID obj_id)
 	CreateAOI和GreateObserver一般是同时调用，达到相互通知进入视野
 	而例如掉落，它不需要CreateAOI，因为它不需要观察其它对象的状态，它只需要被其它对象观察
 */
-void AreaManager::CreateAOI(ObjID obj_id, Posi center, Posi enter_radius, Posi leave_radius)
+void AreaManager::CreateAOI(ObjID obj_id, const Posi &center, Posi &radius, bool is_circle)
 {
-    Posi offset_center(center.x < leave_radius.x ? leave_radius.x : center.x, center.y < leave_radius.y ? leave_radius.y : center.y);
-    AOI aoi(obj_id, offset_center, enter_radius, leave_radius);
+    Posi offset_center(center.x < radius.x ? radius.x : center.x, center.y < radius.y ? radius.y : center.y);
+    AOI aoi(obj_id, offset_center, radius, is_circle);
 	UInt32 aoiHandler = m_aoi_pool.Insert(aoi);
 
     Posi bottomLeft;
 	Posi topRight;
-    GetArea(bottomLeft, offset_center.x - leave_radius.x, offset_center.y - leave_radius.y);  
-    GetArea(topRight, offset_center.x + leave_radius.x, offset_center.y + leave_radius.y);
+    GetArea(bottomLeft, offset_center.x - radius.x, offset_center.y - radius.y);  
+    GetArea(topRight, offset_center.x + radius.x, offset_center.y + radius.y);
 
 	Obj *obj = m_obj_manager->GetObj(obj_id);
 	if (obj == NULL)
@@ -134,6 +134,17 @@ void AreaManager::CreateAOI(ObjID obj_id, Posi center, Posi enter_radius, Posi l
         }
     }
 }
+
+void AreaManager::CreateCircleAOI(ObjID obj_id, const Posi &center, int radius)
+{
+	CreateAOI(obj_id, center, Posi(radius, radius), true);
+}
+
+void AreaManager::CreateRectAOI(ObjID obj_id, const Posi &center, int aoi_x, int aoi_y)
+{
+	CreateAOI(obj_id, center, Posi(aoi_x, aoi_y));
+}
+
 
 // 获得位置（x,y）所在的area(区域)
 void AreaManager::GetArea(Posi &area, Coord x, Coord y)
@@ -262,7 +273,7 @@ void AreaManager::MoveAOI( UInt32 aoi_handle )
 	ObjID objID = aoi->obj_id;
 	Obj *obj = m_obj_manager->GetObj(objID);
 	Posi newCenter = obj->GetPos();
-	Posi leaveRadius = aoi->leave_radius;
+	Posi leaveRadius = aoi->radius;
 
 	(newCenter.x < leaveRadius.x) ? (newCenter.x = leaveRadius.x) : 0;
 	(newCenter.y < leaveRadius.y) ? (newCenter.y = leaveRadius.y) : 0;
@@ -273,14 +284,14 @@ void AreaManager::MoveAOI( UInt32 aoi_handle )
 	static const int AOI_SENSITIVE_DISTANCE = 2;
 
 	AOI aoi_old = *aoi;
-	Posi oldCenter = aoi->centre;
+	Posi oldCenter = aoi->center;
 
 	Posi oldBottomLeft;
 	Posi oldTopRight;
 	GetArea(oldBottomLeft,	oldCenter.x - leaveRadius.x,		oldCenter.y - leaveRadius.y);
 	GetArea(oldTopRight,	oldCenter.x + leaveRadius.x - 1,	oldCenter.y + leaveRadius.y - 1);
 
-	aoi->centre = newCenter;
+	aoi->center = newCenter;
 
 	Posi newBottomLeft;
 	Posi newTopRight;
@@ -425,13 +436,13 @@ void AreaManager::EraseAOI( UInt32 aoi_handle )
 		return ;
 	}
 
-	Posi centre = m_aoi_pool[aoi_handle].centre;
-	Posi leave_radius = m_aoi_pool[aoi_handle].leave_radius;
+	Posi center = m_aoi_pool[aoi_handle].center;
+	Posi radius = m_aoi_pool[aoi_handle].radius;
 
 	Posi bottomLeft;
 	Posi topRight;
-	GetArea(bottomLeft, centre.x - leave_radius.x, centre.y - leave_radius.y);
-	GetArea(topRight, centre.x + leave_radius.x - 1, centre.y + leave_radius.y - 1);
+	GetArea(bottomLeft, center.x - radius.x, center.y - radius.y);
+	GetArea(topRight, center.x + radius.x - 1, center.y + radius.y - 1);
 
 	for (unsigned int x = bottomLeft.x; x <= topRight.x; ++x)
 	{
