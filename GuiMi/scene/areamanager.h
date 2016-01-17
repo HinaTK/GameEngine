@@ -1,7 +1,7 @@
 #ifndef _AREAMANAGER_H
 #define _AREAMANAGER_H
 
-#include "GuiMi/define.h"
+#include "define.h"
 #include "aoi.h"
 #include "area.h"
 #include "common/datastructure/gamevector.h"
@@ -44,10 +44,13 @@ public:
 	static void CreateAreaMatrix(AreaManager *am, short unit_x, short unit_y, short max_x, short max_y);
 	void		ReleaseAreaMatrix();
 
-	//当一个新对象（obj）进入场景的时候，该obj的视野将会成为aoi；同时该对象又成为了观察者
-	UInt32		GreateObserver(ObjID obj_id);
-	void		CreateCircleAOI(ObjID obj_id, const Posi &centre, int radius);
-	void		CreateRectAOI(ObjID obj_id, const Posi &center, int aoi_x, int aoi_y);
+	/*
+		当一个新对象（obj）进入场景的时候，该obj的视野将会成为aoi；
+		同时该对象又成为了当前所在区域的(被)观察者
+	*/
+	UInt32		GreateObserver(ObjID obj_id, SceneRet &ret);
+	void		CreateCircleAOI(ObjID obj_id, const Posi &centre, int radius, SceneRet &ret);
+	void		CreateRectAOI(ObjID obj_id, const Posi &center, int aoi_x, int aoi_y, SceneRet &ret);
 
 	void		MoveObserver(UInt32 observer_handle);
     void		MoveAOI(UInt32 aoi_handle);
@@ -57,7 +60,7 @@ public:
 
 
 protected:
-	void		CreateAOI(ObjID obj_id, const Posi &center, Posi &radius, bool is_circle = false);
+	void		CreateAOI(ObjID obj_id, const Posi &center, Posi &radius, SceneRet &ret, bool is_circle = false);
 	void        GetArea(Posi &area, Coord x, Coord y);				
 	bool		CheckArea(Posi &area, const Posi &p);				
 private:

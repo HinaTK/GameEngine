@@ -19,6 +19,7 @@
     <ClCompile Include="..\GuiMi\lua\interface.cpp" />
     <ClCompile Include="..\GuiMi\obj\obj.cpp" />
     <ClCompile Include="..\GuiMi\obj\objmanager.cpp" />
+    <ClCompile Include="..\GuiMi\obj\role.cpp" />
     <ClCompile Include="..\GuiMi\scene\aoi.cpp" />
     <ClCompile Include="..\GuiMi\scene\area.cpp" />
     <ClCompile Include="..\GuiMi\scene\areamanager.cpp" />
@@ -36,6 +37,7 @@
     <ClInclude Include="..\GuiMi\lua\luadef.h" />
     <ClInclude Include="..\GuiMi\obj\obj.h" />
     <ClInclude Include="..\GuiMi\obj\objmanager.h" />
+    <ClInclude Include="..\GuiMi\obj\role.h" />
     <ClInclude Include="..\GuiMi\scene\aoi.h" />
     <ClInclude Include="..\GuiMi\scene\area.h" />
     <ClInclude Include="..\GuiMi\scene\areamanager.h" />

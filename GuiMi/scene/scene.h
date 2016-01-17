@@ -2,6 +2,7 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+#include <vector>
 #include "areamanager.h"
 #include "obj/objmanager.h"
 
@@ -18,9 +19,11 @@ public:
 	};
 
 	bool		Init(int map_w, int map_h, int area_x, int area_y);
+	Obj*		GetObj(ObjID obj_id);
 	bool		DelObj(ObjID obj_id);
 
-	bool		Enter(Obj *obj, int aoi_x, int aoi_y);
+	bool		Enter(Obj *obj, int aoi_x, int aoi_y, SceneRet &ret);
+	bool		Leave(ObjID obj_id, SceneRet &ret);
 
 	SceneID		GetSceneID(){ return m_scene_id; }
 

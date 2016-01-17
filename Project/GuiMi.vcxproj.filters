@@ -63,6 +63,9 @@
     <ClCompile Include="..\GuiMi\common\commonfunction.cpp">
       <Filter>common</Filter>
     </ClCompile>
+    <ClCompile Include="..\GuiMi\obj\role.cpp">
+      <Filter>obj</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GuiMi\frame\guimi.h">
@@ -107,6 +110,9 @@
     </ClInclude>
     <ClInclude Include="..\GuiMi\common\commonfunction.h">
       <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\obj\role.h">
+      <Filter>obj</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

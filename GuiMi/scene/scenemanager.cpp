@@ -1,5 +1,6 @@
 
 #include "scenemanager.h"
+#include "obj/role.h"
 
 SceneManager::SceneManager()
 {
@@ -19,7 +20,7 @@ bool SceneManager::Init(int map_id, int map_w, int max_h)
 	return true;
 }
 
-bool SceneManager::EnterScene(SceneID scene_id, RoleID role_id, int x, int y, int aoi_x, int aoi_y)
+bool SceneManager::ChangeScene(SceneID scene_id, ObjID obj_id, int x, int y, int aoi_x, int aoi_y, SceneRet &ret)
 {
 	SCENE_MAP::iterator scene_itr = m_scene_map.find(scene_id);
 	if (scene_itr == m_scene_map.end())
@@ -27,8 +28,8 @@ bool SceneManager::EnterScene(SceneID scene_id, RoleID role_id, int x, int y, in
 		return false;
 	}
 
-	ROLE_ARRAY::iterator itr = m_role_array.Find(role_id);
-	if (itr == m_role_array.End())
+	OBJ_MANAGER::iterator itr = m_obj_manager.Find(obj_id);
+	if (itr == m_obj_manager.End())
 	{
 		// todo 写log
 		return false;
@@ -36,30 +37,40 @@ bool SceneManager::EnterScene(SceneID scene_id, RoleID role_id, int x, int y, in
 
 	Obj *obj = *itr;
 	obj->SetPos(Posi(x, y));
-	scene_itr->second->Enter(obj, aoi_x, aoi_y);
+
+	Scene *old_scene = obj->GetScene();
+	Scene *scene = scene_itr->second;
+
+	if (old_scene != NULL)
+	{
+		// todo leave scene
+		old_scene->Leave(obj_id, ret);
+	}
+
+	if (obj == scene->GetObj(obj->GetObjID()))
+	{
+		// todo 切坐标，改变aoi
+	}
+	else
+	{
+		obj->SetScene(scene);
+		scene->Enter(obj, aoi_x, aoi_y, ret);
+	}
+
 	return true;
 }
 
-RoleID SceneManager::CreateRole(SceneID scene_id, int aoi_x, int aoi_y)
+ObjID SceneManager::CreateRole()
 {
-	SCENE_MAP::iterator itr = m_scene_map.find(scene_id);
-	if (itr == m_scene_map.end())
-	{
-		return 0;
-	}
-
-	// 暂时用obj 代替 role,之后要从lua传入accout,加强判断，避免出错，场景存在多个相同角色
-	Obj *obj = new Obj;
-	obj->SetScene(itr->second);
-	itr->second->Enter(obj, aoi_x, aoi_y);
-	return m_role_array.Insert(obj);
+	Role *role = new Role();
+	return m_obj_manager.Insert(role);
 }
 
 // 下线
-bool SceneManager::DeleteRole(RoleID role_id)
+bool SceneManager::DeleteRole(ObjID obj_id)
 {
-	ROLE_ARRAY::iterator itr = m_role_array.Find(role_id);
-	if (itr == m_role_array.End())
+	OBJ_MANAGER::iterator itr = m_obj_manager.Find(obj_id);
+	if (itr == m_obj_manager.End())
 	{
 		// todo 写log
 		return false;
@@ -72,7 +83,7 @@ bool SceneManager::DeleteRole(RoleID role_id)
 }
 
 // 切场景
-bool SceneManager::RemoveRole(SceneID scene_id, RoleID role_id)
+bool SceneManager::RemoveRole(SceneID scene_id, ObjID obj_id)
 {
 	SCENE_MAP::iterator itr = m_scene_map.find(scene_id);
 	if (itr == m_scene_map.end())
@@ -81,8 +92,8 @@ bool SceneManager::RemoveRole(SceneID scene_id, RoleID role_id)
 		return false;
 	}
 
-	ROLE_ARRAY::iterator role_itr = m_role_array.Find(role_id);
-	if (role_itr == m_role_array.End())
+	OBJ_MANAGER::iterator role_itr = m_obj_manager.Find(obj_id);
+	if (role_itr == m_obj_manager.End())
 	{
 		// todo 写log
 		return false;

@@ -15,7 +15,7 @@ bool ObjManager::Del(ObjID obj_id)
 
 Obj * ObjManager::GetObj( ObjID obj_id )
 {
-	if (obj_id >= m_obj_array.Size())
+	if ((unsigned int)obj_id >= m_obj_array.Size())
 	{
 		return NULL;
 	}

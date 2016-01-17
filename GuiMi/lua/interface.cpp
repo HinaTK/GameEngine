@@ -163,25 +163,57 @@ static int CppInitScene(lua_State *L)
 
 static int CppEnterScene(lua_State *L)
 {
-	RoleID role_id	= luaL_checkunsigned(L, 1);
+	static SceneRet ret;
+	ret.leave_other.Clear();
+	ret.enter_other.Clear();
+	ret.other_enter.Clear();
+
+	ObjID obj_id	= luaL_checkunsigned(L, 1);
 	MapID map_id	= luaL_checkinteger(L, 2);
 	int	x = luaL_checkinteger(L, 3);
 	int	y = luaL_checkinteger(L, 4);
 	int aoi_w = luaL_checkinteger(L, 5);
 	int aoi_h = luaL_checkinteger(L, 6);
 
-	frame->GetSceneManager()->EnterScene(map_id, role_id, x, y, aoi_w, aoi_h);
-// 
-// 	lua_pushstring(L, "name");
-// 	lua_pushstring(L, "jiaming");
-// 	lua_settable(L, -3);
+	if (frame->GetSceneManager()->ChangeScene(map_id, obj_id, x, y, aoi_w, aoi_h, ret))
+	{
+		lua_pushboolean(L, true);	// ret
+		lua_pushinteger(L, obj_id);	// id
+		int index = 1;
 
-	lua_pushboolean(L, true);	// ret
-	lua_pushinteger(L, 123);	// id
-	lua_newtable(L);			// leave_other_list
-	lua_newtable(L);			// enter_other_list
-	lua_newtable(L);			// other_enter_list
-	return 5;
+		lua_newtable(L);			// leave_other_list
+		game::Vector<ObjID>::iterator itr = ret.leave_other.Begin();
+		for (; itr != ret.leave_other.End(); ++itr)
+		{
+			lua_pushinteger(L, index++);
+			lua_pushinteger(L, *itr);
+			lua_settable(L, -3);
+		}
+
+		index = 1;
+		lua_newtable(L);			// enter_other_list
+		itr = ret.enter_other.Begin();
+		for (; itr != ret.enter_other.End(); ++itr)
+		{
+			lua_pushinteger(L, index++);
+			lua_pushinteger(L, *itr);
+			lua_settable(L, -3);
+		}
+
+		index = 1;
+		lua_newtable(L);			// enter_other_list
+		itr = ret.other_enter.Begin();
+		for (; itr != ret.other_enter.End(); ++itr)
+		{
+			lua_pushinteger(L, index++);
+			lua_pushinteger(L, *itr);
+			lua_settable(L, -3);
+		}
+		return 5;
+	}
+
+	lua_pushboolean(L, false);	// ret
+	return 1;
 }
 
 static int CppLeaveScene(lua_State *L)
@@ -236,17 +268,7 @@ static int CppSynPosition(lua_State *L)
 
 static int CppCreateObj(lua_State *L)
 {
-	int argc = lua_gettop(L);
-	SceneID scene_id = 9999;
-	int aoi_x = 300;
-	int aoi_y = 200;
-	if (argc > 0)
-	{
-		scene_id = luaL_checkinteger(L, 1);
-		aoi_x = luaL_checkinteger(L, 2);
-		aoi_y = luaL_checkinteger(L, 3);
-	}
-	lua_pushinteger(L, frame->GetSceneManager()->CreateRole(scene_id, aoi_x, aoi_y));
+	lua_pushinteger(L, frame->GetSceneManager()->CreateRole());
 	return 1;
 }
 
@@ -270,16 +292,16 @@ static int CppCreateTimerSecond(lua_State *L)
 static int CppTest(lua_State *L)
 {
 	lua_newtable(L);			// other_enter_list
-	// 
-	// 	lua_pushstring(L, "name");
-	// 	lua_pushstring(L, "jiaming");
-	// 	lua_settable(L, -3);
 
-	lua_newtable(L);			// enter_other_list
-	lua_newtable(L);			// leave_other_list
-	lua_pushinteger(L, 123);	// id
-	lua_pushboolean(L, true);	// ret
-	return 5;
+	lua_pushinteger(L, 1);
+	lua_pushstring(L, "jiaming1");
+	lua_settable(L, -3);
+
+	lua_pushinteger(L, 2);
+	lua_pushstring(L, "jiaming2");
+	lua_settable(L, -3);
+
+	return 1;
 }
 
 

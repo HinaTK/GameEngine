@@ -3,6 +3,7 @@
 #define DEFINE_H
 
 #include "common/datastructure/vector2d.h"
+#include "common/datastructure/gamevector.h"
 
 typedef unsigned int			UInt32;
 typedef unsigned short			Coord;		// ×ø±êÀàÐÍ
@@ -13,6 +14,12 @@ typedef int						SceneID;
 typedef int						MapID;
 
 static const ObjID	INVALID_OBJ_ID = ObjID(-1);
-#endif // !DEFINE_H
 
-			Posi;
+struct SceneRet
+{
+	game::Vector<ObjID> leave_other;
+	game::Vector<ObjID> enter_other;
+	game::Vector<ObjID> other_leave;
+	game::Vector<ObjID> other_enter;
+};
+#endif // !DEFINE_H
