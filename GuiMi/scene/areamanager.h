@@ -49,8 +49,8 @@ public:
 		同时该对象又成为了当前所在区域的(被)观察者
 	*/
 	UInt32		GreateObserver(ObjID obj_id, SceneRet &ret);
-	void		CreateCircleAOI(ObjID obj_id, const Posi &centre, int radius, SceneRet &ret);
-	void		CreateRectAOI(ObjID obj_id, const Posi &center, int aoi_x, int aoi_y, SceneRet &ret);
+	UInt32		CreateCircleAOI(ObjID obj_id, const Posi &centre, int radius, SceneRet &ret);
+	UInt32		CreateRectAOI(ObjID obj_id, const Posi &center, int aoi_x, int aoi_y, SceneRet &ret);
 
 	void		MoveObserver(UInt32 observer_handle);
     void		MoveAOI(UInt32 aoi_handle);
@@ -60,7 +60,7 @@ public:
 
 
 protected:
-	void		CreateAOI(ObjID obj_id, const Posi &center, Posi &radius, SceneRet &ret, bool is_circle = false);
+	UInt32		CreateAOI(ObjID obj_id, const Posi &center, Posi &radius, SceneRet &ret, bool is_circle = false);
 	void        GetArea(Posi &area, Coord x, Coord y);				
 	bool		CheckArea(Posi &area, const Posi &p);				
 private:

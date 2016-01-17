@@ -93,7 +93,7 @@ UInt32 AreaManager::GreateObserver(ObjID obj_id, SceneRet &ret)
 	CreateAOI和GreateObserver一般是同时调用，达到相互通知进入视野
 	而例如掉落，它不需要CreateAOI，因为它不需要观察其它对象的状态，它只需要被其它对象观察
 */
-void AreaManager::CreateAOI(ObjID obj_id, const Posi &center, Posi &radius, SceneRet &ret, bool is_circle)
+UInt32 AreaManager::CreateAOI(ObjID obj_id, const Posi &center, Posi &radius, SceneRet &ret, bool is_circle)
 {
     Posi offset_center(center.x < radius.x ? radius.x : center.x, center.y < radius.y ? radius.y : center.y);
     AOI aoi(obj_id, offset_center, radius, is_circle);
@@ -105,10 +105,7 @@ void AreaManager::CreateAOI(ObjID obj_id, const Posi &center, Posi &radius, Scen
     GetArea(top_right, offset_center.x + radius.x, offset_center.y + radius.y);
 
 	Obj *obj = m_obj_manager->GetObj(obj_id);
-	if (obj == NULL)
-	{
-		return;
-	}
+	
 	/* 
 		前两个for循环是找到所有对obj所在的区域感兴趣的所有矩形区域
 		之后的for循环是找到每个矩形区域的所有其它的obj
@@ -138,16 +135,17 @@ void AreaManager::CreateAOI(ObjID obj_id, const Posi &center, Posi &radius, Scen
 			}
         }
     }
+	return aoi_handle;
 }
 
-void AreaManager::CreateCircleAOI(ObjID obj_id, const Posi &center, int radius, SceneRet &ret)
+UInt32 AreaManager::CreateCircleAOI(ObjID obj_id, const Posi &center, int radius, SceneRet &ret)
 {
-	CreateAOI(obj_id, center, Posi(radius, radius), ret, true);
+	return CreateAOI(obj_id, center, Posi(radius, radius), ret, true);
 }
 
-void AreaManager::CreateRectAOI(ObjID obj_id, const Posi &center, int aoi_x, int aoi_y, SceneRet &ret)
+UInt32 AreaManager::CreateRectAOI(ObjID obj_id, const Posi &center, int aoi_x, int aoi_y, SceneRet &ret)
 {
-	CreateAOI(obj_id, center, Posi(aoi_x, aoi_y), ret);
+	return CreateAOI(obj_id, center, Posi(aoi_x, aoi_y), ret);
 }
 
 

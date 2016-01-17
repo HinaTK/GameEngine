@@ -44,5 +44,7 @@ bool Scene::Enter(Obj *obj, int aoi_x, int aoi_y, SceneRet &ret)
 
 bool Scene::Leave(ObjID obj_id, SceneRet &ret)
 {
+	Obj *obj = m_obj_manager.GetObj(obj_id);
+	// m_area_manager.EraseAOI()
 	return true;
 }
