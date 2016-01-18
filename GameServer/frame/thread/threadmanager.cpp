@@ -28,3 +28,8 @@ void ThreadManager::Start()
 	}
 }
 
+void ThreadManager::PushMsg(unsigned int type, ThreadMsg *msg)
+{
+	m_thread[type]->PushMsg(msg);
+}
+

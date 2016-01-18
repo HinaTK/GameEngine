@@ -18,6 +18,7 @@ public:
 
 	void	Start();
 
+	void	PushMsg(unsigned int type, ThreadMsg *msg);
 private:
 	BaseThread	**m_thread;
 };

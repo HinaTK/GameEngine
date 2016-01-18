@@ -99,6 +99,7 @@ bool NewFrame::Init()
 	return true;
 }
 
+int i = 1;
 // 构架更新
 void NewFrame::Update(unsigned int interval, time_t now)
 {
@@ -108,6 +109,12 @@ void NewFrame::Update(unsigned int interval, time_t now)
 	//StmtUpdate();
 	//StmtDelete();
 	//exit(0);
+	ThreadMsg *msg = new ThreadMsg;
+	msg->length = 0;
+	msg->data = new char[4];
+	memcpy(msg->data, &i, 4);
+	m_thread_manager.PushMsg(ThreadManager::T_DB, msg);
+	i++;
 }
 
 void NewFrame::OuterRecv(GameMsg *msg)
