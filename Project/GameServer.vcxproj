@@ -95,6 +95,7 @@
     <ClCompile Include="..\GameServer\base\knapsack.cpp" />
     <ClCompile Include="..\GameServer\frame\callback.cpp" />
     <ClCompile Include="..\GameServer\frame\gamethread.cpp" />
+    <ClCompile Include="..\GameServer\frame\threadmanager.cpp" />
     <ClCompile Include="..\GameServer\global\globalfunction.cpp" />
     <ClCompile Include="..\GameServer\other\dll.cpp" />
     <ClCompile Include="..\GameServer\other\MyDll.cpp" />
@@ -116,13 +117,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\commonfunction.h" />
-    <ClInclude Include="..\common\commonvariable.h" />
     <ClInclude Include="..\common\globalclass.h" />
     <ClInclude Include="..\common\protocol\msggame.h" />
     <ClInclude Include="..\common\protocol\msgheader.h" />
     <ClInclude Include="..\GameServer\base\knapsack.h" />
+    <ClInclude Include="..\GameServer\define.h" />
     <ClInclude Include="..\GameServer\frame\callback.h" />
     <ClInclude Include="..\GameServer\frame\gamethread.h" />
+    <ClInclude Include="..\GameServer\frame\threadmanager.h" />
     <ClInclude Include="..\GameServer\global\globalfunction.h" />
     <ClInclude Include="..\GameServer\global\globalvariable.h" />
     <ClInclude Include="..\GameServer\other\dll.h" />

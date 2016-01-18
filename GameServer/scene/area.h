@@ -1,8 +1,8 @@
 #ifndef _AREA_H
 #define _AREA_H
 
+#include "define.h"
 #include "global/globalvariable.h"
-#include "common/commonvariable.h"
 #include "common/datastructure/gamevector.h"
 
 /*

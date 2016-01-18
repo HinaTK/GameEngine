@@ -8,10 +8,12 @@ class NewFrame;
 class InnerCallBack : public MsgCallBack
 {
 public:
-    InnerCallBack(NewFrame *frame) : m_frame(frame){}
+    InnerCallBack(NewFrame *frame) 
+		: MsgCallBack()
+		, m_frame(frame){}
     ~InnerCallBack(){}
 
-    void	Accept();
+	void	Accept(NetHandle handle, const char *ip);
 
     void	Recv(GameMsg *msg);
 
@@ -24,10 +26,12 @@ private:
 class OuterCallBack : public MsgCallBack
 {
 public:
-    OuterCallBack(NewFrame *frame) : m_frame(frame){}
+    OuterCallBack(NewFrame *frame)
+		: MsgCallBack()
+		, m_frame(frame){}
     ~OuterCallBack(){}
 
-    void	Accept();
+	void	Accept(NetHandle handle, const char *ip);
 
     void	Recv(GameMsg *msg);
 

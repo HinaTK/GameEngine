@@ -78,7 +78,7 @@ void *WriteLog(void * arg)
 	while (frame->IsRun())
 	{
 		frame->GetLogManager()->Flush();
-		GameTime::GameSleep(1000);
+		GameTime::Sleep(1000);
 	}
 	frame->GetLogManager()->Flush();
 	return NULL;
@@ -118,7 +118,7 @@ bool Frame::Run()
 		}
 		else
 		{
-            GameTime::GameSleep(m_sleep_time_ms);
+            GameTime::Sleep(m_sleep_time_ms);
 		}
 		
 	}

@@ -3,37 +3,33 @@
 #define GAME_THREAD_H
 
 #include <thread>
+#include "define.h"
 #include "common/datastructure/msgqueue.h"
 /*
 	目的：以多线程并行代替多进程并行
 */
 
-class GameMsg;
-class GameThread
+class BaseThread
 {
 public:
-	GameThread(int index);
-	~GameThread();
+	BaseThread();
+	virtual ~BaseThread();
 
 	void	Update();
 
-	void	Run();
+	void	Start();
 
-	void	PushMsg(GameMsg *msg);
+	void	PushMsg(ThreadMsg *msg);
 
-	void	Recv(GameMsg *msg);
 	// 等待线程执行完毕
 	void	Wait();
 
-	int		GetIndex(){ return m_index; }
 private:
 	std::thread		*m_thread;
-	int				m_index;	// 线程索引
 	bool			m_is_exit;
 
-	
-	MsgQueue<GameMsg *> m_msg_queue;
+	MsgQueue<ThreadMsg *> m_msg_queue;
 };
 
-#endif // !GAME_THREAD_H
+#endif 
 

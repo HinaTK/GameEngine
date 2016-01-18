@@ -2,7 +2,7 @@
 #ifndef GAME_FRAME_H
 #define GAME_FRAME_H
 
-#include "common/commonvariable.h"
+#include "define.h"
 #include "common/datastructure/gamehash.h"
 #include "lib/include/common/thread.h"
 #include "lib/include/frame/frame.h"
@@ -54,7 +54,7 @@ private:
 	TimeEventManager	m_time_event_manager;
 
 	int					m_game_thread_num;
-	GameThread			**m_game_thread;
+	BaseThread			**m_game_thread;
 
 	typedef game::Hash<NetHandle, int> NET_HANDLE_THREAD_HASH;
 	NET_HANDLE_THREAD_HASH m_net_handle_thread_hash;

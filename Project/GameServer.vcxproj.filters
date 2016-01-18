@@ -114,6 +114,9 @@
     <ClCompile Include="..\GameServer\frame\callback.cpp">
       <Filter>frame</Filter>
     </ClCompile>
+    <ClCompile Include="..\GameServer\frame\threadmanager.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\commonfunction.h">
@@ -194,9 +197,6 @@
     <ClInclude Include="..\GameServer\poolconfig\test.h">
       <Filter>poolconfig</Filter>
     </ClInclude>
-    <ClInclude Include="..\common\commonvariable.h">
-      <Filter>common</Filter>
-    </ClInclude>
     <ClInclude Include="..\common\globalclass.h">
       <Filter>common</Filter>
     </ClInclude>
@@ -207,6 +207,10 @@
       <Filter>frame</Filter>
     </ClInclude>
     <ClInclude Include="..\GameServer\frame\callback.h">
+      <Filter>frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\define.h" />
+    <ClInclude Include="..\GameServer\frame\threadmanager.h">
       <Filter>frame</Filter>
     </ClInclude>
   </ItemGroup>

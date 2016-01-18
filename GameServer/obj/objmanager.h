@@ -2,7 +2,7 @@
 #define OBJ_MANAGER_H
 
 #include "global/globalvariable.h"
-#include "common/commonvariable.h"
+#include "define.h"
 #include "common/datastructure/gamevector.h"
 
 /*

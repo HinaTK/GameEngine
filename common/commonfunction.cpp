@@ -1,7 +1,6 @@
 ﻿
 #include "commonfunction.h"
 #include "socketdef.h"
-#include "commonvariable.h"
 #include "common/protocol/messageheader.h"
 
 void Function::WindowsPause()

@@ -2,7 +2,7 @@
 #include "callback.h"
 #include "gameframe.h"
 
-void InnerCallBack::Accept()
+void InnerCallBack::Accept(NetHandle handle, const char *ip)
 {
     printf("fuck accept.................\n");
 }
@@ -18,7 +18,7 @@ void InnerCallBack::Disconnect(NetHandle handle)
 }
 
 
-void OuterCallBack::Accept()
+void OuterCallBack::Accept(NetHandle handle, const char *ip)
 {
     printf("fuck accept.................\n");
 }
