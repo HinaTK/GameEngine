@@ -2,7 +2,7 @@
 #ifndef THREAD_MANAGER_H
 #define THREAD_MANAGER_H
 
-#include "gamethread.h"
+#include "basethread.h"
 
 class ThreadManager
 {

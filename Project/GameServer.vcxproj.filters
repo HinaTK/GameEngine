@@ -108,13 +108,13 @@
     <ClCompile Include="..\GameServer\base\knapsack.cpp">
       <Filter>base</Filter>
     </ClCompile>
-    <ClCompile Include="..\GameServer\frame\gamethread.cpp">
-      <Filter>frame</Filter>
-    </ClCompile>
     <ClCompile Include="..\GameServer\frame\callback.cpp">
       <Filter>frame</Filter>
     </ClCompile>
     <ClCompile Include="..\GameServer\frame\threadmanager.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\frame\basethread.cpp">
       <Filter>frame</Filter>
     </ClCompile>
   </ItemGroup>
@@ -203,14 +203,14 @@
     <ClInclude Include="..\GameServer\base\knapsack.h">
       <Filter>base</Filter>
     </ClInclude>
-    <ClInclude Include="..\GameServer\frame\gamethread.h">
-      <Filter>frame</Filter>
-    </ClInclude>
     <ClInclude Include="..\GameServer\frame\callback.h">
       <Filter>frame</Filter>
     </ClInclude>
     <ClInclude Include="..\GameServer\define.h" />
     <ClInclude Include="..\GameServer\frame\threadmanager.h">
+      <Filter>frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\frame\basethread.h">
       <Filter>frame</Filter>
     </ClInclude>
   </ItemGroup>

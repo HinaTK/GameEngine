@@ -7,7 +7,7 @@
 #include "lib/include/common/thread.h"
 #include "lib/include/frame/frame.h"
 #include "lib/include/timemanager/timemanager.h"
-#include "gamethread.h"
+#include "basethread.h"
 #include "callback.h"
 
 class NewFrame : public Frame

@@ -15,9 +15,8 @@ public:
 	BaseThread();
 	virtual ~BaseThread();
 
-	void	Update();
-
 	void	Start();
+	virtual void Update() = 0;
 
 	void	PushMsg(ThreadMsg *msg);
 
