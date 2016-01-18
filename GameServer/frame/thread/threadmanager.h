@@ -19,7 +19,7 @@ public:
 	void	Start();
 
 private:
-	BaseThread	*m_thread;
+	BaseThread	**m_thread;
 };
 
 #endif

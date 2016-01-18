@@ -23,7 +23,7 @@ public:
 	// 等待线程执行完毕
 	void	Wait();
 
-private:
+protected:
 	std::thread		*m_thread;
 	bool			m_is_exit;
 

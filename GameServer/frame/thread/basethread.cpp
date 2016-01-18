@@ -1,7 +1,6 @@
 
 #include "basethread.h"
 #include "lib/include/common/mutex.h"
-#include "lib/include/timemanager/gametime.h"
 
 void *Update(void * arg)
 {
@@ -21,13 +20,6 @@ BaseThread::~BaseThread()
 {
 
 }
-
-// {
-// 	do 
-// 	{
-// 		GameTime::Sleep(100);
-// 	} while (!m_is_exit);
-// }
 
 void BaseThread::Start()
 {

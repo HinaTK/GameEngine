@@ -9,9 +9,7 @@
 
 
 NewFrame::NewFrame()
-: m_game_thread_num(10)
-, m_game_thread(NULL)
-, m_o_call_back(this)
+: m_o_call_back(this)
 , m_i_call_back(this)
 {
 
@@ -19,16 +17,6 @@ NewFrame::NewFrame()
 
 NewFrame::~NewFrame()
 {
-	if (m_game_thread != NULL)
-	{
-		for (int i = 0; i < m_game_thread_num; ++i)
-		{
-			delete m_game_thread[i];
-		}
-		delete m_game_thread;
-		m_game_thread = NULL;
-	}
-
 	Exit();
 
 }
@@ -49,27 +37,27 @@ void *ttt(void * arg)
 
 bool NewFrame::InitConfig()
 {
-	if (!m_net_manager.InitServer(
-		ServerConfig::Instance().m_server[ServerConfig::GAME_SERVER].ip,
-		ServerConfig::Instance().m_server[ServerConfig::GAME_SERVER].port,
-		ServerConfig::Instance().m_server[ServerConfig::GAME_SERVER].backlog,
-		new Accepter(&m_net_manager), 
-        &m_o_call_back))
-	{
-		return false;
-	}
-
-    m_database_server_handle = m_net_manager.ConnectServer(
-        ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].ip,
-        ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].port,
-        new BaseListener(&m_net_manager),
-        &m_i_call_back);
-
-    if (m_database_server_handle == INVALID_NET_HANDLE)
-    {
-        printf("connect data server fail ...\n");
-        return false;
-    }
+// 	if (!m_net_manager.InitServer(
+// 		ServerConfig::Instance().m_server[ServerConfig::GAME_SERVER].ip,
+// 		ServerConfig::Instance().m_server[ServerConfig::GAME_SERVER].port,
+// 		ServerConfig::Instance().m_server[ServerConfig::GAME_SERVER].backlog,
+// 		new Accepter(&m_net_manager), 
+//         &m_o_call_back))
+// 	{
+// 		return false;
+// 	}
+// 
+//     m_database_server_handle = m_net_manager.ConnectServer(
+//         ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].ip,
+//         ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].port,
+//         new BaseListener(&m_net_manager),
+//         &m_i_call_back);
+// 
+//     if (m_database_server_handle == INVALID_NET_HANDLE)
+//     {
+//         printf("connect data server fail ...\n");
+//         return false;
+//     }
 
 	// 读取配置,设置m_game_thread_num的值
 // 	m_game_thread = new GameThread*[m_game_thread_num];
@@ -83,8 +71,8 @@ bool NewFrame::InitConfig()
 //        m_net_manager.Send(m_database_server_handle, (const char *)&i, sizeof(int));
 //    }
 
-     test_thread = new std::thread(::ttt, this);
-     begin = GameTime::Instance().MilliSecond();
+//      test_thread = new std::thread(::ttt, this);
+//      begin = GameTime::Instance().MilliSecond();
 // 	struct Test
 // 	{
 // 		Test() :header(0){}
@@ -107,17 +95,8 @@ bool NewFrame::InitConfig()
 bool NewFrame::Init()
 {
 	// 读取场景配置,根据不同的配置将不同的场景分配到不同的工作线程
+	m_thread_manager.Start();
 	return true;
-}
-
-bool NewFrame::Run()
-{
-// 	for (int i = 0; i < m_game_thread_num; ++i)
-// 	{
-// 		m_game_thread[i]->Run();
-// 	}
-
-	return Frame::Run();
 }
 
 // 构架更新

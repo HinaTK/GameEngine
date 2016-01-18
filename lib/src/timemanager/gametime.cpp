@@ -75,7 +75,7 @@ void GameTime::Sleep( unsigned int ms )
 	//Sleep(ms);
 #endif
 #ifdef WIN32
-	Sleep(ms);
+	::Sleep(ms);
 #endif
 }
 

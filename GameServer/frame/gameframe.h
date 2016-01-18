@@ -7,7 +7,7 @@
 #include "lib/include/common/thread.h"
 #include "lib/include/frame/frame.h"
 #include "lib/include/timemanager/timemanager.h"
-#include "basethread.h"
+#include "thread/threadmanager.h"
 #include "callback.h"
 
 class NewFrame : public Frame
@@ -31,7 +31,6 @@ public:
     bool	Init();    //初始化
 
 	void	Update(unsigned int interval, time_t now);  //更新
-	virtual bool Run();
     void	Exit();
 	void	Wait();
 	void	OuterRecv(GameMsg *msg);
@@ -52,9 +51,7 @@ private:
     InnerCallBack		m_i_call_back;
 
 	TimeEventManager	m_time_event_manager;
-
-	int					m_game_thread_num;
-	BaseThread			**m_game_thread;
+	ThreadManager		m_thread_manager;
 
 	typedef game::Hash<NetHandle, int> NET_HANDLE_THREAD_HASH;
 	NET_HANDLE_THREAD_HASH m_net_handle_thread_hash;
