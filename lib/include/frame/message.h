@@ -4,7 +4,7 @@
 
 #include "common/socketdef.h"
 
-
+// 网络消息
 class GameMsg
 {
 public:
@@ -19,6 +19,33 @@ public:
 	NetHandle		handle;
 	unsigned int	length;
 	char *			data;
+};
+
+
+class ThreadMsg
+{
+public:
+	ThreadMsg(int _length, const char *_data);
+	~ThreadMsg();
+
+	void *		operator new(size_t c);
+	void		operator delete(void *m);
+
+	int		length;
+	char	*data;
+};
+
+class GlobalMsg
+{
+public:
+	GlobalMsg(unsigned char _type, ThreadMsg *_msg);
+	~GlobalMsg();
+
+	void *		operator new(size_t c);
+	void		operator delete(void *m);
+
+	unsigned char type;
+	ThreadMsg *msg;
 };
 
 #endif

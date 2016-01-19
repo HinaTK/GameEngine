@@ -38,7 +38,7 @@ Frame::Frame()
 
 Frame::~Frame()
 {
-	
+	SetExit();
 }
 
 bool Frame::Init()
@@ -53,10 +53,13 @@ void Frame::SetFPS(int ms)
 
 void Frame::SetExit()
 {
-	m_is_run = false;
-	m_net_manager.Exit();
-	Exit();
-	Wait();
+	if (m_is_run)
+	{
+		m_is_run = false;
+		m_net_manager.Exit();
+		Exit();
+		Wait();
+	}
 }
 
 void *Listen(void * arg)

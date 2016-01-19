@@ -96,6 +96,7 @@
     <ClCompile Include="..\GameServer\frame\callback.cpp" />
     <ClCompile Include="..\GameServer\frame\thread\basethread.cpp" />
     <ClCompile Include="..\GameServer\frame\thread\dbthread.cpp" />
+    <ClCompile Include="..\GameServer\frame\thread\mainthread.cpp" />
     <ClCompile Include="..\GameServer\frame\thread\threadmanager.cpp" />
     <ClCompile Include="..\GameServer\global\globalfunction.cpp" />
     <ClCompile Include="..\GameServer\other\dll.cpp" />
@@ -126,6 +127,7 @@
     <ClInclude Include="..\GameServer\frame\callback.h" />
     <ClInclude Include="..\GameServer\frame\thread\basethread.h" />
     <ClInclude Include="..\GameServer\frame\thread\dbthread.h" />
+    <ClInclude Include="..\GameServer\frame\thread\mainthread.h" />
     <ClInclude Include="..\GameServer\frame\thread\threadmanager.h" />
     <ClInclude Include="..\GameServer\global\globalfunction.h" />
     <ClInclude Include="..\GameServer\global\globalvariable.h" />

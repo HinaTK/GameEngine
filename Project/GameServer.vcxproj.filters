@@ -123,6 +123,9 @@
     <ClCompile Include="..\GameServer\frame\thread\threadmanager.cpp">
       <Filter>frame\thread</Filter>
     </ClCompile>
+    <ClCompile Include="..\GameServer\frame\thread\mainthread.cpp">
+      <Filter>frame\thread</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\commonfunction.h">
@@ -220,6 +223,9 @@
       <Filter>frame\thread</Filter>
     </ClInclude>
     <ClInclude Include="..\GameServer\frame\thread\threadmanager.h">
+      <Filter>frame\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\frame\thread\mainthread.h">
       <Filter>frame\thread</Filter>
     </ClInclude>
   </ItemGroup>

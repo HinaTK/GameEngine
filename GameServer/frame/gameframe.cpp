@@ -17,7 +17,6 @@ NewFrame::NewFrame()
 
 NewFrame::~NewFrame()
 {
-	Exit();
 
 }
 
@@ -109,12 +108,13 @@ void NewFrame::Update(unsigned int interval, time_t now)
 	//StmtUpdate();
 	//StmtDelete();
 	//exit(0);
-	ThreadMsg *msg = new ThreadMsg;
-	msg->length = 0;
-	msg->data = new char[4];
-	memcpy(msg->data, &i, 4);
+	ThreadMsg *msg = new ThreadMsg(4, (const char *)&i);
 	m_thread_manager.PushMsg(ThreadManager::T_DB, msg);
 	i++;
+	if (i > 20)
+	{
+		SetExit();
+	}
 }
 
 void NewFrame::OuterRecv(GameMsg *msg)
@@ -173,12 +173,13 @@ void NewFrame::PushMsg(GameMsg *msg, SceneID scene_id /*= 0*/)
 void NewFrame::Exit()
 {
 	// 进程退出，线程也随之退出
-
+	m_thread_manager.Exit();
 	printf("game server exit\n");
 }
 
 void NewFrame::Wait()
 {
+	m_thread_manager.Wait();
 //	for (int i = 0; i < m_game_thread_num; ++i)
 //	{
 //		m_game_thread[i]->Wait();

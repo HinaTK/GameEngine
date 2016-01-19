@@ -13,10 +13,4 @@ typedef int								SceneID;
 static const ObjID	INVALID_OBJ_ID = ObjID(0);
 //static const int	GAME_NAME_LEN = sizeof(GameName)/sizeof(char);
 
-struct ThreadMsg
-{
-	int length;
-	char *data;
-};
-
 #endif

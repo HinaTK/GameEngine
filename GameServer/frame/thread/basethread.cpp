@@ -18,7 +18,7 @@ BaseThread::BaseThread()
 
 BaseThread::~BaseThread()
 {
-
+	delete m_thread;
 }
 
 void BaseThread::Start()
@@ -28,7 +28,7 @@ void BaseThread::Start()
 
 void BaseThread::PushMsg(ThreadMsg *msg)
 {
-	m_msg_queue.Push(msg);
+	m_recv_queue.Push(msg);
 }
 
 void BaseThread::Wait()
