@@ -20,7 +20,8 @@ void MainThread::Run()
 		{
 			int ret = *(int *)msg->data;
 			printf("MainThread ... %d \n", ret);
-			Send(ThreadManager::ID_DB, msg);
+			m_manager->SendMsg(ThreadManager::ID_DB, msg);
+			//Send(ThreadManager::ID_DB, msg);
 			is_sleep = false;
 		}
 

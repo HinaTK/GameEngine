@@ -18,6 +18,7 @@ void DBThread::Init()
 
 }
 
+int dbi = 0;
 void DBThread::Run()
 {
 	ThreadMsg *msg;
@@ -25,7 +26,12 @@ void DBThread::Run()
 	{
 		while (m_recv_queue.Pop(msg))
 		{
-			printf("DBThread %d ...\n", *(int *)msg->data);
+			int ret = *(int *)msg->data;
+			if (dbi == ret)
+			{
+				printf("DBThread %d ...\n", ret);
+			}
+			dbi++;
 			delete msg;
 		}
 		

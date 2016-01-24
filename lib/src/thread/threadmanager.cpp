@@ -54,26 +54,26 @@ void ThreadManager::Start()
 
 void ThreadManager::Update()
 {
-	bool is_sleep = true;
-	GlobalMsg *msg = NULL;
-	for (int i = 0; i < ID_MAX; ++i)
-	{
-		while (m_thread[i]->PopMsg(msg) && msg != NULL)
-		{
-			m_thread[msg->type]->PushMsg(msg->msg);
-			delete msg;
-			is_sleep = false;
-			printf("ffffffffffffffffffffffffffff\n");
-		}
-	}
-
-	if (is_sleep)
-	{
-		GameTime::Sleep(10);
-	}
+// 	bool is_sleep = true;
+// 	GlobalMsg *msg = NULL;
+// 	for (int i = 0; i < ID_MAX; ++i)
+// 	{
+// 		while (m_thread[i]->PopMsg(msg) && msg != NULL)
+// 		{
+// 			m_thread[msg->id]->PushMsg(msg->msg);
+// 			delete msg;
+// 			is_sleep = false;
+// 			printf("ffffffffffffffffffffffffffff\n");
+// 		}
+// 	}
+// 
+// 	if (is_sleep)
+// 	{
+// 		GameTime::Sleep(10);
+// 	}
 }
 
-void ThreadManager::PushMsg(unsigned char id, ThreadMsg *msg)
+void ThreadManager::SendMsg(unsigned char id, ThreadMsg *msg)
 {
 	if (id < ThreadManager::ID_MAX)
 	{

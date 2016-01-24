@@ -77,7 +77,7 @@ void NewFrame::Start()
 			for (int i = 0; i < 100; ++i)
 			{
 				ThreadMsg *msg = new ThreadMsg(sizeof(int), (const char *)&i);
-				m_thread_manager.PushMsg(ThreadManager::ID_MAIN, msg);
+				m_thread_manager.SendMsg(ThreadManager::ID_MAIN, msg);
 // 				ThreadMsg *msg2 = new ThreadMsg(sizeof(int), (const char *)&i);
 // 				m_thread_manager.PushMsg(ThreadManager::ID_DB, msg2);
 			}		

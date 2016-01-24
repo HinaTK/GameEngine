@@ -35,7 +35,7 @@ ThreadMsg::~ThreadMsg()
 }
 
 GlobalMsg::GlobalMsg(unsigned char _type, ThreadMsg *_msg)
-: type(_type)
+: id(_type)
 , msg(_msg)
 {
 

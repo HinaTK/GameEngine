@@ -44,7 +44,7 @@ public:
 	void *		operator new(size_t c);
 	void		operator delete(void *m);
 
-	unsigned char type;
+	unsigned char id;
 	ThreadMsg *msg;
 };
 

@@ -25,7 +25,7 @@ public:
 	void	Wait();
 	bool	IsRun(){ return !m_is_exit; }
 
-	void	PushMsg(unsigned char id, ThreadMsg *msg);
+	void	SendMsg(unsigned char id, ThreadMsg *msg);
 private:
 	BaseThread	*m_thread[ID_MAX];
 	std::thread	*m_forward_thread;
