@@ -1,21 +1,20 @@
 
 #include "dbthread.h"
-#include "lib/include/timemanager/gametime.h"
+
 
 DBThread::~DBThread()
 {
 
 }
 
-DBThread::DBThread()
-: BaseThread()
+DBThread::DBThread(ThreadManager *manager)
+: BaseThread(manager)
 {
 
 }
 
 void DBThread::Update()
 {
-	int i = 0;
 	ThreadMsg *msg;
 	do 
 	{

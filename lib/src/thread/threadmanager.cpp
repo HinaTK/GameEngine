@@ -18,8 +18,8 @@ ThreadManager::~ThreadManager()
 ThreadManager::ThreadManager()
 {
 	m_thread = new BaseThread *[T_MAX];
-	m_thread[T_DB] = new DBThread;
-	m_thread[T_MAIN] = new MainThread;
+	m_thread[T_DB] = new DBThread(this);
+	m_thread[T_MAIN] = new MainThread(this);
 }
 
 void ThreadManager::Start()
@@ -32,19 +32,14 @@ void ThreadManager::Start()
 
 void ThreadManager::Update()
 {
-	GlobalMsg *msg;
-	while (m_global_queue.Pop(msg))
+	GlobalMsg *msg = NULL;
+	for (int i = 0; i < T_MAX; ++i)
 	{
-		if (msg->type < ThreadManager::T_MAX)
+		while (m_thread[i]->PopMsg(msg))
 		{
-			m_thread[msg->type]->PushMsg(msg->tm);
+			m_thread[msg->type]->PushMsg(msg->msg);
+			delete msg;
 		}
-		else
-		{
-			delete msg->tm;
-		}
-		
-		delete msg;
 	}
 }
 

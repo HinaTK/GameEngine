@@ -20,19 +20,7 @@ NewFrame::~NewFrame()
 
 }
 
-static const int test_num = 100000;
-std::thread *test_thread = NULL;
-static unsigned long long begin = GameTime::Instance().MilliSecond();
-void *ttt(void * arg)
-{
-    NewFrame *frame = (NewFrame *)arg;
-    NetManager *net_manager = frame->GetNetManager();
-    for (int i = 1; i <= test_num; ++i)
-    {
-        net_manager->Send(frame->m_database_server_handle, (const char *)&i, sizeof(int));
-    }
-    return NULL;
-}
+
 
 bool NewFrame::InitConfig()
 {
@@ -105,11 +93,12 @@ void NewFrame::Update(unsigned int interval, time_t now)
 	//m_time_event_manager.Update(now);
 	//StmtSelect();
 	//StmtInsert();
+
 	//StmtUpdate();
 	//StmtDelete();
 	//exit(0);
 	ThreadMsg *msg = new ThreadMsg(4, (const char *)&i);
-	m_thread_manager.PushMsg(ThreadManager::T_DB, msg);
+	m_thread_manager.PushMsg(ThreadManager::T_MAIN, msg);
 	i++;
 	if (i > 20)
 	{
@@ -134,56 +123,45 @@ void NewFrame::OuterRecv(GameMsg *msg)
 void NewFrame::InnerRecv(GameMsg *msg)
 {
 
-	int ret = *(int *)msg->data;
-
-    if (ret >= test_num || ret <= 0)
-	{
-        printf("fuck exit ret = %d %d\n", ret, GameTime::Instance().MilliSecond() - begin);
-		SetExit();
-	}
-	else
-	{
-//        printf("ret = %d\n", ret);
-//		int begin = ret * 10 + 1;
-//		for (int i = begin; i < begin + 10; ++i)
-//		{
-//			m_net_manager.Send(m_database_server_handle, (const char *)&i, sizeof(int));
-//		}
-
-	}
-
-    if (ret % 1000 == 0)
-	{
-		printf("ret = %d\n", ret);
-	}
 }
 
-/* 
-	工作线程相互通信
-	scene_id 等于0，表示消息放到全局线程处理
-*/
-void NewFrame::PushMsg(GameMsg *msg, SceneID scene_id /*= 0*/)
+void NewFrame::Start()
 {
-	if (scene_id == 0)
+    m_database_server_handle = m_net_manager.ConnectServer(
+        ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].ip,
+        ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].port,
+        new BaseListener(&m_net_manager),
+        &m_i_call_back);
+
+    if (m_database_server_handle == INVALID_NET_HANDLE)
+    {
+        printf("connect data server fail ...\n");
+        return;
+    }
+
+	m_net_manager.Listen();
+	while (IsRun())
 	{
+		char cmd_buf[512] = { 0 };
+		gets(cmd_buf);
+		printf("%s\n", cmd_buf);
 	}
 }
 
 
 void NewFrame::Exit()
 {
-	// 进程退出，线程也随之退出
+	m_net_manager.Exit();
 	m_thread_manager.Exit();
 	printf("game server exit\n");
 }
 
 void NewFrame::Wait()
 {
+	printf("game server waiting ...\n");
+	m_net_manager.Wait();
 	m_thread_manager.Wait();
-//	for (int i = 0; i < m_game_thread_num; ++i)
-//	{
-//		m_game_thread[i]->Wait();
-//	}
+	printf("game server end\n");
 }
 
 

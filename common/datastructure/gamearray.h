@@ -92,7 +92,7 @@ public:
 	}
 
 	// index 由外部保证
-	T&				operator[](unsigned int index){ return m_value[index].val; }
+	T				operator[](unsigned int index){ return m_value[index].val; }
 
 	void			Clear();
 private:

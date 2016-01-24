@@ -43,9 +43,6 @@
     <Filter Include="ai">
       <UniqueIdentifier>{4f35f6c9-7fc2-4b38-b3cc-2f0e1c09418e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="frame\thread">
-      <UniqueIdentifier>{1fe3f32e-e90c-4b97-8ed3-d4665a8ab938}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\common\commonfunction.cpp">
@@ -113,18 +110,6 @@
     </ClCompile>
     <ClCompile Include="..\GameServer\frame\callback.cpp">
       <Filter>frame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GameServer\frame\thread\basethread.cpp">
-      <Filter>frame\thread</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GameServer\frame\thread\dbthread.cpp">
-      <Filter>frame\thread</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GameServer\frame\thread\threadmanager.cpp">
-      <Filter>frame\thread</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GameServer\frame\thread\mainthread.cpp">
-      <Filter>frame\thread</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -216,17 +201,5 @@
       <Filter>frame</Filter>
     </ClInclude>
     <ClInclude Include="..\GameServer\define.h" />
-    <ClInclude Include="..\GameServer\frame\thread\basethread.h">
-      <Filter>frame\thread</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GameServer\frame\thread\dbthread.h">
-      <Filter>frame\thread</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GameServer\frame\thread\threadmanager.h">
-      <Filter>frame\thread</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GameServer\frame\thread\mainthread.h">
-      <Filter>frame\thread</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

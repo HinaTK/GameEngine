@@ -20,12 +20,6 @@ public:
 		
 	};
 
-	struct GlobalMsg
-	{
-		unsigned char type;
-		ThreadMsg *tm;
-	};
-
 	void	Start();
 	void	Update();
 	void	Exit();

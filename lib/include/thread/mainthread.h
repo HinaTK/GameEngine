@@ -5,11 +5,12 @@
 #include "basethread.h"
 #include "lib/include/frame/netmanager.h"
 
+class ThreadManager;
 class MainThread : public BaseThread
 {
 public:
 	~MainThread(){}
-	MainThread();
+	MainThread(ThreadManager *manager);
 
 	void	Update();
 private:

@@ -15,6 +15,7 @@
 
 NetManager::NetManager()
 : m_is_run(true)
+, m_listen_thread(NULL)
 #ifdef WIN32
 , m_max_fd(0)
 #endif
@@ -45,6 +46,11 @@ NetManager::~NetManager()
         NetCommon::Close((*itr)->m_sock);
         delete (*itr);
     }
+
+	if (m_listen_thread)
+	{
+		delete m_listen_thread;
+	}
 }
 
 unsigned int NetManager::AddMsgHandler(MsgCallBack *call_back)
@@ -132,7 +138,15 @@ NetHandle NetManager::ConnectServer(const char *ip, unsigned short port, Listene
 	return AddNetHandler(listener);
 }
 
-void NetManager::Listen()
+void *Loop(void *arg)
+{
+	NetManager *manager = (NetManager *)arg;
+	manager->Loop();
+	return NULL;
+}
+
+
+void NetManager::Loop()
 {
 #ifdef WIN32
 	int ret = 0;
@@ -150,6 +164,7 @@ void NetManager::Listen()
 		ret = select(max_fd + 1, &temp_read_set, &temp_write_set, NULL, &tv);
 		if (ret > 0)
 		{
+			m_net_mutex.lock();
 			NetManager::NET_HANDLER_ARRAY::iterator itr = m_net_handler.Begin();
 			for (; itr != m_net_handler.End(); ++itr)
 			{
@@ -164,6 +179,7 @@ void NetManager::Listen()
 			}
 			ReplaceHandler();
 			ClearHandler();
+			m_net_mutex.unlock();
 		}
 		else if (max_fd <= 0)
 		{
@@ -197,7 +213,7 @@ void NetManager::Listen()
 		else
 		{
 			// 写log
-            usleep(10000);
+			usleep(10000);
 		}
 	}
 #endif
@@ -311,6 +327,7 @@ SOCKET NetManager::GetSocketInfo(fd_set &read_set, fd_set &write_set)
 
 bool NetManager::Send(NetHandle handle, const char *buf, unsigned int length)
 {
+	MutexLock lock(&m_net_mutex);
 	NET_HANDLER_ARRAY::iterator itr = m_net_handler.Find(handle);
 	if (itr == m_net_handler.End())
 	{
@@ -362,6 +379,25 @@ void NetManager::Update()
 			break;
 		}
 	} while (true);
+}
+
+
+void NetManager::Listen()
+{
+	m_listen_thread = new std::thread(::Loop, this);
+}
+
+void NetManager::Exit()
+{
+	m_is_run = false;
+}
+
+void NetManager::Wait()
+{
+	if (m_listen_thread != NULL)
+	{
+		m_listen_thread->join();
+	}
 }
 
 

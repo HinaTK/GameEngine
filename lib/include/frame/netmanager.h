@@ -3,6 +3,7 @@
 #define NET_MANAGER_H
 
 #include <map>
+#include <thread>
 #include "nethandler.h"
 #include "message.h"
 #include "msgcallback.h"
@@ -11,6 +12,7 @@
 #include "common/datastructure/gamevector.h"
 #include "common/datastructure/gamearray.h"
 #include "common/datastructure/msgqueue.h"
+#include "lib/include/common/mutex.h"
 
 typedef MsgQueue<GameMsg *> NetMessage;
 
@@ -26,6 +28,7 @@ public:
 	NetHandle		ConnectServer(const char *ip, unsigned short port, Listener *lister, MsgCallBack *call_back);
 
 	void			Listen();
+	void			Loop();
 	bool			Send(NetHandle handle, const char *buf, unsigned int length);
 
 	void			Update();
@@ -42,7 +45,9 @@ public:
 	void			PushMsg(NetHandler *handler, unsigned short msg_type, const char *data, unsigned int len);
 
 	NetMessage		*GetMsgQueue(){ return &m_queue; }
-	void			Exit(){ m_is_run = false; }
+	void			Exit();
+	void			Wait();
+	bool			IsRun(){ return m_is_run; }
 
 protected:
 	unsigned int	AddMsgHandler(MsgCallBack *call_back);
@@ -64,6 +69,8 @@ protected:
 	REPLACE_HANDLER		m_replace_handler;
 	bool				m_is_run;
 	MSG_HANDLER			m_msg_handler;
+	std::mutex			m_net_mutex;
+	std::thread			*m_listen_thread;
 
 #ifdef WIN32
 public:

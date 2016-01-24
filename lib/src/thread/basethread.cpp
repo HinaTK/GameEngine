@@ -9,8 +9,9 @@ void *Update(void * arg)
 	return NULL;
 }
 
-BaseThread::BaseThread()
-: m_thread(NULL)
+BaseThread::BaseThread(ThreadManager *manager)
+: m_manager(manager)
+, m_thread(NULL)
 , m_is_exit(false)
 {
 
@@ -18,7 +19,10 @@ BaseThread::BaseThread()
 
 BaseThread::~BaseThread()
 {
-	delete m_thread;
+	if (m_thread)
+	{
+		delete m_thread;
+	}
 }
 
 void BaseThread::Start()
@@ -31,6 +35,11 @@ void BaseThread::PushMsg(ThreadMsg *msg)
 	m_recv_queue.Push(msg);
 }
 
+bool BaseThread::PopMsg(GlobalMsg *msg)
+{
+	return m_send_queue.Pop(msg);
+}
+
 void BaseThread::Wait()
 {
 	if (m_thread)
@@ -38,4 +47,6 @@ void BaseThread::Wait()
 		m_thread->join();
 	}
 }
+
+
 

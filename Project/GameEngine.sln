@@ -31,6 +31,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GuiMi", "GuiMi.vcxproj", "{
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tinyxml", "..\LibProject\Tinyxml\Tinyxml.vcxproj", "{B1B3BE4E-F793-4188-B54C-BF47549EE59E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Thread", "..\LibProject\Thread\Thread.vcxproj", "{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -173,6 +175,16 @@ Global
 		{B1B3BE4E-F793-4188-B54C-BF47549EE59E}.Release|Win32.ActiveCfg = Release|Win32
 		{B1B3BE4E-F793-4188-B54C-BF47549EE59E}.Release|Win32.Build.0 = Release|Win32
 		{B1B3BE4E-F793-4188-B54C-BF47549EE59E}.Release|x64.ActiveCfg = Release|Win32
+		{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E}.Debug|Win32.Build.0 = Debug|Win32
+		{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E}.Debug|x64.ActiveCfg = Debug|Win32
+		{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E}.Release|Win32.ActiveCfg = Release|Win32
+		{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E}.Release|Win32.Build.0 = Release|Win32
+		{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -186,5 +198,6 @@ Global
 		{2FBA8C54-D15C-4EA0-8B30-8ACA56683578} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
 		{B16E656B-DA3B-48E7-A5E0-A8CC338A0673} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
 		{B1B3BE4E-F793-4188-B54C-BF47549EE59E} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
+		{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
 	EndGlobalSection
 EndGlobal

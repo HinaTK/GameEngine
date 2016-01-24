@@ -7,7 +7,7 @@
 #include "lib/include/common/thread.h"
 #include "lib/include/frame/frame.h"
 #include "lib/include/timemanager/timemanager.h"
-#include "thread/threadmanager.h"
+#include "lib/include/thread/threadmanager.h"
 #include "callback.h"
 
 class NewFrame : public Frame
@@ -36,10 +36,7 @@ public:
 	void	OuterRecv(GameMsg *msg);
 	void	InnerRecv(GameMsg *msg);
 
-	void	PushMsg(GameMsg *msg, SceneID scene_id = 0);
-
-	void	ChangeServer();
-
+	void	Start();
 public:
 
 	NetHandle	m_database_server_handle;
@@ -50,7 +47,7 @@ private:
     OuterCallBack		m_o_call_back;
     InnerCallBack		m_i_call_back;
 
-	TimeEventManager	m_time_event_manager;
+	NetManager			m_net_manager;
 	ThreadManager		m_thread_manager;
 
 	typedef game::Hash<NetHandle, int> NET_HANDLE_THREAD_HASH;

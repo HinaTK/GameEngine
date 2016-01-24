@@ -61,9 +61,10 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalOptions>_CRT_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>libmysql.lib;Tinyxml.lib;TimeManager.lib;Frame.lib;Common.lib;Log.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libmysql.lib;Tinyxml.lib;TimeManager.lib;Frame.lib;Common.lib;Log.lib;Thread.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\lib\windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -94,10 +95,6 @@
     <ClCompile Include="..\common\globalclass.cpp" />
     <ClCompile Include="..\GameServer\base\knapsack.cpp" />
     <ClCompile Include="..\GameServer\frame\callback.cpp" />
-    <ClCompile Include="..\GameServer\frame\thread\basethread.cpp" />
-    <ClCompile Include="..\GameServer\frame\thread\dbthread.cpp" />
-    <ClCompile Include="..\GameServer\frame\thread\mainthread.cpp" />
-    <ClCompile Include="..\GameServer\frame\thread\threadmanager.cpp" />
     <ClCompile Include="..\GameServer\global\globalfunction.cpp" />
     <ClCompile Include="..\GameServer\other\dll.cpp" />
     <ClCompile Include="..\GameServer\other\MyDll.cpp" />
@@ -125,10 +122,6 @@
     <ClInclude Include="..\GameServer\base\knapsack.h" />
     <ClInclude Include="..\GameServer\define.h" />
     <ClInclude Include="..\GameServer\frame\callback.h" />
-    <ClInclude Include="..\GameServer\frame\thread\basethread.h" />
-    <ClInclude Include="..\GameServer\frame\thread\dbthread.h" />
-    <ClInclude Include="..\GameServer\frame\thread\mainthread.h" />
-    <ClInclude Include="..\GameServer\frame\thread\threadmanager.h" />
     <ClInclude Include="..\GameServer\global\globalfunction.h" />
     <ClInclude Include="..\GameServer\global\globalvariable.h" />
     <ClInclude Include="..\GameServer\other\dll.h" />

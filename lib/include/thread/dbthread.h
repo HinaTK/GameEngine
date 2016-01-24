@@ -8,7 +8,7 @@ class DBThread : public BaseThread
 {
 public:
 	~DBThread();
-	DBThread();
+	DBThread(ThreadManager *manager);
 
 	void	Update();
 private:
