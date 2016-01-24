@@ -19,14 +19,18 @@ public:
 	virtual ~BaseThread();
 
 	void	Start();
-	virtual void Update() = 0;
+	virtual void Run() = 0;
 
 	void			PushMsg(ThreadMsg *msg);
 	bool			PopMsg(GlobalMsg *msg);
 
+	void			Send(unsigned char id, ThreadMsg *msg);
+
 	void			Exit(){ m_is_exit = true; }
 	void			Wait();
 
+protected:
+	virtual void	Init() = 0;
 protected:
 	ThreadManager	*m_manager;
 	std::thread		*m_thread;

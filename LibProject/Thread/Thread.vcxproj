@@ -12,14 +12,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib\include\thread\basethread.h" />
-    <ClInclude Include="..\..\lib\include\thread\dbthread.h" />
-    <ClInclude Include="..\..\lib\include\thread\mainthread.h" />
     <ClInclude Include="..\..\lib\include\thread\threadmanager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\thread\basethread.cpp" />
-    <ClCompile Include="..\..\lib\src\thread\dbthread.cpp" />
-    <ClCompile Include="..\..\lib\src\thread\mainthread.cpp" />
     <ClCompile Include="..\..\lib\src\thread\threadmanager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

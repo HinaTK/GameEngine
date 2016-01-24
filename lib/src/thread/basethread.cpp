@@ -5,7 +5,7 @@
 void *Update(void * arg)
 {
 	BaseThread *gt = (BaseThread *)arg;
-	gt->Update();
+	gt->Run();
 	return NULL;
 }
 
@@ -38,6 +38,11 @@ void BaseThread::PushMsg(ThreadMsg *msg)
 bool BaseThread::PopMsg(GlobalMsg *msg)
 {
 	return m_send_queue.Pop(msg);
+}
+
+void BaseThread::Send(unsigned char id, ThreadMsg *msg)
+{
+	m_send_queue.Push(new GlobalMsg(id, msg));
 }
 
 void BaseThread::Wait()

@@ -2,7 +2,7 @@
 #ifndef DB_THREAD_H
 #define DB_THREAD_H
 
-#include "basethread.h"
+#include "lib/include/thread/basethread.h"
 
 class DBThread : public BaseThread
 {
@@ -10,7 +10,10 @@ public:
 	~DBThread();
 	DBThread(ThreadManager *manager);
 
-	void	Update();
+	void	Run();
+
+protected:
+	void	Init();
 private:
 };
 

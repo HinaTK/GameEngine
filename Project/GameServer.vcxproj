@@ -61,7 +61,6 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <AdditionalOptions>_CRT_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>libmysql.lib;Tinyxml.lib;TimeManager.lib;Frame.lib;Common.lib;Log.lib;Thread.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -92,59 +91,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\common\commonfunction.cpp" />
-    <ClCompile Include="..\common\globalclass.cpp" />
-    <ClCompile Include="..\GameServer\base\knapsack.cpp" />
+    <ClCompile Include="..\GameServer\db\dbthread.cpp" />
     <ClCompile Include="..\GameServer\frame\callback.cpp" />
-    <ClCompile Include="..\GameServer\global\globalfunction.cpp" />
-    <ClCompile Include="..\GameServer\other\dll.cpp" />
-    <ClCompile Include="..\GameServer\other\MyDll.cpp" />
-    <ClCompile Include="..\GameServer\other\showcrash.cpp" />
-    <ClCompile Include="..\GameServer\poolconfig\memorypoolconfig.cpp" />
-    <ClCompile Include="..\GameServer\poolconfig\test.cpp" />
-    <ClCompile Include="..\GameServer\scene\aoi.cpp" />
-    <ClCompile Include="..\GameServer\scene\area.cpp" />
-    <ClCompile Include="..\GameServer\scene\areamanager.cpp" />
-    <ClCompile Include="..\GameServer\scene\observer.cpp" />
-    <ClCompile Include="..\GameServer\scene\scene.cpp" />
-    <ClCompile Include="..\GameServer\scene\scenemanager.cpp" />
-    <ClCompile Include="..\GameServer\obj\obj.cpp" />
-    <ClCompile Include="..\GameServer\obj\objmanager.cpp" />
-    <ClCompile Include="..\GameServer\obj\role.cpp" />
-    <ClCompile Include="..\GameServer\message\messagefunction\messagehandler.cpp" />
     <ClCompile Include="..\GameServer\frame\gameframe.cpp" />
     <ClCompile Include="..\GameServer\frame\main.cpp" />
+    <ClCompile Include="..\GameServer\main\mainthread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\commonfunction.h" />
-    <ClInclude Include="..\common\globalclass.h" />
-    <ClInclude Include="..\common\protocol\msggame.h" />
-    <ClInclude Include="..\common\protocol\msgheader.h" />
-    <ClInclude Include="..\GameServer\base\knapsack.h" />
+    <ClInclude Include="..\GameServer\db\dbthread.h" />
     <ClInclude Include="..\GameServer\define.h" />
     <ClInclude Include="..\GameServer\frame\callback.h" />
-    <ClInclude Include="..\GameServer\global\globalfunction.h" />
-    <ClInclude Include="..\GameServer\global\globalvariable.h" />
-    <ClInclude Include="..\GameServer\other\dll.h" />
-    <ClInclude Include="..\GameServer\other\example.h" />
-    <ClInclude Include="..\GameServer\other\ipc.h" />
-    <ClInclude Include="..\GameServer\other\MyDll.h" />
-    <ClInclude Include="..\GameServer\other\sharememory.h" />
-    <ClInclude Include="..\GameServer\other\showcrash.h" />
-    <ClInclude Include="..\GameServer\other\tabledef.h" />
-    <ClInclude Include="..\GameServer\poolconfig\test.h" />
-    <ClInclude Include="..\GameServer\scene\aoi.h" />
-    <ClInclude Include="..\GameServer\scene\area.h" />
-    <ClInclude Include="..\GameServer\scene\areamanager.h" />
-    <ClInclude Include="..\GameServer\scene\observer.h" />
-    <ClInclude Include="..\GameServer\scene\scene.h" />
-    <ClInclude Include="..\GameServer\scene\scenemanager.h" />
-    <ClInclude Include="..\GameServer\obj\obj.h" />
-    <ClInclude Include="..\GameServer\obj\objmanager.h" />
-    <ClInclude Include="..\GameServer\obj\role.h" />
-    <ClInclude Include="..\GameServer\message\messagefunction\messagehandler.h" />
-    <ClInclude Include="..\GameServer\message\messagetype\messagerole.h" />
-    <ClInclude Include="..\GameServer\message\messagetype\messagescene.h" />
     <ClInclude Include="..\GameServer\frame\gameframe.h" />
+    <ClInclude Include="..\GameServer\main\mainthread.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

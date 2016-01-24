@@ -12,24 +12,24 @@ public:
 
 	enum 
 	{
-		T_MAIN,
-		T_DB,
-		T_MAX,
-		T_CHAT,
-		T_LOGIN,
+		ID_MAIN,
+		ID_DB,
+		ID_MAX,
 		
 	};
 
+	void	Register(unsigned char id, BaseThread *bt);
 	void	Start();
 	void	Update();
 	void	Exit();
 	void	Wait();
+	bool	IsRun(){ return !m_is_exit; }
 
-	void	PushMsg(unsigned char type, ThreadMsg *msg);
-	void	PushGlobal(unsigned char type, ThreadMsg *msg);
+	void	PushMsg(unsigned char id, ThreadMsg *msg);
 private:
-	BaseThread	**m_thread;
-	MsgQueue<GlobalMsg *> m_global_queue;
+	BaseThread	*m_thread[ID_MAX];
+	std::thread	*m_forward_thread;
+	bool		m_is_exit;
 };
 
 #endif

@@ -19,7 +19,7 @@ public:
 	}
 	~MsgQueue(){}
 
-	bool Push(T &val)
+	bool Push(T val)
 	{
 		m_write_mutex.lock();
 		bool ret = m_write_queue->PushBack(val);

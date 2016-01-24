@@ -13,7 +13,12 @@ DBThread::DBThread(ThreadManager *manager)
 
 }
 
-void DBThread::Update()
+void DBThread::Init()
+{
+
+}
+
+void DBThread::Run()
 {
 	ThreadMsg *msg;
 	do 

@@ -26,8 +26,6 @@ public:
         return frame;
     }
 
-	bool	InitConfig();
-
     bool	Init();    //初始化
 
 	void	Update(unsigned int interval, time_t now);  //更新
@@ -47,7 +45,7 @@ private:
     OuterCallBack		m_o_call_back;
     InnerCallBack		m_i_call_back;
 
-	NetManager			m_net_manager;
+	
 	ThreadManager		m_thread_manager;
 
 	typedef game::Hash<NetHandle, int> NET_HANDLE_THREAD_HASH;
