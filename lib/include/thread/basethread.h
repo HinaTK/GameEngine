@@ -1,4 +1,4 @@
-
+﻿
 #ifndef GAME_THREAD_H
 #define GAME_THREAD_H
 

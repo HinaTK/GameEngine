@@ -1,4 +1,4 @@
-
+﻿
 #include "basethread.h"
 #include "lib/include/common/mutex.h"
 

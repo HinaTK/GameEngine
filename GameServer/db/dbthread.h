@@ -1,4 +1,4 @@
-
+﻿
 #ifndef DB_THREAD_H
 #define DB_THREAD_H
 

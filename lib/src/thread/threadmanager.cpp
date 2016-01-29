@@ -1,4 +1,4 @@
-
+ï»¿
 #include "threadmanager.h"
 #include "lib/include/timemanager/gametime.h"
 
@@ -43,7 +43,7 @@ void ThreadManager::SendMsg(unsigned char id, ThreadMsg *msg)
 	}
 	else
 	{
-		// ´òÓ¡¶ÑÕ»
+		// æ‰“å°å †æ ˆ
 	}
 }
 
@@ -68,7 +68,7 @@ void ThreadManager::Wait()
 		}
 	}
 	
-	// ×ª·¢Ïß³Ì±ØĞëÔÚÆäËûÏß³ÌÍË³öºó²ÅÄÜÍË³ö£¬²»È»»áÓ°ÏìÏß³Ì¼äÍ¨ĞÅ
+	// è½¬å‘çº¿ç¨‹å¿…é¡»åœ¨å…¶ä»–çº¿ç¨‹é€€å‡ºåæ‰èƒ½é€€å‡ºï¼Œä¸ç„¶ä¼šå½±å“çº¿ç¨‹é—´é€šä¿¡
 	m_is_exit = true;
 }
 
