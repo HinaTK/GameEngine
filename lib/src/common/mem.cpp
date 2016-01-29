@@ -21,6 +21,7 @@ unsigned int mem_config[][2] = {
 	{ 262144,   1 }
 };
 static MemoryVL g_mem_pool(mem_config, 16);
+static MemoryVL g_thread(mem_config, 16);
 
 char * Mem::Alloc(unsigned int s)
 {
@@ -30,5 +31,15 @@ char * Mem::Alloc(unsigned int s)
 void Mem::Free(void *m)
 {
     g_mem_pool.Free(m);
+}
+
+char	* Mem::TAlloc(unsigned int s)
+{
+	return (char *)g_thread.Alloc(s);
+}
+
+void Mem::TFree(void *m)
+{
+	g_thread.Free(m);
 }
 

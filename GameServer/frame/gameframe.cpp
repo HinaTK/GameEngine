@@ -2,15 +2,14 @@
 #include "gameframe.h"
 #include "common/datastructure/msgqueue.h"
 #include "common/protocol/messageheader.h"
-#include "lib/include/common/serverconfig.h"
 #include "lib/include/tinyxml/tinyxml.h"
-#include "poolconfig/test.h"
+#include "lib/include/timemanager/gametime.h"
+#include "main/mainthread.h"
+#include "db/dbthread.h"
 
 
 NewFrame::NewFrame()
-: m_game_thread_num(10)
-, m_game_thread(NULL)
-, m_o_call_back(this)
+: m_o_call_back(this)
 , m_i_call_back(this)
 {
 
@@ -18,86 +17,16 @@ NewFrame::NewFrame()
 
 NewFrame::~NewFrame()
 {
-	if (m_game_thread != NULL)
-	{
-		for (int i = 0; i < m_game_thread_num; ++i)
-		{
-			delete m_game_thread[i];
-		}
-		delete m_game_thread;
-		m_game_thread = NULL;
-	}
 
-	Exit();
-
-}
-
-bool NewFrame::InitConfig()
-{
-	if (!m_net_manager.InitServer(
-		ServerConfig::Instance().m_server[ServerConfig::GAME_SERVER].ip,
-		ServerConfig::Instance().m_server[ServerConfig::GAME_SERVER].port,
-		ServerConfig::Instance().m_server[ServerConfig::GAME_SERVER].backlog,
-		new Accepter(&m_net_manager), 
-        &m_o_call_back))
-	{
-		return false;
-	}
-
-    m_database_server_handle = m_net_manager.ConnectServer(
-        ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].ip,
-        ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].port,
-        new BaseListener(&m_net_manager),
-        &m_i_call_back);
-
-    if (m_database_server_handle == INVALID_NET_HANDLE)
-    {
-        printf("connect data server fail ...\n");
-        return false;
-    }
-
-	// 读取配置,设置m_game_thread_num的值
-// 	m_game_thread = new GameThread*[m_game_thread_num];
-// 	for (int i = 0; i < m_game_thread_num; ++i)
-// 	{
-// 		m_game_thread[i] = new GameThread(i + 1);
-// 	}
-	
-    int a = 1;
-    m_net_manager.Send(m_database_server_handle, (const char *)&a, sizeof(int));
-// 	struct Test
-// 	{
-// 		Test() :header(0){}
-// 		IProtocol::MessageHeader	header;
-// 		char a;
-// 		short b;
-// 		int c;
-// 	};
-// 	Test test;
-// 	test.a = 1;
-// 	test.b = 2;
-// 	test.c = 3;
-// 	test.header.msg_len = (sizeof(Test));
-// 	m_net_manager.Send(m_database_server_net_id, (const char *)&test, test.header.msg_len);
-// // 	send(m_database_server_net_id, (const char *)&test, 1288, 0);
-	return this->Init();
 }
 
 // 框架初始化
 bool NewFrame::Init()
 {
-	// 读取场景配置,根据不同的配置将不同的场景分配到不同的工作线程
+	m_thread_manager.Register(ThreadManager::ID_MAIN, new MainThread(&m_thread_manager));
+	m_thread_manager.Register(ThreadManager::ID_DB, new DBThread(&m_thread_manager));
+	m_thread_manager.Start();
 	return true;
-}
-
-bool NewFrame::Run()
-{
-// 	for (int i = 0; i < m_game_thread_num; ++i)
-// 	{
-// 		m_game_thread[i]->Run();
-// 	}
-
-	return Frame::Run();
 }
 
 // 构架更新
@@ -106,9 +35,11 @@ void NewFrame::Update(unsigned int interval, time_t now)
 	//m_time_event_manager.Update(now);
 	//StmtSelect();
 	//StmtInsert();
+
 	//StmtUpdate();
 	//StmtDelete();
 	//exit(0);
+	
 }
 
 void NewFrame::OuterRecv(GameMsg *msg)
@@ -127,56 +58,46 @@ void NewFrame::OuterRecv(GameMsg *msg)
 
 void NewFrame::InnerRecv(GameMsg *msg)
 {
-	static int i = 1;
-	int ret = *(int *)msg->data;
 
-	if (i != ret)
-	{
-        printf("error ret = %d\n", ret);
-		exit(0);
-	}
-//	printf("ret = %d\n", ret);
-// 	if (ret % 100 == 0)
-// 	{
-// 		printf("ret = %d\n", ret);
-// 	}
-    if (i > 1000)
-	{
-		printf("success ret = %d\n", ret);
-        exit(0);
-	}
-	else
-	{
-		i++;
-		m_net_manager.Send(m_database_server_handle, (const char *)&i, sizeof(int));
-	}
 }
 
-/* 
-	工作线程相互通信
-	scene_id 等于0，表示消息放到全局线程处理
-*/
-void NewFrame::PushMsg(GameMsg *msg, SceneID scene_id /*= 0*/)
+void NewFrame::Start()
 {
-	if (scene_id == 0)
+	m_thread_manager.Start();
+	while (IsRun())
 	{
+		char cmd_buf[512] = { 0 };
+		gets(cmd_buf);
+		if (strncmp(cmd_buf, "exit", 4) == 0)
+		{
+			SetExit();
+		}
+		else if (strncmp(cmd_buf, "test", 4) == 0)
+		{
+			for (int i = 0; i < 10001; ++i)
+			{
+				ThreadMsg *msg = new ThreadMsg(sizeof(int), (const char *)&i);
+				m_thread_manager.SendMsg(ThreadManager::ID_MAIN, msg);
+// 				ThreadMsg *msg2 = new ThreadMsg(sizeof(int), (const char *)&i);
+// 				m_thread_manager.PushMsg(ThreadManager::ID_DB, msg2);
+			}		
+		}
+//		printf("%s\n", cmd_buf);
 	}
 }
 
 
 void NewFrame::Exit()
 {
-	// 进程退出，线程也随之退出
-
+	m_thread_manager.Exit();
 	printf("game server exit\n");
 }
 
 void NewFrame::Wait()
 {
-//	for (int i = 0; i < m_game_thread_num; ++i)
-//	{
-//		m_game_thread[i]->Wait();
-//	}
+	printf("game server waiting ...\n");
+	m_thread_manager.Wait();
+	printf("game server end\n");
 }
 
 

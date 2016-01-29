@@ -16,7 +16,7 @@ public:
 };
 
 TestFrame::TestFrame()
-: m_redis_call_back(new RedisCallBack)
+: m_redis_call_back(NULL)
 {
 
 }

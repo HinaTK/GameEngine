@@ -8,6 +8,8 @@ lib/redis/
 lib/linux/
 lib/windows/
 lib/dll/
+scripts/
+conf/
 *.sdf
 *.tlog
 *.pdb
@@ -17,4 +19,5 @@ lib/dll/
 *.ilk
 *.suo
 *.opensdf
+*.dll
 *.*~

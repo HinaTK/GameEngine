@@ -2,6 +2,11 @@
 #ifndef GAME_LIST_H
 #define GAME_LIST_H
 
+/*
+	todo
+	* 存在节点无限增加的bug(当将其用作queue,即一端读出，另一端写入；会不断地增加节点)
+*/
+
 namespace game
 {
 template<class T>

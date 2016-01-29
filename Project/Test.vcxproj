@@ -34,11 +34,6 @@
     <ClInclude Include="..\Test\testthread.h" />
     <ClInclude Include="..\Test\websocket\websockettest.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LibProject\dll\dll.vcxproj">
-      <Project>{dbef1bd2-1343-464a-99a3-943bbbabb50b}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D76E6232-3941-44C4-A538-E214C3A82FE7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

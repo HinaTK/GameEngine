@@ -1,7 +1,7 @@
 #ifndef OBJ_H
 #define OBJ_H
 
-#include "common/commonvariable.h"
+#include "define.h"
 #include "global/globalvariable.h"
 
 class Obj

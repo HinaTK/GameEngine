@@ -20,8 +20,6 @@ REGISTER_MEMORYPOOL(memorypool, WebListener, 256);
 // websocket 在数据中不用加协议头
 bool WebListener::AnalyzeBuf()
 {
-	//static char extend_data[DataFrameHeader::MID_EXTEND_LEN];
-	//static char mask_data[DataFrameHeader::MASK_LEN];
 	static int length = 0;
 	unsigned int remove_len = 0;
 	int buf_len = (int)m_recv_buf.Length();
@@ -90,7 +88,6 @@ bool WebListener::AnalyzeBuf()
 		buf_len -= buf_offset;
 		remove_len += buf_offset;
 		
-		//m_recv_buf.RemoveBuf(buf_offset);
 	} while (true);
 	if (remove_len > 0)
 	{

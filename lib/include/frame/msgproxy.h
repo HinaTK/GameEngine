@@ -8,7 +8,6 @@
 	消息代理
 */
 
-// 用内存池
 class GameMsg;
 class BaseMsg
 {
@@ -34,7 +33,7 @@ public:
 	AcceptMsg(MsgCallBack *call_back) :BaseMsg(call_back){}
 	~AcceptMsg(){}
 
-	virtual void Recv(GameMsg *msg){ m_call_back->Accept(); delete msg; }
+	virtual void Recv(GameMsg *msg);
 };
 
 class RecvMsg : public BaseMsg

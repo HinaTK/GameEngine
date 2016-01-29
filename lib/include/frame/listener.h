@@ -22,7 +22,7 @@ public:
 	virtual void	OnCanRead();
 	virtual void	OnCanWrite();
 
-	virtual void	Send(const char *buf, unsigned int len);
+	virtual void	Send(const char *buf, unsigned int len) = 0;
 
 	void			RegisterWriteFD();
 
@@ -32,7 +32,7 @@ protected:
 	
 	void			UnRegisterWriteFD();
 protected:
-	RecvBufffer	m_recv_buf;
+	RecvBuffer	m_recv_buf;
 	SendBuffer	*m_send_buf_read;	// 只读
 	SendBuffer	*m_send_buf_write;	// 只写
 	std::mutex	m_send_mutex;

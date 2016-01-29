@@ -1,7 +1,6 @@
 ﻿
 #include "commonfunction.h"
 #include "socketdef.h"
-#include "commonvariable.h"
 #include "common/protocol/messageheader.h"
 
 void Function::WindowsPause()
@@ -13,8 +12,8 @@ void Function::WindowsPause()
 
 std::string Function::WorkDir()
 {
-	std::string strPath = "";
 #ifdef WIN32
+	std::string strPath = "";
 	char exeFullPath[MAX_PATH] = {0}; // Full path
 	GetModuleFileNameA(NULL, exeFullPath, MAX_PATH);
 
@@ -23,7 +22,7 @@ std::string Function::WorkDir()
 	return strPath.substr(0, pos);  // Return the directory without the file name
 #endif
 #ifdef __unix
-	return strPath;
+	return getcwd(NULL,0);
 #endif // __unix
 
 }

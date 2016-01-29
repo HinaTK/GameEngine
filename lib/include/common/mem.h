@@ -5,9 +5,9 @@
 namespace Mem
 {
 	char	*Alloc(unsigned int s);
-
 	void	Free(void *m);
 
-
+	char	*TAlloc(unsigned int s);
+	void	TFree(void *m);
 }
 #endif

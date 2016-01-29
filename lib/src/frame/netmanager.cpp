@@ -12,26 +12,10 @@
 #include "weblistener.h"
 #include "handshaker.h"
 
-NetManager::~NetManager()
-{
-#ifdef WIN32
-	FD_ZERO(&m_read_set);
-	FD_ZERO(&m_write_set);
-#endif
-
-	for (MSG_HANDLER::iterator itr = m_msg_handler.Begin(); itr != m_msg_handler.End(); ++itr)
-	{
-        delete (*itr)->msg[BaseMsg::MSG_ACCEPT];
-        delete (*itr)->msg[BaseMsg::MSG_RECV];
-        delete (*itr)->msg[BaseMsg::MSG_DISCONNECT];
-		delete (*itr);
-	}
-}
-
 
 NetManager::NetManager()
 : m_is_run(true)
-, m_msg_handle(32)
+, m_listen_thread(NULL)
 #ifdef WIN32
 , m_max_fd(0)
 #endif
@@ -42,13 +26,39 @@ NetManager::NetManager()
 	
 }
 
+NetManager::~NetManager()
+{
+#ifdef WIN32
+    FD_ZERO(&m_read_set);
+    FD_ZERO(&m_write_set);
+#endif
+
+    for (MSG_HANDLER::iterator itr = m_msg_handler.Begin(); itr != m_msg_handler.End(); ++itr)
+    {
+        delete (*itr)->msg[BaseMsg::MSG_ACCEPT];
+        delete (*itr)->msg[BaseMsg::MSG_RECV];
+        delete (*itr)->msg[BaseMsg::MSG_DISCONNECT];
+        delete (*itr);
+    }
+
+    for (NET_HANDLER_ARRAY::iterator itr = m_net_handler.Begin(); itr != m_net_handler.End(); ++itr)
+    {
+        NetCommon::Close((*itr)->m_sock);
+        delete (*itr);
+    }
+
+	if (m_listen_thread)
+	{
+		delete m_listen_thread;
+	}
+}
 
 unsigned int NetManager::AddMsgHandler(MsgCallBack *call_back)
 {
 	MsgHandler *mh = new MsgHandler;
-	mh->msg[BaseMsg::MSG_ACCEPT] = new AcceptMsg(call_back);
-	mh->msg[BaseMsg::MSG_RECV] = new RecvMsg(call_back);
-	mh->msg[BaseMsg::MSG_DISCONNECT] = new DisconnectMsg(call_back);
+	mh->msg[BaseMsg::MSG_ACCEPT]		= new AcceptMsg(call_back);
+	mh->msg[BaseMsg::MSG_RECV]			= new RecvMsg(call_back);
+	mh->msg[BaseMsg::MSG_DISCONNECT]	= new DisconnectMsg(call_back);
 	return m_msg_handler.Insert(mh);
 }
 
@@ -59,15 +69,16 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, Accepter
 	NetCommon::StartUp();
 	if (!NetCommon::Init(ip, port, backlog, net_id))
 	{
+        delete accepter;
 		return false;
 	}
 #ifdef __unix
 	struct epoll_event ev;
 	ev.events = EPOLLIN | EPOLLET;
-    //ev.data.fd = net_id;
     ev.data.ptr = (void *)accepter;
 	if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, net_id, &ev) < 0)
 	{
+        delete accepter;
 		return false;	// 写log
 	}
 #endif
@@ -82,10 +93,9 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, Accepter
 /*
 	
 */
-NetHandle NetManager::ConnectServer(char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back)
+NetHandle NetManager::ConnectServer(const char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back)
 {
 	printf("connect to Server ip = %s, port = %d\n", ip, port);
-
 
 	NetCommon::StartUp();
 
@@ -114,7 +124,6 @@ NetHandle NetManager::ConnectServer(char *ip, unsigned short port, Listener *lis
 #ifdef __unix
 	struct epoll_event ev;
 	ev.events = EPOLLIN | EPOLLET;
-    //ev.data.fd = sock;
     ev.data.ptr = (void *)listener;
 	if (epoll_ctl(m_epoll_fd, EPOLL_CTL_ADD, sock, &ev) < 0)
 	{
@@ -129,7 +138,15 @@ NetHandle NetManager::ConnectServer(char *ip, unsigned short port, Listener *lis
 	return AddNetHandler(listener);
 }
 
-void NetManager::Listen()
+void *Loop(void *arg)
+{
+	NetManager *manager = (NetManager *)arg;
+	manager->Loop();
+	return NULL;
+}
+
+
+void NetManager::Loop()
 {
 #ifdef WIN32
 	int ret = 0;
@@ -147,6 +164,7 @@ void NetManager::Listen()
 		ret = select(max_fd + 1, &temp_read_set, &temp_write_set, NULL, &tv);
 		if (ret > 0)
 		{
+			m_net_mutex.lock();
 			NetManager::NET_HANDLER_ARRAY::iterator itr = m_net_handler.Begin();
 			for (; itr != m_net_handler.End(); ++itr)
 			{
@@ -161,6 +179,7 @@ void NetManager::Listen()
 			}
 			ReplaceHandler();
 			ClearHandler();
+			m_net_mutex.unlock();
 		}
 		else if (max_fd <= 0)
 		{
@@ -194,7 +213,7 @@ void NetManager::Listen()
 		else
 		{
 			// 写log
-            usleep(10000);
+			usleep(10000);
 		}
 	}
 #endif
@@ -306,12 +325,13 @@ SOCKET NetManager::GetSocketInfo(fd_set &read_set, fd_set &write_set)
 }
 #endif	
 
-void NetManager::Send(NetHandle handle, const char *buf, unsigned int length)
+bool NetManager::Send(NetHandle handle, const char *buf, unsigned int length)
 {
+	MutexLock lock(&m_net_mutex);
 	NET_HANDLER_ARRAY::iterator itr = m_net_handler.Find(handle);
 	if (itr == m_net_handler.End())
 	{
-		return;
+		return false;
 	}
 
 	if ((*itr)->Type() == NetHandler::LISTENER)
@@ -321,8 +341,10 @@ void NetManager::Send(NetHandle handle, const char *buf, unsigned int length)
 		{
             listener->Send(buf, length);
             listener->RegisterWriteFD();
+			return true;
 		}
 	}
+	return false;
 }
 
 void NetManager::PushMsg(NetHandler *handler, unsigned short msg_type, const char *data, unsigned int len)
@@ -343,7 +365,6 @@ void NetManager::Update()
 				if (msg->handle >= 0)
 				{
 					m_msg_handler[msg->msg_index]->msg[msg->msg_type]->Recv(msg);
-					//m_msg_handle[msg->call_back_handle]->Recv(msg);
 					// 内存交给下游处理
 					// delete (*msg);
 				}
@@ -358,6 +379,25 @@ void NetManager::Update()
 			break;
 		}
 	} while (true);
+}
+
+
+void NetManager::Listen()
+{
+	m_listen_thread = new std::thread(::Loop, this);
+}
+
+void NetManager::Exit()
+{
+	m_is_run = false;
+}
+
+void NetManager::Wait()
+{
+	if (m_listen_thread != NULL)
+	{
+		m_listen_thread->join();
+	}
 }
 
 

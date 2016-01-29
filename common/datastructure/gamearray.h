@@ -66,7 +66,7 @@ public:
 		T		val;
 		bool	be_used;
 	};
-	unsigned int	Insert(T &val);
+	unsigned int	Insert(T val);
 
 	void			Erase(unsigned int index);
 
@@ -92,7 +92,7 @@ public:
 	}
 
 	// index 由外部保证
-	T&				operator[](unsigned int index){ return m_value[index].val; }
+	T				operator[](unsigned int index){ return m_value[index].val; }
 
 	void			Clear();
 private:
@@ -117,7 +117,7 @@ Array<T>::Array(unsigned int size)
 // m_index_pool这样处理有问题，因为放到池里的索引可能很大，再读出来的时候，会浪费性能 2015.1.27
 
 template<class T>
-unsigned int Array<T>::Insert(T &val)
+unsigned int Array<T>::Insert(T val)
 {
 	unsigned int index = -1;
 	ValueState vs = { val, true };

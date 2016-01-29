@@ -23,7 +23,7 @@ public:
     int					Day();									// 格式20130818
 	int					Hour();									// 格式13
     int					DaySecond();							// 格式144635  时分秒
-	static	void		GameSleep(unsigned int ms);
+	static	void		Sleep(unsigned int ms);
 
 	void				Update();
 

@@ -3,12 +3,14 @@
 #include <string.h>
 #include "dataframe.h"
 #include "lib/include/common/serverconfig.h"
+#include "lib/include/timemanager/gametime.h"
 #include "lib/include/cache/datacache.h"
+#include "lib/include/redis/redis.h"
+#include "lib/include/frame/listener.h"
 #include "common/globalclass.h"
 #include "common/commonfunction.h"
 #include "cache/datamapmanager.h"
-#include "lib/include/redis/redis.h"
-#include "lib/include/frame/listener.h"
+
 
 
 NewFrame::NewFrame()
@@ -28,7 +30,8 @@ bool NewFrame::InitConfig()
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].ip,
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].port,
 		ServerConfig::Instance().m_server[ServerConfig::DATABASE_SERVER].backlog,
-        new Accepter(&m_net_manager), &m_i_call_back))
+        new Accepter(&m_net_manager),
+        &m_i_call_back))
 	{
 		return false;
 	}
@@ -114,20 +117,36 @@ bool NewFrame::Init()		// 框架初始化
 	return true;
 }
 
+static unsigned long long begin = GameTime::Instance().MilliSecond();
 void NewFrame::Recv(GameMsg *msg)
 {
-    int ret = *(int *)msg->data;
-    printf("ret = %d\n", ret);
-	Send(msg->handle, msg->data, msg->length);
+//    int ret = *(int *)msg->data;
+//    printf("ret = %d\n", ret);
 
-	delete msg;
-	//m_message_handler.HandleMessage(msg);
 
-//    if (ret >= 1000)
+    Send(msg->handle, msg->data, msg->length);
+
+//    if (1 < ret && ret < 100000)
 //    {
-//        printf("fuck exit\n");
-//        exit(0);
+//        Send(msg->handle, msg->data, msg->length);
+//        delete msg;
 //    }
+//    else if (ret <= 1)
+//	{
+//		begin = GameTime::Instance().MilliSecond();
+//        Send(msg->handle, msg->data, msg->length);
+//        delete msg;
+//	}
+//    else if (ret == 100000)
+//	{
+//		printf("fuck exit %d\n", GameTime::Instance().MilliSecond() - begin);
+//        SetExit();
+//	}
+//    else
+//    {
+//        return;
+//    }
+
 }
 
 void NewFrame::Update(unsigned int interval, time_t now)	// 构架更新

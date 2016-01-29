@@ -5,7 +5,7 @@
 #include "bufmanager.h"
 #include "lib/include/common/memorypool.h"
 
-REGISTER_MEMORYPOOL(memorypool, RecvBufffer, 256);
+REGISTER_MEMORYPOOL(memorypool, RecvBuffer, 256);
 REGISTER_MEMORYPOOL(memorypool, SendBuffer, 256);
 
 BufManager::BufManager(unsigned int size)
@@ -27,11 +27,11 @@ BufManager::~BufManager()
 
 bool BufManager::Resize(unsigned int size)
 {
-	char *new_buf = Mem::Alloc(size);
+	char *new_buf = Mem::Alloc(m_size + size);
 	memcpy(new_buf, m_buf, m_length);
 	Mem::Free(m_buf);
 	m_buf = new_buf;
-	m_size = size;
+	m_size += size;
 	return true;
 }
 
@@ -55,12 +55,12 @@ void BufManager::RemoveBuf(unsigned int len)
 
 
 
-RecvBufffer::~RecvBufffer()
+RecvBuffer::~RecvBuffer()
 {
 
 }
 
-RecvBufffer::RecvBufffer(unsigned int size /*= 64*/)
+RecvBuffer::RecvBuffer(unsigned int size /*= 64*/)
 : BufManager(size)
 {
 

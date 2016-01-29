@@ -21,7 +21,6 @@ public:
 	bool	InitConfig();
 
     bool	Init();    //初始化
-
  
 	void	Update(unsigned int interval, time_t now);  //更新
 
