@@ -22,9 +22,6 @@ public:
 	virtual void Run() = 0;
 
 	void			PushMsg(ThreadMsg *msg);
-	bool			PopMsg(GlobalMsg *msg);
-
-	void			Send(unsigned char id, ThreadMsg *msg);
 
 	void			Exit(){ m_is_exit = true; }
 	void			Wait();
@@ -37,7 +34,6 @@ protected:
 	bool			m_is_exit;
 
 	MsgQueue<ThreadMsg *> m_recv_queue;
-	MsgQueue<GlobalMsg *> m_send_queue;
 };
 
 #endif 

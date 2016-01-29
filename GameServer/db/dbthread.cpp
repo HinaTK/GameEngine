@@ -24,16 +24,16 @@ void DBThread::Run()
 	ThreadMsg *msg;
 	do 
 	{
-		while (m_recv_queue.Pop(msg))
-		{
-			int ret = *(int *)msg->data;
-			if (dbi == ret)
-			{
-				printf("DBThread %d ...\n", ret);
-			}
-			dbi++;
-			delete msg;
-		}
+// 		while (m_recv_queue.Pop(msg, 0))
+// 		{
+// 			int ret = *(int *)msg->data;
+// 			//if (dbi == ret)
+// // 			{
+// // 				printf("DBThread %d ...\n", ret);
+// // 			}
+// // 			dbi++;
+// 			delete msg;
+// 		}
 		
 		GameTime::Sleep(100);
 	} while (!m_is_exit);

@@ -10,27 +10,39 @@ MainThread::MainThread(ThreadManager *manager)
 
 }
 
+int mm = 0;
 void MainThread::Run()
 {
 	ThreadMsg *msg;
 	do
 	{
 		bool is_sleep = true;
-		while (m_recv_queue.Pop(msg))
+		while (m_recv_queue.Pop(msg/*, mm*/))
 		{
+			
 			int ret = *(int *)msg->data;
-			printf("MainThread ... %d \n", ret);
-			m_manager->SendMsg(ThreadManager::ID_DB, msg);
+			if (mm != ret)
+			{
+				printf("MainThread ... %d \n", ret);
+			}
+			else if (mm >= 10000)
+			{
+				break;
+			}
+			
+			//m_manager->SendMsg(ThreadManager::ID_DB, msg);
 			//Send(ThreadManager::ID_DB, msg);
 			is_sleep = false;
+			++mm;
 		}
 
 		if (is_sleep)
 		{
-			GameTime::Sleep(10);
+			GameTime::Sleep(2);
 		}
 		
 	} while (!m_is_exit);
+	printf("end \n");
 }
 
 void MainThread::Init()

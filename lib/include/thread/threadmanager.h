@@ -20,7 +20,6 @@ public:
 
 	void	Register(unsigned char id, BaseThread *bt);
 	void	Start();
-	void	Update();
 	void	Exit();
 	void	Wait();
 	bool	IsRun(){ return !m_is_exit; }
@@ -28,7 +27,6 @@ public:
 	void	SendMsg(unsigned char id, ThreadMsg *msg);
 private:
 	BaseThread	*m_thread[ID_MAX];
-	std::thread	*m_forward_thread;
 	bool		m_is_exit;
 };
 

@@ -35,16 +35,6 @@ void BaseThread::PushMsg(ThreadMsg *msg)
 	m_recv_queue.Push(msg);
 }
 
-bool BaseThread::PopMsg(GlobalMsg *msg)
-{
-	return m_send_queue.Pop(msg);
-}
-
-void BaseThread::Send(unsigned char id, ThreadMsg *msg)
-{
-	m_send_queue.Push(new GlobalMsg(id, msg));
-}
-
 void BaseThread::Wait()
 {
 	if (m_thread)

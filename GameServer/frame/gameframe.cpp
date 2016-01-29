@@ -74,7 +74,7 @@ void NewFrame::Start()
 		}
 		else if (strncmp(cmd_buf, "test", 4) == 0)
 		{
-			for (int i = 0; i < 100; ++i)
+			for (int i = 0; i < 10001; ++i)
 			{
 				ThreadMsg *msg = new ThreadMsg(sizeof(int), (const char *)&i);
 				m_thread_manager.SendMsg(ThreadManager::ID_MAIN, msg);
@@ -82,7 +82,7 @@ void NewFrame::Start()
 // 				m_thread_manager.PushMsg(ThreadManager::ID_DB, msg2);
 			}		
 		}
-		printf("%s\n", cmd_buf);
+//		printf("%s\n", cmd_buf);
 	}
 }
 
