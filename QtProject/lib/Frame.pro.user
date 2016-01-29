@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
+<<<<<<< HEAD
+<!-- Written by QtCreator 3.5.1, 2015-11-29T18:16:30. -->
+=======
 <!-- Written by QtCreator 3.5.1, 2015-12-31T17:37:23. -->
+>>>>>>> 850cca66c2bc891d7a3f9aaaeb0758e0dade3d31
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -126,7 +130,7 @@
     <value type="bool" key="Qt4ProjectManager.Qt4BuildConfiguration.UseShadowBuild">true</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.1">
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/jiaming/git/GameEngine/QtProject/build-Frame-Desktop_Qt_5_5_1_GCC_64bit-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/jiaming/git/GameEngine/QtProject/lib/build-frame-Desktop_Qt_5_5_1_GCC_64bit-Release</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
