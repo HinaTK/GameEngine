@@ -24,7 +24,7 @@ NewFrame::~NewFrame()
 bool NewFrame::Init()
 {
 	m_thread_manager.Register(ThreadManager::ID_MAIN, new MainThread(&m_thread_manager));
-	//m_thread_manager.Register(ThreadManager::ID_DB, new DBThread(&m_thread_manager));
+	m_thread_manager.Register(ThreadManager::ID_DB, new DBThread(&m_thread_manager));
 	m_thread_manager.Start();
 	return true;
 }
@@ -55,6 +55,11 @@ void NewFrame::InnerRecv(GameMsg *msg)
 
 void NewFrame::Start()
 {
+	struct qqq
+	{
+		int id;
+		int val;
+	};
 	while (IsRun())
 	{
 		char cmd_buf[512] = { 0 };
@@ -65,9 +70,13 @@ void NewFrame::Start()
 		}
 		else if (strncmp(cmd_buf, "test", 4) == 0)
 		{
-            for (int i = 0; i < 10001; ++i)
+			int a = 1;
+			ThreadMsg *msg = new ThreadMsg(sizeof(int), (const char *)&a);
+			m_thread_manager.SendMsg(ThreadManager::ID_DB, msg);
+            for (int i = 0; i < 1000001; ++i)
 			{
-				ThreadMsg *msg = new ThreadMsg(sizeof(int), (const char *)&i);
+				qqq q{ 123, i };
+				ThreadMsg *msg = new ThreadMsg(sizeof(qqq), (const char *)&q);
 				m_thread_manager.SendMsg(ThreadManager::ID_MAIN, msg);
 // 				ThreadMsg *msg2 = new ThreadMsg(sizeof(int), (const char *)&i);
 // 				m_thread_manager.PushMsg(ThreadManager::ID_DB, msg2);

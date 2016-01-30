@@ -19,7 +19,7 @@ public:
 	virtual ~BaseThread();
 
 	void	Start();
-	void	Loop();
+	void	Loop(bool sleep = true);
 
 	void	PushMsg(ThreadMsg *msg);
 	void	Exit();

@@ -20,18 +20,39 @@ void MainThread::Run()
 	
 }
 
+int db = 0;
 int mm = 0;
+struct qqq
+{
+	int id;
+	int val;
+};
 void MainThread::RecvMsg(ThreadMsg *msg)
 {
-	int ret = *(int *)msg->data;
-	if (mm != ret)
+	qqq ret = *(qqq *)msg->data;
+	if (ret.id == ThreadManager::ID_DB)
 	{
-		printf("MainThread ... %d \n", ret);
+		if (db != ret.val)
+		{
+			printf("db MainThread ... %d \n", ret.val);
+		}
+		else if (ret.val >= 1000000)
+		{
+			printf("db end \n");
+		}
+		++db;
 	}
-	else if (ret >= 10000)
+	else
 	{
-		printf("end \n");
+		if (mm != ret.val)
+		{
+			printf("mm MainThread ... %d \n", ret.val);
+		}
+		else if (ret.val >= 1000000)
+		{
+			printf("mm end \n");
+		}
+		++mm;
 	}
-	++mm;
 }
 

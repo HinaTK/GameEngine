@@ -1,5 +1,6 @@
 ﻿
 #include "dbthread.h"
+#include "lib/include/thread/threadmanager.h"
 
 
 DBThread::~DBThread()
@@ -21,27 +22,25 @@ void DBThread::Init()
 int dbi = 0;
 void DBThread::Run()
 {
-	ThreadMsg *msg;
-	do 
-	{
-// 		while (m_recv_queue.Pop(msg, 0))
-// 		{
-// 			int ret = *(int *)msg->data;
-// 			//if (dbi == ret)
-// // 			{
-// // 				printf("DBThread %d ...\n", ret);
-// // 			}
-// // 			dbi++;
-// 			delete msg;
-// 		}
-		
-		GameTime::Sleep(100);
-	} while (!m_is_exit);
+	
 }
 
 void DBThread::RecvMsg(ThreadMsg *msg)
 {
+	struct qqq
+	{
+		int id;
+		int val;
+	};
 
+	for (int i = 0; i < 1000001; ++i)
+	{
+		qqq q{ ThreadManager::ID_DB, i };
+		ThreadMsg *msg = new ThreadMsg(sizeof(qqq), (const char *)&q);
+		m_manager->SendMsg(ThreadManager::ID_MAIN, msg);
+		// 				ThreadMsg *msg2 = new ThreadMsg(sizeof(int), (const char *)&i);
+		// 				m_thread_manager.PushMsg(ThreadManager::ID_DB, msg2);
+	}
 }
 
 

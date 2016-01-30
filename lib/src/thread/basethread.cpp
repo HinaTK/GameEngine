@@ -30,16 +30,23 @@ void BaseThread::Start()
 	m_thread = new std::thread(::Update, this);
 }
 
-void BaseThread::Loop()
+void BaseThread::Loop(bool sleep)
 {
 	ThreadMsg *msg;
+	bool is_sleep = sleep;
 	do 
 	{
+		is_sleep = sleep;
 		Run();
 		while (m_recv_queue.Pop(msg))
 		{
 			this->RecvMsg(msg);
 			delete msg;
+			is_sleep = false;
+		}
+		if (is_sleep)
+		{
+			GameTime::Sleep(2);
 		}
 
 	} while (!m_is_exit);

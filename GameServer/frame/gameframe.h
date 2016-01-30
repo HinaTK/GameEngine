@@ -29,6 +29,7 @@ public:
     bool	Init();    //初始化
 
 	void	Update(unsigned int interval, time_t now);  //更新
+	void	Loop(){}
     void	Exit();
 	void	Wait();
 	void	OuterRecv(GameMsg *msg);
