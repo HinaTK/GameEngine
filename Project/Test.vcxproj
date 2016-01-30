@@ -15,6 +15,7 @@
     <ClCompile Include="..\common\globalclass.cpp" />
     <ClCompile Include="..\Test\main.cpp" />
     <ClCompile Include="..\Test\testframe.cpp" />
+    <ClCompile Include="..\Test\testthread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\globalclass.h" />
@@ -87,7 +88,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\lib\windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Tinyxml.lib;Frame.lib;Common.lib;TimeManager.lib;Log.lib;Cache.lib;redis.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Tinyxml.lib;Frame.lib;Common.lib;TimeManager.lib;Log.lib;Cache.lib;redis.lib;Thread.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

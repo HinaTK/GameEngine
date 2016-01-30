@@ -24,7 +24,7 @@ NewFrame::~NewFrame()
 bool NewFrame::Init()
 {
 	m_thread_manager.Register(ThreadManager::ID_MAIN, new MainThread(&m_thread_manager));
-	m_thread_manager.Register(ThreadManager::ID_DB, new DBThread(&m_thread_manager));
+	//m_thread_manager.Register(ThreadManager::ID_DB, new DBThread(&m_thread_manager));
 	m_thread_manager.Start();
 	return true;
 }
@@ -32,14 +32,6 @@ bool NewFrame::Init()
 // 构架更新
 void NewFrame::Update(unsigned int interval, time_t now)
 {
-	//m_time_event_manager.Update(now);
-	//StmtSelect();
-	//StmtInsert();
-
-	//StmtUpdate();
-	//StmtDelete();
-	//exit(0);
-	
 }
 
 void NewFrame::OuterRecv(GameMsg *msg)
@@ -63,7 +55,6 @@ void NewFrame::InnerRecv(GameMsg *msg)
 
 void NewFrame::Start()
 {
-	m_thread_manager.Start();
 	while (IsRun())
 	{
 		char cmd_buf[512] = { 0 };
@@ -74,7 +65,7 @@ void NewFrame::Start()
 		}
 		else if (strncmp(cmd_buf, "test", 4) == 0)
 		{
-			for (int i = 0; i < 10001; ++i)
+			for (int i = 0; i < 10000001; ++i)
 			{
 				ThreadMsg *msg = new ThreadMsg(sizeof(int), (const char *)&i);
 				m_thread_manager.SendMsg(ThreadManager::ID_MAIN, msg);
