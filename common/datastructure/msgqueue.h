@@ -31,7 +31,7 @@ public:
 		return ret;
 	}
 
-	bool Pop(T &val/*, int tt*/)
+	bool Pop(T &val)
 	{
 		if (m_read_queue->Pop(val))
 		{
@@ -40,13 +40,6 @@ public:
 		
 		game::Queue<T> *temp = m_read_queue;
 		m_write_mutex.lock();
-// 		if (tt > 0 && tt < 100)
-// 		{
-// 			printf("m_write_queue ....... %d \n", tt);
-// 			m_write_queue->Show();
-// 			printf("m_read_queue ....... %d \n", tt);
-// 			m_read_queue->Show();
-// 		}
 		m_read_queue = m_write_queue;
 		m_write_queue = temp;
 		m_write_mutex.unlock();

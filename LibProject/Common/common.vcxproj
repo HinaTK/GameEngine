@@ -18,7 +18,6 @@
     <ClInclude Include="..\..\lib\include\common\mutex.h" />
     <ClInclude Include="..\..\lib\include\common\serializer.h" />
     <ClInclude Include="..\..\lib\include\common\serverconfig.h" />
-    <ClInclude Include="..\..\lib\include\common\thread.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\common\md5.cpp" />
@@ -27,7 +26,6 @@
     <ClCompile Include="..\..\lib\src\common\memoryvl.cpp" />
     <ClCompile Include="..\..\lib\src\common\serializer.cpp" />
     <ClCompile Include="..\..\lib\src\common\serverconfig.cpp" />
-    <ClCompile Include="..\..\lib\src\common\thread.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8F0F74CF-3672-4629-98D4-322BA0ACFC7B}</ProjectGuid>

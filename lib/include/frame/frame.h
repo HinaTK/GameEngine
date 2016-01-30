@@ -2,9 +2,7 @@
 #ifndef FRAME_H
 #define FRAME_H
 
-#include "netmanager.h"
 #include "lib/include/timemanager/timemanager.h"
-#include "lib/include/log/logmanager.h"
 #include "accepter.h"
 #include "webaccepter.h"
 #include "listener.h"

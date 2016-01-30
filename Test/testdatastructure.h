@@ -449,13 +449,14 @@ namespace TestDataStructure
 
 	}
 
-	int test_time = 500000;
-	MsgQueue<int> test_msg_queue1;
+	int test_time = 50000000;
+	MsgQueue<int *> test_msg_queue1;
 	void TestMsgQueue3()
  	{
 		for (int i = 0; i <= test_time; ++i)
 		{
-			test_msg_queue1.Push(i);
+			int *a = new int(i);
+			test_msg_queue1.Push(a);
 		}
 	}
 
@@ -464,19 +465,24 @@ namespace TestDataStructure
 		std::thread thread1(TestMsgQueue3);
 		for (int i = 0; i <= test_time;)
 		{
-			int val = 0;
+			int *val = 0;
 			if (test_msg_queue1.Pop(val))
 			{
-				//printf("val = %d\n", val);
-				if (val != i)
+				
+				if ((*val) != i)
 				{
-					printf("val = %d, i = %d\n", val, i);
+					printf("val = %d, i = %d\n", *val, i);
 					break;
 				}
-				else if (val == test_time)
+				else if ((*val) == test_time)
 				{
 					break;
 				}
+				else if ((*val) % 100000 == 0)
+				{
+					printf("show val = %d, i = %d\n", (*val), i);
+				}
+				delete val;
 				++i;
 			}
 	

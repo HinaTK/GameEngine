@@ -13,11 +13,12 @@ MainThread::MainThread(ThreadManager *manager)
 int mm = 0;
 void MainThread::Run()
 {
+	// 单独拿到Test去测试
 	ThreadMsg *msg;
 	do
 	{
 		bool is_sleep = true;
-		while (m_recv_queue.Pop(msg/*, mm*/))
+		while (m_recv_queue.Pop(msg))
 		{
 			
 			int ret = *(int *)msg->data;
@@ -25,12 +26,18 @@ void MainThread::Run()
 			{
 				printf("MainThread ... %d \n", ret);
 			}
+<<<<<<< HEAD
             else if (mm >= 100000)
 			{
                 m_is_exit = true;
+=======
+			else if (mm >= 10000000)
+			{
+				m_is_exit = true;
+>>>>>>> 435c01d82244ce8cb7bada02c6bfe21cd2bd3e61
 				break;
 			}
-			
+			delete msg;
 			//m_manager->SendMsg(ThreadManager::ID_DB, msg);
 			//Send(ThreadManager::ID_DB, msg);
 			is_sleep = false;

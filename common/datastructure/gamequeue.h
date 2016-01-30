@@ -58,15 +58,6 @@ namespace game
 
 		unsigned int	Size(){ return m_size; }
 		void			Clear();
-		void			Show()
-		{
-			ListNode *temp = m_list_head;
-			while (temp != m_list_tail)
-			{
-				printf("temp ..................... %d\n", *(int *)(temp->val->data));
-				temp = temp->next;
-			}
-		}
 
 	protected:
 		void			Resize();

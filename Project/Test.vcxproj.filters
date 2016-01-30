@@ -39,10 +39,10 @@
     <ClInclude Include="..\Test\testmemory.h" />
     <ClInclude Include="..\Test\testother.h" />
     <ClInclude Include="..\Test\testcache.h" />
-    <ClInclude Include="..\Test\testthread.h" />
     <ClInclude Include="..\Test\testframe.h" />
     <ClInclude Include="..\Test\testredis.h" />
     <ClInclude Include="..\Test\testchrono.h" />
+    <ClInclude Include="..\Test\testthread.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Test\main.cpp" />
@@ -51,5 +51,6 @@
       <Filter>global</Filter>
     </ClCompile>
     <ClCompile Include="..\Test\testframe.cpp" />
+    <ClCompile Include="..\Test\testthread.cpp" />
   </ItemGroup>
 </Project>

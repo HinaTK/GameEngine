@@ -13,8 +13,9 @@ public:
 	enum 
 	{
 		ID_MAIN,
-		ID_DB,
 		ID_MAX,
+		ID_DB,
+		
 		
 	};
 

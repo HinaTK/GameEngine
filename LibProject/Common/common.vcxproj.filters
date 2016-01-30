@@ -24,9 +24,6 @@
     <ClInclude Include="..\..\lib\include\common\serverconfig.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\common\thread.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\lib\include\common\mem.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -45,9 +42,6 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\common\serverconfig.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\lib\src\common\thread.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\common\mem.cpp">

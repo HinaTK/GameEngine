@@ -1,6 +1,5 @@
 ﻿
 #include <signal.h>
-#include <thread>
 #include "frame.h"
 #include "netcommon.h"
 #include "message.h"

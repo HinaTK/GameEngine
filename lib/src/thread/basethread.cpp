@@ -4,8 +4,7 @@
 
 void *Update(void * arg)
 {
-	BaseThread *gt = (BaseThread *)arg;
-	gt->Run();
+	((BaseThread *)arg)->Run();
 	return NULL;
 }
 
