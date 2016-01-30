@@ -25,8 +25,9 @@ void MainThread::Run()
 			{
 				printf("MainThread ... %d \n", ret);
 			}
-			else if (mm >= 10000)
+            else if (mm >= 100000)
 			{
+                m_is_exit = true;
 				break;
 			}
 			
