@@ -4,6 +4,7 @@
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/frame/baselistener.h"
 
+
 MainThread::MainThread(ThreadManager *manager)
 : BaseThread(manager)
 {
@@ -12,12 +13,13 @@ MainThread::MainThread(ThreadManager *manager)
 
 void MainThread::Init()
 {
-
+	m_lua_interface.LoadFile("/../scripts/zmxd_gate/Main.lua");
+	m_lua_interface.OnInit();
 }
 
 void MainThread::Run()
 {
-	
+	m_net_manager.Update();
 }
 
 int mm = 0;

@@ -13,7 +13,6 @@ int main()
 	}
 
 	NewFrame::Instance().Start();
-	//Function::WindowsPause();
-
+	
 	return 0;
 }

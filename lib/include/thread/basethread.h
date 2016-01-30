@@ -19,15 +19,16 @@ public:
 	virtual ~BaseThread();
 
 	void	Start();
-	virtual void Run() = 0;
+	void	Loop();
 
-	void			PushMsg(ThreadMsg *msg);
-
-	void			Exit(){ m_is_exit = true; }
-	void			Wait();
+	void	PushMsg(ThreadMsg *msg);
+	void	Exit();
+	void	Wait();
 
 protected:
 	virtual void	Init() = 0;
+	virtual void	Run() = 0;
+	virtual void	RecvMsg(ThreadMsg *msg) = 0;
 protected:
 	ThreadManager	*m_manager;
 	std::thread		*m_thread;

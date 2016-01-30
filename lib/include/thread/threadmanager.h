@@ -13,22 +13,23 @@ public:
 	enum 
 	{
 		ID_MAIN,
-		ID_MAX,
 		ID_DB,
-		
-		
+		ID_LOGIN,
+		ID_CHAT,
+		ID_GATE,
+		ID_GATE2,
+		ID_LOG,
+		ID_MAX,	
 	};
 
 	void	Register(unsigned char id, BaseThread *bt);
 	void	Start();
 	void	Exit();
 	void	Wait();
-	bool	IsRun(){ return !m_is_exit; }
 
 	void	SendMsg(unsigned char id, ThreadMsg *msg);
 private:
 	BaseThread	*m_thread[ID_MAX];
-	bool		m_is_exit;
 };
 
 #endif

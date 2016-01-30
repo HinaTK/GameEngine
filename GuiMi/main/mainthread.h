@@ -4,6 +4,7 @@
 
 #include "lib/include/thread/basethread.h"
 #include "lib/include/frame/netmanager.h"
+#include "lua/interface.h"
 
 class ThreadManager;
 class MainThread : public BaseThread
@@ -18,6 +19,7 @@ protected:
 	void	RecvMsg(ThreadMsg *msg);
 private:
 	NetManager	m_net_manager;
+	Interface	m_lua_interface;
 };
 
 #endif

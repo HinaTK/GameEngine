@@ -42,6 +42,7 @@ static int CppListen(lua_State *L)
 	{
 		ret = net_manager->InitServer("0.0.0.0", port, back_log, new Accepter(net_manager), NewFrame::Instance().GetInterface()->GetOuterCallBack());
 	}
+	
 	lua_pushboolean(L, ret);
 	return 1;
 }
@@ -53,8 +54,15 @@ static int CppListenXXX(lua_State *L)
 	int back_log = luaL_checkinteger(L, 3);
 
 	bool ret = net_manager->InitServer("0.0.0.0", port, back_log, new Accepter(net_manager), NewFrame::Instance().GetInterface()->GetXXXCallBack());
+	net_manager->Listen();
 	lua_pushboolean(L, ret);
 	return 1;
+}
+
+static int CppDoListen(lua_State *L)
+{
+	net_manager->Listen();
+	return 0;
 }
 
 static int CppConnect(lua_State *L)
@@ -331,6 +339,7 @@ bool Interface::LoadFile(const char *file)
 	RegisterGlobalFunc(CppDisconnect);
 	RegisterGlobalFunc(CppListen);
 	RegisterGlobalFunc(CppListenXXX);
+	RegisterGlobalFunc(CppDoListen);
 	RegisterGlobalFunc(CppSend);
 	RegisterGlobalFunc(CppPrint);
 	RegisterGlobalFunc(CppDecGsNetid);

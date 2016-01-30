@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="frame">
+      <UniqueIdentifier>{08394562-94e4-4fb3-a976-72cdac4609c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{7b259557-25d4-46f7-bc1e-ac98d215e49b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua">
+      <UniqueIdentifier>{d22422a4-beb0-426e-884a-9d036a210c58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene">
+      <UniqueIdentifier>{26ae054a-a3da-4fc4-9ed4-62d814eb9627}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="obj">
+      <UniqueIdentifier>{15c4b250-f44c-4e3e-be66-f4d2a86fc174}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\GuiMi\frame\guimi.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\frame\main.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\lua\interface.cpp">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\lua\callback.cpp">
+      <Filter>lua</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\scene\aoi.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\scene\area.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\scene\areamanager.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\scene\observer.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\obj\obj.cpp">
+      <Filter>obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\obj\objmanager.cpp">
+      <Filter>obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\scene\scene.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\scene\scenemanager.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\frame\allocmemory.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\scene\map.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\common\commonfunction.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GuiMi\obj\role.cpp">
+      <Filter>obj</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\GuiMi\frame\guimi.h">
+      <Filter>frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\lua\interface.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\lua\luadef.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\lua\callback.h">
+      <Filter>lua</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\scene\aoi.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\scene\area.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\scene\areamanager.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\scene\observer.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\define.h" />
+    <ClInclude Include="..\GuiMi\obj\obj.h">
+      <Filter>obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\obj\objmanager.h">
+      <Filter>obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\scene\scene.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\scene\scenemanager.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\scene\map.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\common\commonfunction.h">
+      <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GuiMi\obj\role.h">
+      <Filter>obj</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

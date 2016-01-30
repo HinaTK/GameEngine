@@ -5,6 +5,7 @@
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/tinyxml/tinyxml.h"
 #include "lib/include/timemanager/gametime.h"
+#include "main/mainthread.h"
 
 
 NewFrame::NewFrame()
@@ -37,6 +38,11 @@ bool NewFrame::Run()
 void NewFrame::Update(unsigned int interval, time_t now)
 {
 
+}
+
+void NewFrame::Loop()
+{
+	m_net_manager.Update();
 }
 
 void NewFrame::OuterRecv(GameMsg *msg)

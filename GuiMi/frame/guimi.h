@@ -28,6 +28,7 @@ public:
 	bool	Init(const char *config);    //初始化
 
 	void	Update(unsigned int interval, time_t now);  //更新
+	void	Loop();
 	virtual bool Run();
 	void	Exit();
 	void	Wait();
@@ -38,6 +39,7 @@ public:
 
 	Interface *GetInterface(){ return &m_lua_interface; }
 	SceneManager *GetSceneManager(){ return &m_scene_manager; }
+	NetManager *GetNetManager(){ return &m_net_manager; }
 	void	ChangeServer();
 
 public:
@@ -46,9 +48,8 @@ public:
 	SOCKET		m_gateway_server_net_id;
 private:
 	NewFrame();
-
-
 	TimeEventManager	m_time_event_manager;
+	NetManager			m_net_manager;
 
 	typedef game::Hash<NetHandle, int> NET_HANDLE_THREAD_HASH;
 	NET_HANDLE_THREAD_HASH m_net_handle_thread_hash;

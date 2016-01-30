@@ -7,13 +7,13 @@
 class DBThread : public BaseThread
 {
 public:
-	~DBThread();
+	virtual ~DBThread();
 	DBThread(ThreadManager *manager);
-
-	void	Run();
 
 protected:
 	void	Init();
+	void	Run();
+	void	RecvMsg(ThreadMsg *msg);
 private:
 };
 

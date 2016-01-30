@@ -23,7 +23,7 @@ public:
 	virtual void		Exit() = 0;
 
 	virtual	void		Wait() = 0;
-	void				Loop();
+	virtual	void		Loop() = 0;
 
 	void				UpdateAll(unsigned long long interval);
 	

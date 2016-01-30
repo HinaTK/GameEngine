@@ -39,4 +39,9 @@ void DBThread::Run()
 	} while (!m_is_exit);
 }
 
+void DBThread::RecvMsg(ThreadMsg *msg)
+{
+
+}
+
 

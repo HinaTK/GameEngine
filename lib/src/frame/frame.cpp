@@ -66,12 +66,6 @@ void Frame::UpdateAll(unsigned long long interval)
 	Update((unsigned int)interval, GameTime::Instance().Time());
 }
 
-
-void Frame::Loop()
-{
-
-}
-
 bool Frame::Run()
 {
 	unsigned long long		last_time_ms = GameTime::Instance().FrameTime();	// 上一次更新时间
