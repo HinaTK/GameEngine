@@ -65,11 +65,7 @@ void NewFrame::Start()
 		}
 		else if (strncmp(cmd_buf, "test", 4) == 0)
 		{
-<<<<<<< HEAD
-            for (int i = 0; i < 100001; ++i)
-=======
-			for (int i = 0; i < 10000001; ++i)
->>>>>>> 435c01d82244ce8cb7bada02c6bfe21cd2bd3e61
+            for (int i = 0; i < 10001; ++i)
 			{
 				ThreadMsg *msg = new ThreadMsg(sizeof(int), (const char *)&i);
 				m_thread_manager.SendMsg(ThreadManager::ID_MAIN, msg);
