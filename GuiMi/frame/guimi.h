@@ -5,6 +5,7 @@
 #include "common/datastructure/gamehash.h"
 #include "lib/include/common/thread.h"
 #include "lib/include/frame/frame.h"
+#include "lib/include/frame/netmanager.h"
 #include "lib/include/timemanager/timemanager.h"
 #include "lua/interface.h"
 #include "scene/scenemanager.h"
@@ -12,10 +13,6 @@
 class NewFrame : public Frame
 {
 public:
-
-	static const UInt32 UPDATE_INTERNAL = 80;		// 单位毫秒，每隔80毫秒更新一次
-	static const UInt32 SendSleepTime = 50;			// 单位毫秒，当发送消息队列为空时，睡眠50毫秒
-	static const UInt32 RecvSleepTime = 50;			// 单位毫秒，当接收消息队列为空和没有到更新时间，睡眠50毫秒
 
 	~NewFrame();
 

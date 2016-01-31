@@ -17,7 +17,7 @@ public:
 
     void	Recv(GameMsg *msg);
 
-    void	Disconnect(NetHandle handle);
+	void	Disconnect(NetHandle handle, int reason);
 
 private:
     NewFrame *m_frame;
@@ -35,7 +35,7 @@ public:
 
     void	Recv(GameMsg *msg);
 
-    void	Disconnect(NetHandle handle);
+    void	Disconnect(NetHandle handle, int reason);
 
 private:
     NewFrame *m_frame;

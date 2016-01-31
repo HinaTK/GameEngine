@@ -25,15 +25,26 @@ public:
 
 	enum 
 	{
-		ACCEPTER,
+		BASE_ACCEPTER,
 		INNER_ACCEPTER,
 		WEB_ACCEPTER,
 		HANDSHAKER,
 		LISTENER,
 	};
 
-	NetHandle		m_handle;	// 内部操作句柄
-	SOCKET			m_sock;	// socket id
+	// disconnect reason
+	enum
+	{
+		DR_RECV_BUF = 1,
+		DR_SEND_BUF,
+		DR_HEADER_TOO_SMALL,
+		DR_HEADER_TOO_BIG,
+		DR_HANDSHAKE_RECV,
+		DR_HANDSHAKE_SEND,
+	};
+
+	NetHandle		m_handle;		// 内部操作句柄
+	SOCKET			m_sock;			// socket id
 	unsigned int	m_msg_index;	// 网络数据导向索引
 protected:
 	NetManager	*m_net_manager;

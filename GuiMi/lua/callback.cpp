@@ -13,7 +13,7 @@ void XXXCallBack::Recv(GameMsg *msg)
 	m_interface->OnXXXRecv(msg->handle, msg->length, msg->data);
 }
 
-void XXXCallBack::Disconnect(NetHandle handle)
+void XXXCallBack::Disconnect(NetHandle handle, int reason)
 {
 	m_interface->OnXXXDisconnect(handle);
 }
@@ -29,7 +29,7 @@ void InnerCallBack::Recv(GameMsg *msg)
 	delete msg;
 }
 
-void InnerCallBack::Disconnect(NetHandle handle)
+void InnerCallBack::Disconnect(NetHandle handle, int reason)
 {
 	m_interface->OnInnerDisconnect(handle);
 }
@@ -46,7 +46,7 @@ void OuterCallBack::Recv(GameMsg *msg)
 	delete msg;
 }
 
-void OuterCallBack::Disconnect(NetHandle handle)
+void OuterCallBack::Disconnect(NetHandle handle, int reason)
 {
 	m_interface->OnDisconnect(handle);
 }

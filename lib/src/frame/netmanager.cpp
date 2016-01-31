@@ -242,21 +242,18 @@ void NetManager::InitNetHandler(NetHandler *handler)
 #endif
 }
 
-NetHandle NetManager::PushNetHandler(NetHandler *handler)
+NetHandle NetManager::AddNetHandler(NetHandler *handler)
 {
+	InitNetHandler(handler);
 	handler->m_handle = m_net_handler.Insert(handler);
 	return handler->m_handle;
 }
 
-NetHandle NetManager::AddNetHandler(NetHandler *handler)
-{
-	InitNetHandler(handler);
-	return PushNetHandler(handler);
-}
 
-void NetManager::RemoveHandler(NetHandle handle)
+void NetManager::RemoveHandler(NetHandle handle, int reason)
 {
-	m_invalid_handle.Push(handle);
+	RemoveInfo info{ handle, reason };
+	m_invalid_handle.Push(info);
 }
 
 void NetManager::AddReplaceHandler(NetHandler *handler)
@@ -299,7 +296,7 @@ void NetManager::ClearHandler()
 	{
 
 		NetHandler *handler = 0;
-		if (m_net_handler.Erase(*itr, handler))
+		if (m_net_handler.Erase(itr->handle, handler))
 		{
 #ifdef WIN32
 			FD_CLR(handler->m_sock, &m_read_set);
@@ -309,7 +306,7 @@ void NetManager::ClearHandler()
 			epoll_ctl(m_epoll_fd, EPOLL_CTL_DEL, handler->m_sock, &ev);
 #endif
 			NetCommon::Close(handler->m_sock);
-			PushMsg(handler, BaseMsg::MSG_DISCONNECT, NULL, 0);
+			PushMsg(handler, BaseMsg::MSG_DISCONNECT, (const char *)&itr->reason, sizeof(itr->reason));
 			delete handler;
 		}	
 	}

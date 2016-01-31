@@ -18,7 +18,7 @@ REGISTER_MEMORYPOOL(memorypool, WebListener, 256);
 	}
 
 // websocket 在数据中不用加协议头
-bool WebListener::AnalyzeBuf()
+int WebListener::AnalyzeBuf()
 {
 	static int length = 0;
 	unsigned int remove_len = 0;
@@ -30,7 +30,11 @@ bool WebListener::AnalyzeBuf()
 		CHECK_BUF_LEN();
 		const char *buf = m_recv_buf.GetBuf();
 		FrameHeader header(buf);
-		if (header.Length() < 126)
+		if (header.Length() == 0)
+		{
+			return NetHandler::DR_HEADER_TOO_SMALL;
+		}
+		else if (header.Length() < 126)
 		{
 			length = header.Length();
 		}
@@ -41,13 +45,9 @@ bool WebListener::AnalyzeBuf()
 			frame_offset += FrameHeader::MID_EXTEND_LEN;
 			length = (unsigned int)*(buf + frame_offset) * 256 + (unsigned int)*(buf + frame_offset + 1);
 		}
-		else if (header.Length() == 127)
+		else /*if (header.Length() == 127)*/
 		{
-			if (remove_len > 0)
-			{
-				m_recv_buf.RemoveBuf(remove_len);
-			}
-			return false; // 数据太大,断开链接
+			return NetHandler::DR_HEADER_TOO_BIG; // 数据太大,断开链接
 		}
 
 		if (header.HasMask())
@@ -93,7 +93,7 @@ bool WebListener::AnalyzeBuf()
 	{
 		m_recv_buf.RemoveBuf(remove_len);
 	}
-	return true;
+	return 0;
 }
 
 void WebListener::Send(const char *buf, unsigned int len)

@@ -12,6 +12,7 @@ public:
 
 	enum 
 	{
+		ID_FRAME,
 		ID_MAIN,
 		ID_DB,
 		ID_LOGIN,

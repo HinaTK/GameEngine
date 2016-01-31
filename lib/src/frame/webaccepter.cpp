@@ -4,6 +4,11 @@
 #include "netmanager.h"
 #include "common/socketdef.h"
 
+WebAccepter::WebAccepter(NetManager *manager)
+: Accepter(manager, NetHandler::WEB_ACCEPTER)
+{
+}
+
 void WebAccepter::OnCanRead()
 {
 	// 将握手者handshaker加入监听
@@ -19,3 +24,5 @@ void WebAccepter::OnCanRead()
 		handler->m_handle = m_net_manager->AddNetHandler(handler);
 	}
 }
+
+

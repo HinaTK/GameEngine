@@ -11,7 +11,7 @@
 class WebListener : public Listener
 {
 public:
-	WebListener(NetManager *manager) 
+	WebListener(NetManager *manager)
 		: Listener(manager){}
 	virtual ~WebListener(){}
 
@@ -20,7 +20,7 @@ public:
 
 	void			Send(const char *buf, unsigned int len);
 protected:
-	virtual bool AnalyzeBuf();
+	virtual int		AnalyzeBuf();
 
 };
 

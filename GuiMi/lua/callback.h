@@ -15,7 +15,7 @@ public:
 
 	void	Recv(GameMsg *msg);
 
-	void	Disconnect(NetHandle handle);
+	void	Disconnect(NetHandle handle, int reason);
 
 private:
 	Interface *m_interface;
@@ -31,7 +31,7 @@ public:
 
 	void	Recv(GameMsg *msg);
 
-	void	Disconnect(NetHandle handle);
+	void	Disconnect(NetHandle handle, int reason);
 
 private:
 	Interface *m_interface;
@@ -47,7 +47,7 @@ public:
 
 	void	Recv(GameMsg *msg);
 
-	void	Disconnect(NetHandle handle);
+	void	Disconnect(NetHandle handle, int reason);
 
 private:
 	Interface *m_interface;

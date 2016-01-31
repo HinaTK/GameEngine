@@ -2,23 +2,23 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="src">
-      <UniqueIdentifier>{d5bf70cc-858a-4f1d-ac61-2402a1eeb246}</UniqueIdentifier>
+      <UniqueIdentifier>{5ed41311-b4ce-4593-96e0-5241e691bba7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\include\dll\dll.h">
+    <ClCompile Include="..\..\lib\chat\chatthread.cpp">
       <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\include\dll\export.h">
+    </ClCompile>
+    <ClCompile Include="..\..\lib\chat\interface.cpp">
       <Filter>src</Filter>
-    </ClInclude>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lib\src\dll\dll.cpp">
+    <ClInclude Include="..\..\lib\chat\chatthread.h">
       <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\lib\src\dll\export.cpp">
+    </ClInclude>
+    <ClInclude Include="..\..\lib\chat\interface.h">
       <Filter>src</Filter>
-    </ClCompile>
+    </ClInclude>
   </ItemGroup>
 </Project>

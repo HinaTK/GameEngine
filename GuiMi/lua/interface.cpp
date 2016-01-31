@@ -5,6 +5,8 @@
 #include "common/commonfunction.h"
 #include "lib/include/common/mem.h"
 #include "lib/include/timemanager/gametime.h"
+#include "lib/include/frame/baseaccepter.h"
+#include "lib/include/frame/baselistener.h"
 
 #define RegisterGlobalFunc(Name)\
 	lua_pushcfunction(m_L, Name); \
@@ -36,11 +38,11 @@ static int CppListen(lua_State *L)
 	bool ret = false;
 	if (strcmp(flag, "inner") == 0)
 	{
-		ret = net_manager->InitServer("127.0.0.1", port, back_log, new Accepter(net_manager), NewFrame::Instance().GetInterface()->GetInnerCallBack());
+		ret = net_manager->InitServer("127.0.0.1", port, back_log, new BaseAccepter(net_manager), NewFrame::Instance().GetInterface()->GetInnerCallBack());
 	}
 	else
 	{
-		ret = net_manager->InitServer("0.0.0.0", port, back_log, new Accepter(net_manager), NewFrame::Instance().GetInterface()->GetOuterCallBack());
+		ret = net_manager->InitServer("0.0.0.0", port, back_log, new BaseAccepter(net_manager), NewFrame::Instance().GetInterface()->GetOuterCallBack());
 	}
 	
 	lua_pushboolean(L, ret);
@@ -53,7 +55,7 @@ static int CppListenXXX(lua_State *L)
 	int port = luaL_checkinteger(L, 2);
 	int back_log = luaL_checkinteger(L, 3);
 
-	bool ret = net_manager->InitServer("0.0.0.0", port, back_log, new Accepter(net_manager), NewFrame::Instance().GetInterface()->GetXXXCallBack());
+	bool ret = net_manager->InitServer("0.0.0.0", port, back_log, new BaseAccepter(net_manager), NewFrame::Instance().GetInterface()->GetXXXCallBack());
 	net_manager->Listen();
 	lua_pushboolean(L, ret);
 	return 1;

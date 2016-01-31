@@ -29,18 +29,26 @@ Listener::~Listener()
 
 void Listener::OnCanRead()
 {
-	if (!RecvBuf() || !AnalyzeBuf())
+	int ret = RecvBuf();
+	if (ret > 0)
 	{
-		m_net_manager->RemoveHandler(m_handle);
-	}
-
-	if (m_recv_buf.FreeLength() <= 0)
-	{
-		m_recv_buf.Resize(16);
+		m_net_manager->RemoveHandler(m_handle, ret);
+		ret = AnalyzeBuf();
+		if (ret > 0)
+		{
+			m_net_manager->RemoveHandler(m_handle, ret);
+		}
+		else
+		{
+			if (m_recv_buf.FreeLength() <= 0)
+			{
+				m_recv_buf.Resize(16);
+			}
+		}
 	}
 }
 
-bool Listener::RecvBuf()
+int Listener::RecvBuf()
 {
 	do
 	{
@@ -51,7 +59,7 @@ bool Listener::RecvBuf()
 			{
 				break;
 			}
-			return false;
+			return NetHandler::DR_RECV_BUF;
 		}
 		m_recv_buf.AddLength(ret);
 		unsigned long arg = 0;
@@ -68,7 +76,7 @@ bool Listener::RecvBuf()
 	} while (true);
 
 	
-	return true;
+	return 0;
 }
 
 void Listener::OnCanWrite()
@@ -100,7 +108,7 @@ void Listener::OnCanWrite()
 					break;
 				}
                 printf("send error %d\n", NetCommon::Error());
-				m_net_manager->RemoveHandler(m_handle);
+				m_net_manager->RemoveHandler(m_handle, NetHandler::DR_SEND_BUF);
 				return;
 			}
 			//
@@ -110,12 +118,6 @@ void Listener::OnCanWrite()
 		m_send_buf_read->ResetBuf();
 	}
 }
-
-// void Listener::Send(const char *buf, unsigned int len)
-// {
-// 	MutexLock ml(&m_send_mutex);
-// 	m_send_buf_write->Push(buf, len);
-// }
 
 void Listener::RegisterWriteFD()
 {

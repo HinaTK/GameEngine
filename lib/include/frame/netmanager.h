@@ -34,9 +34,8 @@ public:
 	void			Update();
 
 	void			InitNetHandler(NetHandler *handler);
-	NetHandle		PushNetHandler(NetHandler *handler);
 	NetHandle		AddNetHandler(NetHandler *handler);			
-	void			RemoveHandler(NetHandle handle);
+	void			RemoveHandler(NetHandle handle, int reason);
 	void			AddReplaceHandler(NetHandler *handler);
 
 	void			ReplaceHandler();		// 将该句柄的控制者替换（用于将握手者-->监听者）
@@ -59,8 +58,14 @@ public:
 	{
 		BaseMsg *msg[BaseMsg::MSG_MAX];
 	};
+
+	struct RemoveInfo
+	{
+		NetHandle handle;
+		int reason;
+	};
 protected:
-	typedef game::Vector<NetHandle>		INVALID_HANDLE;
+	typedef game::Vector<RemoveInfo>		INVALID_HANDLE;
 	typedef game::Vector<NetHandler*>	REPLACE_HANDLER;
 	typedef game::Array<MsgHandler *>	MSG_HANDLER;
 

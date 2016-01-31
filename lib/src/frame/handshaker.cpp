@@ -38,7 +38,7 @@ void HandShaker::OnCanRead()
 	// 处理握手协议
 	if (!HandShake())
 	{
-		m_net_manager->RemoveHandler(m_handle);
+		m_net_manager->RemoveHandler(m_handle, NetHandler::DR_HANDSHAKE_RECV);
 		return;
 	}
 }
@@ -121,7 +121,7 @@ void HandShaker::OnCanWrite()
 				// 缓冲区已经满
 				break;
 			}
-			m_net_manager->RemoveHandler(m_handle);
+			m_net_manager->RemoveHandler(m_handle, NetHandler::DR_HANDSHAKE_SEND);
 			return;
 		}
 

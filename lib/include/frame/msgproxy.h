@@ -51,7 +51,7 @@ public:
 	DisconnectMsg(MsgCallBack *call_back) :BaseMsg(call_back){}
 	~DisconnectMsg(){}
 
-	virtual void Recv(GameMsg *msg){ m_call_back->Disconnect(msg->handle); delete msg; }
+	virtual void Recv(GameMsg *msg){ m_call_back->Disconnect(msg->handle, *(int*)msg->data); delete msg; }
 };
 
 #endif

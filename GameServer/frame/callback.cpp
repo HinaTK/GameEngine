@@ -12,7 +12,7 @@ void InnerCallBack::Recv(GameMsg *msg)
     m_frame->InnerRecv(msg);
 }
 
-void InnerCallBack::Disconnect(NetHandle handle)
+void InnerCallBack::Disconnect(NetHandle handle, int reason)
 {
     printf("fuck disconnect.................\n");
 }
@@ -28,7 +28,7 @@ void OuterCallBack::Recv(GameMsg *msg)
     m_frame->OuterRecv(msg);
 }
 
-void OuterCallBack::Disconnect(NetHandle handle)
+void OuterCallBack::Disconnect(NetHandle handle, int reason)
 {
     printf("fuck disconnect.................\n");
 }

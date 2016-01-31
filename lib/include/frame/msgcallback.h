@@ -14,7 +14,7 @@ public:
 
 	virtual void Recv(GameMsg *msg) = 0;
 
-	virtual void Disconnect(NetHandle handle)= 0;
+	virtual void Disconnect(NetHandle handle, int reason)= 0;
 };
 
 

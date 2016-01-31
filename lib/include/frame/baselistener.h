@@ -12,8 +12,7 @@
 class BaseListener : public Listener
 {
 public:
-	BaseListener(NetManager *manager)
-		: Listener(manager){}
+	BaseListener(NetManager *manager, int size = 0);
 	virtual ~BaseListener(){}
 
 	void *		operator new(size_t c);
@@ -21,7 +20,8 @@ public:
 
 	void			Send(const char *buf, unsigned int len);
 protected:
-	virtual bool	AnalyzeBuf();
+	virtual int		AnalyzeBuf();
+	int		buf_size;
 
 };
 

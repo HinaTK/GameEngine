@@ -49,6 +49,9 @@
     <ClCompile Include="..\..\lib\src\frame\msgproxy.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\lib\src\frame\baseaccepter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -108,6 +111,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\msgproxy.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\frame\baseaccepter.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

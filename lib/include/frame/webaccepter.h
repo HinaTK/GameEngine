@@ -7,9 +7,8 @@
 class WebAccepter : public Accepter
 {
 public:
-	WebAccepter(NetManager *manager) 
-		: Accepter(manager, NetHandler::WEB_ACCEPTER){};
-	~WebAccepter(){};
+	WebAccepter(NetManager *manager);
+	virtual ~WebAccepter(){};
 
 	virtual void	OnCanRead();
 
