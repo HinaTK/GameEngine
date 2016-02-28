@@ -26,7 +26,8 @@ SOURCES += \
     ../../lib/src/frame/msgproxy.cpp \
     ../../lib/src/frame/netcommon.cpp \
     ../../lib/src/frame/nethandler.cpp \
-    ../../lib/src/frame/netmanager.cpp \
+    ../../lib/src/frame/net_base.cpp \
+    ../../lib/src/frame/net_unix.cpp \
     ../../lib/src/frame/webaccepter.cpp \
     ../../lib/src/frame/weblistener.cpp
 
@@ -47,6 +48,8 @@ HEADERS += \
     ../../lib/include/frame/netcommon.h \
     ../../lib/include/frame/nethandler.h \
     ../../lib/include/frame/netmanager.h \
+    ../../lib/include/frame/net_base.h \
+    ../../lib/include/frame/net_unix.h \
     ../../lib/include/frame/webaccepter.h \
     ../../lib/include/frame/weblistener.h
 unix {
