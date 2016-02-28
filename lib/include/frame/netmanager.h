@@ -7,7 +7,7 @@
 #endif
 
 #ifdef __unix
-
+#include "net_unix.h"
 #endif
 
 #endif

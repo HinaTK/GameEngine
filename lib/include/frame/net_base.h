@@ -28,8 +28,8 @@ public:
 	virtual void	InitNetHandler(NetHandler *handler) = 0;
 	virtual void	ReplaceHandler() = 0;		// 将该句柄的控制者替换（用于将握手者-->监听者）
 	virtual void	ClearHandler() = 0;
-	virtual void	SetCanWrite(SOCKET sock) = 0;
-	virtual void	SetCanNotWrite(SOCKET sock) = 0;
+    virtual void	SetCanWrite(NetHandler *handler) = 0;
+    virtual void	SetCanNotWrite(NetHandler *handler) = 0;
 
 	bool			InitServer(char *ip, unsigned short port, int backlog, Accepter *accepter, MsgCallBack *call_back);
 	NetHandle		ConnectServer(const char *ip, unsigned short port, Listener *lister, MsgCallBack *call_back);

@@ -2,6 +2,7 @@
 #ifndef NET_HANDLER_H
 #define NET_HANDLER_H
 
+//#include "netmanager.h"
 #include "msgproxy.h"
 #include "msgcallback.h"
 #include "common/socketdef.h"

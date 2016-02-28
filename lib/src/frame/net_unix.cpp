@@ -1,5 +1,6 @@
 
 #include "net_unix.h"
+#include "netcommon.h"
 
 NetUnix::~NetUnix()
 {
@@ -99,17 +100,23 @@ void NetUnix::ClearHandler()
     m_invalid_handle.Clear();
 }
 
-void NetUnix::SetCanWrite(SOCKET sock)
+void NetUnix::SetCanWrite(NetHandler *handler)
 {
-
+    struct epoll_event ev;
+    ev.events = EPOLLIN | EPOLLOUT | EPOLLET;
+    ev.data.ptr = (void *)handler;
+    if (epoll_ctl(m_epoll_fd, EPOLL_CTL_MOD, handler->m_sock, &ev) == -1)
+    {
+        // 添加失败
+    }
 }
 
-void NetUnix::SetCanNotWrite(SOCKET sock)
+void NetUnix::SetCanNotWrite(NetHandler *handler)
 {
     struct epoll_event ev;
     ev.events = EPOLLIN | EPOLLET;
-    ev.data.ptr = (void *)(*itr);
-    if (epoll_ctl(m_epoll_fd, EPOLL_CTL_MOD, sock, &ev) == -1)
+    ev.data.ptr = (void *)handler;
+    if (epoll_ctl(m_epoll_fd, EPOLL_CTL_MOD, handler->m_sock, &ev) == -1)
     {
         // 添加失败
     }
