@@ -14,8 +14,8 @@ public:
 	virtual void	InitNetHandler(NetHandler *handler);
 	virtual void	ReplaceHandler();		// 将该句柄的控制者替换（用于将握手者-->监听者）
 	virtual void	ClearHandler();
-	virtual void	SetCanWrite(SOCKET sock);
-	virtual void	SetCanNotWrite(SOCKET sock);
+	virtual void	SetCanWrite(NetHandler *handler);
+	virtual void	SetCanNotWrite(NetHandler *handler);
 
 	SOCKET			GetSocketInfo(fd_set &read_set, fd_set &write_set);
 	fd_set			*GetWriteSet(){ return &m_write_set; }

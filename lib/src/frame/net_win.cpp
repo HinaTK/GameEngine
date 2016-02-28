@@ -99,14 +99,14 @@ void NetManager::ClearHandler()
 	m_invalid_handle.Clear();
 }
 
-void NetManager::SetCanWrite(SOCKET sock)
+void NetManager::SetCanWrite(NetHandler *handler)
 {
-	FD_SET(sock, &m_write_set);
+	FD_SET(handler->m_sock, &m_write_set);
 }
 
-void NetManager::SetCanNotWrite(SOCKET sock)
+void NetManager::SetCanNotWrite(NetHandler *handler)
 {
-	FD_CLR(sock, &m_write_set);
+	FD_CLR(handler->m_sock, &m_write_set);
 }
 
 SOCKET NetManager::GetSocketInfo(fd_set &read_set, fd_set &write_set)
