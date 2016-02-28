@@ -21,8 +21,9 @@
     <ClCompile Include="..\..\lib\src\frame\message.cpp" />
     <ClCompile Include="..\..\lib\src\frame\netcommon.cpp" />
     <ClCompile Include="..\..\lib\src\frame\nethandler.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\netmanager.cpp" />
     <ClCompile Include="..\..\lib\src\frame\msgproxy.cpp" />
+    <ClCompile Include="..\..\lib\src\frame\net_base.cpp" />
+    <ClCompile Include="..\..\lib\src\frame\net_win.cpp" />
     <ClCompile Include="..\..\lib\src\frame\webaccepter.cpp" />
     <ClCompile Include="..\..\lib\src\frame\weblistener.cpp" />
     <ClCompile Include="..\..\lib\src\frame\websocket\base64.cpp" />
@@ -43,6 +44,8 @@
     <ClInclude Include="..\..\lib\include\frame\nethandler.h" />
     <ClInclude Include="..\..\lib\include\frame\netmanager.h" />
     <ClInclude Include="..\..\lib\include\frame\msgproxy.h" />
+    <ClInclude Include="..\..\lib\include\frame\net_base.h" />
+    <ClInclude Include="..\..\lib\include\frame\net_win.h" />
     <ClInclude Include="..\..\lib\include\frame\webaccepter.h" />
     <ClInclude Include="..\..\lib\include\frame\weblistener.h" />
     <ClInclude Include="..\..\lib\include\frame\websocket\base64.h" />
