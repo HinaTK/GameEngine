@@ -2,19 +2,19 @@
 #include "net_unix.h"
 #include "netcommon.h"
 
-NetUnix::~NetUnix()
+NetManager::~NetManager()
 {
 
 }
 
-NetUnix::NetUnix()
+NetManager::NetManager()
     : NetBase()
 {
 
 }
 
 
-void NetUnix::Loop()
+void NetManager::Loop()
 {
     static struct epoll_event events[MAX_EPOLL_SIZE];
         int fd_num = 0;
@@ -45,7 +45,7 @@ void NetUnix::Loop()
         }
 }
 
-void NetUnix::InitNetHandler(NetHandler *handler)
+void NetManager::InitNetHandler(NetHandler *handler)
 {
     unsigned long b = 1;
     NetCommon::Ioctl(handler->m_sock, FIONBIO, &b);
@@ -59,7 +59,7 @@ void NetUnix::InitNetHandler(NetHandler *handler)
     }
 }
 
-void NetUnix::ReplaceHandler()
+void NetManager::ReplaceHandler()
 {
 
     if (m_replace_handler.Size() <= 0)
@@ -79,7 +79,7 @@ void NetUnix::ReplaceHandler()
     m_replace_handler.Clear();
 }
 
-void NetUnix::ClearHandler()
+void NetManager::ClearHandler()
 {
     struct epoll_event ev;
 
@@ -100,7 +100,7 @@ void NetUnix::ClearHandler()
     m_invalid_handle.Clear();
 }
 
-void NetUnix::SetCanWrite(NetHandler *handler)
+void NetManager::SetCanWrite(NetHandler *handler)
 {
     struct epoll_event ev;
     ev.events = EPOLLIN | EPOLLOUT | EPOLLET;
@@ -111,7 +111,7 @@ void NetUnix::SetCanWrite(NetHandler *handler)
     }
 }
 
-void NetUnix::SetCanNotWrite(NetHandler *handler)
+void NetManager::SetCanNotWrite(NetHandler *handler)
 {
     struct epoll_event ev;
     ev.events = EPOLLIN | EPOLLET;

@@ -4,11 +4,11 @@
 
 #include "net_base.h"
 
-class NetUnix : public NetBase
+class NetManager : public NetBase
 {
 public:
-    virtual ~NetUnix();
-    NetUnix();
+    virtual ~NetManager();
+    NetManager();
 
     virtual void	Loop();
     virtual void	InitNetHandler(NetHandler *handler);
