@@ -13,7 +13,7 @@ public:
 
 	enum 
 	{
-		ID_FRAME,
+		ID_FRAME = 0,
 		ID_MAIN,
 		ID_DB,
 		ID_LOGIN,
@@ -21,7 +21,7 @@ public:
 		ID_GATE,
 		ID_GATE2,
 		ID_LOG,
-		ID_MAX,	
+		ID_MAX = 16,
 	};
 
 	enum
@@ -32,12 +32,20 @@ public:
 		EXIT_MAX
 	};
 
+	enum
+	{
+		CMD_NOT = 0,	// 
+		CMD_EXIT
+	};
+
 	void	Register(unsigned char id, BaseThread *bt, unsigned int exit = EXIT_NORMAL);
 	void	Start();
 	void	Exit();
 	void	Wait();
 
-	void	SendMsg(unsigned char id, ThreadMsg *msg);
+	void	SendMsg(unsigned char sid, unsigned char did, int len, const char *data);
+	void	CMD(unsigned char type, unsigned char sid, int len, const char *data, unsigned char did = -1);
+
 private:
 	BaseThread	*m_thread[ID_MAX];
 	std::vector<unsigned char>	m_exit[EXIT_MAX];

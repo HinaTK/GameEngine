@@ -1,5 +1,6 @@
 ﻿
 #include "basethread.h"
+#include "threadmanager.h"
 #include "lib/include/common/mutex.h"
 
 void *Update(void * arg)
@@ -40,7 +41,19 @@ void BaseThread::Loop(bool sleep)
 		Run();
 		while (m_recv_queue.Pop(msg))
 		{
-			this->RecvMsg(msg);
+			if (msg->cmd == ThreadManager::CMD_NOT)
+			{
+				this->RecvMsg(msg->id, msg->length, msg->data);
+			}
+			else if (msg->cmd == ThreadManager::CMD_EXIT)
+			{
+				this->Exit();
+			}
+			else
+			{
+				this->CMD(msg->cmd, msg->id, msg->length, msg->data);
+			}
+			
 			delete msg;
 			is_sleep = false;
 		}

@@ -28,7 +28,8 @@ public:
 protected:
 	virtual void	Init() = 0;
 	virtual void	Run() = 0;
-	virtual void	RecvMsg(ThreadMsg *msg) = 0;
+	virtual void	RecvMsg(unsigned char sid, int len, const char *data) = 0;
+	virtual void	CMD(unsigned char cmd, unsigned char sid, int len, const char *data){};
 protected:
 	ThreadManager	*m_manager;
 	std::thread		*m_thread;

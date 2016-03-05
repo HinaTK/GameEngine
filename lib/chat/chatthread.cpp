@@ -25,9 +25,9 @@ void ChatThread::Run()
 
 }
 
-void ChatThread::RecvMsg(ThreadMsg *msg)
+void ChatThread::RecvMsg(unsigned char sid, int len, const char *data)
 {
-	printf("ChatThread ......... %d\n", *(int*)msg->data);
+	printf("ChatThread ......... %d\n", *(int*)data);
 }
 
 

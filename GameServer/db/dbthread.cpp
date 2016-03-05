@@ -25,9 +25,9 @@ void DBThread::Run()
 	
 }
 
-void DBThread::RecvMsg(ThreadMsg *msg)
+void DBThread::RecvMsg(unsigned char sid, int len, const char *data)
 {
-	
+
 }
 
 

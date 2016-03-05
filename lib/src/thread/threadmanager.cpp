@@ -38,17 +38,29 @@ void ThreadManager::Start()
 	}
 }
 
-void ThreadManager::SendMsg(unsigned char id, ThreadMsg *msg)
+void ThreadManager::SendMsg(unsigned char sid, unsigned char did, int len, const char *data)
 {
-	m_thread[id]->PushMsg(msg);
+	m_thread[did]->PushMsg(new ThreadMsg(CMD_NOT, sid, len, data));
+}
+
+void ThreadManager::CMD(unsigned char type, unsigned char sid, int len, const char *data, unsigned char did /*= -1*/)
+{
+	if (did != (unsigned char)-1)
+	{
+		m_thread[did]->PushMsg(new ThreadMsg(type, sid, len, data));
+	}
+	else
+	{
+		for (int i = 0; i < ID_MAX; ++i)
+		{
+			if (m_thread[i]) m_thread[i]->PushMsg(new ThreadMsg(type, sid, len, data));
+		}
+	}
 }
 
 void ThreadManager::Exit()
 {
-	for (std::vector<unsigned char>::iterator itr = m_exit[EXIT_NORMAL].begin(); itr != m_exit[EXIT_NORMAL].end(); ++itr)
-	{
-		m_thread[*itr]->Exit();
-	}
+	CMD(CMD_EXIT, -1, 0, NULL);
 }
 
 void ThreadManager::Wait()
@@ -62,7 +74,6 @@ void ThreadManager::Wait()
 	{
 		for (std::vector<unsigned char>::iterator itr = m_exit[i].begin(); itr != m_exit[i].end(); ++itr)
 		{
-			m_thread[*itr]->Exit();
 			m_thread[*itr]->Wait();
 		}
 	}

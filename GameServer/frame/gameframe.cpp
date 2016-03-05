@@ -69,10 +69,7 @@ void NewFrame::Start()
 		{
             for (int i = 0; i < 1000; ++i)
 			{
-				ThreadMsg *msg = new ThreadMsg(ThreadManager::ID_FRAME, sizeof(int), (const char *)&i);
-				m_thread_manager.SendMsg(ThreadManager::ID_CHAT, msg);
-// 				ThreadMsg *msg2 = new ThreadMsg(sizeof(int), (const char *)&i);
-// 				m_thread_manager.PushMsg(ThreadManager::ID_DB, msg2);
+				m_thread_manager.SendMsg(ThreadManager::ID_FRAME, ThreadManager::ID_CHAT, sizeof(int), (const char *)&i);
 			}		
 		}
 //		printf("%s\n", cmd_buf);

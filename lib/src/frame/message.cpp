@@ -12,24 +12,37 @@ GameMsg::GameMsg(unsigned short _msg_index, unsigned short _msg_type, NetHandle 
 , handle(_handle)
 , length(_length)
 {
-	data = Mem::Alloc(length);
-	memcpy(data, _data, length);
+	if (length > 0)
+	{
+		data = Mem::Alloc(length);
+		memcpy(data, _data, length);
+	}
 }
 
 GameMsg::~GameMsg()
 {
-	Mem::Free(data);
+	if (length > 0)
+	{
+		Mem::Free(data);
+	}
 }
 
-ThreadMsg::ThreadMsg(unsigned char _id, int _length, const char *_data)
-: id(_id)
+ThreadMsg::ThreadMsg(unsigned char _cmd, unsigned char _id, int _length, const char *_data)
+: cmd(_cmd)
+, id(_id)
 , length(_length)
 {
-	data = Mem::TAlloc(length);
-	memcpy(data, _data, length);
+	if (length > 0)
+	{
+		data = Mem::Alloc(length);
+		memcpy(data, _data, length);
+	}
 }
 
 ThreadMsg::~ThreadMsg()
 {
-	Mem::TFree(data);
+	if (length > 0)
+	{
+		Mem::Free(data);
+	}
 }
