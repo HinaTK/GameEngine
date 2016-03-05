@@ -23,11 +23,7 @@ class NetBase
 public:
 	virtual ~NetBase();
 	NetBase();
-
 	virtual void	Loop() = 0;
-	virtual void	InitNetHandler(NetHandler *handler) = 0;
-	virtual void	ReplaceHandler() = 0;		// 将该句柄的控制者替换（用于将握手者-->监听者）
-	virtual void	ClearHandler() = 0;
     virtual void	SetCanWrite(NetHandler *handler) = 0;
     virtual void	SetCanNotWrite(NetHandler *handler) = 0;
 
@@ -48,6 +44,11 @@ public:
 	bool			IsRun(){ return m_is_run; }
 
 protected:
+	
+	virtual void	InitNetHandler(NetHandler *handler) = 0;
+	virtual void	ReplaceHandler() = 0;		// 将该句柄的控制者替换（用于将握手者-->监听者）
+	virtual void	ClearHandler() = 0;
+
 	unsigned int	AddMsgHandler(MsgCallBack *call_back);
 public:
 	typedef game::Array<NetHandler*>	NET_HANDLER_ARRAY;

@@ -1,6 +1,6 @@
 ﻿/*  sha1.c  */
 /*  以下所用各种参量名称皆为sha-1在出版物上所用之公用名称  */
- #include "websocket/sha1.h"
+ #include "lib/sha1.h"
 
 /*
  *  以下是为 SHA1 向左环形移位宏 之定义

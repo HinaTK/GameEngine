@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include "handshaker.h"
 #include "weblistener.h"
-#include "netmanager.h"
-#include "netcommon.h"
+#include "frame/netmanager.h"
+#include "frame/netcommon.h"
 #include "common/socketdef.h"
-#include "websocket/sha1.h"
-#include "websocket/base64.h"
+#include "lib/sha1.h"
+#include "lib/base64.h"
 
 REGISTER_MEMORYPOOL(memorypool, HandShaker, 64);
 

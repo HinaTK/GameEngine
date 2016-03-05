@@ -26,17 +26,9 @@ int BaseListener::AnalyzeBuf()
 	unsigned int remove_len = 0;
 	while (header->msg_len <= buf_len)
 	{
-		if (header->msg_len <= 0)
-		{
-			// 数据错误
-			return NetHandler::DR_HEADER_TOO_SMALL;
-		}
+		if (header->msg_len <= 0) return NetHandler::DR_HEADER_TOO_SMALL;
+		if (header->msg_len > buf_size && buf_size > 0) return NetHandler::DR_HEADER_TOO_BIG;
 
-		if (header->msg_len > buf_size && buf_size > 0)
-		{
-			// 返回错误码
-			return NetHandler::DR_HEADER_TOO_BIG;
-		}
 		buf += NetCommon::HEADER_LENGTH;
 		m_net_manager->PushMsg(this, BaseMsg::MSG_RECV, buf, header->msg_len);
 
@@ -59,7 +51,7 @@ int BaseListener::AnalyzeBuf()
 
 void BaseListener::Send( const char *buf, unsigned int len )
 {
-	NetCommon::Header header;
+	static NetCommon::Header header;
 	header.msg_len = len;
 
 	MutexLock ml(&m_send_mutex);

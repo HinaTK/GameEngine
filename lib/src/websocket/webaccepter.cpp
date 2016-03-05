@@ -1,7 +1,7 @@
 ﻿
 #include "webaccepter.h"
 #include "handshaker.h"
-#include "netmanager.h"
+#include "frame/netmanager.h"
 #include "common/socketdef.h"
 
 WebAccepter::WebAccepter(NetManager *manager)

@@ -128,20 +128,7 @@ void Listener::RegisterWriteFD()
         return;
     }
 
-#ifdef WIN32
-	FD_SET(m_sock, m_net_manager->GetWriteSet());
-#endif // !WIN32
-
-#ifdef __unix
-	struct epoll_event ev;
-	ev.events = EPOLLIN | EPOLLOUT | EPOLLET;
-	ev.data.ptr = (void *)this;
-	if (epoll_ctl(m_net_manager->GetEpollFD(), EPOLL_CTL_MOD, m_sock, &ev) == -1)
-	{
-		// 注册写失败
-         printf("RegisterWriteFD error %d\n", m_sock);
-	}
-#endif
+	m_net_manager->SetCanWrite(this);
     m_register_state = 0;
 }
 
@@ -155,21 +142,8 @@ void Listener::UnRegisterWriteFD()
         }
     }
     MutexLock ml(&m_register_write_mutex);
-#ifdef WIN32
-	FD_CLR(m_sock, m_net_manager->GetWriteSet());
-#endif
-
-#ifdef __unix
-	struct epoll_event ev;
-	ev.events = EPOLLIN | EPOLLET;
-	ev.data.ptr = (void *)this;
-	if (epoll_ctl(m_net_manager->GetEpollFD(), EPOLL_CTL_MOD, m_sock, &ev) == -1)
-	{
-		// 反注册写失败
-        printf("UnRegisterWriteFD error %d\n", m_sock);
-	}
-#endif
-     m_register_state = -10;
+	m_net_manager->SetCanNotWrite(this);
+    m_register_state = -10;
 }
 
 

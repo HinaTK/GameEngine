@@ -1,9 +1,9 @@
 ﻿
 #include "weblistener.h"
-#include "netcommon.h"
-#include "netmanager.h"
+#include "frame/netcommon.h"
+#include "frame/netmanager.h"
 #include "common/socketdef.h"
-#include "websocket/dataframeheader.h"
+#include "lib/dataframeheader.h"
 
 REGISTER_MEMORYPOOL(memorypool, WebListener, 256);
 

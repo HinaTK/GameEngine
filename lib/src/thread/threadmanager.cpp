@@ -21,9 +21,10 @@ ThreadManager::ThreadManager()
 	}
 }
 
-void ThreadManager::Register(unsigned char id, BaseThread *bt)
+void ThreadManager::Register(unsigned char id, BaseThread *bt, unsigned int exit /*= EXIT_NORMAL*/)
 {
 	m_thread[id] = bt;
+	m_exit[exit].push_back(id);
 }
 
 void ThreadManager::Start()
@@ -40,35 +41,29 @@ void ThreadManager::Start()
 void ThreadManager::SendMsg(unsigned char id, ThreadMsg *msg)
 {
 	m_thread[id]->PushMsg(msg);
-
-// 	if (id < ThreadManager::ID_MAX)
-// 	{
-// 		m_thread[id]->PushMsg(msg);
-// 	}
-// 	else
-// 	{
-// 		// 打印堆栈
-// 	}
 }
 
 void ThreadManager::Exit()
 {
-	for (int i = 0; i < ID_MAX; ++i)
+	for (std::vector<unsigned char>::iterator itr = m_exit[EXIT_NORMAL].begin(); itr != m_exit[EXIT_NORMAL].end(); ++itr)
 	{
-		if (m_thread[i])
-		{
-			m_thread[i]->Exit();
-		}
+		m_thread[*itr]->Exit();
 	}
 }
 
 void ThreadManager::Wait()
 {
-	for (int i = 0; i < ID_MAX; ++i)
+	for (std::vector<unsigned char>::iterator itr = m_exit[EXIT_NORMAL].begin(); itr != m_exit[EXIT_NORMAL].end(); ++itr)
 	{
-		if (m_thread[i])
+		m_thread[*itr]->Wait();
+	}
+
+	for (int i = EXIT_NORMAL + 1; i < EXIT_MAX; ++i)
+	{
+		for (std::vector<unsigned char>::iterator itr = m_exit[i].begin(); itr != m_exit[i].end(); ++itr)
 		{
-			m_thread[i]->Wait();
+			m_thread[*itr]->Exit();
+			m_thread[*itr]->Wait();
 		}
 	}
 }

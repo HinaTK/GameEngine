@@ -4,5 +4,48 @@
     <Filter Include="src">
       <UniqueIdentifier>{5ae4ba14-031a-4912-82a0-fa0537dc7ff0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lib">
+      <UniqueIdentifier>{78ef5da0-df81-4160-a424-a10cd31aa5a3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\lib\include\websocket\lib\base64.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\websocket\lib\dataframeheader.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\websocket\lib\sha1.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\websocket\handshaker.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\websocket\webaccepter.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\websocket\weblistener.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\lib\src\websocket\lib\base64.cpp">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\websocket\lib\dataframeheader.cpp">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\websocket\lib\sha1.cpp">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\websocket\handshaker.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\websocket\webaccepter.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\websocket\weblistener.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

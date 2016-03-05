@@ -69,7 +69,6 @@ NetHandle NetBase::ConnectServer(const char *ip, unsigned short port, Listener *
 	printf("connect to Server ip = %s, port = %d\n", ip, port);
 
 	NetCommon::StartUp();
-
 	struct sockaddr_in serverAddr;
 	memset(&serverAddr, 0, sizeof(serverAddr));
 	serverAddr.sin_family = AF_INET;
@@ -168,15 +167,9 @@ void NetBase::Update()
 				// 内存交给下游处理
 				// delete (*msg);
 			}
-			else
-			{
-				delete msg;
-			}
+			else delete msg;
 		}
-		else
-		{
-			break;
-		}
+		else break;
 	} while (true);
 }
 

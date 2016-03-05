@@ -1,5 +1,5 @@
 ﻿
-#include "websocket/base64.h"
+#include "lib/base64.h"
 
 string Base64::Encode(const unsigned char* Data, int DataByte)
 {
