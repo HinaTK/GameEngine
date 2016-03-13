@@ -21,6 +21,7 @@ public:
 		ID_GATE,
 		ID_GATE2,
 		ID_LOG,
+		ID_NET = 10,
 		ID_MAX = 16,
 	};
 

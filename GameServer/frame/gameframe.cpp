@@ -2,16 +2,16 @@
 #include "gameframe.h"
 #include "common/datastructure/msgqueue.h"
 #include "common/protocol/messageheader.h"
+#include "lib/include/frame/baseaccepter.h"
 #include "lib/include/tinyxml/tinyxml.h"
 #include "lib/include/timemanager/gametime.h"
 #include "lib/chat/interface.h"
 #include "main/mainthread.h"
 #include "db/dbthread.h"
+#include "net/netthread.h"
 
 
 NewFrame::NewFrame()
-: m_o_call_back(this)
-, m_i_call_back(this)
 {
 
 }
@@ -27,7 +27,14 @@ bool NewFrame::Init()
 	m_thread_manager.Register(ThreadManager::ID_MAIN, new MainThread(&m_thread_manager));
 	m_thread_manager.Register(ThreadManager::ID_DB, new DBThread(&m_thread_manager));
 	m_thread_manager.Register(ThreadManager::ID_CHAT, (BaseThread *)NewChatThread(&m_thread_manager));
+
+	for (unsigned char i = ThreadManager::ID_NET; i < ThreadManager::ID_NET + 1; ++i)
+	{
+		m_thread_manager.Register(i, new NetThread(&m_thread_manager));
+	}
 	m_thread_manager.Start();
+
+	
 	return true;
 }
 

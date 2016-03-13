@@ -17,32 +17,32 @@ NetManager::NetManager()
 void NetManager::Loop()
 {
     static struct epoll_event events[MAX_EPOLL_SIZE];
-        int fd_num = 0;
-        while (m_is_run)
+    int fd_num = 0;
+    while (m_is_run)
+    {
+        fd_num = epoll_wait(m_epoll_fd, events, MAX_EPOLL_SIZE, 10);
+        if (fd_num > 0)
         {
-            fd_num = epoll_wait(m_epoll_fd, events, MAX_EPOLL_SIZE, 10);
-            if (fd_num > 0)
+            for (int i = 0; i < fd_num; ++i)
             {
-                for (int i = 0; i < fd_num; ++i)
+                if (events[i].events & EPOLLIN)
                 {
-                    if (events[i].events & EPOLLIN)
-                    {
-                        ((NetHandler*)events[i].data.ptr)->OnCanRead();
-                    }
-                    if (events[i].events & EPOLLOUT)
-                    {
-                        ((NetHandler*)events[i].data.ptr)->OnCanWrite();
-                    }
+                    ((NetHandler*)events[i].data.ptr)->OnCanRead();
                 }
-                ReplaceHandler();
-                ClearHandler();
+                if (events[i].events & EPOLLOUT)
+                {
+                    ((NetHandler*)events[i].data.ptr)->OnCanWrite();
+                }
             }
-            else
-            {
-                // 写log
-                usleep(10000);
-            }
+            ReplaceHandler();
+            ClearHandler();
         }
+        else
+        {
+            // 写log
+            usleep(10000);
+        }
+    }
 }
 
 void NetManager::InitNetHandler(NetHandler *handler)

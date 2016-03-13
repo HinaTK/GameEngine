@@ -154,12 +154,13 @@ void NetBase::PushMsg(NetHandler *handler, unsigned short msg_type, const char *
 	m_queue.Push(game_msg);
 }
 
-void NetBase::Update()
+bool NetBase::Update()
 {
 	static GameMsg *msg;
+	bool ret = m_queue.Size() > 0;
 	do
 	{
-		if (m_queue.Pop(msg) && msg != NULL)
+		if (m_queue.Pop(msg)/* && msg != NULL*/)
 		{
 			if (msg->handle >= 0)
 			{
@@ -171,6 +172,7 @@ void NetBase::Update()
 		}
 		else break;
 	} while (true);
+	return ret;
 }
 
 

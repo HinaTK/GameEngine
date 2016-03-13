@@ -13,15 +13,15 @@
     <Filter Include="common">
       <UniqueIdentifier>{4538c0eb-480b-4dea-a257-fb3167aac93b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="net">
+      <UniqueIdentifier>{07d01f16-e03c-4523-830c-7d995e9c6198}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\GameServer\frame\gameframe.cpp">
       <Filter>frame</Filter>
     </ClCompile>
     <ClCompile Include="..\GameServer\frame\main.cpp">
-      <Filter>frame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GameServer\frame\callback.cpp">
       <Filter>frame</Filter>
     </ClCompile>
     <ClCompile Include="..\GameServer\main\mainthread.cpp">
@@ -33,12 +33,15 @@
     <ClCompile Include="..\common\commonfunction.cpp">
       <Filter>common</Filter>
     </ClCompile>
+    <ClCompile Include="..\GameServer\net\netthread.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\net\callback.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GameServer\frame\gameframe.h">
-      <Filter>frame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GameServer\frame\callback.h">
       <Filter>frame</Filter>
     </ClInclude>
     <ClInclude Include="..\GameServer\define.h" />
@@ -50,6 +53,12 @@
     </ClInclude>
     <ClInclude Include="..\common\commonfunction.h">
       <Filter>common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\net\netthread.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\net\callback.h">
+      <Filter>net</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

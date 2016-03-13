@@ -10,9 +10,11 @@ void *Update(void * arg)
 }
 
 BaseThread::BaseThread(ThreadManager *manager)
-: m_manager(manager)
+: m_id(ThreadManager::ID_MAX)
+, m_manager(manager)
 , m_thread(NULL)
 , m_is_exit(false)
+, m_is_start(false)
 {
 
 }
@@ -27,8 +29,12 @@ BaseThread::~BaseThread()
 
 void BaseThread::Start()
 {
-	Init();
-	m_thread = new std::thread(::Update, this);
+	if (!m_is_start)
+	{
+		Init();
+		m_thread = new std::thread(::Update, this);
+		m_is_start = true;
+	}
 }
 
 void BaseThread::Loop(bool sleep)
@@ -38,7 +44,6 @@ void BaseThread::Loop(bool sleep)
 	do 
 	{
 		is_sleep = sleep;
-		Run();
 		while (m_recv_queue.Pop(msg))
 		{
 			if (msg->cmd == ThreadManager::CMD_NOT)
@@ -57,7 +62,7 @@ void BaseThread::Loop(bool sleep)
 			delete msg;
 			is_sleep = false;
 		}
-		if (is_sleep)
+		if (is_sleep && !Run())
 		{
 			GameTime::Sleep(2);
 		}

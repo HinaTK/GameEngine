@@ -8,7 +8,6 @@
 #include "lib/include/frame/frame.h"
 #include "lib/include/timemanager/timemanager.h"
 #include "lib/include/thread/threadmanager.h"
-#include "callback.h"
 
 class NewFrame : public Frame
 {
@@ -43,10 +42,6 @@ public:
 private:
 	NewFrame();
 
-    OuterCallBack		m_o_call_back;
-    InnerCallBack		m_i_call_back;
-
-	
 	ThreadManager		m_thread_manager;
 
 	typedef game::Hash<NetHandle, int> NET_HANDLE_THREAD_HASH;

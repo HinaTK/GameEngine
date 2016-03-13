@@ -21,17 +21,13 @@ public:
 	virtual	void		Loop() = 0;
 
 	void				UpdateAll(unsigned long long interval);
-	
-	bool				Run();
 
-	void				SetFPS(int ms);
 
 	void				SetExit();
 
 	bool				IsRun(){ return m_is_run; }
 
 protected:
-	TimeEventManager	m_time_event_manager;
 	unsigned int		m_sleep_time_ms;
 private:
 	bool		m_is_run;

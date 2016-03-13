@@ -20,9 +20,9 @@ void DBThread::Init()
 }
 
 int dbi = 0;
-void DBThread::Run()
+bool DBThread::Run()
 {
-	
+	return false;
 }
 
 void DBThread::RecvMsg(unsigned char sid, int len, const char *data)

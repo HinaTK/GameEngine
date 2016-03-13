@@ -47,6 +47,7 @@ public:
 		return false;
 	}
 
+	unsigned int Size(){ return m_read_queue->Size(); }
 private:
 	game::Queue<T>	*m_write_queue;
 	game::Queue<T>	*m_read_queue;

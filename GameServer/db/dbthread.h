@@ -12,7 +12,7 @@ public:
 
 protected:
 	void	Init();
-	void	Run();
+	bool	Run();
 	void	RecvMsg(unsigned char sid, int len, const char *data);
 private:
 };

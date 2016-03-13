@@ -15,9 +15,9 @@ void MainThread::Init()
 
 }
 
-void MainThread::Run()
+bool MainThread::Run()
 {
-	
+	return false;
 }
 
 int db = 0;

@@ -31,7 +31,7 @@ public:
 	NetHandle		ConnectServer(const char *ip, unsigned short port, Listener *lister, MsgCallBack *call_back);
 	void			Listen();
 	bool			Send(NetHandle handle, const char *buf, unsigned int length);
-	void			Update();
+	bool			Update();
 
 	NetHandle		AddNetHandler(NetHandler *handler);
 	void			RemoveHandler(NetHandle handle, int reason);

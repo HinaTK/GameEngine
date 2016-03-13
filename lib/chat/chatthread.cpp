@@ -20,9 +20,9 @@ void ChatThread::Init()
 }
 
 int dbi = 0;
-void ChatThread::Run()
+bool ChatThread::Run()
 {
-
+	return false;
 }
 
 void ChatThread::RecvMsg(unsigned char sid, int len, const char *data)
