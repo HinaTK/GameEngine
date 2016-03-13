@@ -31,7 +31,7 @@ bool NewFrame::Init(const char *config)
 
 bool NewFrame::Run()
 {
-	return Frame::Run();
+	return true;
 }
 
 // ¹¹¼Ü¸üÐÂ

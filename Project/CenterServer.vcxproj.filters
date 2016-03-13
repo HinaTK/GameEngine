@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="main">
+      <UniqueIdentifier>{09468cc7-70ad-442b-9a9f-3327b652a245}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="common">
+      <UniqueIdentifier>{058bfe58-1656-48b9-b2fe-2d0d7260ffa8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\CenterServer\main\center.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterServer\main\main.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\common\commonfunction.cpp">
+      <Filter>common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\CenterServer\main\center.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\commonfunction.h">
+      <Filter>common</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

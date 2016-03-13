@@ -1,17 +1,17 @@
-﻿
-#include "gameframe.h"
+
+#include "center.h"
 #include "common/commonfunction.h"
 
 
 int main()
 {
-	if (!NewFrame::Instance().Init())
+	if (!Center::Instance().Init())
 	{
 		Function::WindowsPause();
 		return 0;
 	}
 
-	NewFrame::Instance().Start();
-	
+	Center::Instance().Start();
+
 	return 0;
 }

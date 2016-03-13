@@ -15,7 +15,7 @@ public:
 
 protected:
 	void	Init();
-	void	Run();
+	bool	Run();
 	void	RecvMsg(ThreadMsg *msg);
 private:
 	NetManager	m_net_manager;

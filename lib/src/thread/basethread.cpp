@@ -44,7 +44,7 @@ void BaseThread::Loop(bool sleep)
 	do 
 	{
 		is_sleep = sleep;
-		while (m_recv_queue.Pop(msg))
+		while (m_recv_queue.Pop(msg) && msg != NULL)
 		{
 			if (msg->cmd == ThreadManager::CMD_NOT)
 			{

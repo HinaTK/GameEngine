@@ -24,9 +24,13 @@ NewFrame::~NewFrame()
 // 框架初始化
 bool NewFrame::Init()
 {
+// 	NetManager *net1 = new NetManager();
+// 	net1->InitServer("127.0.0.1", 2346, 16, new BaseAccepter(net1), NULL);
+// 
+// 	NetManager *net2 = new NetManager();
+// 	net2->InitServer("127.0.0.1", 2347, 16, new BaseAccepter(net2), NULL);
 	m_thread_manager.Register(ThreadManager::ID_DB, new DBThread(&m_thread_manager));
- 	m_thread_manager.Register(ThreadManager::ID_MAIN, new MainThread(&m_thread_manager));
-	
+ 	m_thread_manager.Register(ThreadManager::ID_MAIN, new MainThread(&m_thread_manager));	
 	m_thread_manager.Register(ThreadManager::ID_CHAT, (BaseThread *)NewChatThread(&m_thread_manager));
 
 	for (unsigned char i = ThreadManager::ID_NET; i < ThreadManager::ID_NET + 1; ++i)

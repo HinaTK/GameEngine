@@ -6,13 +6,13 @@ NetManager::NetManager()
 : NetBase()
 , m_max_fd(0)
 {
-
+	FD_ZERO(&m_read_set);
+	FD_ZERO(&m_write_set);
 }
 
 NetManager::~NetManager()
 {
-	FD_ZERO(&m_read_set);
-	FD_ZERO(&m_write_set);
+	
 }
 
 void NetManager::Loop()
