@@ -24,8 +24,9 @@ NewFrame::~NewFrame()
 // 框架初始化
 bool NewFrame::Init()
 {
-	m_thread_manager.Register(ThreadManager::ID_MAIN, new MainThread(&m_thread_manager));
 	m_thread_manager.Register(ThreadManager::ID_DB, new DBThread(&m_thread_manager));
+ 	m_thread_manager.Register(ThreadManager::ID_MAIN, new MainThread(&m_thread_manager));
+	
 	m_thread_manager.Register(ThreadManager::ID_CHAT, (BaseThread *)NewChatThread(&m_thread_manager));
 
 	for (unsigned char i = ThreadManager::ID_NET; i < ThreadManager::ID_NET + 1; ++i)
@@ -41,25 +42,6 @@ bool NewFrame::Init()
 // 构架更新
 void NewFrame::Update(unsigned int interval, time_t now)
 {
-}
-
-void NewFrame::OuterRecv(GameMsg *msg)
-{
-	NET_HANDLE_THREAD_HASH::iterator itr = m_net_handle_thread_hash.Find(msg->handle);
-	if (itr != m_net_handle_thread_hash.End())
-	{
-
-	}
-	else
-	{
-		delete msg;
-	}
-}
-
-
-void NewFrame::InnerRecv(GameMsg *msg)
-{
-
 }
 
 void NewFrame::Start()
