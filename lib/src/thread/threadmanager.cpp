@@ -4,37 +4,34 @@
 
 ThreadManager::~ThreadManager()
 {
-	for (int i = 0; i < ID_MAX; ++i)
+	for (game::Array<BaseThread * >::iterator itr = m_thread.Begin(); itr != m_thread.End(); ++itr)
 	{
-		if (m_thread[i])
+		if (*itr != NULL)
 		{
-			delete m_thread[i];
+			delete (*itr);
+			*itr = NULL;
 		}
 	}
 }
 
 ThreadManager::ThreadManager()
 {
-	for (int i = 0; i < ID_MAX; ++i)
-	{
-		m_thread[i] = NULL;
-	}
+	
 }
 
-void ThreadManager::Register(unsigned char id, BaseThread *bt, unsigned int exit /*= EXIT_NORMAL*/)
+int ThreadManager::Register(BaseThread *bt, unsigned int exit /*= EXIT_NORMAL*/)
 {
-	m_thread[id] = bt;
+	unsigned int id = m_thread.Insert(bt);
+	bt->SetID(id);
 	m_exit[exit].push_back(id);
+	return id;
 }
 
 void ThreadManager::Start()
 {
-	for (int i = 0; i < ID_MAX; ++i)
+	for (game::Array<BaseThread * >::iterator itr = m_thread.Begin(); itr != m_thread.End(); ++itr)
 	{
-		if (m_thread[i])
-		{
-			m_thread[i]->Start();
-		}
+		(*itr)->Start();
 	}
 }
 
@@ -43,17 +40,17 @@ void ThreadManager::SendMsg(unsigned char sid, unsigned char did, int len, const
 	m_thread[did]->PushMsg(new ThreadMsg(CMD_NOT, sid, len, data));
 }
 
-void ThreadManager::CMD(unsigned char type, unsigned char sid, int len, const char *data, unsigned char did /*= -1*/)
+void ThreadManager::CMD(unsigned char type, int sid, int len, const char *data, int did /*= -1*/)
 {
-	if (did != (unsigned char)-1)
+	if (did != -1)
 	{
 		m_thread[did]->PushMsg(new ThreadMsg(type, sid, len, data));
 	}
 	else
 	{
-		for (int i = 0; i < ID_MAX; ++i)
+		for (game::Array<BaseThread * >::iterator itr = m_thread.Begin(); itr != m_thread.End(); ++itr)
 		{
-			if (m_thread[i]) m_thread[i]->PushMsg(new ThreadMsg(type, sid, len, data));
+			(*itr)->PushMsg(new ThreadMsg(type, sid, len, data));
 		}
 	}
 }
@@ -65,14 +62,14 @@ void ThreadManager::Exit()
 
 void ThreadManager::Wait()
 {
-	for (std::vector<unsigned char>::iterator itr = m_exit[EXIT_NORMAL].begin(); itr != m_exit[EXIT_NORMAL].end(); ++itr)
+	for (std::vector<int>::iterator itr = m_exit[EXIT_NORMAL].begin(); itr != m_exit[EXIT_NORMAL].end(); ++itr)
 	{
 		m_thread[*itr]->Wait();
 	}
 
 	for (int i = EXIT_NORMAL + 1; i < EXIT_MAX; ++i)
 	{
-		for (std::vector<unsigned char>::iterator itr = m_exit[i].begin(); itr != m_exit[i].end(); ++itr)
+		for (std::vector<int>::iterator itr = m_exit[i].begin(); itr != m_exit[i].end(); ++itr)
 		{
 			m_thread[*itr]->Wait();
 		}

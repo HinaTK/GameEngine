@@ -4,37 +4,31 @@
     <Filter Include="common">
       <UniqueIdentifier>{1055d6b4-c2df-42d6-9bc1-1c68256a97e7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="common\protocol">
-      <UniqueIdentifier>{753419a7-dd5d-41df-a688-36b82a08cb51}</UniqueIdentifier>
+    <Filter Include="proto">
+      <UniqueIdentifier>{3efccc0a-a44f-49b0-bbbd-f3c9974dcc65}</UniqueIdentifier>
     </Filter>
-    <Filter Include="frame">
-      <UniqueIdentifier>{25f5ca2b-be1d-4cba-9d6b-6f3eaf7e1882}</UniqueIdentifier>
+    <Filter Include="main">
+      <UniqueIdentifier>{5a49521c-1576-46b9-b652-c3b82af769ba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="user">
-      <UniqueIdentifier>{cf6db892-f656-4efe-ade3-783edfa47ab1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="netid">
-      <UniqueIdentifier>{6b5e5d6c-33e6-4fe1-b5c2-e9873d5c62dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="common\libheader">
-      <UniqueIdentifier>{20581269-20b7-4288-ac10-ae353c2e3aef}</UniqueIdentifier>
+    <Filter Include="net">
+      <UniqueIdentifier>{10ec7bd8-ab14-49cd-901a-b9e6dbc85e29}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\common\commonfunction.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\GatewayServer\frame\gatewayframe.cpp">
-      <Filter>frame</Filter>
+    <ClCompile Include="..\Gateway\main\gateway.cpp">
+      <Filter>main</Filter>
     </ClCompile>
-    <ClCompile Include="..\GatewayServer\frame\main.cpp">
-      <Filter>frame</Filter>
+    <ClCompile Include="..\Gateway\main\main.cpp">
+      <Filter>main</Filter>
     </ClCompile>
-    <ClCompile Include="..\GatewayServer\user\usermanager.cpp">
-      <Filter>user</Filter>
+    <ClCompile Include="..\Gateway\net\callback.cpp">
+      <Filter>net</Filter>
     </ClCompile>
-    <ClCompile Include="..\GatewayServer\netid\netidmanager.cpp">
-      <Filter>netid</Filter>
+    <ClCompile Include="..\Gateway\net\netthread.cpp">
+      <Filter>net</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -44,32 +38,17 @@
     <ClInclude Include="..\common\commonvariable.h">
       <Filter>common</Filter>
     </ClInclude>
-    <ClInclude Include="..\common\protocol\msgheader.h">
-      <Filter>common\protocol</Filter>
+    <ClInclude Include="..\protocol\innerproto.h">
+      <Filter>proto</Filter>
     </ClInclude>
-    <ClInclude Include="..\GatewayServer\frame\gatewayframe.h">
-      <Filter>frame</Filter>
+    <ClInclude Include="..\Gateway\main\gateway.h">
+      <Filter>main</Filter>
     </ClInclude>
-    <ClInclude Include="..\GatewayServer\user\usermanager.h">
-      <Filter>user</Filter>
+    <ClInclude Include="..\Gateway\net\callback.h">
+      <Filter>net</Filter>
     </ClInclude>
-    <ClInclude Include="..\GatewayServer\netid\netidmanager.h">
-      <Filter>netid</Filter>
-    </ClInclude>
-    <ClInclude Include="..\common\libheader\libinternal.h">
-      <Filter>common\libheader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\common\libheader\libtinyxml.h">
-      <Filter>common\libheader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\common\libheader\libtimemanager.h">
-      <Filter>common\libheader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\common\libheader\libgamesocket.h">
-      <Filter>common\libheader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\common\libheader\libdatastructure.h">
-      <Filter>common\libheader</Filter>
+    <ClInclude Include="..\Gateway\net\netthread.h">
+      <Filter>net</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

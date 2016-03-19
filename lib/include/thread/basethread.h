@@ -25,13 +25,14 @@ public:
 	void	Exit();
 	void	Wait();
 
+	void	SetID(int id){ m_id = id; }
 protected:
 	virtual void	Init() = 0;
 	virtual bool	Run() = 0;
 	virtual void	RecvMsg(unsigned char sid, int len, const char *data) = 0;
 	virtual void	CMD(unsigned char cmd, unsigned char sid, int len, const char *data){};
 protected:
-	unsigned char	m_id;
+	int				m_id;
 	ThreadManager	*m_manager;
 	std::thread		*m_thread;
 	bool			m_is_start;

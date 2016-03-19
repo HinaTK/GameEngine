@@ -44,7 +44,7 @@
     <OutDir>..\Debug\</OutDir>
     <IntDir>..\Debug\gatewayserver\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..;..\lib\include;..\GatewayServer;$(IncludePath)</IncludePath>
+    <IncludePath>..;..\lib\include;..\Gateway;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
@@ -61,14 +61,18 @@
       <PrecompiledHeader />
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>..\lib\windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Tinyxml.lib;TimeManager.lib;Frame.lib;Common.lib;Log.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Tinyxml.lib;TimeManager.lib;Frame.lib;Common.lib;Log.lib;Thread.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -91,23 +95,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\common\commonfunction.cpp" />
-    <ClCompile Include="..\GatewayServer\frame\gatewayframe.cpp" />
-    <ClCompile Include="..\GatewayServer\frame\main.cpp" />
-    <ClCompile Include="..\GatewayServer\user\usermanager.cpp" />
-    <ClCompile Include="..\GatewayServer\netid\netidmanager.cpp" />
+    <ClCompile Include="..\Gateway\main\gateway.cpp" />
+    <ClCompile Include="..\Gateway\main\main.cpp" />
+    <ClCompile Include="..\Gateway\net\callback.cpp" />
+    <ClCompile Include="..\Gateway\net\netthread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\common\commonfunction.h" />
     <ClInclude Include="..\common\commonvariable.h" />
-    <ClInclude Include="..\common\libheader\libdatastructure.h" />
-    <ClInclude Include="..\common\libheader\libgamesocket.h" />
-    <ClInclude Include="..\common\libheader\libinternal.h" />
-    <ClInclude Include="..\common\libheader\libtimemanager.h" />
-    <ClInclude Include="..\common\libheader\libtinyxml.h" />
-    <ClInclude Include="..\common\protocol\msgheader.h" />
-    <ClInclude Include="..\GatewayServer\frame\gatewayframe.h" />
-    <ClInclude Include="..\GatewayServer\user\usermanager.h" />
-    <ClInclude Include="..\GatewayServer\netid\netidmanager.h" />
+    <ClInclude Include="..\Gateway\main\gateway.h" />
+    <ClInclude Include="..\Gateway\net\callback.h" />
+    <ClInclude Include="..\Gateway\net\netthread.h" />
+    <ClInclude Include="..\protocol\innerproto.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

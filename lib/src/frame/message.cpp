@@ -27,7 +27,7 @@ GameMsg::~GameMsg()
 	}
 }
 
-ThreadMsg::ThreadMsg(unsigned char _cmd, unsigned char _id, int _length, const char *_data)
+ThreadMsg::ThreadMsg(unsigned char _cmd, int _id, int _length, const char *_data)
 : cmd(_cmd)
 , id(_id)
 , length(_length)

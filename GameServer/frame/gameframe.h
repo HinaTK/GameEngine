@@ -7,7 +7,6 @@
 #include "lib/include/common/thread.h"
 #include "lib/include/frame/frame.h"
 #include "lib/include/timemanager/timemanager.h"
-#include "lib/include/thread/threadmanager.h"
 
 class NewFrame : public Frame
 {
@@ -34,8 +33,6 @@ public:
 	SOCKET		m_gateway_server_net_id;
 private:
 	NewFrame();
-
-	ThreadManager		m_thread_manager;
 
 	typedef game::Hash<NetHandle, int> NET_HANDLE_THREAD_HASH;
 	NET_HANDLE_THREAD_HASH m_net_handle_thread_hash;

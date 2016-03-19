@@ -1,7 +1,7 @@
 
 #include "netthread.h"
 #include "callback.h"
-#include "lib/include/thread/threadmanager.h"
+#include "main/gateway.h"
 #include "lib/include/frame/baseaccepter.h"
 #include "lib/include/common/serverconfig.h"
 
@@ -13,9 +13,8 @@ NetThread::NetThread(ThreadManager *manager)
 
 void NetThread::Init()
 {
-	ServerInfo info = GatawayConfig::Instance().m_server[m_id - ThreadManager::ID_NET];
- 	CallBack *call = new CallBack(this);
- 	m_net_manager.InitServer("127.0.0.1", 2345, 16, new BaseAccepter(&m_net_manager), call);
+	ServerInfo info = GatawayConfig::Instance().m_server[m_id];
+	m_net_manager.InitServer(info.ip, info.port, info.backlog, new BaseAccepter(&m_net_manager), new CallBack(this));
 }
 
 

@@ -2,6 +2,8 @@
 #ifndef FRAME_H
 #define FRAME_H
 
+#include "lib/include/thread/threadmanager.h"
+
 class Frame
 {
 public:
@@ -14,6 +16,8 @@ public:
 	void				SetExit();
 	bool				IsRun(){ return m_is_run; }
 
+protected:
+	ThreadManager		m_thread_manager;
 private:
 	bool		m_is_run;
 

@@ -10,7 +10,7 @@ void *Update(void * arg)
 }
 
 BaseThread::BaseThread(ThreadManager *manager)
-: m_id(ThreadManager::ID_MAX)
+: m_id(-1)
 , m_manager(manager)
 , m_thread(NULL)
 , m_is_exit(false)
@@ -62,7 +62,7 @@ void BaseThread::Loop(bool sleep)
 			delete msg;
 			is_sleep = false;
 		}
-		if (is_sleep && !Run())
+		if (is_sleep && !this->Run())
 		{
 			GameTime::Sleep(2);
 		}

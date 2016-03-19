@@ -25,14 +25,14 @@ public:
 class ThreadMsg
 {
 public:
-	ThreadMsg(unsigned char _cmd, unsigned char _id, int _length, const char *_data);
+	ThreadMsg(unsigned char _cmd, int _id, int _length, const char *_data);
 	~ThreadMsg();
 
 	void *		operator new(size_t c);
 	void		operator delete(void *m);
 
 	unsigned char cmd;
-	unsigned char id;
+	int		id;
 	int		length;
 	char	*data;
 };

@@ -1,0 +1,21 @@
+<config>
+	<gateway>
+		<server>
+			<ip>127.0.0.1</ip>
+			<port>12345</port>
+			<backlog>128</backlog>
+		</server>
+		<server>
+			<ip>127.0.0.1</ip>
+			<port>12346</port>
+			<backlog>128</backlog>
+		</server>
+	</gateway>
+
+	<center>
+	</center>
+
+	<game>
+	</game>	
+	
+</config>
