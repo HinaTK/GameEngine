@@ -19,10 +19,11 @@ ThreadManager::ThreadManager()
 	
 }
 
-int ThreadManager::Register(BaseThread *bt, unsigned int exit /*= EXIT_NORMAL*/)
+int ThreadManager::Register(BaseThread *bt, void *arg, unsigned int exit /*= EXIT_NORMAL*/)
 {
 	unsigned int id = m_thread.Insert(bt);
 	bt->SetID(id);
+	bt->SetArg(arg);
 	m_exit[exit].push_back(id);
 	return id;
 }

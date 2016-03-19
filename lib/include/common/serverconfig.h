@@ -23,9 +23,28 @@ public:
 
 	bool	Init();
 
+	ServerInfo center;
 	std::vector<ServerInfo>	m_server;
 private:
 	GatawayConfig(){};
+};
+
+class CenterConfig
+{
+public:
+	~CenterConfig(){};
+	static CenterConfig &Instance()
+	{
+		static CenterConfig config;
+		return config;
+	}
+
+	bool	Init();
+
+	ServerInfo center;
+	ServerInfo login;
+private:
+	CenterConfig(){};
 };
 
 #endif

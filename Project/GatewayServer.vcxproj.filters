@@ -50,5 +50,8 @@
     <ClInclude Include="..\Gateway\net\netthread.h">
       <Filter>net</Filter>
     </ClInclude>
+    <ClInclude Include="..\Gateway\main\threadid.h">
+      <Filter>main</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

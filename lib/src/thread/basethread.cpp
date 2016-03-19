@@ -11,6 +11,7 @@ void *Update(void * arg)
 
 BaseThread::BaseThread(ThreadManager *manager)
 : m_id(-1)
+, m_arg(NULL)
 , m_manager(manager)
 , m_thread(NULL)
 , m_is_exit(false)
@@ -31,7 +32,12 @@ void BaseThread::Start()
 {
 	if (!m_is_start)
 	{
-		Init();
+		Init(m_arg);
+		if (m_arg != NULL)
+		{
+			delete m_arg;
+			m_arg = NULL;
+		}
 		m_thread = new std::thread(::Update, this);
 		m_is_start = true;
 	}

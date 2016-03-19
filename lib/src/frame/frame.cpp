@@ -28,6 +28,9 @@ Frame::Frame()
 {
 	SignalCatch::g_frame = this;
 	signal(SIGINT, SignalCatch::Catch);
+	signal(SIGSEGV, SignalCatch::Catch);
+	signal(SIGTERM, SignalCatch::Catch);
+	
 #ifdef __unix
 	signal(SIGPIPE, SIG_IGN); // socket send if close
 #endif
@@ -36,7 +39,7 @@ Frame::Frame()
 
 Frame::~Frame()
 {
-	SetExit();
+	//SetExit();
 }
 
 void Frame::SetExit()

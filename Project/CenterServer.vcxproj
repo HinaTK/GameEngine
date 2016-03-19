@@ -13,10 +13,14 @@
   <ItemGroup>
     <ClCompile Include="..\CenterServer\main\center.cpp" />
     <ClCompile Include="..\CenterServer\main\main.cpp" />
+    <ClCompile Include="..\CenterServer\net\callback.cpp" />
+    <ClCompile Include="..\CenterServer\net\netthread.cpp" />
     <ClCompile Include="..\common\commonfunction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\CenterServer\main\center.h" />
+    <ClInclude Include="..\CenterServer\net\callback.h" />
+    <ClInclude Include="..\CenterServer\net\netthread.h" />
     <ClInclude Include="..\common\commonfunction.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -77,7 +81,7 @@
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>..\lib\windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Frame.lib;Tinyxml.lib;TimeManager.lib;Common.lib;Log.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Frame.lib;Tinyxml.lib;TimeManager.lib;Common.lib;Log.lib;Thread.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>

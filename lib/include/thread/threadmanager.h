@@ -27,7 +27,7 @@ public:
 		CMD_EXIT
 	};
 
-	int				Register(BaseThread *bt, unsigned int exit = EXIT_NORMAL);
+	int				Register(BaseThread *bt, void *arg = NULL, unsigned int exit = EXIT_NORMAL);
 	void			Start();
 	void			Exit();
 	void			Wait();

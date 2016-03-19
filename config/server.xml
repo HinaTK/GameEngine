@@ -12,10 +12,19 @@
 		</server>
 	</gateway>
 
+	<login>
+		<ip>127.0.0.1</ip>
+		<port>12347</port>
+		<backlog>128</backlog>
+	</login>
+
 	<center>
+		<ip>127.0.0.1</ip>
+		<port>12348</port>
+		<backlog>128</backlog>
 	</center>
 
 	<game>
 	</game>	
-	
+
 </config>

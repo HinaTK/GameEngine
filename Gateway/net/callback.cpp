@@ -16,4 +16,3 @@ void CallBack::Disconnect(NetHandle handle, int reason)
 {
     printf("fuck disconnect.................\n");
 }
-
