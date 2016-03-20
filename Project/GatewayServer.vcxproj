@@ -107,6 +107,7 @@
     <ClInclude Include="..\Gateway\main\threadid.h" />
     <ClInclude Include="..\Gateway\net\callback.h" />
     <ClInclude Include="..\Gateway\net\netthread.h" />
+    <ClInclude Include="..\protocol\innermsgid.h" />
     <ClInclude Include="..\protocol\innerproto.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

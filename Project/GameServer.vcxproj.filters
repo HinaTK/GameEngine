@@ -16,11 +16,11 @@
     <Filter Include="net">
       <UniqueIdentifier>{07d01f16-e03c-4523-830c-7d995e9c6198}</UniqueIdentifier>
     </Filter>
+    <Filter Include="proto">
+      <UniqueIdentifier>{ce220b58-243c-4a61-8dcc-c3deca69658b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\GameServer\frame\gameframe.cpp">
-      <Filter>frame</Filter>
-    </ClCompile>
     <ClCompile Include="..\GameServer\frame\main.cpp">
       <Filter>frame</Filter>
     </ClCompile>
@@ -39,11 +39,11 @@
     <ClCompile Include="..\GameServer\net\callback.cpp">
       <Filter>net</Filter>
     </ClCompile>
+    <ClCompile Include="..\GameServer\frame\game.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\GameServer\frame\gameframe.h">
-      <Filter>frame</Filter>
-    </ClInclude>
     <ClInclude Include="..\GameServer\define.h" />
     <ClInclude Include="..\GameServer\main\mainthread.h">
       <Filter>main</Filter>
@@ -59,6 +59,12 @@
     </ClInclude>
     <ClInclude Include="..\GameServer\net\callback.h">
       <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\frame\game.h">
+      <Filter>frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\protocol\innerproto.h">
+      <Filter>proto</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

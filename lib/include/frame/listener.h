@@ -27,8 +27,8 @@ public:
 	void			RegisterWriteFD();
 
 protected:
-	int				RecvBuf();
-	virtual int		AnalyzeBuf() = 0;
+	bool			RecvBuf();
+	virtual bool	AnalyzeBuf() = 0;
 	
 	void			UnRegisterWriteFD();
 protected:

@@ -53,5 +53,8 @@
     <ClInclude Include="..\Gateway\main\threadid.h">
       <Filter>main</Filter>
     </ClInclude>
+    <ClInclude Include="..\protocol\innermsgid.h">
+      <Filter>proto</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

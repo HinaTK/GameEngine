@@ -6,7 +6,7 @@
 
 struct ServerInfo
 {
-	char			ip[64];
+	char			ip[32];
 	unsigned short	port;
 	int				backlog;
 };
@@ -45,6 +45,24 @@ public:
 	ServerInfo login;
 private:
 	CenterConfig(){};
+};
+
+class GameConfig
+{
+public:
+	~GameConfig(){};
+	static GameConfig &Instance()
+	{
+		static GameConfig config;
+		return config;
+	}
+
+	bool	Init();
+
+	ServerInfo center;
+	ServerInfo server;
+private:
+	GameConfig(){};
 };
 
 #endif

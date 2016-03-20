@@ -23,4 +23,22 @@ private:
 	NetThread *m_thread;
 };
 
+class InnerCallBack : public MsgCallBack
+{
+public:
+	InnerCallBack(NetThread *t)
+		: MsgCallBack()
+		, m_thread(t){}
+	~InnerCallBack(){}
+
+	void	Accept(NetHandle handle, const char *ip);
+
+	void	Recv(GameMsg *msg);
+
+	void	Disconnect(NetHandle handle, int reason);
+
+private:
+	NetThread *m_thread;
+};
+
 #endif

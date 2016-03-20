@@ -7,6 +7,7 @@ NetHandler::NetHandler(NetManager *manager, int type)
 , m_sock(0)
 , m_net_manager(manager)
 , m_type(type)
+, m_err(0)
 {
 }
 

@@ -10,6 +10,9 @@
     <Filter Include="net">
       <UniqueIdentifier>{5967ef72-c01c-480c-9556-a77852fbb94b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="proto">
+      <UniqueIdentifier>{0fcda75d-1f22-4efd-b38d-eb1c8cc5c53f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\CenterServer\main\center.cpp">
@@ -27,6 +30,9 @@
     <ClCompile Include="..\CenterServer\net\netthread.cpp">
       <Filter>net</Filter>
     </ClCompile>
+    <ClCompile Include="..\CenterServer\net\router.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\CenterServer\main\center.h">
@@ -39,6 +45,12 @@
       <Filter>net</Filter>
     </ClInclude>
     <ClInclude Include="..\CenterServer\net\netthread.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\protocol\innermsgid.h">
+      <Filter>proto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterServer\net\router.h">
       <Filter>net</Filter>
     </ClInclude>
   </ItemGroup>

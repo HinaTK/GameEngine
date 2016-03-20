@@ -102,3 +102,38 @@ bool CenterConfig::Init()
 	}
 	return true;
 }
+
+bool GameConfig::Init()
+{
+	std::string err;
+	TiXmlDocument doc;
+	if (doc.LoadFile(config_file.c_str()))
+	{
+		TiXmlElement* rootElement = doc.RootElement();
+		if (rootElement == NULL)
+		{
+			return false;
+		}
+		TiXmlElement* curElement = rootElement->FirstChildElement("game");
+		if (curElement == NULL)
+		{
+			ShowError(config_file.c_str(), "game");
+			return false;
+		}
+
+		if (!GetSubNodeValue(curElement, "ip", server.ip, err) ||
+			!GetSubNodeValue(curElement, "port", server.port, err) ||
+			!GetSubNodeValue(curElement, "backlog", server.backlog, err))
+		{
+			ShowError(config_file.c_str(), err.c_str());
+			return false;
+		}
+		ReadCenter(rootElement, center);
+	}
+	else
+	{
+		printf("can not open config file %s\n", config_file.c_str());
+		return false;
+	}
+	return true;
+}

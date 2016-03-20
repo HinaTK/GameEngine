@@ -23,6 +23,7 @@ public:
 	int	Type(){ return m_type; }
 
 	NetManager *GetNetManager(){ return m_net_manager; }
+	int error(){ return m_err; }
 
 	enum 
 	{
@@ -51,6 +52,7 @@ protected:
 	NetManager	*m_net_manager;
 	int			m_type;
 	MsgCallBack *m_call_back;
+	int			m_err;
 };
 
 #endif

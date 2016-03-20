@@ -165,8 +165,7 @@ bool NetBase::Update()
 			if (msg->handle >= 0)
 			{
 				m_msg_handler[msg->msg_index]->msg[msg->msg_type]->Recv(msg);
-				// 内存交给下游处理
-				// delete (*msg);
+				delete msg;
 			}
 			else delete msg;
 		}

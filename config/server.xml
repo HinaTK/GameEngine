@@ -21,10 +21,13 @@
 	<center>
 		<ip>127.0.0.1</ip>
 		<port>12348</port>
-		<backlog>128</backlog>
+		<backlog>8</backlog>
 	</center>
 
 	<game>
+		<ip>127.0.0.1</ip>
+		<port>12349</port>
+		<backlog>8</backlog>
 	</game>	
 
 </config>

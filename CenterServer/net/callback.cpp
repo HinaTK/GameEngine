@@ -20,12 +20,7 @@ void CallBack::Disconnect(NetHandle handle, int reason)
 
 void InnerCallBack::Accept(NetHandle handle, const char *ip)
 {
-	printf("fuck accept.................\n");
-}
-
-void InnerCallBack::Recv(GameMsg *msg)
-{
-	//m_thread->
+	printf("inner accept %s .................\n", ip);
 }
 
 void InnerCallBack::Disconnect(NetHandle handle, int reason)

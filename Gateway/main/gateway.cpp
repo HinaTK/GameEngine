@@ -28,6 +28,7 @@ bool Gateway::Init()
 void Gateway::Start()
 {
 	m_thread_manager.Start();
+	
 	while (IsRun())
 	{
 		char cmd_buf[512] = { 0 };

@@ -15,13 +15,16 @@
     <ClCompile Include="..\CenterServer\main\main.cpp" />
     <ClCompile Include="..\CenterServer\net\callback.cpp" />
     <ClCompile Include="..\CenterServer\net\netthread.cpp" />
+    <ClCompile Include="..\CenterServer\net\router.cpp" />
     <ClCompile Include="..\common\commonfunction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\CenterServer\main\center.h" />
     <ClInclude Include="..\CenterServer\net\callback.h" />
     <ClInclude Include="..\CenterServer\net\netthread.h" />
+    <ClInclude Include="..\CenterServer\net\router.h" />
     <ClInclude Include="..\common\commonfunction.h" />
+    <ClInclude Include="..\protocol\innermsgid.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{13E3CF0C-3C15-4407-8DA4-FCDD6ECAF894}</ProjectGuid>

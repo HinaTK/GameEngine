@@ -3,8 +3,9 @@
 #define CALL_BACK_H
 
 #include "lib/include/frame/msgcallback.h"
+#include "netthread.h"
 
-class NetThread;
+//class NetThread;
 class CallBack : public MsgCallBack
 {
 public:
@@ -34,7 +35,7 @@ public:
 
 	void	Accept(NetHandle handle, const char *ip);
 
-	void	Recv(GameMsg *msg);
+	void	Recv(GameMsg *msg){ m_thread->InnerRecv(msg); };
 
 	void	Disconnect(NetHandle handle, int reason);
 

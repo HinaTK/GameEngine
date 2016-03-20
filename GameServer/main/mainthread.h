@@ -13,7 +13,7 @@ public:
 	MainThread(ThreadManager *manager);
 
 protected:
-	void	Init();
+	void	Init(void *arg);
 	bool	Run();
 	void	RecvMsg(unsigned char sid, int len, const char *data);
 private:

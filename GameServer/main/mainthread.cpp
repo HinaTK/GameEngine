@@ -10,7 +10,7 @@ MainThread::MainThread(ThreadManager *manager)
 
 }
 
-void MainThread::Init()
+void MainThread::Init(void *arg)
 {
 
 }

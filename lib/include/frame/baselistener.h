@@ -20,7 +20,7 @@ public:
 
 	void			Send(const char *buf, unsigned int len);
 protected:
-	virtual int		AnalyzeBuf();
+	virtual bool	AnalyzeBuf();
 	int		buf_size;
 
 };

@@ -29,29 +29,23 @@ Listener::~Listener()
 
 void Listener::OnCanRead()
 {
-	int ret = RecvBuf();
-	if (ret > 0)
+
+	if (!RecvBuf() || !AnalyzeBuf())
 	{
-		m_net_manager->RemoveHandler(m_handle, ret);
-		ret = AnalyzeBuf();
-		if (ret > 0)
-		{
-			m_net_manager->RemoveHandler(m_handle, ret);
-		}
-		else
-		{
-			if (m_recv_buf.FreeLength() <= 0)
-			{
-				m_recv_buf.Resize(16);
-			}
-		}
+		m_net_manager->RemoveHandler(m_handle, m_err);
 	}
 }
 
-int Listener::RecvBuf()
+bool Listener::RecvBuf()
 {
+	unsigned long arg = 32;
 	do
 	{
+		if (arg > m_recv_buf.FreeLength())
+		{
+			m_recv_buf.Resize(arg - m_recv_buf.FreeLength());
+		}
+
 		int ret = recv(m_sock, m_recv_buf.GetFreeBuf(), m_recv_buf.FreeLength(), 0);
 		if (ret <= 0)
 		{
@@ -59,24 +53,19 @@ int Listener::RecvBuf()
 			{
 				break;
 			}
-			return NetHandler::DR_RECV_BUF;
+			m_err = NetHandler::DR_RECV_BUF;
+			return false;
 		}
 		m_recv_buf.AddLength(ret);
-		unsigned long arg = 0;
+		
 		NetCommon::Ioctl(m_sock, FIONREAD, &arg);
 		if (arg == 0)
 		{
 			break;
 		}
-		if (arg > m_recv_buf.FreeLength())
-		{
-			m_recv_buf.Resize(arg - m_recv_buf.FreeLength());
-		}
-
 	} while (true);
 
-	
-	return 0;
+	return true;
 }
 
 void Listener::OnCanWrite()
