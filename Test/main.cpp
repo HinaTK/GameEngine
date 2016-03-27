@@ -133,9 +133,9 @@ int main()
 // 	printf("S2 = %d\n", sizeof(S2));
 	Posi A(40, -30);
 	Posi B(10, -10);
-	Posi C(30, 0);
+	Posi C(30, -1);
 	short W = 20;
-	if (game::InRect(A, B, W, C))
+	if (game::InRect(A, B, C, W))
 	{
 		printf("C In Rect ...\n");
 	}

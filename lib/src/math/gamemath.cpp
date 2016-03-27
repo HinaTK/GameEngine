@@ -4,18 +4,15 @@
 
 bool game::InRect(Posi &A, Posi &B, Posi &C, double W)
 {
-	Coord Y_ca = C.y - A.y;
-	Coord X_ca = C.x - A.x;
+	Posi P_ab = B - A;
+	Posi P_ac = C - A;
 
-	Coord Y_ba = B.y - A.y;
-	Coord X_ba = B.x - A.x;
-
-	Radian R_ab = atan2((double)X_ba, (double)Y_ba);
-	Radian R_ac = atan2((double)X_ca, (double)Y_ca);
+	Radian R_ab = atan2((double)P_ab.x, (double)P_ab.y);
+	Radian R_ac = atan2((double)P_ac.x, (double)P_ac.y);
 	Radian R = R_ac - R_ab;
 
-	double AC = sqrt((double)(X_ca * X_ca + Y_ca * Y_ca));
-	double AB = sqrt((double)(X_ba * X_ba + Y_ba * Y_ba));
+	double AC = P_ac.Module();
+	double AB = P_ab.Module();
 	// 相对坐标
 	double Cx = AC * cos(R);
 	double Cy = AC * sin(R);
@@ -36,6 +33,11 @@ bool game::InSector(Posi A, Posi B, Posi C, double angle)
 
 	double Mod_ab = P_ab.Module();
 	double Mod_ac = P_ac.Module();
+
+	if (Mod_ab < 0.001 || Mod_ac < 0.001)
+	{
+		return false;
+	}
 
 	// 单位向量
 	double ab_uv_x = P_ab.x / Mod_ab;

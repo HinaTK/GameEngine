@@ -40,7 +40,7 @@ public:
 	// 向量模
 	double Module()
 	{
-		sqrt((double)(x * x + y * y));
+		return sqrt((double)(x * x + y * y));
 	}
 
 	void Init(T x, T y);
