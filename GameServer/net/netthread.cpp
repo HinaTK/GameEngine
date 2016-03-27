@@ -23,12 +23,12 @@ void NetThread::Init(void *arg)
 	if (handle != INVALID_NET_HANDLE)
 	{
 		m_net_manager.Listen();
-		Inner::RegisterServer rs;
+		Inner::tocRegisterServer rs;
 		rs.type = Inner::ST_GAME;
 		rs.id = 1;
 		memcpy(rs.ip, info1.ip, sizeof(rs.ip));
 		rs.port = info1.port;
-		m_net_manager.Send(handle, (const char *)&rs, sizeof(Inner::RegisterServer));
+		m_net_manager.Send(handle, (const char *)&rs, sizeof(Inner::tocRegisterServer));
 	}
 }
 

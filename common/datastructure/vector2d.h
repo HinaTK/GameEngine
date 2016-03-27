@@ -1,14 +1,15 @@
-﻿#ifndef _VECTOR_H
-#define _VECTOR_H
+﻿
+#ifndef _VECTOR_2D_H
+#define _VECTOR_2D_H
+
+#include <math.h>
 
 template<class T>
 class Vector2D
 {
 public:
-	Vector2D(void):x(0),y(0)
-	{
-
-	}
+	Vector2D(void):x(0),y(0){}
+	Vector2D(T _x, T _y) :x(_x), y(_y){}
 	~Vector2D(void);
 
 	Vector2D(const Vector2D &v)
@@ -16,12 +17,6 @@ public:
 		x = v.x;
 		y = v.y;
 	}
-
-    Vector2D(T x, T y)
-    {
-        this->x = x;
-        this->y = y;
-    }
 
 	bool operator == (const Vector2D &v)
 	{
@@ -41,10 +36,12 @@ public:
 		return false;
 	}
 	const Vector2D operator - ( const Vector2D& b ) const;
-// 	inline const Vector2D& operator - ( const Vector2D& b ) const
-// 	{
-// 		return Vector2D(this->x - b.x, this->y - b.y);
-// 	}
+
+	// 向量模
+	double Module()
+	{
+		sqrt((double)(x * x + y * y));
+	}
 
 	void Init(T x, T y);
 public:

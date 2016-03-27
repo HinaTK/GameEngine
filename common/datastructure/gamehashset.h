@@ -1,24 +1,20 @@
-ï»¿
-#ifndef GAME_HASH_H
-#define GAME_HASH_H
 
-#include "lib/include/common/memorypool.h"
-#include "lib/include/common/mem.h"
-#include "gamearray.h"
+#ifndef GAME_HASH_SET_H
+#define GAME_HASH_SET_H
 
 /*
-	* æ•£åˆ—
-	* keyåªæ”¯æŒåŸºæœ¬æ•°æ®ç±»å‹ï¼Œä¸æ”¯æŒæµ®ç‚¹å‹ï¼Œç»“æ„ä½“å’Œç±»
-	* å¯ä»¥é€šè¿‡åºåˆ—åŒ–æ¥å°†æµ®ç‚¹å‹ï¼Œç»“æ„ä½“å’Œç±»è½¬åŒ–æˆå­—ç¬¦ä¸²ï¼Œä»è€Œå¾—åˆ°æ”¯æŒ
+	* É¢ÁĞ¼¯
+	* keyÖ»Ö§³Ö»ù±¾Êı¾İÀàĞÍ£¬²»Ö§³Ö¸¡µãĞÍ£¬½á¹¹ÌåºÍÀà
+	* ¿ÉÒÔÍ¨¹ıĞòÁĞ»¯À´½«¸¡µãĞÍ£¬½á¹¹ÌåºÍÀà×ª»¯³É×Ö·û´®£¬´Ó¶øµÃµ½Ö§³Ö
 */
 
 namespace game
 {
-	template<class K, class V>
-	class Hash
+	template<class K>
+	class HashSet
 	{
 	public:
-		Hash(unsigned int size = 256)
+		HashSet(unsigned int size = 256)
 			: m_size((size <= 0) ? 1 : size)
 			, m_memory_pool(sizeof(KeyNode), m_size / 2)
 		{
@@ -26,7 +22,7 @@ namespace game
 			memset(m_hash_list, NULL, m_size * sizeof(KeyNode*));
 		}
 
-		virtual ~Hash()
+		virtual ~HashSet()
 		{
 			for (unsigned int i = 0; i < m_size; ++i)
 			{
@@ -48,20 +44,11 @@ namespace game
 		struct KeyNode
 		{
 			K				key;
-			unsigned int	array_key;
 			KeyNode			*next;
 		};
 
-		typedef Array<V> _Array;
-		typedef typename _Array::iterator iterator;
-
-		V			Nil(){ return m_nil; }
-		iterator	Begin(){ return m_value_array.Begin(); }
-		iterator	End(){ return m_value_array.End(); }
-
 		bool		Push(K key, V &val);
 		void		Erase(K key);
-		V &			operator[](K key);
 
 		iterator	Find(K key)
 		{
@@ -77,21 +64,18 @@ namespace game
 	protected:
 		unsigned int	m_size;
 		KeyNode			**m_hash_list;
-		_Array			m_value_array;	// æ‰€æœ‰æ•°æ®ä¿å­˜çš„æ•°æ®ç»“æ„
 		MemoryPool		m_memory_pool;
-		V				m_nil;
 	};
 
-	template<class K, class V>
-	bool game::Hash<K, V>::Push(K key, V &val)
+	template<class K>
+	bool game::HashSet<K>::Insert(K key)
 	{
 		unsigned int real_key = key % m_size;
 
 		KeyNode *node = (KeyNode *)m_memory_pool.Alloc();
 		node->key = key;
-		node->array_key = m_value_array.Insert(val);
 
-		// è‹¥å¤´ç»“ç‚¹ä¸ºç©ºï¼Œæ’å…¥ç»“ç‚¹æ”¾ç½®åˆ°å¤´ç»“ç‚¹ï¼›å¦åˆ™æ’å…¥ç»“ç‚¹æˆä¸ºæ–°å¤´ç»“ç‚¹
+		// ÈôÍ·½áµãÎª¿Õ£¬²åÈë½áµã·ÅÖÃµ½Í·½áµã£»·ñÔò²åÈë½áµã³ÉÎªĞÂÍ·½áµã
 		if (m_hash_list[real_key] == NULL)
 		{
 			node->next = NULL;
@@ -106,8 +90,8 @@ namespace game
 	}
 
 
-	template<class K, class V>
-	void game::Hash<K, V>::Erase(K key)
+	template<class K>
+	void game::HashSet<K>::Erase(K key)
 	{
 		unsigned int real_key = key % m_size;
 		KeyNode *node = m_hash_list[real_key];
@@ -122,7 +106,7 @@ namespace game
 				}
 				else
 				{
-					// åˆ é™¤çš„æ˜¯å¤´ç»“ç‚¹
+					// É¾³ıµÄÊÇÍ·½áµã
 					m_hash_list[real_key] = node->next;
 				}
 				m_value_array.Erase(node->array_key);
@@ -133,24 +117,6 @@ namespace game
 			node = node->next;
 		}
 	}
-
-	template<class K, class V>
-	V & game::Hash<K, V>::operator[](K key)
-	{
-		unsigned int real_key = key % m_size;
-		KeyNode *node = m_hash_list[real_key];
-
-		while (node != NULL)
-		{
-			if (node->key == key)
-			{
-				goto HASVAL;
-			}
-			node = node->next;
-		}
-		return m_nil;
-	HASVAL:;
-		return *(m_value_array.Find(node->array_key));
-	}
 }
+
 #endif

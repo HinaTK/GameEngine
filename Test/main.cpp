@@ -7,11 +7,10 @@
 #include "testmemory.h"
 #include "testother.h"
 #include "testcache.h"
-#include "testthread.h"
-#include "testframe.h"
 #include "testredis.h"
 #include "testchrono.h"
 #include "lib/include/thread/threadmanager.h"
+#include "lib/include/math/gamemath.h"
 
 class A
 {
@@ -128,38 +127,22 @@ int main()
 // 		double	b;
 // 		int		c;
 // 		double	d;
-// 	};
+// 	};  
 // 
 // 	printf("S1 = %d\n", sizeof(S1));
 // 	printf("S2 = %d\n", sizeof(S2));
-	ThreadManager thread_manager;
-	thread_manager.Register(ThreadManager::ID_MAIN, new TestThread2(&thread_manager));
-
-	thread_manager.Start();
-	bool is_run = true;
-	while (is_run)
+	Posi A(40, -30);
+	Posi B(10, -10);
+	Posi C(30, 0);
+	short W = 20;
+	if (game::InRect(A, B, W, C))
 	{
-		char cmd_buf[512] = { 0 };
-		gets(cmd_buf);
-		if (strncmp(cmd_buf, "exit", 4) == 0)
-		{
-			break;
-		}
-		else if (strncmp(cmd_buf, "test", 4) == 0)
-		{
-			for (int i = 0; i < 1000001; ++i)
-			{
-				ThreadMsg *msg = new ThreadMsg(sizeof(int), (const char *)&i);
-				thread_manager.SendMsg(ThreadManager::ID_MAIN, msg);
-				// 				ThreadMsg *msg2 = new ThreadMsg(sizeof(int), (const char *)&i);
-				// 				m_thread_manager.PushMsg(ThreadManager::ID_DB, msg2);
-			}
-			printf("ttttttttttttttt \n");
-		}
-		//		printf("%s\n", cmd_buf);
+		printf("C In Rect ...\n");
 	}
-	thread_manager.Exit();
-	thread_manager.Wait();
+	else
+	{
+		printf("C Not In Rect ...\n");
+	}
 	return 0;
 }
 

@@ -11,40 +11,25 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\common\commonfunction.cpp" />
-    <ClCompile Include="..\common\globalclass.cpp" />
-    <ClCompile Include="..\Test\main.cpp" />
+    <ClInclude Include="..\..\lib\include\math\gamemath.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\common\globalclass.h" />
-    <ClInclude Include="..\Test\testcache.h" />
-    <ClInclude Include="..\Test\testchrono.h" />
-    <ClInclude Include="..\Test\testdatastructure.h" />
-    <ClInclude Include="..\Test\lua\luatest.h" />
-    <ClInclude Include="..\Test\other\bridge.h" />
-    <ClInclude Include="..\Test\other\hashlisttest.h" />
-    <ClInclude Include="..\Test\other\logtest.h" />
-    <ClInclude Include="..\Test\testlog.h" />
-    <ClInclude Include="..\Test\testmemory.h" />
-    <ClInclude Include="..\Test\testother.h" />
-    <ClInclude Include="..\Test\testredis.h" />
-    <ClInclude Include="..\Test\testserializer.h" />
-    <ClInclude Include="..\Test\websocket\websockettest.h" />
+    <ClCompile Include="..\..\lib\src\math\gamemath.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{D76E6232-3941-44C4-A538-E214C3A82FE7}</ProjectGuid>
+    <ProjectGuid>{B1B3BE4E-F793-4188-B54C-BF47549EE59E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>GameEngineTest</RootNamespace>
+    <RootNamespace>Tinyxml</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -61,13 +46,9 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\Debug</OutDir>
-    <IntDir>..\Debug\test</IntDir>
-    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\..\lib\windows</OutDir>
+    <IntDir>..\..\lib\temp</IntDir>
+    <IncludePath>..\..\lib\include;..\..\;..\..\lib\include\math;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -75,21 +56,13 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalOptions>/D _CRT_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>..;..\lib\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\lib\windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Tinyxml.lib;Frame.lib;Common.lib;TimeManager.lib;Log.lib;Cache.lib;redis.lib;Thread.lib;Math.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <Bscmake>
-      <PreserveSbr>true</PreserveSbr>
-    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -99,11 +72,11 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>

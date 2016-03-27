@@ -95,6 +95,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\common\commonfunction.cpp" />
+    <ClCompile Include="..\Gateway\logic\usermanager.cpp" />
     <ClCompile Include="..\Gateway\main\gateway.cpp" />
     <ClCompile Include="..\Gateway\main\main.cpp" />
     <ClCompile Include="..\Gateway\net\callback.cpp" />
@@ -103,6 +104,7 @@
   <ItemGroup>
     <ClInclude Include="..\common\commonfunction.h" />
     <ClInclude Include="..\common\commonvariable.h" />
+    <ClInclude Include="..\Gateway\logic\usermanager.h" />
     <ClInclude Include="..\Gateway\main\gateway.h" />
     <ClInclude Include="..\Gateway\main\threadid.h" />
     <ClInclude Include="..\Gateway\net\callback.h" />
