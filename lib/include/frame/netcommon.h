@@ -8,6 +8,7 @@
 namespace NetCommon
 {
 	bool	Init(char *ip, unsigned short port, int backlog, SOCKET &sock);
+	SOCKET	Connect(const char *ip, unsigned short port);
 
 	int		StartUp();
 

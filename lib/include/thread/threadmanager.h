@@ -2,6 +2,7 @@
 #ifndef THREAD_MANAGER_H
 #define THREAD_MANAGER_H
 
+#include "threadsysid.h"
 #include "basethread.h"
 #include "common/datastructure/gamearray.h"
 #include <vector>
@@ -21,19 +22,15 @@ public:
 		EXIT_MAX
 	};
 
-	enum
-	{
-		CMD_NOT = 0,	// 
-		CMD_EXIT
-	};
 
 	int				Register(BaseThread *bt, void *arg = NULL, unsigned int exit = EXIT_NORMAL);
 	void			Start();
 	void			Exit();
 	void			Wait();
 
-	void			SendMsg(unsigned char sid, unsigned char did, int len, const char *data);
-	void			CMD(unsigned char type, int sid, int len, const char *data, int did = -1);
+	void			SendMsg(short type, unsigned char sid, unsigned char did, int len, const char *data);
+	void			SendMsg(short type, unsigned char did, int len, const char *data);
+	void			CMD(short type, int sid, int len, const char *data, int did = -1);
 
 private:
 	game::Array<BaseThread *>	m_thread;

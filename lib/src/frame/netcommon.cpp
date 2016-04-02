@@ -57,6 +57,35 @@ bool Init(char *ip, unsigned short port, int backlog, SOCKET &sock)
 	return true;
 }
 
+SOCKET Connect(const char *ip, unsigned short port)
+{
+	NetCommon::StartUp();
+	struct sockaddr_in serverAddr;
+	memset(&serverAddr, 0, sizeof(serverAddr));
+	serverAddr.sin_family = AF_INET;
+	serverAddr.sin_addr.s_addr = inet_addr(ip);
+	serverAddr.sin_port = htons(port);
+
+	SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
+	if (sock == INVALID_SOCKET)
+	{
+		printf("Create socket error\n");
+		NetCommon::CleanUp();
+		return INVALID_SOCKET;
+	}
+
+	if (connect(sock, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) < 0)
+	{
+		printf("Connect server error %d\n", NetCommon::Error());
+		NetCommon::Close(sock);
+		NetCommon::CleanUp();
+		return INVALID_SOCKET;
+	}
+
+	printf("Connect Server Success\n");
+	return sock;
+}
+
 int StartUp()
 {
 #ifdef WIN32

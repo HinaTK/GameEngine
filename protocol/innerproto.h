@@ -56,6 +56,13 @@ namespace Inner
 		char ip[32];
 		unsigned short port;
 	};
+
+	struct ctoBrocastDisconnect
+	{
+		BindProto(ctoBrocastDisconnect, CTO_BROCAST_DISCONNECT);
+		unsigned short type;	// 服务类型
+		unsigned short id;		// 服务id
+	};
 }
 
 #endif // !INNER_PROTO_H

@@ -3,8 +3,7 @@
 #define NET_HANDLER_H
 
 //#include "netmanager.h"
-#include "msgproxy.h"
-#include "msgcallback.h"
+#include "message.h"
 #include "common/socketdef.h"
 #include "common/datastructure/msgqueue.h"
 #include "lib/include/common/memorypool.h"
@@ -13,8 +12,13 @@ class NetManager;
 class NetHandler
 {
 public:
-	NetHandler(NetManager *manager, int type);
-	virtual ~NetHandler();
+	NetHandler(NetManager *manager, int type)
+		: m_handle(0)
+		, m_sock(0)
+		, m_net_manager(manager)
+		, m_type(type)
+		, m_err(0){}
+	virtual ~NetHandler(){};
 
 	virtual void	OnCanRead() = 0;
 

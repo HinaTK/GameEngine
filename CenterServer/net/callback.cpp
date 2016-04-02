@@ -25,5 +25,6 @@ void InnerCallBack::Accept(NetHandle handle, const char *ip)
 
 void InnerCallBack::Disconnect(NetHandle handle, int reason)
 {
+	m_thread->RemoveServer(handle);
 	printf("fuck disconnect.................\n");
 }

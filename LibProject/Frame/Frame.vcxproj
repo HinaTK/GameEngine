@@ -19,10 +19,9 @@
     <ClCompile Include="..\..\lib\src\frame\listener.cpp" />
     <ClCompile Include="..\..\lib\src\frame\message.cpp" />
     <ClCompile Include="..\..\lib\src\frame\netcommon.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\nethandler.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\msgproxy.cpp" />
     <ClCompile Include="..\..\lib\src\frame\net_base.cpp" />
     <ClCompile Include="..\..\lib\src\frame\net_win.cpp" />
+    <ClCompile Include="..\..\lib\src\frame\socketthread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib\include\frame\accepter.h" />
@@ -32,13 +31,12 @@
     <ClInclude Include="..\..\lib\include\frame\frame.h" />
     <ClInclude Include="..\..\lib\include\frame\listener.h" />
     <ClInclude Include="..\..\lib\include\frame\message.h" />
-    <ClInclude Include="..\..\lib\include\frame\msgcallback.h" />
     <ClInclude Include="..\..\lib\include\frame\netcommon.h" />
     <ClInclude Include="..\..\lib\include\frame\nethandler.h" />
     <ClInclude Include="..\..\lib\include\frame\netmanager.h" />
-    <ClInclude Include="..\..\lib\include\frame\msgproxy.h" />
     <ClInclude Include="..\..\lib\include\frame\net_base.h" />
     <ClInclude Include="..\..\lib\include\frame\net_win.h" />
+    <ClInclude Include="..\..\lib\include\frame\socketthread.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{55622656-EDAF-46C0-B360-7A6671FD941D}</ProjectGuid>

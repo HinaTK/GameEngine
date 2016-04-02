@@ -33,7 +33,7 @@ void NetManager::Loop()
 		if (ret > 0)
 		{
 			m_net_mutex.lock();
-			NetManager::NET_HANDLER_ARRAY::iterator itr = m_net_handler.Begin();
+			NET_HANDLER_ARRAY::iterator itr = m_net_handler.Begin();
 			for (; itr != m_net_handler.End(); ++itr)
 			{
 				if (FD_ISSET((*itr)->m_sock, &temp_read_set))
@@ -83,11 +83,9 @@ void NetManager::ClearHandler()
 {
 	for (INVALID_HANDLE::iterator itr = m_invalid_handle.Begin(); itr != m_invalid_handle.End(); ++itr)
 	{
-
-		NetHandler *handler = 0;
+		NetHandler *handler = NULL;
 		if (m_net_handler.Erase(itr->handle, handler))
 		{
-
 			FD_CLR(handler->m_sock, &m_read_set);
 			FD_CLR(handler->m_sock, &m_write_set);
 

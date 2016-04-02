@@ -54,6 +54,7 @@ bool NetBase::InitServer(char *ip, unsigned short port, int backlog, Accepter *a
 	if (!NetCommon::Init(ip, port, backlog, net_id))
 	{
 		delete accepter;
+		delete call_back;
 		return false;
 	}
 
@@ -64,38 +65,30 @@ bool NetBase::InitServer(char *ip, unsigned short port, int backlog, Accepter *a
 	return true;
 }
 
-NetHandle NetBase::ConnectServer(const char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back)
+NetHandle NetBase::SyncConnect(const char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back)
 {
-	printf("connect to Server ip = %s, port = %d\n", ip, port);
-
-	NetCommon::StartUp();
-	struct sockaddr_in serverAddr;
-	memset(&serverAddr, 0, sizeof(serverAddr));
-	serverAddr.sin_family = AF_INET;
-	serverAddr.sin_addr.s_addr = inet_addr(ip);
-	serverAddr.sin_port = htons(port);
-
-	SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
+	SOCKET sock = NetCommon::Connect(ip, port);
 	if (sock == INVALID_SOCKET)
 	{
-		printf("Create socket error\n");
-		NetCommon::CleanUp();
 		return INVALID_NET_HANDLE;
 	}
-
-	if (connect(sock, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) < 0)
-	{
-		printf("Connect server error %d\n", NetCommon::Error());
-		NetCommon::Close(sock);
-		NetCommon::CleanUp();
-		return INVALID_NET_HANDLE;
-	}
-
-	printf("Connect Server Success\n");
+	
 	listener->m_msg_index = AddMsgHandler(call_back);
 	listener->m_sock = sock;
 	return AddNetHandler(listener);
 }
+
+
+void NetBase::AsyncConnect(const char *ip, unsigned short port, Listener *lister, MsgCallBack *call_back, int flag /*= 0*/)
+{
+	SOCKET sock = NetCommon::Connect(ip, port);
+	if (sock == INVALID_SOCKET)
+	{
+		return;
+	}
+	m_thread->PushMsg(new ThreadMsg(STM_ADD_HANDLER, -1, sizeof(flag), (const char *)&flag));
+}
+
 
 void *Loop(void *arg)
 {
@@ -150,8 +143,7 @@ bool NetBase::Send(NetHandle handle, const char *buf, unsigned int length)
 
 void NetBase::PushMsg(NetHandler *handler, unsigned short msg_type, const char *data, unsigned int len)
 {
-	GameMsg *game_msg = new GameMsg(handler->m_msg_index, msg_type, handler->m_handle, data, len);
-	m_queue.Push(game_msg);
+	m_queue.Push(new GameMsg(handler->m_msg_index, msg_type, handler->m_handle, data, len));
 }
 
 bool NetBase::Update()
@@ -165,9 +157,8 @@ bool NetBase::Update()
 			if (msg->handle >= 0)
 			{
 				m_msg_handler[msg->msg_index]->msg[msg->msg_type]->Recv(msg);
-				delete msg;
 			}
-			else delete msg;
+			delete msg;
 		}
 		else break;
 	} while (true);

@@ -64,6 +64,7 @@ public:
 
 	unsigned int	Push(T &val);
 
+	void			Erase(iterator &itr);
 	void			Erase(T &val);
 
 	bool			EraseIndex(unsigned int index);
@@ -125,6 +126,13 @@ unsigned int Vector<T>::Push( T &val )
 
 	m_list[m_index++] = val;
 	return m_index - 1;
+}
+
+template<class T>
+void game::Vector<T>::Erase(iterator &itr)
+{
+	m_list[itr->m_index] = m_list[m_index - 1];
+	--m_index;
 }
 
 template<class T>

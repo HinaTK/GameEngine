@@ -8,6 +8,7 @@ namespace Inner
 	{
 		TOC_REGISTER_SERVER = 1,
 		CTO_BROCAST_REGISTER,
+		CTO_BROCAST_DISCONNECT,
 	};
 }
 

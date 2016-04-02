@@ -24,7 +24,8 @@ public:
 	
 	// 接收其它进程数据
 	void	InnerRecv(GameMsg *msg);
-	void	InsertServer(NetHandle handle, unsigned short type, unsigned short id, char ip[32], unsigned short port);
+	void	InsertServer(GameMsg *msg);
+	void	RemoveServer(NetHandle handle);
 protected:
 	void	Init(void *arg);
 	bool	Run();

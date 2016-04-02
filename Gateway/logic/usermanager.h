@@ -13,7 +13,7 @@ public:
 
 
 private:
-	game::Hash<NetHandle, >
+	//game::Hash<NetHandle, >
 };
 
 

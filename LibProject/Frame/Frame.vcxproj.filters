@@ -16,13 +16,7 @@
     <ClCompile Include="..\..\lib\src\frame\listener.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\frame\nethandler.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\lib\src\frame\baselistener.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\lib\src\frame\msgproxy.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\frame\baseaccepter.cpp">
@@ -35,6 +29,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\frame\frame.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\frame\socketthread.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,12 +65,6 @@
     <ClInclude Include="..\..\lib\include\frame\baselistener.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\msgcallback.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\msgproxy.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\baseaccepter.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -84,6 +75,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\frame.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\frame\socketthread.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

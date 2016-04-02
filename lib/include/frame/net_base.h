@@ -5,12 +5,12 @@
 #include <thread>
 #include "nethandler.h"
 #include "message.h"
-#include "msgcallback.h"
-#include "msgproxy.h"
+#include "socketthread.h"
 #include "common/socketdef.h"
 #include "common/datastructure/gamevector.h"
 #include "common/datastructure/gamearray.h"
 #include "common/datastructure/msgqueue.h"
+#include "lib/include/thread/threadsysid.h"
 #include "lib/include/common/mutex.h"
 
 typedef MsgQueue<GameMsg *> NetMessage;
@@ -28,7 +28,8 @@ public:
     virtual void	SetCanNotWrite(NetHandler *handler) = 0;
 
 	bool			InitServer(char *ip, unsigned short port, int backlog, Accepter *accepter, MsgCallBack *call_back);
-	NetHandle		ConnectServer(const char *ip, unsigned short port, Listener *lister, MsgCallBack *call_back);
+	NetHandle		SyncConnect(const char *ip, unsigned short port, Listener *lister, MsgCallBack *call_back);
+	void			AsyncConnect(const char *ip, unsigned short port, Listener *lister, MsgCallBack *call_back, int flag = 0);
 	void			Listen();
 	bool			Send(NetHandle handle, const char *buf, unsigned int length);
 	bool			Update();
@@ -42,6 +43,11 @@ public:
 	void			Exit();
 	void			Wait();
 	bool			IsRun(){ return m_is_run; }
+
+	enum SocketThreadMsg
+	{
+		STM_ADD_HANDLER = ThreadSysID::MAX_ID + 1,
+	};
 
 protected:
 	
@@ -76,6 +82,7 @@ protected:
 	MSG_HANDLER			m_msg_handler;
 	std::mutex			m_net_mutex;
 	std::thread			*m_listen_thread;
+	SocketThread		*m_thread;
 };
 
 #endif

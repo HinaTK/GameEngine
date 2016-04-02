@@ -52,17 +52,13 @@ void BaseThread::Loop(bool sleep)
 		is_sleep = sleep;
 		while (m_recv_queue.Pop(msg) && msg != NULL)
 		{
-			if (msg->cmd == ThreadManager::CMD_NOT)
+			if (msg->type > ThreadSysID::MAX_ID)
 			{
-				this->RecvMsg(msg->id, msg->length, msg->data);
+				this->RecvMsg(msg->type, msg->id, msg->length, msg->data);
 			}
-			else if (msg->cmd == ThreadManager::CMD_EXIT)
+			else if (msg->type == ThreadSysID::TSID_EXIT)
 			{
 				this->Exit();
-			}
-			else
-			{
-				this->CMD(msg->cmd, msg->id, msg->length, msg->data);
 			}
 			
 			delete msg;

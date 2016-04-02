@@ -36,12 +36,17 @@ void ThreadManager::Start()
 	}
 }
 
-void ThreadManager::SendMsg(unsigned char sid, unsigned char did, int len, const char *data)
+void ThreadManager::SendMsg(short type, unsigned char sid, unsigned char did, int len, const char *data)
 {
-	m_thread[did]->PushMsg(new ThreadMsg(CMD_NOT, sid, len, data));
+	m_thread[did]->PushMsg(new ThreadMsg(type, sid, len, data));
 }
 
-void ThreadManager::CMD(unsigned char type, int sid, int len, const char *data, int did /*= -1*/)
+void ThreadManager::SendMsg(short type, unsigned char did, int len, const char *data)
+{
+	m_thread[did]->PushMsg(new ThreadMsg(type, -1, len, data));
+}
+
+void ThreadManager::CMD(short type, int sid, int len, const char *data, int did /*= -1*/)
 {
 	if (did != -1)
 	{
@@ -58,7 +63,7 @@ void ThreadManager::CMD(unsigned char type, int sid, int len, const char *data, 
 
 void ThreadManager::Exit()
 {
-	CMD(CMD_EXIT, -1, 0, NULL);
+	CMD(ThreadSysID::TSID_EXIT, -1, 0, NULL);
 }
 
 void ThreadManager::Wait()
