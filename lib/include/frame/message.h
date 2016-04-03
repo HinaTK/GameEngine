@@ -43,7 +43,7 @@ public:
 	MsgCallBack(){}
 	~MsgCallBack(){}
 
-	virtual void Accept(NetHandle handle, const char *ip) = 0;
+	virtual void Accept(NetHandle handle, const char *data) = 0;
 
 	virtual void Recv(GameMsg *msg) = 0;
 

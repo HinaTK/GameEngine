@@ -3,7 +3,7 @@
 #include "netcommon.h"
 
 NetManager::NetManager()
-: NetManager()
+: NetBase()
 , m_max_fd(0)
 {
 	FD_ZERO(&m_read_set);

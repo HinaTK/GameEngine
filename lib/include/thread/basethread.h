@@ -3,6 +3,7 @@
 #define GAME_THREAD_H
 
 #include <thread>
+#include "threadmanager.h"
 #include "common/datastructure/msgqueue.h"
 #include "lib/include/frame/message.h"
 #include "lib/include/timemanager/gametime.h"
@@ -11,11 +12,14 @@
 	目的：以多线程并行代替多进程并行
 */
 
-class ThreadManager;
 class BaseThread
 {
 public:
-	BaseThread(ThreadManager *manager);
+	/* 
+		arg 必须是指针，不用强制转换引用，不然函数结束会被析构;
+		继承者自己在 init 中决定是否释放 arg
+	*/
+	BaseThread(ThreadManager *manager, void *arg, char exit);
 	virtual ~BaseThread();
 
 	void	Start();
@@ -25,21 +29,21 @@ public:
 	void	Exit();
 	void	Wait();
 
-	void	SetID(int id){ m_id = id; }
-	void	SetArg(void *arg) { m_arg = arg; }
 protected:
 	virtual void	Init(void *arg) = 0;
 	virtual bool	Run() = 0;
-	virtual void	RecvMsg(short type, unsigned char sid, int len, const char *data) = 0;
+	virtual void	RecvData(short type, int sid, int len, const char *data) = 0;
 protected:
 	int				m_id;
-	void			*m_arg;
 	ThreadManager	*m_manager;
 	std::thread		*m_thread;
 	bool			m_is_start;
 	bool			m_is_exit;
 
 	MsgQueue<ThreadMsg *> m_recv_queue;
+
+private:
+	void			*m_arg;
 };
 
 #endif 

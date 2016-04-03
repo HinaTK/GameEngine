@@ -22,16 +22,13 @@
     <ClCompile Include="..\..\lib\src\frame\baseaccepter.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\frame\net_win.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\lib\src\frame\net_base.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\lib\src\frame\frame.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\frame\socketthread.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\frame\netmanager.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,16 +65,13 @@
     <ClInclude Include="..\..\lib\include\frame\baseaccepter.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\net_win.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\net_base.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\frame.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\socketthread.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\frame\socketmsg.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

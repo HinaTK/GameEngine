@@ -3,10 +3,10 @@
 #define THREAD_MANAGER_H
 
 #include "threadsysid.h"
-#include "basethread.h"
 #include "common/datastructure/gamearray.h"
 #include <vector>
 
+class BaseThread;
 class ThreadManager
 {
 public:
@@ -22,18 +22,18 @@ public:
 		EXIT_MAX
 	};
 
-
-	int				Register(BaseThread *bt, void *arg = NULL, unsigned int exit = EXIT_NORMAL);
+	int				Register(BaseThread *bt, char exit);
 	void			Start();
 	void			Exit();
 	void			Wait();
 
-	void			SendMsg(short type, unsigned char sid, unsigned char did, int len, const char *data);
-	void			SendMsg(short type, unsigned char did, int len, const char *data);
+	void			SendMsg(short type, unsigned char did, int len, const char *data, int sid = -1);
 	void			CMD(short type, int sid, int len, const char *data, int did = -1);
 
 private:
 	game::Array<BaseThread *>	m_thread;
+	std::vector<BaseThread *>	*m_write_thread;	// 临时保存线程，方便在启动（Start）后，后来加入线程能启动
+	std::vector<BaseThread *>	*m_read_thread;
 	std::vector<int>	m_exit[EXIT_MAX];
 };
 

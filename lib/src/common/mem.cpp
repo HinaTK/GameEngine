@@ -3,7 +3,6 @@
 #include "memoryvl.h"
 
 unsigned int mem_config[][2] = { 
-	{ 8,		128 },
 	{ 16,		128 }, 
 	{ 32,		128 },
 	{ 64,		128 },
@@ -20,8 +19,8 @@ unsigned int mem_config[][2] = {
 	{ 131072,	2 },
 	{ 262144,   1 }
 };
-static MemoryVL g_mem_pool(mem_config, 16);
-static MemoryVL g_thread(mem_config, 16);
+static MemoryVL g_mem_pool(mem_config, 15);
+static MemoryVL g_thread(mem_config, 15);
 
 char * Mem::Alloc(unsigned int s)
 {

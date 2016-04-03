@@ -1,5 +1,6 @@
 ﻿
 #include "threadmanager.h"
+#include "basethread.h"
 #include "lib/include/timemanager/gametime.h"
 
 ThreadManager::~ThreadManager()
@@ -12,38 +13,44 @@ ThreadManager::~ThreadManager()
 			*itr = NULL;
 		}
 	}
+	delete m_write_thread;
+	delete m_read_thread;
 }
 
 ThreadManager::ThreadManager()
+: m_write_thread(new std::vector<BaseThread *>())
+, m_read_thread(new std::vector<BaseThread *>())
 {
 	
 }
 
-int ThreadManager::Register(BaseThread *bt, void *arg, unsigned int exit /*= EXIT_NORMAL*/)
+int ThreadManager::Register(BaseThread *bt, char exit)
 {
+	m_write_thread->push_back(bt);
 	unsigned int id = m_thread.Insert(bt);
-	bt->SetID(id);
-	bt->SetArg(arg);
 	m_exit[exit].push_back(id);
 	return id;
 }
 
 void ThreadManager::Start()
 {
-	for (game::Array<BaseThread * >::iterator itr = m_thread.Begin(); itr != m_thread.End(); ++itr)
+	if (m_write_thread->size() > 0)
 	{
-		(*itr)->Start();
+		std::vector<BaseThread *> *temp = m_read_thread;
+		m_read_thread = m_write_thread;
+		m_write_thread = temp;
+		m_write_thread->clear();
+		for (std::vector<BaseThread *>::iterator itr = m_read_thread->begin(); itr != m_read_thread->end(); ++itr)
+		{
+			(*itr)->Start();
+		}
+		this->Start();
 	}
 }
 
-void ThreadManager::SendMsg(short type, unsigned char sid, unsigned char did, int len, const char *data)
+void ThreadManager::SendMsg(short type, unsigned char did, int len, const char *data, int sid)
 {
 	m_thread[did]->PushMsg(new ThreadMsg(type, sid, len, data));
-}
-
-void ThreadManager::SendMsg(short type, unsigned char did, int len, const char *data)
-{
-	m_thread[did]->PushMsg(new ThreadMsg(type, -1, len, data));
 }
 
 void ThreadManager::CMD(short type, int sid, int len, const char *data, int did /*= -1*/)

@@ -2,8 +2,8 @@
 #ifndef CALL_BACK_H
 #define CALL_BACK_H
 
-#include "lib/include/frame/msgcallback.h"
 #include "netthread.h"
+#include "lib/include/frame/message.h"
 
 //class NetThread;
 class CallBack : public MsgCallBack

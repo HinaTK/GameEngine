@@ -9,15 +9,14 @@ void *Update(void * arg)
 	return NULL;
 }
 
-BaseThread::BaseThread(ThreadManager *manager)
-: m_id(-1)
-, m_arg(NULL)
+BaseThread::BaseThread(ThreadManager *manager, void *arg, char exit)
+: m_arg(arg)
 , m_manager(manager)
 , m_thread(NULL)
 , m_is_exit(false)
 , m_is_start(false)
 {
-
+	m_id = m_manager->Register(this, exit);
 }
 
 BaseThread::~BaseThread()
@@ -33,11 +32,6 @@ void BaseThread::Start()
 	if (!m_is_start)
 	{
 		Init(m_arg);
-		if (m_arg != NULL)
-		{
-			delete m_arg;
-			m_arg = NULL;
-		}
 		m_thread = new std::thread(::Update, this);
 		m_is_start = true;
 	}
@@ -54,7 +48,7 @@ void BaseThread::Loop(bool sleep)
 		{
 			if (msg->type > ThreadSysID::MAX_ID)
 			{
-				this->RecvMsg(msg->type, msg->id, msg->length, msg->data);
+				this->RecvData(msg->type, msg->id, msg->length, msg->data);
 			}
 			else if (msg->type == ThreadSysID::TSID_EXIT)
 			{

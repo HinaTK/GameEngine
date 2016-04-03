@@ -7,20 +7,22 @@
 #include "router.h"
 
 NetThread::NetThread(ThreadManager *manager)
-: BaseThread(manager)
+: BaseThread(manager, NULL, ThreadManager::EXIT_NORMAL)
 {
 
 }
 
 void NetThread::Init(void *arg)
 {
+	// 这里设置线程管理者，没有实际用处
+	SocketThread *st = new SocketThread(m_manager, &m_net_manager);
+	m_net_manager.SetThread(st);
+
 	ServerInfo info1 = CenterConfig::Instance().login;
 	m_net_manager.InitServer(info1.ip, info1.port, info1.backlog, new BaseAccepter(&m_net_manager), new CallBack(this));
 
 	ServerInfo info2 = CenterConfig::Instance().center;
 	m_net_manager.InitServer(info2.ip, info2.port, info2.backlog, new BaseAccepter(&m_net_manager), new InnerCallBack(this));
-
-	m_net_manager.Listen();
 }
 
 
@@ -29,7 +31,7 @@ bool NetThread::Run()
 	return m_net_manager.Update();
 }
 
-void NetThread::RecvMsg(unsigned char sid, int len, const char *data)
+void NetThread::RecvData(short type, int sid, int len, const char *data)
 {
 
 }
@@ -71,7 +73,7 @@ void NetThread::InsertServer(GameMsg *msg)
 					br.id = rs->id;
 					br.port = rs->port;
 					memcpy(br.ip, rs->ip, sizeof(br.ip));
-					m_net_manager.Send(itr->handle, (const char *)&br, sizeof(Inner::ctoBrocastRegister));
+					m_net_manager.Send(itr->handle, sizeof(Inner::ctoBrocastRegister), (const char *)&br);
 				}
 			}
 		}

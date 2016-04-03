@@ -34,7 +34,7 @@ ThreadMsg::ThreadMsg(short _type, int _id, int _length, const char *_data)
 {
 	if (length > 0)
 	{
-		data = Mem::Alloc(length);
+		data = Mem::TAlloc(length);
 		memcpy(data, _data, length);
 	}
 }
@@ -43,6 +43,6 @@ ThreadMsg::~ThreadMsg()
 {
 	if (length > 0)
 	{
-		Mem::Free(data);
+		Mem::TFree(data);
 	}
 }

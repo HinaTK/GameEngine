@@ -1,10 +1,11 @@
 ﻿
 
 #include "net_base.h"
-#include "common/protocol/messageheader.h"
 #include "netcommon.h"
 #include "accepter.h"
 #include "baselistener.h"
+#include "socketmsg.h"
+#include "common/protocol/messageheader.h"
 
 
 NetBase::NetBase()
@@ -70,6 +71,8 @@ NetHandle NetBase::SyncConnect(const char *ip, unsigned short port, Listener *li
 	SOCKET sock = NetCommon::Connect(ip, port);
 	if (sock == INVALID_SOCKET)
 	{
+		delete listener;
+		delete call_back;
 		return INVALID_NET_HANDLE;
 	}
 	
@@ -79,14 +82,19 @@ NetHandle NetBase::SyncConnect(const char *ip, unsigned short port, Listener *li
 }
 
 
-void NetBase::AsyncConnect(const char *ip, unsigned short port, Listener *lister, MsgCallBack *call_back, int flag /*= 0*/)
+void NetBase::AsyncConnect(const char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back, int flag /*= 0*/)
 {
 	SOCKET sock = NetCommon::Connect(ip, port);
 	if (sock == INVALID_SOCKET)
 	{
 		return;
 	}
-	m_thread->PushMsg(new ThreadMsg(STM_ADD_HANDLER, -1, sizeof(flag), (const char *)&flag));
+	listener->m_msg_index = AddMsgHandler(call_back);
+	listener->m_sock = sock;
+	SocketMsg::AddHandler ah;
+	ah.data.flag = flag;
+	ah.data.listener = (void *)listener;
+	m_thread->PushMsg(new ThreadMsg(SocketMsg::STM_ADD_HANDLER, -1, sizeof(SocketMsg::AddHandler), (const char *)&ah));
 }
 
 

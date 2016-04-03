@@ -2,17 +2,18 @@
 #ifndef SOCKET_THREAD_H
 #define SOCKET_THREAD_H
 
+
 #include "nethandler.h"
 #include "common/datastructure/gamearray.h"
 #include "common/datastructure/msgqueue.h"
 #include "lib/include/thread/basethread.h"
 
-class ThreadManager;
 class NetManager;
 class SocketThread : public BaseThread
 {
-	virtual ~SocketThread(){}
-	SocketThread(ThreadManager *manager);
+public:
+	virtual ~SocketThread();
+	SocketThread(ThreadManager *manager, void *arg);
 
 	struct RemoveInfo
 	{
@@ -20,13 +21,20 @@ class SocketThread : public BaseThread
 		int reason;
 	};
 
+	void			SetCanWrite(NetHandler *handler);
+	void			SetCanNotWrite(NetHandler *handler);
+	NetHandle		AddNetHandler(NetHandler *handler);
+	void			RemoveHandler(NetHandle handle, int reason);
+
 protected:
-	void	Init(void *arg);
-	bool	Run();
-	void	RecvMsg(short type, unsigned char sid, int len, const char *data);
+	void			Init(void *arg);
+	bool			Run();
+	void			RecvData(short type, int sid, int len, const char *data);
 
-	void	ClearHandler();
-
+	void			ClearHandler();
+	void			InitNetHandler(NetHandler *handler);
+	void			AddHandler(const char *data);	
+	void			SendMsg(NetHandle handle, int length, const char *data);
 private:
 	NetManager		*m_net_manager;
 	SOCKET			m_max_fd;
@@ -41,6 +49,7 @@ private:
 
 	NET_HANDLER_ARRAY		m_net_handler;
 	INVALID_HANDLE			m_invalid_handle;
+	
 };
 
 

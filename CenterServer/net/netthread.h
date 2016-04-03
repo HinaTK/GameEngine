@@ -29,7 +29,7 @@ public:
 protected:
 	void	Init(void *arg);
 	bool	Run();
-	void	RecvMsg(unsigned char sid, int len, const char *data);
+	void	RecvData(short type, int sid, int len, const char *data);
 private:
 	NetManager	m_net_manager;
 	std::vector<OtherServer> m_server[Inner::ST_MAX];		// 连接到中心服的其它服务
