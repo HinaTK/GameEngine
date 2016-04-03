@@ -131,7 +131,7 @@ unsigned int Vector<T>::Push( T &val )
 template<class T>
 void game::Vector<T>::Erase(iterator &itr)
 {
-	m_list[itr->m_index] = m_list[m_index - 1];
+	m_list[itr.m_index] = m_list[m_index - 1];
 	--m_index;
 }
 

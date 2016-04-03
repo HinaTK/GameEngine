@@ -14,7 +14,6 @@ NetThread::NetThread(ThreadManager *manager)
 
 void NetThread::Init(void *arg)
 {
-	// 这里设置线程管理者，没有实际用处
 	SocketThread *st = new SocketThread(m_manager, &m_net_manager);
 	m_net_manager.SetThread(st);
 

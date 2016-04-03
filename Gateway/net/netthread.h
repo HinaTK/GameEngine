@@ -11,7 +11,7 @@ class NetThread : public BaseThread
 {
 public:
 	virtual ~NetThread(){}
-	NetThread(ThreadManager *manager);
+	NetThread(ThreadManager *manager, void *arg);
 
 	struct GameServer
 	{
@@ -27,7 +27,7 @@ public:
 protected:
 	void	Init(void *arg);
 	bool	Run();
-	void	RecvMsg(unsigned char sid, int len, const char *data);
+	void	RecvData(short type, int sid, int len, const char *data);
 private:
 	NetManager	m_net_manager;
 	game::Vector<GameServer> m_game_server;
