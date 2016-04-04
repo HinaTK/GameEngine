@@ -2,7 +2,7 @@
 #ifndef CALL_BACK_H
 #define CALL_BACK_H
 
-#include "lib/include/frame/msgcallback.h"
+#include "lib/include/frame/message.h"
 
 class Interface;
 class XXXCallBack : public MsgCallBack

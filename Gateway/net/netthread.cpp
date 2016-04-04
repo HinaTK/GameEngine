@@ -1,6 +1,5 @@
 
 #include "netthread.h"
-#include "callback.h"
 #include "main/gateway.h"
 #include "protocol/innerproto.h"
 #include "lib/include/frame/baseaccepter.h"
@@ -10,6 +9,8 @@
 NetThread::NetThread(ThreadManager *manager, void *arg)
 : BaseThread(manager, arg, ThreadManager::EXIT_NORMAL)
 , m_game_server(2)
+, m_callback(this)
+, m_inner_callback(this)
 {
 
 }
@@ -21,10 +22,10 @@ void NetThread::Init(void *arg)
 
 	int *index = (int *)arg;
 	ServerInfo info1 = GatawayConfig::Instance().m_server[*index];
-	m_net_manager.InitServer(info1.ip, info1.port, info1.backlog, new BaseAccepter(&m_net_manager), new CallBack(this));
+	m_net_manager.InitServer(info1.ip, info1.port, info1.backlog, new BaseAccepter(&m_net_manager), &m_callback);
 
 	ServerInfo info2 = GatawayConfig::Instance().center;
-	NetHandle handle = m_net_manager.SyncConnect(info2.ip, info2.port, new BaseListener(&m_net_manager), new InnerCallBack(this));
+	NetHandle handle = m_net_manager.SyncConnect(info2.ip, info2.port, new BaseListener(&m_net_manager), &m_inner_callback);
 	if (handle != INVALID_NET_HANDLE)
 	{
 		Inner::tocRegisterServer rs;
@@ -63,7 +64,7 @@ void NetThread::InsertGame(GameMsg *msg)
 				m_game_server.Erase(itr);
 			}
 		}
-		m_net_manager.AsyncConnect(br->ip, br->port, new BaseListener(&m_net_manager), new InnerCallBack(this));
+		m_net_manager.AsyncConnect(br->ip, br->port, new BaseListener(&m_net_manager), &m_inner_callback);
 	}
 }
 

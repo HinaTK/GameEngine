@@ -75,11 +75,11 @@ static int CppConnect(lua_State *L)
 	NetHandle handle = INVALID_NET_HANDLE;
 	if (strcmp(flag, "inner") == 0)
 	{
-		handle = net_manager->ConnectServer(host, port, new BaseListener(net_manager), NewFrame::Instance().GetInterface()->GetInnerCallBack());
+		handle = net_manager->SyncConnect(host, port, new BaseListener(net_manager), NewFrame::Instance().GetInterface()->GetInnerCallBack());
 	}
 	else
 	{
-		handle = net_manager->ConnectServer(host, port, new BaseListener(net_manager), NewFrame::Instance().GetInterface()->GetOuterCallBack());
+		handle = net_manager->SyncConnect(host, port, new BaseListener(net_manager), NewFrame::Instance().GetInterface()->GetOuterCallBack());
 	}
 	
 	if (handle == INVALID_NET_HANDLE)
@@ -114,7 +114,8 @@ static int CppSend(lua_State *L)
 	memcpy(temp, name, nsz);
 	temp += 24;
 	memcpy(temp, data, dsz);
-	lua_pushboolean(L, net_manager->Send(handle, buf, len));
+	net_manager->Send(handle, len, buf);
+	lua_pushboolean(L, true);
 	Mem::Free(buf);
 	return 1;
 }

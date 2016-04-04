@@ -24,7 +24,7 @@ void InnerCallBack::Accept(NetHandle handle, const char *ip)
 
 void InnerCallBack::Recv(GameMsg *msg)
 {
-	printf("fuck Recv.................\n");
+	m_thread->InnerRecv(msg);
 }
 
 void InnerCallBack::Disconnect(NetHandle handle, int reason)

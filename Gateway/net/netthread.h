@@ -2,6 +2,7 @@
 #ifndef NET_THREAD_H
 #define NET_THREAD_H
 
+#include "callback.h"
 #include "lib/include/thread/basethread.h"
 #include "lib/include/frame/netmanager.h"
 #include "common/datastructure/gamevector.h"
@@ -31,6 +32,9 @@ protected:
 private:
 	NetManager	m_net_manager;
 	game::Vector<GameServer> m_game_server;
+
+	CallBack		m_callback;
+	InnerCallBack	m_inner_callback;
 };
 
 #endif
