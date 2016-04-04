@@ -8,27 +8,29 @@
 #include "lib/include/common/serverconfig.h"
 
 NetThread::NetThread(ThreadManager *manager)
-: BaseThread(manager)
+: BaseThread(manager, NULL, ThreadManager::EXIT_NORMAL)
 {
 
 }
 
 void NetThread::Init(void *arg)
 {
+	SocketThread *st = new SocketThread(m_manager, &m_net_manager);
+	m_net_manager.SetThread(st);
+
 	ServerInfo info1 = GameConfig::Instance().server;
 	m_net_manager.InitServer(info1.ip, info1.port, info1.backlog, new BaseAccepter(&m_net_manager), new CallBack(this));
 
 	ServerInfo info2 = GameConfig::Instance().center;
-	NetHandle handle = m_net_manager.ConnectServer(info2.ip, info2.port, new BaseListener(&m_net_manager), new InnerCallBack(this));
+	NetHandle handle = m_net_manager.SyncConnect(info2.ip, info2.port, new BaseListener(&m_net_manager), new InnerCallBack(this));
 	if (handle != INVALID_NET_HANDLE)
 	{
-		m_net_manager.Listen();
 		Inner::tocRegisterServer rs;
 		rs.type = Inner::ST_GAME;
 		rs.id = 1;
 		memcpy(rs.ip, info1.ip, sizeof(rs.ip));
 		rs.port = info1.port;
-		m_net_manager.Send(handle, (const char *)&rs, sizeof(Inner::tocRegisterServer));
+		m_net_manager.Send(handle, sizeof(Inner::tocRegisterServer), (const char *)&rs);
 	}
 }
 
@@ -38,7 +40,7 @@ bool NetThread::Run()
 	return m_net_manager.Update();
 }
 
-void NetThread::RecvMsg(unsigned char sid, int len, const char *data)
+void NetThread::RecvData(short type, int sid, int len, const char *data)
 {
 
 }

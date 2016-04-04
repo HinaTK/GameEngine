@@ -13,7 +13,7 @@ public:
 protected:
 	void	Init();
 	bool	Run();
-	void	RecvMsg(unsigned char sid, int len, const char *data);
+	void	RecvData(short type, int sid, int len, const char *data);
 private:
 };
 

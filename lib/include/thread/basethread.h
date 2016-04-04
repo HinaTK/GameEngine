@@ -19,7 +19,7 @@ public:
 		arg 必须是指针，不用强制转换引用，不然函数结束会被析构;
 		继承者自己在 init 中决定是否释放 arg
 	*/
-	BaseThread(ThreadManager *manager, void *arg, char exit);
+	BaseThread(ThreadManager *manager, void *arg, char exit = ThreadManager::EXIT_NORMAL);
 	virtual ~BaseThread();
 
 	void	Start();

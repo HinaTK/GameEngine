@@ -9,7 +9,7 @@ DBThread::~DBThread()
 }
 
 DBThread::DBThread(ThreadManager *manager)
-: BaseThread(manager)
+: BaseThread(manager, NULL, ThreadManager::EXIT_NORMAL)
 {
 
 }
@@ -25,7 +25,7 @@ bool DBThread::Run()
 	return false;
 }
 
-void DBThread::RecvMsg(unsigned char sid, int len, const char *data)
+void DBThread::RecvData(short type, int sid, int len, const char *data)
 {
 
 }

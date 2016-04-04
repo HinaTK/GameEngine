@@ -3,8 +3,8 @@
 #define GAME_FRAME_H
 
 #include "define.h"
+#include "common/socketdef.h"
 #include "common/datastructure/gamehash.h"
-#include "lib/include/common/thread.h"
 #include "lib/include/frame/frame.h"
 #include "lib/include/timemanager/timemanager.h"
 

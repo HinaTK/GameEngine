@@ -25,10 +25,13 @@
     <ClCompile Include="..\..\lib\src\frame\frame.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\frame\socketthread.cpp">
+    <ClCompile Include="..\..\lib\src\frame\netmanager.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\frame\netmanager.cpp">
+    <ClCompile Include="..\..\lib\src\frame\threadselect.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\frame\threadnet.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,10 +71,16 @@
     <ClInclude Include="..\..\lib\include\frame\frame.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\lib\include\frame\socketmsg.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\socketthread.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\socketmsg.h">
+    <ClInclude Include="..\..\lib\include\frame\threadselect.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\frame\threadnet.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

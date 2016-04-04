@@ -44,7 +44,7 @@ void BaseThread::Loop(bool sleep)
 	do 
 	{
 		is_sleep = sleep;
-		while (m_recv_queue.Pop(msg) && msg != NULL)
+		while (m_recv_queue.Pop(msg)/* && msg != NULL*/)
 		{
 			if (msg->type > ThreadSysID::MAX_ID)
 			{
@@ -58,7 +58,7 @@ void BaseThread::Loop(bool sleep)
 			delete msg;
 			is_sleep = false;
 		}
-		if (is_sleep && !this->Run())
+		if (!this->Run() && is_sleep)
 		{
 			GameTime::Sleep(2);
 		}

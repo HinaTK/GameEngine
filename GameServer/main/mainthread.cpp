@@ -5,7 +5,7 @@
 #include "lib/include/frame/baselistener.h"
 
 MainThread::MainThread(ThreadManager *manager)
-: BaseThread(manager)
+: BaseThread(manager, NULL, ThreadManager::EXIT_NORMAL)
 {
 
 }
@@ -28,7 +28,7 @@ struct qqq
 	int val;
 };
 
-void MainThread::RecvMsg(unsigned char sid, int len, const char *data)
+void MainThread::RecvData(short type, int sid, int len, const char *data)
 {
 
 }

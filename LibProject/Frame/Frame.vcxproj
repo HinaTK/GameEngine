@@ -20,7 +20,8 @@
     <ClCompile Include="..\..\lib\src\frame\message.cpp" />
     <ClCompile Include="..\..\lib\src\frame\netcommon.cpp" />
     <ClCompile Include="..\..\lib\src\frame\netmanager.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\socketthread.cpp" />
+    <ClCompile Include="..\..\lib\src\frame\threadnet.cpp" />
+    <ClCompile Include="..\..\lib\src\frame\threadselect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib\include\frame\accepter.h" />
@@ -33,6 +34,8 @@
     <ClInclude Include="..\..\lib\include\frame\netcommon.h" />
     <ClInclude Include="..\..\lib\include\frame\nethandler.h" />
     <ClInclude Include="..\..\lib\include\frame\netmanager.h" />
+    <ClInclude Include="..\..\lib\include\frame\threadnet.h" />
+    <ClInclude Include="..\..\lib\include\frame\threadselect.h" />
     <ClInclude Include="..\..\lib\include\frame\socketmsg.h" />
     <ClInclude Include="..\..\lib\include\frame\socketthread.h" />
   </ItemGroup>
