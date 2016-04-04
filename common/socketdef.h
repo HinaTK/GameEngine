@@ -39,8 +39,6 @@
 
 #endif
 
-#define MAX_EPOLL_SIZE		8192
-
 static const int RECV_BUF_SIZE = 64 * 1024; // 64K
 
 #define INVALID_NET_HANDLE	-1

@@ -7,7 +7,7 @@
 class SocketThread : public ThreadNet
 {
 public:
-	static const MAX_EPOLL_SIZE = 1024;
+    static const int MAX_EPOLL_SIZE = 1024;
 	
 	virtual ~SocketThread();
 	SocketThread(ThreadManager *manager, void *arg);

@@ -14,19 +14,20 @@ INCLUDEPATH = ../../lib/include/ ../../lib/include/frame/ ../../
 
 SOURCES += \
     ../../lib/src/frame/accepter.cpp \
+    ../../lib/src/frame/baseaccepter.cpp \
     ../../lib/src/frame/baselistener.cpp \
     ../../lib/src/frame/bufmanager.cpp \
     ../../lib/src/frame/frame.cpp \
     ../../lib/src/frame/listener.cpp \
     ../../lib/src/frame/message.cpp \
-    ../../lib/src/frame/msgproxy.cpp \
     ../../lib/src/frame/netcommon.cpp \
-    ../../lib/src/frame/nethandler.cpp \
-    ../../lib/src/frame/net_base.cpp \
-    ../../lib/src/frame/net_unix.cpp
+    ../../lib/src/frame/netmanager.cpp \
+    ../../lib/src/frame/threadnet.cpp \
+    ../../lib/src/frame/threadepoll.cpp
 
 HEADERS += \
     ../../lib/include/frame/accepter.h \
+    ../../lib/include/frame/baseaccepter.h \
     ../../lib/include/frame/baselistener.h \
     ../../lib/include/frame/bufmanager.h \
     ../../lib/include/frame/excom.h \
@@ -34,12 +35,13 @@ HEADERS += \
     ../../lib/include/frame/listener.h \
     ../../lib/include/frame/message.h \
     ../../lib/include/frame/msgcallback.h \
-    ../../lib/include/frame/msgproxy.h \
     ../../lib/include/frame/netcommon.h \
     ../../lib/include/frame/nethandler.h \
     ../../lib/include/frame/netmanager.h \
-    ../../lib/include/frame/net_base.h \
-    ../../lib/include/frame/net_unix.h
+    ../../lib/include/frame/socketthread.h\
+    ../../lib/include/frame/threadnet.h \
+    ../../lib/include/frame/threadepoll.h
+
 unix {
     target.path = /usr/lib
     INSTALLS += target

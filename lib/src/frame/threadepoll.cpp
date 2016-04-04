@@ -1,7 +1,18 @@
 
-##include "threadepoll.h"
+#include "threadepoll.h"
 #include "netcommon.h"
 #include "netmanager.h"
+
+SocketThread::SocketThread(ThreadManager *manager, void *arg)
+    : ThreadNet(manager, arg)
+{
+
+}
+
+SocketThread::~SocketThread()
+{
+
+}
 
 void SocketThread::ClearHandler()
 {
@@ -31,13 +42,13 @@ bool SocketThread::Run()
     {
         for (int i = 0; i < fd_num; ++i)
         {
-            if (events[i].events & EPOLLIN)
+            if (m_events[i].events & EPOLLIN)
             {
-                ((NetHandler*)events[i].data.ptr)->OnCanRead();
+                ((NetHandler*)m_events[i].data.ptr)->OnCanRead();
             }
-            if (events[i].events & EPOLLOUT)
+            if (m_events[i].events & EPOLLOUT)
             {
-                ((NetHandler*)events[i].data.ptr)->OnCanWrite();
+                ((NetHandler*)m_events[i].data.ptr)->OnCanWrite();
             }
         }
         // ReplaceHandler();

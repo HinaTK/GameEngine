@@ -28,11 +28,11 @@ public:
 		BaseMsg *msg[BaseMsg::MSG_MAX];
 	};
 
-	void			SetThread(SocketThread *st){ m_thread = st; };
-	void			SetCanWrite(NetHandler *handler){ m_thread->SetCanWrite(handler); };
-	void			SetCanNotWrite(NetHandler *handler){ m_thread->SetCanNotWrite(handler); };
-	NetHandle		AddNetHandler(NetHandler *handler){ return m_thread->AddNetHandler(handler); };
-	void			RemoveHandler(NetHandle handle, int reason){ m_thread->RemoveHandler(handle, reason); };
+    void			SetThread(SocketThread *st){ m_thread = st; }
+    void			SetCanWrite(NetHandler *handler){ m_thread->SetCanWrite(handler); }
+    void			SetCanNotWrite(NetHandler *handler){ m_thread->SetCanNotWrite(handler); }
+    NetHandle		AddNetHandler(NetHandler *handler){ return m_thread->AddNetHandler(handler); }
+    void			RemoveHandler(NetHandle handle, int reason){ m_thread->RemoveHandler(handle, reason); }
 
 	bool			InitServer(char *ip, unsigned short port, int backlog, Accepter *accepter, MsgCallBack *call_back);
 	NetHandle		SyncConnect(const char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back);

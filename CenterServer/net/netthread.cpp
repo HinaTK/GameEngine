@@ -3,6 +3,7 @@
 #include "callback.h"
 #include "lib/include/frame/baseaccepter.h"
 #include "lib/include/common/serverconfig.h"
+#include "lib/include/frame/socketthread.h"
 #include "protocol/innerproto.h"
 #include "router.h"
 
