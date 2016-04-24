@@ -64,9 +64,7 @@ void NewFrame::Exit()
 
 void NewFrame::Wait()
 {
-	printf("game server waiting ...\n");
-	m_thread_manager.Wait();
-	printf("game server end\n");
+
 }
 
 

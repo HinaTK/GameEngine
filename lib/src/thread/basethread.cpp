@@ -82,7 +82,7 @@ void BaseThread::Wait()
 	{
 		m_thread->join();
 	}
-	Loop();
+	Loop(false);
 }
 
 
