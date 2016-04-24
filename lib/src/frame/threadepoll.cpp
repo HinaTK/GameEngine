@@ -5,6 +5,8 @@
 
 SocketThread::SocketThread(ThreadManager *manager, void *arg)
     : ThreadNet(manager, arg)
+    // todo
+    , m_epoll_fd(epoll_create(2048))
 {
 
 }
@@ -55,7 +57,7 @@ bool SocketThread::Run()
         ClearHandler();
     }
 
-	return true;
+    return true;
 }
 
 void SocketThread::InitNetHandler(NetHandler *handler)

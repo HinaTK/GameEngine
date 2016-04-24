@@ -34,7 +34,7 @@ void NetThread::Init(void *arg)
 
 bool NetThread::Run()
 {
-	return m_net_manager->Update();
+    return m_net_manager->Update();
 }
 
 void NetThread::RecvData(short type, int sid, int len, const char *data)

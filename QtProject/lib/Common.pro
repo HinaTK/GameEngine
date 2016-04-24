@@ -19,7 +19,8 @@ SOURCES += \
     ../../lib/src/common/memoryvl.cpp \
     ../../lib/src/common/serializer.cpp \
     ../../lib/src/common/serverconfig.cpp \
-    ../../lib/src/common/thread.cpp
+    ../../lib/src/common/thread.cpp \
+    ../../lib/src/common/function.cpp
 
 HEADERS += \
     ../../lib/include/common/md5.h \
@@ -29,7 +30,8 @@ HEADERS += \
     ../../lib/include/common/mutex.h \
     ../../lib/include/common/serializer.h \
     ../../lib/include/common/serverconfig.h \
-    ../../lib/include/common/thread.h
+    ../../lib/include/common/thread.h \
+    ../../lib/include/common/function.h
 
 
 unix {

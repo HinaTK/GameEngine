@@ -39,31 +39,31 @@ void BaseThread::Start()
 
 void BaseThread::Loop(bool sleep)
 {
-	ThreadMsg *msg;
-	bool is_sleep = sleep;
-	do 
-	{
-		is_sleep = sleep;
-		while (m_recv_queue.Pop(msg)/* && msg != NULL*/)
-		{
-			if (msg->type > ThreadSysID::MAX_ID)
-			{
-				this->RecvData(msg->type, msg->id, msg->length, msg->data);
-			}
-			else if (msg->type == ThreadSysID::TSID_EXIT)
-			{
-				this->Exit();
-			}
+    ThreadMsg *msg;
+    bool is_sleep = sleep;
+    do
+    {
+        is_sleep = sleep;
+        while (m_recv_queue.Pop(msg)/* && msg != NULL*/)
+        {
+            if (msg->type > ThreadSysID::MAX_ID)
+            {
+                this->RecvData(msg->type, msg->id, msg->length, msg->data);
+            }
+            else if (msg->type == ThreadSysID::TSID_EXIT)
+            {
+                this->Exit();
+            }
 			
-			delete msg;
-			is_sleep = false;
-		}
-		if (!this->Run() && is_sleep)
-		{
-			GameTime::Sleep(2);
-		}
+            delete msg;
+            is_sleep = false;
+        }
+        if (!this->Run() && is_sleep)
+        {
+            GameTime::Sleep(2);
+        }
 
-	} while (!m_is_exit);
+    } while (!m_is_exit);
 }
 
 void BaseThread::PushMsg(ThreadMsg *msg)

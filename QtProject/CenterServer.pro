@@ -14,15 +14,13 @@ SOURCES += \
     ../CenterServer/main/main.cpp \
     ../CenterServer/net/callback.cpp \
     ../CenterServer/net/netthread.cpp \
-    ../CenterServer/net/router.cpp \
-    ../common/commonfunction.cpp
+    ../CenterServer/net/router.cpp
 
 HEADERS += \
     ../CenterServer/main/center.h \
     ../CenterServer/net/callback.h \
     ../CenterServer/net/netthread.h \
-    ../CenterServer/net/router.h \
-    ../common/commonfunction.h
+    ../CenterServer/net/router.h
 
 
 

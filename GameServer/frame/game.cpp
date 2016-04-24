@@ -6,7 +6,7 @@
 #include "lib/include/tinyxml/tinyxml.h"
 #include "lib/include/timemanager/gametime.h"
 #include "lib/include/common/serverconfig.h"
-#include "lib/chat/interface.h"
+//#include "lib/chat/interface.h"
 #include "main/mainthread.h"
 #include "db/dbthread.h"
 #include "net/netthread.h"
@@ -28,7 +28,7 @@ bool NewFrame::Init()
 {
 	GameConfig::Instance().Init();
 	MainThread *mt = new MainThread(&m_thread_manager);
-	BaseThread *bt = (BaseThread *)NewChatThread(&m_thread_manager);
+//	BaseThread *bt = (BaseThread *)NewChatThread(&m_thread_manager);
 	NetThread *nt = new NetThread(&m_thread_manager);
 		
 	return true;
