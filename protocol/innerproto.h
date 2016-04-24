@@ -3,10 +3,7 @@
 #define INNER_PROTO_H
 
 #include "innermsgid.h"
-
-#define BindProto(STRUCT, ID)\
-	STRUCT() :router(ID){}\
-	unsigned short router;
+#include "common/macro.h"
 
 namespace Inner
 {

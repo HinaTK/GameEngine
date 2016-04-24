@@ -31,6 +31,26 @@ bool NewFrame::Init(const char *config)
 
 bool NewFrame::Run()
 {
+	while (IsRun())
+	{
+		char cmd_buf[512] = { 0 };
+		gets(cmd_buf);
+		if (strncmp(cmd_buf, "exit", 4) == 0)
+		{
+			SetExit();
+		}
+		else if (strncmp(cmd_buf, "test", 4) == 0)
+		{
+			m_lua_interface.OnTest();
+		}
+		else if (strncmp(cmd_buf, "update", 4) == 0)
+		{
+			m_lua_interface.OnUpdate(0, 0);
+		}
+		printf(cmd_buf);
+		printf("\n");
+	}
+	
 	return true;
 }
 

@@ -21,6 +21,7 @@ NetManager::~NetManager()
 		delete (*itr)->msg[BaseMsg::MSG_ACCEPT];
 		delete (*itr)->msg[BaseMsg::MSG_RECV];
 		delete (*itr)->msg[BaseMsg::MSG_DISCONNECT];
+		delete (*itr)->msg[BaseMsg::MSG_CONNECT];
 		delete (*itr);
 	}
 }
@@ -82,6 +83,7 @@ unsigned int NetManager::AddMsgHandler(MsgCallBack *call_back)
 	mh->msg[BaseMsg::MSG_ACCEPT] = new AcceptMsg(call_back);
 	mh->msg[BaseMsg::MSG_RECV] = new RecvMsg(call_back);
 	mh->msg[BaseMsg::MSG_DISCONNECT] = new DisconnectMsg(call_back);
+	mh->msg[BaseMsg::MSG_CONNECT] = new ConnectMsg(call_back);
 	return m_msg_handler.Insert(mh);
 }
 

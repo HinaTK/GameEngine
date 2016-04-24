@@ -16,7 +16,8 @@ class BaseThread
 {
 public:
 	/* 
-		arg 必须是指针，不用强制转换引用，不然函数结束会被析构;
+		arg 必须是指针，不用强制转换引用，原因如下：
+		* 函数结束会被析构;
 		继承者自己在 init 中决定是否释放 arg
 	*/
 	BaseThread(ThreadManager *manager, void *arg, char exit = ThreadManager::EXIT_NORMAL);
@@ -29,6 +30,10 @@ public:
 	void	Exit();
 	void	Wait();
 
+private:
+	// 不允许复制
+	BaseThread(const BaseThread&);
+	void operator=(const BaseThread&);
 protected:
 	virtual void	Init(void *arg) = 0;
 	virtual bool	Run() = 0;

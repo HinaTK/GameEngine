@@ -51,19 +51,19 @@ static int CppListen(lua_State *L)
 
 static int CppListenXXX(lua_State *L)
 {
-	const char *flag = luaL_checkstring(L, 1);
-	int port = luaL_checkinteger(L, 2);
-	int back_log = luaL_checkinteger(L, 3);
-
-	bool ret = net_manager->InitServer("0.0.0.0", port, back_log, new BaseAccepter(net_manager), NewFrame::Instance().GetInterface()->GetXXXCallBack());
-	net_manager->Listen();
-	lua_pushboolean(L, ret);
+// 	const char *flag = luaL_checkstring(L, 1);
+// 	int port = luaL_checkinteger(L, 2);
+// 	int back_log = luaL_checkinteger(L, 3);
+// 
+// 	bool ret = net_manager->InitServer("0.0.0.0", port, back_log, new BaseAccepter(net_manager), NewFrame::Instance().GetInterface()->GetXXXCallBack());
+// 	net_manager->Listen();
+ 	lua_pushboolean(L, true);
 	return 1;
 }
 
 static int CppDoListen(lua_State *L)
 {
-	net_manager->Listen();
+	//net_manager->Listen();
 	return 0;
 }
 
@@ -366,6 +366,17 @@ bool Interface::LoadFile(const char *file)
 		return false;
 	}
 	return true;
+}
+
+
+void Interface::OnTest()
+{
+
+	lua_getglobal(m_L, "OnTest");
+	if (lua_pcall(m_L, 0, 0, 0))
+	{
+		printf("%s\n", lua_tostring(m_L, -1));
+	}
 }
 
 void Interface::OnInit()

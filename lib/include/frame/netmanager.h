@@ -12,8 +12,6 @@
 #include "common/datastructure/msgqueue.h"
 #include "lib/include/common/mutex.h"
 
-typedef MsgQueue<GameMsg *> NetMessage;
-
 class Accepter;
 class Listener;
 
@@ -52,6 +50,7 @@ public:
 
 
 protected:
+	typedef MsgQueue<GameMsg *> NetMessage;
 	typedef game::Vector<NetHandler*>	REPLACE_HANDLER;
 	typedef game::Array<MsgHandler *>	MSG_HANDLER;
 

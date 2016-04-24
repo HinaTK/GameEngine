@@ -1,6 +1,6 @@
 
 #include "gateway.h"
-#include "common/commonfunction.h"
+#include "lib/include/common/function.h"
 
 
 int main()

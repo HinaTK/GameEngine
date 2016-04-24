@@ -25,6 +25,7 @@ public:
 	void	InnerRecv(GameMsg *msg);
 	void	InsertGame(GameMsg *msg);
 
+	void	ConnetRet(NetHandle handle, int flag);
 protected:
 	void	Init(void *arg);
 	bool	Run();

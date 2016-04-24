@@ -54,3 +54,12 @@ bool game::InSector(Posi A, Posi B, Posi C, double angle)
 	return false;
 }
 
+RandUnit * game::srand(unsigned int seed)
+{
+	return new RandUnit(seed);
+}
+
+int RandUnit::rand()
+{
+	return(((seed = seed * 214013L + 2531011L) >> 16) & 0x7fff);
+}

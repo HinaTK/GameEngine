@@ -17,9 +17,9 @@ void CallBack::Disconnect(NetHandle handle, int reason)
     printf("fuck disconnect.................\n");
 }
 
-void InnerCallBack::Accept(NetHandle handle, const char *ip)
+void InnerCallBack::Connect(NetHandle handle, int flag)
 {
-	printf("fuck accept.................\n");
+	m_thread->ConnetRet(handle, flag);
 }
 
 void InnerCallBack::Recv(GameMsg *msg)

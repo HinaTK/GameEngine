@@ -11,7 +11,7 @@ class ThreadManager;
 class NetThread : public BaseThread
 {
 public:
-	virtual ~NetThread(){}
+	virtual ~NetThread();
 	NetThread(ThreadManager *manager);
 
 	struct OtherServer
@@ -31,7 +31,7 @@ protected:
 	bool	Run();
 	void	RecvData(short type, int sid, int len, const char *data);
 private:
-	NetManager	m_net_manager;
+	NetManager	*m_net_manager;
 	std::vector<OtherServer> m_server[Inner::ST_MAX];		// 连接到中心服的其它服务
 
 };

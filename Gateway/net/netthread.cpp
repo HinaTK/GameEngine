@@ -64,7 +64,19 @@ void NetThread::InsertGame(GameMsg *msg)
 				m_game_server.Erase(itr);
 			}
 		}
-		m_net_manager.AsyncConnect(br->ip, br->port, new BaseListener(&m_net_manager), &m_inner_callback);
+		m_net_manager.AsyncConnect(br->ip, br->port, new BaseListener(&m_net_manager), &m_inner_callback, br->id);
+	}
+}
+
+void NetThread::ConnetRet(NetHandle handle, int flag)
+{
+	for (game::Vector<GameServer>::iterator itr = m_game_server.Begin(); itr != m_game_server.End(); ++itr)
+	{
+		if (itr->id == (unsigned short)flag)
+		{
+			itr->handle = handle;
+			break;
+		}
 	}
 }
 

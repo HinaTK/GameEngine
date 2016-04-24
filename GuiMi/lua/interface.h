@@ -13,6 +13,7 @@ public:
 	~Interface();
 
 	bool	LoadFile(const char *file);
+	void	OnTest();
 	void	OnInit();
 	void	OnUpdate(int interval, unsigned int now);
 

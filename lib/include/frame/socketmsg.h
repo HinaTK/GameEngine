@@ -3,10 +3,7 @@
 #define SOCKET_MSG_H
 
 #include "lib/include/thread/threadsysid.h"
-
-#define BindProto(STRUCT, ID)\
-	STRUCT() :type(ID){}\
-	short type;
+#include "common/macro.h"
 
 
 namespace SocketMsg

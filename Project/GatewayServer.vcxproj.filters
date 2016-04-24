@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="common">
-      <UniqueIdentifier>{1055d6b4-c2df-42d6-9bc1-1c68256a97e7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="proto">
       <UniqueIdentifier>{3efccc0a-a44f-49b0-bbbd-f3c9974dcc65}</UniqueIdentifier>
     </Filter>
@@ -18,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\common\commonfunction.cpp">
-      <Filter>common</Filter>
-    </ClCompile>
     <ClCompile Include="..\Gateway\main\gateway.cpp">
       <Filter>main</Filter>
     </ClCompile>
@@ -38,12 +32,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\common\commonfunction.h">
-      <Filter>common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\common\commonvariable.h">
-      <Filter>common</Filter>
-    </ClInclude>
     <ClInclude Include="..\protocol\innerproto.h">
       <Filter>proto</Filter>
     </ClInclude>

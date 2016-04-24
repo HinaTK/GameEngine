@@ -2,6 +2,7 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
+#include "socketmsg.h"
 #include "common/socketdef.h"
 
 // 网络消息
@@ -43,11 +44,13 @@ public:
 	MsgCallBack(){}
 	~MsgCallBack(){}
 
-	virtual void Accept(NetHandle handle, const char *data) = 0;
+	virtual void Accept(NetHandle handle, const char *ip){};
 
 	virtual void Recv(GameMsg *msg) = 0;
 
 	virtual void Disconnect(NetHandle handle, int reason) = 0;
+
+	virtual void Connect(NetHandle handle, int flag){}
 };
 
 class BaseMsg
@@ -61,6 +64,7 @@ public:
 		MSG_ACCEPT = 0,
 		MSG_RECV,
 		MSG_DISCONNECT,
+		MSG_CONNECT,
 		MSG_MAX
 	};
 
@@ -93,5 +97,18 @@ public:
 	~DisconnectMsg(){}
 
 	virtual void Recv(GameMsg *msg){ m_call_back->Disconnect(msg->handle, *(int*)msg->data); }
+};
+
+class ConnectMsg : public BaseMsg
+{
+public:
+	ConnectMsg(MsgCallBack *call_back) :BaseMsg(call_back){}
+	~ConnectMsg(){}
+
+	virtual void Recv(GameMsg *msg)
+	{ 
+		SocketMsg::AddHandlerRet::Data *data = (SocketMsg::AddHandlerRet::Data *)msg->data;
+		m_call_back->Connect(data->handle, data->flag);
+	}
 };
 #endif

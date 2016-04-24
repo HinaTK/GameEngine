@@ -33,6 +33,28 @@ public:
 	}
 };
 
+// long long RandSeed = ####;
+// unsigned long Random(long max)
+// {
+// 	long long x;
+// 	double i;
+// 	unsigned long final;
+// 	x = 0xffffffff;
+// 	x += 1;
+// 	RandSeed *= ((long long)134775813);
+// 	RandSeed += 1;
+// 	RandSeed = RandSeed % x;
+// 	i = ((double)RandSeed) / (double)0xffffffff;
+// 	final = (long)(max * i);
+// 	return (unsigned long)final;
+// }
+
+int holdrand = 456;
+int __cdecl rand1(void) {
+	return(((holdrand = holdrand * 214013L + 2531011L) >> 16) & 0x7fff);
+
+}
+
 int main()
 {
 // 	A *a = new B;
@@ -131,18 +153,14 @@ int main()
 // 
 // 	printf("S1 = %d\n", sizeof(S1));
 // 	printf("S2 = %d\n", sizeof(S2));
-	Posi A(40, -30);
-	Posi B(10, -10);
-	Posi C(30, -1);
-	short W = 20;
-	if (game::InRect(A, B, C, W))
-	{
-		printf("C In Rect ...\n");
-	}
-	else
-	{
-		printf("C Not In Rect ...\n");
-	}
+// 
+// 	long long m = 4294967295;
+// 	long a = 214013;
+// 	long c = 2531011;
+// 	printf("S1 = %ld\n", (a * 11 + c) % m);
+	RandUnit *unit = game::srand(0);
+	printf("%d\n", unit->rand());
+	printf("%d\n", unit->rand());
 	return 0;
 }
 

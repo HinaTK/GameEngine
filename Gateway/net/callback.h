@@ -31,7 +31,7 @@ public:
 		, m_thread(t){}
 	~InnerCallBack(){}
 
-	void	Accept(NetHandle handle, const char *ip);
+	void	Connect(NetHandle handle, int flag);
 
 	void	Recv(GameMsg *msg);
 

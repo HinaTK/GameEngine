@@ -10,9 +10,6 @@
     <Filter Include="db">
       <UniqueIdentifier>{0681564c-c691-4667-9604-c5506eb3f12c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="common">
-      <UniqueIdentifier>{4538c0eb-480b-4dea-a257-fb3167aac93b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="net">
       <UniqueIdentifier>{07d01f16-e03c-4523-830c-7d995e9c6198}</UniqueIdentifier>
     </Filter>
@@ -29,9 +26,6 @@
     </ClCompile>
     <ClCompile Include="..\GameServer\db\dbthread.cpp">
       <Filter>db</Filter>
-    </ClCompile>
-    <ClCompile Include="..\common\commonfunction.cpp">
-      <Filter>common</Filter>
     </ClCompile>
     <ClCompile Include="..\GameServer\net\netthread.cpp">
       <Filter>net</Filter>
@@ -50,9 +44,6 @@
     </ClInclude>
     <ClInclude Include="..\GameServer\db\dbthread.h">
       <Filter>db</Filter>
-    </ClInclude>
-    <ClInclude Include="..\common\commonfunction.h">
-      <Filter>common</Filter>
     </ClInclude>
     <ClInclude Include="..\GameServer\net\netthread.h">
       <Filter>net</Filter>
