@@ -20,11 +20,6 @@ SocketThread::SocketThread(ThreadManager *manager, void *arg)
 SocketThread::~SocketThread()
 {
 	
-	for (NET_HANDLER_ARRAY::iterator itr = m_net_handler.Begin(); itr != m_net_handler.End(); ++itr)
-	{
-		NetCommon::Close((*itr)->m_sock);
-		delete (*itr);
-	}
 }
 
 bool SocketThread::Run()
