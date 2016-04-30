@@ -16,7 +16,7 @@ class Listener : public NetHandler
 {
 	static const unsigned int BASE_BUFFER_LENGTH = 512;
 public:
-    Listener(NetManager *manager);
+	Listener(SocketThread *t);
     virtual ~Listener();
 
 	virtual void	OnCanRead();

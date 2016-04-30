@@ -28,6 +28,7 @@ int ThreadManager::Register(BaseThread *bt, char exit)
 {
 	m_write_thread->push_back(bt);
 	unsigned int id = m_thread.Insert(bt);
+	bt->SetID(id);
 	m_exit[exit].push_back(id);
 	return id;
 }

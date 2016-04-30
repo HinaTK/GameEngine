@@ -17,7 +17,7 @@ Center::~Center()
 bool Center::Init()
 {
 	CenterConfig::Instance().Init();
-	NetThread *nt = new NetThread(&m_thread_manager);
+	m_thread_manager.Register(new NetThread(&m_thread_manager));
 	return true;
 }
 

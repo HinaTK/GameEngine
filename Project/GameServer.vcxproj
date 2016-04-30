@@ -97,7 +97,6 @@
     <ClCompile Include="..\GameServer\db\dbthread.cpp" />
     <ClCompile Include="..\GameServer\frame\game.cpp" />
     <ClCompile Include="..\GameServer\frame\main.cpp" />
-    <ClCompile Include="..\GameServer\main\mainthread.cpp" />
     <ClCompile Include="..\GameServer\net\callback.cpp" />
     <ClCompile Include="..\GameServer\net\netthread.cpp" />
   </ItemGroup>
@@ -105,7 +104,6 @@
     <ClInclude Include="..\GameServer\db\dbthread.h" />
     <ClInclude Include="..\GameServer\define.h" />
     <ClInclude Include="..\GameServer\frame\game.h" />
-    <ClInclude Include="..\GameServer\main\mainthread.h" />
     <ClInclude Include="..\GameServer\net\callback.h" />
     <ClInclude Include="..\GameServer\net\netthread.h" />
     <ClInclude Include="..\protocol\innerproto.h" />

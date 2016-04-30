@@ -2,16 +2,19 @@
 
 #include "netmanager.h"
 #include "netcommon.h"
-#include "accepter.h"
+#include "baseaccepter.h"
 #include "baselistener.h"
+#include "socketthread.h"
 #include "socketmsg.h"
 #include "common/protocol/messageheader.h"
 #include "lib/include/common/mem.h"
 
 
-NetManager::NetManager()
+NetManager::NetManager(ThreadManager *tm)
+: m_thread(new SocketThread(tm, this))
 {
-
+	// 将线程注册到管理器，因为不需要再自己释放指针
+	tm->Register(m_thread);
 }
 
 NetManager::~NetManager()
@@ -25,6 +28,12 @@ NetManager::~NetManager()
 		delete (*itr)->msg[BaseMsg::MSG_CONNECT];
 		delete (*itr);
 	}
+}
+
+
+bool NetManager::InitServer(char *ip, unsigned short port, int backlog, MsgCallBack *call_back)
+{
+	return InitServer(ip, port, backlog, new BaseAccepter(m_thread), call_back);
 }
 
 bool NetManager::InitServer(char *ip, unsigned short port, int backlog, Accepter *accepter, MsgCallBack *call_back)
@@ -41,9 +50,15 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, Accepter
 
 	accepter->m_msg_index = AddMsgHandler(call_back);
 	accepter->m_sock = net_id;
-	AddNetHandler(accepter);
+	m_thread->AddNetHandler(accepter);
 	printf("Init Server Success\n");
 	return true;
+}
+
+
+NetHandle NetManager::SyncConnect(const char *ip, unsigned short port, MsgCallBack *call_back)
+{
+	return SyncConnect(ip, port, new BaseListener(m_thread), call_back);
 }
 
 NetHandle NetManager::SyncConnect(const char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back)
@@ -58,7 +73,7 @@ NetHandle NetManager::SyncConnect(const char *ip, unsigned short port, Listener 
 
 	listener->m_msg_index = AddMsgHandler(call_back);
 	listener->m_sock = sock;
-	return AddNetHandler(listener);
+	return m_thread->AddNetHandler(listener);
 }
 
 

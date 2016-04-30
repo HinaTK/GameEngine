@@ -5,11 +5,12 @@
 #include "threadnet.h"
 
 class NetManager;
+class ThreadManager;
 class SocketThread : public ThreadNet
 {
 public:
 	virtual ~SocketThread();
-	SocketThread(ThreadManager *manager, void *arg);
+	SocketThread(ThreadManager *manager, NetManager *net_manager);
 
 	void			SetCanWrite(NetHandler *handler);
 	void			SetCanNotWrite(NetHandler *handler);
@@ -20,7 +21,7 @@ protected:
 	void			ClearHandler();
 	void			InitNetHandler(NetHandler *handler);
 private:
-	NetManager		*m_net_manager;
+	
 	SOCKET			m_max_fd;
 	fd_set			m_read_set;
 	fd_set			m_write_set;

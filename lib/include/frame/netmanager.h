@@ -3,23 +3,27 @@
 #define NET_MANAGER_H
 
 #include <thread>
-#include "nethandler.h"
 #include "message.h"
-#include "socketthread.h"
 #include "common/socketdef.h"
 #include "common/datastructure/gamevector.h"
 #include "common/datastructure/gamearray.h"
 #include "common/datastructure/msgqueue.h"
 #include "lib/include/common/mutex.h"
 
+/*
+	NetManager 由外部线程调用，线程安全，不影响内部
+*/
+
+class NetHandler;
 class Accepter;
 class Listener;
-
+class SocketThread;
+class ThreadManager;
 class NetManager
 {
 public:
 	virtual ~NetManager();
-	NetManager();
+	NetManager(ThreadManager *tm);
 
 	struct MsgHandler
 	{
@@ -27,12 +31,11 @@ public:
 	};
 
     void			SetThread(SocketThread *st){ m_thread = st; }
-    void			SetCanWrite(NetHandler *handler){ m_thread->SetCanWrite(handler); }
-    void			SetCanNotWrite(NetHandler *handler){ m_thread->SetCanNotWrite(handler); }
-    NetHandle		AddNetHandler(NetHandler *handler){ return m_thread->AddNetHandler(handler); }
-    void			RemoveHandler(NetHandle handle, int reason){ m_thread->RemoveHandler(handle, reason); }
+	SocketThread	*GetThread(){ return m_thread; }
 
+	bool			InitServer(char *ip, unsigned short port, int backlog, MsgCallBack *call_back);
 	bool			InitServer(char *ip, unsigned short port, int backlog, Accepter *accepter, MsgCallBack *call_back);
+	NetHandle		SyncConnect(const char *ip, unsigned short port, MsgCallBack *call_back);
 	NetHandle		SyncConnect(const char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back);
 	void			AsyncConnect(const char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back, int flag = 0);
 	void			Listen();

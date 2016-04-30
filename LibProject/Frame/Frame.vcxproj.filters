@@ -10,34 +10,37 @@
     <ClCompile Include="..\..\lib\src\frame\message.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\frame\accepter.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\lib\src\frame\listener.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\lib\src\frame\baselistener.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\lib\src\frame\baseaccepter.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\lib\src\frame\frame.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\frame\netmanager.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\lib\src\frame\accepter.cpp">
+      <Filter>src\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\frame\baseaccepter.cpp">
+      <Filter>src\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\frame\baselistener.cpp">
+      <Filter>src\thread</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\lib\src\frame\threadselect.cpp">
-      <Filter>src</Filter>
+      <Filter>src\thread</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\frame\threadnet.cpp">
-      <Filter>src</Filter>
+      <Filter>src\thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\frame\listener.cpp">
+      <Filter>src\thread</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
       <UniqueIdentifier>{6cd785b5-210b-437b-be51-930ff4e433c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\thread">
+      <UniqueIdentifier>{6c92f3cd-f90f-406b-a4a1-5cddc50c6ef1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -53,35 +56,35 @@
     <ClInclude Include="..\..\lib\include\frame\message.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\accepter.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\listener.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\nethandler.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\baselistener.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\baseaccepter.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\frame.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\socketmsg.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\socketthread.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\..\lib\include\frame\accepter.h">
+      <Filter>src\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\frame\baseaccepter.h">
+      <Filter>src\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\frame\baselistener.h">
+      <Filter>src\thread</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\threadselect.h">
-      <Filter>src</Filter>
+      <Filter>src\thread</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\threadnet.h">
-      <Filter>src</Filter>
+      <Filter>src\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\frame\listener.h">
+      <Filter>src\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\frame\nethandler.h">
+      <Filter>src\thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\frame\socketthread.h">
+      <Filter>src\thread</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

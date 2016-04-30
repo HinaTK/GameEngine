@@ -12,7 +12,7 @@
 class Accepter : public NetHandler
 {
 public:
-	Accepter(NetManager *manager, int type);
+	Accepter(SocketThread *t, int type);
 	~Accepter(){};
 
 	virtual void	OnCanRead() = 0;

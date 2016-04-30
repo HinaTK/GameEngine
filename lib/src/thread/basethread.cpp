@@ -10,13 +10,14 @@ void *Update(void * arg)
 }
 
 BaseThread::BaseThread(ThreadManager *manager, void *arg, char exit)
-: m_arg(arg)
+: m_id(-1)
+, m_arg(arg)
 , m_manager(manager)
 , m_thread(NULL)
 , m_is_exit(false)
 , m_is_start(false)
 {
-	m_id = m_manager->Register(this, exit);
+	
 }
 
 BaseThread::~BaseThread()
