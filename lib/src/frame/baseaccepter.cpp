@@ -7,8 +7,8 @@
 
 
 
-BaseAccepter::BaseAccepter(NetManager *manager, int size)
-: Accepter(manager, NetHandler::BASE_ACCEPTER)
+BaseAccepter::BaseAccepter(SocketThread *t, int size)
+: Accepter(t, NetHandler::BASE_ACCEPTER)
 , buf_size(size)
 {
 
@@ -22,11 +22,11 @@ void BaseAccepter::OnCanRead()
 	SOCKET new_sock = accept(m_sock, (struct sockaddr*)&addr, &len);
 	if (new_sock != INVALID_SOCKET)
 	{
-		BaseListener *handler = new BaseListener(m_net_manager, buf_size);
+		BaseListener *handler = new BaseListener(m_thread, buf_size);
 		handler->m_msg_index = m_msg_index;
 		handler->m_sock = new_sock;
-		handler->m_handle = m_net_manager->AddNetHandler(handler);
-		m_net_manager->PushMsg(handler, BaseMsg::MSG_ACCEPT, inet_ntoa(addr.sin_addr), strlen(inet_ntoa(addr.sin_addr)) + 1);
+		handler->m_handle = m_thread->AddNetHandler(handler);
+		m_thread->PushData(handler, BaseMsg::MSG_ACCEPT, inet_ntoa(addr.sin_addr), strlen(inet_ntoa(addr.sin_addr)) + 1);
 	}
 }
 

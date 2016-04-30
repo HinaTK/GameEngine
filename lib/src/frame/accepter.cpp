@@ -6,8 +6,8 @@
 #include "common/socketdef.h"
 
 
-Accepter::Accepter(NetManager *manager, int type)
-: NetHandler(manager, type)
+Accepter::Accepter(SocketThread *t, int type)
+: NetHandler(t, type)
 {
 }
 

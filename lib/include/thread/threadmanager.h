@@ -22,7 +22,7 @@ public:
 		EXIT_MAX
 	};
 
-	int				Register(BaseThread *bt, char exit);
+	int				Register(BaseThread *bt, char exit = EXIT_NORMAL);
 	void			Start();
 	void			Exit();
 	void			Wait();

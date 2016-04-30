@@ -12,7 +12,7 @@
 class BaseListener : public Listener
 {
 public:
-	BaseListener(NetManager *manager, int size = 0);
+	BaseListener(SocketThread *t, int size = 0);
 	virtual ~BaseListener(){}
 
 	void *		operator new(size_t c);

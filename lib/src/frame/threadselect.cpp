@@ -2,11 +2,11 @@
 #include "threadselect.h"
 #include "netcommon.h"
 #include "netmanager.h"
+#include "nethandler.h"
 
 
-SocketThread::SocketThread(ThreadManager *manager, void *arg)
-: ThreadNet(manager, arg)
-, m_net_manager(NULL)
+SocketThread::SocketThread(ThreadManager *manager, NetManager *net_manager)
+: ThreadNet(manager, net_manager)
 , m_max_fd(0)
 {
 	FD_ZERO(&m_read_set);

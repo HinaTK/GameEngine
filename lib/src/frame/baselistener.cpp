@@ -6,8 +6,8 @@
 
 REGISTER_MEMORYPOOL(memorypool, BaseListener, 256);
 
-BaseListener::BaseListener(NetManager *manager, int size)
-: Listener(manager)
+BaseListener::BaseListener(SocketThread *t, int size)
+: Listener(t)
 , buf_size(size)
 {
 
@@ -30,7 +30,7 @@ bool BaseListener::AnalyzeBuf()
 		if (header->msg_len > buf_size && buf_size > 0) { m_err = NetHandler::DR_HEADER_TOO_BIG; return false; }
 
 		buf += NetCommon::HEADER_LENGTH;
-		m_net_manager->PushMsg(this, BaseMsg::MSG_RECV, buf, header->msg_len);
+		m_thread->PushData(this, BaseMsg::MSG_RECV, buf, header->msg_len);
 
 		remove_len = remove_len + NetCommon::HEADER_LENGTH + header->msg_len;
 		buf_len = buf_len - NetCommon::HEADER_LENGTH - header->msg_len;

@@ -1,7 +1,6 @@
 ﻿
 #include "netthread.h"
 #include "callback.h"
-#include "lib/include/frame/baseaccepter.h"
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/frame/socketthread.h"
 #include "protocol/innerproto.h"
@@ -9,7 +8,7 @@
 
 NetThread::NetThread(ThreadManager *manager)
 : BaseThread(manager, NULL, ThreadManager::EXIT_NORMAL)
-, m_net_manager(new NetManager)
+, m_net_manager(new NetManager(manager))
 {
 
 }
@@ -21,14 +20,11 @@ NetThread::~NetThread()
 
 void NetThread::Init(void *arg)
 {
-	SocketThread *st = new SocketThread(m_manager, m_net_manager);
-	m_net_manager->SetThread(st);
-
 	ServerInfo info1 = CenterConfig::Instance().login;
-	m_net_manager->InitServer(info1.ip, info1.port, info1.backlog, new BaseAccepter(m_net_manager), new CallBack(this));
+	m_net_manager->InitServer(info1.ip, info1.port, info1.backlog, new CallBack(this));
 
 	ServerInfo info2 = CenterConfig::Instance().center;
-	m_net_manager->InitServer(info2.ip, info2.port, info2.backlog, new BaseAccepter(m_net_manager), new InnerCallBack(this));
+	m_net_manager->InitServer(info2.ip, info2.port, info2.backlog, new InnerCallBack(this));
 }
 
 

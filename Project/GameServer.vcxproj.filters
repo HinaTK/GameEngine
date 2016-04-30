@@ -4,9 +4,6 @@
     <Filter Include="frame">
       <UniqueIdentifier>{0e9d4ec8-c143-48dd-9fa4-815140f69d4f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="main">
-      <UniqueIdentifier>{1ab6880a-a1fd-4e0a-b704-e96800d41fcf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="db">
       <UniqueIdentifier>{0681564c-c691-4667-9604-c5506eb3f12c}</UniqueIdentifier>
     </Filter>
@@ -20,9 +17,6 @@
   <ItemGroup>
     <ClCompile Include="..\GameServer\frame\main.cpp">
       <Filter>frame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GameServer\main\mainthread.cpp">
-      <Filter>main</Filter>
     </ClCompile>
     <ClCompile Include="..\GameServer\db\dbthread.cpp">
       <Filter>db</Filter>
@@ -39,9 +33,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GameServer\define.h" />
-    <ClInclude Include="..\GameServer\main\mainthread.h">
-      <Filter>main</Filter>
-    </ClInclude>
     <ClInclude Include="..\GameServer\db\dbthread.h">
       <Filter>db</Filter>
     </ClInclude>

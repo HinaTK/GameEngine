@@ -4,8 +4,8 @@
 #include "netmanager.h"
 #include "common/socketdef.h"
 
-Listener::Listener(NetManager *manager)
-    : NetHandler(manager, NetHandler::LISTENER)
+Listener::Listener(SocketThread *t)
+    : NetHandler(t, NetHandler::LISTENER)
   , m_recv_buf(BASE_BUFFER_LENGTH)
   , m_send_buf_read(new SendBuffer(BASE_BUFFER_LENGTH))
   , m_send_buf_write(new SendBuffer(BASE_BUFFER_LENGTH))
@@ -32,7 +32,7 @@ void Listener::OnCanRead()
 
 	if (!RecvBuf() || !AnalyzeBuf())
 	{
-		m_net_manager->RemoveHandler(m_handle, m_err);
+		m_thread->RemoveHandler(m_handle, m_err);
 	}
 }
 
@@ -97,7 +97,7 @@ void Listener::OnCanWrite()
 					break;
 				}
                 printf("send error %d\n", NetCommon::Error());
-				m_net_manager->RemoveHandler(m_handle, NetHandler::DR_SEND_BUF);
+				m_thread->RemoveHandler(m_handle, NetHandler::DR_SEND_BUF);
 				return;
 			}
 			//
@@ -117,7 +117,7 @@ void Listener::RegisterWriteFD()
         return;
     }
 
-	m_net_manager->SetCanWrite(this);
+	m_thread->SetCanWrite(this);
     m_register_state = 0;
 }
 
@@ -131,7 +131,7 @@ void Listener::UnRegisterWriteFD()
         }
     }
     MutexLock ml(&m_register_write_mutex);
-	m_net_manager->SetCanNotWrite(this);
+	m_thread->SetCanNotWrite(this);
     m_register_state = -10;
 }
 

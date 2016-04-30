@@ -12,7 +12,7 @@
 class BaseAccepter : public Accepter
 {
 public:
-	BaseAccepter(NetManager *manager, int size = 0);
+	BaseAccepter(SocketThread *t, int size = 0);
     virtual ~BaseAccepter(){}
 
 	virtual void	OnCanRead();

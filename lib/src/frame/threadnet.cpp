@@ -4,8 +4,9 @@
 #include "netcommon.h"
 #include "socketmsg.h"
 
-ThreadNet::ThreadNet(ThreadManager *manager, void *arg)
-: BaseThread(manager, arg)
+ThreadNet::ThreadNet(ThreadManager *manager, NetManager *net_manager)
+: BaseThread(manager, NULL)
+, m_net_manager(net_manager)
 {
 
 }
@@ -22,7 +23,6 @@ ThreadNet::~ThreadNet()
 
 void ThreadNet::Init(void *arg)
 {
-	m_net_manager = (NetManager *)arg;
 }
 
 NetHandle ThreadNet::AddNetHandler(NetHandler *handler)

@@ -2,20 +2,20 @@
 #ifndef NET_HANDLER_H
 #define NET_HANDLER_H
 
-//#include "netmanager.h"
+#include "socketthread.h"
 #include "message.h"
 #include "common/socketdef.h"
 #include "common/datastructure/msgqueue.h"
 #include "lib/include/common/memorypool.h"
 
-class NetManager;
+class SocketThread;
 class NetHandler
 {
 public:
-	NetHandler(NetManager *manager, int type)
+	NetHandler(SocketThread *t, int type)
 		: m_handle(0)
 		, m_sock(0)
-		, m_net_manager(manager)
+		, m_thread(t)
 		, m_type(type)
 		, m_err(0){}
 	virtual ~NetHandler(){};
@@ -26,7 +26,6 @@ public:
 
 	int	Type(){ return m_type; }
 
-	NetManager *GetNetManager(){ return m_net_manager; }
 	int error(){ return m_err; }
 
 	enum 
@@ -53,10 +52,10 @@ public:
 	SOCKET			m_sock;			// socket id
 	unsigned int	m_msg_index;	// 网络数据导向索引
 protected:
-	NetManager	*m_net_manager;
-	int			m_type;
-	MsgCallBack *m_call_back;
-	int			m_err;
+	SocketThread	*m_thread;
+	int				m_type;
+	MsgCallBack		*m_call_back;
+	int				m_err;
 };
 
 #endif
