@@ -2,9 +2,10 @@
 #include "threadepoll.h"
 #include "netcommon.h"
 #include "netmanager.h"
+#include "nethandler.h"
 
-SocketThread::SocketThread(ThreadManager *manager, void *arg)
-    : ThreadNet(manager, arg)
+SocketThread::SocketThread(ThreadManager *manager, NetManager *net_manager)
+    : ThreadNet(manager, net_manager)
     // todo
     , m_epoll_fd(epoll_create(2048))
 {

@@ -26,14 +26,7 @@ NewFrame::~NewFrame()
 bool NewFrame::Init()
 {
 	GameConfig::Instance().Init();
-<<<<<<< HEAD
-//	MainThread *mt = new MainThread(&m_thread_manager);
-//	BaseThread *bt = (BaseThread *)NewChatThread(&m_thread_manager);
-    NetThread *nt = new NetThread(&m_thread_manager);
-		
-=======
 	m_thread_manager.Register(new NetThread(&m_thread_manager));
->>>>>>> 041f10cc5ee3fb2af0d439bebe44fe5610b737a1
 	return true;
 }
 

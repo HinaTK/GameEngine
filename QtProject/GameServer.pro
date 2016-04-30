@@ -27,7 +27,6 @@ HEADERS += \
     ../GameServer/net/callback.h \
     ../GameServer/net/netthread.h \
     ../GameServer/frame/game.h \
-    ../GameServer/main/mainthread.h \
     ../GameServer/db/dbthread.h
 
 SOURCES += \
@@ -35,7 +34,6 @@ SOURCES += \
     ../GameServer/net/netthread.cpp \
     ../GameServer/frame/game.cpp \
     ../GameServer/frame/main.cpp \
-    ../GameServer/main/mainthread.cpp \
     ../GameServer/db/dbthread.cpp
 
 

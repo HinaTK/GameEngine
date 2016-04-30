@@ -6,7 +6,7 @@
 #include "common/datastructure/gamearray.h"
 #include "lib/include/thread/basethread.h"
 
-class NetManager;
+
 class NetHandler;
 class ThreadNet : public BaseThread
 {

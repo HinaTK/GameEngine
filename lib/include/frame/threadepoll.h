@@ -10,7 +10,7 @@ public:
     static const int MAX_EPOLL_SIZE = 1024;
 	
 	virtual ~SocketThread();
-	SocketThread(ThreadManager *manager, void *arg);
+    SocketThread(ThreadManager *manager, NetManager *net_manager);
 
 	void			SetCanWrite(NetHandler *handler);
 	void			SetCanNotWrite(NetHandler *handler);
