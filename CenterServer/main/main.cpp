@@ -1,7 +1,7 @@
 
 #include "center.h"
 #include "lib/include/common/function.h"
-
+#include <windows.h>
 
 int main()
 {
@@ -10,7 +10,7 @@ int main()
 		Function::WindowsPause();
 		return 0;
 	}
-
+	
 	Center::Instance().Start();
 
 	return 0;

@@ -1,17 +1,12 @@
 ﻿
 #include <signal.h>
 #include "frame.h"
-#include "netcommon.h"
 #include "message.h"
-#include "log/log.h"
-#include "lib/include/common/mutex.h"
-#include "lib/include/timemanager/gametime.h"
-#include "lib/include/common/memoryvl.h"
 
 
+static Frame *g_frame;
 namespace SignalCatch
 {
-	Frame *g_frame;
 	void Catch(int sig)
 	{
 		if (g_frame != NULL)
@@ -22,15 +17,36 @@ namespace SignalCatch
 	}
 }
 
+// windows 控制台关闭监听
+#ifdef	WIN32
+BOOL CALLBACK CosonleHandler(DWORD ev)
+{
+	BOOL bRet = FALSE;
+	switch (ev)
+	{
+	case CTRL_CLOSE_EVENT:
+		g_frame->SetExit();
+		bRet = TRUE;
+		break;
+	default:
+		break;
+	}
+	return bRet;
+}
+#endif
+
+
 Frame::Frame()
 : m_is_run(true)
 {
-	SignalCatch::g_frame = this;
+	g_frame = this;
 	signal(SIGINT, SignalCatch::Catch);
 	signal(SIGSEGV, SignalCatch::Catch);
 	signal(SIGTERM, SignalCatch::Catch);
 	signal(SIGABRT, SignalCatch::Catch);
-	
+#ifdef WIN32
+	SetConsoleCtrlHandler(CosonleHandler, TRUE);
+#endif	
 #ifdef __unix
 	signal(SIGPIPE, SIG_IGN); // socket send if close
 #endif
