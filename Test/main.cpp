@@ -11,6 +11,7 @@
 #include "testchrono.h"
 #include "lib/include/thread/threadmanager.h"
 #include "lib/include/math/gamemath.h"
+#include "lib/include/frame/bufmanager.h"
 
 class A
 {
@@ -158,9 +159,14 @@ int main()
 // 	long a = 214013;
 // 	long c = 2531011;
 // 	printf("S1 = %ld\n", (a * 11 + c) % m);
-	RandUnit *unit = game::srand(0);
-	printf("%d\n", unit->rand());
-	printf("%d\n", unit->rand());
+	
+	SendBuffer *buf = new SendBuffer;
+	delete buf;
+	while (true)
+	{
+		printf("aaaaaaaaaaaaaa \n");
+		Sleep(1000000);
+	}
 	return 0;
 }
 

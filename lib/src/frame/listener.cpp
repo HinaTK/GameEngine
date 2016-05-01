@@ -4,12 +4,14 @@
 #include "netmanager.h"
 #include "common/socketdef.h"
 
+#define REGISTER_STATE -10
+
 Listener::Listener(SocketThread *t)
     : NetHandler(t, NetHandler::LISTENER)
   , m_recv_buf(BASE_BUFFER_LENGTH)
   , m_send_buf_read(new SendBuffer(BASE_BUFFER_LENGTH))
   , m_send_buf_write(new SendBuffer(BASE_BUFFER_LENGTH))
-  , m_register_state(-10)
+  , m_register_state(REGISTER_STATE)
 {
 }
 
@@ -29,7 +31,6 @@ Listener::~Listener()
 
 void Listener::OnCanRead()
 {
-
 	if (!RecvBuf() || !AnalyzeBuf())
 	{
 		m_thread->RemoveHandler(m_handle, m_err);
@@ -111,7 +112,7 @@ void Listener::OnCanWrite()
 void Listener::RegisterWriteFD()
 {
     MutexLock ml(&m_register_write_mutex);
-    if (m_register_state > -10)
+	if (m_register_state > REGISTER_STATE)
     {
         --m_register_state;
         return;
@@ -132,7 +133,7 @@ void Listener::UnRegisterWriteFD()
     }
     MutexLock ml(&m_register_write_mutex);
 	m_thread->SetCanNotWrite(this);
-    m_register_state = -10;
+	m_register_state = REGISTER_STATE;
 }
 
 

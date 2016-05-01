@@ -120,7 +120,7 @@ void NetManager::Send(NetHandle handle, unsigned int length, const char *buf)
 
 void NetManager::PushMsg(NetHandler *handler, unsigned short msg_type, const char *data, unsigned int len)
 {
-	m_queue.Push(new GameMsg(handler->m_msg_index, msg_type, handler->m_handle, data, len));
+	m_queue.Push(m_msg_manager.Alloc(handler->m_msg_index, msg_type, handler->m_handle, data, len));
 }
 
 bool NetManager::Update()
@@ -135,7 +135,7 @@ bool NetManager::Update()
 			{
 				m_msg_handler[msg->msg_index]->msg[msg->msg_type]->Recv(msg);
 			}
-			delete msg;
+			m_msg_manager.Free(msg);
 		}
 		else break;
 	} while (true);

@@ -63,6 +63,7 @@ protected:
 	std::mutex			m_net_mutex;
 	SocketThread		*m_thread;
 	MSG_HANDLER			m_msg_handler;
+	GameMsgManager		m_msg_manager;
 };
 
 #endif

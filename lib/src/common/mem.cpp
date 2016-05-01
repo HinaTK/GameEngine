@@ -2,7 +2,7 @@
 #include "mem.h"
 #include "memoryvl.h"
 
-unsigned int mem_config[][2] = { 
+static unsigned int mem_config[][2] = { 
 	{ 16,		128 }, 
 	{ 32,		128 },
 	{ 64,		128 },
@@ -32,7 +32,7 @@ void Mem::Free(void *m)
     g_mem_pool.Free(m);
 }
 
-char	* Mem::TAlloc(unsigned int s)
+char * Mem::TAlloc(unsigned int s)
 {
 	return (char *)g_thread.Alloc(s);
 }
@@ -40,5 +40,10 @@ char	* Mem::TAlloc(unsigned int s)
 void Mem::TFree(void *m)
 {
 	g_thread.Free(m);
+}
+
+MemoryVL * Mem::NewMemoryVL()
+{
+	return new MemoryVL(mem_config, 15);
 }
 

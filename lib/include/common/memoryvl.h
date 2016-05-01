@@ -1,11 +1,11 @@
-﻿
+
 #ifndef MEMORY_V_L_H
 #define MEMORY_V_L_H
 
 #include "mutex.h"
 
 /*
-	不定长内存池
+	不定长内存池 variable length
 */
 class MemoryPool;
 class MemoryVL
@@ -34,7 +34,7 @@ private:
 	
 	unsigned int	m_size;
     MemoryPool		**m_memory;
-	std::mutex		*m_mutex;
+	std::mutex		**m_mutex;
 
 					
 };

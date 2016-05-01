@@ -44,7 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Test\main.cpp" />
-    <ClCompile Include="..\common\commonfunction.cpp" />
     <ClCompile Include="..\common\globalclass.cpp">
       <Filter>global</Filter>
     </ClCompile>

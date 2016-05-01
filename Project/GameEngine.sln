@@ -29,6 +29,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GatewayServer", "GatewaySer
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Math", "..\LibProject\Math\Math.vcxproj", "{B1B3BE4E-F793-4188-B54C-BF47549EE59E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Log", "..\LibProject\Log\Log.vcxproj", "{9D875C0B-BF7D-440A-A430-07F8E68B8BA4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -149,6 +151,16 @@ Global
 		{B1B3BE4E-F793-4188-B54C-BF47549EE59E}.Release|Win32.ActiveCfg = Release|Win32
 		{B1B3BE4E-F793-4188-B54C-BF47549EE59E}.Release|Win32.Build.0 = Release|Win32
 		{B1B3BE4E-F793-4188-B54C-BF47549EE59E}.Release|x64.ActiveCfg = Release|Win32
+		{9D875C0B-BF7D-440A-A430-07F8E68B8BA4}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{9D875C0B-BF7D-440A-A430-07F8E68B8BA4}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{9D875C0B-BF7D-440A-A430-07F8E68B8BA4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9D875C0B-BF7D-440A-A430-07F8E68B8BA4}.Debug|Win32.Build.0 = Debug|Win32
+		{9D875C0B-BF7D-440A-A430-07F8E68B8BA4}.Debug|x64.ActiveCfg = Debug|Win32
+		{9D875C0B-BF7D-440A-A430-07F8E68B8BA4}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{9D875C0B-BF7D-440A-A430-07F8E68B8BA4}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{9D875C0B-BF7D-440A-A430-07F8E68B8BA4}.Release|Win32.ActiveCfg = Release|Win32
+		{9D875C0B-BF7D-440A-A430-07F8E68B8BA4}.Release|Win32.Build.0 = Release|Win32
+		{9D875C0B-BF7D-440A-A430-07F8E68B8BA4}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -160,5 +172,6 @@ Global
 		{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
 		{4D0804D6-3CBA-4960-9236-725DCA73FD8F} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
 		{B1B3BE4E-F793-4188-B54C-BF47549EE59E} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
+		{9D875C0B-BF7D-440A-A430-07F8E68B8BA4} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
 	EndGlobalSection
 EndGlobal
