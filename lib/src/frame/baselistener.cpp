@@ -15,7 +15,7 @@ BaseListener::BaseListener(SocketThread *t, int size)
 
 bool BaseListener::AnalyzeBuf()
 {
-	const char *buf = m_recv_buf.GetBuf();	
+	const char *buf = m_recv_buf.GetBuf();
 	int buf_len = (int)m_recv_buf.Length();
 	if (buf_len <= NetCommon::HEADER_LENGTH)
 	{

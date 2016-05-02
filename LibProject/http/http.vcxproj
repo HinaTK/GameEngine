@@ -12,9 +12,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib\include\http\http.h" />
+    <ClInclude Include="..\..\lib\include\http\httpaccepter.h" />
+    <ClInclude Include="..\..\lib\include\http\httplistener.h" />
+    <ClInclude Include="..\..\lib\src\http\3rd\http_parser.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\lib\src\http\3rd\http_parser.c" />
     <ClCompile Include="..\..\lib\src\http\http.cpp" />
+    <ClCompile Include="..\..\lib\src\http\httpaccepter.cpp" />
+    <ClCompile Include="..\..\lib\src\http\httplistener.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B16E656B-DA3B-48E7-A5E0-A8CC338A0673}</ProjectGuid>
@@ -46,9 +52,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\..\lib\include;..\..\lib\include\cache;..\..\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\lib\include;..\..\lib\include\http;..\..\;$(IncludePath)</IncludePath>
     <OutDir>..\..\lib\windows</OutDir>
     <IntDir>..\..\lib\temp</IntDir>
+    <TargetName>Http</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

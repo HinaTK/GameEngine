@@ -3,6 +3,7 @@
 #include "callback.h"
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/frame/socketthread.h"
+#include "lib/include/http/httpaccepter.h"
 #include "protocol/innerproto.h"
 #include "router.h"
 
@@ -25,6 +26,10 @@ void NetThread::Init(void *arg)
 
 	ServerInfo info2 = CenterConfig::Instance().center;
 	m_net_manager->InitServer(info2.ip, info2.port, info2.backlog, new InnerCallBack(this));
+
+	// 测试
+	m_net_manager->InitServer(info1.ip, 12345, info1.backlog, new HttpAccepter(m_net_manager->GetThread()), new CallBack(this));
+
 }
 
 
