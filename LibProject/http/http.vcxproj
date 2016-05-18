@@ -11,14 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\include\http\http.h" />
     <ClInclude Include="..\..\lib\include\http\httpaccepter.h" />
     <ClInclude Include="..\..\lib\include\http\httplistener.h" />
     <ClInclude Include="..\..\lib\src\http\3rd\http_parser.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\http\3rd\http_parser.c" />
-    <ClCompile Include="..\..\lib\src\http\http.cpp" />
     <ClCompile Include="..\..\lib\src\http\httpaccepter.cpp" />
     <ClCompile Include="..\..\lib\src\http\httplistener.cpp" />
   </ItemGroup>

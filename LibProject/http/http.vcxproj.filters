@@ -9,9 +9,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\include\http\http.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\lib\include\http\httplistener.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -23,9 +20,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lib\src\http\http.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\lib\src\http\httplistener.cpp">
       <Filter>src</Filter>
     </ClCompile>

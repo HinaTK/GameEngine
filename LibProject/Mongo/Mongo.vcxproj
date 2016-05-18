@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-apm-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-apm.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-array-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-async-cmd-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-async-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-b64-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-buffer-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-bulk-operation-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-bulk-operation.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-client-pool-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-client-pool.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-client-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-client.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-cluster-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-collection-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-collection.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-config.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-counters-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-crypto-cng-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-crypto-cng.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-crypto-common-crypto-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-crypto-openssl-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-crypto-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-cursor-array-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-cursor-cursorid-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-cursor-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-cursor-transform-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-cursor.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-database-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-database.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-errno-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-error.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-find-and-modify-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-find-and-modify.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-flags.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-gridfs-file-list-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-gridfs-file-list.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-gridfs-file-page-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-gridfs-file-page.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-gridfs-file-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-gridfs-file.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-gridfs-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-gridfs.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-host-list-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-host-list.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-index.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-init.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-iovec.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-list-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-log-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-log.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-matcher-op-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-matcher-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-matcher.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-memcmp-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-opcode-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-opcode.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-openssl-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-queue-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-rand-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-rand.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-read-concern-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-read-concern.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-read-prefs-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-read-prefs.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-rpc-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-sasl-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-scram-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-secure-channel-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-secure-transport-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-server-description-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-server-description.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-server-stream-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-set-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-socket-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-socket.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-ssl-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-ssl.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-stream-buffered.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-stream-file.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-stream-gridfs.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-stream-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-stream-socket.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-stream-tls-openssl-bio-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-stream-tls-openssl-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-stream-tls-openssl.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-stream-tls-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-stream-tls-secure-channel-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-stream-tls-secure-channel.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-stream-tls-secure-transport-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-stream-tls-secure-transport.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-stream-tls.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-stream.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-thread-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-topology-description-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-topology-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-topology-scanner-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-trace.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-uri-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-uri.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-util-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-version-functions.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-version.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-write-command-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-write-concern-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-write-concern.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc.h" />
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\utlist.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-apm.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-array.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-async-cmd.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-async.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-b64.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-buffer.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-bulk-operation.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-client-pool.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-client.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-cluster.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-collection.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-counters.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-crypto-cng.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-crypto-common-crypto.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-crypto-openssl.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-crypto.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-cursor-array.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-cursor-cursorid.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-cursor-transform.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-cursor.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-database.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-find-and-modify.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-gridfs-file-list.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-gridfs-file-page.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-gridfs-file.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-gridfs.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-host-list.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-index.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-init.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-list.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-log.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-matcher-op.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-matcher.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-memcmp.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-opcode.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-openssl.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-queue.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-rand-cng.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-rand-common-crypto.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-rand-openssl.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-read-concern.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-read-prefs.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-rpc.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-sasl.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-scram.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-secure-channel.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-secure-transport.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-server-description.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-server-stream.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-set.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-socket.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-ssl.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-stream-buffered.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-stream-file.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-stream-gridfs.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-stream-socket.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-stream-tls-openssl-bio.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-stream-tls-openssl.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-stream-tls-secure-channel.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-stream-tls-secure-transport.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-stream-tls.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-stream.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-topology-description.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-topology-scanner.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-topology.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-uri.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-util.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-version-functions.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-write-command.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-write-concern.c" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3922A382-DCA3-4D63-BE3F-31B8C1DC56F4}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Tinyxml</RootNamespace>
+    <ProjectName>Mongo</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\lib\windows</OutDir>
+    <IntDir>..\..\lib\temp</IntDir>
+    <IncludePath>..\..\lib\include\libbson\bson;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;MONGOC_COMPILATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
