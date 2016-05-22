@@ -18,7 +18,7 @@
 
 #ifdef MONGOC_ENABLE_SECURE_TRANSPORT
 
-#include <bson.h>
+#include "../libbson/bson.h"
 
 #include "mongoc-log.h"
 #include "mongoc-trace.h"

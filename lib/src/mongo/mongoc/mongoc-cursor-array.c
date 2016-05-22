@@ -32,11 +32,13 @@
 
 typedef struct
 {
-   bson_t         array;
-   bool           has_array;
-   bool           has_synthetic_bson;
-   bson_iter_t    iter;
-   bson_t         bson;   /* current document */
+   const bson_t       *result;
+   bool         has_array;
+   bool         has_synthetic_bson;
+   bson_iter_t         iter;
+   bson_t              bson;
+   uint32_t       document_len;
+   const uint8_t *document;
    const char    *field_name;
 } mongoc_cursor_array_t;
 
@@ -49,8 +51,6 @@ _mongoc_cursor_array_new (const char *field_name)
    ENTRY;
 
    arr = (mongoc_cursor_array_t *)bson_malloc0 (sizeof *arr);
-   arr->has_array = false;
-   arr->has_synthetic_bson = false;
    arr->field_name = field_name;
 
    RETURN (arr);
@@ -66,10 +66,6 @@ _mongoc_cursor_array_destroy (mongoc_cursor_t *cursor)
 
    arr = (mongoc_cursor_array_t *)cursor->iface_data;
 
-   if (arr->has_array) {
-      bson_destroy (&arr->array);
-   }
-
    if (arr->has_synthetic_bson) {
       bson_destroy(&arr->bson);
    }
@@ -84,6 +80,7 @@ _mongoc_cursor_array_destroy (mongoc_cursor_t *cursor)
 bool
 _mongoc_cursor_array_prime (mongoc_cursor_t *cursor)
 {
+   const bson_t *bson;
    mongoc_cursor_array_t *arr;
    bson_iter_t iter;
 
@@ -93,15 +90,15 @@ _mongoc_cursor_array_prime (mongoc_cursor_t *cursor)
 
    BSON_ASSERT (arr);
 
-   if (_mongoc_cursor_run_command (cursor, &cursor->query, &arr->array) &&
-       bson_iter_init_find (&iter, &arr->array, arr->field_name) &&
+   if (_mongoc_cursor_run_command (cursor, &cursor->query) &&
+       _mongoc_read_from_buffer (cursor, &bson) &&
+       bson_iter_init_find (&iter, bson, arr->field_name) &&
        BSON_ITER_HOLDS_ARRAY (&iter) &&
        bson_iter_recurse (&iter, &arr->iter)) {
       arr->has_array = true;
-      return true;
    }
 
-   return false;
+   return arr->has_array;
 }
 
 
@@ -111,15 +108,13 @@ _mongoc_cursor_array_next (mongoc_cursor_t *cursor,
 {
    bool ret = true;
    mongoc_cursor_array_t *arr;
-   uint32_t document_len;
-   const uint8_t *document;
 
    ENTRY;
 
    arr = (mongoc_cursor_array_t *)cursor->iface_data;
    *bson = NULL;
 
-   if (!arr->has_array && !arr->has_synthetic_bson) {
+   if (!arr->has_array) {
       ret = _mongoc_cursor_array_prime(cursor);
    }
 
@@ -128,8 +123,9 @@ _mongoc_cursor_array_next (mongoc_cursor_t *cursor,
    }
 
    if (ret) {
-      bson_iter_document (&arr->iter, &document_len, &document);
-      bson_init_static (&arr->bson, document, document_len);
+      bson_iter_document (&arr->iter, &arr->document_len, &arr->document);
+      bson_init_static (&arr->bson, arr->document, arr->document_len);
+
       *bson = &arr->bson;
    }
 
@@ -165,7 +161,7 @@ _mongoc_cursor_array_more (mongoc_cursor_t *cursor)
 
    arr = (mongoc_cursor_array_t *)cursor->iface_data;
 
-   if (arr->has_array || arr->has_synthetic_bson) {
+   if (arr->has_array) {
       memcpy (&iter, &arr->iter, sizeof iter);
 
       ret = bson_iter_next (&iter);
@@ -235,9 +231,11 @@ _mongoc_cursor_array_set_bson (mongoc_cursor_t *cursor,
    ENTRY;
 
    arr = (mongoc_cursor_array_t *)cursor->iface_data;
-   bson_copy_to(bson, &arr->bson);
-   arr->has_synthetic_bson = true;
-   bson_iter_init(&arr->iter, &arr->bson);
 
-   EXIT;
+   bson_copy_to(bson, &arr->bson);
+
+   arr->has_array = true;
+   arr->has_synthetic_bson = true;
+
+   bson_iter_init(&arr->iter, &arr->bson);
 }

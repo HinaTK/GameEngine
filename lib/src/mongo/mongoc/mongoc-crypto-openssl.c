@@ -15,7 +15,7 @@
  */
 
 #include "mongoc-config.h"
-#include <bson.h>
+#include "../libbson/bson.h"
 
 #ifdef MONGOC_ENABLE_LIBCRYPTO
 #include "mongoc-crypto-openssl-private.h"

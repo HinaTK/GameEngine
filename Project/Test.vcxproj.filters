@@ -41,6 +41,7 @@
     <ClInclude Include="..\Test\testcache.h" />
     <ClInclude Include="..\Test\testredis.h" />
     <ClInclude Include="..\Test\testchrono.h" />
+    <ClInclude Include="..\Test\testmongo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Test\main.cpp" />

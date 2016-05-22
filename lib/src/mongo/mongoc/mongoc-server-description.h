@@ -19,6 +19,7 @@
 
 #include <bson.h>
 
+#include "mongoc-array-private.h"
 #include "mongoc-read-prefs.h"
 #include "mongoc-host-list.h"
 
@@ -35,14 +36,5 @@ mongoc_server_description_id (mongoc_server_description_t *description);
 
 mongoc_host_list_t *
 mongoc_server_description_host (mongoc_server_description_t *description);
-
-int64_t
-mongoc_server_description_round_trip_time (mongoc_server_description_t *description);
-
-const char *
-mongoc_server_description_type (mongoc_server_description_t *description);
-
-const bson_t *
-mongoc_server_description_ismaster (mongoc_server_description_t *description);
 
 #endif

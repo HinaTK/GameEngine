@@ -21,7 +21,6 @@
 #error "Only <mongoc.h> can be included directly."
 #endif
 
-#include "mongoc-uri.h"
 #include <bson.h>
 #include <sasl/sasl.h>
 #include <sasl/saslutil.h>
@@ -44,7 +43,6 @@ struct _mongoc_sasl_t
    char            *pass;
    char            *service_name;
    char            *service_host;
-   bool             canonicalize_host_name;
    sasl_interact_t *interact;
 };
 
@@ -60,8 +58,6 @@ void _mongoc_sasl_set_service_name (mongoc_sasl_t      *sasl,
                                     const char         *service_name);
 void _mongoc_sasl_set_service_host (mongoc_sasl_t      *sasl,
                                     const char         *service_host);
-void _mongoc_sasl_set_properties   (mongoc_sasl_t      *sasl,
-                                    const mongoc_uri_t *uri);
 void _mongoc_sasl_destroy          (mongoc_sasl_t      *sasl);
 bool _mongoc_sasl_step             (mongoc_sasl_t      *sasl,
                                     const uint8_t      *inbuf,

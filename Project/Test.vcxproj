@@ -25,6 +25,7 @@
     <ClInclude Include="..\Test\other\logtest.h" />
     <ClInclude Include="..\Test\testlog.h" />
     <ClInclude Include="..\Test\testmemory.h" />
+    <ClInclude Include="..\Test\testmongo.h" />
     <ClInclude Include="..\Test\testother.h" />
     <ClInclude Include="..\Test\testredis.h" />
     <ClInclude Include="..\Test\testserializer.h" />
@@ -63,7 +64,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\Debug</OutDir>
     <IntDir>..\Debug\test</IntDir>
-    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath);..\lib\src\mongo\libbson</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -84,7 +85,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\lib\windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Tinyxml.lib;Frame.lib;Common.lib;TimeManager.lib;Log.lib;Cache.lib;redis.lib;Thread.lib;Math.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Tinyxml.lib;Frame.lib;Common.lib;TimeManager.lib;Log.lib;Cache.lib;redis.lib;Thread.lib;Math.lib;Mongo.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>

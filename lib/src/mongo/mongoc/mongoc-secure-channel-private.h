@@ -21,7 +21,7 @@
 #error "Only <mongoc.h> can be included directly."
 #endif
 
-#include <bson.h>
+#include "../libbson/bson.h"
 
 #include "mongoc-ssl.h"
 #include "mongoc-stream-tls-secure-channel-private.h"

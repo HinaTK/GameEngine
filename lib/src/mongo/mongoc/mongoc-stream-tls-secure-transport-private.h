@@ -22,7 +22,7 @@
 #endif
 
 #ifdef MONGOC_ENABLE_SECURE_TRANSPORT
-#include <bson.h>
+#include "../libbson/bson.h"
 
 #include <Security/Security.h>
 

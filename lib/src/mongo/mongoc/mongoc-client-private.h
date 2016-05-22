@@ -23,7 +23,6 @@
 
 #include <bson.h>
 
-#include "mongoc-apm-private.h"
 #include "mongoc-buffer-private.h"
 #include "mongoc-client.h"
 #include "mongoc-cluster-private.h"
@@ -64,6 +63,7 @@ BSON_BEGIN_DECLS
 
 struct _mongoc_client_t
 {
+   uint32_t                   request_id;
    mongoc_list_t             *conns;
    mongoc_uri_t              *uri;
    mongoc_cluster_t           cluster;
@@ -75,6 +75,7 @@ struct _mongoc_client_t
 #ifdef MONGOC_ENABLE_SSL
    bool                       use_ssl;
    mongoc_ssl_opt_t           ssl_opts;
+   char                      *pem_subject;
 #endif
 
    mongoc_topology_t         *topology;
@@ -82,23 +83,12 @@ struct _mongoc_client_t
    mongoc_read_prefs_t       *read_prefs;
    mongoc_read_concern_t     *read_concern;
    mongoc_write_concern_t    *write_concern;
-
-   mongoc_apm_callbacks_t     apm_callbacks;
-   void                      *apm_context;
-
-   int32_t                    error_api_version;
-   bool                       error_api_set;
 };
 
 
 mongoc_client_t *
 _mongoc_client_new_from_uri (const mongoc_uri_t *uri,
                              mongoc_topology_t  *topology);
-
-bool
-_mongoc_client_set_apm_callbacks_private (mongoc_client_t        *client,
-                                          mongoc_apm_callbacks_t *callbacks,
-                                          void                   *context);
 
 mongoc_stream_t *
 mongoc_client_default_stream_initiator (const mongoc_uri_t       *uri,
@@ -130,11 +120,14 @@ _mongoc_topology_background_thread_start (mongoc_topology_t *topology);
 void
 _mongoc_topology_background_thread_stop (mongoc_topology_t *topology);
 
+mongoc_server_description_t *
+_mongoc_client_get_server_description (mongoc_client_t *client,
+                                       uint32_t         server_id);
+
 void
 _mongoc_client_kill_cursor              (mongoc_client_t *client,
                                          uint32_t         server_id,
                                          int64_t          cursor_id,
-                                         int64_t          operation_id,
                                          const char      *db,
                                          const char      *collection);
 

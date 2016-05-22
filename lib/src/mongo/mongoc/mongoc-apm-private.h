@@ -21,7 +21,7 @@
 # error "Only <mongoc.h> can be included directly."
 #endif
 
-#include <bson.h>
+#include "../libbson/bson.h"
 #include "mongoc-apm.h"
 
 BSON_BEGIN_DECLS

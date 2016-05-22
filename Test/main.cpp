@@ -9,6 +9,7 @@
 #include "testcache.h"
 #include "testredis.h"
 #include "testchrono.h"
+#include "testmongo.h"
 #include "lib/include/thread/threadmanager.h"
 #include "lib/include/math/gamemath.h"
 #include "lib/include/frame/bufmanager.h"
@@ -136,6 +137,7 @@ int main()
 
 //	TestFrame::Instance().Init();
 //	TestFrame::Instance().Run();
+	TestMongo::Fun1();
 
 // 	struct S1
 // 	{
@@ -160,13 +162,13 @@ int main()
 // 	long c = 2531011;
 // 	printf("S1 = %ld\n", (a * 11 + c) % m);
 	
-	SendBuffer *buf = new SendBuffer;
-	delete buf;
-	while (true)
-	{
-		printf("aaaaaaaaaaaaaa \n");
-		Sleep(1000000);
-	}
+// 	SendBuffer *buf = new SendBuffer;
+// 	delete buf;
+// 	while (true)
+// 	{
+// 		printf("aaaaaaaaaaaaaa \n");
+// 		Sleep(1000000);
+// 	}
 	return 0;
 }
 

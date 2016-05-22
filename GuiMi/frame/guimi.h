@@ -53,7 +53,7 @@ private:
 
 	Interface			m_lua_interface;
 	SceneManager		m_scene_manager;
-
+	ThreadManager		m_thread_manager;
 };
 
 #endif // FRAME_H

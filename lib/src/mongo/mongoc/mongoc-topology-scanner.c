@@ -15,7 +15,6 @@
  */
 
 #include <bson.h>
-#include <bson-string.h>
 
 #include "mongoc-error.h"
 #include "mongoc-trace.h"
@@ -536,8 +535,6 @@ mongoc_topology_scanner_start (mongoc_topology_scanner_t *ts,
       return;
    }
 
-   memset (&ts->error, 0, sizeof (bson_error_t));
-
    if (obey_cooldown) {
       /* when current cooldown period began */
       cooldown = bson_get_monotonic_time ()
@@ -566,45 +563,6 @@ mongoc_topology_scanner_start (mongoc_topology_scanner_t *ts,
 /*
  *--------------------------------------------------------------------------
  *
- * mongoc_topology_scanner_finish_scan --
- *
- *      Summarizes all scanner node errors into one error message.
- *
- *--------------------------------------------------------------------------
- */
-
-static void
-mongoc_topology_scanner_finish (mongoc_topology_scanner_t *ts)
-{
-   mongoc_topology_scanner_node_t *node, *tmp;
-   bson_error_t *error = &ts->error;
-   bson_string_t *msg;
-
-   BSON_ASSERT (!error->code);  /* cleared by scanner_start */
-
-   msg = bson_string_new (NULL);
-
-   DL_FOREACH_SAFE (ts->nodes, node, tmp) {
-      if (node->last_error.code) {
-         if (msg->len) {
-            bson_string_append_c (msg, ' ');
-         }
-
-         bson_string_append_printf (msg, "[%s]", node->last_error.message);
-
-         /* last error domain and code win */
-         error->domain = node->last_error.domain;
-         error->code = node->last_error.code;
-      }
-   }
-
-   bson_strncpy ((char *) &error->message, msg->str, sizeof (error->message));
-   bson_string_free (msg, true);
-}
-
-/*
- *--------------------------------------------------------------------------
- *
  * mongoc_topology_scanner_work --
  *
  *      Crank the knob on the topology scanner state machine. This should
@@ -627,7 +585,6 @@ mongoc_topology_scanner_work (mongoc_topology_scanner_t *ts,
 
    if (! r) {
       ts->in_progress = false;
-      mongoc_topology_scanner_finish (ts);
    }
 
    return r;
@@ -636,21 +593,40 @@ mongoc_topology_scanner_work (mongoc_topology_scanner_t *ts,
 /*
  *--------------------------------------------------------------------------
  *
- * mongoc_topology_scanner_get_error --
+ * mongoc_topology_scanner_sum_errors --
  *
- *      Copy the scanner's current error; which may no-error (code 0).
+ *      Summarizes all scanner node errors into one error message
  *
  *--------------------------------------------------------------------------
  */
 
 void
-mongoc_topology_scanner_get_error (mongoc_topology_scanner_t *ts,
-                                   bson_error_t              *error)
+mongoc_topology_scanner_sum_errors (mongoc_topology_scanner_t *ts,
+                                    bson_error_t              *error)
 {
-   BSON_ASSERT (ts);
-   BSON_ASSERT (error);
+   mongoc_topology_scanner_node_t *node, *tmp;
 
-   memcpy (error, &ts->error, sizeof (bson_error_t));
+   DL_FOREACH_SAFE (ts->nodes, node, tmp) {
+      if (node->last_error.code) {
+         char *msg = NULL;
+
+         if (error->code) {
+            msg = bson_strdup(error->message);
+         }
+
+         bson_set_error(error,
+                        MONGOC_ERROR_SERVER_SELECTION,
+                        MONGOC_ERROR_SERVER_SELECTION_FAILURE,
+                        "%s[%s] ",
+                        msg ? msg : "", node->last_error.message);
+         if (msg) {
+            bson_free (msg);
+         }
+      }
+   }
+   if (error->code) {
+      error->message[strlen(error->message)-1] = '\0';
+   }
 }
 
 /*

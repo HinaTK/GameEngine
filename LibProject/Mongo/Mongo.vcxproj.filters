@@ -4,8 +4,146 @@
     <Filter Include="mongoc">
       <UniqueIdentifier>{49ace993-cdb2-4e25-8078-2b3d9bf93ef4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libbson">
+      <UniqueIdentifier>{96f59461-894a-4c57-a69b-7708f9b82a8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yajl">
+      <UniqueIdentifier>{a9e18177-06bb-4880-bffe-a9e8aafbfdd8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\b64_ntop.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\b64_pton.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bcon.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-atomic.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-clock.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-compat.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-config.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-context.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-context-private.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-decimal128.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-endian.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-error.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-iso8601-private.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-iter.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-json.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-keys.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-macros.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-md5.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-memory.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-oid.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-private.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-reader.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-stdint-win32.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-string.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-thread-private.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-timegm-private.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-types.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-utf8.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-value.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-version.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-version-functions.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-writer.h">
+      <Filter>libbson</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_alloc.h">
+      <Filter>yajl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_buf.h">
+      <Filter>yajl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_bytestack.h">
+      <Filter>yajl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_common.h">
+      <Filter>yajl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_encode.h">
+      <Filter>yajl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_gen.h">
+      <Filter>yajl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_lex.h">
+      <Filter>yajl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_parse.h">
+      <Filter>yajl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_parser.h">
+      <Filter>yajl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_tree.h">
+      <Filter>yajl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_version.h">
+      <Filter>yajl</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc.h">
       <Filter>mongoc</Filter>
     </ClInclude>
@@ -55,6 +193,9 @@
       <Filter>mongoc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-collection-private.h">
+      <Filter>mongoc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-config.h">
       <Filter>mongoc</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-counters-private.h">
@@ -309,6 +450,9 @@
     <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-util-private.h">
       <Filter>mongoc</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-version.h">
+      <Filter>mongoc</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-version-functions.h">
       <Filter>mongoc</Filter>
     </ClInclude>
@@ -324,14 +468,98 @@
     <ClInclude Include="..\..\lib\src\mongo\mongoc\utlist.h">
       <Filter>mongoc</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-config.h">
-      <Filter>mongoc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-version.h">
-      <Filter>mongoc</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bcon.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-atomic.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-clock.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-context.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-decimal128.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-error.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-iso8601.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-iter.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-json.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-keys.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-md5.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-memory.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-oid.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-reader.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-string.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-timegm.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-utf8.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-value.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-version-functions.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-writer.c">
+      <Filter>libbson</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\yajl\yajl.c">
+      <Filter>yajl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\yajl\yajl_alloc.c">
+      <Filter>yajl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\yajl\yajl_buf.c">
+      <Filter>yajl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\yajl\yajl_encode.c">
+      <Filter>yajl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\yajl\yajl_gen.c">
+      <Filter>yajl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\yajl\yajl_lex.c">
+      <Filter>yajl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\yajl\yajl_parser.c">
+      <Filter>yajl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\yajl\yajl_tree.c">
+      <Filter>yajl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\yajl\yajl_version.c">
+      <Filter>yajl</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-apm.c">
       <Filter>mongoc</Filter>
     </ClCompile>
@@ -441,6 +669,9 @@
       <Filter>mongoc</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-queue.c">
+      <Filter>mongoc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-rand.c">
       <Filter>mongoc</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-rand-cng.c">

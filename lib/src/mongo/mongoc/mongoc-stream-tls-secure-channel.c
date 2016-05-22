@@ -18,7 +18,7 @@
 
 #ifdef MONGOC_ENABLE_SECURE_CHANNEL
 
-#include <bson.h>
+#include "../libbson/bson.h"
 
 #include "mongoc-trace.h"
 #include "mongoc-log.h"

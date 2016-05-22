@@ -54,11 +54,10 @@ struct _mongoc_bulk_write_flags_t
 typedef struct
 {
    int      type;
-   uint32_t server_id;
+   uint32_t hint;
    bson_t  *documents;
    uint32_t n_documents;
    mongoc_bulk_write_flags_t flags;
-   int64_t operation_id;
    union {
       struct {
          bool multi;
@@ -96,20 +95,17 @@ void _mongoc_write_command_destroy     (mongoc_write_command_t        *command);
 void _mongoc_write_command_init_insert (mongoc_write_command_t        *command,
                                         const bson_t                  *document,
                                         mongoc_bulk_write_flags_t      flags,
-                                        int64_t                        operation_id,
                                         bool                           allow_bulk_op_insert);
 void _mongoc_write_command_init_delete (mongoc_write_command_t        *command,
                                         const bson_t                  *selectors,
                                         bool                           multi,
-                                        mongoc_bulk_write_flags_t      flags,
-                                        int64_t                        operation_id);
+                                        mongoc_bulk_write_flags_t      flags);
 void _mongoc_write_command_init_update (mongoc_write_command_t        *command,
                                         const bson_t                  *selector,
                                         const bson_t                  *update,
                                         bool                           upsert,
                                         bool                           multi,
-                                        mongoc_bulk_write_flags_t      flags,
-                                        int64_t                        operation_id);
+                                        mongoc_bulk_write_flags_t      flags);
 void _mongoc_write_command_insert_append (mongoc_write_command_t      *command,
                                           const bson_t                *document);
 void _mongoc_write_command_update_append (mongoc_write_command_t      *command,
@@ -137,12 +133,9 @@ void _mongoc_write_result_merge        (mongoc_write_result_t         *result,
 void _mongoc_write_result_merge_legacy (mongoc_write_result_t         *result,
                                         mongoc_write_command_t        *command,
                                         const bson_t                  *reply,
-                                        int32_t                        error_api_version,
                                         mongoc_error_code_t            default_code,
                                         uint32_t                       offset);
 bool _mongoc_write_result_complete     (mongoc_write_result_t         *result,
-                                        int32_t                        error_api_version,
-                                        const mongoc_write_concern_t  *wc,
                                         bson_t                        *reply,
                                         bson_error_t                  *error);
 void _mongoc_write_result_destroy      (mongoc_write_result_t         *result);

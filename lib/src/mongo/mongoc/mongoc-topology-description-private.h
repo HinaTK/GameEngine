@@ -19,8 +19,9 @@
 
 #include "mongoc-set-private.h"
 #include "mongoc-server-description.h"
-#include "mongoc-array-private.h"
 
+#define MONGOC_SS_DEFAULT_TIMEOUT_MS 30000
+#define MONGOC_SS_DEFAULT_LOCAL_THRESHOLD_MS 15
 
 typedef enum
    {
@@ -87,8 +88,7 @@ mongoc_topology_description_suitable_servers (
 
 void
 mongoc_topology_description_invalidate_server (mongoc_topology_description_t *topology,
-                                               uint32_t                       id,
-                                               const bson_error_t            *error);
+                                               uint32_t                       id);
 
 bool
 mongoc_topology_description_add_server (mongoc_topology_description_t *topology,

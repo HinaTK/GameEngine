@@ -9,13 +9,14 @@
 
 
 NewFrame::NewFrame()
+: m_net_manager(&m_thread_manager)
 {
 
 }
 
 NewFrame::~NewFrame()
 {
-	Exit();
+	
 }
 
 // ¿ò¼Ü³õÊ¼»¯

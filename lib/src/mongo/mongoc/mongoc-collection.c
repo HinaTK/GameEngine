@@ -57,6 +57,35 @@
          } \
       } while(0); \
 
+static bool
+validate_name (const char *str)
+{
+   const char *c;
+
+   if (str && *str) {
+      for (c = str; *c; c++) {
+         switch (*c) {
+         case '/':
+         case '\\':
+         case '.':
+         case '"':
+         case '*':
+         case '<':
+         case '>':
+         case ':':
+         case '|':
+         case '?':
+            return false;
+         default:
+            break;
+         }
+      }
+      return ((0 != strcmp (str, "oplog.$main")) &&
+              (0 != strcmp (str, "$cmd")));
+   }
+
+   return false;
+}
 
 static mongoc_cursor_t *
 _mongoc_collection_cursor_new (mongoc_collection_t *collection,
@@ -325,13 +354,14 @@ mongoc_collection_aggregate (mongoc_collection_t       *collection, /* IN */
    selected_server = mongoc_topology_select(collection->client->topology,
                                             MONGOC_SS_READ,
                                             read_prefs,
+                                            15,
                                             &cursor->error);
 
    if (!selected_server) {
       GOTO (done);
    }
 
-   cursor->server_id = selected_server->id;
+   cursor->hint = selected_server->id;
    use_cursor = 
       selected_server->max_wire_version >= WIRE_VERSION_AGG_CURSOR;
 
@@ -601,9 +631,6 @@ mongoc_collection_count (mongoc_collection_t       *collection,  /* IN */
                          const mongoc_read_prefs_t *read_prefs,  /* IN */
                          bson_error_t              *error)       /* OUT */
 {
-   /* Server Selection Spec: "may-use-secondary" commands SHOULD take a read
-    * preference argument and otherwise MUST use the default read preference
-    * from client, database or collection configuration. */
    return mongoc_collection_count_with_opts (
       collection,
       flags,
@@ -611,7 +638,7 @@ mongoc_collection_count (mongoc_collection_t       *collection,  /* IN */
       skip,
       limit,
       NULL,
-      read_prefs ? read_prefs : collection->read_prefs,
+      read_prefs,
       error);
 }
 
@@ -628,24 +655,25 @@ mongoc_collection_count_with_opts (mongoc_collection_t       *collection,  /* IN
 {
    mongoc_server_stream_t *server_stream;
    mongoc_cluster_t *cluster;
-   mongoc_apply_read_prefs_result_t read_prefs_result = READ_PREFS_RESULT_INIT;
    bson_iter_t iter;
    int64_t ret = -1;
    bool success;
    bson_t reply;
-   bson_t cmd = BSON_INITIALIZER;
+   bson_t cmd;
    bson_t q;
 
    ENTRY;
 
+
    cluster = &collection->client->cluster;
    server_stream = mongoc_cluster_stream_for_writes (cluster, error);
    if (!server_stream) {
-      GOTO (done);
+      RETURN (-1);
    }
 
    BSON_ASSERT (collection);
 
+   bson_init(&cmd);
    bson_append_utf8(&cmd, "count", 5, collection->collection,
                     collection->collectionlen);
    if (query) {
@@ -669,7 +697,9 @@ mongoc_collection_count_with_opts (mongoc_collection_t       *collection,  /* IN
                          MONGOC_ERROR_COMMAND,
                          MONGOC_ERROR_PROTOCOL_BAD_WIRE_VERSION,
                          "The selected server does not support readConcern");
-         GOTO (done);
+         bson_destroy (&cmd);
+         mongoc_server_stream_cleanup (server_stream);
+         RETURN (-1);
       }
 
       read_concern_bson = _mongoc_read_concern_get_bson (collection->read_concern);
@@ -679,23 +709,17 @@ mongoc_collection_count_with_opts (mongoc_collection_t       *collection,  /* IN
        bson_concat(&cmd, opts);
    }
 
-   apply_read_preferences (read_prefs, server_stream,
-                           &cmd, flags, &read_prefs_result);
-
-   success = mongoc_cluster_run_command_monitored (
-      cluster, server_stream, read_prefs_result.flags, collection->db,
-      read_prefs_result.query_with_read_prefs, &reply, error);
+   success = mongoc_cluster_run_command (cluster, server_stream->stream,
+                                         server_stream->sd->id,
+                                         MONGOC_QUERY_SLAVE_OK, collection->db,
+                                         &cmd, &reply, error);
 
    if (success && bson_iter_init_find(&iter, &reply, "n")) {
       ret = bson_iter_as_int64(&iter);
    }
-
    bson_destroy (&reply);
-
-done:
-   apply_read_prefs_result_cleanup (&read_prefs_result);
-   mongoc_server_stream_cleanup (server_stream);
    bson_destroy (&cmd);
+   mongoc_server_stream_cleanup (server_stream);
 
    RETURN (ret);
 }
@@ -1215,8 +1239,8 @@ mongoc_collection_insert_bulk (mongoc_collection_t           *collection,
    mongoc_write_command_t command;
    mongoc_write_result_t result;
    mongoc_bulk_write_flags_t write_flags = MONGOC_BULK_WRITE_FLAGS_INIT;
-   uint32_t i;
    bool ret;
+   uint32_t i;
 
    BSON_ASSERT (collection);
    BSON_ASSERT (documents);
@@ -1247,9 +1271,7 @@ mongoc_collection_insert_bulk (mongoc_collection_t           *collection,
 
    write_flags.ordered = !(flags & MONGOC_INSERT_CONTINUE_ON_ERROR);
 
-   _mongoc_write_command_init_insert (&command, NULL, write_flags,
-                                      ++collection->client->cluster.operation_id,
-                                      true);
+   _mongoc_write_command_init_insert (&command, NULL, write_flags, true);
 
    for (i = 0; i < n_documents; i++) {
       _mongoc_write_command_insert_append (&command, documents[i]);
@@ -1259,11 +1281,7 @@ mongoc_collection_insert_bulk (mongoc_collection_t           *collection,
                                              write_concern, &result);
 
    collection->gle = bson_new ();
-   ret = _mongoc_write_result_complete (&result,
-                                        collection->client->error_api_version,
-                                        write_concern,
-                                        collection->gle,
-                                        error);
+   ret = _mongoc_write_result_complete (&result, collection->gle, error);
 
    _mongoc_write_result_destroy (&result);
    _mongoc_write_command_destroy (&command);
@@ -1338,19 +1356,13 @@ mongoc_collection_insert (mongoc_collection_t          *collection,
    }
 
    _mongoc_write_result_init (&result);
-   _mongoc_write_command_init_insert (&command, document, write_flags,
-                                      ++collection->client->cluster.operation_id,
-                                      false);
+   _mongoc_write_command_init_insert (&command, document, write_flags, false);
 
    _mongoc_collection_write_command_execute (&command, collection,
                                              write_concern, &result);
 
    collection->gle = bson_new ();
-   ret = _mongoc_write_result_complete (&result,
-                                        collection->client->error_api_version,
-                                        write_concern,
-                                        collection->gle,
-                                        error);
+   ret = _mongoc_write_result_complete (&result, collection->gle, error);
 
    _mongoc_write_result_destroy (&result);
    _mongoc_write_command_destroy (&command);
@@ -1435,18 +1447,13 @@ mongoc_collection_update (mongoc_collection_t          *collection,
                                       update,
                                       !!(flags & MONGOC_UPDATE_UPSERT),
                                       !!(flags & MONGOC_UPDATE_MULTI_UPDATE),
-                                      write_flags,
-                                      ++collection->client->cluster.operation_id);
+                                      write_flags);
 
    _mongoc_collection_write_command_execute (&command, collection,
                                              write_concern, &result);
 
    collection->gle = bson_new ();
-   ret = _mongoc_write_result_complete (&result,
-                                        collection->client->error_api_version,
-                                        write_concern,
-                                        collection->gle,
-                                        error);
+   ret = _mongoc_write_result_complete (&result, collection->gle, error);
 
    _mongoc_write_result_destroy (&result);
    _mongoc_write_command_destroy (&command);
@@ -1502,7 +1509,7 @@ mongoc_collection_save (mongoc_collection_t          *collection,
             MONGOC_ERROR_COMMAND_INVALID_ARG,
             "Failed to append bson to create update.");
       bson_destroy (&selector);
-      return false;
+      return NULL;
    }
 
    ret = mongoc_collection_update(collection,
@@ -1575,18 +1582,13 @@ mongoc_collection_remove (mongoc_collection_t          *collection,
    multi = !(flags & MONGOC_REMOVE_SINGLE_REMOVE);
 
    _mongoc_write_result_init (&result);
-   _mongoc_write_command_init_delete (&command, selector, multi, write_flags,
-                                      ++collection->client->cluster.operation_id);
+   _mongoc_write_command_init_delete (&command, selector, multi, write_flags);
 
    _mongoc_collection_write_command_execute (&command, collection,
                                              write_concern, &result);
 
    collection->gle = bson_new ();
-   ret = _mongoc_write_result_complete (&result,
-                                        collection->client->error_api_version,
-                                        write_concern,
-                                        collection->gle,
-                                        error);
+   ret = _mongoc_write_result_complete (&result, collection->gle, error);
 
    _mongoc_write_result_destroy (&result);
    _mongoc_write_command_destroy (&command);
@@ -1936,7 +1938,7 @@ mongoc_collection_rename (mongoc_collection_t *collection,
    BSON_ASSERT (collection);
    BSON_ASSERT (new_name);
 
-   if (strchr (new_name, '$')) {
+   if (!validate_name (new_name)) {
       bson_set_error (error,
                       MONGOC_ERROR_NAMESPACE,
                       MONGOC_ERROR_NAMESPACE_INVALID,
@@ -2029,12 +2031,7 @@ mongoc_collection_stats (mongoc_collection_t *collection,
       bson_concat (&cmd, options);
    }
 
-   /* Server Selection Spec: "may-use-secondary" commands SHOULD take a read
-    * preference argument and otherwise MUST use the default read preference
-    * from client, database or collection configuration. */
-   ret = mongoc_collection_command_simple (collection, &cmd,
-                                           collection->read_prefs,
-                                           stats, error);
+   ret = mongoc_collection_command_simple (collection, &cmd, NULL, stats, error);
 
    bson_destroy (&cmd);
 
@@ -2107,6 +2104,7 @@ mongoc_collection_find_and_modify_with_opts (mongoc_collection_t                
    BSON_ASSERT (collection);
    BSON_ASSERT (query);
 
+
    cluster = &collection->client->cluster;
    server_stream = mongoc_cluster_stream_for_writes (cluster, error);
    if (!server_stream) {
@@ -2147,12 +2145,8 @@ mongoc_collection_find_and_modify_with_opts (mongoc_collection_t                
                         !!opts->bypass_document_validation);
    }
 
-   if (opts->max_time_ms > 0) {
-      BSON_APPEND_INT32 (&command, "maxTimeMS", opts->max_time_ms);
-   }
-
    if (server_stream->sd->max_wire_version >= WIRE_VERSION_FAM_WRITE_CONCERN) {
-      if (!mongoc_write_concern_is_valid (collection->write_concern)) {
+      if (!_mongoc_write_concern_is_valid (collection->write_concern)) {
          bson_set_error (error,
                          MONGOC_ERROR_COMMAND,
                          MONGOC_ERROR_COMMAND_INVALID_ARG,
@@ -2162,25 +2156,15 @@ mongoc_collection_find_and_modify_with_opts (mongoc_collection_t                
          RETURN (false);
       }
 
-      if (mongoc_write_concern_is_acknowledged (collection->write_concern)) {
+      if (_mongoc_write_concern_needs_gle (collection->write_concern)) {
          _BSON_APPEND_WRITE_CONCERN (&command, collection->write_concern);
       }
    }
 
-   if (!bson_concat (&command, &opts->extra)) {
-      bson_set_error (error,
-                      MONGOC_ERROR_COMMAND,
-                      MONGOC_ERROR_COMMAND_INVALID_ARG,
-                      "mongoc_find_and_modify_opts_t.extra is corrupt.");
-      bson_destroy (&command);
-      mongoc_server_stream_cleanup (server_stream);
-      RETURN (false);
-   }
-
-   ret = mongoc_cluster_run_command_monitored (cluster, server_stream,
-                                               MONGOC_QUERY_NONE,
-                                               collection->db, &command,
-                                               &reply_local, error);
+   ret = mongoc_cluster_run_command (cluster, server_stream->stream,
+                                     server_stream->sd->id,
+                                     MONGOC_QUERY_NONE, collection->db,
+                                     &command, &reply_local, error);
 
    if (bson_iter_init_find (&iter, &reply_local, "writeConcernError") &&
          BSON_ITER_HOLDS_DOCUMENT (&iter)) {

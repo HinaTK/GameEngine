@@ -114,7 +114,7 @@ mongoc_write_concern_get_fsync (const mongoc_write_concern_t *write_concern)
  */
 void
 mongoc_write_concern_set_fsync (mongoc_write_concern_t *write_concern,
-                                bool                    fsync_)
+                                bool             fsync_)
 {
    BSON_ASSERT (write_concern);
 
@@ -129,15 +129,6 @@ mongoc_write_concern_get_journal (const mongoc_write_concern_t *write_concern)
 {
    BSON_ASSERT (write_concern);
    return (write_concern->journal == true);
-}
-
-
-bool
-mongoc_write_concern_journal_is_set (
-   const mongoc_write_concern_t *write_concern)
-{
-   BSON_ASSERT (write_concern);
-   return (write_concern->journal != MONGOC_WRITE_CONCERN_JOURNAL_DEFAULT);
 }
 
 
@@ -370,7 +361,7 @@ _mongoc_write_concern_freeze (mongoc_write_concern_t *write_concern)
       BSON_APPEND_UTF8 (compiled, "w", "majority");
    } else if (write_concern->w == MONGOC_WRITE_CONCERN_W_DEFAULT) {
       /* Do Nothing */
-   } else {
+   } else if (write_concern->w > 0) {
       BSON_APPEND_INT32 (compiled, "w", write_concern->w);
    }
 
@@ -392,7 +383,7 @@ _mongoc_write_concern_freeze (mongoc_write_concern_t *write_concern)
 
 
 /**
- * mongoc_write_concern_is_acknowledged:
+ * mongoc_write_concern_needs_gle:
  * @concern: (in): A mongoc_write_concern_t.
  *
  * Checks to see if @write_concern requests that a getlasterror command is to
@@ -401,21 +392,20 @@ _mongoc_write_concern_freeze (mongoc_write_concern_t *write_concern)
  * Returns: true if a getlasterror command should be sent.
  */
 bool
-mongoc_write_concern_is_acknowledged (
-   const mongoc_write_concern_t *write_concern)
+_mongoc_write_concern_needs_gle (const mongoc_write_concern_t *write_concern)
 {
    if (write_concern) {
       return (((write_concern->w != MONGOC_WRITE_CONCERN_W_UNACKNOWLEDGED) &&
                (write_concern->w != MONGOC_WRITE_CONCERN_W_ERRORS_IGNORED)) ||
-              write_concern->fsync_ == true ||
-              mongoc_write_concern_get_journal (write_concern));
+              mongoc_write_concern_get_fsync(write_concern) ||
+              mongoc_write_concern_get_journal(write_concern));
    }
-   return true;
+   return false;
 }
 
 
 /**
- * mongoc_write_concern_is_valid:
+ * _mongoc_write_concern_is_valid:
  * @write_concern: (in): A mongoc_write_concern_t.
  *
  * Checks to see if @write_concern is valid and does not contain conflicting
@@ -424,14 +414,14 @@ mongoc_write_concern_is_acknowledged (
  * Returns: true if the write concern is valid; otherwise false.
  */
 bool
-mongoc_write_concern_is_valid (const mongoc_write_concern_t *write_concern)
+_mongoc_write_concern_is_valid (const mongoc_write_concern_t *write_concern)
 {
    if (!write_concern) {
       return false;
    }
 
    /* Journal or fsync should require acknowledgement.  */
-   if ((write_concern->fsync_ == true ||
+   if ((mongoc_write_concern_get_fsync (write_concern) ||
         mongoc_write_concern_get_journal (write_concern)) &&
        (write_concern->w == MONGOC_WRITE_CONCERN_W_UNACKNOWLEDGED ||
         write_concern->w == MONGOC_WRITE_CONCERN_W_ERRORS_IGNORED)) {

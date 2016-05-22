@@ -52,7 +52,8 @@ struct _mongoc_cursor_t
 {
    mongoc_client_t           *client;
 
-   uint32_t                   server_id;
+   uint32_t                   hint;
+   uint32_t                   stamp;
 
    unsigned                   is_command      : 1;
    unsigned                   sent            : 1;
@@ -69,7 +70,7 @@ struct _mongoc_cursor_t
 
    mongoc_query_flags_t       flags;
    uint32_t                   skip;
-   int64_t                    limit;
+   int32_t                    limit;
    uint32_t                   count;
    uint32_t                   batch_size;
    uint32_t                   max_await_time_ms;
@@ -80,23 +81,17 @@ struct _mongoc_cursor_t
 
    bson_error_t               error;
 
-   /* for OP_QUERY and OP_GETMORE replies*/
    mongoc_rpc_t               rpc;
    mongoc_buffer_t            buffer;
    bson_reader_t             *reader;
+
    const bson_t              *current;
 
    mongoc_cursor_interface_t  iface;
    void                      *iface_data;
-
-   int64_t                    operation_id;
 };
 
 
-int32_t                   _mongoc_n_return            (mongoc_cursor_t              *cursor);
-void                      _mongoc_set_cursor_ns       (mongoc_cursor_t              *cursor,
-                                                       const char                   *ns,
-                                                       uint32_t                      nslen);
 mongoc_cursor_t         * _mongoc_cursor_new          (mongoc_client_t              *client,
                                                        const char                   *db_and_collection,
                                                        mongoc_query_flags_t          flags,
@@ -121,8 +116,7 @@ void                     _mongoc_cursor_collection    (const mongoc_cursor_t    
 bool                     _mongoc_cursor_op_getmore    (mongoc_cursor_t              *cursor,
                                                        mongoc_server_stream_t       *server_stream);
 bool                     _mongoc_cursor_run_command   (mongoc_cursor_t              *cursor,
-                                                       const bson_t                 *command,
-                                                       bson_t                       *reply);
+                                                       const bson_t                 *command);
 bool                     _mongoc_cursor_more          (mongoc_cursor_t              *cursor);
 bool                     _mongoc_cursor_next          (mongoc_cursor_t              *cursor,
                                                        const bson_t                **bson);

@@ -71,10 +71,9 @@ _mongoc_gridfs_ensure_index (mongoc_gridfs_t *gridfs,
    bson_init (&keys);
 
    bson_append_int32 (&keys, "filename", -1, 1);
-   bson_append_int32 (&keys, "uploadDate", -1, 1);
    opt.unique = 0;
 
-   r = mongoc_collection_create_index (gridfs->files, &keys, &opt, error);
+   r = mongoc_collection_create_index (gridfs->chunks, &keys, &opt, error);
 
    bson_destroy (&keys);
 
@@ -96,7 +95,6 @@ _mongoc_gridfs_new (mongoc_client_t *client,
    const mongoc_write_concern_t *write_concern;
    char buf[128];
    bool r;
-   uint32_t prefix_len;
 
    ENTRY;
 
@@ -110,8 +108,13 @@ _mongoc_gridfs_new (mongoc_client_t *client,
    /* make sure prefix is short enough to bucket the chunks and files
     * collections
     */
-   prefix_len = (uint32_t)strlen (prefix);
-   BSON_ASSERT (prefix_len + sizeof (".chunks") < sizeof (buf));
+#ifndef BSON_DISABLE_ASSERT
+   {
+      uint32_t prefix_len;
+      prefix_len = (uint32_t)strlen (prefix);
+      BSON_ASSERT (prefix_len + sizeof (".chunks") < sizeof (buf));
+   }
+#endif
 
    gridfs = (mongoc_gridfs_t *) bson_malloc0 (sizeof *gridfs);
 

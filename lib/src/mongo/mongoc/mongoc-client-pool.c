@@ -15,8 +15,6 @@
  */
 
 
-#include "mongoc.h"
-#include "mongoc-apm-private.h"
 #include "mongoc-counters-private.h"
 #include "mongoc-client-pool-private.h"
 #include "mongoc-client-pool.h"
@@ -29,21 +27,18 @@
 
 struct _mongoc_client_pool_t
 {
-   mongoc_mutex_t          mutex;
-   mongoc_cond_t           cond;
-   mongoc_queue_t          queue;
-   mongoc_topology_t      *topology;
-   mongoc_uri_t           *uri;
-   uint32_t                min_pool_size;
-   uint32_t                max_pool_size;
-   uint32_t                size;
+   mongoc_mutex_t     mutex;
+   mongoc_cond_t      cond;
+   mongoc_queue_t     queue;
+   mongoc_topology_t *topology;
+   mongoc_uri_t      *uri;
+   uint32_t           min_pool_size;
+   uint32_t           max_pool_size;
+   uint32_t           size;
 #ifdef MONGOC_ENABLE_SSL
-   bool                    ssl_opts_set;
-   mongoc_ssl_opt_t        ssl_opts;
+   bool               ssl_opts_set;
+   mongoc_ssl_opt_t   ssl_opts;
 #endif
-   mongoc_apm_callbacks_t  apm_callbacks;
-   void                   *apm_context;
-   int32_t                 error_api_version;
 };
 
 
@@ -102,7 +97,6 @@ mongoc_client_pool_new (const mongoc_uri_t *uri)
 
    topology = mongoc_topology_new(uri, false);
    pool->topology = topology;
-   pool->error_api_version = MONGOC_ERROR_API_VERSION_LEGACY;
 
    b = mongoc_uri_get_options(pool->uri);
 
@@ -166,10 +160,6 @@ again:
    if (!(client = (mongoc_client_t *)_mongoc_queue_pop_head(&pool->queue))) {
       if (pool->size < pool->max_pool_size) {
          client = _mongoc_client_new_from_uri(pool->uri, pool->topology);
-         client->error_api_version = pool->error_api_version;
-         _mongoc_client_set_apm_callbacks_private (client,
-                                                   &pool->apm_callbacks,
-                                                   pool->apm_context);
 #ifdef MONGOC_ENABLE_SSL
          if (pool->ssl_opts_set) {
             mongoc_client_set_ssl_opts (client, &pool->ssl_opts);
@@ -227,7 +217,7 @@ mongoc_client_pool_push (mongoc_client_pool_t *pool,
    BSON_ASSERT (client);
 
    mongoc_mutex_lock(&pool->mutex);
-   if (pool->min_pool_size && pool->size > pool->min_pool_size) {
+   if (pool->size > pool->min_pool_size) {
       mongoc_client_t *old_client;
       old_client = (mongoc_client_t *)_mongoc_queue_pop_head (&pool->queue);
       if (old_client) {
@@ -235,8 +225,10 @@ mongoc_client_pool_push (mongoc_client_pool_t *pool,
           pool->size--;
       }
    }
+   mongoc_mutex_unlock(&pool->mutex);
 
-   _mongoc_queue_push_head (&pool->queue, client);
+   mongoc_mutex_lock (&pool->mutex);
+   _mongoc_queue_push_tail (&pool->queue, client);
 
    mongoc_cond_signal(&pool->cond);
    mongoc_mutex_unlock(&pool->mutex);
@@ -282,42 +274,4 @@ mongoc_client_pool_min_size(mongoc_client_pool_t *pool,
    mongoc_mutex_unlock (&pool->mutex);
 
    EXIT;
-}
-
-bool
-mongoc_client_pool_set_apm_callbacks (mongoc_client_pool_t   *pool,
-                                      mongoc_apm_callbacks_t *callbacks,
-                                      void                   *context)
-{
-
-   if (pool->apm_callbacks.started ||
-       pool->apm_callbacks.succeeded ||
-       pool->apm_callbacks.failed ||
-       pool->apm_context) {
-      MONGOC_ERROR ("Can only set callbacks once");
-      return false;
-   }
-
-   if (callbacks) {
-      memcpy (&pool->apm_callbacks, callbacks, sizeof pool->apm_callbacks);
-   }
-
-   pool->apm_context = context;
-
-   return true;
-}
-
-bool
-mongoc_client_pool_set_error_api (mongoc_client_pool_t *pool,
-                                  int32_t               version)
-{
-   if (version != MONGOC_ERROR_API_VERSION_LEGACY &&
-       version != MONGOC_ERROR_API_VERSION_2) {
-      MONGOC_ERROR ("Unsupported Error API Version: %" PRId32, version);
-      return false;
-   }
-
-   pool->error_api_version = version;
-
-   return true;
 }

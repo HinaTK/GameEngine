@@ -22,7 +22,7 @@
 #endif
 
 #ifdef MONGOC_ENABLE_OPENSSL
-#include <bson.h>
+#include "../libbson/bson.h"
 
 #include <openssl/bio.h>
 #include <openssl/ssl.h>

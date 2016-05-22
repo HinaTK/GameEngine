@@ -67,9 +67,6 @@ const char *
 _mongoc_get_command_name (const bson_t *command)
 {
    bson_iter_t iter;
-   const char *name;
-   bson_iter_t child;
-   const char *wrapper_name = NULL;
 
    BSON_ASSERT (command);
 
@@ -78,28 +75,7 @@ _mongoc_get_command_name (const bson_t *command)
       return NULL;
    }
 
-   name = bson_iter_key (&iter);
-
-   /* wrapped in "$query" or "query"?
-    *
-    *   {$query: {count: "collection"}, $readPreference: {...}}
-    */
-   if (name[0] == '$') {
-      wrapper_name = "$query";
-   } else if (!strcmp (name, "query")) {
-      wrapper_name = "query";
-   }
-
-   if (wrapper_name &&
-       bson_iter_init_find (&iter, command, wrapper_name) &&
-       BSON_ITER_HOLDS_DOCUMENT (&iter) &&
-       bson_iter_recurse (&iter, &child) &&
-       bson_iter_next (&child)) {
-
-      name = bson_iter_key (&child);
-   }
-
-   return name;
+   return bson_iter_key (&iter);
 }
 
 

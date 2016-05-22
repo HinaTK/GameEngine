@@ -20,7 +20,7 @@
 #endif
 
 #include "mongoc-config.h"
-#include <bson.h>
+#include "../libbson/bson.h"
 
 #ifdef MONGOC_ENABLE_CRYPTO
 

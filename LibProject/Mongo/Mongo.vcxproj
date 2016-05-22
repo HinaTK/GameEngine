@@ -11,6 +11,39 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\lib\src\mongo\libbson\b64_ntop.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\b64_pton.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bcon.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-atomic.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-clock.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-compat.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-config.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-context-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-context.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-decimal128.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-endian.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-error.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-iso8601-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-iter.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-json.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-keys.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-macros.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-md5.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-memory.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-oid.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-reader.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-stdint-win32.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-string.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-thread-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-timegm-private.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-types.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-utf8.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-value.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-version-functions.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-version.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson-writer.h" />
+    <ClInclude Include="..\..\lib\src\mongo\libbson\bson.h" />
     <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-apm-private.h" />
     <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-apm.h" />
     <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-array-private.h" />
@@ -119,8 +152,40 @@
     <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc-write-concern.h" />
     <ClInclude Include="..\..\lib\src\mongo\mongoc\mongoc.h" />
     <ClInclude Include="..\..\lib\src\mongo\mongoc\utlist.h" />
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_alloc.h" />
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_buf.h" />
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_bytestack.h" />
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_common.h" />
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_encode.h" />
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_gen.h" />
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_lex.h" />
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_parse.h" />
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_parser.h" />
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_tree.h" />
+    <ClInclude Include="..\..\lib\src\mongo\yajl\yajl_version.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bcon.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-atomic.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-clock.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-context.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-decimal128.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-error.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-iso8601.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-iter.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-json.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-keys.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-md5.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-memory.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-oid.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-reader.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-string.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-timegm.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-utf8.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-value.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-version-functions.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson-writer.c" />
+    <ClCompile Include="..\..\lib\src\mongo\libbson\bson.c" />
     <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-apm.c" />
     <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-array.c" />
     <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-async-cmd.c" />
@@ -161,6 +226,7 @@
     <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-rand-cng.c" />
     <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-rand-common-crypto.c" />
     <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-rand-openssl.c" />
+    <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-rand.c" />
     <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-read-concern.c" />
     <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-read-prefs.c" />
     <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-rpc.c" />
@@ -191,6 +257,15 @@
     <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-version-functions.c" />
     <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-write-command.c" />
     <ClCompile Include="..\..\lib\src\mongo\mongoc\mongoc-write-concern.c" />
+    <ClCompile Include="..\..\lib\src\mongo\yajl\yajl.c" />
+    <ClCompile Include="..\..\lib\src\mongo\yajl\yajl_alloc.c" />
+    <ClCompile Include="..\..\lib\src\mongo\yajl\yajl_buf.c" />
+    <ClCompile Include="..\..\lib\src\mongo\yajl\yajl_encode.c" />
+    <ClCompile Include="..\..\lib\src\mongo\yajl\yajl_gen.c" />
+    <ClCompile Include="..\..\lib\src\mongo\yajl\yajl_lex.c" />
+    <ClCompile Include="..\..\lib\src\mongo\yajl\yajl_parser.c" />
+    <ClCompile Include="..\..\lib\src\mongo\yajl\yajl_tree.c" />
+    <ClCompile Include="..\..\lib\src\mongo\yajl\yajl_version.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3922A382-DCA3-4D63-BE3F-31B8C1DC56F4}</ProjectGuid>
@@ -225,7 +300,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\..\lib\windows</OutDir>
     <IntDir>..\..\lib\temp</IntDir>
-    <IncludePath>..\..\lib\include\libbson\bson;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\;..\..\lib\include;..\..\lib\src\mongo;..\..\lib\src\mongo\mongoc;..\..\lib\src\mongo\libbson;..\..\lib\src\mongo\yajl;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -233,7 +308,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;MONGOC_COMPILATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;MONGOC_COMPILATION;BSON_COMPILATION;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>

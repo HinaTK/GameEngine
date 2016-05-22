@@ -739,13 +739,8 @@ _mongoc_rpc_prep_command (mongoc_rpc_t        *rpc,
 static void
 _mongoc_populate_error (const bson_t *doc,
                         bool          is_command,
-                        int32_t       error_api_version,
                         bson_error_t *error)
 {
-   mongoc_error_domain_t domain =
-      error_api_version >= MONGOC_ERROR_API_VERSION_2
-      ? MONGOC_ERROR_SERVER
-      : MONGOC_ERROR_QUERY;
    uint32_t code = MONGOC_ERROR_QUERY_FAILURE;
    bson_iter_t iter;
    const char *msg = "Unknown query failure";
@@ -764,7 +759,6 @@ _mongoc_populate_error (const bson_t *doc,
    if (is_command &&
        ((code == MONGOC_ERROR_PROTOCOL_ERROR) ||
         (code == 13390))) {
-      domain = MONGOC_ERROR_QUERY;
       code = MONGOC_ERROR_QUERY_COMMAND_NOT_FOUND;
    }
 
@@ -779,14 +773,13 @@ _mongoc_populate_error (const bson_t *doc,
       msg = bson_iter_utf8 (&iter, NULL);
    }
 
-   bson_set_error (error, domain, code, "%s", msg);
+   bson_set_error(error, MONGOC_ERROR_QUERY, code, "%s", msg);
 }
 
 
 static bool
 _mongoc_rpc_parse_error (mongoc_rpc_t *rpc,
-                         bool          is_command,
-                         int32_t       error_api_version,
+                         bool is_command,
                          bson_error_t *error /* OUT */)
 {
    bson_iter_t iter;
@@ -806,8 +799,7 @@ _mongoc_rpc_parse_error (mongoc_rpc_t *rpc,
 
    if ((rpc->reply.flags & MONGOC_REPLY_QUERY_FAILURE)) {
       if (_mongoc_rpc_reply_get_first(&rpc->reply, &b)) {
-         _mongoc_populate_error (&b, is_command,
-                                 error_api_version, error);
+         _mongoc_populate_error (&b, is_command, error);
          bson_destroy(&b);
       } else {
          bson_set_error(error,
@@ -822,8 +814,7 @@ _mongoc_rpc_parse_error (mongoc_rpc_t *rpc,
             if (bson_iter_as_bool (&iter)) {
                RETURN (false);
             } else {
-               _mongoc_populate_error (&b, is_command,
-                                       error_api_version, error);
+               _mongoc_populate_error (&b, is_command, error);
                bson_destroy (&b);
                RETURN (true);
             }
@@ -868,10 +859,9 @@ _mongoc_rpc_parse_error (mongoc_rpc_t *rpc,
  */
 
 bool _mongoc_rpc_parse_command_error (mongoc_rpc_t *rpc,
-                                      int32_t       error_api_version,
                                       bson_error_t *error)
 {
-   return _mongoc_rpc_parse_error (rpc, true, error_api_version, error);
+   return _mongoc_rpc_parse_error (rpc, true, error);
 }
 
 
@@ -894,8 +884,7 @@ bool _mongoc_rpc_parse_command_error (mongoc_rpc_t *rpc,
  */
 
 bool _mongoc_rpc_parse_query_error (mongoc_rpc_t *rpc,
-                                    int32_t       error_api_version,
                                     bson_error_t *error)
 {
-   return _mongoc_rpc_parse_error (rpc, false, error_api_version, error);
+   return _mongoc_rpc_parse_error (rpc, false, error);
 }
