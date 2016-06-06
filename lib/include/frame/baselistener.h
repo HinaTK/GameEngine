@@ -20,9 +20,10 @@ public:
 
 	void			Send(const char *buf, unsigned int len);
 protected:
+	virtual bool	RecvBuf();
 	virtual bool	AnalyzeBuf();
-	int		buf_size;
-
+	int			buf_size;
+	TestBuffer	m_recv_buf;
 };
 
 #endif

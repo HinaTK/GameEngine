@@ -7,6 +7,14 @@
 REGISTER_SAFE_MEMORYPOOL(safememorypool, GameMsg, 64);
 REGISTER_SAFE_MEMORYPOOL(safememorypool, ThreadMsg, 64);
 
+
+GameMsg::GameMsg(char* buf, unsigned int _length)
+: length(_length)
+, data(buf)
+{
+
+}
+
 GameMsg::GameMsg(unsigned short _msg_index, unsigned short _msg_type, NetHandle _handle, char* _data, unsigned int _length)
 : msg_index(_msg_index)
 , msg_type(_msg_type)
@@ -35,6 +43,16 @@ GameMsgManager::~GameMsgManager()
 		delete memory;
 		memory = NULL;
 	}
+}
+
+GameMsg * GameMsgManager::Alloc(unsigned short msg_index, unsigned short msg_type, NetHandle handle, unsigned int length)
+{
+	char *buf = NULL;
+	if (length > 0)
+	{
+		buf = (char *)memory->Alloc(length);
+	}
+	return new GameMsg(msg_index, msg_type, handle, buf, length);
 }
 
 GameMsg * GameMsgManager::Alloc(unsigned short msg_index, unsigned short msg_type, NetHandle handle, const char* data, unsigned int length)

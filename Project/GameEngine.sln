@@ -23,8 +23,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chat", "..\LibProject\Chat\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CenterServer", "CenterServer.vcxproj", "{13E3CF0C-3C15-4407-8DA4-FCDD6ECAF894}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "protocol", "protocol", "{4E6B16E6-79F5-4CE1-8215-C6598FDAA559}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GatewayServer", "GatewayServer.vcxproj", "{C4E1D6D4-AE0F-4E11-BA6D-97D77696D973}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Math", "..\LibProject\Math\Math.vcxproj", "{B1B3BE4E-F793-4188-B54C-BF47549EE59E}"
@@ -34,6 +32,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Http", "..\LibProject\Http\Http.vcxproj", "{B16E656B-DA3B-48E7-A5E0-A8CC338A0673}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mongo", "..\LibProject\Mongo\Mongo.vcxproj", "{3922A382-DCA3-4D63-BE3F-31B8C1DC56F4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WebSocket", "..\LibProject\Websocket\WebSocket.vcxproj", "{B7F3DFF9-5052-4731-999C-A034DFEC2B91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -185,6 +185,16 @@ Global
 		{3922A382-DCA3-4D63-BE3F-31B8C1DC56F4}.Release|Win32.ActiveCfg = Release|Win32
 		{3922A382-DCA3-4D63-BE3F-31B8C1DC56F4}.Release|Win32.Build.0 = Release|Win32
 		{3922A382-DCA3-4D63-BE3F-31B8C1DC56F4}.Release|x64.ActiveCfg = Release|Win32
+		{B7F3DFF9-5052-4731-999C-A034DFEC2B91}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{B7F3DFF9-5052-4731-999C-A034DFEC2B91}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{B7F3DFF9-5052-4731-999C-A034DFEC2B91}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B7F3DFF9-5052-4731-999C-A034DFEC2B91}.Debug|Win32.Build.0 = Debug|Win32
+		{B7F3DFF9-5052-4731-999C-A034DFEC2B91}.Debug|x64.ActiveCfg = Debug|Win32
+		{B7F3DFF9-5052-4731-999C-A034DFEC2B91}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{B7F3DFF9-5052-4731-999C-A034DFEC2B91}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{B7F3DFF9-5052-4731-999C-A034DFEC2B91}.Release|Win32.ActiveCfg = Release|Win32
+		{B7F3DFF9-5052-4731-999C-A034DFEC2B91}.Release|Win32.Build.0 = Release|Win32
+		{B7F3DFF9-5052-4731-999C-A034DFEC2B91}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -199,5 +209,6 @@ Global
 		{9D875C0B-BF7D-440A-A430-07F8E68B8BA4} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
 		{B16E656B-DA3B-48E7-A5E0-A8CC338A0673} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
 		{3922A382-DCA3-4D63-BE3F-31B8C1DC56F4} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
+		{B7F3DFF9-5052-4731-999C-A034DFEC2B91} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
 	EndGlobalSection
 EndGlobal

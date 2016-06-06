@@ -27,7 +27,7 @@
     <ClCompile Include="..\..\lib\src\websocket\weblistener.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{B1B3BE4E-F793-4188-B54C-BF47549EE59E}</ProjectGuid>
+    <ProjectGuid>{B7F3DFF9-5052-4731-999C-A034DFEC2B91}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Tinyxml</RootNamespace>
   </PropertyGroup>

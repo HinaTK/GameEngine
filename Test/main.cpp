@@ -1,18 +1,18 @@
 ﻿
 #include <stdio.h>
 #include <string>
-#include "testdatastructure.h"
-#include "testlog.h"
-#include "testserializer.h"
-#include "testmemory.h"
-#include "testother.h"
-#include "testcache.h"
-#include "testredis.h"
-#include "testchrono.h"
+// #include "testdatastructure.h"
+// #include "testlog.h"
+// #include "testserializer.h"
+// #include "testmemory.h"
+// #include "testother.h"
+// #include "testcache.h"
+// #include "testredis.h"
+// #include "testchrono.h"
 #include "testmongo.h"
-#include "lib/include/thread/threadmanager.h"
-#include "lib/include/math/gamemath.h"
-#include "lib/include/frame/bufmanager.h"
+// #include "lib/include/thread/threadmanager.h"
+// #include "lib/include/math/gamemath.h"
+// #include "lib/include/frame/bufmanager.h"
 
 class A
 {

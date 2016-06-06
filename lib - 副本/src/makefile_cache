@@ -1,0 +1,28 @@
+PWD 				= /home/jiaming/git/GameEngine/lib/src
+AR           		= ar cqs
+CXX           		= g++
+INCPATH			= -I /home/jiaming/git/GameEngine/lib/../ -I /home/jiaming/git/GameEngine/lib/include -I /home/jiaming/git/GameEngine/lib/include/cache
+BINDIR				= /home/jiaming/git/GameEngine/lib/linux/
+OBJDIR				= /home/jiaming/git/GameEngine/lib/linux/obj/
+BIN 				= libCache.a
+SOURCES			= /home/jiaming/git/GameEngine/lib/src/cache/datacache.cpp /home/jiaming/git/GameEngine/lib/src/cache/datamap.cpp 
+SOURCEFILES		= $(notdir $(SOURCES))
+OBJECTS			= $(addprefix $(OBJDIR), $(patsubst %.cpp,%.o,$(SOURCEFILES)))
+FLAGS				= -g3 -Wall -fpermissive -std=c++11
+ARFLAGS			= 
+
+all:makedir $(OBJECTS)
+	$(AR) $(ARFLAGS) $(BIN) $(OBJECTS);
+
+makedir:
+	$(shell if [ -n "$(OBJDIR)" -a ! -e "$(OBJDIR)" ];then mkdir -p $(OBJDIR); fi)
+	$(shell if [ -n "$(BINDIR)" -a ! -e "$(BINDIR)" ];then mkdir -p $(BINDIR); fi)
+
+/home/jiaming/git/GameEngine/lib/linux/obj/datacache.o:/home/jiaming/git/GameEngine/lib/src/cache/datacache.cpp
+	rm -f $@
+	$(CXX)  $(FLAGS) -fpic -c $(INCPATH) $< -o $@
+
+/home/jiaming/git/GameEngine/lib/linux/obj/datamap.o:/home/jiaming/git/GameEngine/lib/src/cache/datamap.cpp
+	rm -f $@
+	$(CXX)  $(FLAGS) -fpic -c $(INCPATH) $< -o $@
+

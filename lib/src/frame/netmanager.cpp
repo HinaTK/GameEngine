@@ -123,6 +123,11 @@ void NetManager::PushMsg(NetHandler *handler, unsigned short msg_type, const cha
 	m_queue.Push(m_msg_manager.Alloc(handler->m_msg_index, msg_type, handler->m_handle, data, len));
 }
 
+GameMsg	* NetManager::CreateMsg(unsigned int msg_index, unsigned short msg_type, NetHandle handle, unsigned int len)
+{
+	return m_msg_manager.Alloc(msg_index, msg_type, handle, len);
+}
+
 bool NetManager::Update()
 {
 	static GameMsg *msg;
@@ -141,5 +146,6 @@ bool NetManager::Update()
 	} while (true);
 	return ret;
 }
+
 
 

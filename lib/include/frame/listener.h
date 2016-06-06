@@ -27,12 +27,11 @@ public:
 	void			RegisterWriteFD();
 
 protected:
-	bool			RecvBuf();
+	virtual bool	RecvBuf();
 	virtual bool	AnalyzeBuf() = 0;
 	
 	void			UnRegisterWriteFD();
 protected:
-	RecvBuffer	m_recv_buf;
 	SendBuffer	*m_send_buf_read;	// 只读
 	SendBuffer	*m_send_buf_write;	// 只写
 	std::mutex	m_send_mutex;

@@ -4,8 +4,9 @@
 
 #include <stddef.h>
 #include <stdio.h>
+#include "netcommon.h"
+#include "message.h"
 #include "common/serverdef.h"
-#include "lib/include/common/mem.h"
 
 // 需要改进，尽量避免内存拷贝
 class BufManager
@@ -67,5 +68,25 @@ public:
 
 private:
 	unsigned int	m_read_length;
+};
+
+class Listener;
+class TestBuffer
+{
+public:
+	TestBuffer(Listener *listener);
+	~TestBuffer();
+
+	void		ResetBuf();
+	bool		GetBufInfo(char **buf, int &len);
+	bool		AddBufLen(int len);
+	void		Send();
+
+private:
+	Listener *	m_listener;
+	int			m_header_len;	// 已读头长度
+	int			m_buf_len;		// 已读数据长度
+	char		m_header[NetCommon::HEADER_LENGTH];
+	GameMsg	*	m_msg;
 };
 #endif

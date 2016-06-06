@@ -7,11 +7,10 @@
 #define REGISTER_STATE -10
 
 Listener::Listener(SocketThread *t)
-    : NetHandler(t, NetHandler::LISTENER)
-  , m_recv_buf(BASE_BUFFER_LENGTH)
-  , m_send_buf_read(new SendBuffer(BASE_BUFFER_LENGTH))
-  , m_send_buf_write(new SendBuffer(BASE_BUFFER_LENGTH))
-  , m_register_state(REGISTER_STATE)
+	: NetHandler(t, NetHandler::LISTENER)
+	, m_send_buf_read(new SendBuffer(BASE_BUFFER_LENGTH))
+	, m_send_buf_write(new SendBuffer(BASE_BUFFER_LENGTH))
+	, m_register_state(REGISTER_STATE)
 {
 }
 
@@ -39,32 +38,32 @@ void Listener::OnCanRead()
 
 bool Listener::RecvBuf()
 {
-	unsigned long arg = 32;
-	do
-	{
-		if (arg > m_recv_buf.FreeLength())
-		{
-			m_recv_buf.Resize(arg - m_recv_buf.FreeLength());
-		}
-
-		int ret = recv(m_sock, m_recv_buf.GetFreeBuf(), m_recv_buf.FreeLength(), 0);
-		if (ret <= 0)
-		{
-			if (ret == SOCKET_ERROR && NetCommon::Error() == WOULDBLOCK)
-			{
-				break;
-			}
-			m_err = NetHandler::DR_RECV_BUF;
-			return false;
-		}
-		m_recv_buf.AddLength(ret);
-		
-		NetCommon::Ioctl(m_sock, FIONREAD, &arg);
-		if (arg == 0)
-		{
-			break;
-		}
-	} while (true);
+// 	unsigned long arg = 32;
+// 	do
+// 	{
+// 		if (arg > m_recv_buf.FreeLength())
+// 		{
+// 			m_recv_buf.Resize(arg - m_recv_buf.FreeLength());
+// 		}
+// 
+// 		int ret = recv(m_sock, m_recv_buf.GetFreeBuf(), m_recv_buf.FreeLength(), 0);
+// 		if (ret <= 0)
+// 		{
+// 			if (ret == SOCKET_ERROR && NetCommon::Error() == WOULDBLOCK)
+// 			{
+// 				break;
+// 			}
+// 			m_err = NetHandler::DR_RECV_BUF;
+// 			return false;
+// 		}
+// 		m_recv_buf.AddLength(ret);
+// 		
+// 		NetCommon::Ioctl(m_sock, FIONREAD, &arg);
+// 		if (arg == 0)
+// 		{
+// 			break;
+// 		}
+// 	} while (true);
 
 	return true;
 }

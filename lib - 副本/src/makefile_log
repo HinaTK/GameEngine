@@ -1,0 +1,27 @@
+PWD 				= /home/jiaming/git/GameEngine/lib/src
+AR           		= ar cqs
+CXX           		= g++
+INCPATH			= -I /home/jiaming/git/GameEngine/lib/../ -I /home/jiaming/git/GameEngine/lib/include -I /home/jiaming/git/GameEngine/lib/include/log
+BINDIR				= /home/jiaming/git/GameEngine/lib/linux/
+OBJDIR				= /home/jiaming/git/GameEngine/lib/linux/obj/
+BIN 				= libLog.a
+SOURCES			= /home/jiaming/git/GameEngine/lib/src/log/logmanager.cpp /home/jiaming/git/GameEngine/lib/src/log/log.cpp 
+SOURCEFILES		= $(notdir $(SOURCES))
+OBJECTS			= $(addprefix $(OBJDIR), $(patsubst %.cpp,%.o,$(SOURCEFILES)))
+FLAGS				= 
+
+all:makedir $(OBJECTS)
+	$(AR) $(FLAGS) $(BIN) $(OBJECTS);
+
+makedir:
+	$(shell if [ -n "$(OBJDIR)" -a ! -e "$(OBJDIR)" ];then mkdir -p $(OBJDIR); fi)
+	$(shell if [ -n "$(BINDIR)" -a ! -e "$(BINDIR)" ];then mkdir -p $(BINDIR); fi)
+
+/home/jiaming/git/GameEngine/lib/linux/obj/logmanager.o:/home/jiaming/git/GameEngine/lib/src/log/logmanager.cpp
+	rm -f $@
+	$(CXX) -fpic -g -c $(INCPATH) $< -o $@
+
+/home/jiaming/git/GameEngine/lib/linux/obj/log.o:/home/jiaming/git/GameEngine/lib/src/log/log.cpp
+	rm -f $@
+	$(CXX) -fpic -g -c $(INCPATH) $< -o $@
+

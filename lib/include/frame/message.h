@@ -10,6 +10,7 @@
 class GameMsg
 {
 public:
+	GameMsg(char* buf, unsigned int _length);
 	GameMsg(unsigned short _msg_index, unsigned short _msg_type, NetHandle _handle, char* _data, unsigned int _length);
 	~GameMsg();
 
@@ -29,6 +30,7 @@ public:
 	GameMsgManager();
 	~GameMsgManager();
 
+	GameMsg *Alloc(unsigned short msg_index, unsigned short msg_type, NetHandle handle, unsigned int length);
 	GameMsg *Alloc(unsigned short msg_index, unsigned short msg_type, NetHandle handle, const char* data, unsigned int length);
 	void	Free(GameMsg *msg);
 private:

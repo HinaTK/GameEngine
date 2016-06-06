@@ -47,6 +47,8 @@ public:
 	void			AddReplaceHandler(NetHandler *handler);
 
 	void			PushMsg(NetHandler *handler, unsigned short msg_type, const char *data, unsigned int len);
+	void			PushMsg(GameMsg *msg){ m_queue.Push(msg); }
+	GameMsg	*		CreateMsg(unsigned int msg_index, unsigned short msg_type, NetHandle handle, unsigned int len);
 
 protected:
 	unsigned int	AddMsgHandler(MsgCallBack *call_back);
