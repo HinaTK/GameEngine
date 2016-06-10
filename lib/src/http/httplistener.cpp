@@ -4,6 +4,18 @@
 
 REGISTER_MEMORYPOOL(memorypool, HttpListener, 32);
 
+/*
+	todo
+	用flag来标明哪些数据需要被获取;
+	1:url
+	2:field
+	4:content
+
+	最终拆成field value(字符串)，放到消息队列中，再由监听线程获取
+*/
+
+
+
 int call_back(http_parser* p, const char *at, size_t length)
 {
 	printf("ddddddd\n");
@@ -31,6 +43,16 @@ int field_call_back(http_parser* p, const char *at, size_t length)
 // 	{
 // 		http_parser_pause(p, 1);
 // 	}
+	return 0;
+}
+
+int value_call_back(http_parser* p, const char *at, size_t length)
+{
+	printf("value_call_back\n");
+	// 	if (p->method == HTTP_GET)
+	// 	{
+	// 		http_parser_pause(p, 1);
+	// 	}
 	return 0;
 }
 
@@ -75,8 +97,9 @@ HttpListener::HttpListener(SocketThread *t)
 	http_parser_settings_init(settings);
 
 	settings->on_url = call_back;
-	settings->on_status = field_call_back;
+	settings->on_status = status_call_back;
 	settings->on_header_field = field_call_back;
+	settings->on_header_value = value_call_back;
 	settings->on_headers_complete = header_call_back;
 	settings->on_message_complete = message_call_back;
 	settings->on_body = body_call_back;
