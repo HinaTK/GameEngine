@@ -17,7 +17,7 @@ public:
 
     void	Recv(GameMsg *msg);
 
-	void	Disconnect(NetHandle handle, int reason);
+	void	Disconnect(NetHandle handle, int err, int reason);
 
 private:
 	NetThread *m_thread;
@@ -35,7 +35,7 @@ public:
 
 	void	Recv(GameMsg *msg);
 
-	void	Disconnect(NetHandle handle, int reason);
+	void	Disconnect(NetHandle handle, int err, int reason);
 
 private:
 	NetThread *m_thread;

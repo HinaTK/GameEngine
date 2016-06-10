@@ -32,9 +32,12 @@ NetHandle ThreadNet::AddNetHandler(NetHandler *handler)
 	return handler->m_handle;
 }
 
-void ThreadNet::RemoveHandler(NetHandle handle, int reason)
+void ThreadNet::RemoveHandler(NetHandle handle, int err, int reason)
 {
-	RemoveInfo info{ handle, reason };
+	RemoveInfo info;
+	info.handle = handle;
+	info.show.err = err;
+	info.show.reason = reason;
 	m_invalid_handle.Push(info);
 }
 

@@ -1,7 +1,7 @@
 ﻿
 #include <string>
 #include "serverconfig.h"
-#include "libtinyxml.h"
+#include "lib/include/tinyxml/tiny.h"
 
 static const std::string config_file("../config/server.xml");
 

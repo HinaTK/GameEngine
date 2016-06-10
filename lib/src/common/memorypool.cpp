@@ -5,7 +5,7 @@
 
 MemoryPool::~MemoryPool()
 {
-	for (unsigned int i = 0; i < m_has_malloc.size(); ++i)
+	for (unsigned int i = 0; i < m_has_malloc.Size(); ++i)
 	{
 		::free(m_has_malloc[i]);
 	}
@@ -34,13 +34,13 @@ bool MemoryPool::Resize()
 	{
 		return false;
 	}
-    m_has_malloc.push_back(mem);
+    m_has_malloc.Push(mem);
 	char *unit_mem = (char *)mem;
     void *temp = NULL;
 	for (unsigned int i = 0; i < m_increase; ++i)
 	{
         temp = (void *)unit_mem;
-        m_pool.push_back(temp);
+		m_pool.Push(temp);
 		unit_mem += m_size;
 	}
 	
@@ -66,13 +66,13 @@ void * MemoryPool::Alloc()
 #endif
 
 	void *mem = NULL;
-    if (m_pool.size() <= 0)
+    if (m_pool.Size() <= 0)
 	{
 		Resize();
 	}
 
-    mem = m_pool.back();
-    m_pool.pop_back();
+    mem = m_pool.Back();
+    m_pool.PopBack();
 
     return mem;
 }
@@ -83,5 +83,5 @@ void MemoryPool::Free(void *m)
 	++m_free_time;
 #endif
 
-    m_pool.push_back(m);
+	m_pool.Push(m);
 }

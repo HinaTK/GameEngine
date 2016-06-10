@@ -16,6 +16,11 @@ public:
 	void *		operator new(size_t c);
 	void		operator delete(void *m);
 
+	// disconnect reason
+	enum
+	{
+		DR_HTTP_PARSE = NetHandler::DR_CUSTOM
+	};
 	void			Send(const char *buf, unsigned int len);
 protected:
 	virtual bool	RecvBuf();

@@ -42,4 +42,11 @@ protected:
 #define RETUEN_ERROR(Err)\
 	m_err = Err; \
 	return false;
+
+#define RETUEN_ERROR_2(Err, Arg)\
+	m_err = Err; \
+	m_err_arg = Arg;\
+	return false;
+
 #endif
+

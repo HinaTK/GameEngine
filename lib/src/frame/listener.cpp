@@ -32,7 +32,7 @@ void Listener::OnCanRead()
 {
 	if (!RecvBuf() || !AnalyzeBuf())
 	{
-		m_thread->RemoveHandler(m_handle, m_err);
+		m_thread->RemoveHandler(m_handle, m_err, m_err_arg);
 	}
 }
 

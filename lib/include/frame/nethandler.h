@@ -17,7 +17,8 @@ public:
 		, m_sock(0)
 		, m_thread(t)
 		, m_type(type)
-		, m_err(0){}
+		, m_err(0)
+		, m_err_arg(0){}
 	virtual ~NetHandler(){};
 
 	virtual void	OnCanRead() = 0;
@@ -49,7 +50,9 @@ public:
 		DR_HANDSHAKE_RECV,
 		DR_HANDSHAKE_SEND,
 		DR_MSG_TOO_LONG,
-		DR_RECV_FAIL
+		DR_RECV_FAIL,
+		// 自定义错误码
+		DR_CUSTOM = 100
 	};
 
 	NetHandle		m_handle;		// 内部操作句柄
@@ -60,6 +63,7 @@ protected:
 	int				m_type;
 	MsgCallBack		*m_call_back;
 	int				m_err;
+	int				m_err_arg;
 };
 
 #endif

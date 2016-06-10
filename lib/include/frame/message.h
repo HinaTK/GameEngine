@@ -3,7 +3,7 @@
 #define MESSAGE_H
 
 #include "socketmsg.h"
-#include "common/socketdef.h"
+#include "netcommon.h"
 #include "lib/include/common/memoryvl.h"
 
 // 网络消息
@@ -63,7 +63,7 @@ public:
 
 	virtual void Recv(GameMsg *msg) = 0;
 
-	virtual void Disconnect(NetHandle handle, int reason) = 0;
+	virtual void Disconnect(NetHandle handle, int err, int reason) = 0;
 
 	virtual void Connect(NetHandle handle, int flag){}
 };
@@ -111,7 +111,11 @@ public:
 	DisconnectMsg(MsgCallBack *call_back) :BaseMsg(call_back){}
 	~DisconnectMsg(){}
 
-	virtual void Recv(GameMsg *msg){ m_call_back->Disconnect(msg->handle, *(int*)msg->data); }
+	virtual void Recv(GameMsg *msg)
+	{ 
+		NetCommon::ErrInfo *info = (NetCommon::ErrInfo *)msg->data;
+		m_call_back->Disconnect(msg->handle, info->err, info->reason);
+	}
 };
 
 class ConnectMsg : public BaseMsg

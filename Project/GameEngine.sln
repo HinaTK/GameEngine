@@ -33,6 +33,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Http", "..\LibProject\Http\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WebSocket", "..\LibProject\Websocket\WebSocket.vcxproj", "{B7F3DFF9-5052-4731-999C-A034DFEC2B91}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tinyxml", "..\LibProject\Tinyxml\Tinyxml.vcxproj", "{EA568C8D-A71C-46DD-B05B-F82498ED3DDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -183,6 +185,16 @@ Global
 		{B7F3DFF9-5052-4731-999C-A034DFEC2B91}.Release|Win32.ActiveCfg = Release|Win32
 		{B7F3DFF9-5052-4731-999C-A034DFEC2B91}.Release|Win32.Build.0 = Release|Win32
 		{B7F3DFF9-5052-4731-999C-A034DFEC2B91}.Release|x64.ActiveCfg = Release|Win32
+		{EA568C8D-A71C-46DD-B05B-F82498ED3DDD}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{EA568C8D-A71C-46DD-B05B-F82498ED3DDD}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{EA568C8D-A71C-46DD-B05B-F82498ED3DDD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EA568C8D-A71C-46DD-B05B-F82498ED3DDD}.Debug|Win32.Build.0 = Debug|Win32
+		{EA568C8D-A71C-46DD-B05B-F82498ED3DDD}.Debug|x64.ActiveCfg = Debug|Win32
+		{EA568C8D-A71C-46DD-B05B-F82498ED3DDD}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{EA568C8D-A71C-46DD-B05B-F82498ED3DDD}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{EA568C8D-A71C-46DD-B05B-F82498ED3DDD}.Release|Win32.ActiveCfg = Release|Win32
+		{EA568C8D-A71C-46DD-B05B-F82498ED3DDD}.Release|Win32.Build.0 = Release|Win32
+		{EA568C8D-A71C-46DD-B05B-F82498ED3DDD}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -197,5 +209,6 @@ Global
 		{9D875C0B-BF7D-440A-A430-07F8E68B8BA4} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
 		{B16E656B-DA3B-48E7-A5E0-A8CC338A0673} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
 		{B7F3DFF9-5052-4731-999C-A034DFEC2B91} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
+		{EA568C8D-A71C-46DD-B05B-F82498ED3DDD} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
 	EndGlobalSection
 EndGlobal

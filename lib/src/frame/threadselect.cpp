@@ -58,7 +58,7 @@ void SocketThread::ClearHandler()
 			FD_CLR(handler->m_sock, &m_write_set);
 
 			NetCommon::Close(handler->m_sock);
-			m_net_manager->PushMsg(handler, BaseMsg::MSG_DISCONNECT, (const char *)&itr->reason, sizeof(itr->reason));
+			m_net_manager->PushMsg(handler, BaseMsg::MSG_DISCONNECT, (const char *)&itr->show, sizeof(itr->show));
 			delete handler;
 		}
 	}

@@ -98,7 +98,7 @@ bool HttpListener::RecvBuf()
 			{
 				return true;
 			}
-			RETUEN_ERROR(NetHandler::DR_RECV_BUF);
+			RETUEN_ERROR(NetHandler::DR_RECV_BUF, NetCommon::Error());
 		}
 		buf_size += ret;
 		return this->RecvBuf();
@@ -108,64 +108,74 @@ bool HttpListener::RecvBuf()
 
 bool HttpListener::AnalyzeBuf()
 {
-	static const char buf1[] =
-"GET / HTTP/1.1\r\n\
-Host: 127.0.0.1:12345\r\n\
-Connection: keep-alive\r\n\
-Cache-Control: max-age=0\r\n\
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\r\n\
-Upgrade-Insecure-Requests: 1\r\n\
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\r\n\
-Accept-Encoding: gzip, deflate, sdch\r\n\
-Accept-Language: zh-CN,zh;q=0.8\r\n\
-Cookie: __utma=96992031.1932631234.1423383291.1423383291.1423383291.1\r\n\
-\r\n";
-	static const int buf_size1 = strlen(buf1);
-
-	static const char buf2[] =
-"GET / HTTP/1.1\r\n\
-Host: 127.0.0.1:12345\r\n\
-Connection: keep-alive\r\n\
-Cache-Control: max-age=0\r\n\
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\r\n\
-Upgrade-Insecure-Requests: 1\r\n";
-	static const int buf_size2 = strlen(buf2);
-// 	http_parser_execute(parser, settings, buf2, buf_size2);
-// 	printf("result1 %s %s\n", http_errno_name((http_errno)parser->http_errno), http_errno_description((http_errno)parser->http_errno));
-// 	
-	static const char buf3[] =
-"User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\r\n\
-Accept-Encoding: gzip, deflate, sdch\r\n\
-Accept-Language: zh-CN,zh;q=0.8\r\n\
-Cookie: __utma=96992031.1932631234.1423383291.1423383291.1423383291.1\r\n\
-\r\n\
-GET / HTTP/1.1\r\n";
-	static const int buf_size3 = strlen(buf3);
-// 	http_parser_execute(parser, settings, buf3, buf_size3);
-// 	printf("result2 %s %s\n", http_errno_name((http_errno)parser->http_errno), http_errno_description((http_errno)parser->http_errno));
-// 	
-	static const char buf4[] =
-"GET / HTTP/1.1\r\n\
-Host: 127.0.0.1:12345\r\n\
-Connection: keep-alive\r\n\
-Cache-Control: max-age=0\r\n\
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\r\n\
-Upgrade-Insecure-Requests: 1\r\n\
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\r\n\
-Accept-Encoding: gzip, deflate, sdch\r\n\
-Accept-Language: zh-CN,zh;q=0.8\r\n\
-Cookie: __utma=96992031.1932631234.1423383291.1423383291.1423383291.1\r\n\
-Content-Length: 11\r\n\
-\r\n\
-hello world\r\n";
-
-	static const int buf_size4 = strlen(buf4);
-
-	http_parser_execute(parser, settings, buf4, buf_size4);
-	printf("result2 %s %s\n", http_errno_name((http_errno)parser->http_errno), http_errno_description((http_errno)parser->http_errno));
-
+	http_parser_execute(parser, settings, buf, buf_size);
+	if (parser->http_errno != HPE_OK)
+	{
+		RETUEN_ERROR_2(HttpListener::DR_HTTP_PARSE, parser->http_errno);
+	}
+	buf_size = 0;
 	return true;
 }
+// bool HttpListener::AnalyzeBuf()
+// {
+// 	static const char buf1[] =
+// "GET / HTTP/1.1\r\n\
+// Host: 127.0.0.1:12345\r\n\
+// Connection: keep-alive\r\n\
+// Cache-Control: max-age=0\r\n\
+// Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\r\n\
+// Upgrade-Insecure-Requests: 1\r\n\
+// User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\r\n\
+// Accept-Encoding: gzip, deflate, sdch\r\n\
+// Accept-Language: zh-CN,zh;q=0.8\r\n\
+// Cookie: __utma=96992031.1932631234.1423383291.1423383291.1423383291.1\r\n\
+// \r\n";
+// 	static const int buf_size1 = strlen(buf1);
+// 
+// 	static const char buf2[] =
+// "GET / HTTP/1.1\r\n\
+// Host: 127.0.0.1:12345\r\n\
+// Connection: keep-alive\r\n\
+// Cache-Control: max-age=0\r\n\
+// Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\r\n\
+// Upgrade-Insecure-Requests: 1\r\n";
+// 	static const int buf_size2 = strlen(buf2);
+// // 	http_parser_execute(parser, settings, buf2, buf_size2);
+// // 	printf("result1 %s %s\n", http_errno_name((http_errno)parser->http_errno), http_errno_description((http_errno)parser->http_errno));
+// // 	
+// 	static const char buf3[] =
+// "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\r\n\
+// Accept-Encoding: gzip, deflate, sdch\r\n\
+// Accept-Language: zh-CN,zh;q=0.8\r\n\
+// Cookie: __utma=96992031.1932631234.1423383291.1423383291.1423383291.1\r\n\
+// \r\n\
+// GET / HTTP/1.1\r\n";
+// 	static const int buf_size3 = strlen(buf3);
+// // 	http_parser_execute(parser, settings, buf3, buf_size3);
+// // 	printf("result2 %s %s\n", http_errno_name((http_errno)parser->http_errno), http_errno_description((http_errno)parser->http_errno));
+// // 	
+// 	static const char buf4[] =
+// "GET / HTTP/1.1\r\n\
+// Host: 127.0.0.1:12345\r\n\
+// Connection: keep-alive\r\n\
+// Cache-Control: max-age=0\r\n\
+// Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8\r\n\
+// Upgrade-Insecure-Requests: 1\r\n\
+// User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36\r\n\
+// Accept-Encoding: gzip, deflate, sdch\r\n\
+// Accept-Language: zh-CN,zh;q=0.8\r\n\
+// Cookie: __utma=96992031.1932631234.1423383291.1423383291.1423383291.1\r\n\
+// Content-Length: 11\r\n\
+// \r\n\
+// hello world\r\n";
+// 
+// 	static const int buf_size4 = strlen(buf4);
+// 
+// 	http_parser_execute(parser, settings, buf4, buf_size4);
+// 	printf("result2 %s %s\n", http_errno_name((http_errno)parser->http_errno), http_errno_description((http_errno)parser->http_errno));
+// 
+// 	return true;
+// }
 
 void HttpListener::Send(const char *buf, unsigned int len)
 {

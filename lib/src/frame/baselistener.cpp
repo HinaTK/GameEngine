@@ -29,7 +29,7 @@ bool BaseListener::RecvBuf()
 			{
 				return true;
 			}
-			RETUEN_ERROR(NetHandler::DR_RECV_BUF);
+			RETUEN_ERROR_2(NetHandler::DR_RECV_BUF, NetCommon::Error());
 		}
 		ret = m_recv_buf.AddBufLen(ret);
 		if (ret > 0)

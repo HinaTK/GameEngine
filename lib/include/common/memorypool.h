@@ -25,10 +25,10 @@ private:
 	unsigned int m_size;
 	unsigned int m_increase;
 
-    std::vector<void *>  m_pool;
-    //game::Vector<void *> m_pool;
-    std::vector<void *> m_has_malloc;
-    //game::Vector<void *> m_has_malloc;
+    //std::vector<void *>  m_pool;
+    game::Vector<void *> m_pool;
+    //std::vector<void *> m_has_malloc;
+    game::Vector<void *> m_has_malloc;
 
 #ifdef TEST_MEMORY
 	int				m_alloc_time;

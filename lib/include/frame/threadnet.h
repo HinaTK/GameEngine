@@ -14,14 +14,8 @@ public:
 	ThreadNet(ThreadManager *manager, NetManager *net_manager);
 	virtual ~ThreadNet();
 
-	struct RemoveInfo
-	{
-		NetHandle handle;
-		int reason;
-	};
-
 	NetHandle		AddNetHandler(NetHandler *handler);
-	void			RemoveHandler(NetHandle handle, int reason);
+	void			RemoveHandler(NetHandle handle, int err, int reason = 0);
 
 	virtual void	SetCanWrite(NetHandler *handler) = 0;
 	virtual void	SetCanNotWrite(NetHandler *handler) = 0;
@@ -40,6 +34,12 @@ protected:
 	void			SendMsg(NetHandle handle, int length, const char *data);
 	
 protected:
+	struct RemoveInfo
+	{
+		NetHandle handle;
+		NetCommon::ErrInfo show;
+	};
+
 	NetManager		*m_net_manager;
 
 	typedef game::Array<NetHandler*>	NET_HANDLER_ARRAY;

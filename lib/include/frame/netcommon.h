@@ -36,6 +36,11 @@ namespace NetCommon
 
 	static const int MAX_SERVER_NUM = 32;
 
+	struct ErrInfo
+	{
+		int err;
+		int reason;
+	};
 // 	struct HandShakeInfo
 // 	{
 // 		std::string header;

@@ -26,5 +26,8 @@
     <ClInclude Include="..\..\lib\include\tinyxml\tinyxml.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\lib\include\tinyxml\tiny.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

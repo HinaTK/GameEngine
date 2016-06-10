@@ -17,11 +17,12 @@
     <ClCompile Include="..\..\lib\src\tinyxml\tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\lib\include\tinyxml\tiny.h" />
     <ClInclude Include="..\..\lib\include\tinyxml\tinystr.h" />
     <ClInclude Include="..\..\lib\include\tinyxml\tinyxml.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{B1B3BE4E-F793-4188-B54C-BF47549EE59E}</ProjectGuid>
+    <ProjectGuid>{EA568C8D-A71C-46DD-B05B-F82498ED3DDD}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Tinyxml</RootNamespace>
   </PropertyGroup>
