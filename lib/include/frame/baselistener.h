@@ -19,11 +19,12 @@ public:
 	void		operator delete(void *m);
 
 	void			Send(const char *buf, unsigned int len);
+
+	int				buf_size;
 protected:
 	virtual bool	RecvBuf();
-	virtual bool	AnalyzeBuf();
-	int			buf_size;
-	TestBuffer	m_recv_buf;
+	
+	RecvBuffer	m_recv_buf;
 };
 
 #endif

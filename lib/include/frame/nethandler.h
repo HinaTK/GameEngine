@@ -48,7 +48,8 @@ public:
 		DR_HEADER_TOO_BIG,
 		DR_HANDSHAKE_RECV,
 		DR_HANDSHAKE_SEND,
-		DR_HEADER_FAIL
+		DR_MSG_TOO_LONG,
+		DR_RECV_FAIL
 	};
 
 	NetHandle		m_handle;		// 内部操作句柄

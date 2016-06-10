@@ -20,7 +20,7 @@ void HttpAccepter::OnCanRead()
 	SOCKET new_sock = accept(m_sock, (struct sockaddr*)&addr, &len);
 	if (new_sock != INVALID_SOCKET)
 	{
-		HttpListener *handler = new HttpListener(m_thread, buf_size);
+		HttpListener *handler = new HttpListener(m_thread);
 		handler->m_msg_index = m_msg_index;
 		handler->m_sock = new_sock;
 		handler->m_handle = m_thread->AddNetHandler(handler);

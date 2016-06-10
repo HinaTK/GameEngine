@@ -28,7 +28,7 @@ public:
 
 protected:
 	virtual bool	RecvBuf();
-	virtual bool	AnalyzeBuf() = 0;
+	virtual bool	AnalyzeBuf(){ return true; };
 	
 	void			UnRegisterWriteFD();
 protected:
@@ -39,4 +39,7 @@ protected:
     int         m_register_state;
 };
 
+#define RETUEN_ERROR(Err)\
+	m_err = Err; \
+	return false;
 #endif

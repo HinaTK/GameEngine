@@ -23,6 +23,7 @@
     <ClInclude Include="..\Test\other\bridge.h" />
     <ClInclude Include="..\Test\other\hashlisttest.h" />
     <ClInclude Include="..\Test\other\logtest.h" />
+    <ClInclude Include="..\Test\testhttp.h" />
     <ClInclude Include="..\Test\testlog.h" />
     <ClInclude Include="..\Test\testmemory.h" />
     <ClInclude Include="..\Test\testmongo.h" />
@@ -85,7 +86,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\lib\windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Tinyxml.lib;Frame.lib;Common.lib;TimeManager.lib;Log.lib;Cache.lib;redis.lib;Thread.lib;Math.lib;Mongo.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Tinyxml.lib;Frame.lib;Common.lib;TimeManager.lib;Log.lib;Cache.lib;redis.lib;Thread.lib;Math.lib;Mongo.lib;Http.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>

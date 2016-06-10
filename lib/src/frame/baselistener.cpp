@@ -14,6 +14,8 @@ BaseListener::BaseListener(SocketThread *t, int size)
 
 }
 
+
+
 bool BaseListener::RecvBuf()
 {
 	char *buf = NULL;
@@ -27,54 +29,18 @@ bool BaseListener::RecvBuf()
 			{
 				return true;
 			}
-			m_err = NetHandler::DR_RECV_BUF;
-			return false;
+			RETUEN_ERROR(NetHandler::DR_RECV_BUF);
 		}
-		if (m_recv_buf.AddBufLen(ret))
+		ret = m_recv_buf.AddBufLen(ret);
+		if (ret > 0)
 		{
-			m_recv_buf.Send();
+			RETUEN_ERROR(ret);
 		}
 		return this->RecvBuf();
 	}
-	m_err = NetHandler::DR_HEADER_FAIL;
-	return false;
+	RETUEN_ERROR(NetHandler::DR_RECV_FAIL);
 }
 
-bool BaseListener::AnalyzeBuf()
-{
-// 	const char *buf = m_recv_buf.GetBuf();
-// 	int buf_len = (int)m_recv_buf.Length();
-// 	if (buf_len <= NetCommon::HEADER_LENGTH)
-// 	{
-// 		return true;
-// 	}
-// 
-// 	NetCommon::Header *header = (NetCommon::Header *)buf;
-// 	unsigned int remove_len = 0;
-// 	while (header->msg_len <= buf_len)
-// 	{
-// 		if (header->msg_len <= 0) { m_err = NetHandler::DR_HEADER_TOO_SMALL; return false; }
-// 		if (header->msg_len > buf_size && buf_size > 0) { m_err = NetHandler::DR_HEADER_TOO_BIG; return false; }
-// 
-// 		buf += NetCommon::HEADER_LENGTH;
-// 		m_thread->PushData(this, BaseMsg::MSG_RECV, buf, header->msg_len);
-// 
-// 		remove_len = remove_len + NetCommon::HEADER_LENGTH + header->msg_len;
-// 		buf_len = buf_len - NetCommon::HEADER_LENGTH - header->msg_len;
-// 		if (buf_len <= NetCommon::HEADER_LENGTH)
-// 		{
-// 			break;
-// 		}
-// 		buf += header->msg_len;
-// 		header = (NetCommon::Header *)buf;
-// 	}
-// 
-// 	if (remove_len > 0)
-// 	{
-// 		m_recv_buf.RemoveBuf(remove_len); 
-// 	}
-	return true;
-}
 
 void BaseListener::Send( const char *buf, unsigned int len )
 {

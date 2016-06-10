@@ -11,8 +11,6 @@ public:
 	virtual ~HttpAccepter();
 
 	virtual void	OnCanRead();
-private:
-	int buf_size;
 };
 
 #endif

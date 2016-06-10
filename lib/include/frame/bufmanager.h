@@ -37,17 +37,6 @@ protected:
 
 };
 
-class RecvBuffer : public BufManager
-{
-public:
-	virtual ~RecvBuffer();
-	RecvBuffer(unsigned int size = 64);
-
-	void *		operator new(size_t c);
-	void		operator delete(void *m);
-};
-
-
 class SendBuffer : public BufManager
 {
 public:
@@ -70,23 +59,25 @@ private:
 	unsigned int	m_read_length;
 };
 
-class Listener;
-class TestBuffer
+class BaseListener;
+class RecvBuffer
 {
 public:
-	TestBuffer(Listener *listener);
-	~TestBuffer();
+	RecvBuffer(BaseListener *listener);
+	~RecvBuffer();
 
-	void		ResetBuf();
+	void *		operator new(size_t c);
+	void		operator delete(void *m);
+
 	bool		GetBufInfo(char **buf, int &len);
-	bool		AddBufLen(int len);
-	void		Send();
+	int			AddBufLen(int len);
 
+protected:
+	void		ResetBuf();
 private:
-	Listener *	m_listener;
-	int			m_header_len;	// 已读头长度
-	int			m_buf_len;		// 已读数据长度
-	char		m_header[NetCommon::HEADER_LENGTH];
-	GameMsg	*	m_msg;
+	BaseListener *	m_listener;
+	int				m_buf_len;		// 已读数据长度
+	char 			m_header[NetCommon::HEADER_LENGTH];
+	GameMsg	*		m_msg;
 };
 #endif
