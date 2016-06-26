@@ -5,38 +5,33 @@
 
 int url_call_back(http_parser* p, const char *at, size_t length)
 {
-	printf("ddddddd\n");
+	static const char *FIELD = "Url";
+	static const int FIELD_LEN = strlen(FIELD);
+	((HttpListener *)p->data)->Push(HttpAccepter::CB_CONTENT, FIELD, FIELD_LEN, at, length);
 	return 0;
 }
 
 int field_call_back(http_parser* p, const char *at, size_t length)
 {
-	size_t len = length > HttpListener::MAX_FILED_NAME ? HttpListener::MAX_FILED_NAME : length;
+	size_t len = length >= HttpListener::MAX_FILED_LEN ? HttpListener::MAX_FILED_LEN - 1 : length;
 
 	memcpy(((HttpListener *)p->data)->field, at, len);
 	((HttpListener *)p->data)->field[len] = '\0';
-	printf("field_call_back\n");
 	return 0;
 }
 
 int value_call_back(http_parser* p, const char *at, size_t length)
 {
-	//((HttpListener *)p->data)->Push()
-	printf("value_call_back\n");
-	// 	if (p->method == HTTP_GET)
-	// 	{
-	// 		http_parser_pause(p, 1);
-	// 	}
+	((HttpListener *)p->data)->Push(HttpAccepter::CB_FIELD, ((HttpListener *)p->data)->field, strlen(((HttpListener *)p->data)->field), at, length);
 	return 0;
 }
 
 int content_call_back(http_parser* p, const char *at, size_t length)
 {
+	static const char *FIELD = "Content";
+	static const int FIELD_LEN = strlen(FIELD);
+	((HttpListener *)p->data)->Push(HttpAccepter::CB_CONTENT, FIELD, FIELD_LEN, at, length);
 	printf("body_call_back\n");
-	// 	if (p->method == HTTP_GET)
-	// 	{
-	// 		http_parser_pause(p, 1);
-	// 	}
 	return 0;
 }
 
@@ -47,7 +42,11 @@ HttpAccepter::HttpAccepter(SocketThread *t, int flag, int size /*= 0*/)
 	http_parser_settings_init(m_settings);
 
 	if (flag & CB_URL) m_settings->on_url = url_call_back;
-	if (flag & CB_FIELD) m_settings->on_header_value = value_call_back;
+	if (flag & CB_FIELD)
+	{
+		m_settings->on_header_field = field_call_back;
+		m_settings->on_header_value = value_call_back;
+	}
 	if (flag & CB_CONTENT) m_settings->on_body = content_call_back;
 }
 

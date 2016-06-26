@@ -14,8 +14,6 @@ BaseListener::BaseListener(SocketThread *t, int size)
 
 }
 
-
-
 bool BaseListener::RecvBuf()
 {
 	char *buf = NULL;

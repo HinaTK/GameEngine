@@ -10,7 +10,7 @@ class HttpListener : public Listener
 {
 public:
 	static const int MAX_HTTP_BUF = 4096;
-	static const int MAX_FILED_NAME = 32;
+	static const int MAX_FILED_LEN = 32;
 	HttpListener(SocketThread *t, http_parser_settings *settings);
 	virtual ~HttpListener();
 
@@ -24,13 +24,13 @@ public:
 	};
 	void			Send(const char *buf, unsigned int len);
 
-	void			Push(const char *field, const char *value);
+	void			Push(int type, const char *field, unsigned int len1, const char *value, unsigned int len2);
 protected:
 	virtual bool	RecvBuf();
 	virtual bool	AnalyzeBuf();
 
 public:
-	char	field[HttpListener::MAX_FILED_NAME + 1];
+	char	field[HttpListener::MAX_FILED_LEN];
 private:
 	http_parser *m_parser;
 	http_parser_settings *m_settings;
