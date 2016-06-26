@@ -28,7 +28,7 @@ void NetThread::Init(void *arg)
 	m_net_manager->InitServer(info2.ip, info2.port, info2.backlog, new InnerCallBack(this));
 
 	// 测试
-	m_net_manager->InitServer(info1.ip, 12345, info1.backlog, new HttpAccepter(m_net_manager->GetThread()), new CallBack(this));
+	m_net_manager->InitServer(info1.ip, 12345, info1.backlog, new HttpAccepter(m_net_manager->GetThread(), HttpAccepter::CB_FIELD), new CallBack(this));
 
 }
 

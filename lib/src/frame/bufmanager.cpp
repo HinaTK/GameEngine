@@ -130,7 +130,7 @@ bool RecvBuffer::GetBufInfo(char **buf, int &len)
 }
 
 // 参数由外部保证
-// 返回true表示包已经完整
+// 返回0表示包已经完整
 
 int RecvBuffer::AddBufLen(int len)
 {
