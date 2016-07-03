@@ -1,0 +1,21 @@
+local ConfigList {
+[1] = {group=1001,talent_id=101,chance=100,},
+[2] = {group=1001,talent_id=102,chance=100,},
+[3] = {group=1001,talent_id=103,chance=100,},
+[4] = {group=1001,talent_id=201,chance=100,},
+[5] = {group=1001,talent_id=202,chance=100,},
+[6] = {group=1001,talent_id=203,chance=100,},
+[7] = {group=1001,talent_id=301,chance=100,},
+[8] = {group=1001,talent_id=302,chance=100,},
+[9] = {group=1001,talent_id=303,chance=100,},
+[10] = {group=1002,talent_id=101,chance=100,},
+[11] = {group=1002,talent_id=102,chance=100,},
+[12] = {group=1002,talent_id=103,chance=100,},
+[13] = {group=1002,talent_id=104,chance=100,},
+[14] = {group=1002,talent_id=201,chance=100,},
+[15] = {group=1002,talent_id=202,chance=100,},
+[16] = {group=1002,talent_id=203,chance=100,},
+[17] = {group=1002,talent_id=204,chance=100,},
+[18] = {group=1002,talent_id=301,chance=100,},
+}
+return ConfigList

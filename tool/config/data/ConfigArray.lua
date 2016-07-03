@@ -1,0 +1,21 @@
+local ConfigArray {
+[1001] = {group=1001,talent_id=101,chance=100,www={{name="jia",age=18}},qqq={{12345,66},{23456,77}},fff={{1,2,3}},ttt={{name="jia",age=18},{name="ming",age=18}},},
+[1001] = {group=1001,talent_id=102,chance=100,www={{name="jia",age=19}},qqq={{12345,66},{23456,78}},fff={{1,2,4}},ttt={{name="jia",age=18},{name="ming",age=19}},},
+[1001] = {group=1001,talent_id=103,chance=100,www={{name="jia",age=20}},qqq={{12345,66},{23456,79}},fff={{1,2,5}},ttt={{name="jia",age=18},{name="ming",age=20}},},
+[1001] = {group=1001,talent_id=201,chance=100,www={{name="jia",age=21}},qqq={{12345,66},{23456,80}},fff={{1,2,6}},ttt={{name="jia",age=18},{name="ming",age=21}},},
+[1001] = {group=1001,talent_id=202,chance=100,www={{name="jia",age=22}},qqq={{12345,66},{23456,81}},fff={{1,2,7}},ttt={{name="jia",age=18},{name="ming",age=22}},},
+[1001] = {group=1001,talent_id=203,chance=100,www={{name="jia",age=23}},qqq={{12345,66},{23456,82}},fff={{1,2,8}},ttt={{name="jia",age=18},{name="ming",age=23}},},
+[1001] = {group=1001,talent_id=301,chance=100,www={{name="jia",age=24}},qqq={{12345,66},{23456,83}},fff={{1,2,9}},ttt={{name="jia",age=18},{name="ming",age=24}},},
+[1001] = {group=1001,talent_id=302,chance=100,www={{name="jia",age=25}},qqq={{12345,66},{23456,84}},fff={{1,2,10}},ttt={{name="jia",age=18},{name="ming",age=25}},},
+[1001] = {group=1001,talent_id=303,chance=100,www={{name="jia",age=26}},qqq={{12345,66},{23456,85}},fff={{1,2,11}},ttt={{name="jia",age=18},{name="ming",age=26}},},
+[1002] = {group=1002,talent_id=101,chance=100,www={{name="jia",age=27}},qqq={{12345,66},{23456,86}},fff={{1,2,12}},ttt={{name="jia",age=18},{name="ming",age=27}},},
+[1002] = {group=1002,talent_id=102,chance=100,www={{name="jia",age=28}},qqq={{12345,66},{23456,87}},fff={{1,2,13}},ttt={{name="jia",age=18},{name="ming",age=28}},},
+[1002] = {group=1002,talent_id=103,chance=100,www={{name="jia",age=29}},qqq={{12345,66},{23456,88}},fff={{1,2,14}},ttt={{name="jia",age=18},{name="ming",age=29}},},
+[1002] = {group=1002,talent_id=104,chance=100,www={{name="jia",age=30}},qqq={{12345,66},{23456,89}},fff={{1,2,15}},ttt={{name="jia",age=18},{name="ming",age=30}},},
+[1002] = {group=1002,talent_id=201,chance=100,www={{name="jia",age=31}},qqq={{12345,66},{23456,90}},fff={{1,2,16}},ttt={{name="jia",age=18},{name="ming",age=31}},},
+[1002] = {group=1002,talent_id=202,chance=100,www={{name="jia",age=32}},qqq={{12345,66},{23456,91}},fff={{1,2,17}},ttt={{name="jia",age=18},{name="ming",age=32}},},
+[1002] = {group=1002,talent_id=203,chance=100,www={{name="jia",age=33}},qqq={{12345,66},{23456,92}},fff={{1,2,18}},ttt={{name="jia",age=18},{name="ming",age=33}},},
+[1002] = {group=1002,talent_id=204,chance=100,www={{name="jia",age=34}},qqq={{12345,66},{23456,93}},fff={{1,2,19}},ttt={{name="jia",age=18},{name="ming",age=34}},},
+[1002] = {group=1002,talent_id=301,chance=100,www={{name="jia",age=35}},qqq={{12345,66},{23456,94}},fff={{1,2,20}},ttt={{name="jia",age=18},{name="ming",age=35}},},
+}
+return ConfigArray

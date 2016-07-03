@@ -1,0 +1,8 @@
+<header>
+	<group>int</group>
+	<talent_id>int</talent_id>
+	<chance>int</chance>
+	<www>vector</www>
+	<ttt>vector</ttt>
+	<rate>int</rate>
+</header>
