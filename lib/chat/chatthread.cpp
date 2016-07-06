@@ -8,8 +8,10 @@ ChatThread::~ChatThread()
 
 }
 
+
+// ChatThread::ChatThread(ThreadManager *manager)
+// : BaseThread(manager)
 ChatThread::ChatThread(ThreadManager *manager)
-: BaseThread(manager)
 {
 
 }

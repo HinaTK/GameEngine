@@ -7,7 +7,8 @@
 */
 #include "lib/include/thread/basethread.h"
 
-class ChatThread : public BaseThread
+//class ChatThread : public BaseThread
+class ChatThread
 {
 public:
 	virtual ~ChatThread();

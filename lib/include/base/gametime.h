@@ -7,14 +7,9 @@
 class GameTime
 {
 public:
+	GameTime();
     ~GameTime(){}
-
-	static GameTime &Instance()
-	{
-		static GameTime gt;
-		return gt;
-	}
-
+	time_t				Start(){ m_now = time(NULL); return m_now; }
 	void				SetFPS(int ms);
 	time_t				Time();									// 获得当前时间戳
 	unsigned long long	MilliSecond();							// 获得当前时间（毫秒）
@@ -28,7 +23,6 @@ public:
 	void				Update();
 
 private:
-	GameTime();
 	time_t				m_now;
 	unsigned long long	m_frame_time_ms;
 	tm					*m_tm;

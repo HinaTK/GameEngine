@@ -2,7 +2,9 @@
 #ifndef TEST_OTHER_H
 #define TEST_OTHER_H
 
-#include "lib/include/timemanager/gametime.h"
+//#include "lib/include/timemanager/gametime.h"
+#include "lib/include/base/interface.h"
+#include "lib/include/base/gametime.h"
 
 
 
@@ -69,6 +71,11 @@ namespace TestOther
 //		Test test;
 //		Register(test);
 //	}
+
+	void Test5()
+	{
+		printf("vvvvvvvvvvvvv %d\n", ((GameTime *)Time::NewGameTime())->Start());
+	}
 }
 
 #endif

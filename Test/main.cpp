@@ -5,11 +5,11 @@
 // #include "testlog.h"
 // #include "testserializer.h"
 // #include "testmemory.h"
-// #include "testother.h"
+ #include "testother.h"
 // #include "testcache.h"
 // #include "testredis.h"
 // #include "testchrono.h"
-#include "testmongo.h"
+// #include "testmongo.h"
 // #include "lib/include/thread/threadmanager.h"
 // #include "lib/include/math/gamemath.h"
 // #include "lib/include/frame/bufmanager.h"
@@ -117,6 +117,7 @@ int main()
 	//TestOther::Test2();
 	//TestOther::Test3();
 	//TestOther::Test4();
+	TestOther::Test5();
 
 	//TestCache::TestDataQueue();
 	//TestCache::TestDataMap();
@@ -137,7 +138,7 @@ int main()
 
 //	TestFrame::Instance().Init();
 //	TestFrame::Instance().Run();
-	TestMongo::Fun1();
+//	TestMongo::Fun1();
 
 // 	struct S1
 // 	{

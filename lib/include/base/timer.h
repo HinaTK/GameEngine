@@ -17,14 +17,14 @@ public:
 	virtual void Free() = 0;
 };
 
-class TimeEventManager
+class TimerManager
 {
 public:
-	TimeEventManager();
-	~TimeEventManager();
+	TimerManager();
+	~TimerManager();
 
 	void				AddEvent(time_t interval, TimeEvent *e);
-	void				Update();
+	void				Update(time_t now);
 protected:
 	struct Timer
 	{

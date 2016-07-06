@@ -1,27 +1,26 @@
 ﻿
 #include <stdlib.h>
-#include "timemanager.h"
-#include "gametime.h"
+#include "timer.h"
+//#include "gametime.h"
 
 
-TimeEventManager::TimeEventManager() 
+TimerManager::TimerManager() 
 : m_update_time(0)
 {
 
 }
 
-TimeEventManager::~TimeEventManager()
+TimerManager::~TimerManager()
 {
 }
 
-void TimeEventManager::AddEvent(time_t interval, TimeEvent *e)
+void TimerManager::AddEvent(time_t interval, TimeEvent *e)
 {
 	m_event_heap.Push(Timer(time(NULL) + interval, e));
 }
 
-void TimeEventManager::Update()
+void TimerManager::Update(time_t now)
 {	
-	time_t now = GameTime::Instance().Time();
 	if (now >= m_update_time)
 	{
 		Timer timer;
