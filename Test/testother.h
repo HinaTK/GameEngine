@@ -5,7 +5,7 @@
 //#include "lib/include/timemanager/gametime.h"
 #include "lib/include/base/interface.h"
 #include "lib/include/base/gametime.h"
-
+#include "lib/include/common/md5.h"
 
 
 namespace TestOther
@@ -74,7 +74,27 @@ namespace TestOther
 
 	void Test5()
 	{
-		printf("vvvvvvvvvvvvv %d\n", ((GameTime *)Time::NewGameTime())->Start());
+		GameTime *test = (GameTime *)Time::NewGameTime();
+		printf("vvvvvvvvvvvvv %d\n", test->Start());
+		delete test;
+	}
+
+	void Test6()
+	{
+		unsigned char jjj[] = "jiaming";
+		unsigned char kkk[64] = { 0 };
+		unsigned char lll[64] = { 0 };
+		Base::encrypt128(jjj, kkk);
+
+		Base::decrypt128(kkk, lll);
+	}
+
+	void Test7()
+	{
+		std::string str = "jiaming";
+		std::string ret = Base::MD5Encrypt(str);
+
+		ret = Base::MD5Encrypt((const unsigned char *)"jiaming", strlen("jiaming"));
 	}
 }
 

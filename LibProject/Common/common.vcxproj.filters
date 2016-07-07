@@ -6,9 +6,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\include\common\md5.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\lib\include\common\memorypool.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -32,9 +29,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lib\src\common\md5.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\lib\src\common\memorypool.cpp">
       <Filter>src</Filter>
     </ClCompile>

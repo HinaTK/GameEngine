@@ -18,6 +18,9 @@
     <ClInclude Include="..\..\lib\include\base\gametime.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\lib\include\base\md5.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\base\aes.cpp">
@@ -30,6 +33,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\base\gametime.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\base\md5.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

@@ -72,7 +72,7 @@ MD5::MD5() {
 }
 
 /* Construct a MD5 object with a input buffer. */
-MD5::MD5(const void *input, size_t length) {
+MD5::MD5(const byte *input, size_t length) {
 	reset();
 	update(input, length);
 }
@@ -111,11 +111,6 @@ void MD5::reset() {
 	_state[3] = 0x10325476;
 }
 
-/* Updating the context with a input buffer. */
-void MD5::update(const void *input, size_t length) {
-	update((const byte*)input, length);
-}
-
 /* Updating the context with a string. */
 void MD5::update(const string &str) {
 	update((const byte*)str.c_str(), str.length());
@@ -133,7 +128,7 @@ void MD5::update(ifstream &in) {
 		in.read(buffer, BUFFER_SIZE);
 		length = in.gcount();
 		if (length > 0)
-			update(buffer, length);
+			update((const byte*)buffer, length);
 	}
 	in.close();
 }

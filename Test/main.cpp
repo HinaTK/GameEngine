@@ -1,6 +1,7 @@
 ﻿
 #include <stdio.h>
 #include <string>
+#include <stdint.h>
 // #include "testdatastructure.h"
 // #include "testlog.h"
 // #include "testserializer.h"
@@ -117,7 +118,9 @@ int main()
 	//TestOther::Test2();
 	//TestOther::Test3();
 	//TestOther::Test4();
-	TestOther::Test5();
+	//TestOther::Test5();
+	//TestOther::Test6();
+	TestOther::Test7();
 
 	//TestCache::TestDataQueue();
 	//TestCache::TestDataMap();
