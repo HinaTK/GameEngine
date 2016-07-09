@@ -5,7 +5,6 @@
 //#include "lib/include/timemanager/gametime.h"
 #include "lib/include/base/interface.h"
 #include "lib/include/base/gametime.h"
-#include "lib/include/common/md5.h"
 
 
 namespace TestOther

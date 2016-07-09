@@ -12,26 +12,29 @@ class Parser extends BaseParser
     {
     	switch ($this->name2Type[$name]) {
     		case 'vector':
-    			$data = "\r\n";
+    			$data = "{\"ROW\":[\r\n";
     			$arr1 = explode("|",$val);
     			foreach ($arr1 as $value1) {
-    				$data .= $tab."<row>\r\n";
+    				$data .= $tab."{\r\n";
     				$arr2 = explode(",", $value1);
     				foreach ($arr2 as $value2) {
     					$arr3 = explode("=",$value2);
-    					$data .= $tab."\t<".$arr3[0].">".$arr3[1]."</".$arr3[0].">\r\n";
+    					$data .= $tab."\t\"".$arr3[0]."\":".$arr3[1].",\r\n";
     				}
-    				$data .= $tab."</row>\r\n";
+                    $data = substr_replace($data, "\r\n".$tab."},\r\n", -3);
     			}
-    			return $data."\t\t";
+    			return substr_replace($data, "\r\n\t\t]}", -3);
             case 'embed':
-                $data = "\r\n";
+               $data = "{\"ROW\":[\r\n";
                 if (isset($this->embed->embedData[$val])) {
                     foreach ($this->embed->embedData[$val] as $value) {
                         $data .= $value;
                     }
                 }
-                return $data."\t\t";
+                return substr_replace($data, "\r\n\t\t]}", -3);
+                //return $data."\t\t]}";
+            case 'string':
+                return '"'.$val.'"';
     		default:
     			return $val;
     	}
@@ -47,42 +50,30 @@ class Parser extends BaseParser
             if (!isset($this->embedData[$val])) {
                 $this->embedData[$val] = array();
             }
-            $this->embedData[$val][] = $this->ParseXML($value, "\t\t\t");
+            $this->embedData[$val][] = $this->ParseJSON($value, "\t\t\t");
         }
     }
 
     function Parse()
     {
         $tableName = "Config".$this->sheetName;
-
-        // todo 宏定义这一段代码
-		if (isset($this->config["header"])) {
-            $header = "<header>\r\n";
-			foreach ($this->name2Type as $key => $value){ 
-				$header .= "\t<".$key.">".$value."</".$key.">\r\n";
-			}
-			$header .= "</header>\r\n";
-            file_put_contents($this->config["header"].$tableName.".xml", $header);
-        }
 		
-        $data = "<config>\r\n";
+        $data = "{\"ROW\":[\r\n";
         foreach ($this->rows as $value) {
-            $data .= $this->ParseXML($value, "\t");
+            $data .= $this->ParseJSON($value, "\t");
         }
-		$data .= "</config>";
-
+        $data = substr_replace($data, "\r\n]}", -3);
         
         file_put_contents($this->config["saveDir"].$tableName.".xml", $data);
     }
 
-    function ParseXML($value, $tab)
+    function ParseJSON($value, $tab)
     {
-    	$data = $tab."<row>\r\n";
+        $data = $tab."{\r\n";
     	foreach ($value as $name => $subVal) {
-			$data .= $tab."\t<".$name.">".$this->RealVal($name, $subVal, $tab."\t\t")."</".$name.">\r\n";
+			$data .= $tab."\t\"".$name."\":".$this->RealVal($name, $subVal, $tab."\t\t").",\r\n";
 		}
-		$data .= $tab."</row>\r\n";
-		return $data;
+        return substr_replace($data, "\r\n".$tab."},\r\n", -3);
     }
 }
 ?>

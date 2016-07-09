@@ -26,6 +26,16 @@ class BaseParser
 		    $val = trim((string)$cell->Data);
 		    if ($val && isset($this->index2Name[$i])) {
 		    	$this->name2Type[$this->index2Name[$i]] = $val;
+		    	if ($val == "embed") {
+		    		$embedSheet = GetSheetByName(FILTER_SHEET.$this->index2Name[$i]);
+                    if ($embedSheet) {
+                        $this->embed = new Parser($config, $embedSheet);
+                        $this->embed->ParseEmbed();
+                    }
+                    else{
+                    	exit("can not find the sheet name: ".FILTER_SHEET.$this->index2Name[$i]."\r\n");
+                    }
+		    	}
 		    }
 		    $i++;
 		}

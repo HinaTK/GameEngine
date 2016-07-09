@@ -38,33 +38,6 @@ include("template/".$template);
 
 file_put_contents($name.".h", Declaration($header->children(), $name));
 
-// 处理键
-// foreach ($res->row[0]->children() as $key => $subVal) {
-// 	echo $key."\r\n";
-// }
-
-// 处理文件头
-// $header = "struct ".$name." \r\n{\r\n";
-// foreach ($res->types->type as $value) {
-// 	$header .= "\t";
-// 	// todo 处理器 array
-// 	switch ($value->value) {
-// 		case 'array':
-// 			$header .= "std::vector<>";
-// 			break;
-// 		case 'string':
-// 			$header .= "std::string";
-// 			break;
-// 		default:
-// 			$header .= "int";
-// 			break;
-// 	}
-// 	$header .= " ".$value->name.";\r\n";
-// }
-// $header .= "}";
-
-// file_put_contents($name.".h", $header);
-
 $init = "bool Init()\r\n{\r\n";
 $init .= "\tstd::string file =\"".$file."\";\r\n";
 $init .= "\tstd::string err;\r\n";

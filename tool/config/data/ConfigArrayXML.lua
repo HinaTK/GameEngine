@@ -1,0 +1,20 @@
+local ConfigArrayXML {
+[1001] = {group=1001,talent_id=102,chance=100,www={{name=xxx,age=19}},ttt={{name=xxx,age=18},{name=abcd,age=19}},rate=30,embed={{bid=2,level=3,rate=2,},{bid=2,level=4,rate=14,},{bid=2,level=5,rate=26,},},},
+[1001] = {group=1001,talent_id=103,chance=100,www={{name=xxx,age=20}},ttt={{name=xxx,age=18},{name=abcd,age=20}},rate=51,embed={{bid=3,level=6,rate=38,},{bid=3,level=7,rate=50,},{bid=3,level=8,rate=62,},},},
+[1001] = {group=1001,talent_id=201,chance=100,www={{name=xxx,age=21}},ttt={{name=xxx,age=18},{name=abcd,age=21}},rate=73,embed={{bid=4,level=9,rate=74,},{bid=4,level=10,rate=86,},{bid=4,level=11,rate=98,},},},
+[1001] = {group=1001,talent_id=202,chance=100,www={{name=xxx,age=22}},ttt={{name=xxx,age=18},{name=abcd,age=22}},rate=108,embed={{bid=5,level=12,rate=110,},{bid=5,level=13,rate=122,},{bid=5,level=14,rate=119,},},},
+[1001] = {group=1001,talent_id=203,chance=100,www={{name=xxx,age=23}},ttt={{name=xxx,age=18},{name=abcd,age=23}},rate=132,embed={{bid=6,level=15,rate=116,},{bid=6,level=16,rate=113,},{bid=6,level=17,rate=110,},},},
+[1001] = {group=1001,talent_id=301,chance=100,www={{name=xxx,age=24}},ttt={{name=xxx,age=18},{name=abcd,age=24}},rate=157,embed={{bid=7,level=18,rate=107,},{bid=7,level=19,rate=104,},{bid=7,level=20,rate=101,},},},
+[1001] = {group=1001,talent_id=302,chance=100,www={{name=xxx,age=25}},ttt={{name=xxx,age=18},{name=abcd,age=25}},rate=183,embed={{bid=8,level=0,rate=23,},{bid=8,level=1,rate=3,},{bid=8,level=2,rate=33,},},},
+[1001] = {group=1001,talent_id=303,chance=100,www={{name=xxx,age=26}},ttt={{name=xxx,age=18},{name=abcd,age=26}},rate=224,embed={{bid=9,level=3,rate=2,},{bid=9,level=4,rate=14,},{bid=9,level=5,rate=26,},},},
+[1002] = {group=1002,talent_id=101,chance=100,www={{name=xxx,age=27}},ttt={{name=xxx,age=18},{name=abcd,age=27}},rate=28,embed={{bid=10,level=6,rate=38,},{bid=10,level=7,rate=50,},{bid=10,level=8,rate=62,},},},
+[1002] = {group=1002,talent_id=102,chance=100,www={{name=xxx,age=28}},ttt={{name=xxx,age=18},{name=abcd,age=28}},rate=57,embed={{bid=11,level=9,rate=74,},{bid=11,level=10,rate=86,},{bid=11,level=11,rate=98,},},},
+[1002] = {group=1002,talent_id=103,chance=100,www={{name=xxx,age=29}},ttt={{name=xxx,age=18},{name=abcd,age=29}},rate=87,embed={{bid=12,level=12,rate=110,},{bid=12,level=13,rate=122,},{bid=12,level=14,rate=119,},},},
+[1002] = {group=1002,talent_id=104,chance=100,www={{name=xxx,age=30}},ttt={{name=xxx,age=18},{name=abcd,age=30}},rate=97,embed={{bid=13,level=15,rate=116,},{bid=13,level=16,rate=113,},{bid=13,level=17,rate=110,},},},
+[1002] = {group=1002,talent_id=201,chance=100,www={{name=xxx,age=31}},ttt={{name=xxx,age=18},{name=abcd,age=31}},rate=129,embed={{bid=14,level=18,rate=107,},{bid=14,level=19,rate=104,},{bid=14,level=20,rate=101,},},},
+[1002] = {group=1002,talent_id=202,chance=100,www={{name=xxx,age=32}},ttt={{name=xxx,age=18},{name=abcd,age=32}},rate=192,embed={{bid=15,level=0,rate=23,},{bid=15,level=1,rate=3,},{bid=15,level=2,rate=33,},},},
+[1002] = {group=1002,talent_id=203,chance=100,www={{name=xxx,age=33}},ttt={{name=xxx,age=18},{name=abcd,age=33}},rate=236,embed={{bid=16,level=3,rate=2,},{bid=16,level=4,rate=14,},{bid=16,level=5,rate=26,},},},
+[1002] = {group=1002,talent_id=204,chance=100,www={{name=xxx,age=34}},ttt={{name=xxx,age=18},{name=abcd,age=34}},rate=271,embed={{bid=17,level=6,rate=38,},{bid=17,level=7,rate=50,},{bid=17,level=8,rate=62,},},},
+[1002] = {group=1002,talent_id=301,chance=100,www={{name=xxx,age=35}},ttt={{name=xxx,age=18},{name=abcd,age=35}},rate=341,embed={{bid=18,level=9,rate=74,},{bid=18,level=10,rate=86,},{bid=18,level=11,rate=98,},},},
+}
+return ConfigArrayXML

@@ -19,16 +19,36 @@ class Parser extends BaseParser
     function RealVal($name, $val)
     {
     	switch ($this->name2Type[$name]) {
-    		case 'array':
+    		case 'vector':
     			$arr = explode("|",$val);
     			return "{{".implode("},{",$arr)."}}";
+            case 'embed':
+                $data = "";
+                if (isset($this->embed->embedData[$val])) {
+                    foreach ($this->embed->embedData[$val] as $value) {
+                        $data .= "{".$value."},";
+                    }
+                }
+                return "{".$data."}";    
     		case 'string':
-    			return "\"".$val."\"";
-    		// case 'weight':
-    		// 	return $val;	
+    			return "\"".$val."\"";	
     		default:
     			return $val;
     	}
+    }
+
+    function ParseEmbed()
+    {
+        foreach ($this->rows as $value) {
+            $val = $value[$this->index2Name[0]];
+            if (!isset($this->embedData)) {
+                $this->embedData = array();
+            }
+            if (!isset($this->embedData[$val])) {
+                $this->embedData[$val] = array();
+            }
+            $this->embedData[$val][] = $this->ParseLua($value);
+        }
     }
 
     function Parse()

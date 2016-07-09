@@ -25,19 +25,20 @@ function WriteRecord($record)
 	file_put_contents(RECORD_FILE, "<?php \r\nreturn ".var_export($record, TRUE)."\r\n?>");
 }
 
-function FilterSheet($sheets)
-{
-	$sheets2 = array();
-	foreach ($sheets as $sheet) {
-		if (substr($sheet->attributes('ss', true)->Name, 0, 1) != FILTER_SHEET) {
-			$sheets2[] = $sheet;
-		}
+$res = array();
+function GetSheetByName($name){
+	global $res;
+	foreach ($res->Worksheet as $sheet) {
+		if ($sheet->attributes('ss', true)->Name == $name) {
+			return $sheet;
+		}	
 	}
-	return $sheets2;
+	return false;
 }
 
 function Export($dir, $record){
 	global $config;
+	global $res;
 	foreach ($dir as $val) {
 		$path = $val["path"];
 		$file = $val["file"];
@@ -46,11 +47,12 @@ function Export($dir, $record){
 		if ($oldTime != $newTime) {
 			$record[$file] = $newTime;
 			$res = simplexml_load_file($path);
-			$sheets = FilterSheet($res->Worksheet);
-			foreach ($sheets as $sheet) {
-				//Parse($sheet);
-				$parser = new Parser($config, $sheet);
-				$parser->Parse();
+			foreach ($res->Worksheet as $sheet) {
+				if (substr($sheet->attributes('ss', true)->Name, 0, 1) != FILTER_SHEET) {
+					//Parse($sheet);
+					$parser = new Parser($config, $sheet);
+					$parser->Parse();
+				}
 			}
 		}
 	}
@@ -67,9 +69,12 @@ while($file = readdir($dirHandle))
 	}
 }
 
-$record = InitRecord($dir);
+$record = array();
+if (!isset($config["all"]) or !$config["all"]) {
+	$record = InitRecord($dir);
+}
 $record = Export($dir, $record);
 WriteRecord($record);
 
-echo "export ok!\r\n";
+echo "Export OK!\r\n";
 ?>

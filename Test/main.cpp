@@ -7,6 +7,7 @@
 // #include "testserializer.h"
 // #include "testmemory.h"
  #include "testother.h"
+#include "testjson.h"
 // #include "testcache.h"
 // #include "testredis.h"
 // #include "testchrono.h"
@@ -120,7 +121,7 @@ int main()
 	//TestOther::Test4();
 	//TestOther::Test5();
 	//TestOther::Test6();
-	TestOther::Test7();
+	//TestOther::Test7();
 
 	//TestCache::TestDataQueue();
 	//TestCache::TestDataMap();
@@ -138,6 +139,10 @@ int main()
 	//TestChrono::Test1();
 	//TestChrono::Test2();
 	//TestChrono::Test3();
+
+	//TestJson::Test1();
+	//TestJson::Test2();
+	TestJson::Test3();
 
 //	TestFrame::Instance().Init();
 //	TestFrame::Instance().Run();
