@@ -142,7 +142,13 @@ int main()
 
 	//TestJson::Test1();
 	//TestJson::Test2();
-	TestJson::Test3();
+	//TestJson::Test3();
+	//TestJson::Test4();
+	//TestJson::Test5();
+	//TestJson::Test6();
+	//TestJson::Test7();
+	//TestJson::Test8();
+	TestJson::Test9();
 
 //	TestFrame::Instance().Init();
 //	TestFrame::Instance().Run();
