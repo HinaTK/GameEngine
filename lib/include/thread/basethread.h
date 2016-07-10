@@ -6,7 +6,6 @@
 #include "threadmanager.h"
 #include "common/datastructure/msgqueue.h"
 #include "lib/include/frame/message.h"
-#include "lib/include/timemanager/gametime.h"
 
 /*
 	目的：以多线程并行代替多进程并行

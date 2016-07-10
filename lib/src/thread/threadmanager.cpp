@@ -1,7 +1,6 @@
 ﻿
 #include "threadmanager.h"
 #include "basethread.h"
-#include "lib/include/timemanager/gametime.h"
 
 ThreadManager::~ThreadManager()
 {

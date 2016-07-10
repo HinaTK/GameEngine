@@ -2,6 +2,7 @@
 #include "basethread.h"
 #include "threadmanager.h"
 #include "lib/include/common/mutex.h"
+#include "lib/include/base/interface.h"
 
 void *Update(void * arg)
 {
@@ -61,7 +62,7 @@ void BaseThread::Loop(bool sleep)
         }
         if (!this->Run() && is_sleep)
         {
-            GameTime::Sleep(2);
+            Time::Sleep(2);
         }
 
     } while (!m_is_exit);

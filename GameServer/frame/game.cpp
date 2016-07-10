@@ -4,7 +4,6 @@
 #include "common/protocol/messageheader.h"
 #include "lib/include/frame/baseaccepter.h"
 #include "lib/include/tinyxml/tinyxml.h"
-#include "lib/include/timemanager/gametime.h"
 #include "lib/include/common/serverconfig.h"
 //#include "lib/chat/interface.h"
 #include "db/dbthread.h"

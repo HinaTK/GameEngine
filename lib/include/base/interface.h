@@ -20,6 +20,8 @@ namespace Time
 	_declspec(dllexport) void *NewTimerManager();
 
 	_declspec(dllexport) void *NewGameTime();
+
+	_declspec(dllexport) void Sleep(unsigned int ms);
 }
 
 #endif

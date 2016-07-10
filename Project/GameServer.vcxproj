@@ -64,7 +64,7 @@
       <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Tinyxml.lib;TimeManager.lib;Frame.lib;Common.lib;Log.lib;Thread.lib;Chat.lib;LibBson.lib;Mongo.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Tinyxml.lib;Frame.lib;Common.lib;Log.lib;Thread.lib;Chat.lib;LibBson.lib;Mongo.lib;Base.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\lib\windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -99,6 +99,7 @@
     <ClCompile Include="..\GameServer\frame\main.cpp" />
     <ClCompile Include="..\GameServer\net\callback.cpp" />
     <ClCompile Include="..\GameServer\net\netthread.cpp" />
+    <ClCompile Include="..\GameServer\world\worldmanager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GameServer\db\dbthread.h" />
@@ -106,6 +107,7 @@
     <ClInclude Include="..\GameServer\frame\game.h" />
     <ClInclude Include="..\GameServer\net\callback.h" />
     <ClInclude Include="..\GameServer\net\netthread.h" />
+    <ClInclude Include="..\GameServer\world\worldmanager.h" />
     <ClInclude Include="..\protocol\innerproto.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

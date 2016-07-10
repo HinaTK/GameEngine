@@ -34,7 +34,9 @@ void NetThread::Init(void *arg)
 
 bool NetThread::Run()
 {
-	return m_net_manager.Update();
+	bool ret = m_net_manager.Update();
+	ret = m_world_manager.Update() && ret;
+	return ret;
 }
 
 void NetThread::RecvData(short type, int sid, int len, const char *data)

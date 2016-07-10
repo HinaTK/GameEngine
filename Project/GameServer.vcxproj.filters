@@ -13,6 +13,9 @@
     <Filter Include="proto">
       <UniqueIdentifier>{ce220b58-243c-4a61-8dcc-c3deca69658b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="world">
+      <UniqueIdentifier>{0188fdbe-4437-4b4f-a44a-ddbbb8ba2a38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\GameServer\frame\main.cpp">
@@ -29,6 +32,9 @@
     </ClCompile>
     <ClCompile Include="..\GameServer\frame\game.cpp">
       <Filter>frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\world\worldmanager.cpp">
+      <Filter>world</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -47,6 +53,9 @@
     </ClInclude>
     <ClInclude Include="..\protocol\innerproto.h">
       <Filter>proto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\world\worldmanager.h">
+      <Filter>world</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -6,7 +6,6 @@
 #include "common/socketdef.h"
 #include "common/datastructure/gamehash.h"
 #include "lib/include/frame/frame.h"
-#include "lib/include/timemanager/timemanager.h"
 
 class NewFrame : public Frame
 {
