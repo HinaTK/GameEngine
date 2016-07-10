@@ -16,12 +16,13 @@ static inline bool	JsonWrite(rapidjson::Writer<rapidjson::StringBuffer> &writer,
 static inline bool	JsonWrite(rapidjson::Writer<rapidjson::StringBuffer> &writer, double val){ return writer.Double(val); }
 
 static const char *FIELD_BASE_NAME = "base";
+typedef unsigned short Version;
 
 template<class DATA> 
 class Field
 {
 public:
-	Field(const char *name, int ver = 0)
+	Field(const char *name, Version ver = 0)
 		: m_name(name)
 		, m_ver(ver)
 		, m_writer(m_s)
@@ -34,32 +35,26 @@ public:
 	inline bool Error(int err){ m_err = err; return false; }
 	inline bool Error(int err, int line){ m_err = err; m_err_line = line;  return false; }
 
-	bool Init()
+	bool WriteVer(DATA &data)
 	{
-		m_writer.StartObject();
 		m_writer.Key("ver");
-		return m_writer.Int(m_ver);
+		return m_writer.Int(data.ver);
 	}
 
-	bool DeInit()
+	bool ReadVer(rapidjson::Document &doc, Version &ver)
 	{
-		return true;
-	}
-
-	bool ReadVector()
-	{
-		return true;
-	}
-
-	bool CheckArray()
-	{
-		return true;
+		if (doc.HasMember("ver") && doc["ver"].IsInt())
+		{
+			ver = (Version)doc["ver"].GetInt();
+		}
+		m_err = ERR_NO_THIS_FIELD;
+		return false;
 	}
 
 	virtual void Serialize(DATA &data) = 0;
 	virtual bool Deserialize(rapidjson::StringBuffer::Ch *str, DATA &data) = 0;
 protected:
-	int m_ver;
+	Version m_ver;
 	std::string m_name;
 
 	rapidjson::StringBuffer m_s;
@@ -67,6 +62,21 @@ protected:
 
 	int m_err;
 	int m_err_line;
+};
+
+class Model
+{
+public:
+	Model(Version _ver) :m_dirty(false), ver(_ver){}
+	virtual ~Model(){}
+
+	void	SetDirty(){ m_dirty = true; }
+	void	UnsetDirty(){ m_dirty = false; }
+
+	Version ver;
+
+protected:
+	bool	m_dirty;
 };
 
 #endif

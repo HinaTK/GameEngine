@@ -87,10 +87,16 @@ namespace TestJson
 		int star = 0;
 	};
 
-	struct Data
+	class Data : public Model
 	{
-		int item_id = 0;
-		int item_num = 0;
+	public:
+		static const unsigned short DATA_VER = 0;
+		Data(): Model(DATA_VER){}
+		~Data(){}
+
+
+		int item_id;
+		int item_num;
 		std::set<int> item_list;
 		std::vector<Item> item_list2;
 
@@ -332,11 +338,13 @@ namespace TestJson
 
 		void Serialize(TestJson::Data &data)
 		{
-			Init();
-			JSON_BASE_ARRAY_WRITE_BEGIN(FIELD_BASE_NAME);
+			m_writer.StartObject();
+			WriteVer(data);
+
+			JSON_WRITE_BASE_ARRAY_BEGIN(FIELD_BASE_NAME);
 			JsonWrite(m_writer, data.item_id);
 			JsonWrite(m_writer, data.item_num);
-			JSON_BASE_ARRAY_WRITE_END();
+			JSON_WRITE_BASE_ARRAY_END();
 
 			JSON_WRITE_ARRAY_INT_SET("item_list", data.item_list);
 			
@@ -358,28 +366,32 @@ namespace TestJson
 		bool Deserialize(StringBuffer::Ch *str, Data &data)
 		{
 			JSON_BASIC_CHECK(str);
-			JSON_BASE_ARRAY_READ_BEGIN(FIELD_BASE_NAME);
+
+			Version ver = 0;
+			if (!ReadVer(doc, ver)) return false;
+			
+			JSON_READ_BASE_ARRAY_BEGIN(FIELD_BASE_NAME);
 			JSON_READ_ARRAY_INT(array, 0, data.item_id);
 			JSON_READ_ARRAY_INT(array, 1, data.item_num);
-			JSON_BASE_ARRAY_READ_END();
+			JSON_READ_BASE_ARRAY_END();
 
 			JSON_READ_ARRAY_INT_SET("item_list", data.item_list);
 
-			JSON_TWO_ARRAY_READ_BEGIN("item_list2");
+			JSON_READ_TWO_ARRAY_BEGIN("item_list2");
 			Item item;
 			JSON_READ_ARRAY_INT(sub, 0, item.id);
 			JSON_READ_ARRAY_INT(sub, 1, item.level);
 			data.item_list2.push_back(item);
-			JSON_TWO_ARRAY_READ_END();
+			JSON_READ_TWO_ARRAY_END();
 
-			JSON_TWO_ARRAY_READ_BEGIN("item_list3");
+			JSON_READ_TWO_ARRAY_BEGIN("item_list3");
 			int key = 0;
 			Item2 item2;
 			JSON_READ_ARRAY_INT(sub, 0, key);
 			JSON_READ_ARRAY_INT(sub, 1, item2.level);
 			JSON_READ_ARRAY_INT(sub, 2, item2.star);
 			data.item_list3[key] = item2;
-			JSON_TWO_ARRAY_READ_END();
+			JSON_READ_TWO_ARRAY_END();
 
 			return true;
 		}

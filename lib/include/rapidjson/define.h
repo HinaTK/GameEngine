@@ -12,11 +12,12 @@ enum
 	ERR_IS_NOT_JSON = 1,	// 不是Json
 	ERR_IS_NOT_OBJECT,		// 不是对象
 	ERR_DATA_TYPE_ERR,		// 数据类型不对
-	ERR_READ_DATA_ERR		// 数据读取错误
+	ERR_READ_DATA_ERR,		// 数据读取错误
+	ERR_NO_THIS_FIELD		// 没有这个字段
 };
 
 #define JSON_BASIC_CHECK(Str)\
-	Document doc; \
+	rapidjson::Document doc; \
 	if (doc.Parse(Str).HasParseError())\
 	{\
 		return Error(ERR_IS_NOT_JSON); \
@@ -26,31 +27,33 @@ enum
 		return Error(ERR_IS_NOT_OBJECT); \
 	}
 
-#define JSON_BASE_ARRAY_WRITE_BEGIN(Name)\
+#define JSON_WRITE_BASE_ARRAY_BEGIN(Name)\
 	m_writer.Key(Name); \
 	m_writer.StartArray();
 
-#define JSON_BASE_ARRAY_WRITE_END()\
+#define JSON_WRITE_BASE_ARRAY_END()\
 	m_writer.EndArray();
 
-#define JSON_BASE_ARRAY_READ_BEGIN(Name)\
+#define JSON_READ_BASE_ARRAY_BEGIN(Name)\
 	if (doc.HasMember(Name) && doc[Name].IsArray()){ \
-	Value &array = doc[Name]; \
-	unsigned int size = array.Size();
+		rapidjson::Value &array = doc[Name]; \
+		unsigned int size = array.Size();
 
-#define JSON_BASE_ARRAY_READ_END() \
-}
+#define JSON_READ_BASE_ARRAY_END() \
+	}\
+	else return Error(ERR_NO_THIS_FIELD, __LINE__);
 
-#define JSON_ONE_ARRAY_READ_BEGIN(Name)\
+#define JSON_READ_ONE_ARRAY_BEGIN(Name)\
 	if (doc.HasMember(Name) && doc[Name].IsArray()){\
-		Value &array = doc[Name]; \
+		rapidjson::Value &array = doc[Name]; \
 		for (unsigned int i = 0; i < array.Size(); ++i)\
 		{\
 			const Value& sub = array[i];
 
-#define JSON_ONE_ARRAY_READ_END() \
+#define JSON_READ_ONE_ARRAY_END() \
+		}\
 	}\
-}
+	else return Error(ERR_NO_THIS_FIELD, __LINE__);
 
 #define JSON_READ_ARRAY_INT(Array, Index, Val) \
 	if (size > Index && Array[Index].IsInt())\
@@ -73,7 +76,7 @@ enum
 	}\
 	m_writer.EndArray();
 
-#define JSON_TWO_ARRAY_READ_BEGIN(Name)\
+#define JSON_READ_TWO_ARRAY_BEGIN(Name)\
 	if (doc.HasMember(Name) && doc[Name].IsArray()){\
 	Value &array = doc[Name]; \
 	for (unsigned int i = 0; i < array.Size(); ++i)\
@@ -85,7 +88,7 @@ enum
 		}\
 		unsigned int size = sub.Size(); \
 
-#define JSON_TWO_ARRAY_READ_END() \
+#define JSON_READ_TWO_ARRAY_END() \
 		}\
 	}
 
@@ -100,14 +103,14 @@ enum
 
 
 #define JSON_READ_ARRAY_INT_SET(Name, Set) \
-	JSON_ONE_ARRAY_READ_BEGIN(Name); \
+	JSON_READ_ONE_ARRAY_BEGIN(Name); \
 	if (sub.IsInt())\
 	{\
 		Set.insert(sub.GetInt()); \
 	}\
 	else return Error(ERR_READ_DATA_ERR, __LINE__);\
-	JSON_ONE_ARRAY_READ_END();
+	JSON_READ_ONE_ARRAY_END();
 
 
-#define JSON_WRITE_ARRY
+
 #endif
