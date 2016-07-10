@@ -5,9 +5,9 @@
 #include <iostream>
 #include <windows.h>
 #include <vector>
-#include "lib/include/rapidjson/document.h"
-#include "lib/include/rapidjson/prettywriter.h"
-#include "lib/include/rapidjson/stringbuffer.h"
+#include <set>
+#include <map>
+#include "lib/include/rapidjson/define.h"
 #include "lib/include/mysql/field.h"
 
 namespace TestJson
@@ -81,116 +81,132 @@ namespace TestJson
 		int level = 1;
 	};
 
+	struct Item2
+	{
+		int level = 1;
+		int star = 0;
+	};
+
 	struct Data
 	{
 		int item_id = 0;
 		int item_num = 0;
-		std::vector<int> item_list;
+		std::set<int> item_list;
 		std::vector<Item> item_list2;
+
+		typedef std::map<int, Item2> DataMap;
+		std::map<int, Item2> item_list3;
+		typedef std::map<int, Item2>::iterator Iterator;
 	};
 
 	void DataInit(Data &data)
 	{
 		data.item_id = 111;
-		data.item_list.push_back(3);
-		data.item_list.push_back(5);
+		data.item_list.insert(3);
+		data.item_list.insert(5);
 
 		Item item1;
 		item1.id = 6; item1.level = 7;
 		data.item_list2.push_back(item1);
 		item1.id = 8; item1.level = 9;
 		data.item_list2.push_back(item1);
+
+		Item2 item2;
+		item2.level = 2; item2.star = 3;
+		data.item_list3[1] = item2;
+		item2.level = 4; item2.star = 5;
+		data.item_list3[2] = item2;
 	}
-
-	void Test6()
-	{
-		Data data;
-		DataInit(data);
-
-		StringBuffer s;
-		Writer<StringBuffer> writer(s);
-		const StringBuffer::Ch *ret;
-
-		unsigned long begin = GetTickCount();
-		for (int i = 0; i < TEST_TIME; ++i)
-		{
-			writer.StartObject();
-			writer.Key("base");
-			writer.StartArray();                // Between StartArray()/EndArray(),
-			JsonWrite(writer, data.item_id);
-			JsonWrite(writer, data.item_num);
-			writer.EndArray();
-			writer.Key("item_list");
-			writer.StartArray();
-			for (std::vector<int>::iterator itr = data.item_list.begin(); itr != data.item_list.end(); ++itr)
-			{
-				JsonWrite(writer, *itr);
-			}
-			writer.EndArray();
-			writer.Key("item_list2");
-			writer.StartArray();
-			for (std::vector<Item>::iterator itr = data.item_list2.begin(); itr != data.item_list2.end(); ++itr)
-			{
-				writer.StartArray();
-				JsonWrite(writer, itr->id);
-				JsonWrite(writer, itr->level);
-				writer.EndArray();
-			}
-			writer.EndArray();
-			writer.EndObject();
-
-			ret = s.GetString();
-			s.Clear();
-			writer.Reset(s);
-		}
-
-		cout << GetTickCount() - begin << " ms" << endl;
-
-		Document doc;
-		if (doc.ParseInsitu((StringBuffer::Ch *)ret).HasParseError())
-		{
-			cout << doc.GetParseError() << endl;
-			cout << doc.GetErrorOffset() << endl;
-			return;
-		}
-
-		//doc.Parse<'4'>(updateInfo.c_str());
-
-		if (doc.IsObject())
-		{
-			if (doc.HasMember("base") && doc["base"].IsArray())
-			{
-				Value &dataArray = doc["base"];
-				for (unsigned int i = 0; i < dataArray.Size(); i++)
-				{
-					const Value& object = dataArray[i];
-
-					if (object["url"].IsDouble())
-					{
-						double url = object["url"].GetDouble();
-					}
-					else if (object["url"].IsString())
-					{
-						string url = object["url"].GetString();
-					}
-
-					string platform = object["platform"].GetString();
-				}
-			}
-			if (doc.HasMember("jjj") && doc["jjj"].IsArray())
-			{
-				Value &dataArray = doc["jjj"];
-				if (dataArray[0].IsInt())
-				{
-					int a = dataArray[0].GetInt();
-				}
-
-
-				int b = dataArray[1].GetInt();
-				int c = dataArray[2].GetInt();
-			}
-		}
-	}
+// 
+// 	void Test6()
+// 	{
+// 		Data data;
+// 		DataInit(data);
+// 
+// 		StringBuffer s;
+// 		Writer<StringBuffer> writer(s);
+// 		const StringBuffer::Ch *ret;
+// 
+// 		unsigned long begin = GetTickCount();
+// 		for (int i = 0; i < TEST_TIME; ++i)
+// 		{
+// 			writer.StartObject();
+// 			writer.Key("base");
+// 			writer.StartArray();                // Between StartArray()/EndArray(),
+// 			JsonWrite(writer, data.item_id);
+// 			JsonWrite(writer, data.item_num);
+// 			writer.EndArray();
+// 			writer.Key("item_list");
+// 			writer.StartArray();
+// 			for (std::set<int>::iterator itr = data.item_list.begin(); itr != data.item_list.end(); ++itr)
+// 			{
+// 				JsonWrite(writer, *itr);
+// 			}
+// 			writer.EndArray();
+// 			writer.Key("item_list2");
+// 			writer.StartArray();
+// 			for (std::vector<Item>::iterator itr = data.item_list2.begin(); itr != data.item_list2.end(); ++itr)
+// 			{
+// 				writer.StartArray();
+// 				JsonWrite(writer, itr->id);
+// 				JsonWrite(writer, itr->level);
+// 				writer.EndArray();
+// 			}
+// 			writer.EndArray();
+// 			writer.EndObject();
+// 
+// 			ret = s.GetString();
+// 			s.Clear();
+// 			writer.Reset(s);
+// 		}
+// 
+// 		cout << GetTickCount() - begin << " ms" << endl;
+// 
+// 		Document doc;
+// 		if (doc.ParseInsitu((StringBuffer::Ch *)ret).HasParseError())
+// 		{
+// 			cout << doc.GetParseError() << endl;
+// 			cout << doc.GetErrorOffset() << endl;
+// 			return;
+// 		}
+// 
+// 		//doc.Parse<'4'>(updateInfo.c_str());
+// 
+// 		if (doc.IsObject())
+// 		{
+// 			if (doc.HasMember("base") && doc["base"].IsArray())
+// 			{
+// 				Value &dataArray = doc["base"];
+// 				for (unsigned int i = 0; i < dataArray.Size(); i++)
+// 				{
+// 					const Value& object = dataArray[i];
+// 
+// 					if (object["url"].IsDouble())
+// 					{
+// 						double url = object["url"].GetDouble();
+// 					}
+// 					else if (object["url"].IsString())
+// 					{
+// 						string url = object["url"].GetString();
+// 					}
+// 
+// 					string platform = object["platform"].GetString();
+// 				}
+// 			}
+// 			if (doc.HasMember("jjj") && doc["jjj"].IsArray())
+// 			{
+// 				Value &dataArray = doc["jjj"];
+// 				if (dataArray[0].IsInt())
+// 				{
+// 					int a = dataArray[0].GetInt();
+// 				}
+// 
+// 
+// 				int b = dataArray[1].GetInt();
+// 				int c = dataArray[2].GetInt();
+// 			}
+// 		}
+// 	}
 
 	void Test7()
 	{
@@ -317,26 +333,23 @@ namespace TestJson
 		void Serialize(TestJson::Data &data)
 		{
 			Init();
+			JSON_BASE_ARRAY_WRITE_BEGIN(FIELD_BASE_NAME);
 			JsonWrite(m_writer, data.item_id);
 			JsonWrite(m_writer, data.item_num);
-			m_writer.EndArray();
-			m_writer.Key("item_list");
-			m_writer.StartArray();
-			for (std::vector<int>::iterator itr = data.item_list.begin(); itr != data.item_list.end(); ++itr)
-			{
-				JsonWrite(m_writer, *itr);
-			}
-			m_writer.EndArray();
-			m_writer.Key("item_list2");
-			m_writer.StartArray();
-			for (std::vector<Item>::iterator itr = data.item_list2.begin(); itr != data.item_list2.end(); ++itr)
-			{
-				m_writer.StartArray();
-				JsonWrite(m_writer, itr->id);
-				JsonWrite(m_writer, itr->level);
-				m_writer.EndArray();
-			}
-			m_writer.EndArray();
+			JSON_BASE_ARRAY_WRITE_END();
+
+			JSON_WRITE_ARRAY_INT_SET("item_list", data.item_list);
+			
+			JSON_WRITE_TWO_ARRAY_BEGIN("item_list2", data.item_list2, std::vector<Item>::iterator);
+			JsonWrite(m_writer, itr->id);
+			JsonWrite(m_writer, itr->level);
+			JSON_WRITE_TWO_ARRAY_END();
+
+			JSON_WRITE_TWO_ARRAY_BEGIN("item_list3", data.item_list3, Data::DataMap::iterator);
+			JsonWrite(m_writer, itr->first);
+			JsonWrite(m_writer, itr->second.level);
+			JsonWrite(m_writer, itr->second.star);
+			JSON_WRITE_TWO_ARRAY_END();
 			m_writer.EndObject();
 
 			auto ret = m_s.GetString();
@@ -344,71 +357,30 @@ namespace TestJson
 
 		bool Deserialize(StringBuffer::Ch *str, Data &data)
 		{
-			Document doc;
-			if (doc.Parse(str).HasParseError())
-			{
-				cout << doc.GetParseError() << endl;
-				cout << doc.GetErrorOffset() << endl;
-				return Error(ERR_IS_NOT_JSON);
-			}
+			JSON_BASIC_CHECK(str);
+			JSON_BASE_ARRAY_READ_BEGIN(FIELD_BASE_NAME);
+			JSON_READ_ARRAY_INT(array, 0, data.item_id);
+			JSON_READ_ARRAY_INT(array, 1, data.item_num);
+			JSON_BASE_ARRAY_READ_END();
 
-			if (doc.IsObject())
-			{
-				if (doc.HasMember("base") && doc["base"].IsArray())
-				{
-					Value &dataArray = doc["base"];
-					unsigned int size = dataArray.Size();
-					if (size > 0 && dataArray[0].IsInt())
-					{
-						data.item_id = dataArray[0].GetInt();
-					}
+			JSON_READ_ARRAY_INT_SET("item_list", data.item_list);
 
-					if (size > 1 && dataArray[1].IsInt())
-					{
-						data.item_num = dataArray[1].GetInt();
-					}
-				}
+			JSON_TWO_ARRAY_READ_BEGIN("item_list2");
+			Item item;
+			JSON_READ_ARRAY_INT(sub, 0, item.id);
+			JSON_READ_ARRAY_INT(sub, 1, item.level);
+			data.item_list2.push_back(item);
+			JSON_TWO_ARRAY_READ_END();
 
-				if (doc.HasMember("item_list") && doc["item_list"].IsArray())
-				{
-					Value &dataArray = doc["item_list"];
-					for (unsigned int i = 0; i < dataArray.Size(); i++)
-					{
-						const Value& object = dataArray[i];
+			JSON_TWO_ARRAY_READ_BEGIN("item_list3");
+			int key = 0;
+			Item2 item2;
+			JSON_READ_ARRAY_INT(sub, 0, key);
+			JSON_READ_ARRAY_INT(sub, 1, item2.level);
+			JSON_READ_ARRAY_INT(sub, 2, item2.star);
+			data.item_list3[key] = item2;
+			JSON_TWO_ARRAY_READ_END();
 
-						if (object.IsInt())
-						{
-							data.item_list.push_back(object.GetInt());
-						}
-					}
-				}
-
-				if (doc.HasMember("item_list2") && doc["item_list2"].IsArray())
-				{
-					Value &dataArray = doc["item_list2"];
-					for (unsigned int i = 0; i < dataArray.Size(); i++)
-					{
-						const Value& object = dataArray[i];
-
-						if (object.IsArray())
-						{
-							unsigned int size = object.Size();
-							Item item;
-							if (size > 0 && object[0].IsInt())
-							{
-								item.id = object[0].GetInt();
-							}
-
-							if (size > 1 && object[1].IsInt())
-							{
-								item.level = object[1].GetInt();
-							}
-
-							data.item_list2.push_back(item);
-						}
-					}
-				}
-			}
 			return true;
 		}
 	};
@@ -418,8 +390,8 @@ namespace TestJson
 		TTTT t;
 		Data data;
 		DataInit(data);
-		//t.Serialize(data);
-		char *dd = "{\"ver\":0,\"base\":[111,0],\"item_list\":[3,5],\"item_list2\":[[6,7],[8,9]]}";
+		t.Serialize(data);
+		char *dd = "{\"ver\":0,\"base\":[111,0],\"item_list\":[3,5],\"item_list2\":[[6,7],[8,9]],\"item_list3\":[[1,2,3],[2,4,5]]}";
 		Data data2;
 		t.Deserialize(dd, data2);
 	}

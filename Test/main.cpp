@@ -59,8 +59,14 @@ int __cdecl rand1(void) {
 
 }
 
+#define comma ,
+#define __fun(parameters) double fun(parameters){return b;}
+
+__fun(int a comma int b)
+
 int main()
 {
+	auto a =  fun(1, 1.);
 // 	A *a = new B;
 // 	a->Show();
 // 	delete a;
