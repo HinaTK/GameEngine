@@ -29,8 +29,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Common", "..\LibProject\Com
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Base", "..\LibProject\Base\base.vcxproj", "{1AE5D021-4DD2-4E82-8FF5-8455C60BD56B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DataServer", "DataServer.vcxproj", "{CC4A00CE-9186-4DFC-A967-8F0D8829695C}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mysql", "..\LibProject\Mysql\Mysql.vcxproj", "{C772D1D6-2CD2-4F2A-A9DA-3D2A0D65A3F8}"
 EndProject
 Global
@@ -163,18 +161,6 @@ Global
 		{1AE5D021-4DD2-4E82-8FF5-8455C60BD56B}.Release|Win32.ActiveCfg = Release|Win32
 		{1AE5D021-4DD2-4E82-8FF5-8455C60BD56B}.Release|Win32.Build.0 = Release|Win32
 		{1AE5D021-4DD2-4E82-8FF5-8455C60BD56B}.Release|x64.ActiveCfg = Release|Win32
-		{CC4A00CE-9186-4DFC-A967-8F0D8829695C}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{CC4A00CE-9186-4DFC-A967-8F0D8829695C}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{CC4A00CE-9186-4DFC-A967-8F0D8829695C}.Debug|Win32.ActiveCfg = Debug|Win32
-		{CC4A00CE-9186-4DFC-A967-8F0D8829695C}.Debug|Win32.Build.0 = Debug|Win32
-		{CC4A00CE-9186-4DFC-A967-8F0D8829695C}.Debug|x64.ActiveCfg = Debug|x64
-		{CC4A00CE-9186-4DFC-A967-8F0D8829695C}.Debug|x64.Build.0 = Debug|x64
-		{CC4A00CE-9186-4DFC-A967-8F0D8829695C}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{CC4A00CE-9186-4DFC-A967-8F0D8829695C}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{CC4A00CE-9186-4DFC-A967-8F0D8829695C}.Release|Win32.ActiveCfg = Release|Win32
-		{CC4A00CE-9186-4DFC-A967-8F0D8829695C}.Release|Win32.Build.0 = Release|Win32
-		{CC4A00CE-9186-4DFC-A967-8F0D8829695C}.Release|x64.ActiveCfg = Release|x64
-		{CC4A00CE-9186-4DFC-A967-8F0D8829695C}.Release|x64.Build.0 = Release|x64
 		{C772D1D6-2CD2-4F2A-A9DA-3D2A0D65A3F8}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{C772D1D6-2CD2-4F2A-A9DA-3D2A0D65A3F8}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{C772D1D6-2CD2-4F2A-A9DA-3D2A0D65A3F8}.Debug|Win32.ActiveCfg = Debug|Win32

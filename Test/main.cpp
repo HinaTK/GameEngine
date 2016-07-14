@@ -66,7 +66,6 @@ __fun(int a comma int b)
 
 int main()
 {
-	auto a =  fun(1, 1.);
 // 	A *a = new B;
 // 	a->Show();
 // 	delete a;
@@ -151,11 +150,13 @@ int main()
 	//TestJson::Test3();
 	//TestJson::Test4();
 	//TestJson::Test5();
-	//TestJson::Test6();
+	TestJson::Test6();
 	//TestJson::Test7();
 	//TestJson::Test8();
 	//TestJson::Test9();
-	TestJson::Test10();
+	//TestJson::Test10();
+	//TestJson::Test12();
+	//TestJson::Test13();
 
 //	TestFrame::Instance().Init();
 //	TestFrame::Instance().Run();

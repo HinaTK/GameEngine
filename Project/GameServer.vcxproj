@@ -94,6 +94,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\GameServer\data\sql.cpp" />
     <ClCompile Include="..\GameServer\db\dbthread.cpp" />
     <ClCompile Include="..\GameServer\frame\game.cpp" />
     <ClCompile Include="..\GameServer\frame\main.cpp" />
@@ -102,6 +103,7 @@
     <ClCompile Include="..\GameServer\world\worldmanager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\GameServer\data\sql.h" />
     <ClInclude Include="..\GameServer\db\dbthread.h" />
     <ClInclude Include="..\GameServer\define.h" />
     <ClInclude Include="..\GameServer\frame\game.h" />

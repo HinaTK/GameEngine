@@ -35,10 +35,16 @@ public:
 	inline bool Error(int err){ m_err = err; return false; }
 	inline bool Error(int err, int line){ m_err = err; m_err_line = line;  return false; }
 
-	bool WriteVer(DATA &data)
+	bool inline WriteVer(DATA &data)
 	{
 		m_writer.Key("ver");
 		return m_writer.Int(data.ver);
+	}
+
+	bool inline WriteVer2(rapidjson::Writer<rapidjson::StringBuffer> &writer, DATA &data)
+	{
+		writer.Key("ver");
+		return writer.Int(data.ver);
 	}
 
 	bool ReadVer(rapidjson::Document &doc, Version &ver)
@@ -52,6 +58,7 @@ public:
 	}
 
 	virtual void Serialize(DATA &data) = 0;
+	virtual void Serialize2(DATA &data, rapidjson::Writer<rapidjson::StringBuffer> &writer) = 0;
 	virtual bool Deserialize(rapidjson::StringBuffer::Ch *str, DATA &data) = 0;
 protected:
 	Version m_ver;

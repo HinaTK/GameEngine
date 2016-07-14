@@ -16,6 +16,9 @@
     <Filter Include="world">
       <UniqueIdentifier>{0188fdbe-4437-4b4f-a44a-ddbbb8ba2a38}</UniqueIdentifier>
     </Filter>
+    <Filter Include="data">
+      <UniqueIdentifier>{628aa6e5-a3ef-4a8c-9b90-ee444c1693d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\GameServer\frame\main.cpp">
@@ -35,6 +38,9 @@
     </ClCompile>
     <ClCompile Include="..\GameServer\world\worldmanager.cpp">
       <Filter>world</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\data\sql.cpp">
+      <Filter>data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +62,9 @@
     </ClInclude>
     <ClInclude Include="..\GameServer\world\worldmanager.h">
       <Filter>world</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\data\sql.h">
+      <Filter>data</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -27,12 +27,12 @@ enum
 		return Error(ERR_IS_NOT_OBJECT); \
 	}
 
-#define JSON_WRITE_BASE_ARRAY_BEGIN(Name)\
-	m_writer.Key(Name); \
-	m_writer.StartArray();
+#define JSON_WRITE_BASE_ARRAY_BEGIN(Writer, Name)\
+	Writer.Key(Name); \
+	Writer.StartArray();
 
-#define JSON_WRITE_BASE_ARRAY_END()\
-	m_writer.EndArray();
+#define JSON_WRITE_BASE_ARRAY_END(Writer)\
+	Writer.EndArray();
 
 #define JSON_READ_BASE_ARRAY_BEGIN(Name)\
 	if (doc.HasMember(Name) && doc[Name].IsArray()){ \
@@ -64,17 +64,17 @@ enum
 
 
 // 以下一一对应
-#define JSON_WRITE_TWO_ARRAY_BEGIN(Name, Vector, Itr)\
-	m_writer.Key(Name);\
-	m_writer.StartArray();\
+#define JSON_WRITE_TWO_ARRAY_BEGIN(Writer, Name, Vector, Itr)\
+	Writer.Key(Name); \
+	Writer.StartArray(); \
 	for (Itr itr = Vector.begin(); itr != Vector.end(); ++itr)\
 	{\
-		m_writer.StartArray();
+		Writer.StartArray();
 	
-#define JSON_WRITE_TWO_ARRAY_END() \
-		m_writer.EndArray();\
+#define JSON_WRITE_TWO_ARRAY_END(Writer) \
+		Writer.EndArray(); \
 	}\
-	m_writer.EndArray();
+	Writer.EndArray();
 
 #define JSON_READ_TWO_ARRAY_BEGIN(Name)\
 	if (doc.HasMember(Name) && doc[Name].IsArray()){\
@@ -92,14 +92,14 @@ enum
 		}\
 	}
 
-#define JSON_WRITE_ARRAY_INT_SET(Name, Set)\
-	m_writer.Key(Name); \
-	m_writer.StartArray(); \
+#define JSON_WRITE_ARRAY_INT_SET(Writer, Name, Set)\
+	Writer.Key(Name); \
+	Writer.StartArray(); \
 	for (std::set<int>::iterator itr = Set.begin(); itr != Set.end(); ++itr)\
 	{\
-		JsonWrite(m_writer, *itr); \
+		JsonWrite(Writer, *itr); \
 	}\
-	m_writer.EndArray();
+	Writer.EndArray();
 
 
 #define JSON_READ_ARRAY_INT_SET(Name, Set) \

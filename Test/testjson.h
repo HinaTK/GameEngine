@@ -101,8 +101,7 @@ namespace TestJson
 		std::vector<Item> item_list2;
 
 		typedef std::map<int, Item2> DataMap;
-		std::map<int, Item2> item_list3;
-		typedef std::map<int, Item2>::iterator Iterator;
+		DataMap item_list3;
 	};
 
 	void DataInit(Data &data)
@@ -123,51 +122,69 @@ namespace TestJson
 		item2.level = 4; item2.star = 5;
 		data.item_list3[2] = item2;
 	}
-// 
-// 	void Test6()
-// 	{
-// 		Data data;
-// 		DataInit(data);
-// 
-// 		StringBuffer s;
-// 		Writer<StringBuffer> writer(s);
-// 		const StringBuffer::Ch *ret;
-// 
-// 		unsigned long begin = GetTickCount();
-// 		for (int i = 0; i < TEST_TIME; ++i)
-// 		{
-// 			writer.StartObject();
-// 			writer.Key("base");
-// 			writer.StartArray();                // Between StartArray()/EndArray(),
-// 			JsonWrite(writer, data.item_id);
-// 			JsonWrite(writer, data.item_num);
-// 			writer.EndArray();
-// 			writer.Key("item_list");
-// 			writer.StartArray();
-// 			for (std::set<int>::iterator itr = data.item_list.begin(); itr != data.item_list.end(); ++itr)
-// 			{
-// 				JsonWrite(writer, *itr);
-// 			}
-// 			writer.EndArray();
-// 			writer.Key("item_list2");
-// 			writer.StartArray();
-// 			for (std::vector<Item>::iterator itr = data.item_list2.begin(); itr != data.item_list2.end(); ++itr)
-// 			{
-// 				writer.StartArray();
-// 				JsonWrite(writer, itr->id);
-// 				JsonWrite(writer, itr->level);
-// 				writer.EndArray();
-// 			}
-// 			writer.EndArray();
-// 			writer.EndObject();
-// 
-// 			ret = s.GetString();
-// 			s.Clear();
-// 			writer.Reset(s);
-// 		}
-// 
-// 		cout << GetTickCount() - begin << " ms" << endl;
-// 
+
+	void Test6()
+	{
+		Data data;
+		DataInit(data);
+
+		StringBuffer s;
+		Writer<StringBuffer> writer(s);
+		const StringBuffer::Ch *ret;
+
+		unsigned long begin = GetTickCount();
+		for (int i = 0; i < TEST_TIME; ++i)
+		{
+			writer.StartObject();
+
+			writer.Key("ver");
+			writer.Int(data.ver);
+
+			writer.Key("base");
+			writer.StartArray();                // Between StartArray()/EndArray(),
+			JsonWrite(writer, data.item_id);
+			JsonWrite(writer, data.item_num);
+			writer.EndArray();
+
+			writer.Key("item_list");
+			writer.StartArray();
+			for (std::set<int>::iterator itr = data.item_list.begin(); itr != data.item_list.end(); ++itr)
+			{
+				JsonWrite(writer, *itr);
+			}
+			writer.EndArray();
+
+			writer.Key("item_list2");
+			writer.StartArray();
+			for (std::vector<Item>::iterator itr = data.item_list2.begin(); itr != data.item_list2.end(); ++itr)
+			{
+				writer.StartArray();
+				JsonWrite(writer, itr->id);
+				JsonWrite(writer, itr->level);
+				writer.EndArray();
+			}
+			writer.EndArray();
+
+			writer.Key("item_list3");
+			writer.StartArray();
+			for (Data::DataMap::iterator itr = data.item_list3.begin(); itr != data.item_list3.end(); ++itr)
+			{
+				writer.StartArray();
+				JsonWrite(writer, itr->first);
+				JsonWrite(writer, itr->second.level);
+				JsonWrite(writer, itr->second.star);
+				writer.EndArray();
+			}
+			writer.EndArray();
+
+			writer.EndObject();
+
+			ret = s.GetString();
+			writer.Reset(s);
+		}
+
+		cout << GetTickCount() - begin << " ms" << endl;
+
 // 		Document doc;
 // 		if (doc.ParseInsitu((StringBuffer::Ch *)ret).HasParseError())
 // 		{
@@ -212,7 +229,7 @@ namespace TestJson
 // 				int c = dataArray[2].GetInt();
 // 			}
 // 		}
-// 	}
+	}
 
 	void Test7()
 	{
@@ -341,26 +358,52 @@ namespace TestJson
 			m_writer.StartObject();
 			WriteVer(data);
 
-			JSON_WRITE_BASE_ARRAY_BEGIN(FIELD_BASE_NAME);
+			JSON_WRITE_BASE_ARRAY_BEGIN(m_writer, FIELD_BASE_NAME);
 			JsonWrite(m_writer, data.item_id);
 			JsonWrite(m_writer, data.item_num);
-			JSON_WRITE_BASE_ARRAY_END();
+			JSON_WRITE_BASE_ARRAY_END(m_writer);
 
-			JSON_WRITE_ARRAY_INT_SET("item_list", data.item_list);
+			JSON_WRITE_ARRAY_INT_SET(m_writer, "item_list", data.item_list);
 			
-			JSON_WRITE_TWO_ARRAY_BEGIN("item_list2", data.item_list2, std::vector<Item>::iterator);
+			JSON_WRITE_TWO_ARRAY_BEGIN(m_writer, "item_list2", data.item_list2, std::vector<Item>::iterator);
 			JsonWrite(m_writer, itr->id);
 			JsonWrite(m_writer, itr->level);
-			JSON_WRITE_TWO_ARRAY_END();
+			JSON_WRITE_TWO_ARRAY_END(m_writer);
 
-			JSON_WRITE_TWO_ARRAY_BEGIN("item_list3", data.item_list3, Data::DataMap::iterator);
+			JSON_WRITE_TWO_ARRAY_BEGIN(m_writer, "item_list3", data.item_list3, Data::DataMap::iterator);
 			JsonWrite(m_writer, itr->first);
 			JsonWrite(m_writer, itr->second.level);
 			JsonWrite(m_writer, itr->second.star);
-			JSON_WRITE_TWO_ARRAY_END();
+			JSON_WRITE_TWO_ARRAY_END(m_writer);
 			m_writer.EndObject();
 
 			auto ret = m_s.GetString();
+		}
+
+		void inline Serialize2(TestJson::Data &data, rapidjson::Writer<rapidjson::StringBuffer> &writer)
+		{
+			writer.StartObject();
+			WriteVer2(writer, data);
+
+			JSON_WRITE_BASE_ARRAY_BEGIN(writer, FIELD_BASE_NAME);
+			JsonWrite(writer, data.item_id);
+			JsonWrite(writer, data.item_num);
+			JSON_WRITE_BASE_ARRAY_END(writer);
+
+			JSON_WRITE_ARRAY_INT_SET(writer, "item_list", data.item_list);
+
+			JSON_WRITE_TWO_ARRAY_BEGIN(writer, "item_list2", data.item_list2, std::vector<Item>::iterator);
+			JsonWrite(writer, itr->id);
+			JsonWrite(writer, itr->level);
+			JSON_WRITE_TWO_ARRAY_END(writer);
+
+			JSON_WRITE_TWO_ARRAY_BEGIN(writer, "item_list3", data.item_list3, Data::DataMap::iterator);
+			JsonWrite(writer, itr->first);
+			JsonWrite(writer, itr->second.level);
+			JsonWrite(writer, itr->second.star);
+			JSON_WRITE_TWO_ARRAY_END(writer);
+			writer.EndObject();
+
 		}
 
 		bool Deserialize(StringBuffer::Ch *str, Data &data)
@@ -408,6 +451,48 @@ namespace TestJson
 		t.Deserialize(dd, data2);
 	}
 
+	void Test11()
+	{
+		// http://www.oschina.net/code/snippet_566882_18509
+	}
+
+	void Test12()
+	{
+		//rapidjson::Document::AllocatorType allocator;
+		//rapidjson::StringBuffer sb(&allocator);
+		
+		Data data;
+		DataInit(data);
+
+		rapidjson::StringBuffer s;
+		rapidjson::Writer<rapidjson::StringBuffer> writer(s);
+		const StringBuffer::Ch *ret;
+
+		unsigned long begin = GetTickCount();
+		
+		TTTT t;
+		for (int i = 0; i < TEST_TIME; ++i)
+		{
+			t.Serialize2(data, writer);
+			ret = s.GetString();
+			writer.Reset(s);
+		}
+		cout << GetTickCount() - begin << " ms" << endl;
+	}
+
+	void Test13()
+	{
+		Data data;
+		DataInit(data);
+		unsigned long begin = GetTickCount();
+		for (int i = 0; i < TEST_TIME; ++i)
+		{
+			TTTT t;
+			t.Serialize(data);
+		}
+		cout << GetTickCount() - begin << " ms" << endl;
+
+	}
 }
 
 
