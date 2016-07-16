@@ -87,8 +87,8 @@ void NetManager::AsyncConnect(const char *ip, unsigned short port, Listener *lis
 	listener->m_msg_index = AddMsgHandler(call_back);
 	listener->m_sock = sock;
 	SocketMsg::AddHandler ah;
-	ah.data.flag = flag;
-	ah.data.listener = (void *)listener;
+	ah.flag = flag;
+	ah.listener = (void *)listener;
 	m_thread->PushMsg(new ThreadMsg(SocketMsg::STM_ADD_HANDLER, -1, sizeof(SocketMsg::AddHandler), (const char *)&ah));
 }
 

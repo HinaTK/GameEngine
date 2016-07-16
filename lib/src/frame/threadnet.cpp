@@ -56,11 +56,11 @@ void ThreadNet::RecvData(short type, int sid, int len, const char *data)
 
 void ThreadNet::AddHandler(const char *data)
 {
-	SocketMsg::AddHandler::Data *ad = (SocketMsg::AddHandler::Data *)data;
+	SocketMsg::AddHandler *sa = (SocketMsg::AddHandler *)data;
 	SocketMsg::AddHandlerRet::Data ard;
-	NetHandler *handler = (NetHandler *)ad->listener;
+	NetHandler *handler = (NetHandler *)sa->listener;
 	ard.handle = AddNetHandler(handler);
-	ard.flag = ad->flag;
+	ard.flag = sa->flag;
 	m_net_manager->PushMsg(handler, BaseMsg::MSG_ACCEPT, (const char *)&ard, sizeof(SocketMsg::AddHandlerRet::Data));
 }
 

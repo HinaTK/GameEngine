@@ -20,12 +20,8 @@ namespace SocketMsg
 
 	struct AddHandler
 	{
-		BindProto(AddHandler, STM_ADD_HANDLER);
-		struct Data
-		{
-			int flag;
-			void *listener;
-		}data;
+		int flag;
+		void *listener;
 	};
 
 	struct AddHandlerRet
