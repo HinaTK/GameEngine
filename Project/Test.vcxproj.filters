@@ -10,9 +10,6 @@
     <Filter Include="other">
       <UniqueIdentifier>{31661adf-b8cb-47b3-9e3e-70dc8840554c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="global">
-      <UniqueIdentifier>{939f9bf2-71f8-4aaa-9fe9-e10b53501d8c}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Test\lua\luatest.h">
@@ -32,9 +29,6 @@
     </ClInclude>
     <ClInclude Include="..\Test\testlog.h" />
     <ClInclude Include="..\Test\testdatastructure.h" />
-    <ClInclude Include="..\common\globalclass.h">
-      <Filter>global</Filter>
-    </ClInclude>
     <ClInclude Include="..\Test\testserializer.h" />
     <ClInclude Include="..\Test\testmemory.h" />
     <ClInclude Include="..\Test\testother.h" />
@@ -47,8 +41,5 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Test\main.cpp" />
-    <ClCompile Include="..\common\globalclass.cpp">
-      <Filter>global</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

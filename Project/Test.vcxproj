@@ -11,11 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\common\globalclass.cpp" />
     <ClCompile Include="..\Test\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\common\globalclass.h" />
     <ClInclude Include="..\Test\testcache.h" />
     <ClInclude Include="..\Test\testchrono.h" />
     <ClInclude Include="..\Test\testdatastructure.h" />
