@@ -16,63 +16,47 @@ static inline bool	JsonWrite(rapidjson::Writer<rapidjson::StringBuffer> &writer,
 static inline bool	JsonWrite(rapidjson::Writer<rapidjson::StringBuffer> &writer, double val){ return writer.Double(val); }
 
 static const char *FIELD_BASE_NAME = "base";
+static const char *FIELD_VER_NAME = "ver";
+
 typedef unsigned short Version;
 
-template<class DATA> 
 class Field
 {
 public:
-	Field(const char *name, Version ver = 0)
-		: m_name(name)
-		, m_ver(ver)
-		, m_err(0)
-		, m_err_line(0){}
-	~Field(){};
+	Field(Version _ver) :m_dirty(false), ver(_ver){}
+	virtual ~Field(){}
 
-	
+	void	SetDirty(){ m_dirty = true; }
+	void	UnsetDirty(){ m_dirty = false; }
 
 	inline bool Error(int err){ m_err = err; return false; }
 	inline bool Error(int err, int line){ m_err = err; m_err_line = line;  return false; }
 
-	bool inline WriteVer(rapidjson::Writer<rapidjson::StringBuffer> &writer, DATA &data)
+	bool inline WriteVer(rapidjson::Writer<rapidjson::StringBuffer> &writer)
 	{
-		writer.Key("ver");
-		return writer.Int(data.ver);
+		writer.Key(FIELD_VER_NAME);
+		return writer.Int(ver);
 	}
 
-	bool ReadVer(rapidjson::Document &doc, Version &ver)
+	bool ReadVer(rapidjson::Document &doc)
 	{
-		if (doc.HasMember("ver") && doc["ver"].IsInt())
+		if (doc.HasMember(FIELD_VER_NAME) && doc[FIELD_VER_NAME].IsInt())
 		{
-			ver = (Version)doc["ver"].GetInt();
+			ver = (Version)doc[FIELD_VER_NAME].GetInt();
+			return true;
 		}
 		m_err = ERR_NO_THIS_FIELD;
 		return false;
 	}
 
-	virtual void Serialize(DATA &data, rapidjson::Writer<rapidjson::StringBuffer> &writer) = 0;
-	virtual bool Deserialize(rapidjson::StringBuffer::Ch *str, DATA &data) = 0;
-protected:
-	Version m_ver;
-	std::string m_name;
-
-	int m_err;
-	int m_err_line;
-};
-
-class Model
-{
-public:
-	Model(Version _ver) :m_dirty(false), ver(_ver){}
-	virtual ~Model(){}
-
-	void	SetDirty(){ m_dirty = true; }
-	void	UnsetDirty(){ m_dirty = false; }
+	virtual bool Serialize(rapidjson::Writer<rapidjson::StringBuffer> &writer, std::string &str) = 0;
 
 	Version ver;
 
 protected:
 	bool	m_dirty;
+	int m_err;
+	int m_err_line;
 };
 
 #endif
