@@ -4,30 +4,21 @@
     <Filter Include="src">
       <UniqueIdentifier>{81809da7-320e-4eab-9e1a-0524eb897d65}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\3rd">
-      <UniqueIdentifier>{ec0bb91e-2fa4-45ff-a669-3736862a7588}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\include\http\httplistener.h">
+    <ClInclude Include="..\..\lib\include\robot\inaccepter.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\http\httpaccepter.h">
+    <ClInclude Include="..\..\lib\include\robot\inlistener.h">
       <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\src\http\3rd\http_parser.h">
-      <Filter>src\3rd</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lib\src\http\httplistener.cpp">
+    <ClCompile Include="..\..\lib\src\robot\inaccepter.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\http\httpaccepter.cpp">
+    <ClCompile Include="..\..\lib\src\robot\inlistener.cpp">
       <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\lib\src\http\3rd\http_parser.c">
-      <Filter>src\3rd</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

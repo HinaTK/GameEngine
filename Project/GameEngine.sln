@@ -29,6 +29,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Base", "..\LibProject\Base\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mysql", "..\LibProject\Mysql\Mysql.vcxproj", "{C772D1D6-2CD2-4F2A-A9DA-3D2A0D65A3F8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Robot", "..\LibProject\Robot\Robot.vcxproj", "{D8DA1795-F1E8-414A-A66C-295E40391C19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -159,6 +161,16 @@ Global
 		{C772D1D6-2CD2-4F2A-A9DA-3D2A0D65A3F8}.Release|Win32.ActiveCfg = Release|Win32
 		{C772D1D6-2CD2-4F2A-A9DA-3D2A0D65A3F8}.Release|Win32.Build.0 = Release|Win32
 		{C772D1D6-2CD2-4F2A-A9DA-3D2A0D65A3F8}.Release|x64.ActiveCfg = Release|Win32
+		{D8DA1795-F1E8-414A-A66C-295E40391C19}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{D8DA1795-F1E8-414A-A66C-295E40391C19}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{D8DA1795-F1E8-414A-A66C-295E40391C19}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D8DA1795-F1E8-414A-A66C-295E40391C19}.Debug|Win32.Build.0 = Debug|Win32
+		{D8DA1795-F1E8-414A-A66C-295E40391C19}.Debug|x64.ActiveCfg = Debug|Win32
+		{D8DA1795-F1E8-414A-A66C-295E40391C19}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{D8DA1795-F1E8-414A-A66C-295E40391C19}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{D8DA1795-F1E8-414A-A66C-295E40391C19}.Release|Win32.ActiveCfg = Release|Win32
+		{D8DA1795-F1E8-414A-A66C-295E40391C19}.Release|Win32.Build.0 = Release|Win32
+		{D8DA1795-F1E8-414A-A66C-295E40391C19}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,5 +184,6 @@ Global
 		{8F0F74CF-3672-4629-98D4-322BA0ACFC7B} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
 		{1AE5D021-4DD2-4E82-8FF5-8455C60BD56B} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
 		{C772D1D6-2CD2-4F2A-A9DA-3D2A0D65A3F8} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
+		{D8DA1795-F1E8-414A-A66C-295E40391C19} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
 	EndGlobalSection
 EndGlobal

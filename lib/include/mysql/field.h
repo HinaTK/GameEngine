@@ -25,7 +25,6 @@ public:
 	Field(const char *name, Version ver = 0)
 		: m_name(name)
 		, m_ver(ver)
-		, m_writer(m_s)
 		, m_err(0)
 		, m_err_line(0){}
 	~Field(){};
@@ -35,13 +34,7 @@ public:
 	inline bool Error(int err){ m_err = err; return false; }
 	inline bool Error(int err, int line){ m_err = err; m_err_line = line;  return false; }
 
-	bool inline WriteVer(DATA &data)
-	{
-		m_writer.Key("ver");
-		return m_writer.Int(data.ver);
-	}
-
-	bool inline WriteVer2(rapidjson::Writer<rapidjson::StringBuffer> &writer, DATA &data)
+	bool inline WriteVer(rapidjson::Writer<rapidjson::StringBuffer> &writer, DATA &data)
 	{
 		writer.Key("ver");
 		return writer.Int(data.ver);
@@ -57,15 +50,11 @@ public:
 		return false;
 	}
 
-	virtual void Serialize(DATA &data) = 0;
-	virtual void Serialize2(DATA &data, rapidjson::Writer<rapidjson::StringBuffer> &writer) = 0;
+	virtual void Serialize(DATA &data, rapidjson::Writer<rapidjson::StringBuffer> &writer) = 0;
 	virtual bool Deserialize(rapidjson::StringBuffer::Ch *str, DATA &data) = 0;
 protected:
 	Version m_ver;
 	std::string m_name;
-
-	rapidjson::StringBuffer m_s;
-	rapidjson::Writer<rapidjson::StringBuffer> m_writer;
 
 	int m_err;
 	int m_err_line;
