@@ -26,5 +26,6 @@ void FieldManager::Serialize(std::string &str)
 		}
 		str += temp + ",";
 	}
+	str.replace(str.size() - 1, 1, ";");
 }
 
