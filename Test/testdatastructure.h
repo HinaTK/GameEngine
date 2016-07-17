@@ -2,6 +2,7 @@
 #ifndef TEST_DATASTRUCTURE_H
 #define TEST_DATASTRUCTURE_H
 
+#include <windows.h>
 #include <time.h>
 #include <string>
 #include <set>
@@ -17,7 +18,6 @@
 #include "common/datastructure/sortmap.h"
 #include "common/datastructure/gamelist.h"
 #include "common/datastructure/gamehash.h"
-#include "lib/include/timemanager/gametime.h"
 
 namespace TestDataStructure
 {
@@ -447,6 +447,42 @@ namespace TestDataStructure
 // 
 // 		printf("test4 %s\n", test4["xian"]);
 
+	}
+
+	void TestHash2()
+	{
+		int num = 100000;
+		game::Hash<int, int> test;
+		for (int i = 0; i < 256; ++i)
+		{
+			test.Push(i, i);
+		}
+		unsigned long begin = GetTickCount();
+		for (int i = 0; i < num; ++i)
+		{
+			for (game::Hash<int, int>::iterator itr = test.Begin(); itr != test.End(); ++itr)
+			{
+			}
+		}
+		printf("%d ms\n", GetTickCount() - begin);
+	}
+
+	void TestHash3()
+	{
+		int num = 100000;
+		std::map<int, int> test;
+		for (int i = 0; i < 256; ++i)
+		{
+			test[i] = i;
+		}
+		unsigned long begin = GetTickCount();
+		for (int i = 0; i < num; ++i)
+		{
+			for (std::map<int, int>::iterator itr = test.begin(); itr != test.end(); ++itr)
+			{
+			}
+		}
+		printf("%d ms\n", GetTickCount() - begin);
 	}
 
 	int test_time = 50000000;

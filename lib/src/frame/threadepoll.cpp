@@ -19,7 +19,7 @@ SocketThread::~SocketThread()
 
 void SocketThread::ClearHandler()
 {
-	struct epoll_event ev;
+    struct epoll_event ev;
 
     for (INVALID_HANDLE::iterator itr = m_invalid_handle.Begin(); itr != m_invalid_handle.End(); ++itr)
     {
@@ -31,7 +31,7 @@ void SocketThread::ClearHandler()
             epoll_ctl(m_epoll_fd, EPOLL_CTL_DEL, handler->m_sock, &ev);
 
             NetCommon::Close(handler->m_sock);
-            m_net_manager->PushMsg(handler, BaseMsg::MSG_DISCONNECT, (const char *)&itr->reason, sizeof(itr->reason));
+            m_net_manager->PushMsg(handler, BaseMsg::MSG_DISCONNECT, (const char *)&itr->show, sizeof(itr->show));
             delete handler;
         }
     }
@@ -63,7 +63,7 @@ bool SocketThread::Run()
 
 void SocketThread::InitNetHandler(NetHandler *handler)
 {
-	 unsigned long b = 1;
+     unsigned long b = 1;
     NetCommon::Ioctl(handler->m_sock, FIONBIO, &b);
 
     struct epoll_event ev;
@@ -77,7 +77,7 @@ void SocketThread::InitNetHandler(NetHandler *handler)
 
 void SocketThread::SetCanWrite(NetHandler *handler)
 {
-	struct epoll_event ev;
+    struct epoll_event ev;
     ev.events = EPOLLIN | EPOLLOUT | EPOLLET;
     ev.data.ptr = (void *)handler;
     if (epoll_ctl(m_epoll_fd, EPOLL_CTL_MOD, handler->m_sock, &ev) == -1)
@@ -88,7 +88,7 @@ void SocketThread::SetCanWrite(NetHandler *handler)
 
 void SocketThread::SetCanNotWrite(NetHandler *handler)
 {
-	struct epoll_event ev;
+    struct epoll_event ev;
     ev.events = EPOLLIN | EPOLLET;
     ev.data.ptr = (void *)handler;
     if (epoll_ctl(m_epoll_fd, EPOLL_CTL_MOD, handler->m_sock, &ev) == -1)

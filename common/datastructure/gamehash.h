@@ -20,7 +20,6 @@ namespace game
 	public:
 		Hash(unsigned int size = 256)
 			: m_size((size <= 0) ? 1 : size)
-			, m_memory_pool(sizeof(KeyNode), m_size / 2)
 		{
 			m_hash_list = (KeyNode **)malloc(m_size * sizeof(KeyNode*));
 			memset(m_hash_list, NULL, m_size * sizeof(KeyNode*));
@@ -39,7 +38,7 @@ namespace game
 				do
 				{
 					temp_node = next_node->next;
-					m_memory_pool.Free(next_node);
+					delete next_node;
 					next_node = temp_node;
 				} while (next_node != NULL);
 			}
@@ -78,7 +77,6 @@ namespace game
 		unsigned int	m_size;
 		KeyNode			**m_hash_list;
 		_Array			m_value_array;	// 所有数据保存的数据结构
-		MemoryPool		m_memory_pool;
 		V				m_nil;
 	};
 
@@ -87,7 +85,7 @@ namespace game
 	{
 		unsigned int real_key = key % m_size;
 
-		KeyNode *node = (KeyNode *)m_memory_pool.Alloc();
+		KeyNode *node = new KeyNode;
 		node->key = key;
 		node->array_key = m_value_array.Insert(val);
 
@@ -126,7 +124,7 @@ namespace game
 					m_hash_list[real_key] = node->next;
 				}
 				m_value_array.Erase(node->array_key);
-				m_memory_pool.Free(node);
+				delete node;
 				break;
 			}
 			frontNode = node;
@@ -144,13 +142,11 @@ namespace game
 		{
 			if (node->key == key)
 			{
-				goto HASVAL;
+				return *(m_value_array.Find(node->array_key));
 			}
 			node = node->next;
 		}
-		return m_nil;
-	HASVAL:;
-		return *(m_value_array.Find(node->array_key));
+		return m_nil;	
 	}
 }
 #endif

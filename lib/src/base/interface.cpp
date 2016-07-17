@@ -63,23 +63,22 @@ std::string Base::MD5Encrypt(const unsigned char *input, size_t length)
 	return md5.toString();
 }
 
-void * Time::NewTimerManager()
-{
-	return new TimerManager();
-}
-
-void * Time::NewGameTime()
-{
-	return new GameTime();
-}
-
 void Time::Sleep(unsigned int ms)
 {
 #ifdef __unix
 	usleep((ms << 10) - (ms << 4) - (ms << 3));		// 经测试，这种方法在linux下执行得更快一些（windows下差不多）
-	//Sleep(ms);
 #endif
 #ifdef WIN32
 	::Sleep(ms);
 #endif
+}
+
+GameTime * Time::_GameTime()
+{
+	return new GameTime();
+}
+
+TimerManager * Time::_TimerManager()
+{
+	return new TimerManager();
 }

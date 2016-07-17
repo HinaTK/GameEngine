@@ -79,7 +79,6 @@ public:
 		MSG_ACCEPT = 0,
 		MSG_RECV,
 		MSG_DISCONNECT,
-		MSG_CONNECT,
 		MSG_MAX
 	};
 

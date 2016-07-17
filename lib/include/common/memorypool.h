@@ -46,8 +46,7 @@ namespace PoolNameSpace\
 }\
 	void *ClassName::operator new(size_t size)\
 {\
-	void *mem = PoolNameSpace::g_##ClassName##_mem_pool.Alloc();\
-	return mem;\
+	return (void *)PoolNameSpace::g_##ClassName##_mem_pool.Alloc(); \
 }\
 	void ClassName::operator delete(void *m)\
 {\

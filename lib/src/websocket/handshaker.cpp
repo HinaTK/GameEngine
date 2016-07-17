@@ -8,7 +8,7 @@
 #include "lib/sha1.h"
 #include "lib/base64.h"
 
-REGISTER_MEMORYPOOL(memorypool, HandShaker, 64);
+REGISTER_SAFE_MEMORYPOOL(memorypool, HandShaker, 64);
 
 class HandShakeInfo
 {

@@ -4,24 +4,32 @@
 
 #include <string>
 
+#ifdef WIN32
+#define EXPORT _declspec(dllexport)
+#else
+#define EXPORT 
+#endif // WIN32
+
 namespace Base
 {
-	_declspec(dllexport) void encrypt128(unsigned char *in, unsigned char *out);
+	EXPORT void encrypt128(unsigned char *in, unsigned char *out);
 
-	_declspec(dllexport) void decrypt128(unsigned char *in, unsigned char *out);
+	EXPORT void decrypt128(unsigned char *in, unsigned char *out);
 
-	_declspec(dllexport) std::string MD5Encrypt(std::string &str);
+	EXPORT std::string MD5Encrypt(std::string &str);
 	
-	_declspec(dllexport) std::string MD5Encrypt(const unsigned char *input, size_t length);
+	EXPORT std::string MD5Encrypt(const unsigned char *input, size_t length);
 }
 
+class GameTime;
+class TimerManager;
 namespace Time
 {
-	_declspec(dllexport) void *NewTimerManager();
+	EXPORT TimerManager *_TimerManager();
 
-	_declspec(dllexport) void *NewGameTime();
+	EXPORT void Sleep(unsigned int ms);
 
-	_declspec(dllexport) void Sleep(unsigned int ms);
+	EXPORT GameTime * _GameTime();
 }
 
 #endif

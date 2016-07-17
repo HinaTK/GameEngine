@@ -11,15 +11,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\include\math\gamemath.h" />
+    <ClInclude Include="..\..\lib\include\http\httpaccepter.h" />
+    <ClInclude Include="..\..\lib\include\http\httplistener.h" />
+    <ClInclude Include="..\..\lib\src\http\3rd\http_parser.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lib\src\math\gamemath.cpp" />
+    <ClCompile Include="..\..\lib\src\http\3rd\http_parser.c" />
+    <ClCompile Include="..\..\lib\src\http\httpaccepter.cpp" />
+    <ClCompile Include="..\..\lib\src\http\httplistener.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{B1B3BE4E-F793-4188-B54C-BF47549EE59E}</ProjectGuid>
+    <ProjectGuid>{B16E656B-DA3B-48E7-A5E0-A8CC338A0673}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Tinyxml</RootNamespace>
+    <RootNamespace>Cache</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -46,9 +50,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>..\..\lib\include;..\..\lib\include\http;..\..\;$(IncludePath)</IncludePath>
     <OutDir>..\..\lib\windows</OutDir>
     <IntDir>..\..\lib\temp</IntDir>
-    <IncludePath>..\..\lib\include;..\..\;..\..\lib\include\math;$(IncludePath)</IncludePath>
+    <TargetName>Http</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -56,7 +61,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>

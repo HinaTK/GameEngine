@@ -8,8 +8,8 @@
 #include "lib/include/common/mem.h"
 #include "lib/include/common/memorypool.h"
 
-REGISTER_MEMORYPOOL(memorypool, RecvBuffer, 256);
-REGISTER_MEMORYPOOL(memorypool, SendBuffer, 256);
+REGISTER_SAFE_MEMORYPOOL(memorypool, RecvBuffer, 256);
+REGISTER_SAFE_MEMORYPOOL(memorypool, SendBuffer, 256);
 
 BufManager::BufManager(unsigned int size)
 : m_buf(Mem::Alloc(size))

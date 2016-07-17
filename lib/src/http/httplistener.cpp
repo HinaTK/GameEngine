@@ -2,7 +2,7 @@
 #include "httplistener.h"
 #include "3rd/http_parser.h"
 
-REGISTER_MEMORYPOOL(memorypool, HttpListener, 32);
+REGISTER_SAFE_MEMORYPOOL(memorypool, HttpListener, 32);
 
 /*
 	todo

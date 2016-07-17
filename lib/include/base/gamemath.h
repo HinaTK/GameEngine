@@ -5,6 +5,12 @@
 
 #include "common/datastructure/vector2d.h"
 
+#ifdef WIN32
+#define EXPORT _declspec(dllexport)
+#else
+#define EXPORT 
+#endif // WIN32
+
 typedef short				Coord;		// 坐标类型
 typedef double				Radian;		// 弧度
 typedef Vector2D<Coord>		Posi;
@@ -20,13 +26,13 @@ private:
 	unsigned int seed;
 };
 
-namespace game
+namespace Math
 {
-	bool	InRect(Posi &A, Posi &B, Posi &C, double W);
+	EXPORT bool	InRect(Posi &A, Posi &B, Posi &C, double W);
 
-	bool	InSector(Posi A, Posi B, Posi C, double angle);
+	EXPORT bool	InSector(Posi A, Posi B, Posi C, double angle);
 
-	RandUnit *srand(unsigned int seed);
+	EXPORT RandUnit *srand(unsigned int seed);
 }
 
 #endif

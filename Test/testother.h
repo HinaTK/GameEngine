@@ -73,7 +73,7 @@ namespace TestOther
 
 	void Test5()
 	{
-		GameTime *test = (GameTime *)Time::NewGameTime();
+		GameTime *test = Time::_GameTime();
 		printf("vvvvvvvvvvvvv %d\n", test->Start());
 		delete test;
 	}

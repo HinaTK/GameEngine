@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include <string>
 #include <stdint.h>
-// #include "testdatastructure.h"
+#include "testdatastructure.h"
 // #include "testlog.h"
 // #include "testserializer.h"
-// #include "testmemory.h"
- #include "testother.h"
+#include "testmemory.h"
+#include "testother.h"
 #include "testjson.h"
 // #include "testcache.h"
 // #include "testredis.h"
@@ -16,26 +16,7 @@
 // #include "lib/include/math/gamemath.h"
 // #include "lib/include/frame/bufmanager.h"
 
-class A
-{
-public:
-
-	virtual void Show()
-	{
-		printf("class A\n");
-	}
-};
-
-class B : public A
-{
-public:
-
-	void Show()
-	{
-		A::Show();
-		printf("class B\n");
-	}
-};
+REGISTER_MEMORYPOOL(memorypool, TT, 32);
 
 // long long RandSeed = ####;
 // unsigned long Random(long max)
@@ -118,13 +99,15 @@ int main()
 	//TestDataStructure::TestList2();
 	//TestDataStructure::TestList3();
 	//TestDataStructure::TestHash();
+	//TestDataStructure::TestHash2();
+	//TestDataStructure::TestHash3();
 	
 	//TestDataStructure::TestMsgQueue2();
 	//TestOther::Test1();
 	//TestOther::Test2();
 	//TestOther::Test3();
 	//TestOther::Test4();
-	//TestOther::Test5();
+	TestOther::Test5();
 	//TestOther::Test6();
 	//TestOther::Test7();
 
@@ -150,13 +133,16 @@ int main()
 	//TestJson::Test3();
 	//TestJson::Test4();
 	//TestJson::Test5();
-	TestJson::Test6();
+	//TestJson::Test6();
 	//TestJson::Test7();
 	//TestJson::Test8();
 	//TestJson::Test9();
 	//TestJson::Test10();
 	//TestJson::Test12();
 	//TestJson::Test13();
+
+	//TestMemory::Test2();
+	//TestMemory::Test3();
 
 //	TestFrame::Instance().Init();
 //	TestFrame::Instance().Run();

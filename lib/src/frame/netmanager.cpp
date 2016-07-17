@@ -21,11 +21,11 @@ NetManager::~NetManager()
 {
 	for (MSG_HANDLER::iterator itr = m_msg_handler.Begin(); itr != m_msg_handler.End(); ++itr)
 	{
+		// 由于call back 由三个类型共同拥有，因此只delete一次
 		delete (*itr)->msg[BaseMsg::MSG_ACCEPT]->m_call_back;
 		delete (*itr)->msg[BaseMsg::MSG_ACCEPT];
 		delete (*itr)->msg[BaseMsg::MSG_RECV];
 		delete (*itr)->msg[BaseMsg::MSG_DISCONNECT];
-		delete (*itr)->msg[BaseMsg::MSG_CONNECT];
 		delete (*itr);
 	}
 }
@@ -92,6 +92,10 @@ void NetManager::AsyncConnect(const char *ip, unsigned short port, Listener *lis
 	m_thread->PushMsg(new ThreadMsg(SocketMsg::STM_ADD_HANDLER, -1, sizeof(SocketMsg::AddHandler), (const char *)&ah));
 }
 
+void NetManager::RemoveHandler(NetHandle handle)
+{
+	m_thread->PushMsg(new ThreadMsg(SocketMsg::STM_REMOVE_HANDLER, -1, sizeof(NetHandle), (const char *)&handle));
+}
 
 unsigned int NetManager::AddMsgHandler(MsgCallBack *call_back)
 {
@@ -99,7 +103,6 @@ unsigned int NetManager::AddMsgHandler(MsgCallBack *call_back)
 	mh->msg[BaseMsg::MSG_ACCEPT] = new AcceptMsg(call_back);
 	mh->msg[BaseMsg::MSG_RECV] = new RecvMsg(call_back);
 	mh->msg[BaseMsg::MSG_DISCONNECT] = new DisconnectMsg(call_back);
-	mh->msg[BaseMsg::MSG_CONNECT] = new ConnectMsg(call_back);
 	return m_msg_handler.Insert(mh);
 }
 

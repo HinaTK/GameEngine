@@ -5,7 +5,29 @@
 #include <thread>
 #include "lib/include/common/memoryvl.h"
 #include "lib/include/common/mem.h"
+#include "lib/include/common/memorypool.h"
 
+
+class TT
+{
+public:
+
+	void *		operator new(size_t c);
+	void		operator delete(void *m);
+
+	int a;
+	char d;
+	short c[32];
+};
+
+class TT2
+{
+public:
+
+	int a;
+	char d;
+	short c[32];
+};
 
 namespace TestMemory
 {
@@ -44,6 +66,28 @@ namespace TestMemory
 		{
 			t[i]->join();
 		}
+	}
+
+	void Test2()
+	{
+		unsigned long begin = GetTickCount();
+		for (int i = 0; i < 1000000; ++i)
+		{
+			TT *t = new TT();
+			delete t;
+		}
+		printf("%d ms\n", GetTickCount() - begin);
+	}
+
+	void Test3()
+	{
+		unsigned long begin = GetTickCount();
+		for (int i = 0; i < 1000000; ++i)
+		{
+			TT2 *t = new TT2();
+			delete t;
+		}
+		printf("%d ms\n", GetTickCount() - begin);
 	}
 
 	void TestMemoryVL()

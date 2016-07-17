@@ -4,7 +4,7 @@
 #include "netmanager.h"
 #include "common/socketdef.h"
 
-REGISTER_MEMORYPOOL(memorypool, BaseListener, 256);
+REGISTER_SAFE_MEMORYPOOL(memorypool, BaseListener, 256);
 
 BaseListener::BaseListener(SocketThread *t, int size)
 : Listener(t)

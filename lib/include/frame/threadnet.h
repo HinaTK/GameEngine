@@ -20,6 +20,8 @@ public:
 	virtual void	SetCanWrite(NetHandler *handler) = 0;
 	virtual void	SetCanNotWrite(NetHandler *handler) = 0;
 
+	virtual void	ClearHandler() = 0;
+
 	GameMsg *		CreateGameMsg(unsigned int msg_index, unsigned short msg_type, NetHandle handle, unsigned int length)
 	{ 
 		return m_net_manager->CreateMsg(msg_index, msg_type,handle, length);

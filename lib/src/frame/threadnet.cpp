@@ -49,6 +49,9 @@ void ThreadNet::RecvData(short type, int sid, int len, const char *data)
 		AddHandler(data);
 	case SocketMsg::STM_SEND_MSG:
 		SendMsg(sid, len, data);
+	case SocketMsg::STM_REMOVE_HANDLER:
+		RemoveHandler(*(NetHandle *)data, 0);
+		ClearHandler();
 	default:
 		break;
 	}

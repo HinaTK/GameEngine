@@ -13,7 +13,7 @@
 #include "lib/include/common/memorypool.h"
 #include "lib/include/timemanager/gametime.h"
 
-REGISTER_MEMORYPOOL(poolspace, Log, 16);
+REGISTER_SAFE_MEMORYPOOL(poolspace, Log, 16);
 
 Log::Log(const char *server_name, const char *log_name)
 : m_log_fp(NULL)

@@ -2,7 +2,7 @@
 
 #include "gamemath.h"
 
-bool game::InRect(Posi &A, Posi &B, Posi &C, double W)
+bool Math::InRect(Posi &A, Posi &B, Posi &C, double W)
 {
 	Posi P_ab = B - A;
 	Posi P_ac = C - A;
@@ -26,7 +26,7 @@ bool game::InRect(Posi &A, Posi &B, Posi &C, double W)
 // 		a向量 ×b向量＝a向量的模×b向量的模×COS C(C是两向量的夹角)
 // 		由已知得, 1 / 2＝1 * 1 * cos C
 // 		所以cos c = 1 / 2, 又因为0
-bool game::InSector(Posi A, Posi B, Posi C, double angle)
+bool Math::InSector(Posi A, Posi B, Posi C, double angle)
 {
 	Posi P_ab = B - A;
 	Posi P_ac = C - A;
@@ -54,7 +54,7 @@ bool game::InSector(Posi A, Posi B, Posi C, double angle)
 	return false;
 }
 
-RandUnit * game::srand(unsigned int seed)
+RandUnit * Math::srand(unsigned int seed)
 {
 	return new RandUnit(seed);
 }
