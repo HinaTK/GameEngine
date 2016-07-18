@@ -8,6 +8,7 @@
 #include "testmemory.h"
 #include "testother.h"
 #include "testjson.h"
+#include "testnet.h"
 // #include "testcache.h"
 // #include "testredis.h"
 // #include "testchrono.h"
@@ -107,9 +108,11 @@ int main()
 	//TestOther::Test2();
 	//TestOther::Test3();
 	//TestOther::Test4();
-	TestOther::Test5();
+	//TestOther::Test5();
 	//TestOther::Test6();
 	//TestOther::Test7();
+
+	TestNet::Test1();
 
 	//TestCache::TestDataQueue();
 	//TestCache::TestDataMap();

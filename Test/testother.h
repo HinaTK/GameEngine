@@ -95,6 +95,11 @@ namespace TestOther
 
 		ret = Base::MD5Encrypt((const unsigned char *)"jiaming", strlen("jiaming"));
 	}
+
+	void Test8()
+	{
+
+	}
 }
 
 #endif

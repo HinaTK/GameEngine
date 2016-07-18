@@ -38,6 +38,7 @@
     <ClInclude Include="..\Test\testmongo.h" />
     <ClInclude Include="..\Test\testhttp.h" />
     <ClInclude Include="..\Test\testjson.h" />
+    <ClInclude Include="..\Test\testnet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Test\main.cpp" />

@@ -43,6 +43,7 @@ unsigned long long GameTime::MilliSecond()
 #endif
 }
 
+
 unsigned long long GameTime::FrameTime()
 {
 	return m_frame_time_ms;
@@ -66,17 +67,6 @@ int GameTime::Hour()
 int GameTime::DaySecond()
 {
 	return m_sceond_id;
-}
-
-void GameTime::Sleep( unsigned int ms )
-{
-#ifdef __unix
-	usleep((ms << 10) - (ms << 4) - (ms << 3));		// 经测试，这种方法在linux下执行得更快一些（windows下差不多）
-	//Sleep(ms);
-#endif
-#ifdef WIN32
-	::Sleep(ms);
-#endif
 }
 
 void GameTime::Update()

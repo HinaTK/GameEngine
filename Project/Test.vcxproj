@@ -26,6 +26,7 @@
     <ClInclude Include="..\Test\testlog.h" />
     <ClInclude Include="..\Test\testmemory.h" />
     <ClInclude Include="..\Test\testmongo.h" />
+    <ClInclude Include="..\Test\testnet.h" />
     <ClInclude Include="..\Test\testother.h" />
     <ClInclude Include="..\Test\testredis.h" />
     <ClInclude Include="..\Test\testserializer.h" />
@@ -85,7 +86,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\lib\windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Json.lib;Tinyxml.lib;Frame.lib;Common.lib;Log.lib;Cache.lib;redis.lib;Thread.lib;Math.lib;Mongo.lib;Http.lib;Base.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Frame.lib;Common.lib;Thread.lib;Http.lib;Base.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>

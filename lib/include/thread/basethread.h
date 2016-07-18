@@ -19,7 +19,7 @@ public:
 		* 函数结束会被析构;
 		继承者自己在 init 中决定是否释放 arg
 	*/
-	BaseThread(ThreadManager *manager, void *arg, char exit = ThreadManager::EXIT_NORMAL);
+	BaseThread(void *arg, char exit = ThreadManager::EXIT_NORMAL);
 	virtual ~BaseThread();
 
 	void	SetID(int id){ m_id = id; }
@@ -40,7 +40,6 @@ protected:
 	virtual void	RecvData(short type, int sid, int len, const char *data) = 0;
 protected:
 	int				m_id;
-	ThreadManager	*m_manager;
 	std::thread		*m_thread;
 	bool			m_is_start;
 	bool			m_is_exit;

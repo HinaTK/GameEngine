@@ -17,6 +17,7 @@ REGISTER_SAFE_MEMORYPOOL(memorypool, HttpListener, 32);
 */
 
 //todo 预先搞一个http_parser对象池
+
 HttpListener::HttpListener(SocketThread *t, http_parser_settings *settings)
 : Listener(t)
 , m_parser(new http_parser)
