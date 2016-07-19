@@ -111,8 +111,9 @@ int main()
 	//TestOther::Test5();
 	//TestOther::Test6();
 	//TestOther::Test7();
+	TestOther::Test8();
 
-	TestNet::Test1();
+	//TestNet::Test1();
 
 	//TestCache::TestDataQueue();
 	//TestCache::TestDataMap();

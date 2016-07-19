@@ -1,13 +1,11 @@
 ﻿
 #include <string>
 #include "serverconfig.h"
-#include "lib/include/rapidjson/filereadstream.h"
 #include "lib/include/rapidjson/define.h"
-
-
+#include "lib/include/rapidjson/filereadstream.h"
 //#include "lib/include/tinyxml/tiny.h"
 
-static const std::string config_file("../config/server.json");
+static const std::string config_file("../config/server.xml");
 
 
 // bool ReadCenter(TiXmlElement* element, ServerInfo &info)
@@ -38,6 +36,7 @@ bool GatawayConfig::Init()
 		char buf[1024];
 		rapidjson::FileReadStream stream(pFile, buf, 1024);
 	}
+	
 // 	std::string err;
 // 	TiXmlDocument doc;
 // 	if (doc.LoadFile(config_file.c_str()))
@@ -80,34 +79,15 @@ bool GatawayConfig::Init()
 
 bool CenterConfig::Init()
 {
-	FILE * pFile = fopen(config_file.c_str(), "r");
-	if (pFile != NULL)
-	{
-		char buf[1024];
-		rapidjson::FileReadStream stream(pFile, buf, 1024);
-		rapidjson::Document doc; 
-		if (doc.Parse(buf).HasParseError())
-		{
-			return false; 
-		}
-		if (!doc.IsObject())
-		{
-			return false; 
-		}
+	rapidjson::StringBuffer s;
+	rapidjson::Writer<rapidjson::StringBuffer> writer(s);
 
-		if (!doc.HasMember("center") || !doc["center"].IsObject()){
-			return false;
-		}
-		rapidjson::Value &object = doc["center"];
-		if (!object.HasMember("ip") || !object["ip"].IsString())
-		{
-			return false;
-		}
-		rapidjson::Value &ip = object["ip"];
-		unsigned int len = ip.GetStringLength();
-		memcpy(center.ip, ip.GetString(), len);
-		//center.ip = object.GetString();
-		int a = 1;
+	FILE * pFile = fopen(config_file.c_str(), "r");
+	if (pFile){
+
+		rapidjson::FileReadStream inputStream(pFile);
+		//_jsonDocument.ParseStream<0>(inputStream);
+		fclose(pFile);
 	}
 // 	std::string err;
 // 	TiXmlDocument doc;

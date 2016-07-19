@@ -96,9 +96,19 @@ namespace TestOther
 		ret = Base::MD5Encrypt((const unsigned char *)"jiaming", strlen("jiaming"));
 	}
 
+#define XXXX(x) printf("vvvv %d\n", x)
+#undef XXXX
+
+//#define XXXX
+
+	void Test8_1(int x)
+	{
+		printf("begin %d\n", x);
+	}
 	void Test8()
 	{
-
+		XXXX(Test8_1(12));
+		printf("end ...\n");
 	}
 }
 

@@ -2,27 +2,27 @@
   	"gateway": [
         {
           "ip": "127.0.0.1",
-          "port": "12345",
-          "backlog": "128"
+          "port": 12345,
+          "backlog": 256
         },
         {
           "ip": "127.0.0.1",
-          "port": "12346",
-          "backlog": "128"
+          "port": 12346,
+          "backlog": 256
         }],
     "login": {
       "ip": "127.0.0.1",
-      "port": "12347",
-      "backlog": "128"
+      "port": 12347,
+      "backlog": 512
     },
     "center": {
       "ip": "127.0.0.1",
-      "port": "12348",
-      "backlog": "8"
+      "port": 12348,
+      "backlog": 8
     },
     "game": {
       "ip": "127.0.0.1",
-      "port": "12349",
-      "backlog": "8"
+      "port": 12349,
+      "backlog": 8
     }
 }

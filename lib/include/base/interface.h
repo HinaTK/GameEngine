@@ -3,12 +3,7 @@
 #define BASE_INTERFACE_H
 
 #include <string>
-
-#ifdef WIN32
-#define EXPORT _declspec(dllexport)
-#else
-#define EXPORT 
-#endif // WIN32
+#include "export.h"
 
 namespace Base
 {

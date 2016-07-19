@@ -7,6 +7,14 @@
 #include "prettywriter.h"
 #include "stringbuffer.h"
 
+// 去除断言, todo 重新定义断言
+#ifdef RAPIDJSON_ASSERT
+#undef RAPIDJSON_ASSERT
+#define RAPIDJSON_ASSERT
+#endif // RAPIDJSON_ASSERT
+
+
+
 enum
 {
 	ERR_IS_NOT_JSON = 1,	// 不是Json

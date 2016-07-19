@@ -8,7 +8,7 @@
 #include "router.h"
 
 NetThread::NetThread(ThreadManager *manager)
-: BaseThread(manager, NULL, ThreadManager::EXIT_NORMAL)
+: BaseThread(NULL, ThreadManager::EXIT_NORMAL)
 , m_net_manager(new NetManager(manager))
 {
 

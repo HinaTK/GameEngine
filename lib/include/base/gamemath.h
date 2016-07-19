@@ -2,14 +2,8 @@
 #ifndef GAME_MATH_H
 #define GAME_MATH_H
 
-
+#include "export.h"
 #include "common/datastructure/vector2d.h"
-
-#ifdef WIN32
-#define EXPORT _declspec(dllexport)
-#else
-#define EXPORT 
-#endif // WIN32
 
 typedef short				Coord;		// 坐标类型
 typedef double				Radian;		// 弧度
