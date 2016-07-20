@@ -485,6 +485,17 @@ namespace TestDataStructure
 		printf("%d ms\n", GetTickCount() - begin);
 	}
 
+	void TestHash4()
+	{
+		game::Hash<int, int> test;
+		int val = 123;
+		test.Push(1, val);
+		val = 334;
+		test.Push(257, val);
+		game::Hash<int, int>::iterator itr = test.Find(1);
+		printf("result %d\n", *itr);
+	}
+
 	int test_time = 50000000;
 	MsgQueue<int *> test_msg_queue1;
 	void TestMsgQueue3()

@@ -10,6 +10,8 @@
 	* 散列
 	* key只支持基本数据类型，不支持浮点型，结构体和类
 	* 可以通过序列化来将浮点型，结构体和类转化成字符串，从而得到支持
+
+	* 可以考虑将key val同时存到m_value_array，这样遍历的时候所有信息都能获取到
 */
 
 namespace game
@@ -27,20 +29,17 @@ namespace game
 
 		virtual ~Hash()
 		{
+			KeyNode *next_node = NULL;
+			KeyNode *temp_node = NULL;
 			for (unsigned int i = 0; i < m_size; ++i)
 			{
-				if (m_hash_list[i] == NULL)
-				{
-					continue;
-				}
-				KeyNode *next_node = m_hash_list[i];
-				KeyNode *temp_node = NULL;
-				do
+				next_node = m_hash_list[i];
+				while (next_node != NULL)
 				{
 					temp_node = next_node->next;
 					delete next_node;
 					next_node = temp_node;
-				} while (next_node != NULL);
+				}
 			}
 			free(m_hash_list);
 		}
@@ -76,6 +75,8 @@ namespace game
 			}
 			return End();
 		}
+
+		unsigned int Size(){return m_value_array.Size();}
 
 	protected:
 		unsigned int	m_size;

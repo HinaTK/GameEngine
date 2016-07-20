@@ -27,7 +27,7 @@ public:
 
 	void	Start();
 public:
-
+	int			m_db_id;
 	NetHandle	m_database_server_handle;
 	SOCKET		m_gateway_server_net_id;
 private:

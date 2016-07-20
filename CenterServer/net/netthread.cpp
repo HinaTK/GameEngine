@@ -4,7 +4,6 @@
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/frame/socketthread.h"
 #include "lib/include/http/httpaccepter.h"
-#include "protocol/innerproto.h"
 #include "router.h"
 
 NetThread::NetThread(ThreadManager *manager)
@@ -28,7 +27,7 @@ void NetThread::Init(void *arg)
 	m_net_manager->InitServer(info2.ip, info2.port, info2.backlog, new InnerCallBack(this));
 
 	// 测试
-	m_net_manager->InitServer(info1.ip, 12345, info1.backlog, new HttpAccepter(m_net_manager->GetThread(), HttpAccepter::CB_FIELD), new CallBack(this));
+	//m_net_manager->InitServer(info1.ip, 12345, info1.backlog, new HttpAccepter(m_net_manager->GetThread(), HttpAccepter::CB_FIELD), new CallBack(this));
 
 }
 
@@ -39,6 +38,11 @@ bool NetThread::Run()
 }
 
 void NetThread::RecvData(short type, int sid, int len, const char *data)
+{
+
+}
+
+void NetThread::Recv(GameMsg *msg)
 {
 
 }

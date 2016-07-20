@@ -107,7 +107,7 @@ namespace TestOther
 	}
 	void Test8()
 	{
-		XXXX(Test8_1(12));
+		//XXXX(Test8_1(12));
 		printf("end ...\n");
 	}
 }

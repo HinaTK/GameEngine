@@ -28,6 +28,7 @@ public:
 	};
 	void			PushData(NetHandler *handler, unsigned short msg_type, const char *data, unsigned int len){m_net_manager->PushMsg(handler, msg_type, data, len); }
 	void			PushGameMsg(GameMsg *msg){ m_net_manager->PushMsg(msg); };
+
 protected:
 	virtual void	InitNetHandler(NetHandler *handler) = 0;
 	void			Init(void *arg);

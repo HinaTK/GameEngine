@@ -14,6 +14,7 @@
 // #endif // RAPIDJSON_ASSERT
 
 
+static 
 
 enum
 {
@@ -119,6 +120,41 @@ enum
 	else return Error(ERR_READ_DATA_ERR, __LINE__);\
 	JSON_READ_ONE_ARRAY_END();
 
+
+#define JSON_RETURN(Ret) \
+	fclose(fp); \
+	return Ret;
+
+#define JSON_READ_FILE_BEGIN(File)\
+	FILE * fp = fopen(File, "r"); \
+	if (fp != NULL){ \
+		fseek(fp, 0, SEEK_END); \
+		int file_size = ftell(fp);\
+		if (file_size < 1) {\
+			printf("%s is empty file\n", File);\
+			JSON_RETURN(false); \
+		}\
+		char *buf = new char[file_size + 1]; \
+		fseek(fp, 0, SEEK_SET); \
+		int read_size = fread(buf, 1, file_size, fp); \
+		if (read_size != file_size){ \
+			printf("read %s error\n", File);\
+			JSON_RETURN(false); \
+		}\
+		buf[read_size] = 0; \
+		fclose(fp);
+
+		
+
+#define JSON_READ_FILE_END(File)\
+		delete [] buf;\
+	} \
+	else { \
+		printf("can not find %s \n", File);\
+		return false;\
+	}\
+	return true;
+	
 
 
 #endif

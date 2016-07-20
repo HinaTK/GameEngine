@@ -7,8 +7,17 @@
     <Filter Include="net">
       <UniqueIdentifier>{5967ef72-c01c-480c-9556-a77852fbb94b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="proto">
+    <Filter Include="db">
+      <UniqueIdentifier>{d3a9033c-ae04-4b37-89a7-0bf874307d39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{7795e7e8-d8fd-4c29-8916-5d272d377cf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="innerproto">
       <UniqueIdentifier>{0fcda75d-1f22-4efd-b38d-eb1c8cc5c53f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proto">
+      <UniqueIdentifier>{c40ba961-f7c2-4b05-a314-d82205aa300d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -27,6 +36,15 @@
     <ClCompile Include="..\CenterServer\net\router.cpp">
       <Filter>net</Filter>
     </ClCompile>
+    <ClCompile Include="..\CenterServer\db\dbthread.cpp">
+      <Filter>db</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterServer\src\loginmanager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterServer\message\messagehandler.cpp">
+      <Filter>proto</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\CenterServer\main\center.h">
@@ -39,10 +57,25 @@
       <Filter>net</Filter>
     </ClInclude>
     <ClInclude Include="..\protocol\innermsgid.h">
-      <Filter>proto</Filter>
+      <Filter>innerproto</Filter>
     </ClInclude>
     <ClInclude Include="..\CenterServer\net\router.h">
       <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterServer\db\dbthread.h">
+      <Filter>db</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterServer\src\loginmanager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\protocol\center\login.h">
+      <Filter>proto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\protocol\msgid.h">
+      <Filter>proto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterServer\message\messagehandler.h">
+      <Filter>proto</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -85,4 +85,3 @@ void ThreadNet::SendMsg(NetHandle handle, int length, const char *data)
 		}
 	}
 }
-
