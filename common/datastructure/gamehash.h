@@ -66,9 +66,13 @@ namespace game
 		{
 			unsigned int real_key = key % m_size;
 			KeyNode *node = m_hash_list[real_key];
-			if (node != NULL && node->key == key)
+			while (node != NULL)
 			{
-				return m_value_array.Find(node->array_key);
+				if (node->key == key)
+				{
+					return m_value_array.Find(node->array_key);
+				}
+				node = node->next;
 			}
 			return End();
 		}
