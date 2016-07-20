@@ -64,7 +64,7 @@
       <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Tinyxml.lib;Frame.lib;Common.lib;Log.lib;Thread.lib;Chat.lib;LibBson.lib;Mongo.lib;Base.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Frame.lib;Common.lib;Thread.lib;Base.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\lib\windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -98,6 +98,7 @@
     <ClCompile Include="..\GameServer\db\dbthread.cpp" />
     <ClCompile Include="..\GameServer\frame\game.cpp" />
     <ClCompile Include="..\GameServer\frame\main.cpp" />
+    <ClCompile Include="..\GameServer\global\globalthread.cpp" />
     <ClCompile Include="..\GameServer\net\callback.cpp" />
     <ClCompile Include="..\GameServer\net\netthread.cpp" />
     <ClCompile Include="..\GameServer\world\worldmanager.cpp" />
@@ -107,6 +108,7 @@
     <ClInclude Include="..\GameServer\db\dbthread.h" />
     <ClInclude Include="..\GameServer\define.h" />
     <ClInclude Include="..\GameServer\frame\game.h" />
+    <ClInclude Include="..\GameServer\global\globalthread.h" />
     <ClInclude Include="..\GameServer\net\callback.h" />
     <ClInclude Include="..\GameServer\net\netthread.h" />
     <ClInclude Include="..\GameServer\world\worldmanager.h" />

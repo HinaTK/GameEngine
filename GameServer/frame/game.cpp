@@ -3,7 +3,6 @@
 #include "common/datastructure/msgqueue.h"
 #include "common/protocol/messageheader.h"
 #include "lib/include/frame/baseaccepter.h"
-#include "lib/include/tinyxml/tinyxml.h"
 #include "lib/include/common/serverconfig.h"
 //#include "lib/chat/interface.h"
 #include "db/dbthread.h"
@@ -12,6 +11,7 @@
 
 
 NewFrame::NewFrame()
+: m_db_id(0)
 {
 
 }
@@ -26,6 +26,7 @@ bool NewFrame::Init()
 {
 	GameConfig::Instance().Init();
 	m_thread_manager.Register(new NetThread(&m_thread_manager));
+	m_db_id = m_thread_manager.Register(new DBThread());
 	return true;
 }
 

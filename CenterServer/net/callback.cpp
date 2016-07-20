@@ -7,11 +7,6 @@ void CallBack::Accept(NetHandle handle, const char *ip)
     printf("fuck accept.................\n");
 }
 
-void CallBack::Recv(GameMsg *msg)
-{
-	//m_thread->
-}
-
 void CallBack::Disconnect(NetHandle handle, int err, int reason)
 {
     printf("fuck disconnect.................\n");

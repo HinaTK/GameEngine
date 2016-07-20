@@ -16,7 +16,7 @@ public:
 
 	void	Accept(NetHandle handle, const char *ip);
 
-    void	Recv(GameMsg *msg);
+	void	Recv(GameMsg *msg){ m_thread->Recv(msg); };
 
 	void	Disconnect(NetHandle handle, int err, int reason);
 

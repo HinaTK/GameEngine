@@ -12,6 +12,9 @@
     <ClInclude Include="..\..\lib\include\mysql\fieldmanager.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\lib\include\mysql\keyfield.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\mysql\field.cpp">

@@ -29,12 +29,32 @@ namespace TestNet
 		NetManager *net_manager = new NetManager(&thread_manager);
 		for(int i = 0; i < 10000; ++i)
 		{
-			if (net_manager->SyncConnect("192.168.0.254", 10924, new CallBack()) == -1)
+			if (net_manager->SyncConnect("127.0.0.1", 12347, new CallBack()) == -1)
 			{
 				printf("can not connect server %d\n", i);
 				break;
 			}
-			Time::Sleep(8);
+			Time::Sleep(2);
+		}
+		printf("test end ...\n");
+	}
+
+	void Test2()
+	{
+		char buf[8];
+		ThreadManager thread_manager;
+		NetManager *net_manager = new NetManager(&thread_manager);
+		for (int i = 0; i < 100; ++i)
+		{
+			NetHandle handle = net_manager->SyncConnect("127.0.0.1", 12347, new CallBack());
+			if (handle == -1)
+			{
+				printf("can not connect server %d\n", i);
+				break;
+			}
+			Time::Sleep(2);
+			(*(int *)buf) = rand() % 20000 - 10000;
+			net_manager->Send(handle, 8, buf);
 		}
 		printf("test end ...\n");
 	}

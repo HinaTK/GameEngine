@@ -6,12 +6,20 @@
 
 struct ServerInfo
 {
-	char			ip[32];
+	char			ip[16];
 	unsigned short	port;
 	int				backlog;
 };
 
-class GatawayConfig
+class ServerConfig
+{
+public:
+	bool	Init();
+
+	ServerInfo center;
+};
+
+class GatawayConfig : public ServerConfig
 {
 public:
 	~GatawayConfig(){};
@@ -23,13 +31,12 @@ public:
 
 	bool	Init();
 
-	ServerInfo center;
 	std::vector<ServerInfo>	m_server;
 private:
 	GatawayConfig(){};
 };
 
-class CenterConfig
+class CenterConfig : public ServerConfig
 {
 public:
 	~CenterConfig(){};
@@ -41,13 +48,12 @@ public:
 
 	bool	Init();
 
-	ServerInfo center;
 	ServerInfo login;
 private:
 	CenterConfig(){};
 };
 
-class GameConfig
+class GameConfig : public ServerConfig
 {
 public:
 	~GameConfig(){};
@@ -59,7 +65,6 @@ public:
 
 	bool	Init();
 
-	ServerInfo center;
 	ServerInfo server;
 private:
 	GameConfig(){};

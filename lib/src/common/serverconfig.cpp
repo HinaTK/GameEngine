@@ -4,10 +4,45 @@
 #include "lib/include/rapidjson/filereadstream.h"
 #include "lib/include/rapidjson/define.h"
 
-
-//#include "lib/include/tinyxml/tiny.h"
-
 static const std::string config_file("../config/server.json");
+
+
+
+bool ServerConfig::Init()
+{
+	JSON_READ_FILE_BEGIN(config_file.c_str());
+	rapidjson::Document doc;
+	if (doc.Parse(buf).HasParseError() || !doc.IsObject())
+	{
+		return false;
+	}
+
+	if (!doc.HasMember("center") || !doc["center"].IsObject()){
+		return false;
+	}
+	rapidjson::Value &object = doc["center"];
+	if (!object.HasMember("ip") || !object["ip"].IsString())
+	{
+		return false;
+	}
+	rapidjson::Value &ip = object["ip"];
+
+	memcpy(center.ip, ip.GetString(), ip.GetStringLength());
+	if (!object.HasMember("port") || !object["port"].IsInt())
+	{
+		return false;
+	}
+	center.port = object["port"].GetInt();
+
+	if (!object.HasMember("backlog") || !object["backlog"].IsInt())
+	{
+		return false;
+	}
+	center.backlog = object["backlog"].GetInt();
+
+	JSON_READ_FILE_END(config_file.c_str());
+}
+
 
 
 // bool ReadCenter(TiXmlElement* element, ServerInfo &info)
@@ -80,65 +115,41 @@ bool GatawayConfig::Init()
 
 bool CenterConfig::Init()
 {
-	FILE * pFile = fopen(config_file.c_str(), "r");
-	if (pFile != NULL)
+	if (!ServerConfig::Init())
 	{
-		char buf[1024];
-		rapidjson::FileReadStream stream(pFile, buf, 1024);
-		rapidjson::Document doc; 
-		if (doc.Parse(buf).HasParseError())
-		{
-			return false; 
-		}
-		if (!doc.IsObject())
-		{
-			return false; 
-		}
-
-		if (!doc.HasMember("center") || !doc["center"].IsObject()){
-			return false;
-		}
-		rapidjson::Value &object = doc["center"];
-		if (!object.HasMember("ip") || !object["ip"].IsString())
-		{
-			return false;
-		}
-		rapidjson::Value &ip = object["ip"];
-		unsigned int len = ip.GetStringLength();
-		memcpy(center.ip, ip.GetString(), len);
-		//center.ip = object.GetString();
-		int a = 1;
+		return false;
 	}
-// 	std::string err;
-// 	TiXmlDocument doc;
-// 	if (doc.LoadFile(config_file.c_str()))
-// 	{
-// 		TiXmlElement* rootElement = doc.RootElement();
-// 		if (rootElement == NULL)
-// 		{
-// 			return false;
-// 		}
-// 		TiXmlElement* curElement = rootElement->FirstChildElement("login");
-// 		if (curElement == NULL)
-// 		{
-// 			ShowError(config_file.c_str(), "login");
-// 			return false;
-// 		}
-// 		
-// 		if (!GetSubNodeValue(curElement, "ip", login.ip, err) ||
-// 			!GetSubNodeValue(curElement, "port", login.port, err) ||
-// 			!GetSubNodeValue(curElement, "backlog", login.backlog, err))
-// 		{
-// 			ShowError(config_file.c_str(), err.c_str());
-// 			return false;
-// 		}
-// 		ReadCenter(rootElement, center);
-// 	}
-// 	else
-// 	{
-// 		printf("can not open config file %s\n", config_file.c_str());
-// 		return false;
-// 	}
+	JSON_READ_FILE_BEGIN(config_file.c_str());
+	rapidjson::Document doc;
+	if (doc.Parse(buf).HasParseError() || !doc.IsObject())
+	{
+		return false;
+	}
+
+	if (!doc.HasMember("login") || !doc["login"].IsObject()){
+		return false;
+	}
+	rapidjson::Value &object = doc["login"];
+	if (!object.HasMember("ip") || !object["ip"].IsString())
+	{
+		return false;
+	}
+	rapidjson::Value &ip = object["ip"];
+
+	memcpy(login.ip, ip.GetString(), ip.GetStringLength());
+	if (!object.HasMember("port") || !object["port"].IsInt())
+	{
+		return false;
+	}
+	login.port = object["port"].GetInt();
+
+	if (!object.HasMember("backlog") || !object["backlog"].IsInt())
+	{
+		return false;
+	}
+	login.backlog = object["backlog"].GetInt();
+
+	JSON_READ_FILE_END(config_file.c_str());
 	return true;
 }
 
