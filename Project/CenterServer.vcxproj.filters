@@ -13,67 +13,60 @@
     <Filter Include="proto">
       <UniqueIdentifier>{ce220b58-243c-4a61-8dcc-c3deca69658b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="world">
-      <UniqueIdentifier>{0188fdbe-4437-4b4f-a44a-ddbbb8ba2a38}</UniqueIdentifier>
+    <Filter Include="message">
+      <UniqueIdentifier>{cad4fcf5-9f75-44e5-94b8-b115e0265ad3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="data">
-      <UniqueIdentifier>{628aa6e5-a3ef-4a8c-9b90-ee444c1693d4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="global">
-      <UniqueIdentifier>{d36b9a0d-d54c-479d-b112-08f9f0fa98bd}</UniqueIdentifier>
+    <Filter Include="src">
+      <UniqueIdentifier>{d588beff-2157-4a63-8d66-a2ff552cd872}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\GameServer\frame\main.cpp">
-      <Filter>frame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GameServer\db\dbthread.cpp">
+    <ClCompile Include="..\CenterServer\db\dbthread.cpp">
       <Filter>db</Filter>
     </ClCompile>
-    <ClCompile Include="..\GameServer\net\netthread.cpp">
-      <Filter>net</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GameServer\net\callback.cpp">
-      <Filter>net</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GameServer\frame\game.cpp">
+    <ClCompile Include="..\CenterServer\main\center.cpp">
       <Filter>frame</Filter>
     </ClCompile>
-    <ClCompile Include="..\GameServer\world\worldmanager.cpp">
-      <Filter>world</Filter>
+    <ClCompile Include="..\CenterServer\main\main.cpp">
+      <Filter>frame</Filter>
     </ClCompile>
-    <ClCompile Include="..\GameServer\data\sql.cpp">
-      <Filter>data</Filter>
+    <ClCompile Include="..\CenterServer\net\callback.cpp">
+      <Filter>net</Filter>
     </ClCompile>
-    <ClCompile Include="..\GameServer\global\globalthread.cpp">
-      <Filter>global</Filter>
+    <ClCompile Include="..\CenterServer\net\netthread.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterServer\net\router.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterServer\message\messagehandler.cpp">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterServer\src\loginmanager.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\GameServer\define.h" />
-    <ClInclude Include="..\GameServer\db\dbthread.h">
+    <ClInclude Include="..\CenterServer\db\dbthread.h">
       <Filter>db</Filter>
     </ClInclude>
-    <ClInclude Include="..\GameServer\net\netthread.h">
-      <Filter>net</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GameServer\net\callback.h">
-      <Filter>net</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GameServer\frame\game.h">
+    <ClInclude Include="..\CenterServer\main\center.h">
       <Filter>frame</Filter>
     </ClInclude>
-    <ClInclude Include="..\protocol\innerproto.h">
-      <Filter>proto</Filter>
+    <ClInclude Include="..\CenterServer\net\callback.h">
+      <Filter>net</Filter>
     </ClInclude>
-    <ClInclude Include="..\GameServer\world\worldmanager.h">
-      <Filter>world</Filter>
+    <ClInclude Include="..\CenterServer\net\netthread.h">
+      <Filter>net</Filter>
     </ClInclude>
-    <ClInclude Include="..\GameServer\data\sql.h">
-      <Filter>data</Filter>
+    <ClInclude Include="..\CenterServer\net\router.h">
+      <Filter>net</Filter>
     </ClInclude>
-    <ClInclude Include="..\GameServer\global\globalthread.h">
-      <Filter>global</Filter>
+    <ClInclude Include="..\CenterServer\message\messagehandler.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterServer\src\loginmanager.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
