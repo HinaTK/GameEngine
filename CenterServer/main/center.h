@@ -23,6 +23,7 @@ public:
 
 	void	Exit();
 	void	Wait();
+	void	Cmd(char *buf);
 };
 
 #endif

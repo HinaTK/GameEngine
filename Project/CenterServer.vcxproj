@@ -61,9 +61,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\Debug\</OutDir>
-    <IntDir>..\Debug\gameserver\</IntDir>
+    <IntDir>..\Debug\centerserver\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..;..\GameServer;$(IncludePath)</IncludePath>
+    <IncludePath>..;..\CenterServer;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>

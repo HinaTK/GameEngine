@@ -4,7 +4,7 @@
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/frame/socketthread.h"
 #include "lib/include/http/httpaccepter.h"
-#include "router.h"
+#include "message/messagehandler.h"
 
 NetThread::NetThread(ThreadManager *manager)
 : BaseThread(NULL, ThreadManager::EXIT_NORMAL)

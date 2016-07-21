@@ -2,6 +2,7 @@
 #include "messagehandler.h"
 #include "net/netthread.h"
 #include "protocol/msgid.h"
+//#include "lib/include/frame/message.h"
 
 MessageHandler::MessageHandler(NetThread *t)
 : m_thread(t)
@@ -16,12 +17,12 @@ void MessageHandler::HandleMessage(GameMsg *msg)
 		return;
 	}
 
-	m_function_list[msg->msg_type].func(msg);
+	(this->*m_function_list[msg->msg_type].func)(msg);
 }
 
 void MessageHandler::CSLogin(GameMsg *msg)
 {
-// 	printf("fsdfsdf");
+	printf("fsdfsdf\n");
 // 	EProtocol::CSUserLogin * ul = (EProtocol::CSUserLogin *)msg;
 // 	printf("account = %d, password = %d\n",ul->account, ul->password);
 // 	IProtocol::LDBLogin ldl;

@@ -58,6 +58,30 @@ Frame::~Frame()
 	
 }
 
+
+void Frame::Run()
+{
+	char cmd_buf[512] = { 0 };
+	while (IsRun())
+	{
+		gets(cmd_buf);
+		if (strcmp(cmd_buf, "exit") == 0)
+		{
+			SetExit();
+		}
+		else if (strcmp(cmd_buf, "ping") == 0)
+		{
+			// ping 一下所有线程，看是否有阻塞
+			printf("ping ...\n");
+		}
+		else
+		{
+			this->Cmd(cmd_buf);
+		}
+	}
+	
+}
+
 void Frame::SetExit()
 {
 	if (m_is_run)

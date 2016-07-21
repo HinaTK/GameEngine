@@ -27,25 +27,19 @@ bool Center::Init()
 void Center::Start()
 {
 	m_thread_manager.Start();
-	while (IsRun())
-	{
-		char cmd_buf[512] = { 0 };
-		gets(cmd_buf);
-		if (strcmp(cmd_buf, "") == 0)
-		{
-		}
-		else if (strcmp(cmd_buf, "create") == 0)
-		{
+	this->Run();
+}
 
-		}
-		else if (strcmp(cmd_buf, "exit") == 0)
-		{
-			SetExit();
-		}
-		else if (strcmp(cmd_buf, "login") == 0)
-		{
-			printf("do login\n");
-		}
+
+void Center::Cmd(char *buf)
+{
+	if (strcmp(buf, "create") == 0)
+	{
+
+	}
+	else if (strcmp(buf, "login") == 0)
+	{
+		printf("do login\n");
 	}
 }
 
