@@ -8,7 +8,7 @@
 class TreeThread : public BaseThread
 {
 public:
-	TreeThread(void *arg, char exit = ThreadManager::EXIT_NORMAL);
+	TreeThread(ThreadManager *manager, void *arg, char exit = ThreadManager::EXIT_NORMAL);
 	virtual ~TreeThread();
 
 	int		Register(BaseThread *bt, char exit = ThreadManager::EXIT_NORMAL);

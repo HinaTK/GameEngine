@@ -41,7 +41,7 @@ void ThreadNet::RemoveHandler(NetHandle handle, int err, int reason)
 	m_invalid_handle.Push(info);
 }
 
-void ThreadNet::RecvData(short type, int sid, int len, const char *data)
+void ThreadNet::RecvData(short type, ThreadID sid, int len, const char *data)
 {
 	switch (type)
 	{

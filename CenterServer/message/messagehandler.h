@@ -12,11 +12,11 @@ class MessageHandler
 public:
 	MessageHandler(NetThread *t);
 	~MessageHandler(){};
+	typedef void (MessageHandler::*HandleFunc)(GameMsg *msg);
 
-	
 	void	HandleMessage(GameMsg *msg);
 protected:
-	typedef void (MessageHandler::*HandleFunc)(GameMsg *msg);
+	
 	struct HandlerItem 
 	{
 		HandlerItem():func(0), length(0){}

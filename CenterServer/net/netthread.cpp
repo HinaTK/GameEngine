@@ -7,8 +7,9 @@
 #include "message/messagehandler.h"
 
 NetThread::NetThread(ThreadManager *manager)
-: BaseThread(NULL, ThreadManager::EXIT_NORMAL)
+: BaseThread(manager, NULL, ThreadManager::EXIT_NORMAL)
 , m_net_manager(new NetManager(manager))
+, m_login_manager(this)
 {
 
 }
@@ -37,7 +38,7 @@ bool NetThread::Run()
     return m_net_manager->Update();
 }
 
-void NetThread::RecvData(short type, int sid, int len, const char *data)
+void NetThread::RecvData(short type, ThreadID sid, int len, const char *data)
 {
 
 }

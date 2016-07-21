@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="frame">
-      <UniqueIdentifier>{0e9d4ec8-c143-48dd-9fa4-815140f69d4f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="db">
       <UniqueIdentifier>{0681564c-c691-4667-9604-c5506eb3f12c}</UniqueIdentifier>
     </Filter>
@@ -19,24 +16,24 @@
     <Filter Include="src">
       <UniqueIdentifier>{d588beff-2157-4a63-8d66-a2ff552cd872}</UniqueIdentifier>
     </Filter>
+    <Filter Include="main">
+      <UniqueIdentifier>{0e9d4ec8-c143-48dd-9fa4-815140f69d4f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\CenterServer\db\dbthread.cpp">
       <Filter>db</Filter>
     </ClCompile>
     <ClCompile Include="..\CenterServer\main\center.cpp">
-      <Filter>frame</Filter>
+      <Filter>main</Filter>
     </ClCompile>
     <ClCompile Include="..\CenterServer\main\main.cpp">
-      <Filter>frame</Filter>
+      <Filter>main</Filter>
     </ClCompile>
     <ClCompile Include="..\CenterServer\net\callback.cpp">
       <Filter>net</Filter>
     </ClCompile>
     <ClCompile Include="..\CenterServer\net\netthread.cpp">
-      <Filter>net</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CenterServer\net\router.cpp">
       <Filter>net</Filter>
     </ClCompile>
     <ClCompile Include="..\CenterServer\message\messagehandler.cpp">
@@ -51,7 +48,7 @@
       <Filter>db</Filter>
     </ClInclude>
     <ClInclude Include="..\CenterServer\main\center.h">
-      <Filter>frame</Filter>
+      <Filter>main</Filter>
     </ClInclude>
     <ClInclude Include="..\CenterServer\net\callback.h">
       <Filter>net</Filter>
@@ -59,14 +56,14 @@
     <ClInclude Include="..\CenterServer\net\netthread.h">
       <Filter>net</Filter>
     </ClInclude>
-    <ClInclude Include="..\CenterServer\net\router.h">
-      <Filter>net</Filter>
-    </ClInclude>
     <ClInclude Include="..\CenterServer\message\messagehandler.h">
       <Filter>message</Filter>
     </ClInclude>
     <ClInclude Include="..\CenterServer\src\loginmanager.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterServer\message\proto.h">
+      <Filter>message</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
