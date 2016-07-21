@@ -7,6 +7,7 @@
 #include "lib/include/frame/netmanager.h"
 #include "protocol/innerproto.h"
 #include "src/loginmanager.h"
+#include "message/messagehandler.h"
 
 class ThreadManager;
 class NetThread : public BaseThread
@@ -22,7 +23,7 @@ public:
 		char ip[32];
 		unsigned short port;
 	};
-	void	Recv(GameMsg *msg);
+	void	Recv(GameMsg *msg){ m_message_handler.HandleMessage(msg); };
 
 	// 接收其它进程数据
 	void	InnerRecv(GameMsg *msg);
@@ -39,6 +40,7 @@ private:
 	std::vector<OtherServer> m_server[Inner::ST_MAX];		// 连接到中心服的其它服务
 
 	LoginManager	m_login_manager;
+	MessageHandler	m_message_handler;
 
 };
 

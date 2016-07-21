@@ -21,7 +21,7 @@ void MessageHandler::HandleMessage(GameMsg *msg)
 		return;
 	}
 
-	if (*router != m_function_list[*router].length)
+	if (msg->length != m_function_list[*router].length)
 	{
 		return;
 	}

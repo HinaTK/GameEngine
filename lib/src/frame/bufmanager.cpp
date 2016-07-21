@@ -113,19 +113,23 @@ void RecvBuffer::ResetBuf()
 
 bool RecvBuffer::GetBufInfo(char **buf, int &len)
 {
-	if (m_buf_len < NetCommon::HEADER_LENGTH)
+	if (m_msg == NULL)
 	{
-		*buf = m_header + m_buf_len;
-		len = NetCommon::HEADER_LENGTH - m_buf_len;
-		return true;
+		if (m_buf_len < NetCommon::HEADER_LENGTH)
+		{
+			*buf = m_header + m_buf_len;
+			len = NetCommon::HEADER_LENGTH - m_buf_len;
+			return true;
+		}
+		return false;
 	}
-	// 当发生错误时，此处会崩溃
+	
 	if (m_buf_len >= m_msg->length)
 	{
 		return false;
 	}
-	*buf = m_msg->data + m_buf_len;
-	len = m_msg->length - m_buf_len;
+	*buf = m_msg->data;
+	len = m_msg->length;
 	return true;
 }
 
@@ -134,16 +138,16 @@ bool RecvBuffer::GetBufInfo(char **buf, int &len)
 
 int RecvBuffer::AddBufLen(int len)
 {
-	if (m_buf_len < NetCommon::HEADER_LENGTH)
+	if (m_msg == NULL)
 	{
 		m_buf_len += len;
 		if (m_buf_len == NetCommon::HEADER_LENGTH)
 		{
 			NetCommon::Header *header = (NetCommon::Header *)m_header;
-			if (header->msg_len < m_listener->buf_size)
+			if (m_listener->buf_size == 0 || (header->msg_len > 0 && header->msg_len < m_listener->buf_size))
 			{
-				m_msg = m_listener->GetThread()->CreateGameMsg(m_listener->m_msg_index, BaseMsg::MSG_RECV, m_listener->m_handle, NetCommon::HEADER_LENGTH + header->msg_len);
-				*(int *)m_msg->data = header->msg_len;
+				m_msg = m_listener->GetThread()->CreateGameMsg(m_listener->m_msg_index, BaseMsg::MSG_RECV, m_listener->m_handle, header->msg_len);
+				m_buf_len = 0;
 			}
 			else
 			{

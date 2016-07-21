@@ -3,13 +3,14 @@
 #include "callback.h"
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/frame/socketthread.h"
-#include "lib/include/http/httpaccepter.h"
+#include "lib/include/frame/baseaccepter.h"
 #include "message/messagehandler.h"
 
 NetThread::NetThread(ThreadManager *manager)
 : BaseThread(manager, NULL, ThreadManager::EXIT_NORMAL)
 , m_net_manager(new NetManager(manager))
 , m_login_manager(this)
+, m_message_handler(this)
 {
 
 }
@@ -22,7 +23,7 @@ NetThread::~NetThread()
 void NetThread::Init(void *arg)
 {
 	ServerInfo info1 = CenterConfig::Instance().login;
-	m_net_manager->InitServer(info1.ip, info1.port, info1.backlog, new CallBack(this));
+	m_net_manager->InitServer(info1.ip, info1.port, info1.backlog, 1024, new CallBack(this));
 
 	ServerInfo info2 = CenterConfig::Instance().center;
 	m_net_manager->InitServer(info2.ip, info2.port, info2.backlog, new InnerCallBack(this));
@@ -39,11 +40,6 @@ bool NetThread::Run()
 }
 
 void NetThread::RecvData(short type, ThreadID sid, int len, const char *data)
-{
-
-}
-
-void NetThread::Recv(GameMsg *msg)
 {
 
 }

@@ -6,7 +6,6 @@
 
 class Frame;
 
-typedef void(*CmdFun)(Frame *frame, char *buf);
 class Frame
 {
 public:

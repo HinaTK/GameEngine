@@ -43,11 +43,7 @@ void Center::Cmd(char *buf)
 	}
 	else if (strcmp(buf, "login") == 0)
 	{
-		ThreadManager thread_manager;
-		NetManager net_manager(&thread_manager);
-		NetHandle handle = net_manager.SyncConnect("127.0.0.1", 12348, new ClientCallBack());
-		Proto::csLogin login;
-		net_manager.Send(handle, sizeof(Proto::csLogin), (const char *)&login);
+		
 
 		printf("do login\n");
 	}
