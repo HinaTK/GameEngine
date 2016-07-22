@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\CenterServer\db\dbmanager.cpp" />
     <ClCompile Include="..\CenterServer\db\dbthread.cpp" />
     <ClCompile Include="..\CenterServer\main\center.cpp" />
     <ClCompile Include="..\CenterServer\main\main.cpp" />
@@ -20,6 +21,7 @@
     <ClCompile Include="..\CenterServer\src\loginmanager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\CenterServer\db\dbmanager.h" />
     <ClInclude Include="..\CenterServer\db\dbthread.h" />
     <ClInclude Include="..\CenterServer\main\center.h" />
     <ClInclude Include="..\CenterServer\message\messagehandler.h" />

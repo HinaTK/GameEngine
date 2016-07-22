@@ -42,6 +42,9 @@
     <ClCompile Include="..\CenterServer\src\loginmanager.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\CenterServer\db\dbmanager.cpp">
+      <Filter>db</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\CenterServer\db\dbthread.h">
@@ -64,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="..\CenterServer\message\proto.h">
       <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterServer\db\dbmanager.h">
+      <Filter>db</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
