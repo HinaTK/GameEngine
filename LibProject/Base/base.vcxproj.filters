@@ -27,9 +27,6 @@
     <ClInclude Include="..\..\lib\include\base\export.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\base\serverconfig.h">
-      <Filter>src</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\base\aes.cpp">
@@ -48,9 +45,6 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\base\gamemath.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\lib\src\base\serverconfig.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

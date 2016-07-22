@@ -88,7 +88,7 @@ SOCKET Connect(const char *ip, unsigned short port)
 
 int StartUp()
 {
-#ifdef WIN32
+#if (defined _WIN32) || (defined _WIN64)
 	WSAData wsaData;
 	return WSAStartup(MAKEWORD(2, 2), &wsaData);
 #endif // WIN32
@@ -97,7 +97,7 @@ int StartUp()
 
 int CleanUp()
 {
-#ifdef WIN32
+#if (defined _WIN32) || (defined _WIN64)
 	return WSACleanup();
 #endif
 	return 0;
@@ -112,7 +112,7 @@ int Send(SOCKET sock, const char *msg, unsigned int length)
 
 void Close(SOCKET sock)
 {
-#ifdef WIN32
+#if (defined _WIN32) || (defined _WIN64)
 	closesocket(sock);
 #endif // WIN32
 #ifdef _unix
@@ -122,7 +122,7 @@ void Close(SOCKET sock)
 
 int Ioctl(SOCKET sock, long cmd, unsigned long *arg)
 {
-#ifdef WIN32
+#if (defined _WIN32) || (defined _WIN64)
 	return ioctlsocket(sock, cmd, arg);
 #endif
 #ifdef __unix
@@ -137,7 +137,7 @@ int SetSockopt(SOCKET sock, int level, int optname, const char *optval, int optl
 
 int Error(void)
 {
-#ifdef WIN32
+#if (defined _WIN32) || (defined _WIN64)
 	return (int)WSAGetLastError();
 #endif
 #ifdef __unix

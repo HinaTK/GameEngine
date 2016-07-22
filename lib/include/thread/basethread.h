@@ -6,11 +6,13 @@
 #include "threadmanager.h"
 #include "common/datastructure/msgqueue.h"
 #include "lib/include/frame/message.h"
+#include "common/serverdef.h"
 
 /*
 	目的：以多线程并行代替多进程并行
 */
 
+class ThreadManager;
 class BaseThread
 {
 public:
@@ -19,14 +21,16 @@ public:
 		* 函数结束会被析构;
 		继承者自己在 init 中决定是否释放 arg
 	*/
-	BaseThread(void *arg, char exit = ThreadManager::EXIT_NORMAL);
+	BaseThread(ThreadManager *manager, void *arg, char exit = ThreadManager::EXIT_NORMAL);
 	virtual ~BaseThread();
 
-	void	SetID(int id){ m_id = id; }
+	void		SetID(ThreadID id){ m_id = id; }
+	ThreadID	GetID(){ return m_id; }
 	void	Start();
 	void	Loop(bool sleep = true);
 
 	void	PushMsg(ThreadMsg *msg);
+	ThreadManager *GetManager(){ return m_manager; }
 	void	Exit();
 	void	Wait();
 
@@ -37,10 +41,11 @@ private:
 protected:
 	virtual void	Init(void *arg) = 0;
 	virtual bool	Run() = 0;
-	virtual void	RecvData(short type, int sid, int len, const char *data) = 0;
+	virtual void	RecvData(short type, ThreadID sid, int len, const char *data) = 0;
 protected:
-	int				m_id;
+	ThreadID		m_id;
 	std::thread		*m_thread;
+	ThreadManager	*m_manager;
 	bool			m_is_start;
 	bool			m_is_exit;
 

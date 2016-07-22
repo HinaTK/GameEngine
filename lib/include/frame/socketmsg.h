@@ -8,12 +8,14 @@
 
 namespace SocketMsg
 {
+	// socket thread msg
 	enum
 	{
 		STM_ADD_HANDLER = ThreadSysID::MAX_ID + 1,
 		STM_ADD_HANDLER_RET,
 		STM_SEND_MSG,
-		STM_REMOVE_HANDLER
+		STM_REMOVE_HANDLER,
+		MAX_ID
 	};
 
 	struct AddHandler

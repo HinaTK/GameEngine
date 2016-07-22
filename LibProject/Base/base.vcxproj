@@ -5,9 +5,17 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
@@ -17,7 +25,6 @@
     <ClInclude Include="..\..\lib\include\base\gametime.h" />
     <ClInclude Include="..\..\lib\include\base\interface.h" />
     <ClInclude Include="..\..\lib\include\base\md5.h" />
-    <ClInclude Include="..\..\lib\include\base\serverconfig.h" />
     <ClInclude Include="..\..\lib\include\base\timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -26,7 +33,6 @@
     <ClCompile Include="..\..\lib\src\base\gametime.cpp" />
     <ClCompile Include="..\..\lib\src\base\interface.cpp" />
     <ClCompile Include="..\..\lib\src\base\md5.cpp" />
-    <ClCompile Include="..\..\lib\src\base\serverconfig.cpp" />
     <ClCompile Include="..\..\lib\src\base\timer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -49,6 +55,12 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -63,6 +75,11 @@
     <OutDir>..\..\lib\windows</OutDir>
     <IntDir>..\..\lib\temp</IntDir>
     <IncludePath>..\..\lib\include\base;..\..\lib\include;..\..\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\lib\windows</OutDir>
+    <IntDir>..\..\lib\temp</IntDir>
+    <IncludePath>..\..\lib\include;..\..\lib\include\base;..\..\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

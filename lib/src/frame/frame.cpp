@@ -18,7 +18,7 @@ namespace SignalCatch
 }
 
 // windows 控制台关闭监听
-#ifdef	WIN32
+#if (defined _WIN32) || (defined _WIN64)
 BOOL CALLBACK CosonleHandler(DWORD ev)
 {
 	BOOL bRet = FALSE;
@@ -44,7 +44,7 @@ Frame::Frame()
 	signal(SIGSEGV, SignalCatch::Catch);
 	signal(SIGTERM, SignalCatch::Catch);
 	signal(SIGABRT, SignalCatch::Catch);
-#ifdef WIN32
+#if (defined _WIN32) || (defined _WIN64)
 	SetConsoleCtrlHandler(CosonleHandler, TRUE);
 #endif	
 #ifdef __unix
@@ -55,6 +55,30 @@ Frame::Frame()
 
 Frame::~Frame()
 {
+	
+}
+
+
+void Frame::Run()
+{
+	char cmd_buf[512] = { 0 };
+	while (IsRun())
+	{
+		gets(cmd_buf);
+		if (strcmp(cmd_buf, "exit") == 0)
+		{
+			SetExit();
+		}
+		else if (strcmp(cmd_buf, "ping") == 0)
+		{
+			// ping 一下所有线程，看是否有阻塞
+			printf("ping ...\n");
+		}
+		else
+		{
+			this->Cmd(cmd_buf);
+		}
+	}
 	
 }
 

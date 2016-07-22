@@ -35,6 +35,7 @@ public:
 	SocketThread	*GetThread(){ return m_thread; }
 
 	bool			InitServer(char *ip, unsigned short port, int backlog, MsgCallBack *call_back);
+	bool			InitServer(char *ip, unsigned short port, int backlog, int size, MsgCallBack *call_back);
 	bool			InitServer(char *ip, unsigned short port, int backlog, Accepter *accepter, MsgCallBack *call_back);
 	NetHandle		SyncConnect(const char *ip, unsigned short port, MsgCallBack *call_back);
 	NetHandle		SyncConnect(const char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back);

@@ -56,9 +56,10 @@ bool SocketThread::Run()
         }
         // ReplaceHandler();
         ClearHandler();
+        return true;
     }
 
-    return true;
+    return false;
 }
 
 void SocketThread::InitNetHandler(NetHandler *handler)

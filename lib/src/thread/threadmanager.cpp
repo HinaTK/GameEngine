@@ -26,7 +26,7 @@ ThreadManager::ThreadManager()
 int ThreadManager::Register(BaseThread *bt, char exit)
 {
 	m_write_thread->push_back(bt);
-	unsigned int id = m_thread.Insert(bt);
+	ThreadID id = m_thread.Insert(bt);
 	bt->SetID(id);
 	m_exit[exit].push_back(id);
 	return id;
@@ -48,7 +48,7 @@ void ThreadManager::Start()
 	}
 }
 
-void ThreadManager::SendMsg(short type, unsigned char did, int len, const char *data, int sid)
+void ThreadManager::SendMsg(short type, ThreadID did, int len, const char *data, ThreadID sid)
 {
 	m_thread[did]->PushMsg(new ThreadMsg(type, sid, len, data));
 }

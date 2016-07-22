@@ -1,8 +1,8 @@
 
 #include "treethread.h"
 
-TreeThread::TreeThread(void *arg, char exit /*= ThreadManager::EXIT_NORMAL*/)
-: BaseThread(arg, exit)
+TreeThread::TreeThread(ThreadManager *manager, void *arg, char exit /*= ThreadManager::EXIT_NORMAL*/)
+: BaseThread(manager, arg, exit)
 , m_manager(new ThreadManager())
 {
 

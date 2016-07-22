@@ -6,7 +6,7 @@
 #include <unistd.h>
 #endif
 
-#ifdef WIN32
+#if (defined _WIN32) || (defined _WIN64)
 #include <windows.h>
 #endif
 
@@ -38,7 +38,7 @@ unsigned long long GameTime::MilliSecond()
 	gettimeofday(&tv, NULL);
 	return (unsigned long long)(tv.tv_sec * 1000 + tv.tv_usec * 0.001);
 #endif
-#ifdef WIN32
+#if (defined _WIN32) || (defined _WIN64)
 	return (unsigned long long)GetTickCount64();
 #endif
 }

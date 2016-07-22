@@ -50,16 +50,37 @@ namespace game
 			KeyNode			*next;
 		};
 
-		typedef Array<V> _Array;
+		struct ValNode
+		{
+			K 	key;
+			V 	val;
+		};
+
+		typedef Array<ValNode> _Array;
 		typedef typename _Array::iterator iterator;
 
-		V			Nil(){ return m_nil; }
+		ValNode		Nil(){ return m_nil; }
 		iterator	Begin(){ return m_value_array.Begin(); }
 		iterator	End(){ return m_value_array.End(); }
 
 		bool		Push(K key, V &val);
+		bool		Push(K key, const V &val){ return Push(key, val); }
 		void		Erase(K key);
-		V &			operator[](K key);
+		ValNode &	operator[](K key)
+		{
+			unsigned int real_key = key % m_size;
+			KeyNode *node = m_hash_list[real_key];
+
+			while (node != NULL)
+			{
+				if (node->key == key)
+				{
+					return *(m_value_array.Find(node->array_key));
+				}
+				node = node->next;
+			}
+			return m_nil;
+		}
 
 		iterator	Find(K key)
 		{
@@ -77,12 +98,20 @@ namespace game
 		}
 
 		unsigned int Size(){return m_value_array.Size();}
+		void operator=(Hash<K,V>& hash)
+		{
+			m_size = hash.m_size;
+			for (iterator itr = hash.m_value_array.Begin(); itr != hash.m_value_array.End(); ++itr)
+			{
+				Push(itr->key, itr->val);
+			}
+		}
 
 	protected:
 		unsigned int	m_size;
 		KeyNode			**m_hash_list;
 		_Array			m_value_array;	// 所有数据保存的数据结构
-		V				m_nil;
+		ValNode			m_nil;
 	};
 
 	template<class K, class V>
@@ -91,8 +120,9 @@ namespace game
 		unsigned int real_key = key % m_size;
 
 		KeyNode *node = new KeyNode;
+		ValNode val_node = {key, val};
 		node->key = key;
-		node->array_key = m_value_array.Insert(val);
+		node->array_key = m_value_array.Insert(val_node);
 
 		// 若头结点为空，插入结点放置到头结点；否则插入结点成为新头结点
 		if (m_hash_list[real_key] == NULL)
@@ -135,23 +165,6 @@ namespace game
 			frontNode = node;
 			node = node->next;
 		}
-	}
-
-	template<class K, class V>
-	V & game::Hash<K, V>::operator[](K key)
-	{
-		unsigned int real_key = key % m_size;
-		KeyNode *node = m_hash_list[real_key];
-
-		while (node != NULL)
-		{
-			if (node->key == key)
-			{
-				return *(m_value_array.Find(node->array_key));
-			}
-			node = node->next;
-		}
-		return m_nil;	
 	}
 }
 #endif

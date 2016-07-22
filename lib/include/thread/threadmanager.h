@@ -2,9 +2,11 @@
 #ifndef THREAD_MANAGER_H
 #define THREAD_MANAGER_H
 
-#include "threadsysid.h"
-#include "common/datastructure/gamearray.h"
 #include <vector>
+#include "threadsysid.h"
+#include "common/serverdef.h"
+#include "common/datastructure/gamearray.h"
+
 
 class BaseThread;
 class ThreadManager
@@ -27,7 +29,7 @@ public:
 	void			Exit();
 	void			Wait();
 
-	void			SendMsg(short type, unsigned char did, int len, const char *data, int sid = -1);
+	void			SendMsg(short type, ThreadID did, int len, const char *data, ThreadID sid = INVALID_THREAD_ID);
 	void			CMD(short type, int sid, int len, const char *data, int did = -1);
 
 private:

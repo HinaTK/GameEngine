@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
@@ -54,4 +55,80 @@
       <Filter>net</Filter>
     </ClCompile>
   </ItemGroup>
+=======
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="db">
+      <UniqueIdentifier>{0681564c-c691-4667-9604-c5506eb3f12c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="net">
+      <UniqueIdentifier>{07d01f16-e03c-4523-830c-7d995e9c6198}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proto">
+      <UniqueIdentifier>{ce220b58-243c-4a61-8dcc-c3deca69658b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="message">
+      <UniqueIdentifier>{cad4fcf5-9f75-44e5-94b8-b115e0265ad3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{d588beff-2157-4a63-8d66-a2ff552cd872}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="main">
+      <UniqueIdentifier>{0e9d4ec8-c143-48dd-9fa4-815140f69d4f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\CenterServer\db\dbthread.cpp">
+      <Filter>db</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterServer\main\center.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterServer\main\main.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterServer\net\callback.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterServer\net\netthread.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterServer\message\messagehandler.cpp">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterServer\src\loginmanager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterServer\db\dbmanager.cpp">
+      <Filter>db</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\CenterServer\db\dbthread.h">
+      <Filter>db</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterServer\main\center.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterServer\net\callback.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterServer\net\netthread.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterServer\message\messagehandler.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterServer\src\loginmanager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterServer\message\proto.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterServer\db\dbmanager.h">
+      <Filter>db</Filter>
+    </ClInclude>
+  </ItemGroup>
+>>>>>>> b3890a6bbcff78e1451a909305082db24ae80a16
 </Project>

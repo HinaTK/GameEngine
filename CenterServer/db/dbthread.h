@@ -3,18 +3,21 @@
 #define DB_THREAD_H
 
 #include "lib/include/thread/basethread.h"
+#include "dbmanager.h"
 
 class DBThread : public BaseThread
 {
 public:
 	virtual ~DBThread();
-	DBThread();
+	DBThread(ThreadManager *manager);
 
 protected:
 	void	Init(void *arg);
 	bool	Run();
-	void	RecvData(short type, int sid, int len, const char *data);
+	void	RecvData(short type, ThreadID sid, int len, const char *data);
 private:
+
+	DBManager	m_manager;
 };
 
 #endif

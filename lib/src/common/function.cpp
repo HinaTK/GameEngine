@@ -5,14 +5,14 @@
 
 void Function::WindowsPause()
 {
-#ifdef WIN32
+#if (defined _WIN32) || (defined _WIN64)
 	system("pause");
 #endif
 }
 
 std::string Function::WorkDir()
 {
-#ifdef WIN32
+#if (defined _WIN32) || (defined _WIN64)
 	std::string strPath = "";
 	char exeFullPath[MAX_PATH] = {0}; // Full path
 	GetModuleFileNameA(NULL, exeFullPath, MAX_PATH);
@@ -29,7 +29,7 @@ std::string Function::WorkDir()
 
 unsigned long Function::GetThreadID()
 {
-#ifdef WIN32
+#if (defined _WIN32) || (defined _WIN64)
 	return GetCurrentThreadId();
 #endif
 	return 0;

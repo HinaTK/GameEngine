@@ -42,11 +42,11 @@ bool BaseListener::RecvBuf()
 
 void BaseListener::Send( const char *buf, unsigned int len )
 {
-	NetCommon::Header header;
-	header.msg_len = len;
+// 	NetCommon::Header header;
+// 	header.msg_len = len;
 
 	MutexLock ml(&m_send_mutex);
-	m_send_buf_write->Push((const char *)&header, NetCommon::HEADER_LENGTH);
+	m_send_buf_write->Push((const char *)&len, NetCommon::HEADER_LENGTH);
 	m_send_buf_write->Push(buf, len);
 }
 

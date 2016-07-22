@@ -11,13 +11,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\include\mysql\field.h" />
-    <ClInclude Include="..\..\lib\include\mysql\fieldmanager.h" />
-    <ClInclude Include="..\..\lib\include\mysql\keyfield.h" />
+    <ClInclude Include="..\..\lib\include\db\field.h" />
+    <ClInclude Include="..\..\lib\include\db\fieldmanager.h" />
+    <ClInclude Include="..\..\lib\include\db\keyfield.h" />
+    <ClInclude Include="..\..\lib\include\db\prepare.h" />
+    <ClInclude Include="..\..\lib\include\db\status.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lib\src\mysql\field.cpp" />
-    <ClCompile Include="..\..\lib\src\mysql\fieldmanager.cpp" />
+    <ClCompile Include="..\..\lib\src\db\field.cpp" />
+    <ClCompile Include="..\..\lib\src\db\fieldmanager.cpp" />
+    <ClCompile Include="..\..\lib\src\db\prepare.cpp" />
+    <ClCompile Include="..\..\lib\src\db\status.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C772D1D6-2CD2-4F2A-A9DA-3D2A0D65A3F8}</ProjectGuid>
@@ -51,7 +55,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\..\lib\windows</OutDir>
     <IntDir>..\..\lib\temp</IntDir>
-    <IncludePath>..\..\;..\..\lib\include;..\..\lib\include\mysql;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\;..\..\lib\include;..\..\lib\include\db;..\..\lib\include\mysql;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

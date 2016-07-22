@@ -1,7 +1,9 @@
 
 #include "center.h"
 #include "net/netthread.h"
+#include "net/callback.h"
 #include "db/dbthread.h"
+#include "message/proto.h"
 #include "lib/include/common/serverconfig.h"
 
 
@@ -20,32 +22,30 @@ bool Center::Init()
 {
 	CenterConfig::Instance().Init();
 	m_thread_manager.Register(new NetThread(&m_thread_manager));
-	m_thread_manager.Register(new DBThread());
+	db_thread_id[0] = m_thread_manager.Register(new DBThread(&m_thread_manager));
+	db_thread_id[1] = m_thread_manager.Register(new DBThread(&m_thread_manager));
 	return true;
 }
 
 void Center::Start()
 {
 	m_thread_manager.Start();
-	while (IsRun())
-	{
-		char cmd_buf[512] = { 0 };
-		gets(cmd_buf);
-		if (strcmp(cmd_buf, "") == 0)
-		{
-		}
-		else if (strcmp(cmd_buf, "create") == 0)
-		{
+	this->Run();
+}
 
-		}
-		else if (strcmp(cmd_buf, "exit") == 0)
-		{
-			SetExit();
-		}
-		else if (strcmp(cmd_buf, "login") == 0)
-		{
-			printf("do login\n");
-		}
+
+
+void Center::Cmd(char *buf)
+{
+	if (strcmp(buf, "create") == 0)
+	{
+
+	}
+	else if (strcmp(buf, "login") == 0)
+	{
+		
+
+		printf("do login\n");
 	}
 }
 

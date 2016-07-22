@@ -66,6 +66,7 @@ public:
 		T		val;
 		bool	be_used;
 	};
+
 	unsigned int	Insert(T val);
 
 	void			Erase(unsigned int index);
@@ -79,7 +80,6 @@ public:
 	unsigned int	Size(){ return m_size; }
 
 	iterator		Begin(){ return m_begin; }
-
 	iterator		End(){ return m_end; }
 
 	iterator		Find(unsigned int index)

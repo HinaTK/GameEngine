@@ -36,6 +36,11 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, MsgCallB
 	return InitServer(ip, port, backlog, new BaseAccepter(m_thread), call_back);
 }
 
+bool NetManager::InitServer(char *ip, unsigned short port, int backlog, int size, MsgCallBack *call_back)
+{
+	return InitServer(ip, port, backlog, new BaseAccepter(m_thread, size), call_back);
+}
+
 bool NetManager::InitServer(char *ip, unsigned short port, int backlog, Accepter *accepter, MsgCallBack *call_back)
 {
 	printf("Init Server ip = %s, port = %d\n", ip, port);
