@@ -22,7 +22,7 @@ Log::Log(const char *server_name, const char *log_name)
 , m_day(0)
 {
 	char path[512];
-#ifdef WIN32
+#if (defined _WIN32) || (defined _WIN64)
 	_getcwd(path, 512);
 	m_root_dir = path;
 	m_root_dir = m_root_dir + "\\log";
@@ -124,7 +124,7 @@ bool Log::MakeDayDir(int day)
 {
 	char dir[32];
 	m_day = day;
-#ifdef WIN32
+#if (defined _WIN32) || (defined _WIN64)
 	sprintf(dir, "\\%d", m_day);
 	std::string temp = m_root_dir + dir;
 	_mkdir(temp.c_str());
@@ -140,7 +140,7 @@ bool Log::MakeDayDir(int day)
 
 bool Log::MakeFile()
 {
-#ifdef WIN32
+#if (defined _WIN32) || (defined _WIN64)
 	std::string strFile = m_root_dir + m_day_dir + "\\" + m_log_name;
 #endif
 #ifdef __unix

@@ -11,5 +11,9 @@ typedef char			GameName[GAME_NAME_SIZE];
 typedef int				ServerID;
 typedef long long		RoleID;
 typedef unsigned char	ThreadID;
+
+
+#define INVALID_THREAD_ID 255
+
 #endif
 

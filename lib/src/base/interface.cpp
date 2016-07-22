@@ -4,7 +4,7 @@
 #include <unistd.h>
 #endif
 
-#ifdef WIN32
+#if (defined _WIN32) || (defined _WIN64)
 #include <windows.h>
 #endif
 
@@ -68,7 +68,7 @@ void Time::Sleep(unsigned int ms)
 #ifdef __unix
 	usleep((ms << 10) - (ms << 4) - (ms << 3));		// 经测试，这种方法在linux下执行得更快一些（windows下差不多）
 #endif
-#ifdef WIN32
+#if (defined _WIN32) || (defined _WIN64)
 	::Sleep(ms);
 #endif
 }

@@ -102,7 +102,8 @@ int main()
 	//TestDataStructure::TestList3();
 	//TestDataStructure::TestHash();
 	//TestDataStructure::TestHash2();
-	TestDataStructure::TestHash4();
+	//TestDataStructure::TestHash4();
+	TestDataStructure::TestHash5();
 	
 	//TestDataStructure::TestMsgQueue2();
 	//TestOther::Test1();

@@ -24,7 +24,8 @@ public:
 	BaseThread(ThreadManager *manager, void *arg, char exit = ThreadManager::EXIT_NORMAL);
 	virtual ~BaseThread();
 
-	void	SetID(ThreadID id){ m_id = id; }
+	void		SetID(ThreadID id){ m_id = id; }
+	ThreadID	GetID(){ return m_id; }
 	void	Start();
 	void	Loop(bool sleep = true);
 

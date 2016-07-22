@@ -2,7 +2,7 @@
 #ifndef SOCKET_THREAD_H
 #define SOCKET_THREAD_H
 
-#ifdef WIN32
+#if (defined _WIN32) || (defined _WIN64)
 #include "threadselect.h"
 #endif // WIN32
 #ifdef __unix

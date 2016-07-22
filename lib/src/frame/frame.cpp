@@ -18,7 +18,7 @@ namespace SignalCatch
 }
 
 // windows 控制台关闭监听
-#ifdef	WIN32
+#if (defined _WIN32) || (defined _WIN64)
 BOOL CALLBACK CosonleHandler(DWORD ev)
 {
 	BOOL bRet = FALSE;
@@ -44,7 +44,7 @@ Frame::Frame()
 	signal(SIGSEGV, SignalCatch::Catch);
 	signal(SIGTERM, SignalCatch::Catch);
 	signal(SIGABRT, SignalCatch::Catch);
-#ifdef WIN32
+#if (defined _WIN32) || (defined _WIN64)
 	SetConsoleCtrlHandler(CosonleHandler, TRUE);
 #endif	
 #ifdef __unix
