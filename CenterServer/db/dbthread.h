@@ -3,6 +3,7 @@
 #define DB_THREAD_H
 
 #include "lib/include/thread/basethread.h"
+#include "dbmanager.h"
 
 class DBThread : public BaseThread
 {
@@ -15,6 +16,8 @@ protected:
 	bool	Run();
 	void	RecvData(short type, ThreadID sid, int len, const char *data);
 private:
+
+	DBManager	m_manager;
 };
 
 #endif

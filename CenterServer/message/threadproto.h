@@ -15,7 +15,7 @@ namespace ThreadProto
 
 	struct LoadRole
 	{
-		PlatName	plat_name;
+		Account		account;
 		ServerID	server_id;
 	};
 }

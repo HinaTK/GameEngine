@@ -25,11 +25,11 @@ ThreadID LoginManager::GetThreadID()
 	return Center::Instance().db_thread_id[m_cur_thread_id++];
 }
 
-void LoginManager::OnLogin(PlatName plat_name, ServerID server_id)
+void LoginManager::OnLogin(Account account, ServerID server_id)
 {
 	// todo 去数据库检测
 	ThreadProto::LoadRole lr;
-	memcpy(lr.plat_name, plat_name, PLAT_NAME_SIZE);
+	memcpy(lr.account, account, ACCOUNT_SIZE);
 	lr.server_id = server_id;
 	m_thread->GetManager()->SendMsg(ThreadProto::TP_LOAD_ROLE, GetThreadID(), sizeof(ThreadProto::LoadRole), (const char *)&lr);
 }

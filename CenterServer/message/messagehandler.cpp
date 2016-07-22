@@ -32,7 +32,7 @@ void MessageHandler::HandleMessage(GameMsg *msg)
 void MessageHandler::CSLogin(GameMsg *msg)
 {
 	Proto::csLogin *login = (Proto::csLogin *)msg->data;
-	m_thread->GetLoginManager()->OnLogin(login->plat_name, login->server_id);
+	m_thread->GetLoginManager()->OnLogin(login->account, login->server_id);
 	printf("fsdfsdf\n");
 // 	EProtocol::CSUserLogin * ul = (EProtocol::CSUserLogin *)msg;
 // 	printf("account = %d, password = %d\n",ul->account, ul->password);

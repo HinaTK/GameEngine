@@ -35,10 +35,11 @@ void test_mysql()
 	}
 	MYSQL_STMT	*stmt1 = mysql_stmt_init(mysql);
 	std::string insert = "INSERT INTO role (sid,account) VALUES (?,?);";
-	std::string update = "UPDATE role SET name=? WHERE sid=123;";
+	std::string update = "UPDATE role SET name=?,other=? WHERE sid=123;";
 	int server_id = 123;
 	char *account = "fffhhh222333";
 	char *name = "jiaming";
+	char *text = "11111jiamingddddd";
 	MYSQL_BIND *param = new MYSQL_BIND[2];
 	// 这句很重要，不写会挂
 	memset(param, 0, sizeof(MYSQL_BIND) * 2);
@@ -65,13 +66,16 @@ void test_mysql()
 	}
 
 	MYSQL_STMT	*stmt2 = mysql_stmt_init(mysql);
-	MYSQL_BIND *param2 = new MYSQL_BIND[1];
-	memset(param2, 0, sizeof(MYSQL_BIND));
+	MYSQL_BIND *param2 = new MYSQL_BIND[2];
+	memset(param2, 0, sizeof(MYSQL_BIND) * 2);
 
 	param2[0].buffer_type = MYSQL_TYPE_STRING;
 	param2[0].buffer = name;
 	param2[0].buffer_length = strlen(name);
-	param2[0].length = 0;
+
+	param2[1].buffer_type = MYSQL_TYPE_VAR_STRING;
+	param2[1].buffer = text;
+	param2[1].buffer_length = strlen(text);
 
 	if (mysql_stmt_prepare(stmt2, update.c_str(), update.size()) != 0)
 	{
@@ -94,10 +98,10 @@ void test_mysql()
 	param[1].buffer = account;
 	param[1].buffer_length = strlen(account);
 
-	if (mysql_stmt_prepare(stmt1, insert.c_str(), insert.size()) != 0)
-	{
-		printf("mysql_stmt_prepare error %s ...\n", mysql_stmt_error(stmt1));
-	}
+// 	if (mysql_stmt_prepare(stmt1, insert.c_str(), insert.size()) != 0)
+// 	{
+// 		printf("mysql_stmt_prepare error %s ...\n", mysql_stmt_error(stmt1));
+// 	}
 	if (mysql_stmt_bind_param(stmt1, param) != 0)
 	{
 		printf("mysql_stmt_bind_param error ...\n");

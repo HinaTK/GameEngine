@@ -13,10 +13,10 @@ public:
 	~LoginManager();
 
 	ThreadID 	GetThreadID();
-	void 	OnLogin(PlatName plat_name, ServerID server_id);
+	void 	OnLogin(Account account, ServerID server_id);
 	// struct LoginKey
 	// {
-	// 	PlatName 	plat_name;
+	// 	Account 	account;
 	// 	ServerID	server_id;
 	// };
 
