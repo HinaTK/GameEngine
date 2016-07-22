@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{59026FCA-FACA-41DB-8F0C-467D86896259}</ProjectGuid>
+    <ProjectGuid>{68A61C8D-468B-442D-83A6-0B53CE37F800}</ProjectGuid>
     <RootNamespace>GameServer</RootNamespace>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
@@ -94,25 +94,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\GameServer\data\sql.cpp" />
-    <ClCompile Include="..\GameServer\db\dbthread.cpp" />
-    <ClCompile Include="..\GameServer\frame\game.cpp" />
-    <ClCompile Include="..\GameServer\frame\main.cpp" />
-    <ClCompile Include="..\GameServer\global\globalthread.cpp" />
-    <ClCompile Include="..\GameServer\net\callback.cpp" />
-    <ClCompile Include="..\GameServer\net\netthread.cpp" />
-    <ClCompile Include="..\GameServer\world\worldmanager.cpp" />
+    <ClInclude Include="..\CenterServer\db\dbthread.h" />
+    <ClInclude Include="..\CenterServer\main\center.h" />
+    <ClInclude Include="..\CenterServer\net\callback.h" />
+    <ClInclude Include="..\CenterServer\net\netthread.h" />
+    <ClInclude Include="..\CenterServer\net\router.h" />
+    <ClInclude Include="..\protocol\innerproto.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\GameServer\data\sql.h" />
-    <ClInclude Include="..\GameServer\db\dbthread.h" />
-    <ClInclude Include="..\GameServer\define.h" />
-    <ClInclude Include="..\GameServer\frame\game.h" />
-    <ClInclude Include="..\GameServer\global\globalthread.h" />
-    <ClInclude Include="..\GameServer\net\callback.h" />
-    <ClInclude Include="..\GameServer\net\netthread.h" />
-    <ClInclude Include="..\GameServer\world\worldmanager.h" />
-    <ClInclude Include="..\protocol\innerproto.h" />
+    <ClCompile Include="..\CenterServer\db\dbthread.cpp" />
+    <ClCompile Include="..\CenterServer\main\center.cpp" />
+    <ClCompile Include="..\CenterServer\main\main.cpp" />
+    <ClCompile Include="..\CenterServer\net\callback.cpp" />
+    <ClCompile Include="..\CenterServer\net\netthread.cpp" />
+    <ClCompile Include="..\CenterServer\net\router.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
