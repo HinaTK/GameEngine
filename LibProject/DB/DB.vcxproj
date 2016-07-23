@@ -24,7 +24,7 @@
     <ClCompile Include="..\..\lib\src\db\status.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C772D1D6-2CD2-4F2A-A9DA-3D2A0D65A3F8}</ProjectGuid>
+    <ProjectGuid>{5A99A955-0F4A-462C-ACD5-8FE49A95E52E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Log</RootNamespace>
   </PropertyGroup>

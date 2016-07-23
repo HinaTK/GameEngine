@@ -1,98 +1,40 @@
-<<<<<<< HEAD
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
-    <Filter Include="frame">
-      <UniqueIdentifier>{0e9d4ec8-c143-48dd-9fa4-815140f69d4f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="db">
-      <UniqueIdentifier>{0681564c-c691-4667-9604-c5506eb3f12c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="net">
-      <UniqueIdentifier>{07d01f16-e03c-4523-830c-7d995e9c6198}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="proto">
-      <UniqueIdentifier>{ce220b58-243c-4a61-8dcc-c3deca69658b}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\protocol\innerproto.h">
-      <Filter>proto</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CenterServer\db\dbthread.h">
-      <Filter>db</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CenterServer\main\center.h">
-      <Filter>frame</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CenterServer\net\callback.h">
-      <Filter>net</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CenterServer\net\netthread.h">
-      <Filter>net</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CenterServer\net\router.h">
-      <Filter>net</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\CenterServer\db\dbthread.cpp">
-      <Filter>db</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CenterServer\main\center.cpp">
-      <Filter>frame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CenterServer\main\main.cpp">
-      <Filter>frame</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CenterServer\net\callback.cpp">
-      <Filter>net</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CenterServer\net\netthread.cpp">
-      <Filter>net</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CenterServer\net\router.cpp">
-      <Filter>net</Filter>
-    </ClCompile>
-  </ItemGroup>
-=======
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="db">
-      <UniqueIdentifier>{0681564c-c691-4667-9604-c5506eb3f12c}</UniqueIdentifier>
+      <UniqueIdentifier>{2b0b345f-6a8e-4a39-9ead-8e1e2470b410}</UniqueIdentifier>
     </Filter>
     <Filter Include="net">
-      <UniqueIdentifier>{07d01f16-e03c-4523-830c-7d995e9c6198}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="proto">
-      <UniqueIdentifier>{ce220b58-243c-4a61-8dcc-c3deca69658b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="message">
-      <UniqueIdentifier>{cad4fcf5-9f75-44e5-94b8-b115e0265ad3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{d588beff-2157-4a63-8d66-a2ff552cd872}</UniqueIdentifier>
+      <UniqueIdentifier>{d35d0800-7f30-4040-ae67-331017a08228}</UniqueIdentifier>
     </Filter>
     <Filter Include="main">
-      <UniqueIdentifier>{0e9d4ec8-c143-48dd-9fa4-815140f69d4f}</UniqueIdentifier>
+      <UniqueIdentifier>{c46735c3-ca6b-4334-9402-4cbb3d003498}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="message">
+      <UniqueIdentifier>{f09de7be-8dd6-49cd-b066-f5e9aad0216d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{f2a38b38-d6a3-45ea-ae52-72e251a4647f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\CenterServer\db\dbthread.cpp">
+    <ClCompile Include="..\CenterServer\db\dbmanager.cpp">
       <Filter>db</Filter>
     </ClCompile>
-    <ClCompile Include="..\CenterServer\main\center.cpp">
-      <Filter>main</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CenterServer\main\main.cpp">
-      <Filter>main</Filter>
+    <ClCompile Include="..\CenterServer\db\dbthread.cpp">
+      <Filter>db</Filter>
     </ClCompile>
     <ClCompile Include="..\CenterServer\net\callback.cpp">
       <Filter>net</Filter>
     </ClCompile>
     <ClCompile Include="..\CenterServer\net\netthread.cpp">
       <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterServer\main\center.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterServer\main\main.cpp">
+      <Filter>main</Filter>
     </ClCompile>
     <ClCompile Include="..\CenterServer\message\messagehandler.cpp">
       <Filter>message</Filter>
@@ -100,16 +42,13 @@
     <ClCompile Include="..\CenterServer\src\loginmanager.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\CenterServer\db\dbmanager.cpp">
-      <Filter>db</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\CenterServer\db\dbthread.h">
+    <ClInclude Include="..\CenterServer\db\dbmanager.h">
       <Filter>db</Filter>
     </ClInclude>
-    <ClInclude Include="..\CenterServer\main\center.h">
-      <Filter>main</Filter>
+    <ClInclude Include="..\CenterServer\db\dbthread.h">
+      <Filter>db</Filter>
     </ClInclude>
     <ClInclude Include="..\CenterServer\net\callback.h">
       <Filter>net</Filter>
@@ -117,18 +56,20 @@
     <ClInclude Include="..\CenterServer\net\netthread.h">
       <Filter>net</Filter>
     </ClInclude>
+    <ClInclude Include="..\CenterServer\main\center.h">
+      <Filter>main</Filter>
+    </ClInclude>
     <ClInclude Include="..\CenterServer\message\messagehandler.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterServer\message\proto.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterServer\message\threadproto.h">
       <Filter>message</Filter>
     </ClInclude>
     <ClInclude Include="..\CenterServer\src\loginmanager.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\CenterServer\message\proto.h">
-      <Filter>message</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CenterServer\db\dbmanager.h">
-      <Filter>db</Filter>
-    </ClInclude>
   </ItemGroup>
->>>>>>> b3890a6bbcff78e1451a909305082db24ae80a16
 </Project>
