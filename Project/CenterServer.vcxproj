@@ -62,8 +62,8 @@
     <_ProjectFileVersion>12.0.21005.1</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\Debug\</OutDir>
-    <IntDir>..\Debug\centerserver\</IntDir>
+    <OutDir>..\bin\</OutDir>
+    <IntDir>..\bin\centerserver\</IntDir>
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>..;..\CenterServer;../lib/include/mysql;$(IncludePath)</IncludePath>
   </PropertyGroup>
@@ -86,7 +86,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>Frame.lib;Common.lib;Thread.lib;Base.lib;libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\lib\windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>

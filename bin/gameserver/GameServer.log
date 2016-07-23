@@ -1,0 +1,42 @@
+﻿生成启动时间为 2016/7/23 9:20:28。
+     1>项目“E:\Project\git\GameEngine\Project\GameServer.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D WIN32_LEAN_AND_MEAN /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"..\bin\gameserver\\" /Fd"..\bin\gameserver\vc120.pdb" /FR"..\bin\gameserver\\" /Gd /TP /analyze- /errorReport:prompt ..\GameServer\data\sql.cpp ..\GameServer\db\dbthread.cpp ..\GameServer\frame\game.cpp ..\GameServer\frame\main.cpp ..\GameServer\global\globalthread.cpp ..\GameServer\net\callback.cpp ..\GameServer\net\netthread.cpp ..\GameServer\world\worldmanager.cpp
+         worldmanager.cpp
+         netthread.cpp
+         callback.cpp
+         globalthread.cpp
+         main.cpp
+     1>e:\project\git\gameengine\gameserver\frame\game.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>e:\project\git\gameengine\common\serverdef.h(12): error C2371: “RoleID”: 重定义；不同的基类型
+                 e:\project\git\gameengine\gameserver\define.h(9) : 参见“RoleID”的声明
+     1>e:\project\git\gameengine\gameserver\frame\game.h(18): error C2259: “NewFrame”: 不能实例化抽象类
+                 由于下列成员: 
+                 “void Frame::Cmd(char *)”: 是抽象的
+                 e:\project\git\gameengine\lib\include\frame\frame.h(17) : 参见“Frame::Cmd”的声明
+         game.cpp
+     1>e:\project\git\gameengine\gameserver\frame\game.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+     1>e:\project\git\gameengine\common\serverdef.h(12): error C2371: “RoleID”: 重定义；不同的基类型
+                 e:\project\git\gameengine\gameserver\define.h(9) : 参见“RoleID”的声明
+     1>e:\project\git\gameengine\gameserver\frame\game.h(18): error C2259: “NewFrame”: 不能实例化抽象类
+                 由于下列成员: 
+                 “void Frame::Cmd(char *)”: 是抽象的
+                 e:\project\git\gameengine\lib\include\frame\frame.h(17) : 参见“Frame::Cmd”的声明
+     1>e:\project\git\gameengine\gameserver\frame\game.cpp(28): error C2259: “NetThread”: 不能实例化抽象类
+                 由于下列成员: 
+                 “void BaseThread::RecvData(short,ThreadID,int,const char *)”: 是抽象的
+                 e:\project\git\gameengine\lib\include\thread\basethread.h(44) : 参见“BaseThread::RecvData”的声明
+     1>e:\project\git\gameengine\gameserver\frame\game.cpp(29): error C2259: “DBThread”: 不能实例化抽象类
+                 由于下列成员: 
+                 “void BaseThread::RecvData(short,ThreadID,int,const char *)”: 是抽象的
+                 e:\project\git\gameengine\lib\include\thread\basethread.h(44) : 参见“BaseThread::RecvData”的声明
+         dbthread.cpp
+     1>e:\project\git\gameengine\gameserver\db\dbthread.cpp(11): error C2664: “BaseThread::BaseThread(const BaseThread &)”: 无法将参数 2 从“”转换为“void *”
+                 从整型转换为指针类型要求 reinterpret_cast、C 样式转换或函数样式转换
+         sql.cpp
+         正在生成代码...
+     1>已完成生成项目“E:\Project\git\GameEngine\Project\GameServer.vcxproj”(Build 个目标)的操作 - 失败。
+
+生成失败。
+
+已用时间 00:00:02.96

@@ -1,0 +1,23 @@
+﻿生成启动时间为 2016/7/23 9:20:20。
+     1>项目“E:\Project\git\GameEngine\Project\Client.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D WIN32_LEAN_AND_MEAN /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"..\bin\client\\" /Fd"..\bin\client\vc120.pdb" /FR"..\bin\client\\" /Gd /TP /analyze- /errorReport:prompt ..\Client\main\client.cpp ..\Client\main\main.cpp ..\Client\net\callback.cpp ..\Client\net\netthread.cpp
+         netthread.cpp
+         callback.cpp
+         main.cpp
+         client.cpp
+         正在生成代码...
+       Link:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\bin\Client.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\lib\windows Frame.lib Common.lib Thread.lib Base.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\bin\Client.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\bin\Client.lib" /MACHINE:X86 /SAFESEH ..\bin\client\client.obj
+         ..\bin\client\main.obj
+         ..\bin\client\callback.obj
+         ..\bin\client\netthread.obj
+     1>client.obj : warning LNK4075: 忽略“/EDITANDCONTINUE”(由于“/SAFESEH”规范)
+         Client.vcxproj -> E:\Project\git\GameEngine\Project\..\bin\Client.exe
+       BscMake:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\bscmake.exe /nologo /o"..\bin\Client.bsc" /n ..\bin\client\client.sbr ..\bin\client\main.sbr ..\bin\client\callback.sbr ..\bin\client\netthread.sbr
+     1>已完成生成项目“E:\Project\git\GameEngine\Project\Client.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:04.29

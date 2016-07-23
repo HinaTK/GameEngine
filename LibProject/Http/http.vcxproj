@@ -51,7 +51,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>..\..\lib\include;..\..\lib\include\http;..\..\;$(IncludePath)</IncludePath>
-    <OutDir>..\..\lib\windows</OutDir>
+    <OutDir>..\..\bin</OutDir>
     <IntDir>..\..\lib\temp</IntDir>
     <TargetName>Http</TargetName>
   </PropertyGroup>

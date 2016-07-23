@@ -1,0 +1,32 @@
+﻿生成启动时间为 2016/7/23 9:20:09。
+     1>项目“E:\Project\git\GameEngine\Project\CenterServer.vcxproj”在节点 2 上(Build 个目标)。
+     1>ClCompile:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D WIN32_LEAN_AND_MEAN /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"..\bin\centerserver\\" /Fd"..\bin\centerserver\vc120.pdb" /FR"..\bin\centerserver\\" /Gd /TP /analyze- /errorReport:prompt ..\CenterServer\db\dbmanager.cpp ..\CenterServer\db\dbthread.cpp ..\CenterServer\main\center.cpp ..\CenterServer\main\main.cpp ..\CenterServer\message\messagehandler.cpp ..\CenterServer\net\callback.cpp ..\CenterServer\net\netthread.cpp ..\CenterServer\src\loginmanager.cpp
+         loginmanager.cpp
+     1>e:\project\git\gameengine\centerserver\src\loginmanager.cpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+         netthread.cpp
+         callback.cpp
+         messagehandler.cpp
+         main.cpp
+         center.cpp
+         dbthread.cpp
+         dbmanager.cpp
+         正在生成代码...
+       Link:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"..\bin\CenterServer.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\bin Frame.lib Common.lib Thread.lib Base.lib libmysql.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"..\bin\CenterServer.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"..\bin\CenterServer.lib" /MACHINE:X86 /SAFESEH ..\bin\centerserver\dbmanager.obj
+         ..\bin\centerserver\dbthread.obj
+         ..\bin\centerserver\center.obj
+         ..\bin\centerserver\main.obj
+         ..\bin\centerserver\messagehandler.obj
+         ..\bin\centerserver\callback.obj
+         ..\bin\centerserver\netthread.obj
+         ..\bin\centerserver\loginmanager.obj
+     1>dbmanager.obj : warning LNK4075: 忽略“/EDITANDCONTINUE”(由于“/SAFESEH”规范)
+         CenterServer.vcxproj -> E:\Project\git\GameEngine\Project\..\bin\CenterServer.exe
+       BscMake:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\bscmake.exe /nologo /o"..\bin\CenterServer.bsc" /n ..\bin\centerserver\dbmanager.sbr ..\bin\centerserver\dbthread.sbr ..\bin\centerserver\center.sbr ..\bin\centerserver\main.sbr ..\bin\centerserver\messagehandler.sbr ..\bin\centerserver\callback.sbr ..\bin\centerserver\netthread.sbr ..\bin\centerserver\loginmanager.sbr
+     1>已完成生成项目“E:\Project\git\GameEngine\Project\CenterServer.vcxproj”(Build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:06.89

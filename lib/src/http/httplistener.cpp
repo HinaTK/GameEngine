@@ -48,7 +48,7 @@ bool HttpListener::RecvBuf()
 			{
 				return true;
 			}
-			RETUEN_ERROR(NetHandler::DR_RECV_BUF, NetCommon::Error());
+			RETUEN_ERROR_2(NetHandler::DR_RECV_BUF, NetCommon::Error());
 		}
 		m_buf_size += ret;
 		return this->RecvBuf();

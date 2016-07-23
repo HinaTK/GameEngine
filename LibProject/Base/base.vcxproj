@@ -72,7 +72,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\..\lib\windows</OutDir>
+    <OutDir>..\..\bin</OutDir>
     <IntDir>..\..\lib\temp</IntDir>
     <IncludePath>..\..\lib\include\base;..\..\lib\include;..\..\;$(IncludePath)</IncludePath>
   </PropertyGroup>
