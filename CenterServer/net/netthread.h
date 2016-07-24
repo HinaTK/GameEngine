@@ -6,7 +6,7 @@
 #include "lib/include/thread/basethread.h"
 #include "lib/include/frame/netmanager.h"
 #include "protocol/innerproto.h"
-#include "src/loginmanager.h"
+#include "login/loginmanager.h"
 #include "message/messagehandler.h"
 
 class ThreadManager;

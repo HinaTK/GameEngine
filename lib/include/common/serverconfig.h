@@ -3,6 +3,7 @@
 #define SERVER_CONFIG_H
 
 #include <vector>
+#include "lib/include/rapidjson/define.h"
 
 struct ServerInfo
 {
@@ -14,9 +15,14 @@ struct ServerInfo
 class ServerConfig
 {
 public:
+	ServerConfig();
+	~ServerConfig(){}
+
 	bool	Init();
 
 	ServerInfo center;
+protected:
+	rapidjson::Document doc;
 };
 
 class GatawayConfig : public ServerConfig
@@ -28,7 +34,7 @@ public:
 		static GatawayConfig config;
 		return config;
 	}
-
+	void	Read(){}
 	bool	Init();
 
 	std::vector<ServerInfo>	m_server;
@@ -39,18 +45,19 @@ private:
 class CenterConfig : public ServerConfig
 {
 public:
-	~CenterConfig(){};
+	virtual ~CenterConfig(){};
 	static CenterConfig &Instance()
 	{
 		static CenterConfig config;
 		return config;
 	}
 
-	bool	Init();
+	void	Read();
 
 	ServerInfo login;
+
 private:
-	CenterConfig(){};
+	CenterConfig();
 };
 
 class GameConfig : public ServerConfig
@@ -63,6 +70,7 @@ public:
 		return config;
 	}
 
+	void	Read(){}
 	bool	Init();
 
 	ServerInfo server;

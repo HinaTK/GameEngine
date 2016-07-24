@@ -1,6 +1,6 @@
 
 #include "center.h"
-#include "lib/include/common/function.h"
+#include "lib/include/base/function.h"
 #include <windows.h>
 
 int main()

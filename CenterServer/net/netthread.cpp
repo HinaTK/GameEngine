@@ -22,10 +22,10 @@ NetThread::~NetThread()
 
 void NetThread::Init(void *arg)
 {
-	ServerInfo info1 = CenterConfig::Instance().login;
+	ServerInfo &info1 = CenterConfig::Instance().login;
 	m_net_manager->InitServer(info1.ip, info1.port, info1.backlog, 1024, new CallBack(this));
 
-	ServerInfo info2 = CenterConfig::Instance().center;
+	ServerInfo &info2 = CenterConfig::Instance().center;
 	m_net_manager->InitServer(info2.ip, info2.port, info2.backlog, new InnerCallBack(this));
 
 	// 测试

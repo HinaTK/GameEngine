@@ -1,22 +1,72 @@
 ﻿
 #include <string>
 #include "serverconfig.h"
-#include "lib/include/rapidjson/filereadstream.h"
-#include "lib/include/rapidjson/define.h"
 
 static const std::string config_file("../config/server.json");
 
 
+ServerConfig::ServerConfig()
+{
+// 	FILE * fp = fopen(config_file.c_str(), "r");
+// 	if (fp != NULL){
+// 		fseek(fp, 0, SEEK_END);
+// 		int file_size = ftell(fp);
+// 		if (file_size < 1) {
+// 			printf("%s is empty file\n", config_file.c_str());
+// 			fclose(fp);
+// 			return;
+// 		}
+// 		char *buf = new char[file_size + 1];
+// 		fseek(fp, 0, SEEK_SET);
+// 		int read_size = fread(buf, 1, file_size, fp);
+// 
+// 		if (read_size < 1){
+// 			printf("read %s error\n", config_file.c_str());
+// 			fclose(fp);
+// 			return;
+// 		}
+// 		buf[read_size] = 0;
+// 		fclose(fp);
+// 
+// 		if (doc.Parse(buf).HasParseError() || !doc.IsObject())
+// 		{
+// 			delete[] buf;
+// 			return;
+// 		}
+// 		delete[] buf;
+// 
+// 		if (!doc.HasMember("center") || !doc["center"].IsObject()){
+// 			return;
+// 		}
+// 		rapidjson::Value &object = doc["center"];
+// 		if (!object.HasMember("ip") || !object["ip"].IsString())
+// 		{
+// 			return;
+// 		}
+// 		rapidjson::Value &ip = object["ip"];
+// 
+// 		memcpy(center.ip, ip.GetString(), ip.GetStringLength());
+// 		if (!object.HasMember("port") || !object["port"].IsInt())
+// 		{
+// 			return;
+// 		}
+// 		center.port = object["port"].GetInt();
+// 
+// 		if (!object.HasMember("backlog") || !object["backlog"].IsInt())
+// 		{
+// 			return;
+// 		}
+// 		center.backlog = object["backlog"].GetInt();
+// 	}
+// 	else {
+// 		printf("can not find %s \n", config_file.c_str());
+// 		return;
+// 	}
+}
 
 bool ServerConfig::Init()
 {
 	JSON_READ_FILE_BEGIN(config_file.c_str());
-	rapidjson::Document doc;
-	if (doc.Parse(buf).HasParseError() || !doc.IsObject())
-	{
-		return false;
-	}
-
 	if (!doc.HasMember("center") || !doc["center"].IsObject()){
 		return false;
 	}
@@ -39,11 +89,8 @@ bool ServerConfig::Init()
 		return false;
 	}
 	center.backlog = object["backlog"].GetInt();
-
 	JSON_READ_FILE_END(config_file.c_str());
 }
-
-
 
 // bool ReadCenter(TiXmlElement* element, ServerInfo &info)
 // {
@@ -67,123 +114,111 @@ bool ServerConfig::Init()
 
 bool GatawayConfig::Init()
 {
-	FILE * pFile = fopen(config_file.c_str(), "r");
-	if (pFile != NULL)
-	{
-		char buf[1024];
-		rapidjson::FileReadStream stream(pFile, buf, 1024);
-	}
-// 	std::string err;
-// 	TiXmlDocument doc;
-// 	if (doc.LoadFile(config_file.c_str()))
-// 	{
-// 		TiXmlElement* rootElement = doc.RootElement();
-// 		if (rootElement == NULL)
-// 		{
-// 			return false;
-// 		}
-// 		TiXmlElement* curElement = rootElement->FirstChildElement("gateway");
-// 		if (curElement == NULL)
-// 		{
-// 			ShowError(config_file.c_str(), "gateway");
-// 			return false;
-// 		}
-// 		curElement = curElement->FirstChildElement("server");
-// 		ServerInfo info;
-// 		while (curElement != NULL)
-// 		{
-// 			if (!GetSubNodeValue(curElement, "ip", info.ip, err) ||
-// 				!GetSubNodeValue(curElement, "port", info.port, err) ||
-// 				!GetSubNodeValue(curElement, "backlog", info.backlog, err))
-// 			{
-// 				ShowError(config_file.c_str(), err.c_str());
-// 				return false;
-// 			}
-// 
-// 			m_server.push_back(info);
-// 			curElement = curElement->NextSiblingElement("server");
-// 		}
-// 		ReadCenter(rootElement, center);
-// 	}
-// 	else
-// 	{
-// 		printf("can not open config file %s\n", config_file.c_str());
-// 		return false;
-// 	}
+	// 	std::string err;
+	// 	TiXmlDocument doc;
+	// 	if (doc.LoadFile(config_file.c_str()))
+	// 	{
+	// 		TiXmlElement* rootElement = doc.RootElement();
+	// 		if (rootElement == NULL)
+	// 		{
+	// 			return false;
+	// 		}
+	// 		TiXmlElement* curElement = rootElement->FirstChildElement("gateway");
+	// 		if (curElement == NULL)
+	// 		{
+	// 			ShowError(config_file.c_str(), "gateway");
+	// 			return false;
+	// 		}
+	// 		curElement = curElement->FirstChildElement("server");
+	// 		ServerInfo info;
+	// 		while (curElement != NULL)
+	// 		{
+	// 			if (!GetSubNodeValue(curElement, "ip", info.ip, err) ||
+	// 				!GetSubNodeValue(curElement, "port", info.port, err) ||
+	// 				!GetSubNodeValue(curElement, "backlog", info.backlog, err))
+	// 			{
+	// 				ShowError(config_file.c_str(), err.c_str());
+	// 				return false;
+	// 			}
+	// 
+	// 			m_server.push_back(info);
+	// 			curElement = curElement->NextSiblingElement("server");
+	// 		}
+	// 		ReadCenter(rootElement, center);
+	// 	}
+	// 	else
+	// 	{
+	// 		printf("can not open config file %s\n", config_file.c_str());
+	// 		return false;
+	// 	}
 	return true;
 }
 
-bool CenterConfig::Init()
+CenterConfig::CenterConfig()
 {
-	if (!ServerConfig::Init())
+	if (Init())
 	{
-		return false;
+		Read();
 	}
-	JSON_READ_FILE_BEGIN(config_file.c_str());
-	rapidjson::Document doc;
-	if (doc.Parse(buf).HasParseError() || !doc.IsObject())
-	{
-		return false;
-	}
+}
 
+void CenterConfig::Read()
+{
 	if (!doc.HasMember("login") || !doc["login"].IsObject()){
-		return false;
+		return;
 	}
 	rapidjson::Value &object = doc["login"];
 	if (!object.HasMember("ip") || !object["ip"].IsString())
 	{
-		return false;
+		return;
 	}
 	rapidjson::Value &ip = object["ip"];
 
 	memcpy(login.ip, ip.GetString(), ip.GetStringLength());
 	if (!object.HasMember("port") || !object["port"].IsInt())
 	{
-		return false;
+		return;
 	}
 	login.port = object["port"].GetInt();
 
 	if (!object.HasMember("backlog") || !object["backlog"].IsInt())
 	{
-		return false;
+		return;
 	}
 	login.backlog = object["backlog"].GetInt();
-
-	JSON_READ_FILE_END(config_file.c_str());
-	return true;
 }
 
 bool GameConfig::Init()
 {
-// 	std::string err;
-// 	TiXmlDocument doc;
-// 	if (doc.LoadFile(config_file.c_str()))
-// 	{
-// 		TiXmlElement* rootElement = doc.RootElement();
-// 		if (rootElement == NULL)
-// 		{
-// 			return false;
-// 		}
-// 		TiXmlElement* curElement = rootElement->FirstChildElement("game");
-// 		if (curElement == NULL)
-// 		{
-// 			ShowError(config_file.c_str(), "game");
-// 			return false;
-// 		}
-// 
-// 		if (!GetSubNodeValue(curElement, "ip", server.ip, err) ||
-// 			!GetSubNodeValue(curElement, "port", server.port, err) ||
-// 			!GetSubNodeValue(curElement, "backlog", server.backlog, err))
-// 		{
-// 			ShowError(config_file.c_str(), err.c_str());
-// 			return false;
-// 		}
-// 		ReadCenter(rootElement, center);
-// 	}
-// 	else
-// 	{
-// 		printf("can not open config file %s\n", config_file.c_str());
-// 		return false;
-// 	}
+	// 	std::string err;
+	// 	TiXmlDocument doc;
+	// 	if (doc.LoadFile(config_file.c_str()))
+	// 	{
+	// 		TiXmlElement* rootElement = doc.RootElement();
+	// 		if (rootElement == NULL)
+	// 		{
+	// 			return false;
+	// 		}
+	// 		TiXmlElement* curElement = rootElement->FirstChildElement("game");
+	// 		if (curElement == NULL)
+	// 		{
+	// 			ShowError(config_file.c_str(), "game");
+	// 			return false;
+	// 		}
+	// 
+	// 		if (!GetSubNodeValue(curElement, "ip", server.ip, err) ||
+	// 			!GetSubNodeValue(curElement, "port", server.port, err) ||
+	// 			!GetSubNodeValue(curElement, "backlog", server.backlog, err))
+	// 		{
+	// 			ShowError(config_file.c_str(), err.c_str());
+	// 			return false;
+	// 		}
+	// 		ReadCenter(rootElement, center);
+	// 	}
+	// 	else
+	// 	{
+	// 		printf("can not open config file %s\n", config_file.c_str());
+	// 		return false;
+	// 	}
 	return true;
 }

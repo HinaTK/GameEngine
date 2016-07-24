@@ -1,5 +1,6 @@
 LinuxDebug/
 Debug/
+bin/
 log/
 Release/
 temp/

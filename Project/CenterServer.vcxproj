@@ -17,8 +17,8 @@
     <ClCompile Include="..\CenterServer\main\main.cpp" />
     <ClCompile Include="..\CenterServer\message\messagehandler.cpp" />
     <ClCompile Include="..\CenterServer\net\callback.cpp" />
+    <ClCompile Include="..\CenterServer\net\login\loginmanager.cpp" />
     <ClCompile Include="..\CenterServer\net\netthread.cpp" />
-    <ClCompile Include="..\CenterServer\src\loginmanager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\CenterServer\db\dbmanager.h" />
@@ -28,8 +28,8 @@
     <ClInclude Include="..\CenterServer\message\proto.h" />
     <ClInclude Include="..\CenterServer\message\threadproto.h" />
     <ClInclude Include="..\CenterServer\net\callback.h" />
+    <ClInclude Include="..\CenterServer\net\login\loginmanager.h" />
     <ClInclude Include="..\CenterServer\net\netthread.h" />
-    <ClInclude Include="..\CenterServer\src\loginmanager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{68A61C8D-468B-442D-83A6-0B53CE37F800}</ProjectGuid>

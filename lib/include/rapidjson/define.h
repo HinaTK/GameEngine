@@ -137,17 +137,22 @@ enum
 		char *buf = new char[file_size + 1]; \
 		fseek(fp, 0, SEEK_SET); \
 		int read_size = fread(buf, 1, file_size, fp); \
-		if (read_size != file_size){ \
+		if (read_size < 1){ \
 			printf("read %s error\n", File);\
 			JSON_RETURN(false); \
 		}\
 		buf[read_size] = 0; \
-		fclose(fp);
+		fclose(fp); \
+		if (doc.Parse(buf).HasParseError() || !doc.IsObject())\
+		{\
+			delete[] buf;\
+			return false;\
+		}\
+		delete[] buf;
 
 		
 
 #define JSON_READ_FILE_END(File)\
-		delete [] buf;\
 	} \
 	else { \
 		printf("can not find %s \n", File);\

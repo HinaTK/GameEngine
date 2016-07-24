@@ -13,8 +13,8 @@
     <Filter Include="message">
       <UniqueIdentifier>{f09de7be-8dd6-49cd-b066-f5e9aad0216d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{f2a38b38-d6a3-45ea-ae52-72e251a4647f}</UniqueIdentifier>
+    <Filter Include="net\login">
+      <UniqueIdentifier>{8ef70f9d-d307-455b-840c-2623d37c820b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -39,8 +39,8 @@
     <ClCompile Include="..\CenterServer\message\messagehandler.cpp">
       <Filter>message</Filter>
     </ClCompile>
-    <ClCompile Include="..\CenterServer\src\loginmanager.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\CenterServer\net\login\loginmanager.cpp">
+      <Filter>net\login</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,8 +68,8 @@
     <ClInclude Include="..\CenterServer\message\threadproto.h">
       <Filter>message</Filter>
     </ClInclude>
-    <ClInclude Include="..\CenterServer\src\loginmanager.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\CenterServer\net\login\loginmanager.h">
+      <Filter>net\login</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

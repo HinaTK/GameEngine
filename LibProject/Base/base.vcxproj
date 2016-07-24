@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\lib\include\base\aes.h" />
     <ClInclude Include="..\..\lib\include\base\export.h" />
+    <ClInclude Include="..\..\lib\include\base\function.h" />
     <ClInclude Include="..\..\lib\include\base\gamemath.h" />
     <ClInclude Include="..\..\lib\include\base\gametime.h" />
     <ClInclude Include="..\..\lib\include\base\interface.h" />
@@ -29,6 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\base\aes.cpp" />
+    <ClCompile Include="..\..\lib\src\base\function.cpp" />
     <ClCompile Include="..\..\lib\src\base\gamemath.cpp" />
     <ClCompile Include="..\..\lib\src\base\gametime.cpp" />
     <ClCompile Include="..\..\lib\src\base\interface.cpp" />
