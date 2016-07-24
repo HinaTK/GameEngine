@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "status.h"
 
-MysqlStatus::MysqlStatus(const char *ip, const char *user, const char *password, const char *db)
+MysqlStatus::MysqlStatus(const char *ip, const char *user, const char *password, const char *db, unsigned short port)
 {
 	m_mysql = mysql_init(NULL);
 	if (m_mysql == NULL)
@@ -11,7 +11,7 @@ MysqlStatus::MysqlStatus(const char *ip, const char *user, const char *password,
 		return;
 	}
 
-	if (mysql_real_connect(m_mysql, ip, user, password, db, 0, 0, 0) == NULL)
+	if (mysql_real_connect(m_mysql, ip, user, password, db, port, 0, 0) == NULL)
 	{
 		printf("mysql_real_connect error ...\n");
 		return;

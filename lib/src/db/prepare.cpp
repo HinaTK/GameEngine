@@ -2,10 +2,14 @@
 #include <stdio.h>
 #include "prepare.h"
 
-
 MysqlPrepare::MysqlPrepare(MYSQL *mysql, unsigned char num, char *sql, unsigned short sql_len)
 : m_param(new MYSQL_BIND[num])
+, m_1_pool(1, 8)
+, m_2_pool(2, 2)
+, m_4_pool(4, 4)
+, m_8_pool(8, 2)
 {
+	sql_len == 0 ? sql_len = strlen(sql) : 0;
 	m_stmt = mysql_stmt_init(mysql);
 	if (m_stmt == NULL)
 	{
@@ -101,14 +105,14 @@ void MysqlPrepare::BindVarChar(unsigned char num, char *val, unsigned int length
 
 void MysqlPrepare::BindText(unsigned char num, char *val)
 {
-	m_param[num].buffer_type = MYSQL_TYPE_VAR_STRING;
+	m_param[num].buffer_type = MYSQL_TYPE_BLOB;
 	m_param[num].buffer = val;
 	m_param[num].buffer_length = strlen(val);
 }
 
 void MysqlPrepare::BindText(unsigned char num, char *val, unsigned int length)
 {
-	m_param[num].buffer_type = MYSQL_TYPE_VAR_STRING;
+	m_param[num].buffer_type = MYSQL_TYPE_BLOB;
 	m_param[num].buffer = val;
 	m_param[num].buffer_length = length;
 }
@@ -126,5 +130,11 @@ bool MysqlPrepare::Execute()
 		return false;
 	}
 	return true;
+}
+
+bool MysqlPrepare::HasResult()
+{
+	if (mysql_stmt_fetch(m_stmt) == 0) return true;
+	return false;
 }
 

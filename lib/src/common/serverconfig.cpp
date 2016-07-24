@@ -4,64 +4,47 @@
 
 static const std::string config_file("../config/server.json");
 
+bool ReadDB(rapidjson::Document &doc, DBInfo &info)
+{
+	if (!doc.HasMember("db") || !doc["db"].IsObject()){
+		return false;
+	}
+	rapidjson::Value &object = doc["db"];
+	if (!object.HasMember("ip") || !object["ip"].IsString())
+	{
+		return false;
+	}
+	rapidjson::Value &ip = object["ip"];
+
+	memcpy(info.ip, ip.GetString(), ip.GetStringLength());
+	if (!object.HasMember("port") || !object["port"].IsInt())
+	{
+		return false;
+	}
+	info.port = object["port"].GetInt();
+
+	if (!object.HasMember("user") || !object["user"].IsString())
+	{
+		return false;
+	}
+	info.user = object["GetString"].GetString();
+
+	if (!object.HasMember("passwd") || !object["passwd"].IsString())
+	{
+		return false;
+	}
+	info.user = object["passwd"].GetString();
+
+	if (!object.HasMember("dbname") || !object["dbname"].IsString())
+	{
+		return false;
+	}
+	info.user = object["dbname"].GetString();
+	return true;
+}
 
 ServerConfig::ServerConfig()
 {
-// 	FILE * fp = fopen(config_file.c_str(), "r");
-// 	if (fp != NULL){
-// 		fseek(fp, 0, SEEK_END);
-// 		int file_size = ftell(fp);
-// 		if (file_size < 1) {
-// 			printf("%s is empty file\n", config_file.c_str());
-// 			fclose(fp);
-// 			return;
-// 		}
-// 		char *buf = new char[file_size + 1];
-// 		fseek(fp, 0, SEEK_SET);
-// 		int read_size = fread(buf, 1, file_size, fp);
-// 
-// 		if (read_size < 1){
-// 			printf("read %s error\n", config_file.c_str());
-// 			fclose(fp);
-// 			return;
-// 		}
-// 		buf[read_size] = 0;
-// 		fclose(fp);
-// 
-// 		if (doc.Parse(buf).HasParseError() || !doc.IsObject())
-// 		{
-// 			delete[] buf;
-// 			return;
-// 		}
-// 		delete[] buf;
-// 
-// 		if (!doc.HasMember("center") || !doc["center"].IsObject()){
-// 			return;
-// 		}
-// 		rapidjson::Value &object = doc["center"];
-// 		if (!object.HasMember("ip") || !object["ip"].IsString())
-// 		{
-// 			return;
-// 		}
-// 		rapidjson::Value &ip = object["ip"];
-// 
-// 		memcpy(center.ip, ip.GetString(), ip.GetStringLength());
-// 		if (!object.HasMember("port") || !object["port"].IsInt())
-// 		{
-// 			return;
-// 		}
-// 		center.port = object["port"].GetInt();
-// 
-// 		if (!object.HasMember("backlog") || !object["backlog"].IsInt())
-// 		{
-// 			return;
-// 		}
-// 		center.backlog = object["backlog"].GetInt();
-// 	}
-// 	else {
-// 		printf("can not find %s \n", config_file.c_str());
-// 		return;
-// 	}
 }
 
 bool ServerConfig::Init()
@@ -156,7 +139,7 @@ bool GatawayConfig::Init()
 
 CenterConfig::CenterConfig()
 {
-	if (Init())
+	if (Init() && ReadDB(doc, db))
 	{
 		Read();
 	}

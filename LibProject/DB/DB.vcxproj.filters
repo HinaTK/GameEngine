@@ -21,6 +21,9 @@
     <ClInclude Include="..\..\lib\include\db\status.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\lib\include\db\result.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\db\field.cpp">
@@ -33,6 +36,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\db\status.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\db\result.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

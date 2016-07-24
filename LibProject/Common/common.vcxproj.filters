@@ -18,10 +18,10 @@
     <ClInclude Include="..\..\lib\include\common\serializer.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\common\serverconfig.h">
+    <ClInclude Include="..\..\lib\include\common\mem.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\common\mem.h">
+    <ClInclude Include="..\..\lib\include\common\serverconfig.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
@@ -35,10 +35,10 @@
     <ClCompile Include="..\..\lib\src\common\serializer.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\common\serverconfig.cpp">
+    <ClCompile Include="..\..\lib\src\common\mem.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\common\mem.cpp">
+    <ClCompile Include="..\..\lib\src\common\serverconfig.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

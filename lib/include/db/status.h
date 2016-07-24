@@ -7,7 +7,7 @@
 class MysqlStatus
 {
 public:
-	MysqlStatus(const char *ip, const char *user, const char *password, const char *db);
+	MysqlStatus(const char *ip, const char *user, const char *password, const char *db, unsigned short port);
 	~MysqlStatus();
 
 	MYSQL	*GetMysql(){ return m_mysql; }

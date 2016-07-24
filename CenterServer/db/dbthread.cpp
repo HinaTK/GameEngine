@@ -124,6 +124,7 @@ void DBThread::RecvData(short type, ThreadID sid, int len, const char *data)
 	switch (type)
 	{
 	case ThreadProto::TP_LOAD_ROLE:
+
 		test_mysql();
 		printf("load role ... %d\n", GetID());
 	default:
