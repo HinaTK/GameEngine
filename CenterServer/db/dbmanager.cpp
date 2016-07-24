@@ -23,6 +23,8 @@ DBManager::~DBManager()
 
 void DBManager::LoadRole(Account account, ServerID sid)
 {
+	m_role_s.BindInt(0, sid);
+	m_role_s.BindChar(1, account);
 	if (m_role_s.Execute())
 	{
 		GameName name;
