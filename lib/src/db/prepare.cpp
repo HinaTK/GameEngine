@@ -132,9 +132,9 @@ bool MysqlPrepare::Execute()
 	return true;
 }
 
-bool MysqlPrepare::HasResult()
-{
-	if (mysql_stmt_fetch(m_stmt) == 0) return true;
-	return false;
-}
+// bool MysqlPrepare::HasResult()
+// {
+// 	if (mysql_stmt_fetch(m_stmt) == 0) return true;
+// 	return false;
+// }
 

@@ -18,6 +18,11 @@ namespace ThreadProto
 		Account		account;
 		ServerID	server_id;
 	};
+
+	struct LoadRoleRet
+	{
+		GameName	name;
+	};
 }
 
 #endif

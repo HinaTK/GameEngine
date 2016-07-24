@@ -10,7 +10,7 @@ MysqlResult::MysqlResult(MysqlPrepare *prepare)
 		return;
 	}
 
-	unsigned int field_num = mysql_num_fields(m_metadata);
+	field_num = mysql_num_fields(m_metadata);
 	if (field_num < 1)
 	{
 		return;
@@ -20,16 +20,30 @@ MysqlResult::MysqlResult(MysqlPrepare *prepare)
 	MYSQL_FIELD* fields = mysql_fetch_fields(m_metadata);
 	for (unsigned int i = 0; i < field_num; ++i)
 	{
+		result[i].is_null = (my_bool *)prepare->Get1Pool()->Alloc();
 		switch (fields[i].type)
 		{
+		case MYSQL_TYPE_TINY:
+			result[i].buffer = prepare->Get1Pool()->Alloc();
+		case MYSQL_TYPE_SHORT:
+			result[i].buffer = prepare->Get2Pool()->Alloc();
 		case MYSQL_TYPE_LONG:
+		case MYSQL_TYPE_FLOAT:
 			result[i].buffer = prepare->Get4Pool()->Alloc();
+			break;
+		case MYSQL_TYPE_LONGLONG:
+		case MYSQL_TYPE_DOUBLE:
+			result[i].buffer = prepare->Get8Pool()->Alloc();
+			break;
+		case MYSQL_TYPE_VARCHAR:
+		case MYSQL_TYPE_VAR_STRING:
+		case MYSQL_TYPE_STRING:
 		case MYSQL_TYPE_TINY_BLOB:
 		case MYSQL_TYPE_MEDIUM_BLOB:
 		case MYSQL_TYPE_LONG_BLOB:
 		case MYSQL_TYPE_BLOB:
 			result[i].buffer = new char[fields[i].length];
-			result[i].is_null = (my_bool *)prepare->Get1Pool()->Alloc();
+			*result[i].length = fields[i].length;
 			break;
 		default:
 			break;
@@ -37,6 +51,79 @@ MysqlResult::MysqlResult(MysqlPrepare *prepare)
 	}
 	// todo ÅÐ¶Ï´íÎó
 	mysql_stmt_bind_result(prepare->GetStmt(), result);
+}
+
+#define CHECK_INDEX(index) \
+	if (index >= field_num)\
+	{\
+		return false;\
+	}
+
+bool MysqlResult::Read(unsigned int index, char &val)
+{
+	CHECK_INDEX(index);
+	val = *(char *)result[index].buffer;
+	return true;
+}
+
+bool MysqlResult::Read(unsigned int index, short &val)
+{
+	CHECK_INDEX(index);
+	val = *(short *)result[index].buffer;
+	return true;
+}
+
+bool MysqlResult::Read(unsigned int index, int &val)
+{
+	CHECK_INDEX(index);
+	val = *(int *)result[index].buffer;
+	return true;
+}
+
+bool MysqlResult::Read(unsigned int index, long long &val)
+{
+	CHECK_INDEX(index);
+	val = *(long long *)result[index].buffer;
+	return true;
+}
+
+bool MysqlResult::Read(unsigned int index, float &val)
+{
+	CHECK_INDEX(index);
+	val = *(float *)result[index].buffer;
+	return true;
+}
+
+bool MysqlResult::Read(unsigned int index, double &val)
+{
+	CHECK_INDEX(index);
+	val = *(double *)result[index].buffer;
+	return true;
+}
+
+bool MysqlResult::Read(unsigned int index, char *val)
+{
+	CHECK_INDEX(index);
+	memcpy(val, result[index].buffer, *result[index].length);
+	return true;
+}
+
+bool MysqlResult::Read(unsigned int index, char *val, unsigned int len)
+{
+	CHECK_INDEX(index);
+	size_t real_len = len > *result[index].length ? *result[index].length : len - 1;
+	memcpy(val, result[index].buffer, real_len);
+	val[real_len] = 0;
+	return true;
+}
+
+int MysqlResult::FieldLength(unsigned int index)
+{
+	if (index >= field_num)
+	{
+		return -1;
+	}
+	return (int)result[index].length;
 }
 
 MysqlResult::~MysqlResult()

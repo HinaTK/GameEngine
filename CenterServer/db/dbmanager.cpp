@@ -1,6 +1,7 @@
 
 #include "dbmanager.h"
 #include "lib/include/db/result.h"
+#
 #include "lib/include/common/serverconfig.h"
 
 DBManager::DBManager()
@@ -10,7 +11,7 @@ CenterConfig::Instance().db.user.c_str(),
 CenterConfig::Instance().db.passwd.c_str(),
 CenterConfig::Instance().db.dbname.c_str(),
 CenterConfig::Instance().db.port)
-, m_role_s(m_mysql.GetMysql(), 2, "SELECT * FROM role WHERE account=? AND sid=?;")
+, m_role_s(m_mysql.GetMysql(), 2, "SELECT name FROM role WHERE account=? AND sid=?;")
 {
 
 }
@@ -24,12 +25,14 @@ void DBManager::LoadRole(Account account, ServerID sid)
 {
 	if (m_role_s.Execute())
 	{
-		MysqlResult *mr = new MysqlResult(&m_role_s);
-		while (m_role_s.HasResult())
+		GameName name;
+		READ_RESULT_BEGIN(m_role_s);
+		if (mr->Read(0, name, GAME_NAME_SIZE))
 		{
-
+			printf("the name is %s\n", name);
 		}
-		// read result
+		
+		READ_RESULT_END();
 	}
 }
 

@@ -26,7 +26,7 @@ public:
 	bool	Execute();
 	
 	// 以下用结果集返回
-	inline bool	HasResult();
+	inline bool	HasResult() {if (mysql_stmt_fetch(m_stmt) == 0) return true; return false;}
 	bool	ReadResultBegin();
 	bool	ReadResultEnd();
 
