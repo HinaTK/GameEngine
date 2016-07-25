@@ -1,16 +1,18 @@
 
 #include <stdio.h>
 #include "prepare.h"
+#include "status.h"
 
-MysqlPrepare::MysqlPrepare(MYSQL *mysql, unsigned char num, char *sql, unsigned short sql_len)
-: m_param(new MYSQL_BIND[num])
+MysqlPrepare::MysqlPrepare(MysqlStatus *handle, unsigned char num, char *sql, unsigned short sql_len)
+: m_handle(handle)
+, m_param(new MYSQL_BIND[num])
 , m_1_pool(1, 8)
 , m_2_pool(2, 2)
 , m_4_pool(4, 4)
 , m_8_pool(8, 2)
 {
 	sql_len == 0 ? sql_len = strlen(sql) : 0;
-	m_stmt = mysql_stmt_init(mysql);
+	m_stmt = mysql_stmt_init(m_handle->GetMysql());
 	if (m_stmt == NULL)
 	{
 		// A pointer to a MYSQL_STMT structure in case of success. NULL if out of memory.

@@ -119,13 +119,133 @@ void test_mysql()
 	mysql_close(mysql);
 }
 
+void test_mysql2()
+{
+	MYSQL *mysql = mysql_init(NULL);
+	if (mysql_real_connect(mysql, "127.0.0.1", "jm", "123456", "test_db", 0, 0, 0) == NULL)
+	{
+		printf("can not connect ...\n");
+		return;
+	}
+	MYSQL_STMT	*stmt1 = mysql_stmt_init(mysql);
+	std::string select = "SELECT name FROM role WHERE sid=? AND account=?;";
+	int server_id = 123;
+	char *account = "aabbcc";
+
+	MYSQL_BIND *param = new MYSQL_BIND[2];
+	// 这句很重要，不写会挂
+	memset(param, 0, sizeof(MYSQL_BIND) * 2);
+	param[0].buffer_type = MYSQL_TYPE_LONG;
+	param[0].buffer = &server_id;
+	param[0].length = 0;
+
+	param[1].buffer_type = MYSQL_TYPE_VARCHAR;
+	param[1].buffer = account;
+	param[1].buffer_length = strlen(account);
+	param[1].length = 0;
+	
+	if (mysql_stmt_prepare(stmt1, select.c_str(), select.size()) != 0)
+	{
+		printf("mysql_stmt_prepare error %s ...\n", mysql_stmt_error(stmt1));
+	}
+	if (mysql_stmt_bind_param(stmt1, param) != 0)
+	{
+		printf("mysql_stmt_bind_param error ...\n");
+	}
+	if (mysql_stmt_execute(stmt1) != 0)
+	{
+		printf("mysql_stmt_execute error ...\n");
+	}
+
+
+	delete [] param;
+
+	char name[32] = {0};
+	unsigned long length = 0;
+	MYSQL_BIND result;
+	result.buffer = name;
+	result.length = &length;
+	result.buffer_length = 8;
+	mysql_stmt_bind_result(stmt1, &result);
+	mysql_stmt_store_result(stmt1);
+
+	while(mysql_stmt_fetch(stmt1) == 0)
+	{
+		printf("the name is %s\n", name);
+	}
+	
+	mysql_stmt_close(stmt1);
+	mysql_close(mysql);
+}
+
+void test_mysql3()
+{
+	MYSQL *mysql = mysql_init(NULL);
+	if (mysql_real_connect(mysql, "127.0.0.1", "jm", "123456", "test_db", 0, 0, 0) == NULL)
+	{
+		printf("can not connect ...\n");
+		return;
+	}
+	MYSQL_STMT	*stmt1 = mysql_stmt_init(mysql);
+	std::string select = "SELECT rid FROM role WHERE sid=? AND account=?;";
+	int server_id = 123;
+	char *account = "aabbcc";
+
+	MYSQL_BIND *param = new MYSQL_BIND[2];
+	// 这句很重要，不写会挂
+	memset(param, 0, sizeof(MYSQL_BIND) * 2);
+	param[0].buffer_type = MYSQL_TYPE_LONG;
+	param[0].buffer = &server_id;
+	param[0].length = 0;
+
+	param[1].buffer_type = MYSQL_TYPE_VARCHAR;
+	param[1].buffer = account;
+	param[1].buffer_length = strlen(account);
+	param[1].length = 0;
+	
+	if (mysql_stmt_prepare(stmt1, select.c_str(), select.size()) != 0)
+	{
+		printf("mysql_stmt_prepare error %s ...\n", mysql_stmt_error(stmt1));
+	}
+	if (mysql_stmt_bind_param(stmt1, param) != 0)
+	{
+		printf("mysql_stmt_bind_param error ...\n");
+	}
+	if (mysql_stmt_execute(stmt1) != 0)
+	{
+		printf("mysql_stmt_execute error ...\n");
+	}
+
+
+	delete [] param;
+
+	int rid = 0;
+	char name[32] = {0};
+	unsigned long length = 0;
+	MYSQL_BIND *result = new MYSQL_BIND;
+	memset(result, 0, sizeof(MYSQL_BIND));
+	result->buffer_type = MYSQL_TYPE_LONG;
+	result->buffer = &rid;
+	mysql_stmt_bind_result(stmt1, result);
+	// todo 不用也正确，确认一下
+	//mysql_stmt_store_result(stmt1);
+
+	while(mysql_stmt_fetch(stmt1) == 0)
+	{
+		printf("the rid is %d\n", rid);
+	}
+	
+	mysql_stmt_close(stmt1);
+	mysql_close(mysql);
+}
+
 void DBThread::RecvData(short type, ThreadID sid, int len, const char *data)
 {
 	switch (type)
 	{
 	case ThreadProto::TP_LOAD_ROLE:
-
-		test_mysql();
+		//_manager.LoadRole(len, data);
+		test_mysql3();
 		printf("load role ... %d\n", GetID());
 	default:
 		break;

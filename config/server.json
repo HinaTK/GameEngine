@@ -32,8 +32,8 @@
     {
         "ip":"127.0.0.1",
         "port":0,
-        "user":"root",
+        "user":"jm",
         "passwd":"123456",
-        "dbname":"jia"
+        "dbname":"test_db"
     }
 }

@@ -1,9 +1,11 @@
 
 #include "result.h"
 #include "prepare.h"
+#include "status.h"
 
 MysqlResult::MysqlResult(MysqlPrepare *prepare)
 {
+	MysqlStatus *handle = prepare->GetHandle();
 	m_metadata = mysql_stmt_result_metadata(prepare->GetStmt());
 	if (0 == m_metadata)
 	{
@@ -20,20 +22,20 @@ MysqlResult::MysqlResult(MysqlPrepare *prepare)
 	MYSQL_FIELD* fields = mysql_fetch_fields(m_metadata);
 	for (unsigned int i = 0; i < field_num; ++i)
 	{
-		result[i].is_null = (my_bool *)prepare->Get1Pool()->Alloc();
+		result[i].is_null = (my_bool *)handle->Get1Pool()->Alloc();
 		switch (fields[i].type)
 		{
 		case MYSQL_TYPE_TINY:
-			result[i].buffer = prepare->Get1Pool()->Alloc();
+			result[i].buffer = handle->Get1Pool()->Alloc();
 		case MYSQL_TYPE_SHORT:
-			result[i].buffer = prepare->Get2Pool()->Alloc();
+			result[i].buffer = handle->Get2Pool()->Alloc();
 		case MYSQL_TYPE_LONG:
 		case MYSQL_TYPE_FLOAT:
-			result[i].buffer = prepare->Get4Pool()->Alloc();
+			result[i].buffer = handle->Get4Pool()->Alloc();
 			break;
 		case MYSQL_TYPE_LONGLONG:
 		case MYSQL_TYPE_DOUBLE:
-			result[i].buffer = prepare->Get8Pool()->Alloc();
+			result[i].buffer = handle->Get8Pool()->Alloc();
 			break;
 		case MYSQL_TYPE_VARCHAR:
 		case MYSQL_TYPE_VAR_STRING:
@@ -42,8 +44,9 @@ MysqlResult::MysqlResult(MysqlPrepare *prepare)
 		case MYSQL_TYPE_MEDIUM_BLOB:
 		case MYSQL_TYPE_LONG_BLOB:
 		case MYSQL_TYPE_BLOB:
+			// todo 确认length这样做是不是对的
 			result[i].buffer = new char[fields[i].length];
-			*result[i].length = fields[i].length;
+			result[i].length = &fields[i].length;
 			break;
 		default:
 			break;

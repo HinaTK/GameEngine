@@ -27,19 +27,19 @@ bool ReadDB(rapidjson::Document &doc, DBInfo &info)
 	{
 		return false;
 	}
-	info.user = object["GetString"].GetString();
+	info.user = object["user"].GetString();
 
 	if (!object.HasMember("passwd") || !object["passwd"].IsString())
 	{
 		return false;
 	}
-	info.user = object["passwd"].GetString();
+	info.passwd = object["passwd"].GetString();
 
 	if (!object.HasMember("dbname") || !object["dbname"].IsString())
 	{
 		return false;
 	}
-	info.user = object["dbname"].GetString();
+	info.dbname = object["dbname"].GetString();
 	return true;
 }
 

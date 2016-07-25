@@ -17,6 +17,9 @@ void NetThread::Init(void *arg)
 {
 	NetHandle handle = m_net_manager.SyncConnect("127.0.0.1", 12347, new CallBack(this));
 	Proto::csLogin login;
+	memcpy(login.account, "aabbcc", sizeof("aabbcc"));
+	login.server_id = 123;
+
 	m_net_manager.Send(handle, sizeof(Proto::csLogin), (const char *)&login);
 }
 

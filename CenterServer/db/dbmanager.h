@@ -12,6 +12,7 @@ public:
 	DBManager();
 	~DBManager();
 
+	void	LoadRole(int len, const char *data);
 	void	LoadRole(Account account, ServerID sid);
 
 protected:
