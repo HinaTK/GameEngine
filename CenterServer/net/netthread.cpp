@@ -1,10 +1,11 @@
-﻿
+
 #include "netthread.h"
 #include "callback.h"
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/frame/socketthread.h"
 #include "lib/include/frame/baseaccepter.h"
 #include "message/messagehandler.h"
+#include "message/threadproto.h"
 
 NetThread::NetThread(ThreadManager *manager)
 : BaseThread(manager, NULL, ThreadManager::EXIT_NORMAL)
@@ -41,7 +42,17 @@ bool NetThread::Run()
 
 void NetThread::RecvData(short type, ThreadID sid, int len, const char *data)
 {
-
+	switch (type)
+	{
+	case ThreadProto::TP_LOAD_ROLE_RET:
+	{
+		ThreadProto::LoadRoleRet *lrr = (ThreadProto::LoadRoleRet *)data;
+		printf("the ret name %s", lrr->name);
+		break;	
+	}
+	default:
+		break;
+	}
 }
 
 void NetThread::InnerRecv(GameMsg *msg)

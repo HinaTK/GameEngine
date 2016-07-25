@@ -1,11 +1,11 @@
 
 #include "result.h"
 #include "prepare.h"
-#include "status.h"
+#include "handler.h"
 
 MysqlResult::MysqlResult(MysqlPrepare *prepare)
 {
-	MysqlStatus *handle = prepare->GetHandle();
+	MysqlHandler *handle = prepare->GetHandle();
 	m_metadata = mysql_stmt_result_metadata(prepare->GetStmt());
 	if (0 == m_metadata)
 	{
@@ -19,6 +19,7 @@ MysqlResult::MysqlResult(MysqlPrepare *prepare)
 	}
 
 	result = new MYSQL_BIND[field_num];
+	memset(result, 0, sizeof(MYSQL_BIND) * field_num);
 	MYSQL_FIELD* fields = mysql_fetch_fields(m_metadata);
 	for (unsigned int i = 0; i < field_num; ++i)
 	{
@@ -44,7 +45,7 @@ MysqlResult::MysqlResult(MysqlPrepare *prepare)
 		case MYSQL_TYPE_MEDIUM_BLOB:
 		case MYSQL_TYPE_LONG_BLOB:
 		case MYSQL_TYPE_BLOB:
-			// todo 确认length这样做是不是对的
+			// todo 纭length杩欐牱鍋氭槸涓嶆槸瀵圭殑
 			result[i].buffer = new char[fields[i].length];
 			result[i].length = &fields[i].length;
 			break;
@@ -52,7 +53,7 @@ MysqlResult::MysqlResult(MysqlPrepare *prepare)
 			break;
 		}
 	}
-	// todo 判断错误
+	// todo 鍒ゆ柇閿欒
 	mysql_stmt_bind_result(prepare->GetStmt(), result);
 }
 

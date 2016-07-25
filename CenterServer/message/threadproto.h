@@ -11,6 +11,7 @@ namespace ThreadProto
 	enum
 	{
 		TP_LOAD_ROLE = SocketMsg::MAX_ID + 1,
+		TP_LOAD_ROLE_RET
 	};
 
 	struct LoadRole

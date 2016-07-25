@@ -10,6 +10,7 @@ DBThread::~DBThread()
 
 DBThread::DBThread(ThreadManager *manager)
 : BaseThread(manager, NULL, ThreadManager::EXIT_NORMAL)
+, m_manager(this)
 {
 
 }
@@ -18,7 +19,6 @@ void DBThread::Init(void *arg)
 {
 
 }
-
 
 bool DBThread::Run()
 {

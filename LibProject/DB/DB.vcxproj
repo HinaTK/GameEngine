@@ -16,14 +16,14 @@
     <ClInclude Include="..\..\lib\include\db\keyfield.h" />
     <ClInclude Include="..\..\lib\include\db\prepare.h" />
     <ClInclude Include="..\..\lib\include\db\result.h" />
-    <ClInclude Include="..\..\lib\include\db\status.h" />
+    <ClInclude Include="..\..\lib\include\db\handler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\db\field.cpp" />
     <ClCompile Include="..\..\lib\src\db\fieldmanager.cpp" />
     <ClCompile Include="..\..\lib\src\db\prepare.cpp" />
     <ClCompile Include="..\..\lib\src\db\result.cpp" />
-    <ClCompile Include="..\..\lib\src\db\status.cpp" />
+    <ClCompile Include="..\..\lib\src\db\handler.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5A99A955-0F4A-462C-ACD5-8FE49A95E52E}</ProjectGuid>

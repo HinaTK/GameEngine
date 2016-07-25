@@ -6,11 +6,11 @@
 #include "lib/include/common/memorypool.h"
 
 // todo 改名为MysqlHandle
-class MysqlStatus
+class MysqlHandler
 {
 public:
-	MysqlStatus(const char *ip, const char *user, const char *password, const char *db, unsigned short port);
-	~MysqlStatus();
+	MysqlHandler(const char *ip, const char *user, const char *password, const char *db, unsigned short port);
+	~MysqlHandler();
 
 	MYSQL	*GetMysql(){ return m_mysql; }
 

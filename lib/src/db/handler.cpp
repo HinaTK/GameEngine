@@ -1,8 +1,8 @@
 
 #include <stdio.h>
-#include "status.h"
+#include "handler.h"
 
-MysqlStatus::MysqlStatus(const char *ip, const char *user, const char *password, const char *db, unsigned short port)
+MysqlHandler::MysqlHandler(const char *ip, const char *user, const char *password, const char *db, unsigned short port)
 : m_1_pool(1, 8)
 , m_2_pool(2, 2)
 , m_4_pool(4, 4)
@@ -22,7 +22,7 @@ MysqlStatus::MysqlStatus(const char *ip, const char *user, const char *password,
 	}
 }
 
-MysqlStatus::~MysqlStatus()
+MysqlHandler::~MysqlHandler()
 {
 	if (m_mysql != NULL)
 	{

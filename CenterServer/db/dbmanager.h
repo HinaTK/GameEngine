@@ -2,22 +2,23 @@
 #ifndef DB_MANAGER_H
 #define DB_MANAGER_H
 
-#include "lib/include/db/status.h"
+#include "lib/include/db/handler.h"
 #include "lib/include/db/prepare.h"
 #include "common/serverdef.h"
 
+class DBThread;
 class DBManager
 {
 public:
-	DBManager();
+	DBManager(DBThread *t);
 	~DBManager();
 
-	void	LoadRole(int len, const char *data);
-	void	LoadRole(Account account, ServerID sid);
+	void	LoadRole(ThreadID tid, int len, const char *data);
 
 protected:
-	MysqlStatus m_mysql;
+	DBThread		*m_thread;
 
+	MysqlHandler	m_mysql;
 	MysqlPrepare	m_role_s;
 };
 
