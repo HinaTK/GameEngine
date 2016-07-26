@@ -3,33 +3,33 @@
 
 TreeThread::TreeThread(ThreadManager *manager, void *arg, char exit /*= ThreadManager::EXIT_NORMAL*/)
 : BaseThread(manager, arg, exit)
-, m_manager(new ThreadManager())
+, m_sub_manager(new ThreadManager())
 {
 
 }
 
 TreeThread::~TreeThread()
 {
-	if (m_manager != NULL)
+	if (m_sub_manager != NULL)
 	{
-		delete m_manager;
-		m_manager = NULL;
+		delete m_sub_manager;
+		m_sub_manager = NULL;
 	}
 }
 
 int TreeThread::Register(BaseThread *bt, char exit /*= ThreadManager::EXIT_NORMAL*/)
 {
-	return m_manager->Register(bt, exit);
+	return m_sub_manager->Register(bt, exit);
 }
 
 void TreeThread::Exit()
 {
-	m_manager->Exit();
+	m_sub_manager->Exit();
 	BaseThread::Exit();
 }
 
 void TreeThread::Wait()
 {
-	m_manager->Wait();
+	m_sub_manager->Wait();
 	BaseThread::Wait();
 }

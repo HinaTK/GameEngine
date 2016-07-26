@@ -75,7 +75,7 @@ void GameMsgManager::Free(GameMsg *msg)
 	delete msg;
 }
 
-ThreadMsg::ThreadMsg(short _type, int _id, int _length, const char *_data)
+ThreadMsg::ThreadMsg(short _type, ThreadID _id, int _length, const char *_data)
 : type(_type)
 , id(_id)
 , length(_length)

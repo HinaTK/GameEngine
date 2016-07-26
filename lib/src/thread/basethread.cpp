@@ -12,6 +12,7 @@ void *Update(void * arg)
 
 BaseThread::BaseThread(ThreadManager *manager, void *arg, char exit)
 : m_id(-1)
+, m_name("")
 , m_manager(manager)
 , m_arg(arg)
 , m_thread(NULL)
@@ -53,9 +54,16 @@ void BaseThread::Loop(bool sleep)
             {
                 this->RecvData(msg->type, msg->id, msg->length, msg->data);
             }
-            else if (msg->type == ThreadSysID::TSID_EXIT)
+            else
             {
-                this->Exit();
+				if (msg->type == ThreadSysID::TSID_EXIT)
+				{
+					this->Exit();
+				}
+				else
+				{
+					this->CMD(msg->type, msg->id, msg->length, msg->data);
+				}
             }
 			
             delete msg;

@@ -8,7 +8,7 @@ ThreadNet::ThreadNet(ThreadManager *manager, NetManager *net_manager)
 : BaseThread(manager, NULL)
 , m_net_manager(net_manager)
 {
-
+	m_name = "socket";
 }
 
 ThreadNet::~ThreadNet()

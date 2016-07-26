@@ -13,7 +13,7 @@ NetThread::NetThread(ThreadManager *manager)
 , m_login_manager(this)
 , m_message_handler(this)
 {
-
+	m_name = "net";
 }
 
 NetThread::~NetThread()

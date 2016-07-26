@@ -53,11 +53,14 @@ void ThreadManager::SendMsg(short type, ThreadID did, int len, const char *data,
 	m_thread[did]->PushMsg(new ThreadMsg(type, sid, len, data));
 }
 
-void ThreadManager::CMD(short type, int sid, int len, const char *data, int did /*= -1*/)
+void ThreadManager::CMD(short type, ThreadID sid, int len, const char *data, ThreadID did /*= -1*/)
 {
-	if (did != -1)
+	if (did != INVALID_THREAD_ID)
 	{
-		m_thread[did]->PushMsg(new ThreadMsg(type, sid, len, data));
+		if (m_thread.Exist(did))
+		{
+			m_thread[did]->PushMsg(new ThreadMsg(type, sid, len, data));
+		}
 	}
 	else
 	{
@@ -70,7 +73,7 @@ void ThreadManager::CMD(short type, int sid, int len, const char *data, int did 
 
 void ThreadManager::Exit()
 {
-	CMD(ThreadSysID::TSID_EXIT, -1, 0, NULL);
+	CMD(ThreadSysID::TSID_EXIT, INVALID_THREAD_ID, 0, NULL);
 }
 
 void ThreadManager::Wait()

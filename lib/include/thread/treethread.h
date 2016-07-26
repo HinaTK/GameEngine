@@ -15,7 +15,7 @@ public:
 	void	Exit();
 	void	Wait();
 protected:
-	ThreadManager	*m_manager;
+	ThreadManager	*m_sub_manager;
 };
 
 #endif

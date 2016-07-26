@@ -15,6 +15,7 @@ SocketThread::SocketThread(ThreadManager *manager, NetManager *net_manager)
 	FD_ZERO(&m_tmp_write_set);
 	m_tv.tv_sec = 0;		//秒
 	m_tv.tv_usec = 10000;	//微秒,10毫秒
+	
 }
 
 SocketThread::~SocketThread()
@@ -85,6 +86,17 @@ void SocketThread::SetCanWrite(NetHandler *handler)
 void SocketThread::SetCanNotWrite(NetHandler *handler)
 {
 	FD_CLR(handler->m_sock, &m_write_set);
+}
+
+void SocketThread::CMD(short type, ThreadID sid, int len, const char *data)
+{
+	printf("socket thread:\n");
+	if (m_net_handler.Exist(0))
+	{
+		printf("socket id:%d read count:%d write count:%d\n", m_net_handler[0]->m_sock, m_read_set.fd_count, m_write_set.fd_count);
+		if (m_read_set.fd_count > 0) printf("server read: %d\n", m_read_set.fd_array[0]);
+		if (m_write_set.fd_count > 0) printf("server write: %d\n", m_write_set.fd_array[0]);
+	}
 }
 
 

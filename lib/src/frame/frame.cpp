@@ -2,6 +2,7 @@
 #include <signal.h>
 #include "frame.h"
 #include "message.h"
+#include "lib/include/thread/basethread.h"
 
 
 static Frame *g_frame;
@@ -62,9 +63,42 @@ Frame::~Frame()
 void Frame::Run()
 {
 	char cmd_buf[512] = { 0 };
+	char *buf[8];
+	int argv = 0;
+	char *temp = NULL;
+	char *begin = NULL;
+	bool is_new = false;
 	while (IsRun())
 	{
 		gets(cmd_buf);
+		argv = 0;
+		temp = cmd_buf;
+		begin = cmd_buf;
+		is_new = false;
+		for (int i = 1; i < 8; ++i)
+		{
+			while(1)
+			{
+				if (*temp == 0)
+				{
+					buf[argv++] = begin;
+					goto END;
+				}
+				else if (*temp == ' ' && !is_new)
+				{
+					*temp = 0;
+					buf[argv++] = begin;
+					is_new = true;
+				}
+				else if (is_new)
+				{
+					begin = temp;
+					is_new = false;
+				}
+				temp += 1;
+			}
+		}
+END:;	
 		if (strcmp(cmd_buf, "exit") == 0)
 		{
 			SetExit();
@@ -73,6 +107,23 @@ void Frame::Run()
 		{
 			// ping 一下所有线程，看是否有阻塞
 			printf("ping ...\n");
+		}
+		else if (strcmp(buf[0], "thread") == 0)
+		{
+			if (argv == 1)
+			{
+				game::Array<BaseThread *> *threads = m_thread_manager.GetThreads();
+				printf("%-10s %-32s\n", "thread id", "thread name");
+				for (game::Array<BaseThread *>::iterator itr = threads->Begin(); itr != threads->End(); ++itr)
+				{
+					printf("%-10d %-32s\n", (*itr)->GetID(), (*itr)->GetName());
+				}
+			}
+			else
+			{
+				int id = atoi(buf[1]);
+				m_thread_manager.CMD(ThreadSysID::TSID_THREAD_INFO, INVALID_THREAD_ID, 0, NULL, id);
+			}
 		}
 		else
 		{

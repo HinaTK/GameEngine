@@ -7,6 +7,7 @@ namespace ThreadSysID
 	enum
 	{
 		TSID_EXIT = 1,
+		TSID_THREAD_INFO,
 		MAX_ID = 100,
 	};
 }

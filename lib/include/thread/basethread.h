@@ -3,6 +3,7 @@
 #define GAME_THREAD_H
 
 #include <thread>
+#include <string>
 #include "threadmanager.h"
 #include "common/datastructure/msgqueue.h"
 #include "lib/include/frame/message.h"
@@ -30,12 +31,15 @@ public:
 	void	Loop(bool sleep = true);
 
 	void	PushMsg(ThreadMsg *msg);
+	virtual void	CMD(short type, ThreadID sid, int len, const char *data){}
 	ThreadManager *GetManager(){ return m_manager; }
 	void	Exit();
 	void	Wait();
 
 
 	void 	SetSleepTime(unsigned short time){m_sleep_time = time;}
+	void	SetName(char *name){m_name = name;}
+	const char *	GetName(){ return m_name.c_str(); }
 private:
 	// 不允许复制
 	BaseThread(const BaseThread&);
@@ -46,6 +50,7 @@ protected:
 	virtual void	RecvData(short type, ThreadID sid, int len, const char *data) = 0;
 protected:
 	ThreadID		m_id;
+	std::string		m_name;
 	std::thread		*m_thread;
 	ThreadManager	*m_manager;
 	bool			m_is_start;

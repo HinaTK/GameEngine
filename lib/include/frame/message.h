@@ -5,6 +5,7 @@
 #include "socketmsg.h"
 #include "netcommon.h"
 #include "lib/include/common/memoryvl.h"
+#include "common/serverdef.h"
 
 // 网络消息
 class GameMsg
@@ -41,16 +42,16 @@ private:
 class ThreadMsg
 {
 public:
-	ThreadMsg(short _type, int _id, int _length, const char *_data);
+	ThreadMsg(short _type, ThreadID _id, int _length, const char *_data);
 	~ThreadMsg();
 
 	void *		operator new(size_t c);
 	void		operator delete(void *m);
 
-	short	type;	// 消息类型
-	int		id;
-	int		length;
-	char	*data;
+	short		type;	// 消息类型
+	ThreadID	id;
+	int			length;
+	char		*data;
 };
 
 class MsgCallBack
