@@ -4,8 +4,10 @@
 #include "handler.h"
 
 MysqlResult::MysqlResult(MysqlPrepare *prepare)
+: m_result(NULL)
+, m_metadata(NULL)
+, m_handler(prepare->GetHandler())
 {
-	MysqlHandler *handle = prepare->GetHandle();
 	m_metadata = mysql_stmt_result_metadata(prepare->GetStmt());
 	if (0 == m_metadata)
 	{
@@ -18,25 +20,28 @@ MysqlResult::MysqlResult(MysqlPrepare *prepare)
 		return;
 	}
 
-	result = new MYSQL_BIND[field_num];
-	memset(result, 0, sizeof(MYSQL_BIND) * field_num);
+	m_result = new MYSQL_BIND[field_num];
+	memset(m_result, 0, sizeof(MYSQL_BIND) * field_num);
 	MYSQL_FIELD* fields = mysql_fetch_fields(m_metadata);
 	for (unsigned int i = 0; i < field_num; ++i)
 	{
-		result[i].is_null = (my_bool *)handle->Get1Pool()->Alloc();
+		m_result[i].buffer_type = fields[i].type;
+		m_result[i].is_null = (my_bool *)m_handler->Get1Pool()->Alloc();
 		switch (fields[i].type)
 		{
 		case MYSQL_TYPE_TINY:
-			result[i].buffer = handle->Get1Pool()->Alloc();
+			m_result[i].buffer = m_handler->Get1Pool()->Alloc();
+			break;
 		case MYSQL_TYPE_SHORT:
-			result[i].buffer = handle->Get2Pool()->Alloc();
+			m_result[i].buffer = m_handler->Get2Pool()->Alloc();
+			break;
 		case MYSQL_TYPE_LONG:
 		case MYSQL_TYPE_FLOAT:
-			result[i].buffer = handle->Get4Pool()->Alloc();
+			m_result[i].buffer = m_handler->Get4Pool()->Alloc();
 			break;
 		case MYSQL_TYPE_LONGLONG:
 		case MYSQL_TYPE_DOUBLE:
-			result[i].buffer = handle->Get8Pool()->Alloc();
+			m_result[i].buffer = m_handler->Get8Pool()->Alloc();
 			break;
 		case MYSQL_TYPE_VARCHAR:
 		case MYSQL_TYPE_VAR_STRING:
@@ -46,15 +51,32 @@ MysqlResult::MysqlResult(MysqlPrepare *prepare)
 		case MYSQL_TYPE_LONG_BLOB:
 		case MYSQL_TYPE_BLOB:
 			// todo 确认length这样做是不是对的
-			result[i].buffer = new char[fields[i].length];
-			result[i].length = &fields[i].length;
+			m_result[i].buffer = new char[fields[i].length];
+			m_result[i].length = &fields[i].length;
+			m_result[i].buffer_length = fields[i].length;
 			break;
 		default:
 			break;
 		}
 	}
 	// todo 判断错误
-	mysql_stmt_bind_result(prepare->GetStmt(), result);
+	mysql_stmt_bind_result(prepare->GetStmt(), m_result);
+}
+
+MysqlResult::~MysqlResult()
+{
+	// todo释放buffer内存
+	if (m_result != NULL)
+	{
+		delete[] m_result;
+		m_result = NULL;
+	}
+
+	if (m_metadata != NULL)
+	{
+		mysql_free_result(m_metadata);
+		m_metadata = NULL;
+	}
 }
 
 #define CHECK_INDEX(index) \
@@ -66,57 +88,57 @@ MysqlResult::MysqlResult(MysqlPrepare *prepare)
 bool MysqlResult::Read(unsigned int index, char &val)
 {
 	CHECK_INDEX(index);
-	val = *(char *)result[index].buffer;
+	val = *(char *)m_result[index].buffer;
 	return true;
 }
 
 bool MysqlResult::Read(unsigned int index, short &val)
 {
 	CHECK_INDEX(index);
-	val = *(short *)result[index].buffer;
+	val = *(short *)m_result[index].buffer;
 	return true;
 }
 
 bool MysqlResult::Read(unsigned int index, int &val)
 {
 	CHECK_INDEX(index);
-	val = *(int *)result[index].buffer;
+	val = *(int *)m_result[index].buffer;
 	return true;
 }
 
 bool MysqlResult::Read(unsigned int index, long long &val)
 {
 	CHECK_INDEX(index);
-	val = *(long long *)result[index].buffer;
+	val = *(long long *)m_result[index].buffer;
 	return true;
 }
 
 bool MysqlResult::Read(unsigned int index, float &val)
 {
 	CHECK_INDEX(index);
-	val = *(float *)result[index].buffer;
+	val = *(float *)m_result[index].buffer;
 	return true;
 }
 
 bool MysqlResult::Read(unsigned int index, double &val)
 {
 	CHECK_INDEX(index);
-	val = *(double *)result[index].buffer;
+	val = *(double *)m_result[index].buffer;
 	return true;
 }
 
 bool MysqlResult::Read(unsigned int index, char *val)
 {
 	CHECK_INDEX(index);
-	memcpy(val, result[index].buffer, *result[index].length);
+	memcpy(val, m_result[index].buffer, *m_result[index].length);
 	return true;
 }
 
 bool MysqlResult::Read(unsigned int index, char *val, unsigned int len)
 {
 	CHECK_INDEX(index);
-	size_t real_len = len > *result[index].length ? *result[index].length : len - 1;
-	memcpy(val, result[index].buffer, real_len);
+	size_t real_len = len > *m_result[index].length ? *m_result[index].length : len - 1;
+	memcpy(val, m_result[index].buffer, real_len);
 	val[real_len] = 0;
 	return true;
 }
@@ -127,21 +149,7 @@ int MysqlResult::FieldLength(unsigned int index)
 	{
 		return -1;
 	}
-	return (int)result[index].length;
+	return (int)m_result[index].length;
 }
 
-MysqlResult::~MysqlResult()
-{
-	if (result != NULL)
-	{
-		delete[] result;
-		result = NULL;
-	}
-
-	if (m_metadata != NULL)
-	{
-		mysql_free_result(m_metadata);
-		m_metadata = NULL;
-	}
-}
 

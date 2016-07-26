@@ -3,12 +3,12 @@
 #include "prepare.h"
 #include "handler.h"
 
-MysqlPrepare::MysqlPrepare(MysqlHandler *handle, unsigned char num, char *sql, unsigned short sql_len)
-: m_handle(handle)
+MysqlPrepare::MysqlPrepare(MysqlHandler *handler, unsigned char num, char *sql, unsigned short sql_len)
+: m_handler(handler)
 , m_param(new MYSQL_BIND[num])
 {
 	sql_len == 0 ? sql_len = strlen(sql) : 0;
-	m_stmt = mysql_stmt_init(m_handle->GetMysql());
+	m_stmt = mysql_stmt_init(m_handler->GetMysql());
 	if (m_stmt == NULL)
 	{
 		// A pointer to a MYSQL_STMT structure in case of success. NULL if out of memory.
@@ -23,7 +23,7 @@ MysqlPrepare::MysqlPrepare(MysqlHandler *handle, unsigned char num, char *sql, u
 		return;
 	}
 
-	memset(m_param, 0, sizeof(MYSQL_BIND)* num);
+	memset(m_param, 0, sizeof(MYSQL_BIND) * num);
 }
 
 MysqlPrepare::~MysqlPrepare()
@@ -42,35 +42,35 @@ MysqlPrepare::~MysqlPrepare()
 }
 
 
-void MysqlPrepare::BindTinyInt(unsigned char num, char val)
+void MysqlPrepare::BindTinyInt(unsigned char num, char *val)
 {
 	m_param[num].buffer_type = MYSQL_TYPE_TINY;
-	m_param[num].buffer = &val;
+	m_param[num].buffer = val;
 }
 
-void MysqlPrepare::BindSmallInt(unsigned char num, short val)
+void MysqlPrepare::BindSmallInt(unsigned char num, short *val)
 {
 	m_param[num].buffer_type = MYSQL_TYPE_SHORT;
-	m_param[num].buffer = &val;
+	m_param[num].buffer = val;
 }
 
-void MysqlPrepare::BindInt(unsigned char num, int val)
+void MysqlPrepare::BindInt(unsigned char num, int *val)
 {
 	m_param[num].buffer_type = MYSQL_TYPE_LONG;
-	m_param[num].buffer = &val;
+	m_param[num].buffer = val;
 	//m_param[num].length = 0;
 }
 
-void MysqlPrepare::BindLong(unsigned char num, long long val)
+void MysqlPrepare::BindLong(unsigned char num, long long *val)
 {
 	m_param[num].buffer_type = MYSQL_TYPE_LONGLONG;
-	m_param[num].buffer = &val;
+	m_param[num].buffer = val;
 }
 
-void MysqlPrepare::BindFloat(unsigned char num, float val)
+void MysqlPrepare::BindFloat(unsigned char num, float *val)
 {
 	m_param[num].buffer_type = MYSQL_TYPE_FLOAT;
-	m_param[num].buffer = &val;
+	m_param[num].buffer = val;
 }
 
 void MysqlPrepare::BindChar(unsigned char num, char *val)

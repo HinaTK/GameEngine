@@ -5,6 +5,7 @@
 #include "lib/include/mysql/mysql.h"
 
 class MysqlPrepare;
+class MysqlHandler;
 class MysqlResult
 {
 public:
@@ -23,11 +24,11 @@ public:
 
 	inline int FieldLength(unsigned int index);
 
-	MYSQL_BIND *result;
-	unsigned int field_num;
-
 private:
-	MYSQL_RES *m_metadata;
+	MYSQL_BIND 		*m_result;
+	MYSQL_RES 		*m_metadata;
+	MysqlHandler	*m_handler;
+	unsigned int 	field_num;
 };
 
 #define READ_RESULT_BEGIN(Result)\

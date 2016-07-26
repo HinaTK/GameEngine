@@ -30,5 +30,5 @@ void LoginManager::OnLogin(Account account, ServerID server_id)
 	ThreadProto::LoadRole lr;
 	memcpy(lr.account, account, ACCOUNT_SIZE);
 	lr.server_id = server_id;
-	m_thread->GetManager()->SendMsg(ThreadProto::TP_LOAD_ROLE, GetThreadID(), sizeof(ThreadProto::LoadRole), (const char *)&lr);
+	m_thread->GetManager()->SendMsg(ThreadProto::TP_LOAD_ROLE, GetThreadID(), sizeof(ThreadProto::LoadRole), (const char *)&lr, m_thread->GetID());
 }

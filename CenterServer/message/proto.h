@@ -12,7 +12,7 @@ namespace Proto
 	struct csLogin
 	{
 		BindProto(csLogin, CS_LOGIN);
-		Account	account;
+		Account		account;
 		ServerID	server_id;
 	};
 }

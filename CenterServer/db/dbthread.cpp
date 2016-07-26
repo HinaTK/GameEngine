@@ -137,12 +137,10 @@ void test_mysql2()
 	memset(param, 0, sizeof(MYSQL_BIND) * 2);
 	param[0].buffer_type = MYSQL_TYPE_LONG;
 	param[0].buffer = &server_id;
-	param[0].length = 0;
 
 	param[1].buffer_type = MYSQL_TYPE_VARCHAR;
 	param[1].buffer = account;
 	param[1].buffer_length = strlen(account);
-	param[1].length = 0;
 	
 	if (mysql_stmt_prepare(stmt1, select.c_str(), select.size()) != 0)
 	{
@@ -162,12 +160,13 @@ void test_mysql2()
 
 	char name[32] = {0};
 	unsigned long length = 0;
+	
 	MYSQL_BIND result;
+	memset(&result, 0, sizeof(MYSQL_BIND));
 	result.buffer = name;
 	result.length = &length;
-	result.buffer_length = 8;
+	result.buffer_length = 32;
 	mysql_stmt_bind_result(stmt1, &result);
-	mysql_stmt_store_result(stmt1);
 
 	while(mysql_stmt_fetch(stmt1) == 0)
 	{
@@ -196,12 +195,10 @@ void test_mysql3()
 	memset(param, 0, sizeof(MYSQL_BIND) * 2);
 	param[0].buffer_type = MYSQL_TYPE_LONG;
 	param[0].buffer = &server_id;
-	param[0].length = 0;
 
 	param[1].buffer_type = MYSQL_TYPE_VARCHAR;
 	param[1].buffer = account;
 	param[1].buffer_length = strlen(account);
-	param[1].length = 0;
 	
 	if (mysql_stmt_prepare(stmt1, select.c_str(), select.size()) != 0)
 	{
@@ -244,8 +241,8 @@ void DBThread::RecvData(short type, ThreadID sid, int len, const char *data)
 	switch (type)
 	{
 	case ThreadProto::TP_LOAD_ROLE:
-		//_manager.LoadRole(len, data);
-		test_mysql3();
+		m_manager.LoadRole(sid, len, data);
+		//test_mysql2();
 		printf("load role ... %d\n", GetID());
 	default:
 		break;

@@ -27,7 +27,7 @@ DBManager::~DBManager()
 void DBManager::LoadRole(ThreadID tid, int len, const char *data)
 {
 	struct ThreadProto::LoadRole *lr = (struct ThreadProto::LoadRole *)data;
-	m_role_s.BindInt(0, lr->server_id);
+	m_role_s.BindInt(0, &lr->server_id);
 	m_role_s.BindChar(1, lr->account);
 	if (m_role_s.Execute())
 	{
@@ -39,7 +39,7 @@ void DBManager::LoadRole(ThreadID tid, int len, const char *data)
 			printf("the name is %s\n", lrr.name);
 		}
 		READ_RESULT_END();
-		m_thread->GetManager()->SendMsg(ThreadProto::TP_LOAD_ROLE_RET, tid, sizeof(ThreadProto::LoadRoleRet), (const char *)&lrr);
+		m_thread->GetManager()->SendMsg(ThreadProto::TP_LOAD_ROLE_RET, tid, sizeof(ThreadProto::LoadRoleRet), (const char *)&lrr, m_thread->GetID());
 	}
 }
 
