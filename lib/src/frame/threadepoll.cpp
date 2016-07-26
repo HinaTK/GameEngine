@@ -97,3 +97,8 @@ void SocketThread::SetCanNotWrite(NetHandler *handler)
         // 添加失败
     }
 }
+
+void SocketThread::CMD(short type, ThreadID sid, int len, const char *data)
+{
+    
+}
