@@ -44,12 +44,11 @@ public:
 		static GatawayConfig config;
 		return config;
 	}
-	void	Read(){}
-	bool	Init();
+	void	Read();
 
 	std::vector<ServerInfo>	m_server;
 private:
-	GatawayConfig(){};
+	GatawayConfig();
 };
 
 class CenterConfig : public ServerConfig
@@ -81,12 +80,11 @@ public:
 		return config;
 	}
 
-	void	Read(){}
-	bool	Init();
+	void	Read();
 
-	ServerInfo server;
+	ServerInfo game;
 private:
-	GameConfig(){};
+	GameConfig();
 };
 
 #endif

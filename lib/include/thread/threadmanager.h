@@ -36,7 +36,7 @@ private:
 	game::Array<BaseThread *>	m_thread;
 	std::vector<BaseThread *>	*m_write_thread;	// 临时保存线程，方便在启动（Start）后，后来加入线程能启动
 	std::vector<BaseThread *>	*m_read_thread;
-	std::vector<int>	m_exit[EXIT_MAX];
+	std::vector<int>			m_exit[EXIT_MAX];
 };
 
 #endif

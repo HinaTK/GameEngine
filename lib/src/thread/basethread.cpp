@@ -17,6 +17,7 @@ BaseThread::BaseThread(ThreadManager *manager, void *arg, char exit)
 , m_thread(NULL)
 , m_is_exit(false)
 , m_is_start(false)
+, m_sleep_time(2)
 {
 	
 }
@@ -62,7 +63,7 @@ void BaseThread::Loop(bool sleep)
         }
         if (!this->Run() && is_sleep)
         {
-            Time::Sleep(2);
+            Time::Sleep(m_sleep_time);
         }
 
     } while (!m_is_exit);

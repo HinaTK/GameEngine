@@ -34,6 +34,8 @@ public:
 	void	Exit();
 	void	Wait();
 
+
+	void 	SetSleepTime(unsigned short time){m_sleep_time = time;}
 private:
 	// 不允许复制
 	BaseThread(const BaseThread&);
@@ -50,6 +52,7 @@ protected:
 	bool			m_is_exit;
 
 	MsgQueue<ThreadMsg *> m_recv_queue;
+	unsigned short	m_sleep_time;
 
 private:
 	void			*m_arg;
