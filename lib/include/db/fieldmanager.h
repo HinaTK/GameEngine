@@ -4,18 +4,21 @@
 
 #include <vector>
 #include <string>
+#include "module.h"
 #include "lib/include/rapidjson/define.h"
 
+// todo 做一下内存池
 class Field;
-class FieldManager
+class FieldManager : public DBModule
 {
 public:
 	FieldManager();
 	~FieldManager(){}
 
+//	bool	Save();
 	void	Register(Field *field);
 
-	void	Serialize(std::string &str);
+	bool	Serialize(std::string &str);
 
 protected:
 	std::vector<Field *> m_manager;
