@@ -10,10 +10,7 @@
     <Filter Include="main">
       <UniqueIdentifier>{c46735c3-ca6b-4334-9402-4cbb3d003498}</UniqueIdentifier>
     </Filter>
-    <Filter Include="message">
-      <UniqueIdentifier>{f09de7be-8dd6-49cd-b066-f5e9aad0216d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="net\login">
+    <Filter Include="net\src">
       <UniqueIdentifier>{8ef70f9d-d307-455b-840c-2623d37c820b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -36,14 +33,14 @@
     <ClCompile Include="..\CenterServer\main\main.cpp">
       <Filter>main</Filter>
     </ClCompile>
-    <ClCompile Include="..\CenterServer\message\messagehandler.cpp">
-      <Filter>message</Filter>
+    <ClCompile Include="..\CenterServer\net\src\idpool.cpp">
+      <Filter>net\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\CenterServer\net\login\loginmanager.cpp">
-      <Filter>net\login</Filter>
+    <ClCompile Include="..\CenterServer\net\src\loginmanager.cpp">
+      <Filter>net\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\CenterServer\net\login\idpool.cpp">
-      <Filter>net\login</Filter>
+    <ClCompile Include="..\CenterServer\net\src\messagehandler.cpp">
+      <Filter>net\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,20 +59,18 @@
     <ClInclude Include="..\CenterServer\main\center.h">
       <Filter>main</Filter>
     </ClInclude>
-    <ClInclude Include="..\CenterServer\message\messagehandler.h">
-      <Filter>message</Filter>
+    <ClInclude Include="..\CenterServer\net\src\idpool.h">
+      <Filter>net\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\CenterServer\message\proto.h">
-      <Filter>message</Filter>
+    <ClInclude Include="..\CenterServer\net\src\loginmanager.h">
+      <Filter>net\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\CenterServer\message\threadproto.h">
-      <Filter>message</Filter>
+    <ClInclude Include="..\CenterServer\net\src\messagehandler.h">
+      <Filter>net\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\CenterServer\net\login\loginmanager.h">
-      <Filter>net\login</Filter>
+    <ClInclude Include="..\CenterServer\net\src\proto.h">
+      <Filter>net\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\CenterServer\net\login\idpool.h">
-      <Filter>net\login</Filter>
-    </ClInclude>
+    <ClInclude Include="..\CenterServer\threadproto.h" />
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@
 #include "net/netthread.h"
 #include "net/callback.h"
 #include "db/dbthread.h"
-#include "message/proto.h"
+#include "net/src/proto.h"
 
 
 Center::Center()

@@ -67,6 +67,12 @@ void MysqlPrepare::BindInt(unsigned char num, int *val)
 	//m_param[num].length = 0;
 }
 
+void MysqlPrepare::BindUInt(unsigned char num, unsigned int *val)
+{
+	m_param[num].buffer_type = MYSQL_TYPE_LONG;
+	m_param[num].buffer = val;
+}
+
 void MysqlPrepare::BindLong(unsigned char num, long long *val)
 {
 	m_param[num].buffer_type = MYSQL_TYPE_LONGLONG;

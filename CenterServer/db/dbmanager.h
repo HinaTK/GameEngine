@@ -15,6 +15,8 @@ public:
 
 	void	LoadRoleMaxID(ThreadID tid);
 	void	LoadRole(ThreadID tid, int len, const char *data);
+	void	SaveRoleMaxID(unsigned int max_id);
+	void	SaveRole(ThreadID tid, int len, const char *data);
 
 protected:
 	DBThread		*m_thread;
@@ -22,6 +24,7 @@ protected:
 	MysqlHandler	m_mysql;
 	MysqlPrepare	m_role_s;
 	MysqlPrepare	m_role_i;
+	MysqlPrepare	m_role_max_id;
 };
 
 #endif

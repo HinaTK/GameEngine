@@ -1,6 +1,6 @@
 ﻿
 #include "dbthread.h"
-#include "message/threadproto.h"
+#include "threadproto.h"
 #include "lib/include/mysql/mysql.h"
 
 DBThread::~DBThread()
@@ -240,8 +240,13 @@ void DBThread::RecvData(short type, ThreadID sid, int len, const char *data)
 		break;
 	case ThreadProto::TP_LOAD_ROLE:
 		m_manager.LoadRole(sid, len, data);
-		//test_mysql2();
 		printf("load role ... %d\n", GetID());
+		break;
+	case ThreadProto::TP_SAVE_ROLE_MAX_ID:
+		m_manager.SaveRoleMaxID(*(unsigned int *)data);
+		break;
+	case ThreadProto::TP_SAVE_ROLE:
+		m_manager.SaveRole(sid, len, data);
 		break;
 	default:
 		break;

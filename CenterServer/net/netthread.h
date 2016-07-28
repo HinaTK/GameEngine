@@ -3,10 +3,10 @@
 #define NET_THREAD_H
 
 #include <vector>
-#include "login/loginmanager.h"
-#include "login/idpool.h"
+#include "src/loginmanager.h"
+#include "src/idpool.h"
+#include "src/messagehandler.h"
 #include "protocol/innerproto.h"
-#include "message/messagehandler.h"
 #include "lib/include/thread/basethread.h"
 #include "lib/include/frame/netmanager.h"
 
@@ -32,7 +32,8 @@ public:
 	void	InsertServer(GameMsg *msg);
 	void	RemoveServer(NetHandle handle);
 
-	LoginManager *GetLoginManager(){ return &m_login_manager; }
+	LoginManager	*GetLoginManager(){ return &m_login_manager; }
+	IDPool			*GetIDPool(){ return &m_id_pool; }
 	ThreadID 	GetThreadID();
 protected:
 	bool	Init();
@@ -43,8 +44,9 @@ private:
 	NetManager	*m_net_manager;
 	std::vector<OtherServer> m_server[Inner::ST_MAX];		// 连接到中心服的其它服务
 
-	LoginManager	m_login_manager;
 	MessageHandler	m_message_handler;
+	LoginManager	m_login_manager;
+	IDPool			m_id_pool;
 	ThreadID 		m_cur_thread_id;
 
 };

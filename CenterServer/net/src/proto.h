@@ -13,7 +13,16 @@ namespace Proto
 	{
 		BindProto(csLogin, CS_LOGIN);
 		Account		account;
-		ServerID	server_id;
+		ServerID	sid;
+	};
+
+	struct csCreateRole
+	{
+		BindProto(csCreateRole, CS_CREATE_ROLE);
+		Account		account;
+		ServerID	sid;
+
+		GameName	name;
 	};
 }
 

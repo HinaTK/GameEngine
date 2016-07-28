@@ -1,9 +1,9 @@
 
 #include "netthread.h"
 #include "callback.h"
+#include "threadproto.h"
 #include "main/center.h"
-#include "message/messagehandler.h"
-#include "message/threadproto.h"
+#include "src/messagehandler.h"
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/frame/socketthread.h"
 #include "lib/include/frame/baseaccepter.h"
@@ -12,8 +12,9 @@
 NetThread::NetThread(ThreadManager *manager)
 : BaseThread(manager, NULL, ThreadManager::EXIT_NORMAL)
 , m_net_manager(new NetManager(manager))
-, m_login_manager(this)
 , m_message_handler(this)
+, m_login_manager(this)
+, m_id_pool(this)
 , m_cur_thread_id(0)
 {
 	m_name = "net";
@@ -59,6 +60,7 @@ void NetThread::RecvData(short type, ThreadID sid, int len, const char *data)
 	switch (type)
 	{
 	case ThreadProto::TP_LOAD_ROLE_MAX_ID_RET:
+		m_id_pool.SetMaxID(*(unsigned int *)data);
 		break;
 	case ThreadProto::TP_LOAD_ROLE_RET:
 	{
@@ -66,6 +68,9 @@ void NetThread::RecvData(short type, ThreadID sid, int len, const char *data)
 		printf("the ret name %s", lrr->name);
 		break;	
 	}
+	case ThreadProto::TP_SAVE_ROLE_RET:
+		// TODO 通知客户端是否创建角色成功
+		break;
 	default:
 		break;
 	}

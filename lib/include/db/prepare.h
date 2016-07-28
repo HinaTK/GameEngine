@@ -14,6 +14,7 @@ public:
 	void	BindTinyInt(unsigned char num, char *val);
 	void	BindSmallInt(unsigned char num, short *val);
 	void	BindInt(unsigned char num, int *val);
+	void	BindUInt(unsigned char num, unsigned int *val);
 	void	BindLong(unsigned char num, long long *val);
 	void	BindFloat(unsigned char num, float *val);
 	void	BindChar(unsigned char num, char *val);

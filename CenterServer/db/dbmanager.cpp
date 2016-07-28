@@ -1,7 +1,7 @@
 
 #include "dbmanager.h"
 #include "dbthread.h"
-#include "message/threadproto.h"
+#include "threadproto.h"
 #include "lib/include/db/result.h"
 #include "lib/include/common/serverconfig.h"
 
@@ -15,6 +15,7 @@ CenterConfig::Instance().db.dbname.c_str(),
 CenterConfig::Instance().db.port)
 , m_role_s(&m_mysql, 2, "SELECT name FROM role WHERE sid=? AND account=?;")
 , m_role_i(&m_mysql, 4, "INSERT INTO role (rid,sid,account,name) VALUES (?,?,?,?);")
+, m_role_max_id(&m_mysql, 1, "REPLACE INTO role_id (sid, max_id) VALUES (?,?);")
 {
 
 }
@@ -46,7 +47,7 @@ void DBManager::LoadRoleMaxID(ThreadID tid)
 void DBManager::LoadRole(ThreadID tid, int len, const char *data)
 {
 	struct ThreadProto::LoadRole *lr = (struct ThreadProto::LoadRole *)data;
-	m_role_s.BindInt(0, &lr->server_id);
+	m_role_s.BindInt(0, &lr->sid);
 	m_role_s.BindChar(1, lr->account);
 	if (m_role_s.Execute())
 	{
@@ -60,6 +61,16 @@ void DBManager::LoadRole(ThreadID tid, int len, const char *data)
 			}
 		}
 		m_thread->GetManager()->SendMsg(ThreadProto::TP_LOAD_ROLE_RET, tid, sizeof(ThreadProto::LoadRoleRet), (const char *)&lrr, m_thread->GetID());
+	}
+}
+
+void DBManager::SaveRoleMaxID(unsigned int max_id)
+{
+	m_role_max_id.BindInt(0, &CenterConfig::Instance().sid);
+	m_role_max_id.BindUInt(1, &max_id);
+	if (!m_role_s.Execute())
+	{
+		// todo дlog 
 	}
 }
 
