@@ -106,6 +106,13 @@ bool MysqlResult::Read(unsigned int index, int &val)
 	return true;
 }
 
+bool MysqlResult::Read(unsigned int index, unsigned int &val)
+{
+	CHECK_INDEX(index);
+	val = *(unsigned int *)m_result[index].buffer;
+	return true;
+}
+
 bool MysqlResult::Read(unsigned int index, long long &val)
 {
 	CHECK_INDEX(index);

@@ -31,7 +31,6 @@ public:
 
 protected:
 	virtual void	InitNetHandler(NetHandler *handler) = 0;
-	void			Init(void *arg);
 	void			RecvData(short type, ThreadID sid, int len, const char *data);
 	void			AddHandler(const char *data);
 	void			SendMsg(NetHandle handle, int length, const char *data);

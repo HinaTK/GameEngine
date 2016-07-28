@@ -20,11 +20,6 @@ ThreadNet::~ThreadNet()
 	}
 }
 
-
-void ThreadNet::Init(void *arg)
-{
-}
-
 NetHandle ThreadNet::AddNetHandler(NetHandler *handler)
 {
 	InitNetHandler(handler);

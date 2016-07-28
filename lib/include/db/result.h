@@ -15,6 +15,7 @@ public:
 	bool	Read(unsigned int index, char &val);
 	bool	Read(unsigned int index, short &val);
 	bool	Read(unsigned int index, int &val);
+	bool	Read(unsigned int index, unsigned int &val);
 	bool	Read(unsigned int index, long long &val);
 	bool	Read(unsigned int index, float &val);
 	bool	Read(unsigned int index, double &val);

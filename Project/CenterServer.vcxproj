@@ -17,6 +17,7 @@
     <ClCompile Include="..\CenterServer\main\main.cpp" />
     <ClCompile Include="..\CenterServer\message\messagehandler.cpp" />
     <ClCompile Include="..\CenterServer\net\callback.cpp" />
+    <ClCompile Include="..\CenterServer\net\login\idpool.cpp" />
     <ClCompile Include="..\CenterServer\net\login\loginmanager.cpp" />
     <ClCompile Include="..\CenterServer\net\netthread.cpp" />
   </ItemGroup>
@@ -28,6 +29,7 @@
     <ClInclude Include="..\CenterServer\message\proto.h" />
     <ClInclude Include="..\CenterServer\message\threadproto.h" />
     <ClInclude Include="..\CenterServer\net\callback.h" />
+    <ClInclude Include="..\CenterServer\net\login\idpool.h" />
     <ClInclude Include="..\CenterServer\net\login\loginmanager.h" />
     <ClInclude Include="..\CenterServer\net\netthread.h" />
   </ItemGroup>

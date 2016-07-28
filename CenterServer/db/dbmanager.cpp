@@ -14,7 +14,7 @@ CenterConfig::Instance().db.passwd.c_str(),
 CenterConfig::Instance().db.dbname.c_str(),
 CenterConfig::Instance().db.port)
 , m_role_s(&m_mysql, 2, "SELECT name FROM role WHERE sid=? AND account=?;")
-
+, m_role_i(&m_mysql, 4, "INSERT INTO role (rid,sid,account,name) VALUES (?,?,?,?);")
 {
 
 }
@@ -22,6 +22,25 @@ CenterConfig::Instance().db.port)
 DBManager::~DBManager()
 {
 
+}
+
+void DBManager::LoadRoleMaxID(ThreadID tid)
+{
+	MysqlPrepare *mp = new MysqlPrepare(&m_mysql, 1, "SELECT max_id FROM role_id WHERE sid=?;");
+	mp->BindInt(0, &CenterConfig::Instance().sid);
+	if (mp->Execute())
+	{
+		unsigned int max_id = 1;
+		MysqlResult mr(mp);
+		while (mp->HasResult())
+		{
+			mr.Read(0, max_id);
+		}
+
+		printf("the max role id is %d\n", max_id);
+		m_thread->GetManager()->SendMsg(ThreadProto::TP_LOAD_ROLE_MAX_ID_RET, tid, sizeof(unsigned int), (const char *)&max_id, m_thread->GetID());
+	}
+	delete mp;
 }
 
 void DBManager::LoadRole(ThreadID tid, int len, const char *data)
@@ -32,13 +51,14 @@ void DBManager::LoadRole(ThreadID tid, int len, const char *data)
 	if (m_role_s.Execute())
 	{
 		ThreadProto::LoadRoleRet lrr;
-
-		READ_RESULT_BEGIN(m_role_s);
-		if (mr->Read(0, lrr.name, GAME_NAME_SIZE))
+		MysqlResult mr(&m_role_s);
+		while(m_role_s.HasResult())
 		{
-			printf("the name is %s\n", lrr.name);
+			if (mr.Read(0, lrr.name, GAME_NAME_SIZE))
+			{
+				printf("the name is %s\n", lrr.name);
+			}
 		}
-		READ_RESULT_END();
 		m_thread->GetManager()->SendMsg(ThreadProto::TP_LOAD_ROLE_RET, tid, sizeof(ThreadProto::LoadRoleRet), (const char *)&lrr, m_thread->GetID());
 	}
 }

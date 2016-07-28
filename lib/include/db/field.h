@@ -21,10 +21,11 @@ static const char *FIELD_VER_NAME = "ver";
 typedef unsigned short Version;
 
 // 只用于用json保存的数据
+
 class Field
 {
 public:
-	Field(Version _ver) :DBModule(), m_dirty(false), ver(_ver){}
+	Field(Version _ver) :m_dirty(false), ver(_ver){}
 	virtual ~Field(){}
 
 	void	SetDirty(){ m_dirty = true; }

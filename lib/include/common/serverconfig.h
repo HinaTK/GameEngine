@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include "lib/include/rapidjson/define.h"
+#include "common/serverdef.h"
 
 struct ServerInfo
 {
@@ -30,7 +31,8 @@ public:
 
 	bool	Init();
 
-	ServerInfo center;
+	ServerID	sid;
+	ServerInfo	center;
 protected:
 	rapidjson::Document doc;
 };

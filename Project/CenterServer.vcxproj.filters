@@ -42,6 +42,9 @@
     <ClCompile Include="..\CenterServer\net\login\loginmanager.cpp">
       <Filter>net\login</Filter>
     </ClCompile>
+    <ClCompile Include="..\CenterServer\net\login\idpool.cpp">
+      <Filter>net\login</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\CenterServer\db\dbmanager.h">
@@ -69,6 +72,9 @@
       <Filter>message</Filter>
     </ClInclude>
     <ClInclude Include="..\CenterServer\net\login\loginmanager.h">
+      <Filter>net\login</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterServer\net\login\idpool.h">
       <Filter>net\login</Filter>
     </ClInclude>
   </ItemGroup>

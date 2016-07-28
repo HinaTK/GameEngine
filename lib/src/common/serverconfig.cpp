@@ -50,6 +50,12 @@ ServerConfig::ServerConfig()
 bool ServerConfig::Init()
 {
 	JSON_READ_FILE_BEGIN(config_file.c_str());
+
+	if (!doc.HasMember("server") || !doc["server"].IsInt()){
+		return false;
+	}
+	sid = doc["server"].GetInt();
+
 	if (!doc.HasMember("center") || !doc["center"].IsObject()){
 		return false;
 	}

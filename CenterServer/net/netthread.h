@@ -3,11 +3,13 @@
 #define NET_THREAD_H
 
 #include <vector>
+#include "login/loginmanager.h"
+#include "login/idpool.h"
+#include "protocol/innerproto.h"
+#include "message/messagehandler.h"
 #include "lib/include/thread/basethread.h"
 #include "lib/include/frame/netmanager.h"
-#include "protocol/innerproto.h"
-#include "login/loginmanager.h"
-#include "message/messagehandler.h"
+
 
 class ThreadManager;
 class NetThread : public BaseThread
@@ -31,8 +33,10 @@ public:
 	void	RemoveServer(NetHandle handle);
 
 	LoginManager *GetLoginManager(){ return &m_login_manager; }
+	ThreadID 	GetThreadID();
 protected:
-	void	Init(void *arg);
+	bool	Init();
+	bool	Ready();
 	bool	Run();
 	void	RecvData(short type, ThreadID sid, int len, const char *data);
 private:
@@ -41,6 +45,7 @@ private:
 
 	LoginManager	m_login_manager;
 	MessageHandler	m_message_handler;
+	ThreadID 		m_cur_thread_id;
 
 };
 

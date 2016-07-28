@@ -12,7 +12,7 @@ public:
 	LoginManager(NetThread *t);
 	~LoginManager();
 
-	ThreadID 	GetThreadID();
+	
 	void 	OnLogin(Account account, ServerID server_id);
 	// struct LoginKey
 	// {
@@ -26,7 +26,6 @@ public:
 	// 	RoleName	role_name;
 	// };
 protected:
-	ThreadID 	m_cur_thread_id;
 	NetThread	*m_thread;
 	//std::map<LoginKey, LoginInfo> m_login_info;
 };

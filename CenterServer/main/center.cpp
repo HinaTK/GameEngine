@@ -20,18 +20,17 @@ Center::~Center()
 bool Center::Init()
 {
 	m_thread_manager.Register(new NetThread(&m_thread_manager));
-	db_thread_id[0] = m_thread_manager.Register(new DBThread(&m_thread_manager));
-	db_thread_id[1] = m_thread_manager.Register(new DBThread(&m_thread_manager));
-	return true;
+	db_thread_id[0] = m_thread_manager.Register(new DBThread(&m_thread_manager), ThreadManager::EXIT_FINALLY);
+	db_thread_id[1] = m_thread_manager.Register(new DBThread(&m_thread_manager), ThreadManager::EXIT_FINALLY);
+	return m_thread_manager.Init();
 }
 
 void Center::Start()
 {
+	m_thread_manager.Ready();
 	m_thread_manager.Start();
 	this->Run();
 }
-
-
 
 void Center::Cmd(char *buf)
 {

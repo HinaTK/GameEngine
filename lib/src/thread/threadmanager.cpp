@@ -12,39 +12,52 @@ ThreadManager::~ThreadManager()
 			*itr = NULL;
 		}
 	}
-	delete m_write_thread;
-	delete m_read_thread;
 }
 
 ThreadManager::ThreadManager()
-: m_write_thread(new std::vector<BaseThread *>())
-, m_read_thread(new std::vector<BaseThread *>())
 {
 	
 }
 
 int ThreadManager::Register(BaseThread *bt, char exit)
 {
-	m_write_thread->push_back(bt);
 	ThreadID id = m_thread.Insert(bt);
 	bt->SetID(id);
 	m_exit[exit].push_back(id);
 	return id;
 }
 
+bool ThreadManager::Init()
+{
+	for (game::Array<BaseThread *>::iterator itr = m_thread.Begin(); itr != m_thread.End(); ++itr)
+	{
+		if (!(*itr)->Init())
+		{
+			printf("init thread %s error\n", (*itr)->GetName());
+			return false;
+		}
+	}
+	return true;
+}
+
+bool ThreadManager::Ready()
+{
+	for (game::Array<BaseThread *>::iterator itr = m_thread.Begin(); itr != m_thread.End(); ++itr)
+	{
+		if (!(*itr)->Ready())
+		{
+			printf("ready thread %s error\n", (*itr)->GetName());
+			return false;
+		}
+	}
+	return true;
+}
+
 void ThreadManager::Start()
 {
-	if (m_write_thread->size() > 0)
+	for (game::Array<BaseThread *>::iterator itr = m_thread.Begin(); itr != m_thread.End(); ++itr)
 	{
-		std::vector<BaseThread *> *temp = m_read_thread;
-		m_read_thread = m_write_thread;
-		m_write_thread = temp;
-		m_write_thread->clear();
-		for (std::vector<BaseThread *>::iterator itr = m_read_thread->begin(); itr != m_read_thread->end(); ++itr)
-		{
-			(*itr)->Start();
-		}
-		this->Start();
+		(*itr)->Start();
 	}
 }
 
@@ -78,12 +91,7 @@ void ThreadManager::Exit()
 
 void ThreadManager::Wait()
 {
-	for (std::vector<int>::iterator itr = m_exit[EXIT_NORMAL].begin(); itr != m_exit[EXIT_NORMAL].end(); ++itr)
-	{
-		m_thread[*itr]->Wait();
-	}
-
-	for (int i = EXIT_NORMAL + 1; i < EXIT_MAX; ++i)
+	for (int i = EXIT_NORMAL; i < EXIT_MAX; ++i)
 	{
 		for (std::vector<int>::iterator itr = m_exit[i].begin(); itr != m_exit[i].end(); ++itr)
 		{

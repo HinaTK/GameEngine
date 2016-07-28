@@ -13,6 +13,7 @@ public:
 	DBManager(DBThread *t);
 	~DBManager();
 
+	void	LoadRoleMaxID(ThreadID tid);
 	void	LoadRole(ThreadID tid, int len, const char *data);
 
 protected:
@@ -20,6 +21,7 @@ protected:
 
 	MysqlHandler	m_mysql;
 	MysqlPrepare	m_role_s;
+	MysqlPrepare	m_role_i;
 };
 
 #endif

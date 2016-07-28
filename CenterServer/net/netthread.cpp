@@ -1,17 +1,20 @@
 
 #include "netthread.h"
 #include "callback.h"
+#include "main/center.h"
+#include "message/messagehandler.h"
+#include "message/threadproto.h"
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/frame/socketthread.h"
 #include "lib/include/frame/baseaccepter.h"
-#include "message/messagehandler.h"
-#include "message/threadproto.h"
+
 
 NetThread::NetThread(ThreadManager *manager)
 : BaseThread(manager, NULL, ThreadManager::EXIT_NORMAL)
 , m_net_manager(new NetManager(manager))
 , m_login_manager(this)
 , m_message_handler(this)
+, m_cur_thread_id(0)
 {
 	m_name = "net";
 }
@@ -21,19 +24,30 @@ NetThread::~NetThread()
 	delete m_net_manager;
 }
 
-void NetThread::Init(void *arg)
+bool NetThread::Init()
 {
 	ServerInfo &info1 = CenterConfig::Instance().login;
-	m_net_manager->InitServer(info1.ip, info1.port, info1.backlog, 1024, new CallBack(this));
-
+	if (!m_net_manager->InitServer(info1.ip, info1.port, info1.backlog, 1024, new CallBack(this)))
+	{
+		return false;
+	}
+	
 	ServerInfo &info2 = CenterConfig::Instance().center;
-	m_net_manager->InitServer(info2.ip, info2.port, info2.backlog, new InnerCallBack(this));
+	if (!m_net_manager->InitServer(info2.ip, info2.port, info2.backlog, new InnerCallBack(this)))
+	{
+		return false;
+	}
 
 	// 测试
 	//m_net_manager->InitServer(info1.ip, 12345, info1.backlog, new HttpAccepter(m_net_manager->GetThread(), HttpAccepter::CB_FIELD), new CallBack(this));
-
+	return true;
 }
 
+bool NetThread::Ready()
+{
+	m_manager->SendMsg(ThreadProto::TP_LOAD_ROLE_MAX_ID, GetThreadID(), 0, NULL, m_id);
+	return true;
+}
 
 bool NetThread::Run()
 {
@@ -44,6 +58,8 @@ void NetThread::RecvData(short type, ThreadID sid, int len, const char *data)
 {
 	switch (type)
 	{
+	case ThreadProto::TP_LOAD_ROLE_MAX_ID_RET:
+		break;
 	case ThreadProto::TP_LOAD_ROLE_RET:
 	{
 		ThreadProto::LoadRoleRet *lrr = (ThreadProto::LoadRoleRet *)data;
@@ -114,3 +130,11 @@ void NetThread::RemoveServer(NetHandle handle)
 	}
 }
 
+ThreadID NetThread::GetThreadID()
+{
+	if (m_cur_thread_id >= Center::MAX_DB_THREAD)
+	{
+		m_cur_thread_id = 0;
+	}
+	return Center::Instance().db_thread_id[m_cur_thread_id++];
+}

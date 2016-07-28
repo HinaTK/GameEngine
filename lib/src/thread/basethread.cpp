@@ -35,7 +35,6 @@ void BaseThread::Start()
 {
 	if (!m_is_start)
 	{
-		Init(m_arg);
 		m_thread = new std::thread(::Update, this);
 		m_is_start = true;
 	}

@@ -15,11 +15,6 @@ DBThread::DBThread(ThreadManager *manager)
 	m_name = "db";
 }
 
-void DBThread::Init(void *arg)
-{
-
-}
-
 bool DBThread::Run()
 {
 	return false;
@@ -240,10 +235,14 @@ void DBThread::RecvData(short type, ThreadID sid, int len, const char *data)
 {
 	switch (type)
 	{
+	case ThreadProto::TP_LOAD_ROLE_MAX_ID:
+		m_manager.LoadRoleMaxID(sid);
+		break;
 	case ThreadProto::TP_LOAD_ROLE:
 		m_manager.LoadRole(sid, len, data);
 		//test_mysql2();
 		printf("load role ... %d\n", GetID());
+		break;
 	default:
 		break;
 	}

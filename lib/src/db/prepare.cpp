@@ -5,10 +5,11 @@
 
 MysqlPrepare::MysqlPrepare(MysqlHandler *handler, unsigned char num, char *sql, unsigned short sql_len)
 : m_handler(handler)
-, m_param(new MYSQL_BIND[num])
+, m_param(NULL)
 {
 	sql_len == 0 ? sql_len = strlen(sql) : 0;
 	m_stmt = mysql_stmt_init(m_handler->GetMysql());
+
 	if (m_stmt == NULL)
 	{
 		// A pointer to a MYSQL_STMT structure in case of success. NULL if out of memory.
@@ -23,7 +24,12 @@ MysqlPrepare::MysqlPrepare(MysqlHandler *handler, unsigned char num, char *sql, 
 		return;
 	}
 
-	memset(m_param, 0, sizeof(MYSQL_BIND) * num);
+	if (num > 0)
+	{
+		m_param = new MYSQL_BIND[num];
+		memset(m_param, 0, sizeof(MYSQL_BIND)* num);
+	}
+	
 }
 
 MysqlPrepare::~MysqlPrepare()

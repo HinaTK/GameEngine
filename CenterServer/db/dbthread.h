@@ -12,7 +12,6 @@ public:
 	DBThread(ThreadManager *manager);
 
 protected:
-	void	Init(void *arg);
 	bool	Run();
 	void	RecvData(short type, ThreadID sid, int len, const char *data);
 private:

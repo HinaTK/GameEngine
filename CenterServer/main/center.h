@@ -11,7 +11,7 @@
 class Center : public Frame
 {
 public:
-	Center();
+	
 	~Center();
 
 	static const int MAX_DB_THREAD = 2;
@@ -30,6 +30,8 @@ public:
 	void	Cmd(char *buf);
 
 	ThreadID 	db_thread_id[MAX_DB_THREAD];
+private:
+	Center();
 };
 
 #endif
