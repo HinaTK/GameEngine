@@ -74,3 +74,8 @@ void DBManager::SaveRoleMaxID(unsigned int max_id)
 	}
 }
 
+void DBManager::SaveRole(ThreadID tid, int len, const char *data)
+{
+
+}
+
