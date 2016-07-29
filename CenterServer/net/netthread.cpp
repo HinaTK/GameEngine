@@ -13,7 +13,6 @@ NetThread::NetThread(ThreadManager *manager)
 : BaseThread(manager, NULL, ThreadManager::EXIT_NORMAL)
 , m_net_manager(new NetManager(manager))
 , m_message_handler(this)
-, m_login_manager(this)
 , m_id_pool(this)
 , m_cur_thread_id(0)
 {
@@ -65,11 +64,12 @@ void NetThread::RecvData(short type, ThreadID sid, int len, const char *data)
 	case ThreadProto::TP_LOAD_ROLE_RET:
 	{
 		ThreadProto::LoadRoleRet *lrr = (ThreadProto::LoadRoleRet *)data;
-		printf("the ret name %s", lrr->name);
+		printf("the ret name %s\n", lrr->name);
 		break;	
 	}
 	case ThreadProto::TP_SAVE_ROLE_RET:
 		// TODO 通知客户端是否创建角色成功
+		printf("create role success ...\n");
 		break;
 	default:
 		break;

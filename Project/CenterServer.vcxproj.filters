@@ -36,9 +36,6 @@
     <ClCompile Include="..\CenterServer\net\src\idpool.cpp">
       <Filter>net\src</Filter>
     </ClCompile>
-    <ClCompile Include="..\CenterServer\net\src\loginmanager.cpp">
-      <Filter>net\src</Filter>
-    </ClCompile>
     <ClCompile Include="..\CenterServer\net\src\messagehandler.cpp">
       <Filter>net\src</Filter>
     </ClCompile>
@@ -60,9 +57,6 @@
       <Filter>main</Filter>
     </ClInclude>
     <ClInclude Include="..\CenterServer\net\src\idpool.h">
-      <Filter>net\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CenterServer\net\src\loginmanager.h">
       <Filter>net\src</Filter>
     </ClInclude>
     <ClInclude Include="..\CenterServer\net\src\messagehandler.h">

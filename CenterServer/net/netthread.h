@@ -3,7 +3,6 @@
 #define NET_THREAD_H
 
 #include <vector>
-#include "src/loginmanager.h"
 #include "src/idpool.h"
 #include "src/messagehandler.h"
 #include "protocol/innerproto.h"
@@ -32,7 +31,6 @@ public:
 	void	InsertServer(GameMsg *msg);
 	void	RemoveServer(NetHandle handle);
 
-	LoginManager	*GetLoginManager(){ return &m_login_manager; }
 	IDPool			*GetIDPool(){ return &m_id_pool; }
 	ThreadID 	GetThreadID();
 protected:
@@ -45,7 +43,6 @@ private:
 	std::vector<OtherServer> m_server[Inner::ST_MAX];		// 连接到中心服的其它服务
 
 	MessageHandler	m_message_handler;
-	LoginManager	m_login_manager;
 	IDPool			m_id_pool;
 	ThreadID 		m_cur_thread_id;
 

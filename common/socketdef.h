@@ -1,4 +1,4 @@
-﻿
+
 #ifndef SOCKET_DEF_H
 #define SOCKET_DEF_H
 

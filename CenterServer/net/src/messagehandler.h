@@ -2,7 +2,6 @@
 #ifndef MESSAGE_HANDLER_H
 #define MESSAGE_HANDLER_H
 
-#include "loginmanager.h"
 #include "proto.h"
 #include "protocol/msgid.h"
 #include "lib/include/frame/message.h"
@@ -27,11 +26,10 @@ protected:
 	};
 	HandlerItem m_function_list[Proto::CENTER_END];
 
-	void	CSLogin(GameMsg *msg){ m_login_manager->OnLogin((Proto::csLogin *)msg->data); }
-	void	CSCreateRole(GameMsg *msg){ m_login_manager->OnCreateRole((Proto::csCreateRole *)msg->data); }
+	void	CSLogin(GameMsg *msg);
+	void	CSCreateRole(GameMsg *msg);
 
 	NetThread		*m_thread;
-	LoginManager	*m_login_manager;
 
 };
 

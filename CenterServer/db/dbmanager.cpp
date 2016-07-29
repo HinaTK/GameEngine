@@ -70,12 +70,29 @@ void DBManager::SaveRoleMaxID(unsigned int max_id)
 	m_role_max_id.BindUInt(1, &max_id);
 	if (!m_role_s.Execute())
 	{
-		// todo дlog 
+		// todo 写log
 	}
 }
 
 void DBManager::SaveRole(ThreadID tid, int len, const char *data)
 {
-
+	struct ThreadProto::SaveRole *sr = (ThreadProto::SaveRole *)data;
+	m_role_i.BindLong(0, &sr->rid);
+	m_role_i.BindInt(1, &sr->sid);
+	m_role_i.BindVarChar(2, sr->account);
+	m_role_i.BindChar(3, sr->name);
+	if (!m_role_s.Execute())
+	{
+		// todo 写log
+	}
+	else
+	{
+		ThreadProto::SaveRoleRet srr;
+		srr.handle = sr->handle;
+		srr.rid = sr->rid;
+		srr.sid = sr->sid;
+		memcpy(srr.name, sr->name, GAME_NAME_SIZE);
+		m_thread->GetManager()->SendMsg(ThreadProto::TP_SAVE_ROLE_RET, tid, sizeof(ThreadProto::SaveRoleRet), (const char *)&srr, m_thread->GetID());
+	}
 }
 

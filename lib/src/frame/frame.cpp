@@ -59,6 +59,19 @@ Frame::~Frame()
 	
 }
 
+char cmd_buf[512] = { 0 };
+int index = 0;
+
+void FirstArg(char **buf)
+{
+	*buf = cmd_buf;
+	while (1)
+	{
+		if (*cmd_buf == ' ')
+		{
+		}
+	}
+}
 
 void Frame::Run()
 {
@@ -84,7 +97,7 @@ void Frame::Run()
 					buf[argv++] = begin;
 					goto END;
 				}
-				else if (*temp == ' ' && !is_new)
+				else if ((*temp == ' ' || *temp == '\t') && !is_new)
 				{
 					*temp = 0;
 					buf[argv++] = begin;
@@ -122,7 +135,14 @@ END:;
 			else
 			{
 				int id = atoi(buf[1]);
-				m_thread_manager.CMD(ThreadSysID::TSID_THREAD_INFO, INVALID_THREAD_ID, 0, NULL, id);
+				if (argv > 2)
+				{
+					m_thread_manager.CMD(ThreadSysID::TSID_THREAD_CMD, INVALID_THREAD_ID, strlen(buf[2]), buf[2], id);
+				}
+				else
+				{
+					m_thread_manager.CMD(ThreadSysID::TSID_THREAD_CMD, INVALID_THREAD_ID, 0, NULL, id);
+				}
 			}
 		}
 		else
