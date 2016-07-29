@@ -59,59 +59,40 @@ Frame::~Frame()
 	
 }
 
-char cmd_buf[512] = { 0 };
-int index = 0;
-
-void FirstArg(char **buf)
+bool GetArg(char *buf, char **new_buf)
 {
-	*buf = cmd_buf;
+	char *temp = buf;
+	while (*temp == ' ' || *temp == '\t')
+	{
+		*temp += 1;
+	}
+	*new_buf = temp;
 	while (1)
 	{
-		if (*cmd_buf == ' ')
+		if (*temp == 0)
 		{
+			return false;
 		}
+		if (*temp == ' ' || *temp == '\t')
+		{
+			*temp = 0;
+			return true;
+		}
+		*temp += 1;
 	}
+	return false;
 }
 
 void Frame::Run()
 {
 	char cmd_buf[512] = { 0 };
-	char *buf[8];
-	int argv = 0;
-	char *temp = NULL;
-	char *begin = NULL;
-	bool is_new = false;
+	char *buf;
+	bool has_next = false;
 	while (IsRun())
 	{
 		gets(cmd_buf);
-		argv = 0;
-		temp = cmd_buf;
-		begin = cmd_buf;
-		is_new = false;
-		for (int i = 1; i < 8; ++i)
-		{
-			while(1)
-			{
-				if (*temp == 0)
-				{
-					buf[argv++] = begin;
-					goto END;
-				}
-				else if ((*temp == ' ' || *temp == '\t') && !is_new)
-				{
-					*temp = 0;
-					buf[argv++] = begin;
-					is_new = true;
-				}
-				else if (is_new)
-				{
-					begin = temp;
-					is_new = false;
-				}
-				temp += 1;
-			}
-		}
-END:;	
+		has_next = GetArg(cmd_buf, &buf);
+
 		if (strcmp(cmd_buf, "exit") == 0)
 		{
 			SetExit();
@@ -121,9 +102,9 @@ END:;
 			// ping 一下所有线程，看是否有阻塞
 			printf("ping ...\n");
 		}
-		else if (strcmp(buf[0], "thread") == 0)
+		else if (strcmp(buf, "thread") == 0)
 		{
-			if (argv == 1)
+			if (!has_next)
 			{
 				game::Array<BaseThread *> *threads = m_thread_manager.GetThreads();
 				printf("%-10s %-32s\n", "thread id", "thread name");
@@ -134,10 +115,11 @@ END:;
 			}
 			else
 			{
-				int id = atoi(buf[1]);
-				if (argv > 2)
+				int id = atoi(buf);
+				has_next = GetArg(buf, &buf);
+				if (has_next)
 				{
-					m_thread_manager.CMD(ThreadSysID::TSID_THREAD_CMD, INVALID_THREAD_ID, strlen(buf[2]), buf[2], id);
+					m_thread_manager.CMD(ThreadSysID::TSID_THREAD_CMD, INVALID_THREAD_ID, strlen(buf), buf, id);
 				}
 				else
 				{

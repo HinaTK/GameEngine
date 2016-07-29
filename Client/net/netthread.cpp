@@ -40,6 +40,9 @@ void NetThread::RecvData(short type, ThreadID sid, int len, const char *data)
 
 void NetThread::CMD(short type, ThreadID sid, int len, const char *data)
 {
+	if (type == ThreadSysID::TSID_THREAD_CMD)
+	{
 
+	}
 }
 
