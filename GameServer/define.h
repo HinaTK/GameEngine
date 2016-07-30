@@ -6,7 +6,6 @@ typedef short							Int16;
 typedef unsigned short					UInt16;
 typedef unsigned int					UInt32;
 typedef char							GameName[32];
-typedef unsigned int					RoleID;
 typedef unsigned int					ObjID;
 typedef int								SceneID;
 

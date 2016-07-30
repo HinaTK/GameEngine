@@ -97,7 +97,7 @@ void Frame::Run()
 				int id = atoi(buf);
 				if (split.GetLeft(&buf))
 				{
-					m_thread_manager.CMD(ThreadSysID::TSID_THREAD_CMD, INVALID_THREAD_ID, strlen(buf), buf, id);
+					m_thread_manager.CMD(ThreadSysID::TSID_THREAD_CMD, INVALID_THREAD_ID, strlen(buf) + 1, buf, id);
 				}
 				else
 				{

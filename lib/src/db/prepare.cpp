@@ -134,6 +134,7 @@ bool MysqlPrepare::Execute()
 		printf("mysql_stmt_bind_param error %s \n", mysql_stmt_error(m_stmt));
 		return false;
 	}
+
 	if (mysql_stmt_execute(m_stmt) != 0)
 	{
 		printf("mysql_stmt_execute error %s \n", mysql_stmt_error(m_stmt));
@@ -141,10 +142,4 @@ bool MysqlPrepare::Execute()
 	}
 	return true;
 }
-
-// bool MysqlPrepare::HasResult()
-// {
-// 	if (mysql_stmt_fetch(m_stmt) == 0) return true;
-// 	return false;
-// }
 

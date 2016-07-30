@@ -68,8 +68,10 @@ void NetThread::RecvData(short type, ThreadID sid, int len, const char *data)
 		break;	
 	}
 	case ThreadProto::TP_SAVE_ROLE_RET:
+
 		// TODO 通知客户端是否创建角色成功
-		printf("create role success ...\n");
+
+		//printf("create role success ...\n");
 		break;
 	default:
 		break;

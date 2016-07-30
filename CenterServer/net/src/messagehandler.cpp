@@ -44,6 +44,7 @@ void MessageHandler::CSLogin(GameMsg *msg)
 void MessageHandler::CSCreateRole(GameMsg *msg)
 {
 	Proto::csCreateRole *role = (Proto::csCreateRole *)msg->data;
+
 	ThreadProto::SaveRole sr;
 	sr.handle = msg->handle;
 	memcpy(sr.account, role->account, ACCOUNT_SIZE);

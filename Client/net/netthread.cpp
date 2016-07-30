@@ -70,6 +70,23 @@ void NetThread::CMD(short type, ThreadID sid, int len, const char *data)
 				m_net_manager.Send(m_server_handle, sizeof(Proto::csCreateRole), (const char *)&role);
 			}	
 		}
+		else if (strcmp(data, "createtest") == 0)
+		{
+			Proto::csCreateRole role;
+			memcpy(role.account, "ccddff", sizeof("ccddff"));
+			
+			char buf[8];
+			for (int i = 1; i <= 1000; ++i)
+			{
+				itoa(i, buf, 10);
+				int name_len = strlen(buf);
+				name_len > GAME_NAME_SIZE - 1 ? name_len = GAME_NAME_SIZE - 1 : 0;
+				memcpy(role.name, buf, name_len);
+				role.name[name_len] = 0;
+				role.sid = i;
+				m_net_manager.Send(m_server_handle, sizeof(Proto::csCreateRole), (const char *)&role);
+			}
+		}
 	}
 }
 
