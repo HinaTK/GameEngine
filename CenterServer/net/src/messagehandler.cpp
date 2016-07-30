@@ -3,6 +3,7 @@
 #include "threadproto.h"
 #include "net/netthread.h"
 #include "protocol/msgid.h"
+#include "lib/include/common/serverconfig.h"
 
 MessageHandler::MessageHandler(NetThread *t)
 : m_thread(t)
@@ -46,7 +47,10 @@ void MessageHandler::CSCreateRole(GameMsg *msg)
 	ThreadProto::SaveRole sr;
 	sr.handle = msg->handle;
 	memcpy(sr.account, role->account, ACCOUNT_SIZE);
-	sr.sid = role->sid;
+	sr.sid = CenterConfig::Instance().sid;
+	sr.rid = sr.sid * 100000000 + m_thread->GetIDPool()->GetID();
+	// todo sid 根据配置获取
+	
 	memcpy(sr.name, role->name, GAME_NAME_SIZE);
 	m_thread->GetManager()->SendMsg(ThreadProto::TP_SAVE_ROLE, m_thread->GetThreadID(), sizeof(ThreadProto::SaveRole), (const char *)&sr, m_thread->GetID());
 }

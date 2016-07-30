@@ -86,5 +86,8 @@
     <ClInclude Include="..\..\lib\include\frame\socketthread.h">
       <Filter>src\thread</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\lib\include\frame\main.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

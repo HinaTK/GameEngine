@@ -4,6 +4,7 @@
 #include "net/callback.h"
 #include "db/dbthread.h"
 #include "net/src/proto.h"
+#include "lib/include/frame/main.h"
 
 
 Center::Center()
@@ -25,14 +26,15 @@ bool Center::Init()
 	return m_thread_manager.Init();
 }
 
-void Center::Start()
+bool Center::Start()
 {
-	m_thread_manager.Ready();
+	if (!m_thread_manager.Ready()) return false;
 	m_thread_manager.Start();
 	this->Run();
+	return true;
 }
 
-void Center::Cmd(char *buf)
+bool Center::Cmd(char *buf)
 {
 	if (strcmp(buf, "create") == 0)
 	{
@@ -44,6 +46,7 @@ void Center::Cmd(char *buf)
 
 		printf("do login\n");
 	}
+	return false;
 }
 
 void Center::Exit()
@@ -56,3 +59,4 @@ void Center::Wait()
 
 }
 
+GAME_MAIN(Center);

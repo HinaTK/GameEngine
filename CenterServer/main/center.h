@@ -23,11 +23,11 @@ public:
 
 
 	bool	Init();    //≥ı ºªØ
-	void	Start();
+	bool	Start();
 
 	void	Exit();
 	void	Wait();
-	void	Cmd(char *buf);
+	bool	Cmd(char *buf);
 
 	ThreadID 	db_thread_id[MAX_DB_THREAD];
 private:

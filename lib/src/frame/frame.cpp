@@ -3,6 +3,7 @@
 #include "frame.h"
 #include "message.h"
 #include "lib/include/thread/basethread.h"
+#include "lib/include/common/argsplit.h"
 
 
 static Frame *g_frame;
@@ -59,39 +60,17 @@ Frame::~Frame()
 	
 }
 
-bool GetArg(char *buf, char **new_buf)
-{
-	char *temp = buf;
-	while (*temp == ' ' || *temp == '\t')
-	{
-		*temp += 1;
-	}
-	*new_buf = temp;
-	while (1)
-	{
-		if (*temp == 0)
-		{
-			return false;
-		}
-		if (*temp == ' ' || *temp == '\t')
-		{
-			*temp = 0;
-			return true;
-		}
-		*temp += 1;
-	}
-	return false;
-}
-
 void Frame::Run()
 {
-	char cmd_buf[512] = { 0 };
+	char cmd_buf[512];
 	char *buf;
-	bool has_next = false;
+	ArgSplit split("");
 	while (IsRun())
 	{
+		memset(cmd_buf, 0, sizeof(cmd_buf));
 		gets(cmd_buf);
-		has_next = GetArg(cmd_buf, &buf);
+		split.Reset(cmd_buf);
+		split.GetArg(&buf);
 
 		if (strcmp(cmd_buf, "exit") == 0)
 		{
@@ -104,7 +83,7 @@ void Frame::Run()
 		}
 		else if (strcmp(buf, "thread") == 0)
 		{
-			if (!has_next)
+			if (!split.GetArg(&buf))
 			{
 				game::Array<BaseThread *> *threads = m_thread_manager.GetThreads();
 				printf("%-10s %-32s\n", "thread id", "thread name");
@@ -116,8 +95,7 @@ void Frame::Run()
 			else
 			{
 				int id = atoi(buf);
-				has_next = GetArg(buf, &buf);
-				if (has_next)
+				if (split.GetLeft(&buf))
 				{
 					m_thread_manager.CMD(ThreadSysID::TSID_THREAD_CMD, INVALID_THREAD_ID, strlen(buf), buf, id);
 				}
@@ -129,7 +107,10 @@ void Frame::Run()
 		}
 		else
 		{
-			this->Cmd(cmd_buf);
+			if (!this->Cmd(cmd_buf))
+			{
+				printf("no this cmd: %s\n", cmd_buf);
+			}
 		}
 	}
 	

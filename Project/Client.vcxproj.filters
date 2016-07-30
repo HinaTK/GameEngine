@@ -9,9 +9,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Client\main\main.cpp">
-      <Filter>main</Filter>
-    </ClCompile>
     <ClCompile Include="..\Client\main\client.cpp">
       <Filter>main</Filter>
     </ClCompile>

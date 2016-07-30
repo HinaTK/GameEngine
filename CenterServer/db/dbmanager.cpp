@@ -68,7 +68,7 @@ void DBManager::SaveRoleMaxID(unsigned int max_id)
 {
 	m_role_max_id.BindInt(0, &CenterConfig::Instance().sid);
 	m_role_max_id.BindUInt(1, &max_id);
-	if (!m_role_s.Execute())
+	if (!m_role_max_id.Execute())
 	{
 		// todo 写log
 	}
@@ -81,7 +81,7 @@ void DBManager::SaveRole(ThreadID tid, int len, const char *data)
 	m_role_i.BindInt(1, &sr->sid);
 	m_role_i.BindVarChar(2, sr->account);
 	m_role_i.BindChar(3, sr->name);
-	if (!m_role_s.Execute())
+	if (!m_role_i.Execute())
 	{
 		// todo 写log
 	}

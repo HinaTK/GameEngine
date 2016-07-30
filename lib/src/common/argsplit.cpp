@@ -9,23 +9,21 @@ ArgSplit::ArgSplit(char *buf)
 
 bool ArgSplit::GetArg(char **buf)
 {
-	while (*m_buf == ' ' || *m_buf == '\t')
+	if (!GetLeft(buf))
 	{
-		*m_buf += 1;
+		return false;
 	}
-	*buf = m_buf;
-	while (1)
+
+	int i = 0;
+	while (512 > i++)
 	{
-		if (*m_buf == 0)
-		{
-			return false;
-		}
-		if (*m_buf == ' ' || *m_buf == '\t')
+		if (*m_buf == 0 || *m_buf == ' ' || *m_buf == '\t')
 		{
 			*m_buf = 0;
+			m_buf += 1;
 			return true;
 		}
-		*m_buf += 1;
+		m_buf += 1;
 	}
 	return false;
 }

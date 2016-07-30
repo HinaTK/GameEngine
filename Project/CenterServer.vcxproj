@@ -14,7 +14,6 @@
     <ClCompile Include="..\CenterServer\db\dbmanager.cpp" />
     <ClCompile Include="..\CenterServer\db\dbthread.cpp" />
     <ClCompile Include="..\CenterServer\main\center.cpp" />
-    <ClCompile Include="..\CenterServer\main\main.cpp" />
     <ClCompile Include="..\CenterServer\net\callback.cpp" />
     <ClCompile Include="..\CenterServer\net\netthread.cpp" />
     <ClCompile Include="..\CenterServer\net\src\idpool.cpp" />

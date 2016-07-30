@@ -6,7 +6,7 @@
 
 IDPool::IDPool(NetThread *t)
 : m_thread(t)
-, m_index(0)
+, m_index(ID_POOL_MAX_INDEX)
 {
 
 }

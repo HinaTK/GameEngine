@@ -14,7 +14,7 @@ public:
 
 	virtual void		Exit() = 0;
 	virtual	void		Wait() = 0;
-	virtual	void		Cmd(char *buf) = 0;
+	virtual	bool		Cmd(char *buf){ return false; };
 
 	void				Run();
 	void				SetExit();

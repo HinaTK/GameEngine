@@ -30,9 +30,6 @@
     <ClCompile Include="..\CenterServer\main\center.cpp">
       <Filter>main</Filter>
     </ClCompile>
-    <ClCompile Include="..\CenterServer\main\main.cpp">
-      <Filter>main</Filter>
-    </ClCompile>
     <ClCompile Include="..\CenterServer\net\src\idpool.cpp">
       <Filter>net\src</Filter>
     </ClCompile>

@@ -10,11 +10,10 @@ public:
 
 	bool	GetArg(char **buf);
 	bool	GetLeft(char **buf);
+	void	Reset(char *buf){ m_buf = buf; }
 
 private:
-	unsigned char	m_length;
 	char			*m_buf;
-	bool			m_is_end;
 };
 
 

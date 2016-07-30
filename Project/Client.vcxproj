@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Client\main\client.cpp" />
-    <ClCompile Include="..\Client\main\main.cpp" />
     <ClCompile Include="..\Client\net\callback.cpp" />
     <ClCompile Include="..\Client\net\netthread.cpp" />
   </ItemGroup>

@@ -19,9 +19,9 @@ public:
 		return frame;
 	}
 	bool	Init();    //≥ı ºªØ
-	void	Start();
+	bool	Start();
 
-	void	Cmd(char *buf);
+	bool	Cmd(char *buf);
 	void	Exit();
 	void	Wait();
 
