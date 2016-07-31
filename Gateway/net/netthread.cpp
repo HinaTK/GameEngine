@@ -8,24 +8,33 @@
 
 NetThread::NetThread(ThreadManager *manager, void *arg)
 : BaseThread(manager, arg, ThreadManager::EXIT_NORMAL)
+, m_net_manager(manager)
+, m_inner_callback(new InnerCallBack(this))
 , m_game_server(2)
-, m_callback(this)
-, m_inner_callback(this)
 {
-
+	m_name = "net";
 }
 
-void NetThread::Init(void *arg)
+NetThread::~NetThread()
+{
+	if (m_inner_callback != NULL)
+	{
+		delete m_inner_callback;
+		m_inner_callback = NULL;
+	}
+}
+
+bool NetThread::Init()
 {
 	SocketThread *st = new SocketThread(m_manager, &m_net_manager);
 	m_net_manager.SetThread(st);
 
-	int *index = (int *)arg;
+	int *index = (int *)m_arg;
 	ServerInfo info1 = GatawayConfig::Instance().m_server[*index];
-	m_net_manager.InitServer(info1.ip, info1.port, info1.backlog, new BaseAccepter(&m_net_manager), &m_callback);
+	m_net_manager.InitServer(info1.ip, info1.port, info1.backlog, new CallBack(this));
 
 	ServerInfo info2 = GatawayConfig::Instance().center;
-	NetHandle handle = m_net_manager.SyncConnect(info2.ip, info2.port, new BaseListener(&m_net_manager), &m_inner_callback);
+	NetHandle handle = m_net_manager.SyncConnect(info2.ip, info2.port, m_inner_callback);
 	if (handle != INVALID_NET_HANDLE)
 	{
 		Inner::tocRegisterServer rs;
@@ -36,6 +45,7 @@ void NetThread::Init(void *arg)
 		m_net_manager.Send(handle, sizeof(Inner::tocRegisterServer), (const char *)&rs);
 	}
 	delete index;
+	return true;
 }
 
 void NetThread::InnerRecv(GameMsg *msg)
@@ -64,7 +74,7 @@ void NetThread::InsertGame(GameMsg *msg)
 				m_game_server.Erase(itr);
 			}
 		}
-		m_net_manager.AsyncConnect(br->ip, br->port, new BaseListener(&m_net_manager), &m_inner_callback, br->id);
+		m_net_manager.AsyncConnect(br->ip, br->port, m_inner_callback, br->id);
 	}
 }
 
@@ -86,7 +96,7 @@ bool NetThread::Run()
 	return m_net_manager.Update();
 }
 
-void NetThread::RecvData(short type, int sid, int len, const char *data)
+void NetThread::RecvData(short type, ThreadID sid, int len, const char *data)
 {
 
 }

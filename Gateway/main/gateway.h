@@ -19,7 +19,7 @@ public:
 		return frame;
 	}
 	bool	Init();    //≥ı ºªØ
-	void	Start();
+	bool	Start();
 
 	void	Exit();
 	void	Wait();

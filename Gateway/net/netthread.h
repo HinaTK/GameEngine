@@ -11,7 +11,7 @@ class ThreadManager;
 class NetThread : public BaseThread
 {
 public:
-	virtual ~NetThread(){}
+	virtual ~NetThread();
 	NetThread(ThreadManager *manager, void *arg);
 
 	struct GameServer
@@ -27,15 +27,13 @@ public:
 
 	void	ConnetRet(NetHandle handle, int flag);
 protected:
-	void	Init(void *arg);
+	bool	Init();
 	bool	Run();
-	void	RecvData(short type, int sid, int len, const char *data);
+	void	RecvData(short type, ThreadID sid, int len, const char *data);
 private:
-	NetManager	m_net_manager;
+	NetManager		m_net_manager;
+	InnerCallBack	*m_inner_callback;
 	game::Vector<GameServer> m_game_server;
-
-	CallBack		m_callback;
-	InnerCallBack	m_inner_callback;
 };
 
 #endif

@@ -67,8 +67,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>..\lib\windows;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Tinyxml.lib;TimeManager.lib;Frame.lib;Common.lib;Log.lib;Thread.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Base.lib;Frame.lib;Common.lib;Thread.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>
@@ -96,7 +96,6 @@
   <ItemGroup>
     <ClCompile Include="..\Gateway\logic\usermanager.cpp" />
     <ClCompile Include="..\Gateway\main\gateway.cpp" />
-    <ClCompile Include="..\Gateway\main\main.cpp" />
     <ClCompile Include="..\Gateway\net\callback.cpp" />
     <ClCompile Include="..\Gateway\net\netthread.cpp" />
   </ItemGroup>

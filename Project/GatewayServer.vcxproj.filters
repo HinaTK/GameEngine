@@ -18,9 +18,6 @@
     <ClCompile Include="..\Gateway\main\gateway.cpp">
       <Filter>main</Filter>
     </ClCompile>
-    <ClCompile Include="..\Gateway\main\main.cpp">
-      <Filter>main</Filter>
-    </ClCompile>
     <ClCompile Include="..\Gateway\net\callback.cpp">
       <Filter>net</Filter>
     </ClCompile>

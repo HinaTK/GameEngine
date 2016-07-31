@@ -124,7 +124,7 @@ bool RecvBuffer::GetBufInfo(char **buf, int &len)
 		return false;
 	}
 	
-	if (m_buf_len >= m_msg->length)
+	if (m_buf_len >= (int)m_msg->length)
 	{
 		return false;
 	}

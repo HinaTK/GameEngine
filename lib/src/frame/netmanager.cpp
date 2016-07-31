@@ -81,6 +81,10 @@ NetHandle NetManager::SyncConnect(const char *ip, unsigned short port, Listener 
 	return m_thread->AddNetHandler(listener);
 }
 
+void NetManager::AsyncConnect(const char *ip, unsigned short port, MsgCallBack *call_back, int flag /*= 0*/)
+{
+	AsyncConnect(ip, port, new BaseListener(m_thread), call_back, flag);
+}
 
 void NetManager::AsyncConnect(const char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back, int flag /*= 0*/)
 {
