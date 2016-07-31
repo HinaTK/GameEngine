@@ -3,7 +3,6 @@
 #define NET_MANAGER_H
 
 #include <thread>
-//#include "nethandler.h"
 #include "message.h"
 #include "common/socketdef.h"
 #include "common/datastructure/gamevector.h"

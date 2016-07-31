@@ -16,7 +16,7 @@ public:
 protected:
 	void	Init(void *arg);
 	bool	Run();
-	void	RecvData(short type, int sid, int len, const char *data);
+	void	RecvData(short type, ThreadID sid, int len, const char *data);
 private:
 	NetManager		m_net_manager;
 	WorldManager	m_world_manager;

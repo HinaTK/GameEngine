@@ -15,7 +15,7 @@ NetThread::NetThread(ThreadManager *manager)
 
 void NetThread::Init(void *arg)
 {
-	ServerInfo info1 = GameConfig::Instance().server;
+	ServerInfo info1 = GameConfig::Instance().game;
 	m_net_manager.InitServer(info1.ip, info1.port, info1.backlog, new CallBack(this));
 
 	ServerInfo info2 = GameConfig::Instance().center;
@@ -39,7 +39,7 @@ bool NetThread::Run()
 	return ret;
 }
 
-void NetThread::RecvData(short type, int sid, int len, const char *data)
+void NetThread::RecvData(short type, ThreadID sid, int len, const char *data)
 {
 
 }

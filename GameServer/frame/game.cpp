@@ -1,12 +1,13 @@
 ﻿
 #include "game.h"
-#include "common/datastructure/msgqueue.h"
-#include "common/protocol/messageheader.h"
-#include "lib/include/frame/baseaccepter.h"
-#include "lib/include/common/serverconfig.h"
-//#include "lib/chat/interface.h"
 #include "db/dbthread.h"
 #include "net/netthread.h"
+#include "common/datastructure/msgqueue.h"
+#include "common/protocol/messageheader.h"
+#include "lib/include/frame/main.h"
+#include "lib/include/frame/baseaccepter.h"
+#include "lib/include/common/serverconfig.h"
+
 
 
 
@@ -26,23 +27,15 @@ bool NewFrame::Init()
 {
 	GameConfig::Instance().Init();
 	m_thread_manager.Register(new NetThread(&m_thread_manager));
-	m_db_id = m_thread_manager.Register(new DBThread());
+	m_db_id = m_thread_manager.Register(new DBThread(&m_thread_manager));
 	return true;
 }
 
 
-void NewFrame::Start()
+bool NewFrame::Start()
 {
 	m_thread_manager.Start();
-	while (IsRun())
-	{
-		char cmd_buf[512] = { 0 };
-		gets(cmd_buf);
-		if (strncmp(cmd_buf, "exit", 4) == 0)
-		{
-			SetExit();
-		}
-	}
+	return true;
 }
 
 // 构架更新
@@ -63,5 +56,5 @@ void NewFrame::Wait()
 
 }
 
-
+GAME_MAIN(NewFrame);
 

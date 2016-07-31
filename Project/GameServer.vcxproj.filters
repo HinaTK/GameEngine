@@ -24,9 +24,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\GameServer\frame\main.cpp">
-      <Filter>frame</Filter>
-    </ClCompile>
     <ClCompile Include="..\GameServer\db\dbthread.cpp">
       <Filter>db</Filter>
     </ClCompile>

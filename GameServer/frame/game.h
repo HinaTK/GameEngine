@@ -25,7 +25,7 @@ public:
     void	Exit();
 	void	Wait();
 
-	void	Start();
+	bool	Start();
 public:
 	int			m_db_id;
 	NetHandle	m_database_server_handle;
