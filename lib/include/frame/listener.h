@@ -26,6 +26,7 @@ public:
 
 	void			RegisterWriteFD();
 
+	int			buf_size;	// 限定的包大小
 protected:
 	virtual bool	RecvBuf();
 	virtual bool	AnalyzeBuf(){ return true; };
@@ -37,6 +38,7 @@ protected:
 	std::mutex	m_send_mutex;
 	std::mutex	m_register_write_mutex;
     int         m_register_state;
+	
 };
 
 #define RETUEN_ERROR(Err)\

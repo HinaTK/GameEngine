@@ -6,12 +6,13 @@
 #include "src/messagehandler.h"
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/frame/socketthread.h"
-#include "lib/include/frame/baseaccepter.h"
+#include "lib/include/inner/inneraccepter.h"
+#include "lib/include/gate/gateaccepter.h"
 
 
 NetThread::NetThread(ThreadManager *manager)
 : BaseThread(manager, NULL, ThreadManager::EXIT_NORMAL)
-, m_net_manager(new NetManager(manager))
+, m_net_manager(manager)
 , m_message_handler(this)
 , m_id_pool(this)
 , m_cur_thread_id(0)
@@ -21,19 +22,18 @@ NetThread::NetThread(ThreadManager *manager)
 
 NetThread::~NetThread()
 {
-	delete m_net_manager;
 }
 
 bool NetThread::Init()
 {
 	ServerInfo &info1 = CenterConfig::Instance().login;
-	if (!m_net_manager->InitServer(info1.ip, info1.port, info1.backlog, 1024, new CallBack(this)))
+	if (!m_net_manager.InitServer(info1.ip, info1.port, info1.backlog, new GateAccepter(m_net_manager.GetThread(), 1024), new CallBack(this)))
 	{
 		return false;
 	}
 	
 	ServerInfo &info2 = CenterConfig::Instance().center;
-	if (!m_net_manager->InitServer(info2.ip, info2.port, info2.backlog, new InnerCallBack(this)))
+	if (!m_net_manager.InitServer(info2.ip, info2.port, info2.backlog, new InnerAccepter(m_net_manager.GetThread()), new InnerCallBack(this)))
 	{
 		return false;
 	}
@@ -51,7 +51,7 @@ bool NetThread::Ready()
 
 bool NetThread::Run()
 {
-    return m_net_manager->Update();
+    return m_net_manager.Update();
 }
 
 void NetThread::RecvData(short type, ThreadID sid, int len, const char *data)
@@ -115,7 +115,7 @@ void NetThread::InsertServer(GameMsg *msg)
 					br.id = rs->id;
 					br.port = rs->port;
 					memcpy(br.ip, rs->ip, sizeof(br.ip));
-					m_net_manager->Send(itr->handle, sizeof(Inner::ctoBrocastRegister), (const char *)&br);
+					m_net_manager.Send(itr->handle, sizeof(Inner::ctoBrocastRegister), (const char *)&br);
 				}
 			}
 		}

@@ -78,7 +78,7 @@
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>..\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Frame.lib;Common.lib;Thread.lib;Base.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Frame.lib;Common.lib;Thread.lib;Base.lib;Gate.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>

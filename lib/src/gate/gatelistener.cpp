@@ -1,12 +1,12 @@
 ﻿
-#include "baselistener.h"
-#include "netcommon.h"
-#include "netmanager.h"
+#include "gatelistener.h"
+#include "lib/include/frame/netcommon.h"
+#include "lib/include/frame/netmanager.h"
 #include "common/socketdef.h"
 
-REGISTER_SAFE_MEMORYPOOL(memorypool, BaseListener, 256);
+REGISTER_SAFE_MEMORYPOOL(memorypool, GateListener, 256);
 
-BaseListener::BaseListener(SocketThread *t, int size)
+GateListener::GateListener(SocketThread *t, int size)
 : Listener(t)
 , buf_size(size)
 , m_recv_buf(this)
@@ -14,7 +14,7 @@ BaseListener::BaseListener(SocketThread *t, int size)
 
 }
 
-bool BaseListener::RecvBuf()
+bool GateListener::RecvBuf()
 {
 	char *buf = NULL;
 	int len = 0;
@@ -40,11 +40,8 @@ bool BaseListener::RecvBuf()
 }
 
 
-void BaseListener::Send( const char *buf, unsigned int len )
+void GateListener::Send( const char *buf, unsigned int len )
 {
-// 	NetCommon::Header header;
-// 	header.msg_len = len;
-
 	MutexLock ml(&m_send_mutex);
 	m_send_buf_write->Push((const char *)&len, NetCommon::HEADER_LENGTH);
 	m_send_buf_write->Push(buf, len);

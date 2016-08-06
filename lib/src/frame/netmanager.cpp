@@ -2,8 +2,8 @@
 
 #include "netmanager.h"
 #include "netcommon.h"
-#include "baseaccepter.h"
-#include "baselistener.h"
+#include "accepter.h"
+#include "listener.h"
 #include "socketthread.h"
 #include "socketmsg.h"
 #include "common/protocol/messageheader.h"
@@ -30,17 +30,6 @@ NetManager::~NetManager()
 	}
 }
 
-
-bool NetManager::InitServer(char *ip, unsigned short port, int backlog, MsgCallBack *call_back)
-{
-	return InitServer(ip, port, backlog, new BaseAccepter(m_thread), call_back);
-}
-
-bool NetManager::InitServer(char *ip, unsigned short port, int backlog, int size, MsgCallBack *call_back)
-{
-	return InitServer(ip, port, backlog, new BaseAccepter(m_thread, size), call_back);
-}
-
 bool NetManager::InitServer(char *ip, unsigned short port, int backlog, Accepter *accepter, MsgCallBack *call_back)
 {
 	printf("Init Server ip = %s, port = %d\n", ip, port);
@@ -60,12 +49,6 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, Accepter
 	return true;
 }
 
-
-NetHandle NetManager::SyncConnect(const char *ip, unsigned short port, MsgCallBack *call_back)
-{
-	return SyncConnect(ip, port, new BaseListener(m_thread), call_back);
-}
-
 NetHandle NetManager::SyncConnect(const char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back)
 {
 	SOCKET sock = NetCommon::Connect(ip, port);
@@ -79,11 +62,6 @@ NetHandle NetManager::SyncConnect(const char *ip, unsigned short port, Listener 
 	listener->m_msg_index = AddMsgHandler(call_back);
 	listener->m_sock = sock;
 	return m_thread->AddNetHandler(listener);
-}
-
-void NetManager::AsyncConnect(const char *ip, unsigned short port, MsgCallBack *call_back, int flag /*= 0*/)
-{
-	AsyncConnect(ip, port, new BaseListener(m_thread), call_back, flag);
 }
 
 void NetManager::AsyncConnect(const char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back, int flag /*= 0*/)

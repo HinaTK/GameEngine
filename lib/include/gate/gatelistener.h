@@ -1,19 +1,19 @@
 ﻿
-#ifndef BASE_LISTENER_H
-#define BASE_LISTENER_H
+#ifndef GATE_LISTENER_H
+#define GATE_LISTENER_H
 
-#include "listener.h"
-#include "bufmanager.h"
+#include "lib/include/frame/listener.h"
+#include "lib/include/frame/bufmanager.h"
 #include "lib/include/common/mutex.h"
 /*
 	监听者，监听所有数据的读写状态
 */
 
-class BaseListener : public Listener
+class GateListener : public Listener
 {
 public:
-	BaseListener(SocketThread *t, int size = 0);
-	virtual ~BaseListener(){}
+	GateListener(SocketThread *t, int size = 0);
+	virtual ~GateListener(){}
 
 	void *		operator new(size_t c);
 	void		operator delete(void *m);

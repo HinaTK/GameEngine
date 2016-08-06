@@ -59,11 +59,11 @@ private:
 	unsigned int	m_read_length;
 };
 
-class BaseListener;
+class Listener;
 class RecvBuffer
 {
 public:
-	RecvBuffer(BaseListener *listener);
+	RecvBuffer(Listener *listener);
 	~RecvBuffer();
 
 	void *		operator new(size_t c);
@@ -75,7 +75,7 @@ public:
 protected:
 	void		ResetBuf();
 private:
-	BaseListener *	m_listener;
+	Listener *		m_listener;
 	int				m_buf_len;		// 已读数据长度
 	char 			m_header[NetCommon::HEADER_LENGTH];
 	GameMsg	*		m_msg;

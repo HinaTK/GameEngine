@@ -4,7 +4,7 @@
 #include <string.h>
 #include "bufmanager.h"
 #include "netmanager.h"
-#include "lib/include/frame/baselistener.h"
+#include "lib/include/frame/listener.h"
 #include "lib/include/common/mem.h"
 #include "lib/include/common/memorypool.h"
 
@@ -88,7 +88,7 @@ void SendBuffer::ResetBuf()
 	m_length = 0;
 }
 
-RecvBuffer::RecvBuffer(BaseListener *listener)
+RecvBuffer::RecvBuffer(Listener *listener)
 : m_listener(listener)
 , m_buf_len(0)
 , m_msg(NULL)

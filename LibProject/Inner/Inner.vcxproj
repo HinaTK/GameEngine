@@ -11,43 +11,24 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lib\src\frame\accepter.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\bufmanager.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\frame.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\listener.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\message.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\netcommon.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\netmanager.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\threadnet.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\threadselect.cpp" />
+    <ClInclude Include="..\..\lib\include\inner\inneraccepter.h" />
+    <ClInclude Include="..\..\lib\include\inner\innerlistener.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\include\frame\accepter.h" />
-    <ClInclude Include="..\..\lib\include\frame\bufmanager.h" />
-    <ClInclude Include="..\..\lib\include\frame\frame.h" />
-    <ClInclude Include="..\..\lib\include\frame\listener.h" />
-    <ClInclude Include="..\..\lib\include\frame\main.h" />
-    <ClInclude Include="..\..\lib\include\frame\message.h" />
-    <ClInclude Include="..\..\lib\include\frame\netcommon.h" />
-    <ClInclude Include="..\..\lib\include\frame\nethandler.h" />
-    <ClInclude Include="..\..\lib\include\frame\netmanager.h" />
-    <ClInclude Include="..\..\lib\include\frame\threadnet.h" />
-    <ClInclude Include="..\..\lib\include\frame\threadselect.h" />
-    <ClInclude Include="..\..\lib\include\frame\socketmsg.h" />
-    <ClInclude Include="..\..\lib\include\frame\socketthread.h" />
+    <ClCompile Include="..\..\lib\src\inner\inneraccepter.cpp" />
+    <ClCompile Include="..\..\lib\src\inner\innerlistener.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{55622656-EDAF-46C0-B360-7A6671FD941D}</ProjectGuid>
+    <ProjectGuid>{55E09E14-D732-4E2B-9E6C-0397943B1D85}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>GameSocket</RootNamespace>
-    <ProjectName>Frame</ProjectName>
+    <RootNamespace>Cache</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -67,9 +48,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\..\lib\include;..\..\;..\..\lib\include\frame;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\lib\include;..\..\lib\include\inner;..\..\;$(IncludePath)</IncludePath>
     <OutDir>..\..\bin</OutDir>
     <IntDir>..\..\lib\temp</IntDir>
+    <TargetName>$(ProjectName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -77,18 +59,13 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <Lib />
-    <Bscmake>
-      <PreserveSbr>true</PreserveSbr>
-    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

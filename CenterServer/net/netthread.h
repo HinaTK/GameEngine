@@ -39,9 +39,9 @@ protected:
 	bool	Run();
 	void	RecvData(short type, ThreadID sid, int len, const char *data);
 private:
-	NetManager	*m_net_manager;
+	
 	std::vector<OtherServer> m_server[Inner::ST_MAX];		// 连接到中心服的其它服务
-
+	NetManager		m_net_manager;
 	MessageHandler	m_message_handler;
 	IDPool			m_id_pool;
 	ThreadID 		m_cur_thread_id;

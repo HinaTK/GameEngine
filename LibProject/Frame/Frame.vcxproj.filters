@@ -19,12 +19,6 @@
     <ClCompile Include="..\..\lib\src\frame\accepter.cpp">
       <Filter>src\thread</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\frame\baseaccepter.cpp">
-      <Filter>src\thread</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\lib\src\frame\baselistener.cpp">
-      <Filter>src\thread</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\lib\src\frame\threadselect.cpp">
       <Filter>src\thread</Filter>
     </ClCompile>
@@ -63,12 +57,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\accepter.h">
-      <Filter>src\thread</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\baseaccepter.h">
-      <Filter>src\thread</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\baselistener.h">
       <Filter>src\thread</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\threadselect.h">

@@ -1,8 +1,7 @@
 
 #include "netthread.h"
 #include "protocol/innerproto.h"
-#include "lib/include/frame/baseaccepter.h"
-#include "lib/include/frame/baselistener.h"
+#include "lib/include/gate/gatelistener.h"
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/common/argsplit.h"
 #include "CenterServer/net/src/proto.h"
@@ -17,7 +16,7 @@ NetThread::NetThread(ThreadManager *manager)
 bool NetThread::Init()
 {
 	// todo 处理服务器断线
-	m_server_handle = m_net_manager.SyncConnect("127.0.0.1", 12347, new CallBack(this));
+	m_server_handle = m_net_manager.SyncConnect("127.0.0.1", 12347, new GateListener(m_net_manager.GetThread()), new CallBack(this));
 	if (m_server_handle == INVALID_NET_HANDLE)
 	{
 		return false;

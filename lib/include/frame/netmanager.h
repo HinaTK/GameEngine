@@ -33,12 +33,8 @@ public:
     void			SetThread(SocketThread *st){ m_thread = st; }
 	SocketThread	*GetThread(){ return m_thread; }
 
-	bool			InitServer(char *ip, unsigned short port, int backlog, MsgCallBack *call_back);
-	bool			InitServer(char *ip, unsigned short port, int backlog, int size, MsgCallBack *call_back);
 	bool			InitServer(char *ip, unsigned short port, int backlog, Accepter *accepter, MsgCallBack *call_back);
-	NetHandle		SyncConnect(const char *ip, unsigned short port, MsgCallBack *call_back);
 	NetHandle		SyncConnect(const char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back);
-	void			AsyncConnect(const char *ip, unsigned short port, MsgCallBack *call_back, int flag = 0);
 	void			AsyncConnect(const char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back, int flag = 0);
 	void			Listen();
 	void			Send(NetHandle handle, unsigned int length, const char *buf);
