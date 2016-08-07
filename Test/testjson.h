@@ -8,7 +8,7 @@
 #include <set>
 #include <map>
 #include "lib/include/rapidjson/define.h"
-#include "lib/include/mysql/field.h"
+#include "lib/include/db/field.h"
 
 namespace TestJson
 {

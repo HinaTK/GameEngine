@@ -12,10 +12,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib\include\log\log.h" />
+    <ClInclude Include="..\..\lib\include\log\logdb.h" />
+    <ClInclude Include="..\..\lib\include\log\logfile.h" />
     <ClInclude Include="..\..\lib\include\log\logmanager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\log\log.cpp" />
+    <ClCompile Include="..\..\lib\src\log\logdb.cpp" />
+    <ClCompile Include="..\..\lib\src\log\logfile.cpp" />
     <ClCompile Include="..\..\lib\src\log\logmanager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -50,7 +54,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\..\bin</OutDir>
     <IntDir>..\..\lib\temp</IntDir>
-    <IncludePath>..\..\;..\..\lib\include;..\..\lib\include\log;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\;..\..\lib\include;..\..\lib\include\log;..\..\lib\include\mysql;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

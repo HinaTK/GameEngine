@@ -143,8 +143,7 @@ void HttpListener::Send(const char *buf, unsigned int len)
 {
 	static const char base[] = 
 "HTTP/1.1 200 OK\r\n\
-Content-Length: %d\r\n\
-\r\n\
+Content-Length: %d\r\n\r\n\
 %s\r\n";
 	// todo 动态在内存池中分配大小
 	char new_buf[1024];

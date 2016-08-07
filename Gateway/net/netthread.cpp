@@ -2,8 +2,8 @@
 #include "netthread.h"
 #include "main/gateway.h"
 #include "protocol/innerproto.h"
-#include "lib/include/frame/baseaccepter.h"
-#include "lib/include/frame/baselistener.h"
+#include "lib/include/gate/gateaccepter.h"
+#include "lib/include/gate/gatelistener.h"
 #include "lib/include/common/serverconfig.h"
 
 NetThread::NetThread(ThreadManager *manager, void *arg)
@@ -30,21 +30,22 @@ bool NetThread::Init()
 	m_net_manager.SetThread(st);
 
 	int *index = (int *)m_arg;
-	ServerInfo info1 = GatawayConfig::Instance().m_server[*index];
-	m_net_manager.InitServer(info1.ip, info1.port, info1.backlog, new CallBack(this));
+	ServerInfo info = GatawayConfig::Instance().m_server[*index];
+	m_net_manager.InitServer(info.ip, info.port, info.backlog, new GateAccepter(m_net_manager.GetThread(), 1024), new CallBack(this));
 
 	ServerInfo info2 = GatawayConfig::Instance().center;
-	NetHandle handle = m_net_manager.SyncConnect(info2.ip, info2.port, m_inner_callback);
+	NetHandle handle = m_net_manager.SyncConnect(info2.ip, info2.port, new GateListener(m_net_manager.GetThread()), m_inner_callback);
 	if (handle != INVALID_NET_HANDLE)
 	{
 		Inner::tocRegisterServer rs;
 		rs.type = Inner::ST_GATE;
 		rs.id = (unsigned short)*index;
-		memcpy(rs.ip, info1.ip, sizeof(rs.ip));
-		rs.port = info1.port;
+		memcpy(rs.ip, info.ip, sizeof(rs.ip));
+		rs.port = info.port;
 		m_net_manager.Send(handle, sizeof(Inner::tocRegisterServer), (const char *)&rs);
 	}
-	delete index;
+	delete m_arg;
+	m_arg = NULL;
 	return true;
 }
 
@@ -74,7 +75,7 @@ void NetThread::InsertGame(GameMsg *msg)
 				m_game_server.Erase(itr);
 			}
 		}
-		m_net_manager.AsyncConnect(br->ip, br->port, m_inner_callback, br->id);
+		m_net_manager.AsyncConnect(br->ip, br->port, new GateListener(m_net_manager.GetThread()), m_inner_callback, br->id);
 	}
 }
 

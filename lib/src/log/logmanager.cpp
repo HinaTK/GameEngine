@@ -3,7 +3,7 @@
 #include "log.h"
 
 
-LogManager::LogManager()
+LogManager::LogManager(const char *dir_name)
 {
 
 }

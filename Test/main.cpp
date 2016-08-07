@@ -16,7 +16,7 @@
 // #include "lib/include/thread/threadmanager.h"
 // #include "lib/include/math/gamemath.h"
 // #include "lib/include/frame/bufmanager.h"
-#include "lib/include/common/function.h"
+#include "lib/include/base/function.h"
 
 REGISTER_MEMORYPOOL(memorypool, TT, 32);
 
@@ -103,7 +103,7 @@ int main()
 	//TestDataStructure::TestHash();
 	//TestDataStructure::TestHash2();
 	//TestDataStructure::TestHash4();
-	TestDataStructure::TestHash5();
+	//TestDataStructure::TestHash5();
 	
 	//TestDataStructure::TestMsgQueue2();
 	//TestOther::Test1();
@@ -117,6 +117,7 @@ int main()
 
 	//TestNet::Test1();
 	//TestNet::Test2();
+	TestNet::Test3();
 
 	//TestCache::TestDataQueue();
 	//TestCache::TestDataMap();

@@ -63,11 +63,11 @@ namespace game
 		void			Resize();
 
 	private:
-		unsigned int	m_size;				// Êı¾İ´óĞ¡
-		unsigned int	m_increase;			// Ôö¼ÓÊıÁ¿
-		ListNode		*m_list_head;		// ×÷ÎªÁĞ±íÍ·£¬²»±£´æÊı¾İ,ËùÒÔµØÖ·ÓÀÔ¶²»ÎªNULL
-		ListNode		*m_list_tail;		// Êı¾İÎ²½áµã
-		// ½Úµã³Ø
+		unsigned int	m_size;				// æ•°æ®å¤§å°
+		unsigned int	m_increase;			// å¢åŠ æ•°é‡
+		ListNode		*m_list_head;		// ä½œä¸ºåˆ—è¡¨å¤´ï¼Œä¸ä¿å­˜æ•°æ®,æ‰€ä»¥åœ°å€æ°¸è¿œä¸ä¸ºNULL
+		ListNode		*m_list_tail;		// æ•°æ®å°¾ç»“ç‚¹
+		// èŠ‚ç‚¹æ± 
 		ListNode		*m_real_tail;
 
 	};

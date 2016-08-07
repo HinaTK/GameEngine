@@ -21,7 +21,7 @@
     <ClCompile Include="..\..\lib\src\http\httplistener.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{B16E656B-DA3B-48E7-A5E0-A8CC338A0673}</ProjectGuid>
+    <ProjectGuid>{2DD56DA4-CC16-4ED0-982D-E9C677BFCBBA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Cache</RootNamespace>
   </PropertyGroup>

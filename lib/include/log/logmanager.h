@@ -8,7 +8,7 @@ class Log;
 class LogManager
 {
 public:
-	LogManager();
+	LogManager(const char *dir_name);
 	~LogManager(){};
 
 // 	static LogManager &Instance()

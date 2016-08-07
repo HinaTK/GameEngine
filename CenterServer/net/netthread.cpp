@@ -38,8 +38,6 @@ bool NetThread::Init()
 		return false;
 	}
 
-	// 测试
-	//m_net_manager->InitServer(info1.ip, 12345, info1.backlog, new HttpAccepter(m_net_manager->GetThread(), HttpAccepter::CB_FIELD), new CallBack(this));
 	return true;
 }
 

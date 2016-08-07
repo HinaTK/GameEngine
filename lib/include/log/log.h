@@ -14,7 +14,7 @@
 class Log
 {
 public:
-	~Log();
+	virtual ~Log();
 	Log(const char *server_name, const char *log_name);
 
 	void	Normal(char *log, ...);
@@ -22,6 +22,8 @@ public:
 	void	Warn(char *log, ...);
 
 	void	Error(char *log, ...);
+
+	void	Write(char *log, ...);
 
 	void	Flush();				// ≥Âœ¥∂”¡–
 

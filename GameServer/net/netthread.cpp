@@ -3,7 +3,8 @@
 #include "callback.h"
 #include "protocol/innerproto.h"
 #include "lib/include/thread/threadmanager.h"
-#include "lib/include/frame/baselistener.h"
+#include "lib/include/inner/inneraccepter.h"
+#include "lib/include/inner/innerlistener.h"
 #include "lib/include/common/serverconfig.h"
 
 NetThread::NetThread(ThreadManager *manager)
@@ -16,10 +17,10 @@ NetThread::NetThread(ThreadManager *manager)
 void NetThread::Init(void *arg)
 {
 	ServerInfo info1 = GameConfig::Instance().game;
-	m_net_manager.InitServer(info1.ip, info1.port, info1.backlog, new CallBack(this));
+	m_net_manager.InitServer(info1.ip, info1.port, info1.backlog, new InnerAccepter(m_net_manager.GetThread()), new CallBack(this));
 
 	ServerInfo info2 = GameConfig::Instance().center;
-	NetHandle handle = m_net_manager.SyncConnect(info2.ip, info2.port, new InnerCallBack(this));
+	NetHandle handle = m_net_manager.SyncConnect(info2.ip, info2.port, new InnerListener(m_net_manager.GetThread()), new InnerCallBack(this));
 	if (handle != INVALID_NET_HANDLE)
 	{
 		Inner::tocRegisterServer rs;

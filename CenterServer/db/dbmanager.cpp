@@ -15,7 +15,7 @@ CenterConfig::Instance().db.dbname.c_str(),
 CenterConfig::Instance().db.port)
 , m_role_s(&m_mysql, 2, "SELECT name FROM role WHERE sid=? AND account=?;")
 , m_role_i(&m_mysql, 4, "INSERT INTO role (rid,sid,account,name) VALUES (?,?,?,?);")
-, m_role_max_id(&m_mysql, 1, "REPLACE INTO role_id (sid, max_id) VALUES (?,?);")
+, m_role_max_id(&m_mysql, 2, "REPLACE INTO role_id (sid, max_id) VALUES (?,?);")
 {
 
 }

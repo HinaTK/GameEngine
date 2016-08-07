@@ -7,7 +7,7 @@
 #include "common/serverdef.h"
 #include "common/datastructure/gamearray.h"
 
-
+class ThreadMsg;
 class BaseThread;
 class ThreadManager
 {
@@ -31,7 +31,8 @@ public:
 	void			Exit();
 	void			Wait();
 
-	void			SendMsg(short type, ThreadID did, int len, const char *data, ThreadID sid = INVALID_THREAD_ID);
+	void			SendMsg(ThreadID did, short type, int len, const char *data, ThreadID sid = INVALID_THREAD_ID);
+	void			SendMsg(ThreadID did, ThreadMsg *msg);
 	void			CMD(short type, ThreadID sid, int len, const char *data, ThreadID did = INVALID_THREAD_ID);
 
 	game::Array<BaseThread *> *GetThreads(){ return &m_thread; }

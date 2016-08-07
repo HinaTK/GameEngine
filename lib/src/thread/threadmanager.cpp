@@ -61,9 +61,14 @@ void ThreadManager::Start()
 	}
 }
 
-void ThreadManager::SendMsg(short type, ThreadID did, int len, const char *data, ThreadID sid)
+void ThreadManager::SendMsg(ThreadID did, short type, int len, const char *data, ThreadID sid)
 {
 	m_thread[did]->PushMsg(new ThreadMsg(type, sid, len, data));
+}
+
+void ThreadManager::SendMsg(ThreadID did, ThreadMsg *msg)
+{
+	m_thread[did]->PushMsg(msg);
 }
 
 void ThreadManager::CMD(short type, ThreadID sid, int len, const char *data, ThreadID did /*= -1*/)

@@ -11,7 +11,6 @@
 #include <stdio.h>
 #include "log.h"
 #include "lib/include/common/memorypool.h"
-#include "lib/include/timemanager/gametime.h"
 
 REGISTER_SAFE_MEMORYPOOL(poolspace, Log, 16);
 
@@ -49,6 +48,7 @@ Log::~Log()
 	}
 }
 
+// todo ÓÐÎÊÌâ
 #define PushLog()\
 	char temp[1024] = { 0 }; \
 	char logHeader[64] = { 0 }; \
@@ -57,7 +57,7 @@ Log::~Log()
 	vsprintf(temp, log, args); \
 	va_end(args); \
 	static tm *t = NULL;\
-	t = GameTime::Instance().LocalTime(); \
+	t = localtime(&time(NULL)); \
 	sprintf(logHeader, format, t->tm_hour, t->tm_min, t->tm_sec); \
 	std::string strLog = logHeader;\
 	strLog = strLog + temp + "\n";\
@@ -67,19 +67,19 @@ Log::~Log()
 void Log::Normal(char *log, ...)
 {
 	static const char format[] = "%d:%d:%d (Normal): ";
-	PushLog();
+	//PushLog();
 }
 
 void Log::Warn(char *log, ...)
 {
 	static const char format[] = "%d:%d:%d (Warn): ";
-	PushLog();
+	//PushLog();
 }
 
 void Log::Error(char *log, ...)
 {
 	static const char format[] = "%d:%d:%d (Error): ";
-	PushLog();
+	//PushLog();
 }
 
 #define  RETURN_AND_CLEAR()\
@@ -94,7 +94,7 @@ void Log::Flush()
 		return;
 	}
 
-	int day = GameTime::Instance().Day();
+	int day = 0;//GameTime::Instance().Day();
 	if (m_day != day)
 	{
 		if (!MakeDayDir(day))

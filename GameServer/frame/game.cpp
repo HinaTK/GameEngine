@@ -5,7 +5,6 @@
 #include "common/datastructure/msgqueue.h"
 #include "common/protocol/messageheader.h"
 #include "lib/include/frame/main.h"
-#include "lib/include/frame/baseaccepter.h"
 #include "lib/include/common/serverconfig.h"
 
 
