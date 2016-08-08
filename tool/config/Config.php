@@ -7,7 +7,7 @@ return array(
 	"all" => true,		// 导出所有
 	"nameRow" => 2,
 	"typeRow" => 3,
-	"beginRow" => 5,
+	"beginRow" => 4,
 	"header" => "header/",
 	"template" => array(
 		"TwoKey" => "Key2",

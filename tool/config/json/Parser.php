@@ -12,7 +12,7 @@ class Parser extends BaseParser
     {
     	switch ($this->name2Type[$name]) {
     		case 'vector':
-    			$data = "{\"ROW\":[\r\n";
+    			$data = "[\r\n";
     			$arr1 = explode("|",$val);
     			foreach ($arr1 as $value1) {
     				$data .= $tab."{\r\n";
@@ -23,16 +23,17 @@ class Parser extends BaseParser
     				}
                     $data = substr_replace($data, "\r\n".$tab."},\r\n", -3);
     			}
-    			return substr_replace($data, "\r\n\t\t]}", -3);
+    			return substr_replace($data, "\r\n\t\t]", -3);
             case 'embed':
-               $data = "{\"ROW\":[\r\n";
+               $data = "[\r\n";
                 if (isset($this->embed->embedData[$val])) {
                     foreach ($this->embed->embedData[$val] as $value) {
                         $data .= $value;
                     }
                 }
-                return substr_replace($data, "\r\n\t\t]}", -3);
-                //return $data."\t\t]}";
+                return substr_replace($data, "\r\n\t\t]", -3);
+            //case 'mixture':
+
             case 'string':
                 return '"'.$val.'"';
     		default:
@@ -58,13 +59,13 @@ class Parser extends BaseParser
     {
         $tableName = "Config".$this->sheetName;
 		
-        $data = "{\"ROW\":[\r\n";
+        $data = "[\r\n";
         foreach ($this->rows as $value) {
             $data .= $this->ParseJSON($value, "\t");
         }
-        $data = substr_replace($data, "\r\n]}", -3);
+        $data = substr_replace($data, "\r\n]", -3);
         
-        file_put_contents($this->config["saveDir"].$tableName.".xml", $data);
+        file_put_contents($this->config["saveDir"].$tableName.".json", $data);
     }
 
     function ParseJSON($value, $tab)
