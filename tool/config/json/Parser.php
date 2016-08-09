@@ -8,30 +8,31 @@ class Parser extends BaseParser
         parent::__construct($config, $sheet);
     }
 
-    function RealVal($name, $val, $tab)
+    function RealVal($name, $val)
     {
+
     	switch ($this->name2Type[$name]) {
     		case 'vector':
-    			$data = "[\r\n";
+    			$data = "[";
     			$arr1 = explode("|",$val);
     			foreach ($arr1 as $value1) {
-    				$data .= $tab."{\r\n";
+    				$data .= "{";
     				$arr2 = explode(",", $value1);
     				foreach ($arr2 as $value2) {
     					$arr3 = explode("=",$value2);
-    					$data .= $tab."\t\"".$arr3[0]."\":".$arr3[1].",\r\n";
+    					$data .= "\"".$arr3[0]."\":".$arr3[1].",";
     				}
-                    $data = substr_replace($data, "\r\n".$tab."},\r\n", -3);
+                    $data = substr_replace($data, "},", -1);
     			}
-    			return substr_replace($data, "\r\n\t\t]", -3);
+    			return substr_replace($data, "]", -1);
             case 'embed':
-               $data = "[\r\n";
+               $data = "[";
                 if (isset($this->embed->embedData[$val])) {
                     foreach ($this->embed->embedData[$val] as $value) {
                         $data .= $value;
                     }
                 }
-                return substr_replace($data, "\r\n\t\t]", -3);
+                return substr_replace($data, "]", -1);
             //case 'mixture':
 
             case 'string':
@@ -51,7 +52,7 @@ class Parser extends BaseParser
             if (!isset($this->embedData[$val])) {
                 $this->embedData[$val] = array();
             }
-            $this->embedData[$val][] = $this->ParseJSON($value, "\t\t\t");
+            $this->embedData[$val][] = $this->ParseJSON($value);
         }
     }
 
@@ -61,20 +62,24 @@ class Parser extends BaseParser
 		
         $data = "[\r\n";
         foreach ($this->rows as $value) {
-            $data .= $this->ParseJSON($value, "\t");
+            $data .= "\t{";
+            foreach ($value as $name => $subVal) {
+                $data .= "\"".$name."\":".$this->RealVal($name, $subVal).",";
+            }
+            $data = substr_replace($data, "},\r\n", -1);
         }
         $data = substr_replace($data, "\r\n]", -3);
         
         file_put_contents($this->config["saveDir"].$tableName.".json", $data);
     }
 
-    function ParseJSON($value, $tab)
+    function ParseJSON($value)
     {
-        $data = $tab."{\r\n";
+        $data = "{";
     	foreach ($value as $name => $subVal) {
-			$data .= $tab."\t\"".$name."\":".$this->RealVal($name, $subVal, $tab."\t\t").",\r\n";
+			$data .= "\"".$name."\":".$this->RealVal($name, $subVal).",";
 		}
-        return substr_replace($data, "\r\n".$tab."},\r\n", -3);
+        return substr_replace($data, "},", -1);
     }
 }
 ?>
