@@ -53,7 +53,6 @@ bool Init(char *ip, unsigned short port, int backlog, SOCKET &sock)
 		return false;
 	}
 
-	printf("Init Socket Success %s %d\n", ip, port);
 	return true;
 }
 

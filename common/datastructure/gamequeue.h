@@ -67,7 +67,7 @@ namespace game
 		unsigned int	m_increase;			// 增加数量
 		ListNode		*m_list_head;		// 作为列表头，不保存数据,所以地址永远不为NULL
 		ListNode		*m_list_tail;		// 数据尾结点
-		// 节点池
+		
 		ListNode		*m_real_tail;
 
 	};

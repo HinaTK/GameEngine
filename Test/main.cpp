@@ -117,7 +117,7 @@ int main()
 
 	//TestNet::Test1();
 	//TestNet::Test2();
-	TestNet::Test3();
+	//TestNet::Test3();
 
 	//TestCache::TestDataQueue();
 	//TestCache::TestDataMap();
@@ -186,6 +186,8 @@ int main()
 // 		printf("aaaaaaaaaaaaaa \n");
 // 		Sleep(1000000);
 // 	}
+	Function::Info("ddddddddddddd\n");
+	Function::Info("ddddddddddddd %d\n",123);
 	Function::WindowsPause();
 	return 0;
 }

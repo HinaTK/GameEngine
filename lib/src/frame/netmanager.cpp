@@ -8,12 +8,29 @@
 #include "socketmsg.h"
 #include "common/protocol/messageheader.h"
 #include "lib/include/common/mem.h"
+#include "lib/include/base/function.h"
 
+
+MsgHandler::MsgHandler(MsgCallBack *call_back)
+{
+	m_bm[BaseMsg::MSG_ACCEPT] = new AcceptMsg(call_back);
+	m_bm[BaseMsg::MSG_RECV] = new RecvMsg(call_back);
+	m_bm[BaseMsg::MSG_DISCONNECT] = new DisconnectMsg(call_back);
+}
+
+MsgHandler::~MsgHandler()
+{
+	// ç”±äºŽcall back ç”±ä¸‰ä¸ªç±»åž‹å…±åŒæ‹¥æœ‰ï¼Œå› æ­¤åªdeleteä¸€æ¬¡
+	delete m_bm[BaseMsg::MSG_ACCEPT]->m_call_back;
+	delete m_bm[BaseMsg::MSG_ACCEPT];
+	delete m_bm[BaseMsg::MSG_RECV];
+	delete m_bm[BaseMsg::MSG_DISCONNECT];
+}
 
 NetManager::NetManager(ThreadManager *tm)
 : m_thread(new SocketThread(tm, this))
 {
-	// ½«Ïß³Ì×¢²áµ½¹ÜÀíÆ÷£¬ÒòÎª²»ÐèÒªÔÙ×Ô¼ºÊÍ·ÅÖ¸Õë
+	// å°†çº¿ç¨‹æ³¨å†Œåˆ°ç®¡ç†å™¨ï¼Œå› ä¸ºä¸éœ€è¦å†è‡ªå·±é‡Šæ”¾æŒ‡é’ˆ
 	tm->Register(m_thread);
 }
 
@@ -21,31 +38,27 @@ NetManager::~NetManager()
 {
 	for (MSG_HANDLER::iterator itr = m_msg_handler.Begin(); itr != m_msg_handler.End(); ++itr)
 	{
-		// ÓÉÓÚcall back ÓÉÈý¸öÀàÐÍ¹²Í¬ÓµÓÐ£¬Òò´ËÖ»deleteÒ»´Î
-		delete (*itr)->msg[BaseMsg::MSG_ACCEPT]->m_call_back;
-		delete (*itr)->msg[BaseMsg::MSG_ACCEPT];
-		delete (*itr)->msg[BaseMsg::MSG_RECV];
-		delete (*itr)->msg[BaseMsg::MSG_DISCONNECT];
 		delete (*itr);
 	}
 }
 
 bool NetManager::InitServer(char *ip, unsigned short port, int backlog, Accepter *accepter, MsgCallBack *call_back)
 {
-	printf("Init Server ip = %s, port = %d\n", ip, port);
+	Function::Info("Init Server ...", ip, port);
 	SOCKET net_id = 0;
 	NetCommon::StartUp();
 	if (!NetCommon::Init(ip, port, backlog, net_id))
 	{
 		delete accepter;
 		delete call_back;
+		Function::Info("Init Server ip = %s, port = %d Fail", ip, port);
 		return false;
 	}
 
 	accepter->m_msg_index = AddMsgHandler(call_back);
 	accepter->m_sock = net_id;
 	m_thread->AddNetHandler(accepter);
-	printf("Init Server Success\n");
+	Function::Info("Init Server ip = %s, port = %d Success", ip, port);
 	return true;
 }
 
@@ -69,6 +82,8 @@ void NetManager::AsyncConnect(const char *ip, unsigned short port, Listener *lis
 	SOCKET sock = NetCommon::Connect(ip, port);
 	if (sock == INVALID_SOCKET)
 	{
+		delete listener;
+		delete call_back;
 		return;
 	}
 	listener->m_msg_index = AddMsgHandler(call_back);
@@ -86,11 +101,7 @@ void NetManager::RemoveHandler(NetHandle handle)
 
 unsigned int NetManager::AddMsgHandler(MsgCallBack *call_back)
 {
-	MsgHandler *mh = new MsgHandler;
-	mh->msg[BaseMsg::MSG_ACCEPT] = new AcceptMsg(call_back);
-	mh->msg[BaseMsg::MSG_RECV] = new RecvMsg(call_back);
-	mh->msg[BaseMsg::MSG_DISCONNECT] = new DisconnectMsg(call_back);
-	return m_msg_handler.Insert(mh);
+	return m_msg_handler.Insert(new MsgHandler(call_back));
 }
 
 
@@ -128,7 +139,7 @@ bool NetManager::Update()
 		{
 			if (msg->handle >= 0)
 			{
-				m_msg_handler[msg->msg_index]->msg[msg->msg_type]->Recv(msg);
+				m_msg_handler[msg->msg_index]->Recv(msg->msg_type, msg);
 			}
 			m_msg_manager.Free(msg);
 		}

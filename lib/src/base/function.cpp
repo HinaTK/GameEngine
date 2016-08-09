@@ -55,3 +55,16 @@ bool Function::ProtocolDecode(const char *buf, unsigned int len)
 
 	return (header->check == check);
 }
+
+void Function::Info(char *str, ...)
+{
+	time_t t = time(NULL);
+	char buffer[64];
+	strftime(buffer, sizeof(buffer), "%Y%m%d %H:%M:%S ", localtime(&t));
+	printf(buffer);
+	va_list args; 
+	va_start(args, str);
+	vprintf(str, args);
+	va_end(args); 
+	printf("\n");
+}

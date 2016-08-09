@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "prepare.h"
 #include "handler.h"
+#include "lib/include/base/function.h"
 
 MysqlPrepare::MysqlPrepare(MysqlHandler *handler, unsigned char num, char *sql, unsigned short sql_len)
 : m_handler(handler)
@@ -13,14 +14,14 @@ MysqlPrepare::MysqlPrepare(MysqlHandler *handler, unsigned char num, char *sql, 
 	if (m_stmt == NULL)
 	{
 		// A pointer to a MYSQL_STMT structure in case of success. NULL if out of memory.
-		printf("mysql_stmt_init error %s \n", sql);
+		Function::Info("mysql_stmt_init error %s", sql);
 		return;
 	}
 	
 	if (mysql_stmt_prepare(m_stmt, sql, sql_len) != 0)
 	{
-		printf("mysql_stmt_prepare error %s \n", sql);
-		printf("%s\n", mysql_stmt_error(m_stmt));
+		Function::Info("mysql_stmt_prepare error %s", sql);
+		Function::Info("%s", mysql_stmt_error(m_stmt));
 		return;
 	}
 
@@ -131,13 +132,13 @@ bool MysqlPrepare::Execute()
 {
 	if (mysql_stmt_bind_param(m_stmt, m_param) != 0)
 	{
-		printf("mysql_stmt_bind_param error %s \n", mysql_stmt_error(m_stmt));
+		Function::Info("mysql_stmt_bind_param error %s", mysql_stmt_error(m_stmt));
 		return false;
 	}
 
 	if (mysql_stmt_execute(m_stmt) != 0)
 	{
-		printf("mysql_stmt_execute error %s \n", mysql_stmt_error(m_stmt));
+		Function::Info("mysql_stmt_execute error %s", mysql_stmt_error(m_stmt));
 		return false;
 	}
 	return true;

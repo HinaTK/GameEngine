@@ -1,6 +1,7 @@
 ﻿
 #include "threadmanager.h"
 #include "basethread.h"
+#include "lib/include/base/function.h"
 
 ThreadManager::~ThreadManager()
 {
@@ -33,7 +34,7 @@ bool ThreadManager::Init()
 	{
 		if (!(*itr)->Init())
 		{
-			printf("init thread %s error\n", (*itr)->GetName());
+			Function::Info("Init thread %s error", (*itr)->GetName());
 			return false;
 		}
 	}
@@ -46,7 +47,7 @@ bool ThreadManager::Ready()
 	{
 		if (!(*itr)->Ready())
 		{
-			printf("ready thread %s error\n", (*itr)->GetName());
+			Function::Info("Ready thread %s error", (*itr)->GetName());
 			return false;
 		}
 	}

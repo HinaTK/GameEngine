@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include "handler.h"
+#include "lib/include/base/function.h"
 
 MysqlHandler::MysqlHandler(const char *ip, const char *user, const char *password, const char *db, unsigned short port)
 : m_1_pool(1, 8)
@@ -11,13 +12,13 @@ MysqlHandler::MysqlHandler(const char *ip, const char *user, const char *passwor
 	m_mysql = mysql_init(NULL);
 	if (m_mysql == NULL)
 	{
-		printf("mysql_init error, maybe the memory is not enough\n");
+		Function::Info("mysql_init error, maybe the memory is not enough");
 		return;
 	}
 
 	if (mysql_real_connect(m_mysql, ip, user, password, db, port, 0, 0) == NULL)
 	{
-		printf("mysql_real_connect error ...\n");
+		Function::Info("mysql_real_connect error ...");
 		return;
 	}
 }

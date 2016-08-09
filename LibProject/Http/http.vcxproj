@@ -24,6 +24,7 @@
     <ProjectGuid>{2DD56DA4-CC16-4ED0-982D-E9C677BFCBBA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Cache</RootNamespace>
+    <ProjectName>Http</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

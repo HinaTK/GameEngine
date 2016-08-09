@@ -14,6 +14,20 @@
 	NetManager 由外部线程调用，线程安全，不影响内部
 */
 
+class MsgHandler
+{
+public:
+	MsgHandler(MsgCallBack *call_back);
+	~MsgHandler();
+
+	inline void Recv(unsigned short msg_type, GameMsg *msg)
+	{
+		m_bm[msg_type]->Recv(msg);
+	}
+private:
+	BaseMsg *m_bm[BaseMsg::MSG_MAX];
+};
+
 class NetHandler;
 class Accepter;
 class Listener;
@@ -24,11 +38,6 @@ class NetManager
 public:
 	virtual ~NetManager();
 	NetManager(ThreadManager *tm);
-
-	struct MsgHandler
-	{
-		BaseMsg *msg[BaseMsg::MSG_MAX];
-	};
 
     void			SetThread(SocketThread *st){ m_thread = st; }
 	SocketThread	*GetThread(){ return m_thread; }
