@@ -33,7 +33,7 @@ public:
 
 	void	Connect(NetHandle handle, int flag);
 
-	void	Recv(GameMsg *msg);
+	void	Recv(GameMsg &msg);
 
 	void	Disconnect(NetHandle handle, int reason);
 

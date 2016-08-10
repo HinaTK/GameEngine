@@ -10,7 +10,7 @@
 			Function::WindowsPause(); \
 			return 0; \
 		}\
-		printf("init %s success\n", #CLASS); \
+		Function::Info("init %s success", #CLASS); \
 		if (!CLASS::Instance().Start()){ \
 			printf("start %s fail\n", #CLASS); \
 		}\

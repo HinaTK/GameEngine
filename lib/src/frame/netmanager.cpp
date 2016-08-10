@@ -28,10 +28,9 @@ MsgHandler::~MsgHandler()
 }
 
 NetManager::NetManager(ThreadManager *tm)
-: m_thread(new SocketThread(tm, this))
+: m_thread(NULL)
 {
-	// 将线程注册到管理器，因为不需要再自己释放指针
-	tm->Register(m_thread);
+	
 }
 
 NetManager::~NetManager()
@@ -71,7 +70,7 @@ NetHandle NetManager::SyncConnect(const char *ip, unsigned short port, Listener 
 		delete call_back;
 		return INVALID_NET_HANDLE;
 	}
-
+	
 	listener->m_msg_index = AddMsgHandler(call_back);
 	listener->m_sock = sock;
 	return m_thread->AddNetHandler(listener);
@@ -118,30 +117,20 @@ void NetManager::Send(NetHandle handle, unsigned int length, const char *buf)
 	m_thread->PushMsg(new ThreadMsg(SocketMsg::STM_SEND_MSG, handle, length, buf));
 }
 
-
-void NetManager::PushMsg(NetHandler *handler, unsigned short msg_type, const char *data, unsigned int len)
-{
-	m_queue.Push(m_msg_manager.Alloc(handler->m_msg_index, msg_type, handler->m_handle, data, len));
-}
-
-GameMsg	* NetManager::CreateMsg(unsigned int msg_index, unsigned short msg_type, NetHandle handle, unsigned int len)
-{
-	return m_msg_manager.Alloc(msg_index, msg_type, handle, len);
-}
-
 bool NetManager::Update()
 {
-	static GameMsg *msg;
-	bool ret = m_queue.Size() > 0;
+	static GameMsg msg;
+	SocketThread::NetMessage *queue = m_thread->GetQueue();
+	bool ret = queue->Size() > 0;
 	do
 	{
-		if (m_queue.Pop(msg)/* && msg != NULL*/)
+		if (queue->Pop(msg)/* && msg != NULL*/)
 		{
-			if (msg->handle >= 0)
+			if (msg.handle >= 0)
 			{
-				m_msg_handler[msg->msg_index]->Recv(msg->msg_type, msg);
+				m_msg_handler[msg.msg_index]->Recv(msg.msg_type, msg);
 			}
-			m_msg_manager.Free(msg);
+			m_thread->Release(msg);
 		}
 		else break;
 	} while (true);

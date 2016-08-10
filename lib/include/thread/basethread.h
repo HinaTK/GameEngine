@@ -62,8 +62,6 @@ protected:
 
 	MsgQueue<ThreadMsg *> m_recv_queue;
 	unsigned short	m_sleep_time;
-
-	void			*m_arg;
 };
 
 #endif 

@@ -4,31 +4,33 @@
 #include "lib/include/common/memoryvl.h"
 #include "lib/include/common/mem.h"
 
-REGISTER_SAFE_MEMORYPOOL(safememorypool, GameMsg, 64);
 REGISTER_SAFE_MEMORYPOOL(safememorypool, ThreadMsg, 64);
 
 
-GameMsg::GameMsg(char* buf, unsigned int _length)
-: length(_length)
-, data(buf)
+GameMsg::GameMsg()
+: msg_index(0)
+, msg_type(0)
+, handle(0)
+, length(0)
+, data(NULL)
 {
 
 }
 
-GameMsg::GameMsg(unsigned short _msg_index, unsigned short _msg_type, NetHandle _handle, char* _data, unsigned int _length)
+GameMsg::GameMsg(unsigned short _msg_index, GameMsgType _msg_type, NetHandle _handle, unsigned int _length)
 : msg_index(_msg_index)
 , msg_type(_msg_type)
 , handle(_handle)
 , length(_length)
-, data(_data)
 {
-	
+
 }
 
 GameMsg::~GameMsg()
 {
 	
 }
+
 
 GameMsgManager::GameMsgManager()
 : memory(Mem::NewMemoryVL())
@@ -45,34 +47,30 @@ GameMsgManager::~GameMsgManager()
 	}
 }
 
-GameMsg * GameMsgManager::Alloc(unsigned short msg_index, unsigned short msg_type, NetHandle handle, unsigned int length)
+void GameMsgManager::Alloc(char **buf, const char *data, unsigned int length)
 {
-	char *buf = NULL;
 	if (length > 0)
 	{
-		buf = (char *)memory->Alloc(length);
+		*buf = (char *)memory->Alloc(length);
+		memcpy(*buf, data, length);
 	}
-	return new GameMsg(msg_index, msg_type, handle, buf, length);
 }
 
-GameMsg * GameMsgManager::Alloc(unsigned short msg_index, unsigned short msg_type, NetHandle handle, const char* data, unsigned int length)
+char * GameMsgManager::Alloc(unsigned int length)
 {
-	char *new_data = NULL;
 	if (length > 0)
 	{
-		new_data = (char *)memory->Alloc(length);
-		memcpy(new_data, data, length);
+		return (char *)memory->Alloc(length);
 	}
-	return new GameMsg(msg_index, msg_type, handle, new_data, length);
+	return NULL;
 }
 
-void GameMsgManager::Free(GameMsg *msg)
+void GameMsgManager::Free(GameMsg &msg)
 {
-	if (msg->length > 0)
+	if (msg.length > 0)
 	{
-		memory->Free(msg->data);
+		memory->Free(msg.data);
 	}
-	delete msg;
 }
 
 ThreadMsg::ThreadMsg(short _type, ThreadID _id, int _length, const char *_data)

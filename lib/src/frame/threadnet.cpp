@@ -4,9 +4,8 @@
 #include "netcommon.h"
 #include "socketmsg.h"
 
-ThreadNet::ThreadNet(ThreadManager *manager, NetManager *net_manager)
+ThreadNet::ThreadNet(ThreadManager *manager)
 : BaseThread(manager, NULL)
-, m_net_manager(net_manager)
 {
 	m_name = "socket";
 }
@@ -36,6 +35,19 @@ void ThreadNet::RemoveHandler(NetHandle handle, int err, int reason)
 	m_invalid_handle.Push(info);
 }
 
+
+void ThreadNet::PushGameMsg(GameMsg &msg)
+{
+	m_queue.Push(msg);
+}
+
+void ThreadNet::PushGameMsg(NetHandler *handler, GameMsgType msg_type, const char *data, unsigned int len)
+{
+	GameMsg msg(handler->m_msg_index, msg_type, handler->m_handle, len);
+	m_msg_manager.Alloc(&msg.data, data, len);
+	m_queue.Push(msg);
+}
+
 void ThreadNet::RecvData(short type, ThreadID sid, int len, const char *data)
 {
 	switch (type)
@@ -59,7 +71,7 @@ void ThreadNet::AddHandler(const char *data)
 	NetHandler *handler = (NetHandler *)sa->listener;
 	ard.handle = AddNetHandler(handler);
 	ard.flag = sa->flag;
-	m_net_manager->PushMsg(handler, BaseMsg::MSG_ACCEPT, (const char *)&ard, sizeof(SocketMsg::AddHandlerRet::Data));
+	PushGameMsg(handler, BaseMsg::MSG_ACCEPT, (const char *)&ard, sizeof(SocketMsg::AddHandlerRet::Data));
 }
 
 void ThreadNet::SendMsg(NetHandle handle, int length, const char *data)

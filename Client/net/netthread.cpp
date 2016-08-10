@@ -6,11 +6,12 @@
 #include "lib/include/common/argsplit.h"
 #include "CenterServer/net/src/proto.h"
 
-NetThread::NetThread(ThreadManager *manager)
+NetThread::NetThread(ThreadManager *manager, SocketThread *st)
 : BaseThread(manager, NULL, ThreadManager::EXIT_NORMAL)
 , m_net_manager(manager)
 {
 	m_name = "net";
+	m_net_manager.SetThread(st);
 }
 
 bool NetThread::Init()

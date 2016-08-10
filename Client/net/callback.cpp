@@ -17,7 +17,7 @@ void InnerCallBack::Connect(NetHandle handle, int flag)
 	//m_thread->ConnetRet(handle, flag);
 }
 
-void InnerCallBack::Recv(GameMsg *msg)
+void InnerCallBack::Recv(GameMsg &msg)
 {
 	//m_thread->InnerRecv(msg);
 }

@@ -11,9 +11,11 @@ class NetHandler;
 class ThreadNet : public BaseThread
 {
 public:
-	ThreadNet(ThreadManager *manager, NetManager *net_manager);
+	ThreadNet(ThreadManager *manager);
 	virtual ~ThreadNet();
 
+	typedef MsgQueue<GameMsg> 			NetMessage;
+	
 	NetHandle		AddNetHandler(NetHandler *handler);
 	void			RemoveHandler(NetHandle handle, int err, int reason = 0);
 
@@ -22,13 +24,12 @@ public:
 
 	virtual void	ClearHandler() = 0;
 
-	GameMsg *		CreateGameMsg(unsigned int msg_index, unsigned short msg_type, NetHandle handle, unsigned int length)
-	{ 
-		return m_net_manager->CreateMsg(msg_index, msg_type,handle, length);
-	};
-	void			PushData(NetHandler *handler, unsigned short msg_type, const char *data, unsigned int len){m_net_manager->PushMsg(handler, msg_type, data, len); }
-	void			PushGameMsg(GameMsg *msg){ m_net_manager->PushMsg(msg); };
+	char *			CreateData(unsigned int length){ return m_msg_manager.Alloc(length); };
+	void			PushGameMsg(GameMsg &msg);
+	void			PushGameMsg(NetHandler *handler, GameMsgType msg_type, const char *data, unsigned int len);
 
+	NetMessage 		*GetQueue(){ return &m_queue; }
+	void			Release(GameMsg &msg){ m_msg_manager.Free(msg); }
 protected:
 	virtual void	InitNetHandler(NetHandler *handler) = 0;
 	void			RecvData(short type, ThreadID sid, int len, const char *data);
@@ -42,13 +43,14 @@ protected:
 		NetCommon::ErrInfo show;
 	};
 
-	NetManager		*m_net_manager;
-
 	typedef game::Array<NetHandler*>	NET_HANDLER_ARRAY;
 	typedef game::Vector<RemoveInfo>	INVALID_HANDLE;
+	
 
 	NET_HANDLER_ARRAY		m_net_handler;
 	INVALID_HANDLE			m_invalid_handle;
+	NetMessage				m_queue;
+	GameMsgManager			m_msg_manager;
 };
 
 #endif

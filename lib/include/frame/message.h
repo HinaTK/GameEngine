@@ -11,15 +11,12 @@
 class GameMsg
 {
 public:
-	GameMsg(char* buf, unsigned int _length);
-	GameMsg(unsigned short _msg_index, unsigned short _msg_type, NetHandle _handle, char* _data, unsigned int _length);
+	GameMsg();
+	GameMsg(unsigned short _msg_index, GameMsgType _msg_type, NetHandle _handle, unsigned int _length);
 	~GameMsg();
 
-	void *		operator new(size_t c);
-	void		operator delete(void *m);
-
 	unsigned short	msg_index;
-	unsigned short	msg_type;
+	GameMsgType		msg_type;
 	NetHandle		handle;
 	unsigned int	length;
 	char *			data;
@@ -31,9 +28,9 @@ public:
 	GameMsgManager();
 	~GameMsgManager();
 
-	GameMsg *Alloc(unsigned short msg_index, unsigned short msg_type, NetHandle handle, unsigned int length);
-	GameMsg *Alloc(unsigned short msg_index, unsigned short msg_type, NetHandle handle, const char* data, unsigned int length);
-	void	Free(GameMsg *msg);
+	void	Alloc(char **buf, const char* data, unsigned int length);
+	char *	Alloc(unsigned int length);
+	void	Free(GameMsg &msg);
 private:
 	MemoryVL *memory;
 };
@@ -118,16 +115,4 @@ public:
 	}
 };
 
-class ConnectMsg : public BaseMsg
-{
-public:
-	ConnectMsg(MsgCallBack *call_back) :BaseMsg(call_back){}
-	~ConnectMsg(){}
-
-	virtual void Recv(GameMsg *msg)
-	{ 
-		SocketMsg::AddHandlerRet::Data *data = (SocketMsg::AddHandlerRet::Data *)msg->data;
-		m_call_back->Connect(data->handle, data->flag);
-	}
-};
 #endif

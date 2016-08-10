@@ -10,7 +10,7 @@
 #include "lib/include/gate/gateaccepter.h"
 
 
-NetThread::NetThread(ThreadManager *manager)
+NetThread::NetThread(ThreadManager *manager, SocketThread *st)
 : BaseThread(manager, NULL, ThreadManager::EXIT_NORMAL)
 , m_net_manager(manager)
 , m_message_handler(this)
@@ -18,6 +18,7 @@ NetThread::NetThread(ThreadManager *manager)
 , m_cur_thread_id(0)
 {
 	m_name = "net";
+	m_net_manager.SetThread(st);
 }
 
 NetThread::~NetThread()

@@ -91,45 +91,36 @@ void SendBuffer::ResetBuf()
 RecvBuffer::RecvBuffer(Listener *listener)
 : m_listener(listener)
 , m_buf_len(0)
-, m_msg(NULL)
 {
 	
 }
 
 RecvBuffer::~RecvBuffer()
 {
-	if (m_msg != NULL)
-	{
-		delete m_msg;
-		m_msg = NULL;
-	}
+	
 }
 
 void RecvBuffer::ResetBuf()
 {
 	m_buf_len = 0;
-	m_msg = NULL;
+	m_msg.data = NULL;
 }
 
 bool RecvBuffer::GetBufInfo(char **buf, int &len)
 {
-	if (m_msg == NULL)
+	if (m_buf_len < NetCommon::HEADER_LENGTH)
 	{
-		if (m_buf_len < NetCommon::HEADER_LENGTH)
-		{
-			*buf = m_header + m_buf_len;
-			len = NetCommon::HEADER_LENGTH - m_buf_len;
-			return true;
-		}
-		return false;
+		*buf = m_header + m_buf_len;
+		len = NetCommon::HEADER_LENGTH - m_buf_len;
+		return true;
 	}
 	
-	if (m_buf_len >= (int)m_msg->length)
+	if (m_buf_len >= (int)m_msg.length)
 	{
 		return false;
 	}
-	*buf = m_msg->data;
-	len = m_msg->length;
+	*buf = m_msg.data;
+	len = m_msg.length;
 	return true;
 }
 
@@ -138,7 +129,7 @@ bool RecvBuffer::GetBufInfo(char **buf, int &len)
 
 int RecvBuffer::AddBufLen(int len)
 {
-	if (m_msg == NULL)
+	if (m_buf_len < NetCommon::HEADER_LENGTH)
 	{
 		m_buf_len += len;
 		if (m_buf_len == NetCommon::HEADER_LENGTH)
@@ -146,7 +137,11 @@ int RecvBuffer::AddBufLen(int len)
 			NetCommon::Header *header = (NetCommon::Header *)m_header;
 			if (m_listener->buf_size == 0 || (header->msg_len > 0 && header->msg_len < m_listener->buf_size))
 			{
-				m_msg = m_listener->GetThread()->CreateGameMsg(m_listener->m_msg_index, BaseMsg::MSG_RECV, m_listener->m_handle, header->msg_len);
+				m_msg.msg_index = m_listener->m_msg_index;
+				m_msg.msg_type = BaseMsg::MSG_RECV;
+				m_msg.handle = m_listener->m_handle;
+				m_msg.length = header->msg_len;
+				m_msg.data = m_listener->GetThread()->CreateData(header->msg_len);
 				m_buf_len = 0;
 			}
 			else
@@ -157,10 +152,10 @@ int RecvBuffer::AddBufLen(int len)
 	}
 	else
 	{
-		if (m_buf_len < (int)m_msg->length)
+		if (m_buf_len < (int)m_msg.length)
 		{
 			m_buf_len += len;
-			if (m_buf_len == m_msg->length)
+			if (m_buf_len == m_msg.length)
 			{
 				m_listener->GetThread()->PushGameMsg(m_msg);
 				ResetBuf();

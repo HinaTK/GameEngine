@@ -8,11 +8,12 @@
 #include "common/datastructure/gamevector.h"
 
 class ThreadManager;
+class SocketThread;
 class NetThread : public BaseThread
 {
 public:
 	
-	NetThread(ThreadManager *manager);
+	NetThread(ThreadManager *manager, SocketThread *st);
 	virtual ~NetThread(){}
 
 	struct GameServer

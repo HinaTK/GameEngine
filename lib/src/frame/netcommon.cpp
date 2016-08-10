@@ -3,6 +3,7 @@
 #include <memory.h>
 #include <stdio.h>
 #include "netcommon.h"
+#include "lib/include/base/function.h"
 
 namespace NetCommon
 {
@@ -68,20 +69,20 @@ SOCKET Connect(const char *ip, unsigned short port)
 	SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (sock == INVALID_SOCKET)
 	{
-		printf("Create socket error\n");
 		NetCommon::CleanUp();
+		Function::Info("Connect Server ip = %s, port = %d init socket fail", ip, port);
 		return INVALID_SOCKET;
 	}
 
 	if (connect(sock, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) < 0)
 	{
-		printf("Connect server error %d\n", NetCommon::Error());
+		Function::Info("Connect Server ip = %s, port = %d fail %d", ip, port, NetCommon::Error());
 		NetCommon::Close(sock);
 		NetCommon::CleanUp();
 		return INVALID_SOCKET;
 	}
 
-	printf("Connect Server Success\n");
+	Function::Info("Connect Server ip = %s, port = %d Success", ip, port);
 	return sock;
 }
 

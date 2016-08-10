@@ -11,11 +11,12 @@
 
 
 class ThreadManager;
+class SocketThread;
 class NetThread : public BaseThread
 {
 public:
 	virtual ~NetThread();
-	NetThread(ThreadManager *manager);
+	NetThread(ThreadManager *manager, SocketThread *st);
 
 	struct OtherServer
 	{

@@ -5,8 +5,8 @@
 #include "nethandler.h"
 
 
-SocketThread::SocketThread(ThreadManager *manager, NetManager *net_manager)
-: ThreadNet(manager, net_manager)
+SocketThread::SocketThread(ThreadManager *manager)
+: ThreadNet(manager)
 , m_max_fd(0)
 {
 	FD_ZERO(&m_read_set);
@@ -61,7 +61,7 @@ void SocketThread::ClearHandler()
 			FD_CLR(handler->m_sock, &m_write_set);
 
 			NetCommon::Close(handler->m_sock);
-			m_net_manager->PushMsg(handler, BaseMsg::MSG_DISCONNECT, (const char *)&itr->show, sizeof(itr->show));
+			PushGameMsg(handler, BaseMsg::MSG_DISCONNECT, (const char *)&itr->show, sizeof(itr->show));
 			delete handler;
 		}
 	}

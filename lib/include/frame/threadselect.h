@@ -10,7 +10,7 @@ class SocketThread : public ThreadNet
 {
 public:
 	virtual ~SocketThread();
-	SocketThread(ThreadManager *manager, NetManager *net_manager);
+	SocketThread(ThreadManager *manager);
 
 	void			SetCanWrite(NetHandler *handler);
 	void			SetCanNotWrite(NetHandler *handler);

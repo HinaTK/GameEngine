@@ -4,6 +4,7 @@
 #include "message.h"
 #include "lib/include/thread/basethread.h"
 #include "lib/include/common/argsplit.h"
+#include "lib/include/base/function.h"
 
 
 static Frame *g_frame;
@@ -13,6 +14,7 @@ namespace SignalCatch
 	{
 		if (g_frame != NULL)
 		{
+			Function::Info("Catch exit signal %d", sig);
 			g_frame->SetExit();
 			signal(sig, SignalCatch::Catch);
 		}

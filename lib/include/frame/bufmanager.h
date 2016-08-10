@@ -78,6 +78,6 @@ private:
 	Listener *		m_listener;
 	int				m_buf_len;		// 已读数据长度
 	char 			m_header[NetCommon::HEADER_LENGTH];
-	GameMsg	*		m_msg;
+	GameMsg			m_msg;
 };
 #endif
