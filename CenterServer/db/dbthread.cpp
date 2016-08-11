@@ -253,4 +253,12 @@ void DBThread::RecvData(short type, ThreadID sid, int len, const char *data)
 	}
 }
 
-
+bool DBThread::CMD(short type, ThreadID sid, int len, const char *data)
+{
+	if (strncmp(data, "test", len) == 0)
+	{
+		m_manager.SaveRoleMaxID(1);
+		return true;
+	}
+	return false;
+}

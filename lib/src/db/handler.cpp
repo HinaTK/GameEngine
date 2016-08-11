@@ -21,6 +21,9 @@ MysqlHandler::MysqlHandler(const char *ip, const char *user, const char *passwor
 		Function::Info("mysql_real_connect error ...");
 		return;
 	}
+
+// 	char val = 1;
+// 	mysql_options(m_mysql, MYSQL_OPT_RECONNECT, &val);
 }
 
 MysqlHandler::~MysqlHandler()

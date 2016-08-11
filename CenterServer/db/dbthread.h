@@ -14,6 +14,7 @@ public:
 protected:
 	bool	Run();
 	void	RecvData(short type, ThreadID sid, int len, const char *data);
+	bool 	CMD(short type, ThreadID sid, int len, const char *data);
 private:
 
 	DBManager	m_manager;
