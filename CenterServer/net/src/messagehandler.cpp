@@ -38,7 +38,7 @@ void MessageHandler::CSLogin(GameMsg *msg)
 	lr.handle = msg->handle;
 	memcpy(lr.account, login->account, ACCOUNT_SIZE);
 	lr.sid = login->sid;
-	m_thread->GetManager()->SendMsg(ThreadProto::TP_LOAD_ROLE, m_thread->GetThreadID(), sizeof(ThreadProto::LoadRole), (const char *)&lr, m_thread->GetID());
+	m_thread->GetManager()->SendMsg(m_thread->GetThreadID(), ThreadProto::TP_LOAD_ROLE, sizeof(ThreadProto::LoadRole), (const char *)&lr, m_thread->GetID());
 }
 
 void MessageHandler::CSCreateRole(GameMsg *msg)
@@ -53,6 +53,6 @@ void MessageHandler::CSCreateRole(GameMsg *msg)
 	// todo sid 根据配置获取
 	
 	memcpy(sr.name, role->name, GAME_NAME_SIZE);
-	m_thread->GetManager()->SendMsg(ThreadProto::TP_SAVE_ROLE, m_thread->GetThreadID(), sizeof(ThreadProto::SaveRole), (const char *)&sr, m_thread->GetID());
+	m_thread->GetManager()->SendMsg(m_thread->GetThreadID(), ThreadProto::TP_SAVE_ROLE, sizeof(ThreadProto::SaveRole), (const char *)&sr, m_thread->GetID());
 }
 

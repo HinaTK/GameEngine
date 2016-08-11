@@ -39,16 +39,6 @@ bool Center::Start()
 
 bool Center::Cmd(char *buf)
 {
-	if (strcmp(buf, "create") == 0)
-	{
-
-	}
-	else if (strcmp(buf, "login") == 0)
-	{
-		
-
-		printf("do login\n");
-	}
 	return false;
 }
 

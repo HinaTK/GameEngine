@@ -21,7 +21,7 @@ unsigned int IDPool::GetID()
 			m_pool[i] = m_max_id++;
 		}
 		m_index = 0;
-		m_thread->GetManager()->SendMsg(ThreadProto::TP_SAVE_ROLE_MAX_ID, m_thread->GetThreadID(), sizeof(unsigned int), (const char *)&m_max_id, m_thread->GetID());
+		m_thread->GetManager()->SendMsg(m_thread->GetThreadID(), ThreadProto::TP_SAVE_ROLE_MAX_ID, sizeof(unsigned int), (const char *)&m_max_id, m_thread->GetID());
 	}
 	return m_pool[m_index++];
 }

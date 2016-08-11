@@ -17,7 +17,7 @@ public:
 
 protected:
 	bool			Run();
-	void			CMD(short type, ThreadID sid, int len, const char *data);
+	bool			CMD(short type, ThreadID sid, int len, const char *data);
 	void			ClearHandler();
 	void			InitNetHandler(NetHandler *handler);
 private:

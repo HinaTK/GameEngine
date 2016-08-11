@@ -10,9 +10,9 @@
 			Function::WindowsPause(); \
 			return 0; \
 		}\
-		Function::Info("init %s success", #CLASS); \
+		Function::Info("Init %s success", #CLASS); \
 		if (!CLASS::Instance().Start()){ \
-			printf("start %s fail\n", #CLASS); \
+			Function::Info("Start %s fail", #CLASS); \
 		}\
 		return 0;\
 	}

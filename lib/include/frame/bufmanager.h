@@ -52,9 +52,6 @@ public:
 
 	void			ResetBuf();
 
-	void *		operator new(size_t c);
-	void		operator delete(void *m);
-
 private:
 	unsigned int	m_read_length;
 };
@@ -76,6 +73,7 @@ protected:
 	void		ResetBuf();
 private:
 	Listener *		m_listener;
+	char			m_head_len;
 	int				m_buf_len;		// 已读数据长度
 	char 			m_header[NetCommon::HEADER_LENGTH];
 	GameMsg			m_msg;

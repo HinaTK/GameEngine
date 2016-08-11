@@ -3,28 +3,24 @@
 #include "netcommon.h"
 #include "netmanager.h"
 #include "common/socketdef.h"
+#include "lib/include/base/function.h"
 
 #define REGISTER_STATE -10
 
-Listener::Listener(SocketThread *t)
+Listener::Listener(SocketThread *t, int size)
 	: NetHandler(t, NetHandler::LISTENER)
-	, m_send_buf_read(new SendBuffer(BASE_BUFFER_LENGTH))
-	, m_send_buf_write(new SendBuffer(BASE_BUFFER_LENGTH))
+	, m_send_buf(new SendBuffer(BASE_BUFFER_LENGTH))
 	, m_register_state(REGISTER_STATE)
+	, buf_size(size)
 {
 }
 
 Listener::~Listener()
 {
-    if (m_send_buf_read != NULL)
+    if (m_send_buf != NULL)
     {
-        delete m_send_buf_read;
-        m_send_buf_read = NULL;
-    }
-    if (m_send_buf_write != NULL)
-    {
-        delete m_send_buf_write;
-        m_send_buf_write = NULL;
+        delete m_send_buf;
+        m_send_buf = NULL;
     }
 }
 
@@ -38,74 +34,30 @@ void Listener::OnCanRead()
 
 bool Listener::RecvBuf()
 {
-// 	unsigned long arg = 32;
-// 	do
-// 	{
-// 		if (arg > m_recv_buf.FreeLength())
-// 		{
-// 			m_recv_buf.Resize(arg - m_recv_buf.FreeLength());
-// 		}
-// 
-// 		int ret = recv(m_sock, m_recv_buf.GetFreeBuf(), m_recv_buf.FreeLength(), 0);
-// 		if (ret <= 0)
-// 		{
-// 			if (ret == SOCKET_ERROR && NetCommon::Error() == WOULDBLOCK)
-// 			{
-// 				break;
-// 			}
-// 			m_err = NetHandler::DR_RECV_BUF;
-// 			return false;
-// 		}
-// 		m_recv_buf.AddLength(ret);
-// 		
-// 		NetCommon::Ioctl(m_sock, FIONREAD, &arg);
-// 		if (arg == 0)
-// 		{
-// 			break;
-// 		}
-// 	} while (true);
-
 	return true;
 }
 
 void Listener::OnCanWrite()
 {
-	while (true)
+	while (m_send_buf->RemainReadLength() > 0)
 	{
-		if (m_send_buf_read->Length() <= 0)
+		int ret = send(m_sock, m_send_buf->GetReadBuf(), m_send_buf->RemainReadLength(), 0);
+		if (ret == SOCKET_ERROR)
 		{
+			if (NetCommon::Error() == WOULDBLOCK)
 			{
-				MutexLock ml(&m_send_mutex);
-				SendBuffer *temp_buf = m_send_buf_read;
-				m_send_buf_read = m_send_buf_write;
-				m_send_buf_write = temp_buf;
+				// 缓冲区已经满
+				break;
 			}
-
-			if (m_send_buf_read->Length() <= 0)
-			{
-				return;
-			}
-        }
-		while (m_send_buf_read->RemainReadLength() > 0)
-        {
-            int ret = send(m_sock, m_send_buf_read->GetReadBuf(), m_send_buf_read->RemainReadLength(), 0);
-			if (ret == SOCKET_ERROR)
-			{
-				if (NetCommon::Error() == WOULDBLOCK)
-				{
-					// 缓冲区已经满
-					break;
-				}
-                printf("send error %d\n", NetCommon::Error());
-				m_thread->RemoveHandler(m_handle, NetHandler::DR_SEND_BUF);
-				return;
-			}
-			//
-			m_send_buf_read->AddReadLength(ret);
+			Function::Info("Send error %d", NetCommon::Error());
+			m_thread->RemoveHandler(m_handle, NetHandler::DR_SEND_BUF);
+			return;
 		}
-		UnRegisterWriteFD();
-		m_send_buf_read->ResetBuf();
+		//
+		m_send_buf->AddReadLength(ret);
 	}
+	m_send_buf->ResetBuf();
+	UnRegisterWriteFD();
 }
 
 void Listener::RegisterWriteFD()
@@ -123,12 +75,9 @@ void Listener::RegisterWriteFD()
 
 void Listener::UnRegisterWriteFD()
 {
+    if (m_send_buf->Length() > 0)
     {
-        MutexLock ml(&m_send_mutex);
-        if (m_send_buf_write->Length() > 0)
-        {
-            return;
-        }
+        return;
     }
     MutexLock ml(&m_register_write_mutex);
 	m_thread->SetCanNotWrite(this);

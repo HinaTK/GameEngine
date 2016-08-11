@@ -50,14 +50,14 @@ bool NetManager::InitServer(char *ip, unsigned short port, int backlog, Accepter
 	{
 		delete accepter;
 		delete call_back;
-		Function::Info("Init Server ip = %s, port = %d Fail", ip, port);
+		Function::Info("Init Server ip=%s, port=%d Fail", ip, port);
 		return false;
 	}
 
 	accepter->m_msg_index = AddMsgHandler(call_back);
 	accepter->m_sock = net_id;
 	m_thread->AddNetHandler(accepter);
-	Function::Info("Init Server ip = %s, port = %d Success", ip, port);
+	Function::Info("Init Server ip=%s, port=%d Success", ip, port);
 	return true;
 }
 
@@ -90,12 +90,12 @@ void NetManager::AsyncConnect(const char *ip, unsigned short port, Listener *lis
 	SocketMsg::AddHandler ah;
 	ah.flag = flag;
 	ah.listener = (void *)listener;
-	m_thread->PushMsg(new ThreadMsg(SocketMsg::STM_ADD_HANDLER, -1, sizeof(SocketMsg::AddHandler), (const char *)&ah));
+	m_thread->PushMsg(ThreadMsg(SocketMsg::STM_ADD_HANDLER, -1, sizeof(SocketMsg::AddHandler), (const char *)&ah));
 }
 
 void NetManager::RemoveHandler(NetHandle handle)
 {
-	m_thread->PushMsg(new ThreadMsg(SocketMsg::STM_REMOVE_HANDLER, -1, sizeof(NetHandle), (const char *)&handle));
+	m_thread->PushMsg(ThreadMsg(SocketMsg::STM_REMOVE_HANDLER, -1, sizeof(NetHandle), (const char *)&handle));
 }
 
 unsigned int NetManager::AddMsgHandler(MsgCallBack *call_back)
@@ -114,12 +114,12 @@ unsigned int NetManager::AddMsgHandler(MsgCallBack *call_back)
 
 void NetManager::Send(NetHandle handle, unsigned int length, const char *buf)
 {
-	m_thread->PushMsg(new ThreadMsg(SocketMsg::STM_SEND_MSG, handle, length, buf));
+	m_thread->PushMsg(ThreadMsg(SocketMsg::STM_SEND_MSG, handle, length, buf));
 }
 
 bool NetManager::Update()
 {
-	static GameMsg msg;
+	GameMsg msg;
 	SocketThread::NetMessage *queue = m_thread->GetQueue();
 	bool ret = queue->Size() > 0;
 	do

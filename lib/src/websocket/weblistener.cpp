@@ -137,7 +137,7 @@ void WebListener::Send(const char *buf, unsigned int len)
 	memcpy(frame + offset, buf, len);
 	{
 		MutexLock ml(&m_send_mutex);
-		m_send_buf_write->Push((char *)frame, offset + len);
+		m_send_buf->Push((char *)frame, offset + len);
 	}
 	
 	Mem::Free(frame);

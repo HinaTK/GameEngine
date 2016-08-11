@@ -4,6 +4,7 @@
 #include "threadproto.h"
 #include "lib/include/db/result.h"
 #include "lib/include/common/serverconfig.h"
+#include "lib/include/base/function.h"
 
 DBManager::DBManager(DBThread *t)
 : m_thread(t)
@@ -38,8 +39,8 @@ void DBManager::LoadRoleMaxID(ThreadID tid)
 			mr.Read(0, max_id);
 		}
 
-		printf("the max role id is %d\n", max_id);
-		m_thread->GetManager()->SendMsg(ThreadProto::TP_LOAD_ROLE_MAX_ID_RET, tid, sizeof(unsigned int), (const char *)&max_id, m_thread->GetID());
+		Function::Info("The max role id is %d", max_id);
+		m_thread->GetManager()->SendMsg(tid, ThreadProto::TP_LOAD_ROLE_MAX_ID_RET, sizeof(unsigned int), (const char *)&max_id, m_thread->GetID());
 	}
 	delete mp;
 }
@@ -60,7 +61,7 @@ void DBManager::LoadRole(ThreadID tid, int len, const char *data)
 				printf("the name is %s\n", lrr.name);
 			}
 		}
-		m_thread->GetManager()->SendMsg(ThreadProto::TP_LOAD_ROLE_RET, tid, sizeof(ThreadProto::LoadRoleRet), (const char *)&lrr, m_thread->GetID());
+		m_thread->GetManager()->SendMsg(tid, ThreadProto::TP_LOAD_ROLE_RET, sizeof(ThreadProto::LoadRoleRet), (const char *)&lrr, m_thread->GetID());
 	}
 }
 
@@ -92,7 +93,7 @@ void DBManager::SaveRole(ThreadID tid, int len, const char *data)
 		srr.rid = sr->rid;
 		srr.sid = sr->sid;
 		memcpy(srr.name, sr->name, GAME_NAME_SIZE);
-		m_thread->GetManager()->SendMsg(ThreadProto::TP_SAVE_ROLE_RET, tid, sizeof(ThreadProto::SaveRoleRet), (const char *)&srr, m_thread->GetID());
+		m_thread->GetManager()->SendMsg(tid, ThreadProto::TP_SAVE_ROLE_RET, sizeof(ThreadProto::SaveRoleRet), (const char *)&srr, m_thread->GetID());
 	}
 }
 

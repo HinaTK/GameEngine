@@ -4,8 +4,6 @@
 #include "lib/include/common/memoryvl.h"
 #include "lib/include/common/mem.h"
 
-REGISTER_SAFE_MEMORYPOOL(safememorypool, ThreadMsg, 64);
-
 
 GameMsg::GameMsg()
 : msg_index(0)
@@ -73,6 +71,12 @@ void GameMsgManager::Free(GameMsg &msg)
 	}
 }
 
+ThreadMsg::ThreadMsg()
+: length(0)
+{
+
+}
+
 ThreadMsg::ThreadMsg(short _type, ThreadID _id, int _length, const char *_data)
 : type(_type)
 , id(_id)
@@ -87,8 +91,13 @@ ThreadMsg::ThreadMsg(short _type, ThreadID _id, int _length, const char *_data)
 
 ThreadMsg::~ThreadMsg()
 {
+}
+
+void ThreadMsg::Release()
+{
 	if (length > 0)
 	{
+		length = 0;
 		Mem::TFree(data);
 	}
 }

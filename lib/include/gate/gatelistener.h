@@ -20,7 +20,6 @@ public:
 
 	void			Send(const char *buf, unsigned int len);
 
-	int				buf_size;
 protected:
 	virtual bool	RecvBuf();
 	

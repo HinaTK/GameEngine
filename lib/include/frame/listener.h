@@ -16,7 +16,7 @@ class Listener : public NetHandler
 {
 	static const unsigned int BASE_BUFFER_LENGTH = 512;
 public:
-	Listener(SocketThread *t);
+	Listener(SocketThread *t, int size = 0);
     virtual ~Listener();
 
 	virtual void	OnCanRead();
@@ -26,16 +26,14 @@ public:
 
 	void			RegisterWriteFD();
 
-	int			buf_size;	// 限定的包大小
+	int				buf_size;	// 限定的包大小
 protected:
 	virtual bool	RecvBuf();
 	virtual bool	AnalyzeBuf(){ return true; };
 	
 	void			UnRegisterWriteFD();
 protected:
-	SendBuffer	*m_send_buf_read;	// 只读
-	SendBuffer	*m_send_buf_write;	// 只写
-	std::mutex	m_send_mutex;
+	SendBuffer	*m_send_buf;
 	std::mutex	m_register_write_mutex;
     int         m_register_state;
 	

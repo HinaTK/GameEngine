@@ -14,7 +14,6 @@ BaseThread::BaseThread(ThreadManager *manager, void *arg, char exit)
 : m_id(-1)
 , m_name("")
 , m_manager(manager)
-, m_arg(arg)
 , m_thread(NULL)
 , m_is_exit(false)
 , m_is_start(false)
@@ -42,31 +41,33 @@ void BaseThread::Start()
 
 void BaseThread::Loop(bool sleep)
 {
-    ThreadMsg *msg;
+	ThreadMsg msg;
     bool is_sleep = sleep;
     do
     {
-        is_sleep = sleep;
+        m_recv_queue.Size() > 0 ? is_sleep = false : is_sleep = sleep;
+        
         while (m_recv_queue.Pop(msg)/* && msg != NULL*/)
         {
-            if (msg->type > ThreadSysID::MAX_ID)
+            if (msg.type > ThreadSysID::MAX_ID)
             {
-                this->RecvData(msg->type, msg->id, msg->length, msg->data);
+                this->RecvData(msg.type, msg.id, msg.length, msg.data);
             }
             else
             {
-				if (msg->type == ThreadSysID::TSID_EXIT)
+				if (msg.type == ThreadSysID::TSID_EXIT)
 				{
 					this->Exit();
 				}
 				else
 				{
-					this->CMD(msg->type, msg->id, msg->length, msg->data);
+					if (msg.length > 0 && !this->CMD(msg.type, msg.id, msg.length, msg.data))
+					{
+						printf("Thread %d no this cmd: %s\n", m_id, msg.data);
+					}
 				}
             }
-			
-            delete msg;
-            is_sleep = false;
+            msg.Release();
         }
         if (!this->Run() && is_sleep)
         {
@@ -76,7 +77,7 @@ void BaseThread::Loop(bool sleep)
     } while (!m_is_exit);
 }
 
-void BaseThread::PushMsg(ThreadMsg *msg)
+void BaseThread::PushMsg(ThreadMsg &msg)
 {
 	m_recv_queue.Push(msg);
 }

@@ -12,7 +12,7 @@ namespace SignalCatch
 {
 	void Catch(int sig)
 	{
-		if (g_frame != NULL)
+		if (g_frame != NULL && g_frame->IsRun())
 		{
 			Function::Info("Catch exit signal %d", sig);
 			g_frame->SetExit();
@@ -66,22 +66,29 @@ void Frame::Run()
 {
 	char cmd_buf[512];
 	char *buf;
+	int cur_id = -1;		// 当前操作的线程
 	ArgSplit split("");
 	while (IsRun())
 	{
 		memset(cmd_buf, 0, sizeof(cmd_buf));
 		gets(cmd_buf);
 		split.Reset(cmd_buf);
-		split.GetArg(&buf);
+		if (!split.GetArg(&buf))
+		{
+			continue;
+		}
 
 		if (strcmp(cmd_buf, "exit") == 0)
 		{
 			SetExit();
 		}
-		else if (strcmp(cmd_buf, "ping") == 0)
+		else if (strcmp(cmd_buf, "reset") == 0)
 		{
-			// ping 一下所有线程，看是否有阻塞
-			printf("ping ...\n");
+			cur_id = -1;
+		}
+		else if (strcmp(buf, "status") == 0)
+		{
+			printf("the current id is %d\n", cur_id);
 		}
 		else if (strcmp(buf, "thread") == 0)
 		{
@@ -101,19 +108,28 @@ void Frame::Run()
 				{
 					m_thread_manager.CMD(ThreadSysID::TSID_THREAD_CMD, INVALID_THREAD_ID, strlen(buf) + 1, buf, id);
 				}
-				else
-				{
-					m_thread_manager.CMD(ThreadSysID::TSID_THREAD_CMD, INVALID_THREAD_ID, 0, NULL, id);
-				}
+				else goto NO_CMD;
 			}
 		}
-		else
+		else if (strcmp(buf, "use") == 0)
 		{
-			if (!this->Cmd(cmd_buf))
+			if (split.GetArg(&buf))
 			{
-				printf("no this cmd: %s\n", cmd_buf);
+				cur_id = atoi(buf);
 			}
+			else goto NO_CMD;
 		}
+		else if (cur_id >= 0)
+		{
+			m_thread_manager.CMD(ThreadSysID::TSID_THREAD_CMD, INVALID_THREAD_ID, strlen(cmd_buf) + 1, cmd_buf, cur_id);
+		}
+		else if (!this->Cmd(cmd_buf))
+		{
+			goto NO_CMD;
+		}
+		continue;
+NO_CMD:;
+		printf("No this cmd: %s\n", cmd_buf);		
 	}
 	
 }

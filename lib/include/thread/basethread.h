@@ -34,8 +34,8 @@ public:
 
 	void	Loop(bool sleep = true);
 
-	void	PushMsg(ThreadMsg *msg);
-	virtual void	CMD(short type, ThreadID sid, int len, const char *data){}
+	void	PushMsg(ThreadMsg &msg);
+	virtual bool 	CMD(short type, ThreadID sid, int len, const char *data){return false;}
 	ThreadManager *GetManager(){ return m_manager; }
 	void	Exit();
 	void	Wait();
@@ -60,7 +60,7 @@ protected:
 	bool			m_is_start;
 	bool			m_is_exit;
 
-	MsgQueue<ThreadMsg *> m_recv_queue;
+	MsgQueue<ThreadMsg> m_recv_queue;
 	unsigned short	m_sleep_time;
 };
 

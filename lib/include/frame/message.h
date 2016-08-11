@@ -39,12 +39,12 @@ private:
 class ThreadMsg
 {
 public:
+	ThreadMsg();
 	ThreadMsg(short _type, ThreadID _id, int _length, const char *_data);
 	~ThreadMsg();
 
-	void *		operator new(size_t c);
-	void		operator delete(void *m);
-
+	void		Release();
+	
 	short		type;	// 消息类型
 	ThreadID	id;
 	int			length;

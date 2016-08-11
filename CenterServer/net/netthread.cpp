@@ -44,7 +44,7 @@ bool NetThread::Init()
 
 bool NetThread::Ready()
 {
-	m_manager->SendMsg(ThreadProto::TP_LOAD_ROLE_MAX_ID, GetThreadID(), 0, NULL, m_id);
+	m_manager->SendMsg(GetThreadID(), ThreadProto::TP_LOAD_ROLE_MAX_ID, 0, NULL, m_id);
 	return true;
 }
 

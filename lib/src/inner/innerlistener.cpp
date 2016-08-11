@@ -42,9 +42,8 @@ bool InnerListener::RecvBuf()
 
 void InnerListener::Send( const char *buf, unsigned int len )
 {
-	MutexLock ml(&m_send_mutex);
-	m_send_buf_write->Push((const char *)&len, NetCommon::HEADER_LENGTH);
-	m_send_buf_write->Push(buf, len);
+	m_send_buf->Push((const char *)&len, NetCommon::HEADER_LENGTH);
+	m_send_buf->Push(buf, len);
 }
 
 

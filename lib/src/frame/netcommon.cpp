@@ -70,19 +70,19 @@ SOCKET Connect(const char *ip, unsigned short port)
 	if (sock == INVALID_SOCKET)
 	{
 		NetCommon::CleanUp();
-		Function::Info("Connect Server ip = %s, port = %d init socket fail", ip, port);
+		Function::Info("Connect Server ip=%s, port=%d init socket fail", ip, port);
 		return INVALID_SOCKET;
 	}
 
 	if (connect(sock, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) < 0)
 	{
-		Function::Info("Connect Server ip = %s, port = %d fail %d", ip, port, NetCommon::Error());
+		Function::Info("Connect Server ip=%s, port=%d fail %d", ip, port, NetCommon::Error());
 		NetCommon::Close(sock);
 		NetCommon::CleanUp();
 		return INVALID_SOCKET;
 	}
 
-	Function::Info("Connect Server ip = %s, port = %d Success", ip, port);
+	Function::Info("Connect Server ip=%s, port=%d Success", ip, port);
 	return sock;
 }
 
