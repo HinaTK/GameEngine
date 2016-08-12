@@ -24,6 +24,8 @@ public:
 	void	BindText(unsigned char num, char *val);
 	void	BindText(unsigned char num, char *val, unsigned int length);
 
+	bool	Init();
+	void	Close();
 	bool	Execute();
 	
 	// 以下用结果集返回
@@ -34,9 +36,12 @@ public:
 	MysqlHandler *GetHandler(){return m_handler;}
 	MYSQL_STMT 	*GetStmt(){ return m_stmt; }
 protected:
-	MysqlHandler *m_handler;
-	MYSQL_BIND	*m_param;
-	MYSQL_STMT	*m_stmt;
+	MysqlHandler 	*m_handler;
+	MYSQL_BIND		*m_param;
+	MYSQL_STMT		*m_stmt;
+
+	char 			*m_sql;
+	unsigned short 	m_sql_len;
 };
 
 #endif

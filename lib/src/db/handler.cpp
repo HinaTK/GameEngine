@@ -9,24 +9,43 @@ MysqlHandler::MysqlHandler(const char *ip, const char *user, const char *passwor
 , m_4_pool(4, 4)
 , m_8_pool(8, 2)
 {
+	strcpy(m_host, ip);
+	strcpy(m_user, user);
+	strcpy(m_passwd, password);
+	strcpy(m_db, db);
+	m_port = port;
+	Connect();
+}
+
+MysqlHandler::~MysqlHandler()
+{
+	Close();
+}
+
+bool MysqlHandler::Connect()
+{
 	m_mysql = mysql_init(NULL);
 	if (m_mysql == NULL)
 	{
 		Function::Info("mysql_init error, maybe the memory is not enough");
-		return;
+		return false;
 	}
 
-	if (mysql_real_connect(m_mysql, ip, user, password, db, port, 0, 0) == NULL)
+	if (mysql_real_connect(m_mysql, m_host, m_user, m_passwd, m_db, m_port, 0, 0) == NULL)
 	{
 		Function::Info("mysql_real_connect error ...");
-		return;
+		return false;
 	}
-
-// 	char val = 1;
-// 	mysql_options(m_mysql, MYSQL_OPT_RECONNECT, &val);
+	return true;
 }
 
-MysqlHandler::~MysqlHandler()
+bool MysqlHandler::Reconnect()
+{
+	Close();
+	return Connect();
+}
+
+void MysqlHandler::Close()
 {
 	if (m_mysql != NULL)
 	{
@@ -34,4 +53,3 @@ MysqlHandler::~MysqlHandler()
 		m_mysql = NULL;
 	}
 }
-
