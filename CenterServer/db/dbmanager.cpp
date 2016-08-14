@@ -3,6 +3,7 @@
 #include "dbthread.h"
 #include "threadproto.h"
 #include "lib/include/db/result.h"
+#include "lib/include/db/preparedynamic.h"
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/base/function.h"
 
@@ -28,13 +29,13 @@ DBManager::~DBManager()
 
 void DBManager::LoadRoleMaxID(ThreadID tid)
 {
-	MysqlPrepare *mp = new MysqlPrepare(&m_mysql, 1, "SELECT max_id FROM role_id WHERE sid=?;");
-	mp->BindInt(0, &CenterConfig::Instance().sid);
-	if (mp->Execute())
+	MysqlPrepareDynamic mp(&m_mysql, 1);
+	mp.BindInt(0, &CenterConfig::Instance().sid);
+	if (mp.Execute("SELECT max_id FROM role_id WHERE sid=?;"))
 	{
 		unsigned int max_id = 1;
-		MysqlResult mr(mp);
-		while (mp->HasResult())
+		MysqlResult mr(&mp);
+		while (mp.HasResult())
 		{
 			mr.Read(0, max_id);
 		}
@@ -42,7 +43,6 @@ void DBManager::LoadRoleMaxID(ThreadID tid)
 		Function::Info("The max role id is %d", max_id);
 		m_thread->GetManager()->SendMsg(tid, ThreadProto::TP_LOAD_ROLE_MAX_ID_RET, sizeof(unsigned int), (const char *)&max_id, m_thread->GetID());
 	}
-	delete mp;
 }
 
 void DBManager::LoadRole(ThreadID tid, int len, const char *data)
@@ -97,3 +97,13 @@ void DBManager::SaveRole(ThreadID tid, int len, const char *data)
 	}
 }
 
+
+void DBManager::Test(int id)
+{
+	MysqlPrepareDynamic mp(&m_mysql, 1);
+	mp.BindInt(0, &id);
+	if (mp.Execute("INSERT INTO test (dd) VALUES (?);"))
+	{
+		
+	}
+}

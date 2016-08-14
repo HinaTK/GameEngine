@@ -8,7 +8,7 @@ class MysqlHandler;
 class MysqlPrepare
 {
 public:
-	MysqlPrepare(MysqlHandler *handler, unsigned char num, char *sql, unsigned short sql_len = 0);
+	MysqlPrepare(MysqlHandler *handler, unsigned char num);
 	virtual ~MysqlPrepare();
 
 	void	BindTinyInt(unsigned char num, char *val);
@@ -24,9 +24,7 @@ public:
 	void	BindText(unsigned char num, char *val);
 	void	BindText(unsigned char num, char *val, unsigned int length);
 
-	bool	Init();
 	void	Close();
-	bool	Execute();
 	
 	// 以下用结果集返回
 	inline bool	HasResult() {return (mysql_stmt_fetch(m_stmt) == 0);}
@@ -35,13 +33,12 @@ public:
 
 	MysqlHandler *GetHandler(){return m_handler;}
 	MYSQL_STMT 	*GetStmt(){ return m_stmt; }
+
 protected:
+	
 	MysqlHandler 	*m_handler;
 	MYSQL_BIND		*m_param;
 	MYSQL_STMT		*m_stmt;
-
-	char 			*m_sql;
-	unsigned short 	m_sql_len;
 };
 
 #endif

@@ -2,6 +2,7 @@
 #include "dbthread.h"
 #include "threadproto.h"
 #include "lib/include/mysql/mysql.h"
+#include "lib/include/common/argsplit.h"
 
 DBThread::~DBThread()
 {
@@ -255,10 +256,26 @@ void DBThread::RecvData(short type, ThreadID sid, int len, const char *data)
 
 bool DBThread::CMD(short type, ThreadID sid, int len, const char *data)
 {
-	if (strncmp(data, "test", len) == 0)
+	char *buf;
+	ArgSplit split((char *)data);
+	split.GetArg(&buf);
+	if (strcmp(buf, "test") == 0)
 	{
-		m_manager.SaveRoleMaxID(1);
-		return true;
+		if (split.GetLeft(&buf))
+		{
+			int id = atoi(buf);
+			m_manager.Test(id);
+			return true;
+		}
+	}
+	else if (strcmp(buf, "test2") == 0)
+	{
+		if (split.GetLeft(&buf))
+		{
+			int id = atoi(buf);
+			m_manager.SaveRoleMaxID(id);
+			return true;
+		}
 	}
 	return false;
 }

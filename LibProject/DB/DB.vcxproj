@@ -15,6 +15,8 @@
     <ClInclude Include="..\..\lib\include\db\fieldmanager.h" />
     <ClInclude Include="..\..\lib\include\db\keyfield.h" />
     <ClInclude Include="..\..\lib\include\db\prepare.h" />
+    <ClInclude Include="..\..\lib\include\db\preparedynamic.h" />
+    <ClInclude Include="..\..\lib\include\db\preparestatic.h" />
     <ClInclude Include="..\..\lib\include\db\result.h" />
     <ClInclude Include="..\..\lib\include\db\handler.h" />
   </ItemGroup>
@@ -22,6 +24,8 @@
     <ClCompile Include="..\..\lib\src\db\field.cpp" />
     <ClCompile Include="..\..\lib\src\db\fieldmanager.cpp" />
     <ClCompile Include="..\..\lib\src\db\prepare.cpp" />
+    <ClCompile Include="..\..\lib\src\db\preparedynamic.cpp" />
+    <ClCompile Include="..\..\lib\src\db\preparestatic.cpp" />
     <ClCompile Include="..\..\lib\src\db\result.cpp" />
     <ClCompile Include="..\..\lib\src\db\handler.cpp" />
   </ItemGroup>

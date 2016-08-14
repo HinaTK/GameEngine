@@ -14,7 +14,10 @@ MysqlHandler::MysqlHandler(const char *ip, const char *user, const char *passwor
 	strcpy(m_passwd, password);
 	strcpy(m_db, db);
 	m_port = port;
-	Connect();
+	if (!Connect())
+	{
+		Close();
+	}
 }
 
 MysqlHandler::~MysqlHandler()
@@ -31,9 +34,11 @@ bool MysqlHandler::Connect()
 		return false;
 	}
 
+	char arg = 1;
+	mysql_options(m_mysql, MYSQL_OPT_RECONNECT, &arg);
 	if (mysql_real_connect(m_mysql, m_host, m_user, m_passwd, m_db, m_port, 0, 0) == NULL)
 	{
-		Function::Info("mysql_real_connect error ...");
+		Function::Info("mysql_real_connect error: %s", mysql_error(m_mysql));
 		return false;
 	}
 	return true;

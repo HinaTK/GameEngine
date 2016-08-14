@@ -24,6 +24,12 @@
     <ClInclude Include="..\..\lib\include\db\handler.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\lib\include\db\preparedynamic.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\db\preparestatic.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\db\field.cpp">
@@ -39,6 +45,12 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\db\handler.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\db\preparedynamic.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\db\preparestatic.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

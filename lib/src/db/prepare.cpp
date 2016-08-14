@@ -4,18 +4,15 @@
 #include "handler.h"
 #include "lib/include/base/function.h"
 
-MysqlPrepare::MysqlPrepare(MysqlHandler *handler, unsigned char num, char *sql, unsigned short sql_len)
+MysqlPrepare::MysqlPrepare(MysqlHandler *handler, unsigned char num)
 : m_handler(handler)
 , m_param(NULL)
 {
-	m_sql_len == 0 ? m_sql_len = strlen(sql) : 0;
-	m_sql = new char[m_sql_len];
 	if (num > 0)
 	{
 		m_param = new MYSQL_BIND[num];
 		memset(m_param, 0, sizeof(MYSQL_BIND)* num);
 	}
-	Init();
 }
 
 MysqlPrepare::~MysqlPrepare()
@@ -26,58 +23,7 @@ MysqlPrepare::~MysqlPrepare()
 		m_param = NULL;
 	}
 
-	if (m_sql != NULL)
-	{
-		delete []m_sql;
-		m_sql = NULL;
-	}
-
 	Close();
-}
-
-bool MysqlPrepare::Init()
-{
-	m_stmt = mysql_stmt_init(m_handler->GetMysql());
-
-	if (m_stmt == NULL)
-	{
-		// A pointer to a MYSQL_STMT structure in case of success. NULL if out of memory.
-		Function::Info("mysql_stmt_init error %s", m_sql);
-		return false;
-	}
-	
-	if (mysql_stmt_prepare(m_stmt, m_sql, m_sql_len) != 0)
-	{
-		Function::Info("mysql_stmt_prepare error %s", m_sql);
-		Function::Info("%s", mysql_stmt_error(m_stmt));
-		return false;
-	}
-
-	
-
-	return true;
-}
-
-
-bool MysqlPrepare::Execute()
-{
-	if (mysql_stmt_bind_param(m_stmt, m_param) != 0)
-	{
-		Function::Info("mysql_stmt_bind_param error %s", mysql_stmt_error(m_stmt));
-		return false;
-	}
-
-	int ret = mysql_stmt_execute(m_stmt);
-	if (ret != 0)
-	{
-		if (ret == CR_SERVER_LOST)
-		{
-			// todo 断线重连
-		}
-		Function::Info("mysql_stmt_execute error %s", mysql_stmt_error(m_stmt));
-		return false;
-	}
-	return true;
 }
 
 void MysqlPrepare::Close()
