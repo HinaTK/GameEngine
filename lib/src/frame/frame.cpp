@@ -99,8 +99,11 @@ void Frame::Run()
 	while (IsRun())
 	{
 #ifdef __unix
-		int n = read(STDIN_FILENO, cmd_buf, buf_size);
-		cmd_buf[n >= buf_size ? buf_size - 1 : n] = 0;
+		Time::Sleep(20);
+		int len = read(STDIN_FILENO, cmd_buf, buf_size);
+		if (len < 1) continue;
+		len = len > buf_size ? buf_size : len;
+		cmd_buf[len - 1] = 0;
 #endif // __unix
 #if (defined _WIN32) || (defined _WIN64)
 		memset(cmd_buf, 0, sizeof(cmd_buf));
