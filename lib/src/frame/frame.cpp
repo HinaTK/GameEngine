@@ -15,8 +15,16 @@ namespace SignalCatch
 		if (g_frame != NULL && g_frame->IsRun())
 		{
 			Function::Info("Catch exit signal %d", sig);
-			g_frame->SetExit();
-			signal(sig, SignalCatch::Catch);
+			g_frame->SetExit();	
+		}
+
+		if (sig != SIGINT)
+		{
+			signal(sig, SIG_DFL);
+		}
+		else
+		{
+			signal(SIGINT, SignalCatch::Catch);
 		}
 	}
 }
@@ -62,6 +70,19 @@ Frame::~Frame()
 	
 }
 
+// 如果信号中断会保存现场，这里可以简化，避免死锁
+void Frame::SetExit()
+{
+	if (m_is_run)
+	{
+		m_is_run = false;
+		m_thread_manager.Exit();
+		Exit();
+		m_thread_manager.Wait();
+		Wait();
+	}
+}
+
 void Frame::Run()
 {
 	char cmd_buf[512];
@@ -81,6 +102,24 @@ void Frame::Run()
 		if (strcmp(cmd_buf, "exit") == 0)
 		{
 			SetExit();
+		}
+		else if (strcmp(buf, "ping") == 0)
+		{
+			if (!split.GetLeft(&buf))
+			{
+				game::Array<BaseThread *> *threads = m_thread_manager.GetThreads();
+				for (game::Array<BaseThread *>::iterator itr = threads->Begin(); itr != threads->End(); ++itr)
+				{
+					printf("ping %d %s\n", (*itr)->GetID(), (*itr)->GetName());
+					m_thread_manager.CMD(ThreadSysID::TSID_THREAD_CMD, INVALID_THREAD_ID, sizeof("ping"), "ping", (*itr)->GetID());
+				}
+			}
+			else
+			{
+				int id = atoi(buf);
+				printf("ping %d\n", id);
+				m_thread_manager.CMD(ThreadSysID::TSID_THREAD_CMD, INVALID_THREAD_ID, sizeof("ping"), "ping", id);
+			}
 		}
 		else if (strcmp(cmd_buf, "reset") == 0)
 		{
@@ -131,20 +170,9 @@ void Frame::Run()
 NO_CMD:;
 		printf("No this cmd: %s\n", cmd_buf);		
 	}
-	
+	printf("ddddddddddddddddddddddddddd\n");	
 }
 
-void Frame::SetExit()
-{
-	if (m_is_run)
-	{
-		m_is_run = false;
-		m_thread_manager.Exit();
-		Exit();
-		m_thread_manager.Wait();
-		Wait();
-	}
-}
 
 
 

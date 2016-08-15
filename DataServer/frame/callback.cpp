@@ -7,7 +7,7 @@ void InnerCallBack::Accept()
     printf("fuck accept.................\n");
 }
 
-void InnerCallBack::Recv(GameMsg *msg)
+void InnerCallBack::Recv(NetMsg *msg)
 {
     m_frame->Recv(msg);
 }

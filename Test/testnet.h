@@ -20,7 +20,7 @@ namespace TestNet
 
 		void	Accept(NetHandle handle, const char *ip){}
 
-	    void	Recv(GameMsg *msg)
+	    void	Recv(NetMsg *msg)
 		{
 			printf("dddddd\n");
 		}
@@ -37,7 +37,7 @@ namespace TestNet
 
 		void	Accept(NetHandle handle, const char *ip){}
 
-		void	Recv(GameMsg *msg)
+		void	Recv(NetMsg *msg)
 		{
 			printf("dddddd2\n");
 			m_manager->Send(msg->handle, sizeof("this is my name"), "this is my name");

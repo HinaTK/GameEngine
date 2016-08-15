@@ -64,13 +64,13 @@ void ThreadManager::Start()
 
 void ThreadManager::SendMsg(ThreadID did, short type, int len, const char *data, ThreadID sid)
 {
-	m_thread[did]->PushMsg(ThreadMsg(type, sid, len, data));
+	m_thread[did]->PushMsg(ThreadMsg(type, sid, len, data, m_thread[did]->GetMemory()));
 }
 
-void ThreadManager::SendMsg(ThreadID did, ThreadMsg &msg)
-{
-	m_thread[did]->PushMsg(msg);
-}
+// void ThreadManager::SendMsg(ThreadID did, ThreadMsg &msg)
+// {
+// 	m_thread[did]->PushMsg(msg);
+// }
 
 void ThreadManager::CMD(short type, ThreadID sid, int len, const char *data, ThreadID did /*= -1*/)
 {
@@ -78,14 +78,14 @@ void ThreadManager::CMD(short type, ThreadID sid, int len, const char *data, Thr
 	{
 		if (m_thread.Exist(did))
 		{
-			m_thread[did]->PushMsg(ThreadMsg(type, sid, len, data));
+			m_thread[did]->PushMsg(ThreadMsg(type, sid, len, data, m_thread[did]->GetMemory()));
 		}
 	}
 	else
 	{
 		for (game::Array<BaseThread * >::iterator itr = m_thread.Begin(); itr != m_thread.End(); ++itr)
 		{
-			(*itr)->PushMsg(ThreadMsg(type, sid, len, data));
+			(*itr)->PushMsg(ThreadMsg(type, sid, len, data, m_thread[did]->GetMemory()));
 		}
 	}
 }

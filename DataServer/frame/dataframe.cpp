@@ -118,7 +118,7 @@ bool NewFrame::Init()		// 框架初始化
 }
 
 static unsigned long long begin = GameTime::Instance().MilliSecond();
-void NewFrame::Recv(GameMsg *msg)
+void NewFrame::Recv(NetMsg *msg)
 {
 //    int ret = *(int *)msg->data;
 //    printf("ret = %d\n", ret);

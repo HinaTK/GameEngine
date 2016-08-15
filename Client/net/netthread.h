@@ -24,7 +24,7 @@ public:
 	};
 
 	// 接收其它进程数据
-	void	InnerRecv(GameMsg *msg);
+	void	InnerRecv(NetMsg *msg);
 protected:
 	bool	Init();
 	bool	Run();

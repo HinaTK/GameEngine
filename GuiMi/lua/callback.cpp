@@ -8,7 +8,7 @@ void XXXCallBack::Accept(NetHandle handle, const char *ip)
 }
 
 
-void XXXCallBack::Recv(GameMsg *msg)
+void XXXCallBack::Recv(NetMsg *msg)
 {
 	m_interface->OnXXXRecv(msg->handle, msg->length, msg->data);
 }
@@ -23,7 +23,7 @@ void InnerCallBack::Accept(NetHandle handle, const char *ip)
 	m_interface->OnInnerAccept(handle, ip);
 }
 
-void InnerCallBack::Recv(GameMsg *msg)
+void InnerCallBack::Recv(NetMsg *msg)
 {
 	m_interface->OnInnerRecv(msg->handle, msg->length, msg->data);
 	delete msg;
@@ -40,7 +40,7 @@ void OuterCallBack::Accept(NetHandle handle, const char *ip)
 	m_interface->OnAccept(handle, ip);
 }
 
-void OuterCallBack::Recv(GameMsg *msg)
+void OuterCallBack::Recv(NetMsg *msg)
 {
 	m_interface->OnRecv(msg->handle, msg->length, msg->data);
 	delete msg;

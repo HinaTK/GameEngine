@@ -14,6 +14,7 @@ DBThread::DBThread(ThreadManager *manager)
 , m_manager(this)
 {
 	m_name = "db";
+	SetSleepTime(10);
 }
 
 bool DBThread::Run()

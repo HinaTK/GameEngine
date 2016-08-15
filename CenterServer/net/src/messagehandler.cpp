@@ -14,7 +14,7 @@ MessageHandler::MessageHandler(NetThread *t)
 	m_function_list[Proto::CS_CREATE_ROLE]	= HandlerItem(&MessageHandler::CSCreateRole,	sizeof(Proto::csCreateRole));
 }
 
-void MessageHandler::HandleMessage(GameMsg *msg)
+void MessageHandler::HandleMessage(NetMsg *msg)
 {
 	// todo ¶Ï¿ªÁ¬½Ó
 	Router *router = (Router *)msg->data;
@@ -31,7 +31,7 @@ void MessageHandler::HandleMessage(GameMsg *msg)
 	(this->*m_function_list[*router].func)(msg);
 }
 
-void MessageHandler::CSLogin(GameMsg *msg)
+void MessageHandler::CSLogin(NetMsg *msg)
 {
 	Proto::csLogin *login = (Proto::csLogin *)msg->data;
 	ThreadProto::LoadRole lr;
@@ -41,7 +41,7 @@ void MessageHandler::CSLogin(GameMsg *msg)
 	m_thread->GetManager()->SendMsg(m_thread->GetThreadID(), ThreadProto::TP_LOAD_ROLE, sizeof(ThreadProto::LoadRole), (const char *)&lr, m_thread->GetID());
 }
 
-void MessageHandler::CSCreateRole(GameMsg *msg)
+void MessageHandler::CSCreateRole(NetMsg *msg)
 {
 	Proto::csCreateRole *role = (Proto::csCreateRole *)msg->data;
 

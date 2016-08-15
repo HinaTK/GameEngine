@@ -45,7 +45,7 @@ void BaseThread::Loop(bool sleep)
     bool is_sleep = sleep;
     do
     {
-        m_recv_queue.Size() > 0 ? is_sleep = false : is_sleep = sleep;
+        is_sleep = m_recv_queue.Size() > 0 ? false : sleep;
         
         while (m_recv_queue.Pop(msg)/* && msg != NULL*/)
         {
@@ -61,13 +61,10 @@ void BaseThread::Loop(bool sleep)
 				}
 				else
 				{
-					if (msg.length > 0 && !this->CMD(msg.type, msg.id, msg.length, msg.data))
-					{
-						printf("Thread %d no this cmd: %s\n", m_id, msg.data);
-					}
+					this->SysCmd(msg);
 				}
             }
-            msg.Release();
+            m_msg_memory.Free(msg);
         }
         if (!this->Run() && is_sleep)
         {
@@ -76,6 +73,7 @@ void BaseThread::Loop(bool sleep)
 
     } while (!m_is_exit);
 }
+
 
 void BaseThread::PushMsg(ThreadMsg &msg)
 {
@@ -96,6 +94,22 @@ void BaseThread::Wait()
 	Loop(false);
 }
 
-
+void BaseThread::SysCmd(ThreadMsg &msg)
+{
+	if (msg.length > 0)
+	{
+		if (strcmp(msg.data, "ping") == 0)
+		{
+			printf("pong %d %s\n", m_id, m_name.c_str());
+		}
+		else 
+		{
+			if (!this->CMD(msg.type, msg.id, msg.length, msg.data))
+			{
+				printf("Thread %d no this cmd: %s\n", m_id, msg.data);
+			}
+		}
+	}
+}
 
 

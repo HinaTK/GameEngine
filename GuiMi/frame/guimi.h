@@ -29,10 +29,10 @@ public:
 	virtual bool Run();
 	void	Exit();
 	void	Wait();
-	void	OuterRecv(GameMsg *msg);
-	void	InnerRecv(GameMsg *msg);
+	void	OuterRecv(NetMsg *msg);
+	void	InnerRecv(NetMsg *msg);
 
-	void	PushMsg(GameMsg *msg, SceneID scene_id = 0);
+	void	PushMsg(NetMsg *msg, SceneID scene_id = 0);
 
 	Interface *GetInterface(){ return &m_lua_interface; }
 	SceneManager *GetSceneManager(){ return &m_scene_manager; }

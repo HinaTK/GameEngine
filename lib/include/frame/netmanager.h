@@ -20,7 +20,7 @@ public:
 	MsgHandler(MsgCallBack *call_back);
 	~MsgHandler();
 
-	inline void Recv(GameMsgType msg_type, GameMsg &msg)
+	inline void Recv(NetMsgType msg_type, NetMsg &msg)
 	{
 		m_bm[msg_type]->Recv(&msg);
 	}

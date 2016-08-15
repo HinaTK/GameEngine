@@ -70,7 +70,7 @@ void HttpAccepter::OnCanRead()
 		handler->m_msg_index = m_msg_index;
 		handler->m_sock = new_sock;
 		handler->m_handle = m_thread->AddNetHandler(handler);
-		m_thread->PushGameMsg(handler, BaseMsg::MSG_ACCEPT, inet_ntoa(addr.sin_addr), strlen(inet_ntoa(addr.sin_addr)) + 1);
+		m_thread->PushNetMsg(handler, BaseMsg::MSG_ACCEPT, inet_ntoa(addr.sin_addr), strlen(inet_ntoa(addr.sin_addr)) + 1);
 	}
 }
 

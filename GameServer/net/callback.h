@@ -15,7 +15,7 @@ public:
 
 	void	Accept(NetHandle handle, const char *ip);
 
-    void	Recv(GameMsg *msg);
+    void	Recv(NetMsg *msg);
 
 	void	Disconnect(NetHandle handle, int err, int reason);
 
@@ -33,7 +33,7 @@ public:
 
 	void	Accept(NetHandle handle, const char *ip);
 
-	void	Recv(GameMsg *msg);
+	void	Recv(NetMsg *msg);
 
 	void	Disconnect(NetHandle handle, int err, int reason);
 

@@ -13,7 +13,7 @@ public:
 
     void	Accept();
 
-    void	Recv(GameMsg *msg);
+    void	Recv(NetMsg *msg);
 
     void	Disconnect(NetHandle handle);
 
