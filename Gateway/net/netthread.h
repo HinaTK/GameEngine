@@ -22,8 +22,8 @@ public:
 	};
 
 	// 接收其它进程数据
-	void	InnerRecv(GameMsg *msg);
-	void	InsertGame(GameMsg *msg);
+	void	InnerRecv(NetMsg *msg);
+	void	InsertGame(NetMsg *msg);
 
 	void	ConnetRet(NetHandle handle, int flag);
 protected:

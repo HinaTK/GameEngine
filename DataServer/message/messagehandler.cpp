@@ -9,10 +9,10 @@
 // {
 // 	static const unsigned int sleepTime = 60 * 1000;
 // 	MessageHandler *handler = (MessageHandler *)arg;
-// 	CircleQueue<GameMsg *> data_queue = handler->DataQueue();
+// 	CircleQueue<NetMsg *> data_queue = handler->DataQueue();
 // 	while (1)
 // 	{
-// // 		GameMsg **msg = data_queue.Pop();
+// // 		NetMsg **msg = data_queue.Pop();
 // // 		if (msg != NULL)
 // // 		{
 // // 			// 处理数据
@@ -43,7 +43,7 @@ MessageHandler::~MessageHandler()
 	//MessageBox(NULL, L"初始化socket失败", L"消息", MB_OK);
 }
 
-void MessageHandler::HandleMessage(GameMsg *msg)
+void MessageHandler::HandleMessage(NetMsg *msg)
 {
 	do 
 	{

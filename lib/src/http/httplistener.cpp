@@ -132,12 +132,12 @@ void HttpListener::Push(int type, const char *field, unsigned int len1, const ch
 {
 // 	static const int TYPE_SIZE = sizeof(int);
 // 	// todo 判断len 是否合法
-// 	GameMsg *msg = m_thread->CreateGameMsg(this->m_msg_index, BaseMsg::MSG_RECV, this->m_handle, TYPE_SIZE + HttpListener::MAX_FILED_LEN + len2);
+// 	NetMsg *msg = m_thread->CreateNetMsg(this->m_msg_index, BaseMsg::MSG_RECV, this->m_handle, TYPE_SIZE + HttpListener::MAX_FILED_LEN + len2);
 // 	*(int *)msg->data = type;
 // 	memcpy(msg->data + TYPE_SIZE, field, len1);
 // 	memcpy(msg->data + TYPE_SIZE + HttpListener::MAX_FILED_LEN, value, len2);
-// 	m_thread->PushGameMsg(msg);
-// 	m_thread->PushGameMsg(this, BaseMsg::MSG_RECV, inet_ntoa(addr.sin_addr), strlen(inet_ntoa(addr.sin_addr)) + 1);
+// 	m_thread->PushNetMsg(msg);
+// 	m_thread->PushNetMsg(this, BaseMsg::MSG_RECV, inet_ntoa(addr.sin_addr), strlen(inet_ntoa(addr.sin_addr)) + 1);
 }
 
 void HttpListener::Send(const char *buf, unsigned int len)

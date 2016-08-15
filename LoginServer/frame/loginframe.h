@@ -34,7 +34,7 @@ public:
 
 	void		Exit();
 	void		Wait();
-	void		Recv(GameMsg *msg);
+	void		Recv(NetMsg *msg);
 
 public:
 	void		OnLoginReq(NetHandle handle, char *data, unsigned int length);

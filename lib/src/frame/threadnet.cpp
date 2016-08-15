@@ -36,15 +36,15 @@ void ThreadNet::RemoveHandler(NetHandle handle, int err, int reason)
 }
 
 
-void ThreadNet::PushGameMsg(GameMsg &msg)
+void ThreadNet::PushNetMsg(NetMsg &msg)
 {
 	m_queue.Push(msg);
 }
 
-void ThreadNet::PushGameMsg(NetHandler *handler, GameMsgType msg_type, const char *data, unsigned int len)
+void ThreadNet::PushNetMsg(NetHandler *handler, NetMsgType msg_type, const char *data, unsigned int len)
 {
-	GameMsg msg(handler->m_msg_index, msg_type, handler->m_handle, len);
-	m_msg_manager.Alloc(&msg.data, data, len);
+	NetMsg msg(handler->m_msg_index, msg_type, handler->m_handle, len);
+	m_net_memory.Alloc(&msg.data, data, len);
 	m_queue.Push(msg);
 }
 
@@ -71,7 +71,7 @@ void ThreadNet::AddHandler(const char *data)
 	NetHandler *handler = (NetHandler *)sa->listener;
 	ard.handle = AddNetHandler(handler);
 	ard.flag = sa->flag;
-	PushGameMsg(handler, BaseMsg::MSG_ACCEPT, (const char *)&ard, sizeof(SocketMsg::AddHandlerRet::Data));
+	PushNetMsg(handler, BaseMsg::MSG_ACCEPT, (const char *)&ard, sizeof(SocketMsg::AddHandlerRet::Data));
 }
 
 void ThreadNet::SendMsg(NetHandle handle, int length, const char *data)

@@ -28,7 +28,7 @@ public:
 
 	void	Wait();
 
-	void	Recv(GameMsg *msg);
+	void	Recv(NetMsg *msg);
 
 public:
 

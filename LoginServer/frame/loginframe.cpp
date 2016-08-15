@@ -13,7 +13,7 @@ public:
 	OuterCallBack(NewFrame *frame) : m_frame(frame){}
 	~OuterCallBack(){}
 
-	void	Recv(GameMsg *msg)
+	void	Recv(NetMsg *msg)
 	{
 		m_frame->Recv(msg);
 	}
@@ -30,7 +30,7 @@ public:
 	InnerCallBack(NewFrame *frame) : m_frame(frame){}
 	~InnerCallBack(){}
 
-	void	Recv(GameMsg *msg)
+	void	Recv(NetMsg *msg)
 	{
 		m_frame->Recv(msg);
 	}
@@ -102,7 +102,7 @@ bool NewFrame::Init()
 }
 
 
-void NewFrame::Recv(GameMsg *msg)
+void NewFrame::Recv(NetMsg *msg)
 {
 	int ret = *(int *)msg->data;
 	

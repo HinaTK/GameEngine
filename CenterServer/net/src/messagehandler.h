@@ -12,9 +12,9 @@ class MessageHandler
 public:
 	MessageHandler(NetThread *t);
 	~MessageHandler(){};
-	typedef void (MessageHandler::*HandleFunc)(GameMsg *msg);
+	typedef void (MessageHandler::*HandleFunc)(NetMsg *msg);
 
-	void	HandleMessage(GameMsg *msg);
+	void	HandleMessage(NetMsg *msg);
 protected:
 	
 	struct HandlerItem 
@@ -26,8 +26,8 @@ protected:
 	};
 	HandlerItem m_function_list[Proto::CENTER_END];
 
-	void	CSLogin(GameMsg *msg);
-	void	CSCreateRole(GameMsg *msg);
+	void	CSLogin(NetMsg *msg);
+	void	CSCreateRole(NetMsg *msg);
 
 	NetThread		*m_thread;
 

@@ -7,7 +7,7 @@ void CallBack::Accept(NetHandle handle, const char *ip)
     printf("fuck accept.................\n");
 }
 
-void CallBack::Recv(GameMsg *msg)
+void CallBack::Recv(NetMsg *msg)
 {
 	//m_thread->
 }
@@ -22,7 +22,7 @@ void InnerCallBack::Accept(NetHandle handle, const char *ip)
 	printf("fuck accept.................\n");
 }
 
-void InnerCallBack::Recv(GameMsg *msg)
+void InnerCallBack::Recv(NetMsg *msg)
 {
 	//m_thread->
 }

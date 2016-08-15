@@ -26,7 +26,7 @@ bool NetThread::Init()
 	return true;
 }
 
-void NetThread::InnerRecv(GameMsg *msg)
+void NetThread::InnerRecv(NetMsg *msg)
 {
 }
 

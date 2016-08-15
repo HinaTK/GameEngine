@@ -61,7 +61,7 @@ void SocketThread::ClearHandler()
 			FD_CLR(handler->m_sock, &m_write_set);
 
 			NetCommon::Close(handler->m_sock);
-			PushGameMsg(handler, BaseMsg::MSG_DISCONNECT, (const char *)&itr->show, sizeof(itr->show));
+			PushNetMsg(handler, BaseMsg::MSG_DISCONNECT, (const char *)&itr->show, sizeof(itr->show));
 			delete handler;
 		}
 	}

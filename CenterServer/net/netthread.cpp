@@ -77,7 +77,7 @@ void NetThread::RecvData(short type, ThreadID sid, int len, const char *data)
 	}
 }
 
-void NetThread::InnerRecv(GameMsg *msg)
+void NetThread::InnerRecv(NetMsg *msg)
 {
 	static const int SHORT_LEN = sizeof(unsigned short);
 	unsigned short router = (unsigned short)*msg->data;
@@ -92,7 +92,7 @@ void NetThread::InnerRecv(GameMsg *msg)
 }
 
 
-void NetThread::InsertServer(GameMsg *msg)
+void NetThread::InsertServer(NetMsg *msg)
 {
 	struct Inner::tocRegisterServer *rs = (struct Inner::tocRegisterServer *)msg->data;
 	if (rs->type < Inner::ST_MAX)

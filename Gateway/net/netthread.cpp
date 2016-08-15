@@ -49,7 +49,7 @@ bool NetThread::Init()
 	return true;
 }
 
-void NetThread::InnerRecv(GameMsg *msg)
+void NetThread::InnerRecv(NetMsg *msg)
 {
 	static const int SHORT_LEN = sizeof(unsigned short);
 	unsigned short router = (unsigned short)*msg->data;
@@ -63,7 +63,7 @@ void NetThread::InnerRecv(GameMsg *msg)
 }
 
 
-void NetThread::InsertGame(GameMsg *msg)
+void NetThread::InsertGame(NetMsg *msg)
 {
 	Inner::ctoBrocastRegister *br = (Inner::ctoBrocastRegister *)msg->data;
 	if (br->type == Inner::ST_GAME)

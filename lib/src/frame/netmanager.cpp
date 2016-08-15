@@ -90,12 +90,12 @@ void NetManager::AsyncConnect(const char *ip, unsigned short port, Listener *lis
 	SocketMsg::AddHandler ah;
 	ah.flag = flag;
 	ah.listener = (void *)listener;
-	m_thread->PushMsg(ThreadMsg(SocketMsg::STM_ADD_HANDLER, -1, sizeof(SocketMsg::AddHandler), (const char *)&ah));
+	m_thread->PushMsg(ThreadMsg(SocketMsg::STM_ADD_HANDLER, -1, sizeof(SocketMsg::AddHandler), (const char *)&ah, m_thread->GetMemory()));
 }
 
 void NetManager::RemoveHandler(NetHandle handle)
 {
-	m_thread->PushMsg(ThreadMsg(SocketMsg::STM_REMOVE_HANDLER, -1, sizeof(NetHandle), (const char *)&handle));
+	m_thread->PushMsg(ThreadMsg(SocketMsg::STM_REMOVE_HANDLER, -1, sizeof(NetHandle), (const char *)&handle, m_thread->GetMemory()));
 }
 
 unsigned int NetManager::AddMsgHandler(MsgCallBack *call_back)
@@ -114,12 +114,12 @@ unsigned int NetManager::AddMsgHandler(MsgCallBack *call_back)
 
 void NetManager::Send(NetHandle handle, unsigned int length, const char *buf)
 {
-	m_thread->PushMsg(ThreadMsg(SocketMsg::STM_SEND_MSG, handle, length, buf));
+	m_thread->PushMsg(ThreadMsg(SocketMsg::STM_SEND_MSG, handle, length, buf, m_thread->GetMemory()));
 }
 
 bool NetManager::Update()
 {
-	GameMsg msg;
+	NetMsg msg;
 	SocketThread::NetMessage *queue = m_thread->GetQueue();
 	bool ret = queue->Size() > 0;
 	do

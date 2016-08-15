@@ -13,11 +13,11 @@ public:
 	MessageHandler();
 	~MessageHandler();
 
-	void	HandleMessage(GameMsg *msg);
+	void	HandleMessage(NetMsg *msg);
 	void	Exit();
 	void	Wait();
 
-	CircleQueue<GameMsg *> &DataQueue(){ return m_queue; }
+	CircleQueue<NetMsg *> &DataQueue(){ return m_queue; }
 	bool	m_is_run;
 protected:
 	typedef void (MessageHandler::*HandleFunc)(char *msg);
@@ -30,7 +30,7 @@ protected:
 	};
 	HandlerItem m_function_list[IProtocol::MT_MAX_DATABASE_SERVER_TYPE - IProtocol::MT_MIN_DATABASE_SERVER_TYPE];
 
-	CircleQueue<GameMsg *>	m_queue;
+	CircleQueue<NetMsg *>	m_queue;
 	Thread					m_flush_thread;		// 冲刷队列线程
 
 	void	UserLogin(char * msg);

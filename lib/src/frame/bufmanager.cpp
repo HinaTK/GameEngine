@@ -156,7 +156,7 @@ int RecvBuffer::AddBufLen(int len)
 		m_buf_len += len;
 		if (m_buf_len == m_msg.length)
 		{
-			m_listener->GetThread()->PushGameMsg(m_msg);
+			m_listener->GetThread()->PushNetMsg(m_msg);
 			ResetBuf();
 		}
 	}

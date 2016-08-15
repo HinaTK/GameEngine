@@ -66,13 +66,13 @@ void NewFrame::Loop()
 	m_net_manager.Update();
 }
 
-void NewFrame::OuterRecv(GameMsg *msg)
+void NewFrame::OuterRecv(NetMsg *msg)
 {
 
 }
 
 
-void NewFrame::InnerRecv(GameMsg *msg)
+void NewFrame::InnerRecv(NetMsg *msg)
 {
 
 }

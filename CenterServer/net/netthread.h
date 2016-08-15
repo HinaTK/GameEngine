@@ -25,11 +25,11 @@ public:
 		char ip[32];
 		unsigned short port;
 	};
-	void	Recv(GameMsg *msg){ m_message_handler.HandleMessage(msg); };
+	void	Recv(NetMsg *msg){ m_message_handler.HandleMessage(msg); };
 
 	// 接收其它进程数据
-	void	InnerRecv(GameMsg *msg);
-	void	InsertServer(GameMsg *msg);
+	void	InnerRecv(NetMsg *msg);
+	void	InsertServer(NetMsg *msg);
 	void	RemoveServer(NetHandle handle);
 
 	IDPool			*GetIDPool(){ return &m_id_pool; }
