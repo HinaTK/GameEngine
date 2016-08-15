@@ -85,14 +85,27 @@ void Frame::SetExit()
 
 void Frame::Run()
 {
-	char cmd_buf[512];
+	static const int buf_size = 512;
+	char cmd_buf[buf_size];
 	char *buf;
 	int cur_id = -1;		// 当前操作的线程
 	ArgSplit split("");
+#ifdef __unix
+	int flags = fcntl(socket, F_GETFL, 0);
+	/* 设置为非阻塞*/
+	fcntl(STDIN_FILENO, F_SETFL, flags | O_NONBLOCK);
+#endif // __unix
+
 	while (IsRun())
 	{
+#ifdef __unix
+		int n = read(STDIN_FILENO, cmd_buf, buf_size);
+		cmd_buf[n >= buf_size ? buf_size - 1 : n] = 0;
+#endif // __unix
+#if (defined _WIN32) || (defined _WIN64)
 		memset(cmd_buf, 0, sizeof(cmd_buf));
 		gets(cmd_buf);
+#endif
 		split.Reset(cmd_buf);
 		if (!split.GetArg(&buf))
 		{
@@ -170,7 +183,6 @@ void Frame::Run()
 NO_CMD:;
 		printf("No this cmd: %s\n", cmd_buf);		
 	}
-	printf("ddddddddddddddddddddddddddd\n");	
 }
 
 
