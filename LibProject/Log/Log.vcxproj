@@ -11,16 +11,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\include\log\log.h" />
-    <ClInclude Include="..\..\lib\include\log\logdb.h" />
     <ClInclude Include="..\..\lib\include\log\logfile.h" />
     <ClInclude Include="..\..\lib\include\log\logmanager.h" />
+    <ClInclude Include="..\..\lib\include\log\logrole.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lib\src\log\log.cpp" />
-    <ClCompile Include="..\..\lib\src\log\logdb.cpp" />
     <ClCompile Include="..\..\lib\src\log\logfile.cpp" />
     <ClCompile Include="..\..\lib\src\log\logmanager.cpp" />
+    <ClCompile Include="..\..\lib\src\log\logrole.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9D875C0B-BF7D-440A-A430-07F8E68B8BA4}</ProjectGuid>

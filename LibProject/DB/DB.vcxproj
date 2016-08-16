@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\lib\include\db\base.h" />
     <ClInclude Include="..\..\lib\include\db\field.h" />
     <ClInclude Include="..\..\lib\include\db\fieldmanager.h" />
     <ClInclude Include="..\..\lib\include\db\keyfield.h" />
@@ -21,6 +22,7 @@
     <ClInclude Include="..\..\lib\include\db\handler.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\lib\src\db\base.cpp" />
     <ClCompile Include="..\..\lib\src\db\field.cpp" />
     <ClCompile Include="..\..\lib\src\db\fieldmanager.cpp" />
     <ClCompile Include="..\..\lib\src\db\prepare.cpp" />

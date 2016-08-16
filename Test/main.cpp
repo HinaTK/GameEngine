@@ -186,8 +186,7 @@ int main()
 // 		printf("aaaaaaaaaaaaaa \n");
 // 		Sleep(1000000);
 // 	}
-	Function::Info("ddddddddddddd\n");
-	Function::Info("ddddddddddddd %d\n",123);
+
 	Function::WindowsPause();
 	return 0;
 }

@@ -5,8 +5,9 @@
 #include <vector>
 #include <string>
 #include "lib/include/thread/basethread.h"
-#include "lib/include/db/handler.h"
+#include "lib/include/db/base.h"
 #include "lib/include/db/prepare.h"
+#include "lib/include/base/export.h"
 #include "common/serverdef.h"
 #include "common/datastructure/gamevector.h"
 
@@ -46,36 +47,40 @@ namespace LogDBMsg
 }
 
 
-class LogDB : public BaseThread
+class LogRole : public BaseThread
 {
 public:
-	LogDB(ThreadManager *manager, int log_num);
-	~LogDB();
+	LogRole(ThreadManager *manager, int log_num, LogDBMsg::LogRegister *reg);
+	~LogRole();
 
+	static const int SAVE_INTERVAL = 10;
 	struct LogItem
 	{
-		LogItem() :logs(32){}
-		std::string db_name;
-		game::Vector<std::string> logs;
+		std::string default;
+		std::string logs;
 	};
 
-	static int MakeJson(char *buf, char *format, ...);
+	static int MakeLog(unsigned short index, RoleID role_id, char *buf, char *format, ...);
 
-protected:
 	bool	Init();
 	bool	Ready();
+protected:
+	
+	
 	bool	Run();
 	void	RecvData(short type, ThreadID sid, int len, const char *data);
 private:
 	void	Register(LogDBMsg::LogRegister *data);
 	void	Write(int len, const char *data);
 	void	RoleWrite(int len, const char *data);
+	bool	Save(LogItem &item);
 private:
 	int				m_log_num;
 	LogItem			*m_log_list;
-	MysqlHandler	m_mysql;
-};
+	time_t			m_next_time;
+	MysqlBase		m_mysql;
 
+};
 
 
 #endif

@@ -6,7 +6,7 @@
 #include "common/protocol/messageheader.h"
 #include "lib/include/frame/main.h"
 #include "lib/include/common/serverconfig.h"
-
+#include "lib/include/log/logrole.h"
 
 
 
@@ -24,9 +24,14 @@ NewFrame::~NewFrame()
 // 框架初始化
 bool NewFrame::Init()
 {
+	LogDBMsg::LogRegister reg[] =
+	{
+		{0, "log_gold"}
+	};
 	GameConfig::Instance().Init();
 	m_thread_manager.Register(new NetThread(&m_thread_manager));
 	m_db_id = m_thread_manager.Register(new DBThread(&m_thread_manager));
+	m_log_id = m_thread_manager.Register(new LogRole(&m_thread_manager, 1, reg));
 	return true;
 }
 
@@ -55,5 +60,16 @@ void NewFrame::Wait()
 
 }
 
+bool NewFrame::Cmd(char *buf)
+{
+	if (strcmp(buf, "test") == 0)
+	{
+
+		return true;
+	}
+	return false;
+}
+
 GAME_MAIN(NewFrame);
+
 

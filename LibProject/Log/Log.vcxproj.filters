@@ -6,30 +6,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\include\log\log.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\lib\include\log\logmanager.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\include\log\logdb.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\log\logfile.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\lib\include\log\logrole.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lib\src\log\log.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\lib\src\log\logmanager.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\log\logdb.cpp">
+    <ClCompile Include="..\..\lib\src\log\logfile.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\log\logfile.cpp">
+    <ClCompile Include="..\..\lib\src\log\logrole.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

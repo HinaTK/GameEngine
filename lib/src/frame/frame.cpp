@@ -76,10 +76,7 @@ void Frame::SetExit()
 	if (m_is_run)
 	{
 		m_is_run = false;
-		m_thread_manager.Exit();
-		Exit();
-		m_thread_manager.Wait();
-		Wait();
+		m_thread_manager.Exit();	
 	}
 }
 
@@ -186,6 +183,10 @@ void Frame::Run()
 NO_CMD:;
 		printf("No this cmd: %s\n", cmd_buf);		
 	}
+
+	Exit();
+	m_thread_manager.Wait();
+	Wait();
 }
 
 

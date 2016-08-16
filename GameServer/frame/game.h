@@ -26,8 +26,10 @@ public:
 	void	Wait();
 
 	bool	Start();
+	bool	Cmd(char *buf);
 public:
-	int			m_db_id;
+	ThreadID	m_db_id;
+	ThreadID	m_log_id;
 	NetHandle	m_database_server_handle;
 	SOCKET		m_gateway_server_net_id;
 private:
