@@ -62,8 +62,6 @@ public:
 
 	static int MakeLog(unsigned short index, RoleID role_id, char *buf, char *format, ...);
 
-	bool	Init();
-	bool	Ready();
 protected:
 	
 	
