@@ -186,7 +186,11 @@ int main()
 // 		printf("aaaaaaaaaaaaaa \n");
 // 		Sleep(1000000);
 // 	}
-
+	std::mutex mm;
+	mm.lock();
+	mm.lock();
+	printf("dddddddddddddd\n");
+	mm.unlock();
 	Function::WindowsPause();
 	return 0;
 }

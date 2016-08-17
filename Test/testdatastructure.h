@@ -522,33 +522,33 @@ namespace TestDataStructure
 
 	void TestMsgQueue2()
 	{
-		std::thread thread1(TestMsgQueue3);
-		for (int i = 0; i <= test_time;)
-		{
-			int *val = 0;
-			if (test_msg_queue1.Pop(val))
-			{
-				
-				if ((*val) != i)
-				{
-					printf("val = %d, i = %d\n", *val, i);
-					break;
-				}
-				else if ((*val) == test_time)
-				{
-					break;
-				}
-				else if ((*val) % 100000 == 0)
-				{
-					printf("show val = %d, i = %d\n", (*val), i);
-				}
-				delete val;
-				++i;
-			}
-	
-		}
-		printf("end \n");
-		thread1.join();
+// 		std::thread thread1(TestMsgQueue3);
+// 		for (int i = 0; i <= test_time;)
+// 		{
+// 			int *val = 0;
+// 			if (test_msg_queue1.Pop(val))
+// 			{
+// 				
+// 				if ((*val) != i)
+// 				{
+// 					printf("val = %d, i = %d\n", *val, i);
+// 					break;
+// 				}
+// 				else if ((*val) == test_time)
+// 				{
+// 					break;
+// 				}
+// 				else if ((*val) % 100000 == 0)
+// 				{
+// 					printf("show val = %d, i = %d\n", (*val), i);
+// 				}
+// 				delete val;
+// 				++i;
+// 			}
+// 	
+// 		}
+// 		printf("end \n");
+// 		thread1.join();
 	}
 }
 

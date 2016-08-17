@@ -14,6 +14,7 @@ CenterConfig::Instance().db.passwd.c_str(),
 CenterConfig::Instance().db.dbname.c_str(),
 CenterConfig::Instance().db.port)
 {
+	m_name = "log_role";
 	m_log_list = new LogItem[m_log_num];
 	for (int i = 0; i < m_log_num; ++i)
 	{
@@ -39,17 +40,16 @@ bool LogRole::Run()
 		{
 			if (m_log_list[i].default.size() > 0 && m_log_list[i].logs.size() > m_log_list[i].default.size())
 			{
-				m_log_list[i].logs.replace(m_log_list[i].logs.size() - 1, 1, ");");
-				int ret = mysql_query(m_mysql.GetMysql(), m_log_list[i].logs.c_str());//查询
-		        if(ret != 0)
+				m_log_list[i].logs.replace(m_log_list[i].logs.size() - 1, 1, ";");
+				if (mysql_query(m_mysql.GetMysql(), m_log_list[i].logs.c_str()) != 0)
 		        {
 		        	// todo 写文本日志
-		            Function::Info("save role log error %s\n",mysql_error(m_mysql.GetMysql()));
+		            Function::Info("save role log error %s", mysql_error(m_mysql.GetMysql()));
 		        }
 		         m_log_list[i].logs = m_log_list[i].default;
 			}
 		}
-		m_next_time = now;
+		m_next_time = now + SAVE_INTERVAL;
 	}
 	
 	return false;
@@ -93,24 +93,13 @@ void LogRole::Register(LogDBMsg::LogRegister *data)
 
 void LogRole::Write(int len, const char *data)
 {
-	if (len <= LogDBMsg::LOG_WRITE_LEN)
-	{
-		return;
-	}
-
-	LogDBMsg::LogWrite *lw = (LogDBMsg::LogWrite *)data;
-	int data_len = len - LogDBMsg::LOG_WRITE_LEN;
-}
-
-void LogRole::RoleWrite(int len, const char *data)
-{
 	if (len <= LogDBMsg::LOG_ROLE_WRITE_LEN)
 	{
 		return;
 	}
 
 	LogDBMsg::LogRoleWrite *lw = (LogDBMsg::LogRoleWrite *)data;
-	if (lw->index >= m_log_num || m_log_list[lw->index].default.size() > 0)
+	if (lw->index >= m_log_num || m_log_list[lw->index].default.size() < 1)
 	{
 		return;
 	}
@@ -118,25 +107,30 @@ void LogRole::RoleWrite(int len, const char *data)
 	int data_len = len - LogDBMsg::LOG_ROLE_WRITE_LEN;
 	char *log = (char *)(data + LogDBMsg::LOG_ROLE_WRITE_LEN);
 	log[data_len - 1] = 0;
-	static char str_val[32];
+	char str_val[32];
 #if (defined _WIN32) || (defined _WIN64)
-	sprintf(str_val,"(%I64d,",lw->role_id);
+	sprintf(str_val,"(%I64d,'",lw->role_id);
 #elif
 	sprintf(str_val,"(%lld,",lw->role_id);	
 #endif	
 	
-	m_log_list[lw->index].logs = m_log_list[lw->index].logs + str_val + log + "),";
+	m_log_list[lw->index].logs = m_log_list[lw->index].logs + str_val + log + "'),";
 }
 
 int LogRole::MakeLog(unsigned short index, RoleID role_id, char *buf, char *format, ...)
 {
 	va_list args; 
 	va_start(args, format); 
-	int ret = vsprintf(buf, format, args);
+	int ret = vsprintf(buf + LogDBMsg::LOG_ROLE_WRITE_LEN, format, args);
 	va_end(args); 
 	if (ret > 0)
 	{
-		return LogDBMsg::LOG_ROLE_WRITE_LEN + ret;
+		LogDBMsg::LogRoleWrite lw;
+		lw.index = index;
+		lw.role_id = role_id;
+		lw.len = ret;
+		memcpy(buf,  &lw, LogDBMsg::LOG_ROLE_WRITE_LEN);
+		return LogDBMsg::LOG_ROLE_WRITE_LEN + ret + 1;
 	}
 	return ret;
 }

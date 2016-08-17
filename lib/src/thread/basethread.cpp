@@ -51,7 +51,7 @@ void BaseThread::Loop(bool sleep)
         {
             if (msg.type > ThreadSysID::MAX_ID)
             {
-                this->RecvData(msg.type, msg.id, msg.length, msg.data);
+				this->RecvData(msg.type, msg.id, msg.length, msg.data);
             }
             else
             {
@@ -66,7 +66,7 @@ void BaseThread::Loop(bool sleep)
             }
             m_msg_memory.Free(msg);
         }
-        if (!this->Run() && is_sleep)
+        if (!Run() && is_sleep)
         {
             Time::Sleep(m_sleep_time);
         }

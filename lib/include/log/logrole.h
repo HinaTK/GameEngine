@@ -64,13 +64,11 @@ public:
 
 protected:
 	
-	
 	bool	Run();
 	void	RecvData(short type, ThreadID sid, int len, const char *data);
 private:
 	void	Register(LogDBMsg::LogRegister *data);
 	void	Write(int len, const char *data);
-	void	RoleWrite(int len, const char *data);
 	bool	Save(LogItem &item);
 private:
 	int				m_log_num;

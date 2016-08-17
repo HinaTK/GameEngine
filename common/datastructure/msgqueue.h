@@ -23,7 +23,7 @@ public:
 		delete m_read_queue;
 	}
 
-	bool Push(T val)
+	bool Push(T &val)
 	{
 		m_write_mutex.lock();
 		bool ret = m_write_queue->Push(val);

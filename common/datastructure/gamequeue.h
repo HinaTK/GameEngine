@@ -19,32 +19,32 @@ namespace game
 		};
 	public:
 
-		template<class V, class Handle = ListNode>
-		class Iterator
-		{
-		public:
-			Iterator(Handle *handle = 0) :m_handle(handle){}
-			~Iterator(){}
-
-			Iterator<V, Handle>& operator ++()
-			{
-				m_handle = m_handle->next;
-				return *this;
-			}
-
-			V* operator->() { return &m_handle->val; }
-			V& operator*() { return m_handle->val; }
-
-			bool operator==(const Iterator<V, Handle> &right) const { return (m_handle == right.m_handle); }
-			bool operator!=(const Iterator<V, Handle> &right) const { return (m_handle != right.m_handle); }
-
-			Handle &GetHandle(){ return *m_handle; }
-
-		private:
-			Handle *m_handle;
-		};
-
-		typedef Iterator<T> iterator;
+// 		template<class V, class Handle = ListNode>
+// 		class Iterator
+// 		{
+// 		public:
+// 			Iterator(Handle *handle = 0) :m_handle(handle){}
+// 			~Iterator(){}
+// 
+// 			Iterator<V, Handle>& operator ++()
+// 			{
+// 				m_handle = m_handle->next;
+// 				return *this;
+// 			}
+// 
+// 			V* operator->() { return &m_handle->val; }
+// 			V& operator*() { return m_handle->val; }
+// 
+// 			bool operator==(const Iterator<V, Handle> &right) const { return (m_handle == right.m_handle); }
+// 			bool operator!=(const Iterator<V, Handle> &right) const { return (m_handle != right.m_handle); }
+// 
+// 			Handle &GetHandle(){ return *m_handle; }
+// 
+// 		private:
+// 			Handle *m_handle;
+// 		};
+// 
+// 		typedef Iterator<T> iterator;
 
 	public:
 
@@ -52,9 +52,9 @@ namespace game
 
 		bool			Pop(T &val);
 
-		iterator		Begin(){ return iterator(m_list_head); }
-
-		iterator		End(){ return iterator(m_list_tail); }
+// 		iterator		Begin(){ return iterator(m_list_head); }
+// 
+// 		iterator		End(){ return iterator(m_list_tail); }
 
 		unsigned int	Size(){ return m_size; }
 		void			Clear();
@@ -71,18 +71,17 @@ namespace game
 		ListNode		*m_real_tail;
 
 	};
-
+	
 	template<class T>
 	Queue<T>::Queue(unsigned int increase)
 		: m_size(0)
 		, m_increase(increase == 0 ? 1 : increase)
 	{
-		m_list_head = new ListNode;
-		m_list_tail = m_list_head;
-		m_real_tail = m_list_tail;
+		m_list_head = m_list_tail = m_real_tail = new ListNode;
 		m_real_tail->next = NULL;
 
 		Resize();
+		//printf("%0X %0X\n", m_list_head, m_list_tail);
 	}
 
 	template<class T>
@@ -95,6 +94,7 @@ namespace game
 			delete temp_node;
 			temp_node = m_list_head;
 		}
+		m_list_head = NULL;
 	}
 
 	template<class T>
@@ -113,7 +113,7 @@ namespace game
 	}
 
 	template<class T>
-	bool game::Queue<T>::Pop(T &val)
+	bool Queue<T>::Pop(T &val)
 	{
 		if (m_list_head == m_list_tail)
 		{
@@ -132,23 +132,16 @@ namespace game
 	template<class T>
 	void Queue<T>::Resize()
 	{
-		ListNode *head_node = new ListNode;
-		ListNode *tail_node = NULL;
-		ListNode *temp_node = head_node;
-
 		for (unsigned int i = 0; i < m_increase; ++i)
 		{
-			tail_node = new ListNode;
-			temp_node->next = tail_node;
-			temp_node = tail_node;
+			m_real_tail->next = new ListNode;
+			m_real_tail = m_real_tail->next;
 		}
-		tail_node->next = NULL;
-		m_real_tail->next = head_node;
-		m_real_tail = tail_node;
+		m_real_tail->next = NULL;
 	}
 
 	template<class T>
-	void game::Queue<T>::Clear()
+	void Queue<T>::Clear()
 	{
 		m_list_tail = m_list_head;
 		m_size = 0;

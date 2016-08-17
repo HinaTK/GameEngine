@@ -14,6 +14,8 @@
 		if (!CLASS::Instance().Start()){ \
 			Function::Info("Start %s fail", #CLASS); \
 		}\
+		else CLASS::Instance().Run();\
+		Function::Info("%s exit ...", #CLASS); \
 		return 0;\
 	}
 

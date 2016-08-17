@@ -52,14 +52,14 @@ Frame::Frame()
 : m_is_run(true)
 {
 	g_frame = this;
-	signal(SIGINT, SignalCatch::Catch);
-	signal(SIGSEGV, SignalCatch::Catch);
-	signal(SIGTERM, SignalCatch::Catch);
-	signal(SIGABRT, SignalCatch::Catch);
 #if (defined _WIN32) || (defined _WIN64)
 	SetConsoleCtrlHandler(CosonleHandler, TRUE);
 #endif	
 #ifdef __unix
+	signal(SIGINT, SignalCatch::Catch);
+	signal(SIGSEGV, SignalCatch::Catch);
+	signal(SIGTERM, SignalCatch::Catch);
+	signal(SIGABRT, SignalCatch::Catch);
 	signal(SIGPIPE, SIG_IGN); // socket send if close
 #endif
     

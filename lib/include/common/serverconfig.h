@@ -29,11 +29,10 @@ public:
 	ServerConfig();
 	~ServerConfig(){}
 
-	bool	Init();
-
 	ServerID	sid;
 	ServerInfo	center;
 protected:
+	bool	Init();
 	rapidjson::Document doc;
 };
 

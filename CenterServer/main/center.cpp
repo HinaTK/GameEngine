@@ -33,7 +33,6 @@ bool Center::Start()
 {
 	if (!m_thread_manager.Ready()) return false;
 	m_thread_manager.Start();
-	this->Run();
 	return true;
 }
 

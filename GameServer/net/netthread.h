@@ -11,10 +11,10 @@ class NetThread : public BaseThread
 {
 public:
 	virtual ~NetThread(){}
-	NetThread(ThreadManager *manager);
+	NetThread(ThreadManager *manager, SocketThread *st);
 
 protected:
-	void	Init(void *arg);
+	bool	Init();
 	bool	Run();
 	void	RecvData(short type, ThreadID sid, int len, const char *data);
 private:
