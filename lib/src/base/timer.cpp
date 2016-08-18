@@ -19,7 +19,7 @@ void TimerManager::AddEvent(time_t interval, TimeEvent *e)
 	m_event_heap.Push(Timer(time(NULL) + interval, e));
 }
 
-void TimerManager::Update(time_t now)
+bool TimerManager::Update(time_t now)
 {	
 	if (now >= m_update_time)
 	{
@@ -30,7 +30,7 @@ void TimerManager::Update(time_t now)
 			{
 				timer.event->OnTime();
 				timer.event->Free();
-				break;
+				m_event_heap.PopFront();
 			}
 			else
 			{
@@ -38,6 +38,13 @@ void TimerManager::Update(time_t now)
 				break;
 			}
 		}
+		return true;
 	}
+	return false;
 }
 
+
+TimerManager * New::_TimerManager()
+{
+	return new TimerManager();
+}

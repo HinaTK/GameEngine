@@ -77,8 +77,3 @@ GameTime * Time::_GameTime()
 {
 	return new GameTime();
 }
-
-TimerManager * Time::_TimerManager()
-{
-	return new TimerManager();
-}

@@ -47,8 +47,20 @@ int __cdecl rand1(void) {
 
 __fun(int a comma int b)
 
+class FFF
+{
+public:
+	int a;
+};
+
+void JJJ(FFF &f)
+{
+
+}
+
 int main()
 {
+	JJJ(FFF());
 // 	A *a = new B;
 // 	a->Show();
 // 	delete a;

@@ -3,10 +3,35 @@
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/base/function.h"
 
+// 同一个线程内，共用LogItem线程安全
+
+class LogTimeEvent : public TimeEvent
+{
+public:
+	LogTimeEvent(TimerManager *timer_manager, LogRole *role, unsigned short index)
+	: TimeEvent()
+	, m_timer_manager(timer_manager)
+	, m_log_role(role)
+	, m_index(index)
+	{}
+
+	void OnTime()
+	{
+		m_log_role->Save(m_index);
+		m_timer_manager->AddEvent(m_interval, this);
+	}
+
+private:
+	TimerManager	*m_timer_manager;
+	LogRole 		*m_log_role;
+	unsigned short 	m_index;
+	unsigned short 	m_interval;
+};
+
 LogRole::LogRole(ThreadManager *manager, int log_num, LogDBMsg::LogRegister *reg)
 : BaseThread(manager, NULL, ThreadManager::EXIT_DELAY)
 , m_log_num(log_num)
-, m_next_time(time(NULL) + SAVE_INTERVAL)
+, m_timer_manager(New::_TimerManager())
 , m_mysql(
 CenterConfig::Instance().db.ip,
 CenterConfig::Instance().db.user.c_str(),
@@ -14,14 +39,18 @@ CenterConfig::Instance().db.passwd.c_str(),
 CenterConfig::Instance().db.dbname.c_str(),
 CenterConfig::Instance().db.port)
 {
-	m_name = "log_role";
+	m_name = "log role";
 	m_log_list = new LogItem[m_log_num];
 	for (int i = 0; i < m_log_num; ++i)
 	{
+		m_log_list[reg[i].index].max_num = reg[i].max_num;
 		m_log_list[reg[i].index].default += "INSERT INTO ";
 		m_log_list[reg[i].index].default += reg[i].name;
-		m_log_list[reg[i].index].default += " (rid,log) VALUE ";
+		m_log_list[reg[i].index].default += " ";
+		m_log_list[reg[i].index].default += reg[i].fields;
+		m_log_list[reg[i].index].default += " VALUE ";
 		m_log_list[reg[i].index].logs = m_log_list[reg[i].index].default;
+		m_timer_manager->AddEvent(reg[i].interval, new LogTimeEvent(m_timer_manager, this, reg[i].index));
 	}
 	SetSleepTime(20);
 }
@@ -29,30 +58,12 @@ CenterConfig::Instance().db.port)
 LogRole::~LogRole()
 {
 	delete[] m_log_list;
+	delete m_timer_manager;
 }
 
 bool LogRole::Run()
 {
-	time_t now = time(NULL);
-	if (now > m_next_time)
-	{
-		for (int i = 0; i < m_log_num; ++i)
-		{
-			if (m_log_list[i].default.size() > 0 && m_log_list[i].logs.size() > m_log_list[i].default.size())
-			{
-				m_log_list[i].logs.replace(m_log_list[i].logs.size() - 1, 1, ";");
-				if (mysql_query(m_mysql.GetMysql(), m_log_list[i].logs.c_str()) != 0)
-		        {
-		        	// todo 写文本日志
-		            Function::Info("save role log error %s", mysql_error(m_mysql.GetMysql()));
-		        }
-		         m_log_list[i].logs = m_log_list[i].default;
-			}
-		}
-		m_next_time = now + SAVE_INTERVAL;
-	}
-	
-	return false;
+	return m_timer_manager->Update(time(NULL));
 }
 
 void LogRole::RecvData(short type, ThreadID sid, int len, const char *data)
@@ -115,6 +126,28 @@ void LogRole::Write(int len, const char *data)
 #endif	
 	
 	m_log_list[lw->index].logs = m_log_list[lw->index].logs + str_val + log + "'),";
+	if (++m_log_list[lw->index].cur_num >= m_log_list[lw->index].max_num)
+	{
+		Save(lw->index);
+	}
+}
+
+void LogRole::Save(unsigned short index)
+{
+	if (index < m_log_num)
+	{
+		if (m_log_list[index].default.size() > 0 && m_log_list[index].logs.size() > m_log_list[index].default.size())
+		{
+			m_log_list[index].logs.replace(m_log_list[index].logs.size() - 1, 1, ";");
+			if (mysql_query(m_mysql.GetMysql(), m_log_list[index].logs.c_str()) != 0)
+	        {
+	        	// todo 写文本日志
+	            Function::Info("%s error %s", m_log_list[index].default.c_str(), mysql_error(m_mysql.GetMysql()));
+	        }
+	         m_log_list[index].logs = m_log_list[index].default;
+	         m_log_list[index].cur_num = 0;
+		}
+	}
 }
 
 int LogRole::MakeLog(unsigned short index, RoleID role_id, char *buf, char *format, ...)

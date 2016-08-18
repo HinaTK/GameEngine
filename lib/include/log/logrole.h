@@ -8,6 +8,7 @@
 #include "lib/include/db/base.h"
 #include "lib/include/db/prepare.h"
 #include "lib/include/base/export.h"
+#include "lib/include/base/timer.h"
 #include "common/serverdef.h"
 #include "common/datastructure/gamevector.h"
 
@@ -23,8 +24,11 @@ namespace LogDBMsg
 
 	struct LogRegister
 	{
-		short	index;
-		char	name[32];
+		unsigned short	index;
+		char			name[32];
+		char 			fields[256];
+		unsigned short	interval;
+		unsigned short 	max_num;
 	};
 
 	struct LogWrite
@@ -53,15 +57,17 @@ public:
 	LogRole(ThreadManager *manager, int log_num, LogDBMsg::LogRegister *reg);
 	~LogRole();
 
-	static const int SAVE_INTERVAL = 10;
 	struct LogItem
 	{
+		unsigned short max_num;
+		unsigned short cur_num;
 		std::string default;
 		std::string logs;
 	};
 
 	static int MakeLog(unsigned short index, RoleID role_id, char *buf, char *format, ...);
 
+	void 	Save(unsigned short index);
 protected:
 	
 	bool	Run();
@@ -73,9 +79,8 @@ private:
 private:
 	int				m_log_num;
 	LogItem			*m_log_list;
-	time_t			m_next_time;
-	MysqlBase		m_mysql;
-
+	TimerManager	*m_timer_manager;
+	MysqlBase		m_mysql;		// todo 将mysql剥离出来，这样更方便生成dll
 };
 
 

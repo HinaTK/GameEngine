@@ -4,6 +4,7 @@
 
 #include <time.h>
 #include "common/datastructure/gameheap.h"
+#include "lib/include/base/export.h"
 
 /*
 	其它的时间事件都应该继承TimeEvent；
@@ -14,17 +15,17 @@ class TimeEvent
 public:
 	TimeEvent(){};
 	virtual void OnTime() = 0;
-	virtual void Free() = 0;
+	virtual void Free(){}
 };
 
 class TimerManager
 {
 public:
 	TimerManager();
-	~TimerManager();
+	virtual ~TimerManager();
 
-	void				AddEvent(time_t interval, TimeEvent *e);
-	void				Update(time_t now);
+	virtual void		AddEvent(time_t interval, TimeEvent *e);
+	bool				Update(time_t now);
 protected:
 	struct Timer
 	{
@@ -51,5 +52,9 @@ protected:
 };
 
 
+namespace New
+{
+	EXPORT TimerManager * _TimerManager();
+}
 
 #endif

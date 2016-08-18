@@ -17,14 +17,13 @@ namespace Base
 }
 
 class GameTime;
-class TimerManager;
 namespace Time
 {
-	EXPORT TimerManager *_TimerManager();
-
 	EXPORT void Sleep(unsigned int ms);
 
 	EXPORT GameTime * _GameTime();
 }
+
+
 
 #endif
