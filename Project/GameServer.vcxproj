@@ -98,6 +98,7 @@
     <ClCompile Include="..\GameServer\db\dbthread.cpp" />
     <ClCompile Include="..\GameServer\frame\game.cpp" />
     <ClCompile Include="..\GameServer\global\globalthread.cpp" />
+    <ClCompile Include="..\GameServer\log\loghandler.cpp" />
     <ClCompile Include="..\GameServer\net\callback.cpp" />
     <ClCompile Include="..\GameServer\net\netthread.cpp" />
     <ClCompile Include="..\GameServer\world\worldmanager.cpp" />
@@ -108,6 +109,8 @@
     <ClInclude Include="..\GameServer\define.h" />
     <ClInclude Include="..\GameServer\frame\game.h" />
     <ClInclude Include="..\GameServer\global\globalthread.h" />
+    <ClInclude Include="..\GameServer\log\loggold.h" />
+    <ClInclude Include="..\GameServer\log\loghandler.h" />
     <ClInclude Include="..\GameServer\net\callback.h" />
     <ClInclude Include="..\GameServer\net\netthread.h" />
     <ClInclude Include="..\GameServer\world\worldmanager.h" />

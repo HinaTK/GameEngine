@@ -28,7 +28,8 @@ private:
 	unsigned short 	m_interval;
 };
 
-LogRole::LogRole(ThreadManager *manager, int log_num, LogDBMsg::LogRegister *reg)
+
+LogRole::LogRole(ThreadManager *manager, int log_num, const LogDBMsg::LogRegister reg[])
 : BaseThread(manager, NULL, ThreadManager::EXIT_DELAY)
 , m_log_num(log_num)
 , m_timer_manager(New::_TimerManager())
@@ -44,6 +45,7 @@ CenterConfig::Instance().db.port)
 	for (int i = 0; i < m_log_num; ++i)
 	{
 		m_log_list[reg[i].index].max_num = reg[i].max_num;
+		m_log_list[reg[i].index].format = reg[i].format;
 		m_log_list[reg[i].index].default += "INSERT INTO ";
 		m_log_list[reg[i].index].default += reg[i].name;
 		m_log_list[reg[i].index].default += " ";
@@ -106,35 +108,9 @@ void LogRole::Write(int len, const char *data)
 {
 	LogMsg *msg = (LogMsg *)data;
 	std::string log;
-	msg->Make(log);
+	msg->Do(log, m_log_list[msg->index].format.c_str());
 	m_log_list[msg->index].logs = m_log_list[msg->index].logs + log + ",";
-
-// 	if (len <= LogDBMsg::LOG_ROLE_WRITE_LEN)
-// 	{
-// 		return;
-// 	}
-
-// 	LogDBMsg::LogRoleWrite *lw = (LogDBMsg::LogRoleWrite *)data;
-// 	if (lw->index >= m_log_num || m_log_list[lw->index].default.size() < 1)
-// 	{
-// 		return;
-// 	}
-	
-// 	int data_len = len - LogDBMsg::LOG_ROLE_WRITE_LEN;
-// 	char *log = (char *)(data + LogDBMsg::LOG_ROLE_WRITE_LEN);
-// 	log[data_len - 1] = 0;
-// 	char str_val[32];
-// #if (defined _WIN32) || (defined _WIN64)
-// 	sprintf(str_val,"(%I64d,'",lw->role_id);
-// #elif
-// 	sprintf(str_val,"(%lld,",lw->role_id);	
-// #endif	
-	
-// 	m_log_list[lw->index].logs = m_log_list[lw->index].logs + str_val + log + "'),";
-// 	if (++m_log_list[lw->index].cur_num >= m_log_list[lw->index].max_num)
-// 	{
-// 		Save(lw->index);
-// 	}
+	delete msg;
 }
 
 void LogRole::Save(unsigned short index)

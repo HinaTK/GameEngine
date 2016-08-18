@@ -62,15 +62,19 @@ void ThreadManager::Start()
 	}
 }
 
-// template<typename T>
-// void ThreadManager::SendMsg(ThreadID did, short type, T &data, ThreadID sid)
-// {
-// 	m_thread[did]->PushMsg(ThreadMsg(type, sid, data, m_thread[did]->GetMemory()));
-// }
-
 void ThreadManager::SendMsg(ThreadID did, short type, int len, const char *data, ThreadID sid)
 {
 	m_thread[did]->PushMsg(ThreadMsg(type, sid, len, data, m_thread[did]->GetMemory()));
+}
+
+void ThreadManager::SendMsg(ThreadID did, ThreadMsg &msg)
+{
+	m_thread[did]->PushMsg(msg);
+}
+
+char * ThreadManager::CreateData(ThreadID did, int len)
+{
+	return m_thread[did]->GetMemory()->Alloc(len);
 }
 
 // void ThreadManager::SendMsg(ThreadID did, ThreadMsg &msg)

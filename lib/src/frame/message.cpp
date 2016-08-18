@@ -68,15 +68,15 @@ ThreadMsg::ThreadMsg()
 
 }
 
-template<typename T>
-ThreadMsg::ThreadMsg(short _type, ThreadID _id, T &_data, MsgMemoryManager *memory)
-: type(_type)
-, id(_id)
-, length(_length)
-{
-	data = memory->Alloc(sizeof(T));
-	*(T *)(data) = _data;
-}
+// template<typename T>
+// ThreadMsg::ThreadMsg(short _type, ThreadID _id, T &_data, MsgMemoryManager *memory)
+// : type(_type)
+// , id(_id)
+// , length(_length)
+// {
+// 	data = memory->Alloc(sizeof(T));
+// 	*(T *)(data) = _data;
+// }
 
 
 ThreadMsg::ThreadMsg(short _type, ThreadID _id, int _length, const char *_data, MsgMemoryManager *memory)

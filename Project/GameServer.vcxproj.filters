@@ -22,6 +22,9 @@
     <Filter Include="global">
       <UniqueIdentifier>{d36b9a0d-d54c-479d-b112-08f9f0fa98bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="log">
+      <UniqueIdentifier>{61bb937e-c1f2-4ebe-9daa-12be14232e5f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\GameServer\db\dbthread.cpp">
@@ -44,6 +47,9 @@
     </ClCompile>
     <ClCompile Include="..\GameServer\global\globalthread.cpp">
       <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\log\loghandler.cpp">
+      <Filter>log</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +77,12 @@
     </ClInclude>
     <ClInclude Include="..\GameServer\global\globalthread.h">
       <Filter>global</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\log\loghandler.h">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\log\loggold.h">
+      <Filter>log</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

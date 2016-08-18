@@ -27,6 +27,7 @@ namespace LogDBMsg
 		unsigned short	index;
 		char			name[32];
 		char 			fields[256];
+		char 			format[256];
 		unsigned short	interval;
 		unsigned short 	max_num;
 	};
@@ -50,23 +51,41 @@ namespace LogDBMsg
 	static const int LOG_ROLE_WRITE_LEN = sizeof(LogRoleWrite);
 }
 
+#define LOG_MAKE(Log, Len, Format, ...)\
+	char buf[Len]; \
+	Make(Log, buf, Len, Format, __VA_ARGS__);
+	
+
 class LogMsg
 {
 public:
-	virtual void Make(std::string &log) = 0;
+	LogMsg(unsigned short _index) :index(_index){}
+
+	virtual void Do(std::string &log, const char *format) = 0;
 	unsigned short index;
+protected:
+	void Make(std::string &log, char *buf, unsigned short len, const char *format, ...)
+	{
+		va_list args;
+		va_start(args, format);
+		int ret = vsnprintf(buf, len, format, args);
+		va_end(args); 
+		log += buf;
+	}
+	
 };
 
 class LogRole : public BaseThread
 {
 public:
-	LogRole(ThreadManager *manager, int log_num, LogDBMsg::LogRegister *reg);
+	LogRole(ThreadManager *manager, int log_num, const LogDBMsg::LogRegister reg[]);
 	~LogRole();
 
 	struct LogItem
 	{
 		unsigned short max_num;
-		unsigned short cur_num;
+		unsigned short cur_num = 0;
+		std::string format;
 		std::string default;
 		std::string logs;
 	};

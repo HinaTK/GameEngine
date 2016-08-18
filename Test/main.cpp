@@ -53,14 +53,9 @@ public:
 	int a;
 };
 
-void JJJ(FFF &f)
-{
-
-}
-
 int main()
 {
-	JJJ(FFF());
+	printf("%lld\n", 1999999999999999992);
 // 	A *a = new B;
 // 	a->Show();
 // 	delete a;
@@ -198,11 +193,6 @@ int main()
 // 		printf("aaaaaaaaaaaaaa \n");
 // 		Sleep(1000000);
 // 	}
-	std::mutex mm;
-	mm.lock();
-	mm.lock();
-	printf("dddddddddddddd\n");
-	mm.unlock();
 	Function::WindowsPause();
 	return 0;
 }
