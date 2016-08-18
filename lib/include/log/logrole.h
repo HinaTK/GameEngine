@@ -50,6 +50,12 @@ namespace LogDBMsg
 	static const int LOG_ROLE_WRITE_LEN = sizeof(LogRoleWrite);
 }
 
+class LogMsg
+{
+public:
+	virtual void Make(std::string &log) = 0;
+	unsigned short index;
+};
 
 class LogRole : public BaseThread
 {

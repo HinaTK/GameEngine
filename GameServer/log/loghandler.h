@@ -2,17 +2,23 @@
 #ifndef LOG_HANDLER_H
 #define LOG_HANDLER_H
 
+#include <stdio.h>
 #include "lib/include/log/logrole.h"
 #include "common/serverdef.h"
 
+#if _MSC_VER
+#define snprintf _snprintf
+#endif
 
-class LogGold
+class LogGold : public LogMsg
 {
 public:
 	LogGold(RoleID _role_id, int _gold)
 	: role_id(_role_id)
 	, gold(_gold)
-	{}
+	{
+		index = 0;
+	}
 
 	void Make(std::string &log)
 	{

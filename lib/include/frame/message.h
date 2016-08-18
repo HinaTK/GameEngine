@@ -40,7 +40,7 @@ class ThreadMsg
 {
 public:
 	ThreadMsg();
-	template<typename T>
+	template<typename T> 
 	ThreadMsg(short _type, ThreadID _id, T &_data, MsgMemoryManager *memory);
 	ThreadMsg(short _type, ThreadID _id, int _length, const char *_data, MsgMemoryManager *memory);
 	~ThreadMsg();

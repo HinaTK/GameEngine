@@ -31,7 +31,9 @@ public:
 	void			Exit();
 	void			Wait();
 
+	template<typename T> void SendMsg(ThreadID did, short type, T &data, ThreadID sid = INVALID_THREAD_ID){m_thread[did]->PushMsg(ThreadMsg(type, sid, data, m_thread[did]->GetMemory()));}
 	void			SendMsg(ThreadID did, short type, int len, const char *data, ThreadID sid = INVALID_THREAD_ID);
+
 	//void			SendMsg(ThreadID did, ThreadMsg &msg);
 	void			CMD(short type, ThreadID sid, int len, const char *data, ThreadID did = INVALID_THREAD_ID);
 

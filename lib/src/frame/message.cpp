@@ -68,7 +68,7 @@ ThreadMsg::ThreadMsg()
 
 }
 
-template<class T>
+template<typename T>
 ThreadMsg::ThreadMsg(short _type, ThreadID _id, T &_data, MsgMemoryManager *memory)
 : type(_type)
 , id(_id)

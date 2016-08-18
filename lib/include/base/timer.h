@@ -25,7 +25,7 @@ public:
 	virtual ~TimerManager();
 
 	virtual void		AddEvent(time_t interval, TimeEvent *e);
-	bool				Update(time_t now);
+	EXPORT bool			Update(time_t now);
 protected:
 	struct Timer
 	{

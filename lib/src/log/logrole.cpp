@@ -104,32 +104,37 @@ void LogRole::Register(LogDBMsg::LogRegister *data)
 
 void LogRole::Write(int len, const char *data)
 {
-	if (len <= LogDBMsg::LOG_ROLE_WRITE_LEN)
-	{
-		return;
-	}
+	LogMsg *msg = (LogMsg *)data;
+	std::string log;
+	msg->Make(log);
+	m_log_list[msg->index].logs = m_log_list[msg->index].logs + log + ",";
 
-	LogDBMsg::LogRoleWrite *lw = (LogDBMsg::LogRoleWrite *)data;
-	if (lw->index >= m_log_num || m_log_list[lw->index].default.size() < 1)
-	{
-		return;
-	}
+// 	if (len <= LogDBMsg::LOG_ROLE_WRITE_LEN)
+// 	{
+// 		return;
+// 	}
+
+// 	LogDBMsg::LogRoleWrite *lw = (LogDBMsg::LogRoleWrite *)data;
+// 	if (lw->index >= m_log_num || m_log_list[lw->index].default.size() < 1)
+// 	{
+// 		return;
+// 	}
 	
-	int data_len = len - LogDBMsg::LOG_ROLE_WRITE_LEN;
-	char *log = (char *)(data + LogDBMsg::LOG_ROLE_WRITE_LEN);
-	log[data_len - 1] = 0;
-	char str_val[32];
-#if (defined _WIN32) || (defined _WIN64)
-	sprintf(str_val,"(%I64d,'",lw->role_id);
-#elif
-	sprintf(str_val,"(%lld,",lw->role_id);	
-#endif	
+// 	int data_len = len - LogDBMsg::LOG_ROLE_WRITE_LEN;
+// 	char *log = (char *)(data + LogDBMsg::LOG_ROLE_WRITE_LEN);
+// 	log[data_len - 1] = 0;
+// 	char str_val[32];
+// #if (defined _WIN32) || (defined _WIN64)
+// 	sprintf(str_val,"(%I64d,'",lw->role_id);
+// #elif
+// 	sprintf(str_val,"(%lld,",lw->role_id);	
+// #endif	
 	
-	m_log_list[lw->index].logs = m_log_list[lw->index].logs + str_val + log + "'),";
-	if (++m_log_list[lw->index].cur_num >= m_log_list[lw->index].max_num)
-	{
-		Save(lw->index);
-	}
+// 	m_log_list[lw->index].logs = m_log_list[lw->index].logs + str_val + log + "'),";
+// 	if (++m_log_list[lw->index].cur_num >= m_log_list[lw->index].max_num)
+// 	{
+// 		Save(lw->index);
+// 	}
 }
 
 void LogRole::Save(unsigned short index)
