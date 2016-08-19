@@ -2,7 +2,7 @@
 #ifndef LOG_GOLD_H
 #define LOG_GOLD_H
 
-#include "lib/include/log/logrole.h"
+#include "lib/include/log/logdb.h"
 #include "loghandler.h"
 #include "common/serverdef.h"
 
@@ -10,16 +10,17 @@ class LogGold : public LogMsg
 {
 public:
 	LogGold(RoleID _role_id, int _gold)
-		: LogMsg(0)
+		: LogMsg(LogHandler::LOG_GOLD)
 		, role_id(_role_id)
 		, gold(_gold)
 	{
 	}
 
-	void Do(std::string &log, const char *format){ LOG_MAKE(log, 64, format, role_id, gold); }
+	LOG_DO(64, role_id, gold);
 
 	RoleID role_id;
 	int gold;
 };
 
 #endif // !LOG_GOLD_H
+

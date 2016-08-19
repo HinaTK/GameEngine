@@ -47,14 +47,18 @@ int __cdecl rand1(void) {
 
 __fun(int a comma int b)
 
-class FFF
+#define LOG_CONSTRUCT(Class, ...)\
+	Class(__VA_ARGS__){}
+
+class AAA
 {
 public:
-	int a;
+	LOG_CONSTRUCT(AAA, int a, char b[10]);
 };
 
 int main()
 {
+	AAA a(1, "12");
 	printf("%lld\n", 1999999999999999992);
 // 	A *a = new B;
 // 	a->Show();

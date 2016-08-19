@@ -1,5 +1,5 @@
 
-#include "logrole.h"
+#include "logdb.h"
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/base/function.h"
 
@@ -8,7 +8,7 @@
 class LogTimeEvent : public TimeEvent
 {
 public:
-	LogTimeEvent(TimerManager *timer_manager, LogRole *role, unsigned short index)
+	LogTimeEvent(TimerManager *timer_manager, LogDB *role, unsigned short index)
 	: TimeEvent()
 	, m_timer_manager(timer_manager)
 	, m_log_role(role)
@@ -23,13 +23,13 @@ public:
 
 private:
 	TimerManager	*m_timer_manager;
-	LogRole 		*m_log_role;
+	LogDB 		*m_log_role;
 	unsigned short 	m_index;
 	unsigned short 	m_interval;
 };
 
 
-LogRole::LogRole(ThreadManager *manager, int log_num, const LogDBMsg::LogRegister reg[])
+LogDB::LogDB(ThreadManager *manager, int log_num, const LogDBMsg::LogRegister reg[])
 : BaseThread(manager, NULL, ThreadManager::EXIT_DELAY)
 , m_log_num(log_num)
 , m_timer_manager(New::_TimerManager())
@@ -40,7 +40,7 @@ CenterConfig::Instance().db.passwd.c_str(),
 CenterConfig::Instance().db.dbname.c_str(),
 CenterConfig::Instance().db.port)
 {
-	m_name = "log role";
+	m_name = "log";
 	m_log_list = new LogItem[m_log_num];
 	for (int i = 0; i < m_log_num; ++i)
 	{
@@ -57,18 +57,18 @@ CenterConfig::Instance().db.port)
 	SetSleepTime(20);
 }
 
-LogRole::~LogRole()
+LogDB::~LogDB()
 {
 	delete[] m_log_list;
 	delete m_timer_manager;
 }
 
-bool LogRole::Run()
+bool LogDB::Run()
 {
 	return m_timer_manager->Update(time(NULL));
 }
 
-void LogRole::RecvData(short type, ThreadID sid, int len, const char *data)
+void LogDB::RecvData(short type, ThreadID sid, int len, const char *data)
 {
 	switch (type)
 	{
@@ -84,7 +84,7 @@ void LogRole::RecvData(short type, ThreadID sid, int len, const char *data)
 }
 
 
-void LogRole::Register(LogDBMsg::LogRegister *data)
+void LogDB::Register(LogDBMsg::LogRegister *data)
 {
 	if (data->index >= m_log_num)
 	{
@@ -104,7 +104,7 @@ void LogRole::Register(LogDBMsg::LogRegister *data)
 	m_log_list[data->index].logs = m_log_list[data->index].default;
 }
 
-void LogRole::Write(int len, const char *data)
+void LogDB::Write(int len, const char *data)
 {
 	LogMsg *msg = (LogMsg *)data;
 	std::string log;
@@ -113,7 +113,7 @@ void LogRole::Write(int len, const char *data)
 	delete msg;
 }
 
-void LogRole::Save(unsigned short index)
+void LogDB::Save(unsigned short index)
 {
 	if (index < m_log_num)
 	{
@@ -131,20 +131,7 @@ void LogRole::Save(unsigned short index)
 	}
 }
 
-int LogRole::MakeLog(unsigned short index, RoleID role_id, char *buf, char *format, ...)
+EXPORT LogDB * New::_LogDB(ThreadManager *manager, int log_num, const LogDBMsg::LogRegister reg[])
 {
-	va_list args; 
-	va_start(args, format); 
-	int ret = vsprintf(buf + LogDBMsg::LOG_ROLE_WRITE_LEN, format, args);
-	va_end(args); 
-	if (ret > 0)
-	{
-		LogDBMsg::LogRoleWrite lw;
-		lw.index = index;
-		lw.role_id = role_id;
-		lw.len = ret;
-		memcpy(buf,  &lw, LogDBMsg::LOG_ROLE_WRITE_LEN);
-		return LogDBMsg::LOG_ROLE_WRITE_LEN + ret + 1;
-	}
-	return ret;
+	return new LogDB(manager, log_num, reg);
 }

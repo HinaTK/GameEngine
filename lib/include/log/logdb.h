@@ -18,8 +18,7 @@ namespace LogDBMsg
 	enum
 	{
 		LDM_REGISTER = ThreadSysID::MAX_ID + 1,
-		LDM_WRITE,
-		LDM_ROLE_WRITE
+		LDM_WRITE
 	};
 
 	struct LogRegister
@@ -31,30 +30,13 @@ namespace LogDBMsg
 		unsigned short	interval;
 		unsigned short 	max_num;
 	};
-
-	struct LogWrite
-	{
-		unsigned short	index;
-		unsigned short	len;
-		// log data
-	};
-
-	struct LogRoleWrite
-	{
-		unsigned short	index;
-		RoleID			role_id;
-		unsigned short	len;
-		// log data
-	};
-
-	static const int LOG_WRITE_LEN = sizeof(LogWrite);
-	static const int LOG_ROLE_WRITE_LEN = sizeof(LogRoleWrite);
 }
-
-#define LOG_MAKE(Log, Len, Format, ...)\
-	char buf[Len]; \
-	Make(Log, buf, Len, Format, __VA_ARGS__);
 	
+#define LOG_DO(Len, ...)\
+	void Do(std::string &log, const char *format){\
+		char buf[Len]; \
+		Make(log, buf, Len, format, __VA_ARGS__);\
+	}
 
 class LogMsg
 {
@@ -75,11 +57,11 @@ protected:
 	
 };
 
-class LogRole : public BaseThread
+class LogDB : public BaseThread
 {
 public:
-	LogRole(ThreadManager *manager, int log_num, const LogDBMsg::LogRegister reg[]);
-	~LogRole();
+	LogDB(ThreadManager *manager, int log_num, const LogDBMsg::LogRegister reg[]);
+	~LogDB();
 
 	struct LogItem
 	{
@@ -90,8 +72,6 @@ public:
 		std::string logs;
 	};
 
-	static int MakeLog(unsigned short index, RoleID role_id, char *buf, char *format, ...);
-
 	void 	Save(unsigned short index);
 protected:
 	
@@ -100,7 +80,6 @@ protected:
 private:
 	void	Register(LogDBMsg::LogRegister *data);
 	void	Write(int len, const char *data);
-	bool	Save(LogItem &item);
 private:
 	int				m_log_num;
 	LogItem			*m_log_list;
@@ -108,5 +87,8 @@ private:
 	MysqlBase		m_mysql;		// todo 将mysql剥离出来，这样更方便生成dll
 };
 
-
+namespace New
+{
+	EXPORT LogDB * _LogDB(ThreadManager *manager, int log_num, const LogDBMsg::LogRegister reg[]);
+}
 #endif

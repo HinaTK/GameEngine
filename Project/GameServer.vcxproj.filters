@@ -16,12 +16,6 @@
     <Filter Include="world">
       <UniqueIdentifier>{0188fdbe-4437-4b4f-a44a-ddbbb8ba2a38}</UniqueIdentifier>
     </Filter>
-    <Filter Include="data">
-      <UniqueIdentifier>{628aa6e5-a3ef-4a8c-9b90-ee444c1693d4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="global">
-      <UniqueIdentifier>{d36b9a0d-d54c-479d-b112-08f9f0fa98bd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="log">
       <UniqueIdentifier>{61bb937e-c1f2-4ebe-9daa-12be14232e5f}</UniqueIdentifier>
     </Filter>
@@ -41,15 +35,6 @@
     </ClCompile>
     <ClCompile Include="..\GameServer\world\worldmanager.cpp">
       <Filter>world</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GameServer\data\sql.cpp">
-      <Filter>data</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GameServer\global\globalthread.cpp">
-      <Filter>global</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GameServer\log\loghandler.cpp">
-      <Filter>log</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,16 +57,13 @@
     <ClInclude Include="..\GameServer\world\worldmanager.h">
       <Filter>world</Filter>
     </ClInclude>
-    <ClInclude Include="..\GameServer\data\sql.h">
-      <Filter>data</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GameServer\global\globalthread.h">
-      <Filter>global</Filter>
-    </ClInclude>
     <ClInclude Include="..\GameServer\log\loghandler.h">
       <Filter>log</Filter>
     </ClInclude>
     <ClInclude Include="..\GameServer\log\loggold.h">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\log\logonline.h">
       <Filter>log</Filter>
     </ClInclude>
   </ItemGroup>
