@@ -22,7 +22,7 @@ public:
 		* 函数结束会被析构;
 		继承者自己在 init 中决定是否释放 arg
 	*/
-	BaseThread(ThreadManager *manager, void *arg, char exit = ThreadManager::EXIT_NORMAL);
+	BaseThread(ThreadManager *manager, char exit = ThreadManager::EXIT_NORMAL);
 	virtual ~BaseThread();
 
 	void		SetID(ThreadID id){ m_id = id; }

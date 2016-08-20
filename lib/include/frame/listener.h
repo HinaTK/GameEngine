@@ -34,7 +34,6 @@ protected:
 	void			UnRegisterWriteFD();
 protected:
 	SendBuffer	*m_send_buf;
-	std::mutex	m_register_write_mutex;
     int         m_register_state;
 	
 };

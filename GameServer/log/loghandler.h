@@ -2,7 +2,7 @@
 #ifndef LOG_HANDLER_H
 #define LOG_HANDLER_H
 
-#include "lib/include/log/logdb.h"
+#include "lib/include/base/log.h"
 #include "common/serverdef.h"
 
 #define LogNew(Class) \

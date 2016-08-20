@@ -19,6 +19,9 @@
     <Filter Include="log">
       <UniqueIdentifier>{61bb937e-c1f2-4ebe-9daa-12be14232e5f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="scene">
+      <UniqueIdentifier>{84984243-ac98-46d7-a6dc-bd4211da3211}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\GameServer\db\dbthread.cpp">
@@ -35,6 +38,9 @@
     </ClCompile>
     <ClCompile Include="..\GameServer\world\worldmanager.cpp">
       <Filter>world</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\scene\scenemanager.cpp">
+      <Filter>scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,6 +71,9 @@
     </ClInclude>
     <ClInclude Include="..\GameServer\log\logonline.h">
       <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\scene\scenemanager.h">
+      <Filter>scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

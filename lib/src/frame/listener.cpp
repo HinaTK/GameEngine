@@ -62,7 +62,6 @@ void Listener::OnCanWrite()
 
 void Listener::RegisterWriteFD()
 {
-    MutexLock ml(&m_register_write_mutex);
 	if (m_register_state > REGISTER_STATE)
     {
         --m_register_state;
@@ -79,7 +78,7 @@ void Listener::UnRegisterWriteFD()
     {
         return;
     }
-    MutexLock ml(&m_register_write_mutex);
+
 	m_thread->SetCanNotWrite(this);
 	m_register_state = REGISTER_STATE;
 }

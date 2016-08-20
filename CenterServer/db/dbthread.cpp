@@ -10,7 +10,7 @@ DBThread::~DBThread()
 }
 
 DBThread::DBThread(ThreadManager *manager)
-: BaseThread(manager, NULL, ThreadManager::EXIT_NORMAL)
+: BaseThread(manager, ThreadManager::EXIT_NORMAL)
 , m_manager(this)
 {
 	m_name = "db";

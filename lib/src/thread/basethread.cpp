@@ -10,7 +10,7 @@ void *Update(void * arg)
 	return NULL;
 }
 
-BaseThread::BaseThread(ThreadManager *manager, void *arg, char exit)
+BaseThread::BaseThread(ThreadManager *manager, char exit)
 : m_id(-1)
 , m_name("")
 , m_manager(manager)

@@ -15,10 +15,12 @@ public:
 
 protected:
 	bool	Init();
+	bool	Ready();
 	bool	Run();
 	void	RecvData(short type, ThreadID sid, int len, const char *data);
 private:
 	NetManager		m_net_manager;
+	NetHandle		m_cneter_handle;
 	WorldManager	m_world_manager;
 };
 

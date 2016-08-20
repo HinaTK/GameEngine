@@ -2,7 +2,7 @@
 #include "treethread.h"
 
 TreeThread::TreeThread(ThreadManager *manager, void *arg, char exit /*= ThreadManager::EXIT_NORMAL*/)
-: BaseThread(manager, arg, exit)
+: BaseThread(manager, exit)
 , m_sub_manager(new ThreadManager())
 {
 

@@ -1,14 +1,14 @@
 
-#ifndef LOG_DB_H
-#define LOG_DB_H
+#ifndef GAME_LOG_H
+#define GAME_LOG_H
 
 #include <vector>
 #include <string>
+#include "export.h"
+#include "timer.h"
 #include "lib/include/thread/basethread.h"
 #include "lib/include/db/base.h"
 #include "lib/include/db/prepare.h"
-#include "lib/include/base/export.h"
-#include "lib/include/base/timer.h"
 #include "common/serverdef.h"
 #include "common/datastructure/gamevector.h"
 
@@ -88,10 +88,10 @@ public:
 		std::string		logs="";
 	};
 	
-	bool	Init();
+	
 	void 	Save(unsigned short index);
 protected:
-	
+	bool	Init();
 	bool	Run();
 	void	RecvData(short type, ThreadID sid, int len, const char *data);
 private:
@@ -109,6 +109,6 @@ private:
 
 namespace New
 {
-	EXPORT Log * _LogDB(ThreadManager *manager, int log_num, const LogMsg::LogRegister reg[]);
+	EXPORT Log * _Log(ThreadManager *manager, int log_num, const LogMsg::LogRegister reg[]);
 }
 #endif

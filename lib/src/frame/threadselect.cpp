@@ -97,7 +97,7 @@ bool SocketThread::CMD(short type, ThreadID sid, int len, const char *data)
 		if (m_read_set.fd_count > 0) printf("server read: %d\n", m_read_set.fd_array[0]);
 		if (m_write_set.fd_count > 0) printf("server write: %d\n", m_write_set.fd_array[0]);
 	}
-	return true;
+	return false;
 }
 
 

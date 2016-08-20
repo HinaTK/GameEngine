@@ -25,6 +25,7 @@
     <ClInclude Include="..\..\lib\include\base\gamemath.h" />
     <ClInclude Include="..\..\lib\include\base\gametime.h" />
     <ClInclude Include="..\..\lib\include\base\interface.h" />
+    <ClInclude Include="..\..\lib\include\base\log.h" />
     <ClInclude Include="..\..\lib\include\base\md5.h" />
     <ClInclude Include="..\..\lib\include\base\timer.h" />
   </ItemGroup>
@@ -34,6 +35,7 @@
     <ClCompile Include="..\..\lib\src\base\gamemath.cpp" />
     <ClCompile Include="..\..\lib\src\base\gametime.cpp" />
     <ClCompile Include="..\..\lib\src\base\interface.cpp" />
+    <ClCompile Include="..\..\lib\src\base\log.cpp" />
     <ClCompile Include="..\..\lib\src\base\md5.cpp" />
     <ClCompile Include="..\..\lib\src\base\timer.cpp" />
   </ItemGroup>
@@ -76,7 +78,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\..\bin</OutDir>
     <IntDir>..\..\lib\temp</IntDir>
-    <IncludePath>..\..\lib\include\base;..\..\lib\include;..\..\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\lib\include\base;..\..\lib\include;..\..\;..\..\lib\include\mysql;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>..\..\lib\windows</OutDir>
@@ -96,6 +98,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\..\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Thread.lib;DB.lib;Common.lib;Frame.lib;libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>

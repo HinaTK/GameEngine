@@ -3,6 +3,6 @@
 
 bool WorldManager::Update()
 {
-	return true;
+	return false;
 }
 

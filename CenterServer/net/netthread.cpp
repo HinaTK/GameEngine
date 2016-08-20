@@ -11,7 +11,7 @@
 
 
 NetThread::NetThread(ThreadManager *manager, SocketThread *st)
-: BaseThread(manager, NULL, ThreadManager::EXIT_NORMAL)
+: BaseThread(manager, ThreadManager::EXIT_NORMAL)
 , m_net_manager(manager)
 , m_message_handler(this)
 , m_id_pool(this)

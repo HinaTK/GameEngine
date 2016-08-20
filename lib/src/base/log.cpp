@@ -1,7 +1,8 @@
 
-#include "logdb.h"
+#include "log.h"
+#include "function.h"
 #include "lib/include/common/serverconfig.h"
-#include "lib/include/base/function.h"
+
 
 // 同一个线程内，共用LogItem线程安全
 
@@ -30,7 +31,7 @@ private:
 
 
 Log::Log(ThreadManager *manager, int log_num, const LogMsg::LogRegister reg[])
-: BaseThread(manager, NULL, ThreadManager::EXIT_DELAY)
+: BaseThread(manager, ThreadManager::EXIT_DELAY)
 , m_log_num(log_num)
 , m_fp(NULL)
 , m_timer_manager(New::_TimerManager())
@@ -41,7 +42,7 @@ CenterConfig::Instance().db.passwd.c_str(),
 CenterConfig::Instance().db.dbname.c_str(),
 CenterConfig::Instance().db.port)
 {
-	m_name = "Log";
+	m_name = "log";
 	m_log_list = new LogItem[m_log_num];
 	for (int i = 0; i < m_log_num; ++i)
 	{
@@ -193,7 +194,7 @@ void Log::Save(unsigned short index)
 	}
 }
 
-EXPORT Log * New::_LogDB(ThreadManager *manager, int log_num, const LogMsg::LogRegister reg[])
+EXPORT Log * New::_Log(ThreadManager *manager, int log_num, const LogMsg::LogRegister reg[])
 {
 	return new Log(manager, log_num, reg);
 }

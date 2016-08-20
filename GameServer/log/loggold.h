@@ -2,7 +2,7 @@
 #ifndef LOG_GOLD_H
 #define LOG_GOLD_H
 
-#include "lib/include/log/logdb.h"
+#include "lib/include/base/log.h"
 #include "loghandler.h"
 #include "common/serverdef.h"
 
