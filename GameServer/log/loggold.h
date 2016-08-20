@@ -6,11 +6,11 @@
 #include "loghandler.h"
 #include "common/serverdef.h"
 
-class LogGold : public LogMsg
+class LogGold : public LogDB
 {
 public:
 	LogGold(RoleID _role_id, int _gold)
-		: LogMsg(LogHandler::LOG_GOLD)
+		: LogDB(LogHandler::LOG_GOLD)
 		, role_id(_role_id)
 		, gold(_gold)
 	{

@@ -5,6 +5,8 @@
 #include "lib/include/log/logdb.h"
 #include "common/serverdef.h"
 
+#define LogNew(Class) \
+	(char *) new Class
 
 namespace LogHandler
 {
@@ -15,20 +17,29 @@ namespace LogHandler
 		LOG_MAX
 	};
 
-	static const LogDBMsg::LogRegister reg[] =
+	static const LogMsg::LogRegister reg[] =
 	{
 		{ LOG_GOLD, 	"log_gold", 	"(rid,log)", 		"(%lld, 'gold=%d')", 	10, 1000 },
 		{ LOG_ONLINE, 	"log_online", 	"(online, time)", 	"(%d, %d)", 			10, 1000 }
 	};
 
-	template <typename T>
-	void Write(ThreadManager &manager, ThreadID id, T log)
+
+	void DB(ThreadManager &manager, ThreadID id, char * log)
 	{
 		ThreadMsg msg;
-		msg.type = LogDBMsg::LDM_WRITE;
-		//msg.length = sizeof(T);
-		msg.data = (char *)log;
+		msg.type = LogMsg::LM_WRITE_DB;
+		msg.data = log;
 		manager.SendMsg(id, msg);
+	}
+
+	inline void Error(ThreadManager &manager, ThreadID id, char *data)
+	{
+		manager.SendMsg(id, LogMsg::LM_WRITE_FILE_ERROR, strlen(data) + 1, data);
+	}
+
+	inline void Info(ThreadManager &manager, ThreadID id, char *data)
+	{
+		manager.SendMsg(id, LogMsg::LM_WRITE_FILE_INFO, strlen(data) + 1, data);
 	}
 }
 

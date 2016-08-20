@@ -8,30 +8,31 @@
 class LogTimeEvent : public TimeEvent
 {
 public:
-	LogTimeEvent(TimerManager *timer_manager, LogDB *role, unsigned short index)
+	LogTimeEvent(TimerManager *timer_manager, Log *log, unsigned short index)
 	: TimeEvent()
 	, m_timer_manager(timer_manager)
-	, m_log_role(role)
+	, m_log(log)
 	, m_index(index)
 	{}
 
 	void OnTime()
 	{
-		m_log_role->Save(m_index);
 		m_timer_manager->AddEvent(m_interval, this);
+		m_log->Save(m_index);
 	}
 
 private:
 	TimerManager	*m_timer_manager;
-	LogDB 		*m_log_role;
+	Log 			*m_log;
 	unsigned short 	m_index;
 	unsigned short 	m_interval;
 };
 
 
-LogDB::LogDB(ThreadManager *manager, int log_num, const LogDBMsg::LogRegister reg[])
+Log::Log(ThreadManager *manager, int log_num, const LogMsg::LogRegister reg[])
 : BaseThread(manager, NULL, ThreadManager::EXIT_DELAY)
 , m_log_num(log_num)
+, m_fp(NULL)
 , m_timer_manager(New::_TimerManager())
 , m_mysql(
 CenterConfig::Instance().db.ip,
@@ -40,7 +41,7 @@ CenterConfig::Instance().db.passwd.c_str(),
 CenterConfig::Instance().db.dbname.c_str(),
 CenterConfig::Instance().db.port)
 {
-	m_name = "log";
+	m_name = "Log";
 	m_log_list = new LogItem[m_log_num];
 	for (int i = 0; i < m_log_num; ++i)
 	{
@@ -55,28 +56,65 @@ CenterConfig::Instance().db.port)
 		m_timer_manager->AddEvent(reg[i].interval, new LogTimeEvent(m_timer_manager, this, reg[i].index));
 	}
 	SetSleepTime(20);
+
+	
 }
 
-LogDB::~LogDB()
+Log::~Log()
 {
+	if (m_fp != NULL)
+	{
+		fclose(m_fp);
+	}
 	delete[] m_log_list;
 	delete m_timer_manager;
 }
 
-bool LogDB::Run()
+bool Log::Init()
+{
+	std::string path = Function::WorkDir() + "log/";
+#ifdef __unix
+	if (mkdir(path.c_str(), 0777) != 0)
+	{
+		Function::Error("can not create log dir %s", path.c_str());
+		return false;
+	}
+	;
+#endif
+	time_t t = time(NULL);
+	char logname[32];
+	strftime(logname, sizeof(logname), "%Y%m%d.log", localtime(&t));
+	path += logname;
+	m_fp = fopen(path.c_str(), "a+");
+	if (m_fp == NULL)
+	{
+		Function::Error("can not create log file %s", path.c_str());
+		return false;
+	}
+	m_timer_manager->AddEvent(5, new LogTimeEvent(m_timer_manager, this, m_log_num));
+	return true;
+}
+
+bool Log::Run()
 {
 	return m_timer_manager->Update(time(NULL));
 }
 
-void LogDB::RecvData(short type, ThreadID sid, int len, const char *data)
+void Log::RecvData(short type, ThreadID sid, int len, const char *data)
 {
 	switch (type)
 	{
-	case LogDBMsg::LDM_REGISTER:
-		Register((LogDBMsg::LogRegister *)data);
+	case LogMsg::LM_REGISTER:
+		Register((LogMsg::LogRegister *)data);
 		break;
-	case LogDBMsg::LDM_WRITE:
-		Write(len, data);
+	case LogMsg::LM_WRITE_FILE_ERROR:
+		WriteFile(len, (char *)data, "%Y%m%d %H:%M:%S ERROR:");
+		break;
+	case LogMsg::LM_WRITE_FILE_INFO:
+		WriteFile(len, (char *)data, "%Y%m%d %H:%M:%S INFO :");
+		break;
+	case LogMsg::LM_WRITE_DB:
+		WriteDB(len, data);
 		break;
 	default:
 		break;
@@ -84,7 +122,7 @@ void LogDB::RecvData(short type, ThreadID sid, int len, const char *data)
 }
 
 
-void LogDB::Register(LogDBMsg::LogRegister *data)
+void Log::Register(LogMsg::LogRegister *data)
 {
 	if (data->index >= m_log_num)
 	{
@@ -104,16 +142,33 @@ void LogDB::Register(LogDBMsg::LogRegister *data)
 	m_log_list[data->index].logs = m_log_list[data->index].default;
 }
 
-void LogDB::Write(int len, const char *data)
+void Log::WriteDB(int len, const char *data)
 {
-	LogMsg *msg = (LogMsg *)data;
+	LogDB *msg = (LogDB *)data;
 	std::string log;
 	msg->Do(log, m_log_list[msg->index].format.c_str());
 	m_log_list[msg->index].logs = m_log_list[msg->index].logs + log + ",";
 	delete msg;
 }
 
-void LogDB::Save(unsigned short index)
+void Log::WriteFile(int len, char *data, char *format)
+{
+	if (len > 0)
+	{
+		time_t t = time(NULL);
+		char buffer[64];
+		strftime(buffer, sizeof(buffer), format, localtime(&t));
+		m_log_file.logs += buffer;
+		m_log_file.logs += data;
+		m_log_file.logs += '\n';
+		if (++m_log_file.num > 100)
+		{
+			Save(m_log_num);
+		}
+	}
+}
+
+void Log::Save(unsigned short index)
 {
 	if (index < m_log_num)
 	{
@@ -129,9 +184,16 @@ void LogDB::Save(unsigned short index)
 	         m_log_list[index].cur_num = 0;
 		}
 	}
+	else if (index == m_log_num && m_log_file.logs.size() > 0)
+	{
+		fwrite(m_log_file.logs.c_str(), m_log_file.logs.size(), 1, m_fp);
+		fflush(m_fp);
+		m_log_file.logs = "";
+		m_log_file.num = 0;
+	}
 }
 
-EXPORT LogDB * New::_LogDB(ThreadManager *manager, int log_num, const LogDBMsg::LogRegister reg[])
+EXPORT Log * New::_LogDB(ThreadManager *manager, int log_num, const LogMsg::LogRegister reg[])
 {
-	return new LogDB(manager, log_num, reg);
+	return new Log(manager, log_num, reg);
 }

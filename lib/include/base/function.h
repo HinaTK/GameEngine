@@ -16,6 +16,7 @@ namespace Function
 	EXPORT bool				ProtocolDecode(const char *buf, unsigned int len);
 
 	EXPORT void				Info(char *str, ...);
+	EXPORT void				Error(char *str, ...);
 };
 
 #endif

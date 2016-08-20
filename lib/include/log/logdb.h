@@ -12,13 +12,17 @@
 #include "common/serverdef.h"
 #include "common/datastructure/gamevector.h"
 
-namespace LogDBMsg
+// 有需要（性能）再将写文件和写数据库分开不同的线程
+
+namespace LogMsg
 {
 	// log database message
 	enum
 	{
-		LDM_REGISTER = ThreadSysID::MAX_ID + 1,
-		LDM_WRITE
+		LM_REGISTER = ThreadSysID::MAX_ID + 1,
+		LM_WRITE_FILE_ERROR,
+		LM_WRITE_FILE_INFO,
+		LM_WRITE_DB
 	};
 
 	struct LogRegister
@@ -30,6 +34,12 @@ namespace LogDBMsg
 		unsigned short	interval;
 		unsigned short 	max_num;
 	};
+
+	struct LogWrite
+	{
+		int len;
+		// 日志数据
+	};
 }
 	
 #define LOG_DO(Len, ...)\
@@ -38,10 +48,10 @@ namespace LogDBMsg
 		Make(log, buf, Len, format, __VA_ARGS__);\
 	}
 
-class LogMsg
+class LogDB
 {
 public:
-	LogMsg(unsigned short _index) :index(_index){}
+	LogDB(unsigned short _index) :index(_index){}
 
 	virtual void Do(std::string &log, const char *format) = 0;
 	unsigned short index;
@@ -57,11 +67,11 @@ protected:
 	
 };
 
-class LogDB : public BaseThread
+class Log : public BaseThread
 {
 public:
-	LogDB(ThreadManager *manager, int log_num, const LogDBMsg::LogRegister reg[]);
-	~LogDB();
+	Log(ThreadManager *manager, int log_num, const LogMsg::LogRegister reg[]);
+	~Log();
 
 	struct LogItem
 	{
@@ -72,23 +82,33 @@ public:
 		std::string logs;
 	};
 
+	struct LogFile
+	{
+		unsigned short	num = 0;
+		std::string		logs="";
+	};
+	
+	bool	Init();
 	void 	Save(unsigned short index);
 protected:
 	
 	bool	Run();
 	void	RecvData(short type, ThreadID sid, int len, const char *data);
 private:
-	void	Register(LogDBMsg::LogRegister *data);
-	void	Write(int len, const char *data);
+	void	Register(LogMsg::LogRegister *data);
+	void	WriteDB(int len, const char *data);
+	void	WriteFile(int len, char *data, char *format);
 private:
 	int				m_log_num;
+	FILE			*m_fp;
 	LogItem			*m_log_list;
+	LogFile			m_log_file;
 	TimerManager	*m_timer_manager;
 	MysqlBase		m_mysql;		// todo 将mysql剥离出来，这样更方便生成dll
 };
 
 namespace New
 {
-	EXPORT LogDB * _LogDB(ThreadManager *manager, int log_num, const LogDBMsg::LogRegister reg[]);
+	EXPORT Log * _LogDB(ThreadManager *manager, int log_num, const LogMsg::LogRegister reg[]);
 }
 #endif
