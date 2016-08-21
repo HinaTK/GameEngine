@@ -6,7 +6,7 @@
 
 void *Update(void * arg)
 {
-	((BaseThread *)arg)->Loop();
+	((BaseThread *)arg)->Do();
 	return NULL;
 }
 
@@ -37,6 +37,12 @@ void BaseThread::Start()
 		m_thread = new std::thread(::Update, this);
 		m_is_start = true;
 	}
+}
+
+void BaseThread::Do()
+{
+	Ready();
+	Loop(true);
 }
 
 void BaseThread::Loop(bool sleep)

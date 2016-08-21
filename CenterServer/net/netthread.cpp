@@ -10,15 +10,13 @@
 #include "lib/include/gate/gateaccepter.h"
 
 
-NetThread::NetThread(ThreadManager *manager, SocketThread *st)
-: BaseThread(manager, ThreadManager::EXIT_NORMAL)
-, m_net_manager(manager)
+NetThread::NetThread(ThreadManager *manager)
+: SocketThread(manager)
 , m_message_handler(this)
 , m_id_pool(this)
 , m_cur_thread_id(0)
 {
 	m_name = "net";
-	m_net_manager.SetThread(st);
 }
 
 NetThread::~NetThread()
@@ -28,13 +26,13 @@ NetThread::~NetThread()
 bool NetThread::Init()
 {
 	ServerInfo &info1 = CenterConfig::Instance().login;
-	if (!m_net_manager.InitServer(info1.ip, info1.port, info1.backlog, new GateAccepter(m_net_manager.GetThread(), 1024), new CallBack(this)))
+	if (!InitServer(info1.ip, info1.port, info1.backlog, new GateAccepter(this, 1024), new CallBack(this)))
 	{
 		return false;
 	}
 	
 	ServerInfo &info2 = CenterConfig::Instance().center;
-	if (!m_net_manager.InitServer(info2.ip, info2.port, info2.backlog, new InnerAccepter(m_net_manager.GetThread()), new InnerCallBack(this)))
+	if (!InitServer(info2.ip, info2.port, info2.backlog, new InnerAccepter(this), new InnerCallBack(this)))
 	{
 		return false;
 	}
@@ -42,15 +40,9 @@ bool NetThread::Init()
 	return true;
 }
 
-bool NetThread::Ready()
+void NetThread::Ready()
 {
 	m_manager->SendMsg(GetThreadID(), ThreadProto::TP_LOAD_ROLE_MAX_ID, 0, NULL, m_id);
-	return true;
-}
-
-bool NetThread::Run()
-{
-    return m_net_manager.Update();
 }
 
 void NetThread::RecvData(short type, ThreadID sid, int len, const char *data)
@@ -114,7 +106,7 @@ void NetThread::InsertServer(NetMsg *msg)
 					br.id = rs->id;
 					br.port = rs->port;
 					memcpy(br.ip, rs->ip, sizeof(br.ip));
-					m_net_manager.Send(itr->handle, sizeof(Inner::ctoBrocastRegister), (const char *)&br);
+					Send(itr->handle, sizeof(Inner::ctoBrocastRegister), (const char *)&br);
 				}
 			}
 		}

@@ -4,9 +4,9 @@
 
 #include <stddef.h>
 #include <stdio.h>
-#include "netcommon.h"
 #include "message.h"
 #include "common/serverdef.h"
+#include "lib/include/base/netcommon.h"
 
 // 需要改进，尽量避免内存拷贝
 class BufManager
@@ -56,26 +56,26 @@ private:
 	unsigned int	m_read_length;
 };
 
-class Listener;
-class RecvBuffer
-{
-public:
-	RecvBuffer(Listener *listener);
-	~RecvBuffer();
-
-	void *		operator new(size_t c);
-	void		operator delete(void *m);
-
-	bool		GetBufInfo(char **buf, int &len);
-	int			AddBufLen(int len);
-
-protected:
-	void		ResetBuf();
-private:
-	Listener *		m_listener;
-	char			m_head_len;
-	int				m_buf_len;		// 已读数据长度
-	char 			m_header[NetCommon::HEADER_LENGTH];
-	NetMsg			m_msg;
-};
+// class Listener;
+// class RecvBuffer
+// {
+// public:
+// 	RecvBuffer(Listener *listener);
+// 	~RecvBuffer();
+// 
+// 	void *		operator new(size_t c);
+// 	void		operator delete(void *m);
+// 
+// 	bool		GetBufInfo(char **buf, int &len);
+// 	int			AddBufLen(int len);
+// 
+// protected:
+// 	void		ResetBuf();
+// private:
+// 	Listener *		m_listener;
+// 	char			m_head_len;
+// 	int				m_buf_len;		// 已读数据长度
+// 	char 			m_header[NetCommon::HEADER_LENGTH];
+// 	NetMsg			m_msg;
+// };
 #endif

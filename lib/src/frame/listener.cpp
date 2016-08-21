@@ -1,9 +1,9 @@
 ﻿
 #include "listener.h"
-#include "netcommon.h"
-#include "netmanager.h"
+#include "bufmanager.h"
 #include "common/socketdef.h"
 #include "lib/include/base/function.h"
+#include "lib/include/base/netcommon.h"
 
 #define REGISTER_STATE -10
 
@@ -26,15 +26,10 @@ Listener::~Listener()
 
 void Listener::OnCanRead()
 {
-	if (!RecvBuf() || !AnalyzeBuf())
+	if (!RecvBuf())
 	{
 		m_thread->RemoveHandler(m_handle, m_err, m_err_arg);
 	}
-}
-
-bool Listener::RecvBuf()
-{
-	return true;
 }
 
 void Listener::OnCanWrite()

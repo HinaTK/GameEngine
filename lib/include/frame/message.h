@@ -3,7 +3,7 @@
 #define MESSAGE_H
 
 #include "socketmsg.h"
-#include "netcommon.h"
+#include "lib/include/base/netcommon.h"
 #include "lib/include/common/memoryvl.h"
 #include "common/serverdef.h"
 
@@ -25,11 +25,10 @@ class NetMsg
 {
 public:
 	NetMsg();
-	NetMsg(unsigned short _msg_index, NetMsgType _msg_type, NetHandle _handle, unsigned int _length);
+	NetMsg(NetHandle _handle, unsigned int _length);
+	NetMsg(NetHandle _handle, char *_data, unsigned int _length);
 	~NetMsg();
 
-	unsigned short	msg_index;
-	NetMsgType		msg_type;
 	NetHandle		handle;
 	unsigned int	length;
 	char *			data;
@@ -60,8 +59,6 @@ public:
 	virtual void Recv(NetMsg *msg) = 0;
 
 	virtual void Disconnect(NetHandle handle, int err, int reason) = 0;
-
-	virtual void Connect(NetHandle handle, int flag){}
 };
 
 class BaseMsg

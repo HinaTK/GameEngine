@@ -3,15 +3,13 @@
 #define LISTENER_H
 
 #include "nethandler.h"
-#include "bufmanager.h"
-#include "netmanager.h"
 #include "lib/include/common/mutex.h"
 
 /*
 	监听者，监听所有数据的读写状态
 	虚基类
 */
-
+class SendBuffer;
 class Listener : public NetHandler
 {
 	static const unsigned int BASE_BUFFER_LENGTH = 512;
@@ -28,7 +26,7 @@ public:
 
 	int				buf_size;	// 限定的包大小
 protected:
-	virtual bool	RecvBuf();
+	virtual bool	RecvBuf(){ return true; };
 	virtual bool	AnalyzeBuf(){ return true; };
 	
 	void			UnRegisterWriteFD();

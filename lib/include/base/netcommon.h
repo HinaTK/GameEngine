@@ -3,28 +3,29 @@
 #define NET_COMMON_H
 
 #include <string>
+#include "export.h"
 #include "common/socketdef.h"
 
 namespace NetCommon
 {
-	bool	Init(char *ip, unsigned short port, int backlog, SOCKET &sock);
-	SOCKET	Connect(const char *ip, unsigned short port);
+	EXPORT bool		Init(const char *ip, unsigned short port, int backlog, SOCKET &sock);
+	EXPORT SOCKET	Connect(const char *ip, unsigned short port);
 
-	int		StartUp();
+	EXPORT int		StartUp();
 
-	int		CleanUp();
+	EXPORT int		CleanUp();
 
-	int		Send(SOCKET sock, const char *msg, unsigned int length);
+	EXPORT int		Send(SOCKET sock, const char *msg, unsigned int length);
 
-	void	Close(SOCKET sock);
+	EXPORT void		Close(SOCKET sock);
 
-	int		Ioctl(SOCKET sock, long cmd, unsigned long *argp);
+	EXPORT int		Ioctl(SOCKET sock, long cmd, unsigned long *argp);
 
 	// 设置套接字参数
-	int		SetSockopt(SOCKET sock, int level, int optname, const char *optval, int optlen);
+	EXPORT int		SetSockopt(SOCKET sock, int level, int optname, const char *optval, int optlen);
 
 	// 获取错误信息
-	int		Error(void);
+	EXPORT int		Error(void);
 
 	// 协议头
 	struct Header

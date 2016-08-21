@@ -2,7 +2,6 @@
 
 #include "inneraccepter.h"
 #include "innerlistener.h"
-#include "lib/include/frame/netmanager.h"
 #include "common/socketdef.h"
 
 
@@ -19,6 +18,7 @@ void InnerAccepter::OnCanRead()
 {
 	static struct sockaddr_in addr;
 	static SOCKET_LEN len = sizeof(struct sockaddr);
+
 	SOCKET new_sock = accept(m_sock, (struct sockaddr*)&addr, &len);
 	if (new_sock != INVALID_SOCKET)
 	{
@@ -26,7 +26,8 @@ void InnerAccepter::OnCanRead()
 		handler->m_msg_index = m_msg_index;
 		handler->m_sock = new_sock;
 		handler->m_handle = m_thread->AddNetHandler(handler);
-		m_thread->PushNetMsg(handler, BaseMsg::MSG_ACCEPT, inet_ntoa(addr.sin_addr), strlen(inet_ntoa(addr.sin_addr)));
+		char *ip_addr = inet_ntoa(addr.sin_addr);
+		m_thread->Recv(handler->m_msg_index, BaseMsg::MSG_ACCEPT, NetMsg(handler->m_handle, ip_addr, strlen(ip_addr) + 1));
 	}
 }
 

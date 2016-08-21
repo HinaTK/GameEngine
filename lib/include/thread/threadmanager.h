@@ -26,7 +26,6 @@ public:
 
 	int				Register(BaseThread *bt, char exit = EXIT_NORMAL);
 	bool			Init();
-	bool			Ready();
 	void			Start();
 	void			Exit();
 	void			Wait();

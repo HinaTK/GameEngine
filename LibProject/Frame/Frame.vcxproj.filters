@@ -4,16 +4,10 @@
     <ClCompile Include="..\..\lib\src\frame\bufmanager.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\lib\src\frame\netcommon.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\lib\src\frame\message.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\frame\frame.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\lib\src\frame\netmanager.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\frame\accepter.cpp">
@@ -38,13 +32,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\include\frame\netmanager.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\bufmanager.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\include\frame\netcommon.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\frame\message.h">

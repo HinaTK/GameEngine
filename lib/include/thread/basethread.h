@@ -28,11 +28,10 @@ public:
 	void		SetID(ThreadID id){ m_id = id; }
 	ThreadID	GetID(){ return m_id; }
 
+	void			Start();
+	void			Do();
 	virtual bool	Init(){ return true; }
-	virtual bool	Ready(){ return true; }
-	void	Start();
-
-	void	Loop(bool sleep = true);
+	virtual void	Ready(){}
 
 	void	PushMsg(ThreadMsg &msg);
 	void	SysCmd(ThreadMsg &msg);
@@ -51,7 +50,7 @@ private:
 	BaseThread(const BaseThread&);
 	void operator=(const BaseThread&);
 protected:
-	
+	void			Loop(bool sleep = true);
 	virtual bool	Run() = 0;
 	virtual void	RecvData(short type, ThreadID sid, int len, const char *data) = 0;
 protected:

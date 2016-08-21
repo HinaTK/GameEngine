@@ -10,6 +10,7 @@ DBThread::DBThread(ThreadManager *thread_manager)
 : BaseThread(thread_manager, ThreadManager::EXIT_NORMAL)
 {
 	m_name = "db";
+	SetSleepTime(10);
 }
 
 bool DBThread::Init()

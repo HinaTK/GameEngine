@@ -1,9 +1,7 @@
 ﻿
 #include "threadselect.h"
-#include "netcommon.h"
-#include "netmanager.h"
 #include "nethandler.h"
-
+#include "lib/include/base/netcommon.h"
 
 SocketThread::SocketThread(ThreadManager *manager)
 : ThreadNet(manager)
@@ -61,7 +59,7 @@ void SocketThread::ClearHandler()
 			FD_CLR(handler->m_sock, &m_write_set);
 
 			NetCommon::Close(handler->m_sock);
-			PushNetMsg(handler, BaseMsg::MSG_DISCONNECT, (const char *)&itr->show, sizeof(itr->show));
+			Recv(handler->m_msg_index, BaseMsg::MSG_DISCONNECT, NetMsg(handler->m_handle, (char *)&itr->show, sizeof(itr->show)));
 			delete handler;
 		}
 	}

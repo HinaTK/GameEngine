@@ -1,9 +1,9 @@
 ﻿
-#include "common/socketdef.h"
 #include <memory.h>
 #include <stdio.h>
 #include "netcommon.h"
-#include "lib/include/base/function.h"
+#include "common/socketdef.h"
+#include "function.h"
 
 namespace NetCommon
 {
@@ -12,7 +12,7 @@ namespace NetCommon
 // ws_magic_key = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 // ws_handshake = "HTTP/1.1 101 Switching Protocols\r\n";
 
-bool Init(char *ip, unsigned short port, int backlog, SOCKET &sock)
+bool Init(const char *ip, unsigned short port, int backlog, SOCKET &sock)
 {
 	static SOCKET_LEN len = sizeof(struct sockaddr);
 	sock = socket(AF_INET, SOCK_STREAM, 0);

@@ -6,17 +6,15 @@
 #include "src/idpool.h"
 #include "src/messagehandler.h"
 #include "protocol/innerproto.h"
-#include "lib/include/thread/basethread.h"
-#include "lib/include/frame/netmanager.h"
+#include "lib/include/frame/socketthread.h"
 
 
 class ThreadManager;
-class SocketThread;
-class NetThread : public BaseThread
+class NetThread : public SocketThread
 {
 public:
 	virtual ~NetThread();
-	NetThread(ThreadManager *manager, SocketThread *st);
+	NetThread(ThreadManager *manager);
 
 	struct OtherServer
 	{
@@ -36,13 +34,11 @@ public:
 	ThreadID 	GetThreadID();
 protected:
 	bool	Init();
-	bool	Ready();
-	bool	Run();
+	void	Ready();
 	void	RecvData(short type, ThreadID sid, int len, const char *data);
 private:
 	
 	std::vector<OtherServer> m_server[Inner::ST_MAX];		// 连接到中心服的其它服务
-	NetManager		m_net_manager;
 	MessageHandler	m_message_handler;
 	IDPool			m_id_pool;
 	ThreadID 		m_cur_thread_id;

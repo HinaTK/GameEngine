@@ -1,8 +1,26 @@
 
 #include "threadnet.h"
+#include "accepter.h"
 #include "listener.h"
-#include "netcommon.h"
 #include "socketmsg.h"
+#include "lib/include/base/netcommon.h"
+#include "lib/include/base/function.h"
+
+MsgHandler::MsgHandler(MsgCallBack *call_back)
+{
+	m_bm[BaseMsg::MSG_ACCEPT] = new AcceptMsg(call_back);
+	m_bm[BaseMsg::MSG_RECV] = new RecvMsg(call_back);
+	m_bm[BaseMsg::MSG_DISCONNECT] = new DisconnectMsg(call_back);
+}
+
+MsgHandler::~MsgHandler()
+{
+	// 由于call back 由三个类型共同拥有，因此只delete一次
+	delete m_bm[BaseMsg::MSG_ACCEPT]->m_call_back;
+	delete m_bm[BaseMsg::MSG_ACCEPT];
+	delete m_bm[BaseMsg::MSG_RECV];
+	delete m_bm[BaseMsg::MSG_DISCONNECT];
+}
 
 ThreadNet::ThreadNet(ThreadManager *manager)
 : BaseThread(manager, NULL)
@@ -35,30 +53,20 @@ void ThreadNet::RemoveHandler(NetHandle handle, int err, int reason)
 	m_invalid_handle.Push(info);
 }
 
-
-void ThreadNet::PushNetMsg(NetMsg &msg)
-{
-	m_queue.Push(msg);
-}
-
-void ThreadNet::PushNetMsg(NetHandler *handler, NetMsgType msg_type, const char *data, unsigned int len)
-{
-	NetMsg msg(handler->m_msg_index, msg_type, handler->m_handle, len);
-	m_net_memory.Alloc(&msg.data, data, len);
-	m_queue.Push(msg);
-}
-
 void ThreadNet::RecvData(short type, ThreadID sid, int len, const char *data)
 {
 	switch (type)
 	{
 	case SocketMsg::STM_ADD_HANDLER:
 		AddHandler(data);
+		break;
 	case SocketMsg::STM_SEND_MSG:
-		SendMsg(sid, len, data);
+		Send(sid, len, data);
+		break;
 	case SocketMsg::STM_REMOVE_HANDLER:
 		RemoveHandler(*(NetHandle *)data, 0);
 		ClearHandler();
+		break;
 	default:
 		break;
 	}
@@ -71,10 +79,10 @@ void ThreadNet::AddHandler(const char *data)
 	NetHandler *handler = (NetHandler *)sa->listener;
 	ard.handle = AddNetHandler(handler);
 	ard.flag = sa->flag;
-	PushNetMsg(handler, BaseMsg::MSG_ACCEPT, (const char *)&ard, sizeof(SocketMsg::AddHandlerRet::Data));
+	Recv(handler->m_msg_index, BaseMsg::MSG_ACCEPT, NetMsg(ard.handle, (char *)&ard, sizeof(SocketMsg::AddHandlerRet::Data)));
 }
 
-void ThreadNet::SendMsg(NetHandle handle, int length, const char *data)
+void ThreadNet::Send(NetHandle handle, int length, const char *data)
 {
 	NET_HANDLER_ARRAY::iterator itr = m_net_handler.Find(handle);
 	if (itr == m_net_handler.End())
@@ -91,4 +99,66 @@ void ThreadNet::SendMsg(NetHandle handle, int length, const char *data)
 			listener->RegisterWriteFD();
 		}
 	}
+}
+
+bool ThreadNet::InitServer(const char *ip, unsigned short port, int backlog, Accepter *accepter, MsgCallBack *call_back)
+{
+	Function::Info("Init Server ...", ip, port);
+	SOCKET net_id = 0;
+	NetCommon::StartUp();
+	if (!NetCommon::Init(ip, port, backlog, net_id))
+	{
+		delete accepter;
+		delete call_back;
+		Function::Info("Init Server ip=%s, port=%d Fail", ip, port);
+		return false;
+	}
+
+	accepter->m_msg_index = AddMsgHandler(call_back);
+	accepter->m_sock = net_id;
+	AddNetHandler(accepter);
+	Function::Info("Init Server ip=%s, port=%d Success", ip, port);
+	return true;
+}
+
+NetHandle ThreadNet::SyncConnect(const char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back)
+{
+	SOCKET sock = NetCommon::Connect(ip, port);
+	if (sock == INVALID_SOCKET)
+	{
+		delete listener;
+		delete call_back;
+		return INVALID_NET_HANDLE;
+	}
+
+	listener->m_msg_index = AddMsgHandler(call_back);
+	listener->m_sock = sock;
+	return AddNetHandler(listener);
+}
+
+void ThreadNet::AsyncConnect(const char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back, int flag /*= 0*/)
+{
+	SOCKET sock = NetCommon::Connect(ip, port);
+	if (sock == INVALID_SOCKET)
+	{
+		delete listener;
+		delete call_back;
+		return;
+	}
+	listener->m_msg_index = AddMsgHandler(call_back);
+	listener->m_sock = sock;
+	SocketMsg::AddHandler ah;
+	ah.flag = flag;
+	ah.listener = (void *)listener;
+	PushMsg(ThreadMsg(SocketMsg::STM_ADD_HANDLER, -1, sizeof(SocketMsg::AddHandler), (const char *)&ah, GetMemory()));
+}
+
+unsigned int ThreadNet::AddMsgHandler(MsgCallBack *call_back)
+{
+	return m_msg_handler.Insert(new MsgHandler(call_back));
+}
+
+void ThreadNet::Recv(unsigned int msg_index, NetMsgType msg_type, NetMsg &msg)
+{
+	m_msg_handler[msg_index]->Recv(msg_type, msg);
 }

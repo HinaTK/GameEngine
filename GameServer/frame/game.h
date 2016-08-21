@@ -28,7 +28,7 @@ public:
 	bool	Start();
 	bool	Cmd(char *buf);
 public:
-	ThreadID	m_db_id;
+	ThreadID	m_db_id[2];
 	ThreadID	m_log_id;
 	NetHandle	m_database_server_handle;
 	SOCKET		m_gateway_server_net_id;

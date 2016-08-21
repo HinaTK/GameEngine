@@ -21,9 +21,7 @@ Center::~Center()
 
 bool Center::Init()
 {
-	SocketThread *st = new SocketThread(&m_thread_manager);
-	m_thread_manager.Register(st);
-	m_thread_manager.Register(new NetThread(&m_thread_manager, st));
+	m_thread_manager.Register(new NetThread(&m_thread_manager));
 	db_thread_id[0] = m_thread_manager.Register(new DBThread(&m_thread_manager), ThreadManager::EXIT_FINALLY);
 	db_thread_id[1] = m_thread_manager.Register(new DBThread(&m_thread_manager), ThreadManager::EXIT_FINALLY);
 	return m_thread_manager.Init();
@@ -31,7 +29,6 @@ bool Center::Init()
 
 bool Center::Start()
 {
-	if (!m_thread_manager.Ready()) return false;
 	m_thread_manager.Start();
 	return true;
 }

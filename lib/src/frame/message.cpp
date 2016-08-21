@@ -38,19 +38,23 @@ char * MsgMemoryManager::Alloc(unsigned int length)
 }
 
 NetMsg::NetMsg()
-: msg_index(0)
-, msg_type(0)
-, handle(0)
+: handle(0)
 , length(0)
 , data(NULL)
 {
 
 }
 
-NetMsg::NetMsg(unsigned short _msg_index, NetMsgType _msg_type, NetHandle _handle, unsigned int _length)
-: msg_index(_msg_index)
-, msg_type(_msg_type)
-, handle(_handle)
+NetMsg::NetMsg(NetHandle _handle, unsigned int _length)
+: handle(_handle)
+, length(_length)
+{
+
+}
+
+NetMsg::NetMsg(NetHandle _handle, char *_data, unsigned int _length)
+: handle(_handle)
+, data(_data)
 , length(_length)
 {
 
@@ -67,17 +71,6 @@ ThreadMsg::ThreadMsg()
 {
 
 }
-
-// template<typename T>
-// ThreadMsg::ThreadMsg(short _type, ThreadID _id, T &_data, MsgMemoryManager *memory)
-// : type(_type)
-// , id(_id)
-// , length(_length)
-// {
-// 	data = memory->Alloc(sizeof(T));
-// 	*(T *)(data) = _data;
-// }
-
 
 ThreadMsg::ThreadMsg(short _type, ThreadID _id, int _length, const char *_data, MsgMemoryManager *memory)
 : type(_type)

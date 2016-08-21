@@ -27,6 +27,7 @@
     <ClInclude Include="..\..\lib\include\base\interface.h" />
     <ClInclude Include="..\..\lib\include\base\log.h" />
     <ClInclude Include="..\..\lib\include\base\md5.h" />
+    <ClInclude Include="..\..\lib\include\base\netcommon.h" />
     <ClInclude Include="..\..\lib\include\base\timer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -37,6 +38,7 @@
     <ClCompile Include="..\..\lib\src\base\interface.cpp" />
     <ClCompile Include="..\..\lib\src\base\log.cpp" />
     <ClCompile Include="..\..\lib\src\base\md5.cpp" />
+    <ClCompile Include="..\..\lib\src\base\netcommon.cpp" />
     <ClCompile Include="..\..\lib\src\base\timer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

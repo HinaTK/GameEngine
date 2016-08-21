@@ -41,19 +41,6 @@ bool ThreadManager::Init()
 	return true;
 }
 
-bool ThreadManager::Ready()
-{
-	for (game::Array<BaseThread *>::iterator itr = m_thread.Begin(); itr != m_thread.End(); ++itr)
-	{
-		if (!(*itr)->Ready())
-		{
-			Function::Info("Ready thread %s error", (*itr)->GetName());
-			return false;
-		}
-	}
-	return true;
-}
-
 void ThreadManager::Start()
 {
 	for (game::Array<BaseThread *>::iterator itr = m_thread.Begin(); itr != m_thread.End(); ++itr)
