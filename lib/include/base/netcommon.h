@@ -35,6 +35,14 @@ namespace NetCommon
 
 	static const int HEADER_LENGTH = sizeof(Header);
 
+	struct GateHeader
+	{
+		int			msg_len;
+		NetHandle	handle;		// 玩家连到gate的句柄
+	};
+
+	static const int GATE_HEADER_LENGTH = sizeof(GateHeader);
+
 	static const int MAX_SERVER_NUM = 32;
 
 	struct ErrInfo

@@ -59,9 +59,9 @@
     <ClInclude Include="..\CenterServer\net\src\messagehandler.h">
       <Filter>net\src</Filter>
     </ClInclude>
+    <ClInclude Include="..\CenterServer\threadproto.h" />
     <ClInclude Include="..\CenterServer\net\src\proto.h">
       <Filter>net\src</Filter>
     </ClInclude>
-    <ClInclude Include="..\CenterServer\threadproto.h" />
   </ItemGroup>
 </Project>

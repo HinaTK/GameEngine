@@ -96,22 +96,25 @@
   <ItemGroup>
     <ClCompile Include="..\GameServer\db\dbthread.cpp" />
     <ClCompile Include="..\GameServer\frame\game.cpp" />
+    <ClCompile Include="..\GameServer\global\global.cpp" />
     <ClCompile Include="..\GameServer\net\callback.cpp" />
     <ClCompile Include="..\GameServer\net\netthread.cpp" />
+    <ClCompile Include="..\GameServer\net\router.cpp" />
     <ClCompile Include="..\GameServer\scene\scenemanager.cpp" />
-    <ClCompile Include="..\GameServer\world\worldmanager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GameServer\db\dbthread.h" />
     <ClInclude Include="..\GameServer\define.h" />
     <ClInclude Include="..\GameServer\frame\game.h" />
+    <ClInclude Include="..\GameServer\global\global.h" />
     <ClInclude Include="..\GameServer\log\loggold.h" />
     <ClInclude Include="..\GameServer\log\loghandler.h" />
     <ClInclude Include="..\GameServer\log\logonline.h" />
     <ClInclude Include="..\GameServer\net\callback.h" />
     <ClInclude Include="..\GameServer\net\netthread.h" />
+    <ClInclude Include="..\GameServer\net\proto.h" />
+    <ClInclude Include="..\GameServer\net\router.h" />
     <ClInclude Include="..\GameServer\scene\scenemanager.h" />
-    <ClInclude Include="..\GameServer\world\worldmanager.h" />
     <ClInclude Include="..\protocol\innerproto.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

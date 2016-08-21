@@ -43,6 +43,7 @@ public:
 	virtual ~SendBuffer();
 	SendBuffer(unsigned int size = 64);
 
+	void			Push(unsigned int buf);
 	void			Push(const char *buf, unsigned int len);
 
 	char *			GetReadBuf(){ return (char *)m_buf + m_read_length; }

@@ -3,7 +3,6 @@
 #define MESSAGE_HANDLER_H
 
 #include "proto.h"
-#include "protocol/msgid.h"
 #include "lib/include/frame/message.h"
 
 class NetThread;

@@ -2,7 +2,6 @@
 #include "messagehandler.h"
 #include "threadproto.h"
 #include "net/netthread.h"
-#include "protocol/msgid.h"
 #include "lib/include/common/serverconfig.h"
 
 MessageHandler::MessageHandler(NetThread *t)

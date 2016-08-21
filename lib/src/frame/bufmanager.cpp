@@ -65,6 +65,21 @@ SendBuffer::SendBuffer(unsigned int size /*= 64*/)
 
 }
 
+
+void SendBuffer::Push(unsigned int buf)
+{
+	static const int INT_LEN = sizeof(unsigned int);
+	if (INT_LEN > (m_size - m_length))
+	{
+		if (!Resize(m_size + INT_LEN))
+		{
+			return;
+		}
+	}
+	*(int *)m_buf = buf;
+	m_length += INT_LEN;
+}
+
 // 可不可保存buf的指针，减少内存拷贝？！
 void SendBuffer::Push(const char *buf, unsigned int len)
 {

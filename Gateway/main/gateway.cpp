@@ -17,13 +17,12 @@ Gateway::~Gateway()
 
 bool Gateway::Init()
 {
-	GatawayConfig::Instance().Init(); 
 	for (unsigned int i = 0; i < GatawayConfig::Instance().m_server.size(); ++i)
 	{
-		m_thread_manager.Register(new NetThread(&m_thread_manager, new int(i)));
+		m_thread_manager.Register(new NetThread(&m_thread_manager, i));
 	}
 	
-	return true;
+	return m_thread_manager.Init();
 }
 
 bool Gateway::Start()

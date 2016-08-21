@@ -13,14 +13,14 @@
     <Filter Include="proto">
       <UniqueIdentifier>{ce220b58-243c-4a61-8dcc-c3deca69658b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="world">
-      <UniqueIdentifier>{0188fdbe-4437-4b4f-a44a-ddbbb8ba2a38}</UniqueIdentifier>
-    </Filter>
     <Filter Include="log">
       <UniqueIdentifier>{61bb937e-c1f2-4ebe-9daa-12be14232e5f}</UniqueIdentifier>
     </Filter>
     <Filter Include="scene">
       <UniqueIdentifier>{84984243-ac98-46d7-a6dc-bd4211da3211}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="global">
+      <UniqueIdentifier>{b581c33c-8d4b-47fb-9156-0a5d688e391f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -36,11 +36,14 @@
     <ClCompile Include="..\GameServer\frame\game.cpp">
       <Filter>frame</Filter>
     </ClCompile>
-    <ClCompile Include="..\GameServer\world\worldmanager.cpp">
-      <Filter>world</Filter>
-    </ClCompile>
     <ClCompile Include="..\GameServer\scene\scenemanager.cpp">
       <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\global\global.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\net\router.cpp">
+      <Filter>net</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -60,9 +63,6 @@
     <ClInclude Include="..\protocol\innerproto.h">
       <Filter>proto</Filter>
     </ClInclude>
-    <ClInclude Include="..\GameServer\world\worldmanager.h">
-      <Filter>world</Filter>
-    </ClInclude>
     <ClInclude Include="..\GameServer\log\loghandler.h">
       <Filter>log</Filter>
     </ClInclude>
@@ -74,6 +74,15 @@
     </ClInclude>
     <ClInclude Include="..\GameServer\scene\scenemanager.h">
       <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\global\global.h">
+      <Filter>global</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\net\proto.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\net\router.h">
+      <Filter>net</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

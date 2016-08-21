@@ -118,7 +118,7 @@ bool GateListener::RecvBuf()
 
 void GateListener::Send( const char *buf, unsigned int len )
 {
-	m_send_buf->Push((const char *)&len, NetCommon::HEADER_LENGTH);
+	m_send_buf->Push(len);
 	m_send_buf->Push(buf, len);
 }
 

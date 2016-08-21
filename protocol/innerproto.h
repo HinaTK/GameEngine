@@ -7,25 +7,6 @@
 
 namespace Inner
 {
-	// game to gateway
-
-	// gateway收到这条协议,都会广播给所有人
-	struct ggwBroadcast
-	{
-		int length;				// 消息长度
-		char *data;				// 消息
-	}; 
-
-	// 广播给指定的人
-	struct ggwBroadcastSome
-	{
-		int some;				// 人数
-		int *handles;			// 句柄
-		int length;				// 消息长度
-		char *data;				// 消息
-	};
-
-
 	enum ServerType
 	{
 		ST_GAME = 0,
@@ -60,6 +41,32 @@ namespace Inner
 		unsigned short type;	// 服务类型
 		unsigned short id;		// 服务id
 	};
+
+	// game to gateway
+
+	// gateway收到这条协议,都会广播给所有人
+	struct ggwBroadcast
+	{
+		int length;				// 消息长度
+		char *data;				// 消息
+	};
+
+	// 广播给指定的人
+	struct ggwBroadcastSome
+	{
+		int some;				// 人数
+		int *handles;			// 句柄
+		int length;				// 消息长度
+		char *data;				// 消息
+	};
+
+	// gateway to game
+
+	struct gwgEnterScene
+	{
+
+	};
+
 }
 
 #endif // !INNER_PROTO_H

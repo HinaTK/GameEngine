@@ -1,6 +1,6 @@
 
-#ifndef CENTER_PROTO_H
-#define CENTER_PROTO_H
+#ifndef GAME_PROTO_H
+#define GAME_PROTO_H
 
 #include "common/macro.h"
 #include "common/serverdef.h"
@@ -10,16 +10,16 @@ namespace Proto
 {
 	enum
 	{
-		CENTER_BEGIN = 0,
-		CS_LOGIN = 1,
+		GAME_BEGIN = 0,
+		CS_ENTER_GAME = 1,
 		CS_CREATE_ROLE = 2,
 
-		CENTER_END = 100,
+		GAME_END = 100
 	};
 
-	struct csLogin
+	struct csEnterGame
 	{
-		BindProto(csLogin, CS_LOGIN);
+		BindProto(csEnterGame, CS_LOGIN);
 		Account		account;
 		ServerID	sid;
 	};

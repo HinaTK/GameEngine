@@ -106,6 +106,7 @@ void GatawayConfig::Read()
 		rapidjson::Value &ip = object["ip"];
 
 		memcpy(info.ip, ip.GetString(), ip.GetStringLength());
+		info.ip[ip.GetStringLength()] = 0;
 		if (!object.HasMember("port") || !object["port"].IsInt())
 		{
 			return;
@@ -143,6 +144,7 @@ void CenterConfig::Read()
 	rapidjson::Value &ip = object["ip"];
 
 	memcpy(login.ip, ip.GetString(), ip.GetStringLength());
+	login.ip[ip.GetStringLength()] = 0;
 	if (!object.HasMember("port") || !object["port"].IsInt())
 	{
 		return;
