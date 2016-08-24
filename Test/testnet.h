@@ -2,7 +2,6 @@
 #ifndef TEST_NET_H
 #define TEST_NET_H
 
-#include "lib/include/frame/netmanager.h"
 #include "lib/include/frame/message.h"
 #include "lib/include/base/interface.h"
 #include "lib/include/thread/threadmanager.h"
@@ -39,8 +38,8 @@ namespace TestNet
 
 		void	Recv(NetMsg *msg)
 		{
-			printf("dddddd2\n");
-			m_manager->Send(msg->handle, sizeof("this is my name"), "this is my name");
+// 			printf("dddddd2\n");
+// 			m_manager->Send(msg->handle, sizeof("this is my name"), "this is my name");
 		}
 
 		void	Disconnect(NetHandle handle, int err, int reason){}
@@ -86,17 +85,17 @@ namespace TestNet
 
 	void Test3()
 	{
-		ThreadManager thread_manager;
-		NetManager m_net_manager(&thread_manager);
-		m_net_manager.InitServer("127.0.0.1", 12345, 2, new HttpAccepter(m_net_manager.GetThread(), HttpAccepter::CB_FIELD), new CallBack2(&m_net_manager));
-		thread_manager.Start();
-		while (true)
-		{
-			if (!m_net_manager.Update())
-			{
-				Time::Sleep(10);
-			}
-		}
+// 		ThreadManager thread_manager;
+// 		NetManager m_net_manager(&thread_manager);
+// 		m_net_manager.InitServer("127.0.0.1", 12345, 2, new HttpAccepter(m_net_manager.GetThread(), HttpAccepter::CB_FIELD), new CallBack2(&m_net_manager));
+// 		thread_manager.Start();
+// 		while (true)
+// 		{
+// 			if (!m_net_manager.Update())
+// 			{
+// 				Time::Sleep(10);
+// 			}
+// 		}
 	}
 }
 

@@ -42,7 +42,7 @@ void HandShaker::OnCanRead()
 		return;
 	}
 }
-
+// 有问题，待优化
 bool HandShaker::HandShake()
 {
 	static const HandShakeInfo ws;

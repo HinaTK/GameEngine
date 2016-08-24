@@ -14,7 +14,8 @@
 // #endif // RAPIDJSON_ASSERT
 
 
-static 
+// todo 优化一下
+// 例如：做一个JsonRead（类似JsonWrite）,或者改一下JSON_READ_ARRAY_INT
 
 enum
 {
@@ -87,15 +88,12 @@ enum
 
 #define JSON_READ_TWO_ARRAY_BEGIN(Name)\
 	if (doc.HasMember(Name) && doc[Name].IsArray()){\
-	Value &array = doc[Name]; \
-	for (unsigned int i = 0; i < array.Size(); ++i)\
-	{\
-		const Value& sub = array[i]; \
-		if (!sub.IsArray())\
+		Value &array = doc[Name]; \
+		for (unsigned int i = 0; i < array.Size(); ++i)\
 		{\
-			return Error(ERR_IS_NOT_OBJECT, __LINE__); \
-		}\
-		unsigned int size = sub.Size(); \
+			const Value& sub = array[i]; \
+			if (!sub.IsArray()) return Error(ERR_IS_NOT_OBJECT, __LINE__); \
+			unsigned int size = sub.Size(); \
 
 #define JSON_READ_TWO_ARRAY_END() \
 		}\

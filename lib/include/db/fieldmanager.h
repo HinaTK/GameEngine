@@ -15,10 +15,10 @@ public:
 	FieldManager();
 	~FieldManager(){}
 
-//	bool	Save();
+	
 	void	Register(Field *field);
-
-	bool	Serialize(std::string &str);
+	bool	Load();
+	bool	Save(char *name);
 
 protected:
 	std::vector<Field *> m_manager;

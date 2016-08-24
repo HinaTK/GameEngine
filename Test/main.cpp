@@ -56,10 +56,16 @@ public:
 	LOG_CONSTRUCT(AAA, int a, char b[10]);
 };
 
+#define KKKK()\
+	int aa = 33; \
+	int b = 34;\
+	printf("dddd = %d, %d, %d,\n", __LINE__, aa, b);
+
 int main()
 {
 	AAA a(1, "12");
 	printf("%lld\n", 1999999999999999992);
+	KKKK();
 // 	A *a = new B;
 // 	a->Show();
 // 	delete a;
