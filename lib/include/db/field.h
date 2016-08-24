@@ -28,7 +28,7 @@ public:
 	Field(Version _ver) :m_dirty(false), ver(_ver){}
 	virtual ~Field(){}
 
-	char *	GetName() = 0;	// 获取字段名，用于构建sql
+	virtual char *	GetName() = 0;	// 获取字段名，用于构建sql
 
 	bool 	IsDirty(){return m_dirty;}
 	void	SetDirty(){ if (!m_dirty) m_dirty = true; }

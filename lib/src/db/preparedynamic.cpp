@@ -9,7 +9,7 @@ MysqlPrepareDynamic::MysqlPrepareDynamic(MysqlHandler *handler, unsigned char nu
 
 }
 
-bool MysqlPrepareDynamic::Execute(char *sql, unsigned short sql_len)
+bool MysqlPrepareDynamic::Execute(const char *sql, unsigned short sql_len)
 {
 	m_stmt = mysql_stmt_init(m_handler->GetMysql());
 	if (m_stmt == NULL)

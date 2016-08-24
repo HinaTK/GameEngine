@@ -20,6 +20,7 @@
     <ClInclude Include="..\..\lib\include\db\preparestatic.h" />
     <ClInclude Include="..\..\lib\include\db\result.h" />
     <ClInclude Include="..\..\lib\include\db\handler.h" />
+    <ClInclude Include="..\..\lib\include\db\rolefield.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\db\base.cpp" />
