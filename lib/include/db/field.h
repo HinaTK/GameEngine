@@ -25,7 +25,7 @@ typedef unsigned short Version;
 class Field
 {
 public:
-	Field(Version _ver) :m_dirty(false), ver(_ver){}
+	Field() :m_dirty(false), ver(0){}
 	virtual ~Field(){}
 
 	virtual char *	GetName() = 0;	// 获取字段名，用于构建sql
@@ -55,13 +55,14 @@ public:
 	}
 
 	virtual bool Serialize(rapidjson::Writer<rapidjson::StringBuffer> &writer, std::string &str) = 0;
+	virtual bool Deserialize(char *str) = 0;
 
 	Version ver;
 
 protected:
 	bool	m_dirty;
-	int m_err;
-	int m_err_line;
+	int 	m_err;
+	int 	m_err_line;
 };
 
 #endif

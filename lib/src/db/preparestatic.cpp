@@ -3,7 +3,7 @@
 #include "handler.h"
 #include "lib/include/base/function.h"
 
-MysqlPrepareStatic::MysqlPrepareStatic(MysqlHandler *handler, unsigned char num, char *sql, unsigned short sql_len /*= 0*/)
+MysqlPrepareStatic::MysqlPrepareStatic(MysqlHandler *handler, unsigned char num, const char *sql, unsigned short sql_len /*= 0*/)
 : MysqlPrepare(handler, num)
 {
 	sql_len == 0 ? m_sql_len = strlen(sql) : m_sql_len = sql_len;

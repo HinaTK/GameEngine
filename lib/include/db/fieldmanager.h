@@ -4,29 +4,42 @@
 
 #include <vector>
 #include <string>
+#include <functional>
 #include "module.h"
 #include "rolefield.h"
+#include "preparedynamic.h"
 #include "lib/include/rapidjson/define.h"
 
-// todo 做一下内存池
 class Field;
 class MysqlHandler;
+class MysqlPrepareStatic;
 class FieldManager : public DBModule
 {
 public:
-	FieldManager(MysqlHandler *mysql, char *name);
-	~FieldManager(){}
 
-	
-	void	Register(Field *field);
-	bool	Load();
+	struct CreateField
+	{
+		char *name;
+		std::function<Field *()> func;
+	};
+
+	FieldManager(MysqlHandler *mysql, char *name, unsigned short field_len, CreateField *field);
+	~FieldManager();
+
+
+	bool	Load(RoleField *rf);
 	bool	Save(RoleField *rf);
 
 protected:
-	std::string	m_table_name;
-	std::string m_base_sql;
-	std::vector<Field *> m_manager;
-	MysqlHandler *m_mysql_handle;
+	std::string 	m_base_sql;
+	std::string 	m_sql;
+	std::string 	m_data;
+	std::string 	*m_val;
+	unsigned short	m_field_len;
+	CreateField 	*m_all_field;
+	
+	MysqlPrepareDynamic m_mp;
+	MysqlPrepareStatic	*m_load;
 	rapidjson::StringBuffer m_s;
 	rapidjson::Writer<rapidjson::StringBuffer> m_writer;
 };

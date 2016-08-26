@@ -150,12 +150,17 @@ bool MysqlResult::Read(unsigned int index, char *val, unsigned int len)
 	return true;
 }
 
+char* MysqlResult::ReadStr(unsigned int index, int &val)
+{
+	if (index > field_num) return NULL;
+	
+	val = *m_result[index].length;
+	return (char *)m_result[index].buffer;
+}
+
 int MysqlResult::FieldLength(unsigned int index)
 {
-	if (index >= field_num)
-	{
-		return -1;
-	}
+	if (index >= field_num) return -1;
 	return (int)m_result[index].length;
 }
 

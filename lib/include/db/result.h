@@ -20,8 +20,9 @@ public:
 	bool	Read(unsigned int index, float &val);
 	bool	Read(unsigned int index, double &val);
 	bool	Read(unsigned int index, char *val);
-
 	bool	Read(unsigned int index, char *val, unsigned int len);
+
+	char *	ReadStr(unsigned int index, int &len);
 
 	inline int FieldLength(unsigned int index);
 

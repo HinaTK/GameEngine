@@ -1,60 +1,113 @@
 
 #include "fieldmanager.h"
 #include "field.h"
-#include "preparedynamic.h"
+#include "preparestatic.h"
+#include "result.h"
 
-FieldManager::FieldManager(MysqlHandler *mysql, char *name)
+FieldManager::FieldManager(MysqlHandler *mysql, char *name, unsigned short field_len, FieldManager::CreateField *field)
 : m_writer(m_s)
-, m_mysql_handle(mysql)
-, m_base_sql("REPLACE INTO ")
+, m_val(new std::string[field_len])
+, m_field_len(field_len)
+, m_all_field(field)
+, m_mp(mysql, field_len + 1)
 {
-	m_base_sql = m_base_sql + name + "(";
+	m_base_sql = "REPLACE INTO ";
+	m_base_sql += name;
+	m_base_sql += " (rid,";
+	std::string temp = "SELECT ";
+	for (unsigned short i = 0; i < m_field_len; ++i)
+	{
+		temp += m_all_field[i].name;
+		temp += ",";
+	}
+	temp.replace(temp.size() - 1, 1, " FROM ");
+	temp += name;
+	temp += " WHERE rid=?;";
+	m_load = new MysqlPrepareStatic(mysql, 1, temp.c_str());
 }
 
-bool FieldManager::Load()
+FieldManager::~FieldManager()
+{
+	if (m_load != NULL)
+	{
+		delete m_load;
+	}
+
+	if (m_val != NULL)
+	{
+		delete [] m_val;
+		m_val = NULL;
+	}
+}
+
+bool FieldManager::Load(RoleField *rf)
 {
 	// 注册的时候，将字段名字与类关联，那么从数据加载数据出来，并找到对应的类进行反序列化
+	m_load->BindLong(0, &rf->rid);
+	if (m_load->Execute())
+	{
+		char *temp = NULL;
+		int len = 0;
+		int num = 0;
+		MysqlResult mr(m_load);
+		while(m_load->HasResult() && num < m_field_len)
+		{
+			temp = mr.ReadStr(num, len);
+			if (temp != NULL)
+			{
+				// todo （测试）数据库null字段
+
+				Field *field = m_all_field[num].func();
+				field->Deserialize(temp);
+				rf->fields.push_back(field);
+			}
+			else
+			{
+				// todo write log
+			}
+			++num;
+		}
+	}
 	return true;
 }	
 
 bool FieldManager::Save(RoleField *rf)
 {
 	int field_size = rf->fields.size();
-	if (field_size <= 0)
+	if (field_size <= 0) return true;
+	else if (field_size > m_field_len)
 	{
-		return true;
+		// todo 写log
+		return false;
 	}
-	// todo 需要再做一个管理器管理这个FieldManager，将获得表名还有数据库句柄
-	// 下面的std::string定义也可以由这个管理者传入（减少初始化消耗）
-	// 并传入角色id
-	MysqlPrepareDynamic mp(m_mysql_handle, field_size);
-	std::string sql = m_base_sql;
-	std::string data = ") VALUES (";
-	std::string *temp = new std::string[field_size];
-	int num = 0;
+	
+	m_mp.BindLong(0, &rf->rid);
+	m_sql = m_base_sql;
+	m_data = ") VALUES (?,";
+
+	int num = 1;
 	for (int i = 0; i < field_size; ++i)
 	{
 		m_writer.Reset(m_s);
-		temp[num] = "";
-		if (!m_manager[i]->Serialize(m_writer, temp[num]))
+		m_val[num] = "";
+		if (!rf->fields[i]->Serialize(m_writer, m_val[num]))
 		{
 			// todo write log
 			continue;
 		}
-		sql += m_manager[i]->GetName();
-		sql += ",";
-		data += "?,";
-		mp.BindText(num, (char *)temp[num].c_str(), temp[num].size());
+		m_sql += rf->fields[i]->GetName();
+		m_sql += ",";
+		m_data += "?,";
+		m_mp.BindText(num, (char *)m_val[num].c_str(), m_val[num].size());
 		++num;
 	}
-	sql.replace(sql.size() - 1, 1, data.replace(data.size() - 1, 1, ");"));
-	bool ret = mp.Execute(sql.c_str(), sql.size());
-	delete [] temp;
+
+	bool ret =  false;
+	if (num > 1)
+	{
+		m_sql.replace(m_sql.size() - 1, 1, m_data.replace(m_data.size() - 1, 1, ");"));
+		ret = m_mp.Execute(m_sql.c_str(), m_sql.size());
+	}
 
 	return ret;
-}
-
-void FieldManager::Register(Field *field)
-{
-	m_manager.push_back(field);
 }

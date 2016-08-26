@@ -7,7 +7,7 @@
 class MysqlPrepareStatic : public MysqlPrepare
 {
 public:
-	MysqlPrepareStatic(MysqlHandler *handler, unsigned char num, char *sql, unsigned short sql_len = 0);
+	MysqlPrepareStatic(MysqlHandler *handler, unsigned char num, const char *sql, unsigned short sql_len = 0);
 	virtual ~MysqlPrepareStatic(){}
 
 	// reconnect

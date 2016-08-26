@@ -16,6 +16,7 @@ protected:
 	bool	Run();
 	void	RecvData(short type, ThreadID sid, int len, const char *data);
 private:
+	
 };
 
 #endif
