@@ -6,9 +6,10 @@ namespace ThreadSysID
 {
 	enum
 	{
-		TSID_EXIT = 1,
+		TSID_CLASS = 1,			// 基于类来执行
+		TSID_EXIT,
 		TSID_THREAD_CMD,
-		MAX_ID = 100,
+		TSID_MAX_ID = 100,
 	};
 }
 

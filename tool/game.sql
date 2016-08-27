@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: test_db
 -- ------------------------------------------------------
--- Server version	5.5.5-10.1.9-MariaDB
+-- Server version 5.6.11
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,6 +16,21 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `ids`
+--
+
+DROP TABLE IF EXISTS `ids`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ids` (
+  `sid` int(11) NOT NULL,
+  `role_id` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '角色id',
+  PRIMARY KEY (`sid`),
+  UNIQUE KEY `sid_UNIQUE` (`sid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='最大id记录';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `log_gold`
 --
 
@@ -23,11 +38,11 @@ DROP TABLE IF EXISTS `log_gold`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `log_gold` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `rid` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rid` bigint(20) NOT NULL DEFAULT '0',
   `log` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,40 +53,29 @@ DROP TABLE IF EXISTS `role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `role` (
-  `rid` int(11) NOT NULL,
+  `rid` bigint(20) NOT NULL,
   `sid` int(11) NOT NULL,
-  `name` varchar(32) CHARACTER SET latin1 NOT NULL,
-  `account` varchar(32) CHARACTER SET latin1 NOT NULL,
+  `account` varchar(32) NOT NULL,
+  `name` char(32) NOT NULL,
+  `other` text NOT NULL,
+  PRIMARY KEY (`rid`),
+  UNIQUE KEY `name_UNIQUE` (`name`),
+  UNIQUE KEY `rid_UNIQUE` (`rid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `role_module`
+--
+
+DROP TABLE IF EXISTS `role_module`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `role_module` (
+  `rid` bigint(20) NOT NULL,
+  `test` text,
   PRIMARY KEY (`rid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `role_id`
---
-
-DROP TABLE IF EXISTS `role_id`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `role_id` (
-  `sid` int(11) NOT NULL,
-  `max_id` int(11) NOT NULL,
-  PRIMARY KEY (`sid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `test`
---
-
-DROP TABLE IF EXISTS `test`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `test` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dd` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色模块数据';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -83,4 +87,4 @@ CREATE TABLE `test` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-08-14 20:19:28
+-- Dump completed on 2016-08-27 11:20:29

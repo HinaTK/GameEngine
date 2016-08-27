@@ -1,7 +1,7 @@
 
 #include "netthread.h"
 #include "callback.h"
-#include "protocol/innerproto.h"
+#include "common/proto.h"
 #include "lib/include/inner/inneraccepter.h"
 #include "lib/include/inner/innerlistener.h"
 #include "lib/include/common/serverconfig.h"
@@ -24,12 +24,12 @@ bool NetThread::Init()
 	if (m_cneter_handle != INVALID_NET_HANDLE)
 	{
 		ServerInfo info1 = GameConfig::Instance().game;
-		Inner::tocRegisterServer rs;
-		rs.type = Inner::ST_GAME;
+		PProto::tocRegisterServer rs;
+		rs.type = PProto::ST_GAME;
 		rs.id = 1;
 		memcpy(rs.ip, info1.ip, sizeof(rs.ip));
 		rs.port = info1.port;
-		Send(m_cneter_handle, sizeof(Inner::tocRegisterServer), (const char *)&rs);
+		Send(m_cneter_handle, sizeof(PProto::tocRegisterServer), (const char *)&rs);
 	}
 	else return false;
 	return true;

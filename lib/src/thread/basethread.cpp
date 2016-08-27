@@ -1,6 +1,7 @@
 ﻿
 #include "basethread.h"
 #include "threadmanager.h"
+#include "threadclass.h"
 #include "lib/include/common/mutex.h"
 #include "lib/include/base/interface.h"
 
@@ -55,20 +56,24 @@ void BaseThread::Loop(bool sleep)
         
         while (m_recv_queue.Pop(msg)/* && msg != NULL*/)
         {
-            if (msg.type > ThreadSysID::MAX_ID)
+            if (msg.type >= ThreadSysID::MAX_ID)
             {
 				this->RecvData(msg.type, msg.id, msg.length, msg.data);
             }
             else
             {
-				if (msg.type == ThreadSysID::TSID_EXIT)
-				{
-					this->Exit();
-				}
-				else
-				{
-					this->SysCmd(msg);
-				}
+            	switch(msg.type)
+            	{
+            	case ThreadSysID::TSID_CLASS:
+            		if (msg.data != NULL) ((ThreadClass *)msg.data)->Exe(this);
+            		break;
+            	case ThreadSysID::TSID_EXIT:
+            		this->Exit();
+            		break;
+            	case ThreadSysID::TSID_THREAD_CMD:	
+            		this->SysCmd(msg);
+            		break;
+            	}
             }
             m_msg_memory.Free(msg);
         }

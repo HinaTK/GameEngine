@@ -1,5 +1,6 @@
 ﻿
 #include "dbthread.h"
+#include "protocol/proto.h"
 
 DBThread::~DBThread()
 {

@@ -5,11 +5,10 @@
 #include "result.h"
 
 FieldManager::FieldManager(MysqlHandler *mysql, char *name, unsigned short field_len, FieldManager::CreateField *field)
-: m_writer(m_s)
-, m_val(new std::string[field_len])
-, m_field_len(field_len)
+: m_field_len(field_len)
 , m_all_field(field)
 , m_mp(mysql, field_len + 1)
+, m_s(new rapidjson::StringBuffer[m_field_len])
 {
 	m_base_sql = "REPLACE INTO ";
 	m_base_sql += name;
@@ -33,10 +32,10 @@ FieldManager::~FieldManager()
 		delete m_load;
 	}
 
-	if (m_val != NULL)
+	if (m_s != NULL)
 	{
-		delete [] m_val;
-		m_val = NULL;
+		delete [] m_s;
+		m_s = NULL;
 	}
 }
 
@@ -58,7 +57,7 @@ bool FieldManager::Load(RoleField *rf)
 				// todo （测试）数据库null字段
 
 				Field *field = m_all_field[num].func();
-				field->Deserialize(temp);
+				field->Read(temp);
 				rf->fields.push_back(field);
 			}
 			else
@@ -71,6 +70,7 @@ bool FieldManager::Load(RoleField *rf)
 	return true;
 }	
 
+// todo 释放RoleField IPC
 bool FieldManager::Save(RoleField *rf)
 {
 	int field_size = rf->fields.size();
@@ -88,9 +88,8 @@ bool FieldManager::Save(RoleField *rf)
 	int num = 1;
 	for (int i = 0; i < field_size; ++i)
 	{
-		m_writer.Reset(m_s);
-		m_val[num] = "";
-		if (!rf->fields[i]->Serialize(m_writer, m_val[num]))
+		m_writer.Reset(m_s[i]);
+		if (!rf->fields[i]->Write(m_writer))
 		{
 			// todo write log
 			continue;
@@ -98,7 +97,7 @@ bool FieldManager::Save(RoleField *rf)
 		m_sql += rf->fields[i]->GetName();
 		m_sql += ",";
 		m_data += "?,";
-		m_mp.BindText(num, (char *)m_val[num].c_str(), m_val[num].size());
+		m_mp.BindText(num, (char *)m_s[i].GetString(), m_s[i].GetSize());
 		++num;
 	}
 

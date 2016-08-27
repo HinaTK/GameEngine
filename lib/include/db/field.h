@@ -28,41 +28,21 @@ public:
 	Field() :m_dirty(false), ver(0){}
 	virtual ~Field(){}
 
-	virtual char *	GetName() = 0;	// 获取字段名，用于构建sql
-
 	bool 	IsDirty(){return m_dirty;}
 	void	SetDirty(){ if (!m_dirty) m_dirty = true; }
 	void	UnsetDirty(){ m_dirty = false; }
 
-	inline bool Error(int err){ m_err = err; return false; }
-	inline bool Error(int err, int line){ m_err = err; m_err_line = line;  return false; }
+	bool Write(rapidjson::Writer<rapidjson::StringBuffer> &writer);
+	bool Read(char *str);
 
-	bool inline WriteVer(rapidjson::Writer<rapidjson::StringBuffer> &writer)
-	{
-		writer.Key(FIELD_VER_NAME);
-		return writer.Int(ver);
-	}
-
-	bool ReadVer(rapidjson::Document &doc)
-	{
-		if (doc.HasMember(FIELD_VER_NAME) && doc[FIELD_VER_NAME].IsInt())
-		{
-			ver = (Version)doc[FIELD_VER_NAME].GetInt();
-			return true;
-		}
-		m_err = ERR_NO_THIS_FIELD;
-		return false;
-	}
-
-	virtual bool Serialize(rapidjson::Writer<rapidjson::StringBuffer> &writer, std::string &str) = 0;
+	virtual char *	GetName() = 0;	// 获取字段名，用于构建sql
+	virtual bool Serialize(rapidjson::Writer<rapidjson::StringBuffer> &writer) = 0;
 	virtual bool Deserialize(char *str) = 0;
 
 	Version ver;
 
 protected:
 	bool	m_dirty;
-	int 	m_err;
-	int 	m_err_line;
 };
 
 #endif

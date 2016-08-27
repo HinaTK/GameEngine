@@ -68,6 +68,7 @@ NetMsg::~NetMsg()
 
 ThreadMsg::ThreadMsg()
 : length(0)
+, data(NULL)
 {
 
 }

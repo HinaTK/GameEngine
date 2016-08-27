@@ -22,6 +22,9 @@
     <Filter Include="global">
       <UniqueIdentifier>{b581c33c-8d4b-47fb-9156-0a5d688e391f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="db\module">
+      <UniqueIdentifier>{a44c4a3b-70c6-42c8-a73b-ad17538dc446}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\GameServer\db\dbthread.cpp">
@@ -44,6 +47,12 @@
     </ClCompile>
     <ClCompile Include="..\GameServer\net\router.cpp">
       <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\db\dbmanager.cpp">
+      <Filter>db</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\db\module\test.cpp">
+      <Filter>db\module</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +92,12 @@
     </ClInclude>
     <ClInclude Include="..\GameServer\net\router.h">
       <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\db\dbmanager.h">
+      <Filter>db</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\db\module\test.h">
+      <Filter>db\module</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
