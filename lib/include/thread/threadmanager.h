@@ -9,6 +9,7 @@
 
 class ThreadMsg;
 class BaseThread;
+class ThreadClass;
 class ThreadManager
 {
 public:
@@ -31,8 +32,9 @@ public:
 	void			Wait();
 
 	void			SendMsg(ThreadID did, short type, int len, const char *data, ThreadID sid = INVALID_THREAD_ID);
-	char *			CreateData(ThreadID did, int len);
 	void			SendMsg(ThreadID did, ThreadMsg &msg);
+	void 			SendClass(ThreadID did, ThreadClass * tc);
+	char *			CreateData(ThreadID did, int len);
 	void			CMD(short type, ThreadID sid, int len, const char *data, ThreadID did = INVALID_THREAD_ID);
 
 	game::Array<BaseThread *> *GetThreads(){ return &m_thread; }

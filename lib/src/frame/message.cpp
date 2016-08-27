@@ -1,5 +1,6 @@
 ﻿
-#include "frame/message.h"
+#include "message.h"
+#include "lib/include/thread/threadclass.h"
 #include "lib/include/common/memorypool.h"
 #include "lib/include/common/memoryvl.h"
 #include "lib/include/common/mem.h"
@@ -69,6 +70,15 @@ NetMsg::~NetMsg()
 ThreadMsg::ThreadMsg()
 : length(0)
 , data(NULL)
+{
+
+}
+
+ThreadMsg::ThreadMsg(short _type, ThreadID _id, ThreadClass *tc)
+: type(_type)
+, id(_id)
+, length(0)
+, data((char *)tc)
 {
 
 }

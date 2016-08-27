@@ -35,10 +35,12 @@ public:
 };
 
 // 线程消息
+class ThreadClass;
 class ThreadMsg
 {
 public:
 	ThreadMsg();
+	ThreadMsg(short _type, ThreadID _id, ThreadClass *tc);
 	ThreadMsg(short _type, ThreadID _id, int _length, const char *_data, MsgMemoryManager *memory);
 	~ThreadMsg();
 	

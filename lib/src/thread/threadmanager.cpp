@@ -1,6 +1,7 @@
 ﻿
 #include "threadmanager.h"
 #include "basethread.h"
+#include "threadclass.h"
 #include "lib/include/base/function.h"
 
 ThreadManager::~ThreadManager()
@@ -57,6 +58,12 @@ void ThreadManager::SendMsg(ThreadID did, short type, int len, const char *data,
 void ThreadManager::SendMsg(ThreadID did, ThreadMsg &msg)
 {
 	m_thread[did]->PushMsg(msg);
+}
+
+void ThreadManager::SendClass(ThreadID did, ThreadClass *tc)
+{
+	ThreadMsg tm;
+	
 }
 
 char * ThreadManager::CreateData(ThreadID did, int len)
