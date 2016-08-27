@@ -65,8 +65,13 @@ void BaseThread::Loop(bool sleep)
             	switch(msg.type)
             	{
             	case ThreadSysID::TSID_CLASS:
-            		if (msg.data != NULL) ((ThreadClass *)msg.data)->Exe(this);
-            		break;
+            		if (msg.data != NULL) 
+            		{
+            			// todo 内存在m_msg_memory中分配出来？
+            			((ThreadClass *)msg.data)->Exe(this);
+            			delete msg.data;
+            		}		
+            		continue;
             	case ThreadSysID::TSID_EXIT:
             		this->Exit();
             		break;
