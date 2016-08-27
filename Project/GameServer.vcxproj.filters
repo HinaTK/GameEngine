@@ -10,9 +10,6 @@
     <Filter Include="net">
       <UniqueIdentifier>{07d01f16-e03c-4523-830c-7d995e9c6198}</UniqueIdentifier>
     </Filter>
-    <Filter Include="proto">
-      <UniqueIdentifier>{ce220b58-243c-4a61-8dcc-c3deca69658b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="log">
       <UniqueIdentifier>{61bb937e-c1f2-4ebe-9daa-12be14232e5f}</UniqueIdentifier>
     </Filter>
@@ -24,6 +21,9 @@
     </Filter>
     <Filter Include="db\module">
       <UniqueIdentifier>{a44c4a3b-70c6-42c8-a73b-ad17538dc446}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocol">
+      <UniqueIdentifier>{ce220b58-243c-4a61-8dcc-c3deca69658b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -69,9 +69,6 @@
     <ClInclude Include="..\GameServer\frame\game.h">
       <Filter>frame</Filter>
     </ClInclude>
-    <ClInclude Include="..\protocol\innerproto.h">
-      <Filter>proto</Filter>
-    </ClInclude>
     <ClInclude Include="..\GameServer\log\loghandler.h">
       <Filter>log</Filter>
     </ClInclude>
@@ -98,6 +95,9 @@
     </ClInclude>
     <ClInclude Include="..\GameServer\db\module\test.h">
       <Filter>db\module</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\protocol\proto.h">
+      <Filter>protocol</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

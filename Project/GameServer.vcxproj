@@ -118,8 +118,8 @@
     <ClInclude Include="..\GameServer\net\netthread.h" />
     <ClInclude Include="..\GameServer\net\proto.h" />
     <ClInclude Include="..\GameServer\net\router.h" />
+    <ClInclude Include="..\GameServer\protocol\proto.h" />
     <ClInclude Include="..\GameServer\scene\scenemanager.h" />
-    <ClInclude Include="..\protocol\innerproto.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
