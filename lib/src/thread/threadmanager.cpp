@@ -50,14 +50,19 @@ void ThreadManager::Start()
 	}
 }
 
-void ThreadManager::SendMsg(ThreadID did, short type, int len, const char *data, ThreadID sid)
+void ThreadManager::SendMsg(ThreadID did, TPT type, int len, const char *data, ThreadID sid)
 {
-	m_thread[did]->PushMsg(ThreadMsg(type, sid, len, data, m_thread[did]->GetMemory()));
+	m_thread[did]->PushMsg(ThreadMsg(sid, type, len, data, m_thread[did]->GetMemory()));
 }
 
 void ThreadManager::SendMsg(ThreadID did, ThreadMsg &msg)
 {
 	m_thread[did]->PushMsg(msg);
+}
+
+void ThreadManager::SendMsg(ThreadID did, TPT type, char *data)
+{
+	m_thread[did]->PushMsg(ThreadMsg(type, data));
 }
 
 void ThreadManager::SendClass(ThreadID did, ThreadClass *tc)
@@ -76,20 +81,20 @@ char * ThreadManager::CreateData(ThreadID did, int len)
 // 	m_thread[did]->PushMsg(msg);
 // }
 
-void ThreadManager::CMD(short type, ThreadID sid, int len, const char *data, ThreadID did /*= -1*/)
+void ThreadManager::CMD(TPT type, ThreadID sid, int len, const char *data, ThreadID did /*= -1*/)
 {
 	if (did != INVALID_THREAD_ID)
 	{
 		if (m_thread.Exist(did))
 		{
-			m_thread[did]->PushMsg(ThreadMsg(type, sid, len, data, m_thread[did]->GetMemory()));
+			m_thread[did]->PushMsg(ThreadMsg(sid, type, len, data, m_thread[did]->GetMemory()));
 		}
 	}
 	else
 	{
 		for (game::Array<BaseThread * >::iterator itr = m_thread.Begin(); itr != m_thread.End(); ++itr)
 		{
-			(*itr)->PushMsg(ThreadMsg(type, sid, len, data, m_thread[did]->GetMemory()));
+			(*itr)->PushMsg(ThreadMsg(sid, type, len, data, m_thread[did]->GetMemory()));
 		}
 	}
 }

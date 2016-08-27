@@ -17,7 +17,7 @@ CenterConfig::Instance().db.dbname.c_str(),
 CenterConfig::Instance().db.port)
 , m_role_s(&m_mysql, 2, "SELECT name FROM role WHERE sid=? AND account=?;")
 , m_role_i(&m_mysql, 4, "INSERT INTO role (rid,sid,account,name) VALUES (?,?,?,?);")
-, m_role_max_id(&m_mysql, 2, "REPLACE INTO role_id (sid, max_id) VALUES (?,?);")
+, m_role_max_id(&m_mysql, 2, "REPLACE INTO ids (sid, role_id) VALUES (?,?);")
 {
 
 }
@@ -31,7 +31,7 @@ void DBManager::LoadRoleMaxID(ThreadID tid)
 {
 	MysqlPrepareDynamic mp(&m_mysql, 1);
 	mp.BindInt(0, &CenterConfig::Instance().sid);
-	if (mp.Execute("SELECT max_id FROM role_id WHERE sid=?;"))
+	if (mp.Execute("SELECT role_id FROM ids WHERE sid=?;"))
 	{
 		unsigned int max_id = 1;
 		MysqlResult mr(&mp);

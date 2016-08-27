@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib\include\thread\basethread.h" />
+    <ClInclude Include="..\..\lib\include\thread\threadclass.h" />
     <ClInclude Include="..\..\lib\include\thread\threadmanager.h" />
     <ClInclude Include="..\..\lib\include\thread\threadpool.h" />
     <ClInclude Include="..\..\lib\include\thread\threadsysid.h" />

@@ -4,7 +4,6 @@
 
 #include "lib/include/db/handler.h"
 #include "lib/include/db/preparestatic.h"
-#include "lib/include/db/fieldmanager.h"
 #include "common/serverdef.h"
 
 class DBThread;
@@ -14,10 +13,11 @@ public:
 	DBManager(DBThread *t);
 	~DBManager();
 
+	MysqlHandler *	GetMysql(){ return &m_mysql; }
 protected:
 	DBThread		*m_thread;
 	MysqlHandler	m_mysql;
-	FieldManager 	m_field_manager;
+	
 };
 
 #endif

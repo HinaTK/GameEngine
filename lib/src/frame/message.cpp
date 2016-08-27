@@ -74,16 +74,15 @@ ThreadMsg::ThreadMsg()
 
 }
 
-ThreadMsg::ThreadMsg(short _type, ThreadID _id, ThreadClass *tc)
+ThreadMsg::ThreadMsg(TPT _type, char *_data)
 : type(_type)
-, id(_id)
 , length(0)
-, data((char *)tc)
+, data(_data)
 {
 
 }
 
-ThreadMsg::ThreadMsg(short _type, ThreadID _id, int _length, const char *_data, MsgMemoryManager *memory)
+ThreadMsg::ThreadMsg(ThreadID _id, TPT _type, int _length, const char *_data, MsgMemoryManager *memory)
 : type(_type)
 , id(_id)
 , length(_length)

@@ -56,7 +56,7 @@ void BaseThread::Loop(bool sleep)
         
         while (m_recv_queue.Pop(msg)/* && msg != NULL*/)
         {
-            if (msg.type >= ThreadSysID::MAX_ID)
+            if (msg.type >= ThreadSysID::TSID_MAX_ID)
             {
 				this->RecvData(msg.type, msg.id, msg.length, msg.data);
             }

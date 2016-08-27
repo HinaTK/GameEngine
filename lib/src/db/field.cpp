@@ -4,13 +4,19 @@
 
 bool Field::Write(rapidjson::Writer<rapidjson::StringBuffer> &writer)
 {
+	writer.StartObject();
 	writer.Key(FIELD_VER_NAME);
 	if (!writer.Int(ver))
 	{
 		Function::Error("can not write version");
 		return false;
 	}
-	return Serialize(writer);
+	if (!Serialize(writer))
+	{
+		Function::Error("can not write field");
+		return false;
+	}
+	return writer.EndObject();
 }
 
 bool Field::Read(char *str)

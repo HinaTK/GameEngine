@@ -96,7 +96,7 @@
   <ItemGroup>
     <ClCompile Include="..\GameServer\db\dbmanager.cpp" />
     <ClCompile Include="..\GameServer\db\dbthread.cpp" />
-    <ClCompile Include="..\GameServer\db\module\test.cpp" />
+    <ClCompile Include="..\GameServer\db\module\role\test.cpp" />
     <ClCompile Include="..\GameServer\frame\game.cpp" />
     <ClCompile Include="..\GameServer\global\global.cpp" />
     <ClCompile Include="..\GameServer\net\callback.cpp" />
@@ -106,8 +106,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GameServer\db\dbmanager.h" />
+    <ClInclude Include="..\GameServer\db\dbmodule.h" />
     <ClInclude Include="..\GameServer\db\dbthread.h" />
-    <ClInclude Include="..\GameServer\db\module\test.h" />
+    <ClInclude Include="..\GameServer\db\module\rolemodule.h" />
+    <ClInclude Include="..\GameServer\db\module\role\test.h" />
     <ClInclude Include="..\GameServer\define.h" />
     <ClInclude Include="..\GameServer\frame\game.h" />
     <ClInclude Include="..\GameServer\global\global.h" />

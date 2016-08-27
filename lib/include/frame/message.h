@@ -40,12 +40,12 @@ class ThreadMsg
 {
 public:
 	ThreadMsg();
-	ThreadMsg(short _type, ThreadID _id, ThreadClass *tc);
-	ThreadMsg(short _type, ThreadID _id, int _length, const char *_data, MsgMemoryManager *memory);
+	ThreadMsg(TPT _type, char *_data);
+	ThreadMsg(ThreadID _id, TPT _type, int _length, const char *_data, MsgMemoryManager *memory);
 	~ThreadMsg();
 	
-	short		type;	// 消息类型
 	ThreadID	id;
+	TPT			type;	// 消息类型
 	int			length;
 	char		*data;
 };

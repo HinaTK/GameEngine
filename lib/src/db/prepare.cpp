@@ -7,6 +7,7 @@
 MysqlPrepare::MysqlPrepare(MysqlHandler *handler, unsigned char num)
 : m_handler(handler)
 , m_param(NULL)
+, m_stmt(NULL)
 {
 	if (num > 0)
 	{

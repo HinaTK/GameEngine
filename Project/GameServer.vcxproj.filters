@@ -25,6 +25,9 @@
     <Filter Include="protocol">
       <UniqueIdentifier>{ce220b58-243c-4a61-8dcc-c3deca69658b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="db\module\role">
+      <UniqueIdentifier>{e996d611-7871-49be-b5ec-13206f41504f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\GameServer\db\dbthread.cpp">
@@ -51,8 +54,8 @@
     <ClCompile Include="..\GameServer\db\dbmanager.cpp">
       <Filter>db</Filter>
     </ClCompile>
-    <ClCompile Include="..\GameServer\db\module\test.cpp">
-      <Filter>db\module</Filter>
+    <ClCompile Include="..\GameServer\db\module\role\test.cpp">
+      <Filter>db\module\role</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -93,11 +96,17 @@
     <ClInclude Include="..\GameServer\db\dbmanager.h">
       <Filter>db</Filter>
     </ClInclude>
-    <ClInclude Include="..\GameServer\db\module\test.h">
-      <Filter>db\module</Filter>
-    </ClInclude>
     <ClInclude Include="..\GameServer\protocol\proto.h">
       <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\db\dbmodule.h">
+      <Filter>db</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\db\module\role\test.h">
+      <Filter>db\module\role</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\db\module\rolemodule.h">
+      <Filter>db\module</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

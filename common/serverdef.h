@@ -12,6 +12,7 @@ typedef char			Session[32];
 typedef int				ServerID;
 typedef long long		RoleID;
 typedef unsigned char	ThreadID;
+typedef unsigned short	TPT;		// thread proto type
 typedef unsigned char	NetMsgType;
 
 #define INVALID_THREAD_ID 255

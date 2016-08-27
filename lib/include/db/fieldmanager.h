@@ -5,7 +5,6 @@
 #include <vector>
 #include <string>
 #include <functional>
-#include "module.h"
 #include "rolefield.h"
 #include "preparedynamic.h"
 #include "lib/include/rapidjson/define.h"
@@ -13,7 +12,7 @@
 class Field;
 class MysqlHandler;
 class MysqlPrepareStatic;
-class FieldManager : public DBModule
+class FieldManager
 {
 public:
 

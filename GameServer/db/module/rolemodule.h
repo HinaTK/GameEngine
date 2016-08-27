@@ -2,15 +2,30 @@
 #ifndef ROLE_MODULE_H
 #define ROLE_MODULE_H
 
-#include "lib/include/db/fieldmanager.h"
+#include <vector>
+#include "db/dbmodule.h"
+#include "lib/include/db/rolefield.h"
 
-class RoleModule : public FieldManager
+class RoleModule : public DBModule
 {
 public:
-	RoleModule(){};
-	virtual ~RoleModule(){};
+	~RoleModule()
+	{
+		for (std::vector<RoleField *>::iterator itr = rold_list.begin(); itr != rold_list.end(); ++itr)
+		{
+			delete *itr;
+		}
+	}
 
-	bool Save();
+	void Exe(DBThread *t)
+	{
+		for (std::vector<RoleField *>::iterator itr = rold_list.begin(); itr != rold_list.end(); ++itr)
+		{
+			t->GetFieldManager()->Save(*itr);
+		}
+	}
+	
+	std::vector<RoleField *> rold_list;
 };
 
 #endif

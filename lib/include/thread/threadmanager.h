@@ -31,11 +31,12 @@ public:
 	void			Exit();
 	void			Wait();
 
-	void			SendMsg(ThreadID did, short type, int len, const char *data, ThreadID sid = INVALID_THREAD_ID);
+	void			SendMsg(ThreadID did, TPT type, int len, const char *data, ThreadID sid = INVALID_THREAD_ID);
 	void			SendMsg(ThreadID did, ThreadMsg &msg);
-	void 			SendClass(ThreadID did, ThreadClass * tc);
+	void 			SendMsg(ThreadID did, TPT type, char *data);
+	void 			SendClass(ThreadID did, ThreadClass * tc);	
 	char *			CreateData(ThreadID did, int len);
-	void			CMD(short type, ThreadID sid, int len, const char *data, ThreadID did = INVALID_THREAD_ID);
+	void			CMD(TPT type, ThreadID sid, int len, const char *data, ThreadID did = INVALID_THREAD_ID);
 
 	game::Array<BaseThread *> *GetThreads(){ return &m_thread; }
 

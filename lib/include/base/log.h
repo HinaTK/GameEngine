@@ -19,7 +19,7 @@ namespace LogMsg
 	// log database message
 	enum
 	{
-		LM_REGISTER = ThreadSysID::MAX_ID + 1,
+		LM_REGISTER = ThreadSysID::TSID_MAX_ID,
 		LM_WRITE_FILE_ERROR,
 		LM_WRITE_FILE_INFO,
 		LM_WRITE_DB
