@@ -3,17 +3,15 @@
 #define NET_THREAD_H
 
 #include "callback.h"
-#include "lib/include/thread/basethread.h"
-#include "lib/include/frame/netmanager.h"
+#include "lib/include/frame/socketthread.h"
 #include "common/datastructure/gamevector.h"
 
 class ThreadManager;
-class SocketThread;
-class NetThread : public BaseThread
+class NetThread : public SocketThread
 {
 public:
 	
-	NetThread(ThreadManager *manager, SocketThread *st);
+	NetThread(ThreadManager *manager);
 	virtual ~NetThread(){}
 
 	struct GameServer
@@ -27,11 +25,9 @@ public:
 	void	InnerRecv(NetMsg *msg);
 protected:
 	bool	Init();
-	bool	Run();
-	void	RecvData(short type, ThreadID sid, int len, const char *data);
-	bool	CMD(short type, ThreadID sid, int len, const char *data);
+	void	RecvData(TPT type, ThreadID sid, int len, const char *data);
+	bool	CMD(TPT type, ThreadID sid, int len, const char *data);
 private:
-	NetManager	m_net_manager;
 	NetHandle	m_server_handle;
 };
 

@@ -27,7 +27,7 @@ public:
 	void	ConnetRet(NetHandle handle, int flag);
 protected:
 	bool	Init();
-	void	RecvData(short type, ThreadID sid, int len, const char *data);
+	void	RecvData(TPT type, ThreadID sid, int len, const char *data);
 private:
 	int		m_index;
 	InnerCallBack	*m_inner_callback;

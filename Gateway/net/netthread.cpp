@@ -1,7 +1,7 @@
 
 #include "netthread.h"
 #include "main/gateway.h"
-#include "protocol/innerproto.h"
+#include "common/proto.h"
 #include "lib/include/gate/gateaccepter.h"
 #include "lib/include/gate/gatelistener.h"
 #include "lib/include/common/serverconfig.h"
@@ -38,12 +38,12 @@ bool NetThread::Init()
 	{
 		return false;
 	}
-	Inner::tocRegisterServer rs;
-	rs.type = Inner::ST_GATE;
+	PProto::tocRegisterServer rs;
+	rs.type = PProto::ST_GATE;
 	rs.id = (unsigned short)m_index;
 	memcpy(rs.ip, info.ip, sizeof(rs.ip));
 	rs.port = info.port;
-	Send(handle, sizeof(Inner::tocRegisterServer), (const char *)&rs);
+	Send(handle, sizeof(PProto::tocRegisterServer), (const char *)&rs);
 	return true;
 }
 
@@ -53,7 +53,7 @@ void NetThread::InnerRecv(NetMsg *msg)
 	unsigned short router = (unsigned short)*msg->data;
 	switch (router)
 	{
-	case Inner::CTO_BROCAST_REGISTER:
+	case PProto::CTO_BROCAST_REGISTER:
 		InsertGame(msg);
 	default:
 		break;
@@ -63,8 +63,8 @@ void NetThread::InnerRecv(NetMsg *msg)
 
 void NetThread::InsertGame(NetMsg *msg)
 {
-	Inner::ctoBrocastRegister *br = (Inner::ctoBrocastRegister *)msg->data;
-	if (br->type == Inner::ST_GAME)
+	PProto::ctoBrocastRegister *br = (PProto::ctoBrocastRegister *)msg->data;
+	if (br->type == PProto::ST_GAME)
 	{
 		for (game::Vector<GameServer>::iterator itr = m_game_server.Begin(); itr != m_game_server.End(); ++itr)
 		{
@@ -89,7 +89,7 @@ void NetThread::ConnetRet(NetHandle handle, int flag)
 	}
 }
 
-void NetThread::RecvData(short type, ThreadID sid, int len, const char *data)
+void NetThread::RecvData(TPT type, ThreadID sid, int len, const char *data)
 {
 
 }
