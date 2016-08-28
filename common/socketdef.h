@@ -2,7 +2,7 @@
 #ifndef SOCKET_DEF_H
 #define SOCKET_DEF_H
 
-#ifdef WIN32
+#if (defined _WIN32) || (defined _WIN64)
 
 #ifdef FD_SETSIZE
 	#undef FD_SETSIZE

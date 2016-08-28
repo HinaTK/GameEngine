@@ -44,5 +44,5 @@ bool Field::Read(char *str)
 		// todo 用lua作数据升级，减少包的大小
 	}
 		
-	return Deserialize(str);
+	return Deserialize(doc, str);
 }

@@ -78,7 +78,7 @@ void MysqlPrepare::BindChar(unsigned char num, char *val)
 {
 	m_param[num].buffer_type = MYSQL_TYPE_STRING;
 	m_param[num].buffer = val;
-	m_param[num].buffer_length = strlen(val);
+	m_param[num].buffer_length = (unsigned long)strlen(val);
 }
 
 void MysqlPrepare::BindChar(unsigned char num, char *val, unsigned int length)
@@ -92,7 +92,7 @@ void MysqlPrepare::BindVarChar(unsigned char num, char *val)
 {
 	m_param[num].buffer_type = MYSQL_TYPE_VARCHAR;
 	m_param[num].buffer = val;
-	m_param[num].buffer_length = strlen(val);
+	m_param[num].buffer_length = (unsigned long)strlen(val);
 }
 
 void MysqlPrepare::BindVarChar(unsigned char num, char *val, unsigned int length)
@@ -106,7 +106,7 @@ void MysqlPrepare::BindText(unsigned char num, char *val)
 {
 	m_param[num].buffer_type = MYSQL_TYPE_BLOB;
 	m_param[num].buffer = val;
-	m_param[num].buffer_length = strlen(val);
+	m_param[num].buffer_length = (unsigned long)strlen(val);
 }
 
 void MysqlPrepare::BindText(unsigned char num, char *val, unsigned int length)

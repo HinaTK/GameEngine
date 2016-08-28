@@ -7,6 +7,7 @@
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/base/function.h"
 
+// todo 当mysql连接失败，下面的预处理会继续执行，因此会crash
 DBManager::DBManager(DBThread *t)
 : m_thread(t)
 , m_mysql(
@@ -19,12 +20,29 @@ CenterConfig::Instance().db.port)
 , m_role_i(&m_mysql, 4, "INSERT INTO role (rid,sid,account,name) VALUES (?,?,?,?);")
 , m_role_max_id(&m_mysql, 2, "REPLACE INTO ids (sid, role_id) VALUES (?,?);")
 {
-
+	
 }
 
 DBManager::~DBManager()
 {
 
+}
+
+bool DBManager::Init()
+{
+	if (!m_mysql.Connect())
+	{
+		Function::Error("center can not connect mysql");
+		m_mysql.Close();
+		return false;
+	}
+	if (!m_role_s.Init() ||
+		!m_role_i.Init() ||
+		!m_role_max_id.Init())
+	{
+		return false;
+	}
+	return true;
 }
 
 void DBManager::LoadRoleMaxID(ThreadID tid)

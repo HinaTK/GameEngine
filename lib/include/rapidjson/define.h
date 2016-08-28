@@ -51,7 +51,7 @@ enum
 
 #define JSON_READ_BASE_ARRAY_END() \
 	}\
-	else return Error(ERR_NO_THIS_FIELD, __LINE__);
+	else return false;
 
 #define JSON_READ_ONE_ARRAY_BEGIN(Name)\
 	if (doc.HasMember(Name) && doc[Name].IsArray()){\
@@ -70,7 +70,7 @@ enum
 	{\
 		Val = Array[Index].GetInt(); \
 	}\
-	else return Error(ERR_READ_DATA_ERR, __LINE__);
+	else return false;
 
 
 // 以下一一对应

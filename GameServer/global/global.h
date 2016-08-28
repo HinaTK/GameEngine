@@ -14,7 +14,7 @@ public:
 protected:
 	bool	Init();
 	bool	Run();
-	void	RecvData(short type, ThreadID sid, int len, const char *data);
+	void	RecvData(TPT type, ThreadID sid, int len, const char *data);
 
 private:
 };

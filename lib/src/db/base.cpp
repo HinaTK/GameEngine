@@ -4,16 +4,13 @@
 #include "lib/include/base/function.h"
 
 MysqlBase::MysqlBase(const char *ip, const char *user, const char *password, const char *db, unsigned short port)
+: m_mysql(NULL)
 {
 	strcpy(m_host, ip);
 	strcpy(m_user, user);
 	strcpy(m_passwd, password);
 	strcpy(m_db, db);
 	m_port = port;
-	if (!Connect())
-	{
-		Close();
-	}
 }
 
 MysqlBase::~MysqlBase()

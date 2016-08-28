@@ -99,9 +99,6 @@
     <ClInclude Include="..\GameServer\protocol\proto.h">
       <Filter>protocol</Filter>
     </ClInclude>
-    <ClInclude Include="..\GameServer\db\dbmodule.h">
-      <Filter>db</Filter>
-    </ClInclude>
     <ClInclude Include="..\GameServer\db\module\role\test.h">
       <Filter>db\module\role</Filter>
     </ClInclude>

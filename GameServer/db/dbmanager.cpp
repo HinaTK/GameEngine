@@ -16,7 +16,6 @@ CenterConfig::Instance().db.user.c_str(),
 CenterConfig::Instance().db.passwd.c_str(),
 CenterConfig::Instance().db.dbname.c_str(),
 CenterConfig::Instance().db.port)
-
 {
 
 }
@@ -24,4 +23,14 @@ CenterConfig::Instance().db.port)
 DBManager::~DBManager()
 {
 
+}
+
+bool DBManager::Init()
+{
+	if (!m_mysql.Connect())
+	{
+		m_mysql.Close();
+		return false;
+	}
+	return true;
 }

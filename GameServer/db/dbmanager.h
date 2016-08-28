@@ -13,11 +13,12 @@ public:
 	DBManager(DBThread *t);
 	~DBManager();
 
+	bool	Init();
 	MysqlHandler *	GetMysql(){ return &m_mysql; }
+
 protected:
-	DBThread		*m_thread;
-	MysqlHandler	m_mysql;
-	
+	DBThread			*m_thread;
+	MysqlHandler		m_mysql;
 };
 
 #endif

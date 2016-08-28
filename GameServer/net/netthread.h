@@ -15,7 +15,7 @@ public:
 protected:
 	bool	Init();
 	void	Ready();
-	void	RecvData(short type, ThreadID sid, int len, const char *data);
+	void	RecvData(TPT type, ThreadID sid, int len, const char *data);
 private:
 	NetHandle		m_cneter_handle;
 };

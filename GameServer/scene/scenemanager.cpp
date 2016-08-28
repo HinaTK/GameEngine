@@ -22,7 +22,7 @@ bool SceneManager::Run()
 	return false;
 }
 
-void SceneManager::RecvData(short type, ThreadID sid, int len, const char *data)
+void SceneManager::RecvData(TPT type, ThreadID sid, int len, const char *data)
 {
 
 }

@@ -14,13 +14,16 @@ public:
 	bool Serialize(rapidjson::Writer<rapidjson::StringBuffer> &writer)
 	{
 		JSON_WRITE_BASE_ARRAY_BEGIN(writer, FIELD_BASE_NAME);
-		writer.Int(112234);
+		writer.Int(item_id);
 		JSON_WRITE_BASE_ARRAY_END(writer);
 		return true;
 	}
 
-	virtual bool Deserialize(char *str)
+	virtual bool Deserialize(rapidjson::Document &doc, char *str)
 	{
+		JSON_READ_BASE_ARRAY_BEGIN(FIELD_BASE_NAME);
+		JSON_READ_ARRAY_INT(array, 0, item_id);
+		JSON_READ_BASE_ARRAY_END();
 		return true;
 	}
 

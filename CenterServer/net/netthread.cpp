@@ -45,7 +45,7 @@ void NetThread::Ready()
 	m_manager->SendMsg(GetThreadID(), ThreadProto::TP_LOAD_ROLE_MAX_ID, 0, NULL, m_id);
 }
 
-void NetThread::RecvData(short type, ThreadID sid, int len, const char *data)
+void NetThread::RecvData(TPT type, ThreadID sid, int len, const char *data)
 {
 	switch (type)
 	{

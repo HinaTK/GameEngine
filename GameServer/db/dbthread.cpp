@@ -4,10 +4,12 @@
 #include "module/role/test.h"
 #include "protocol/proto.h"
 
+#define NewField(Class) \
+	[]()->Field *{return new Class(); }
 
 FieldManager::CreateField fields[] =
 {
-	{ "test", []()->Field *{return new MTest(); } }
+	{ "test", NewField(MTest) }
 };
 
 DBThread::DBThread(ThreadManager *thread_manager)
@@ -24,9 +26,12 @@ DBThread::~DBThread()
 
 }
 
-
 bool DBThread::Init()
 {
+	if (!m_db_manager.Init() || !m_field_manager.Init())
+	{
+		return false;
+	}
 	return true;
 }
 
@@ -36,17 +41,18 @@ bool DBThread::Run()
 	return false;
 }
 
-void DBThread::RecvData(short type, ThreadID sid, int len, const char *data)
+void DBThread::RecvData(TPT type, ThreadID stid, int len, const char *data)
 {
 	switch (type)
 	{
-	case TProto::DB_SAVE_MODULE:
-		if (data != NULL)
+	case TProto::DB_LOAD_MODULE:
+		RoleModule *rm = new RoleModule();
+		rm->rf.rid = (RoleID)data;
+		if (!m_field_manager.Load(&rm->rf))
 		{
-			RoleModule *temp = (RoleModule *)data;
-			temp->Exe(this);
-			delete temp;
+			delete rm;
 		}
+		GetManager()->SendMsg(stid, rm);
 		break;
 	}
 }

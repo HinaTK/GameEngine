@@ -51,7 +51,7 @@ MysqlResult::MysqlResult(MysqlPrepare *prepare)
 		case MYSQL_TYPE_LONG_BLOB:
 		case MYSQL_TYPE_BLOB:
 			// todo 确认length这样做是不是对的
-			m_result[i].buffer = new char[fields[i].length];
+			m_result[i].buffer = new char[fields[i].length + 1];
 			m_result[i].length = &fields[i].length;
 			m_result[i].buffer_length = fields[i].length;
 			break;
@@ -155,7 +155,9 @@ char* MysqlResult::ReadStr(unsigned int index, int &val)
 	if (index > field_num) return NULL;
 	
 	val = *m_result[index].length;
-	return (char *)m_result[index].buffer;
+	char *ret = (char *)m_result[index].buffer;
+	ret[val] = 0;
+	return ret;
 }
 
 int MysqlResult::FieldLength(unsigned int index)

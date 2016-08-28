@@ -8,7 +8,7 @@ namespace TProto
 {
 	enum DB
 	{
-		DB_SAVE_MODULE = ThreadSysID::TSID_MAX_ID
+		DB_LOAD_MODULE = ThreadSysID::TSID_MAX_ID,
 	};
 }
 

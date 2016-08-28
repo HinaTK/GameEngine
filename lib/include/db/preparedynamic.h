@@ -10,7 +10,7 @@ public:
 	MysqlPrepareDynamic(MysqlHandler *handler, unsigned char num);
 	virtual ~MysqlPrepareDynamic(){}
 
-	bool	Execute(const char *sql){ return Execute(sql, strlen(sql)); }
+	bool	Execute(const char *sql){ return Execute(sql, (unsigned short)strlen(sql)); }
 	bool	Execute(const char *sql, unsigned short sql_len);
 private:
 };

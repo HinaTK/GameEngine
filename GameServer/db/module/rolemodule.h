@@ -3,29 +3,17 @@
 #define ROLE_MODULE_H
 
 #include <vector>
-#include "db/dbmodule.h"
 #include "lib/include/db/rolefield.h"
+#include "lib/include/thread/threadclass.h"
 
-class RoleModule : public DBModule
+class RoleModule : public ThreadClass
 {
 public:
-	~RoleModule()
+	void Exe(BaseThread *t)
 	{
-		for (std::vector<RoleField *>::iterator itr = rold_list.begin(); itr != rold_list.end(); ++itr)
-		{
-			delete *itr;
-		}
+		((DBThread *)t)->GetFieldManager()->Save(&rf);
 	}
-
-	void Exe(DBThread *t)
-	{
-		for (std::vector<RoleField *>::iterator itr = rold_list.begin(); itr != rold_list.end(); ++itr)
-		{
-			t->GetFieldManager()->Save(*itr);
-		}
-	}
-	
-	std::vector<RoleField *> rold_list;
+	RoleField rf;
 };
 
 #endif

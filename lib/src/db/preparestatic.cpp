@@ -10,7 +10,6 @@ MysqlPrepareStatic::MysqlPrepareStatic(MysqlHandler *handler, unsigned char num,
 	m_sql = new char[m_sql_len + 1];
 	memcpy(m_sql, sql, m_sql_len);
 	m_sql[m_sql_len] = 0;
-	Init();
 }
 
 bool MysqlPrepareStatic::Init()

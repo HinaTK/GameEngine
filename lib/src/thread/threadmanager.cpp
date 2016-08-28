@@ -65,21 +65,24 @@ void ThreadManager::SendMsg(ThreadID did, TPT type, char *data)
 	m_thread[did]->PushMsg(ThreadMsg(type, data));
 }
 
-void ThreadManager::SendClass(ThreadID did, ThreadClass *tc)
+void ThreadManager::SendMsg(ThreadID did, ThreadClass *tc)
+{
+	m_thread[did]->PushMsg(ThreadMsg(ThreadSysID::TSID_CLASS, (char *)tc));
+}
+
+void ThreadManager::SendMsg(ThreadID did, TPT type, long long data, ThreadID sid)
 {
 	ThreadMsg tm;
-	
+	tm.id = sid;
+	tm.type = type;
+	*(long long *)&tm.data = data;
+	m_thread[did]->PushMsg(tm);
 }
 
 char * ThreadManager::CreateData(ThreadID did, int len)
 {
 	return m_thread[did]->GetMemory()->Alloc(len);
 }
-
-// void ThreadManager::SendMsg(ThreadID did, ThreadMsg &msg)
-// {
-// 	m_thread[did]->PushMsg(msg);
-// }
 
 void ThreadManager::CMD(TPT type, ThreadID sid, int len, const char *data, ThreadID did /*= -1*/)
 {

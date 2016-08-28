@@ -25,7 +25,7 @@ public:
 	FieldManager(MysqlHandler *mysql, char *name, unsigned short field_len, CreateField *field);
 	~FieldManager();
 
-
+	bool	Init();
 	bool	Load(RoleField *rf);
 	bool	Save(RoleField *rf);
 

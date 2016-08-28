@@ -35,7 +35,7 @@ public:
 
 	void	PushMsg(ThreadMsg &msg);
 	void	SysCmd(ThreadMsg &msg);
-	virtual bool 	CMD(short type, ThreadID sid, int len, const char *data){return false;}
+	virtual bool 	CMD(TPT type, ThreadID sid, int len, const char *data){ return false; }
 	ThreadManager *GetManager(){ return m_manager; }
 	MsgMemoryManager *GetMemory(){return &m_msg_memory;}
 	void	Exit();
@@ -52,7 +52,7 @@ private:
 protected:
 	void			Loop(bool sleep = true);
 	virtual bool	Run() = 0;
-	virtual void	RecvData(short type, ThreadID sid, int len, const char *data) = 0;
+	virtual void	RecvData(TPT type, ThreadID sid, int len, const char *data) = 0;
 protected:
 	ThreadID		m_id;
 	std::string		m_name;

@@ -50,22 +50,14 @@ __fun(int a comma int b)
 #define LOG_CONSTRUCT(Class, ...)\
 	Class(__VA_ARGS__){}
 
-class AAA
-{
-public:
-	LOG_CONSTRUCT(AAA, int a, char b[10]);
-};
 
-#define KKKK()\
-	int aa = 33; \
-	int b = 34;\
-	printf("dddd = %d, %d, %d,\n", __LINE__, aa, b);
 
 int main()
 {
-	AAA a(1, "12");
-	printf("%lld\n", 1999999999999999992);
-	KKKK();
+	char *temp = NULL;
+	*(long long *)&temp = 12344321;
+	long long temp2 = (long long)temp;
+	printf("%ld\n", temp2);
 // 	A *a = new B;
 // 	a->Show();
 // 	delete a;

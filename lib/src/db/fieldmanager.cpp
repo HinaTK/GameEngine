@@ -3,6 +3,7 @@
 #include "field.h"
 #include "preparestatic.h"
 #include "result.h"
+#include "lib/include/base/function.h"
 
 FieldManager::FieldManager(MysqlHandler *mysql, char *name, unsigned short field_len, FieldManager::CreateField *field)
 : m_field_len(field_len)
@@ -39,38 +40,47 @@ FieldManager::~FieldManager()
 	}
 }
 
+bool FieldManager::Init()
+{
+	return m_load->Init();
+}
+
 bool FieldManager::Load(RoleField *rf)
 {
 	// 注册的时候，将字段名字与类关联，那么从数据加载数据出来，并找到对应的类进行反序列化
 	m_load->BindLong(0, &rf->rid);
-	if (m_load->Execute())
+	if (!m_load->Execute())
 	{
-		char *temp = NULL;
-		int len = 0;
-		int num = 0;
-		MysqlResult mr(m_load);
-		while(m_load->HasResult() && num < m_field_len)
+		return false;
+	}
+	char *temp = NULL;
+	int len = 0;
+	int num = 0;
+	MysqlResult mr(m_load);
+	while (m_load->HasResult() && num < m_field_len)
+	{
+		temp = mr.ReadStr(num, len);
+		if (temp != NULL && len > 0)
 		{
-			temp = mr.ReadStr(num, len);
-			if (temp != NULL)
+			Field *field = m_all_field[num].func();
+			if (field->Read(temp))
 			{
-				// todo （测试）数据库null字段
-
-				Field *field = m_all_field[num].func();
-				field->Read(temp);
 				rf->fields.push_back(field);
 			}
 			else
 			{
-				// todo write log
+				Function::Error("role module data was error %ld %s %s", rf->rid, field->GetName(), temp);
 			}
-			++num;
 		}
+		else
+		{
+			// todo write log
+		}
+		++num;
 	}
 	return true;
 }	
 
-// todo 释放RoleField IPC
 bool FieldManager::Save(RoleField *rf)
 {
 	int field_size = rf->fields.size();

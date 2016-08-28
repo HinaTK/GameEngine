@@ -13,6 +13,8 @@ public:
 	DBManager(DBThread *t);
 	~DBManager();
 
+	bool	Init();
+
 	void	LoadRoleMaxID(ThreadID tid);
 	void	LoadRole(ThreadID tid, int len, const char *data);
 	void	SaveRoleMaxID(unsigned int max_id);

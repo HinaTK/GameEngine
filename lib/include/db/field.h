@@ -37,7 +37,7 @@ public:
 
 	virtual char *	GetName() = 0;	// 获取字段名，用于构建sql
 	virtual bool Serialize(rapidjson::Writer<rapidjson::StringBuffer> &writer) = 0;
-	virtual bool Deserialize(char *str) = 0;
+	virtual bool Deserialize(rapidjson::Document &doc, char *str) = 0;
 
 	Version ver;
 

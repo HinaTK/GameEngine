@@ -101,7 +101,7 @@ bool Log::Run()
 	return m_timer_manager->Update(time(NULL));
 }
 
-void Log::RecvData(short type, ThreadID sid, int len, const char *data)
+void Log::RecvData(TPT type, ThreadID sid, int len, const char *data)
 {
 	switch (type)
 	{

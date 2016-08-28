@@ -2,8 +2,8 @@
 #include "basethread.h"
 #include "threadmanager.h"
 #include "threadclass.h"
-#include "lib/include/common/mutex.h"
 #include "lib/include/base/interface.h"
+#include "lib/include/base/function.h"
 
 void *Update(void * arg)
 {
@@ -67,7 +67,6 @@ void BaseThread::Loop(bool sleep)
             	case ThreadSysID::TSID_CLASS:
             		if (msg.data != NULL) 
             		{
-            			// todo 内存在m_msg_memory中分配出来？
             			((ThreadClass *)msg.data)->Exe(this);
             			delete msg.data;
             		}		
@@ -78,6 +77,8 @@ void BaseThread::Loop(bool sleep)
             	case ThreadSysID::TSID_THREAD_CMD:	
             		this->SysCmd(msg);
             		break;
+				default:
+					Function::Error("invalid thread sys id %d", msg.type);
             	}
             }
             m_msg_memory.Free(msg);

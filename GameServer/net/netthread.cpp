@@ -40,7 +40,7 @@ void NetThread::Ready()
 
 }
 
-void NetThread::RecvData(short type, ThreadID sid, int len, const char *data)
+void NetThread::RecvData(TPT type, ThreadID sid, int len, const char *data)
 {
 
 }

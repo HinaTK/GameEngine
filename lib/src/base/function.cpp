@@ -1,8 +1,4 @@
 ﻿
-// #if (defined _WIN32) || (defined _WIN64)
-// #include <direct.h>
-// #endif
-
 #include "function.h"
 #include "common/socketdef.h"
 #include "common/protocol/messageheader.h"
@@ -20,8 +16,8 @@ std::string Function::WorkDir()
 #if (defined _WIN32) || (defined _WIN64)
 	
 	std::string strPath = ""; // _getcwd(NULL, 0);
-	char exeFullPath[MAX_PATH] = {0}; // Full path
-	GetModuleFileNameA(NULL, exeFullPath, MAX_PATH);
+	char exeFullPath[512] = {0}; // Full path
+	GetModuleFileNameA(NULL, exeFullPath, 512);
 
 	strPath = std::string(exeFullPath);    // Get full path of the file
 	int pos = strPath.find_last_of('\\', strPath.length());

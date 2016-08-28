@@ -33,8 +33,13 @@ public:
 
 	void			SendMsg(ThreadID did, TPT type, int len, const char *data, ThreadID sid = INVALID_THREAD_ID);
 	void			SendMsg(ThreadID did, ThreadMsg &msg);
+	void 			SendMsg(ThreadID did, ThreadClass * tc);
 	void 			SendMsg(ThreadID did, TPT type, char *data);
-	void 			SendClass(ThreadID did, ThreadClass * tc);	
+	void 			SendMsg(ThreadID did, TPT type, int data);
+	void 			SendMsg(ThreadID did, TPT type, unsigned int data);
+	void 			SendMsg(ThreadID did, TPT type, long long data, ThreadID sid = INVALID_THREAD_ID);
+	void 			SendMsg(ThreadID did, TPT type, unsigned long long data);
+	
 	char *			CreateData(ThreadID did, int len);
 	void			CMD(TPT type, ThreadID sid, int len, const char *data, ThreadID did = INVALID_THREAD_ID);
 

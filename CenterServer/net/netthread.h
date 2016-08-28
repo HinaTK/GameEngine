@@ -35,7 +35,7 @@ public:
 protected:
 	bool	Init();
 	void	Ready();
-	void	RecvData(short type, ThreadID sid, int len, const char *data);
+	void	RecvData(TPT type, ThreadID sid, int len, const char *data);
 private:
 	
 	std::vector<OtherServer> m_server[PProto::ST_MAX];		// 连接到中心服的其它服务

@@ -22,7 +22,7 @@ bool Global::Run()
 	return false;
 }
 
-void Global::RecvData(short type, ThreadID sid, int len, const char *data)
+void Global::RecvData(TPT type, ThreadID sid, int len, const char *data)
 {
 
 }
