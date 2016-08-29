@@ -2,6 +2,7 @@
 #include "netthread.h"
 #include "main/gateway.h"
 #include "common/proto.h"
+#include "lib/include/inner/innerlistener.h"
 #include "lib/include/gate/gateaccepter.h"
 #include "lib/include/gate/gatelistener.h"
 #include "lib/include/common/serverconfig.h"
@@ -73,7 +74,7 @@ void NetThread::InsertGame(NetMsg *msg)
 				m_game_server.Erase(itr);
 			}
 		}
-		AsyncConnect(br->ip, br->port, new GateListener(this), m_inner_callback, br->id);
+		AsyncConnect(br->ip, br->port, new InnerListener(this), m_inner_callback, br->id);
 	}
 }
 
