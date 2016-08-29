@@ -53,7 +53,7 @@ int GateBuffer::AddBufLen(int len)
 		if (m_head_len == NetCommon::HEADER_LENGTH)
 		{
 			NetCommon::Header *header = (NetCommon::Header *)m_header;
-			if (m_listener->buf_size == 0 || (header->msg_len > 0 && header->msg_len < m_listener->buf_size))
+			if (header->msg_len > 0 && header->msg_len < m_listener->buf_size)
 			{
 				if (header->msg_len > m_msg.buf_len)
 				{

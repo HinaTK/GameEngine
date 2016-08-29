@@ -1,11 +1,12 @@
 
 #include "netthread.h"
 #include "callback.h"
-#include "common/proto.h"
 #include "lib/include/inner/inneraccepter.h"
 #include "lib/include/inner/innerlistener.h"
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/base/interface.h"
+#include "common/proto.h"
+#include "common/datastructure/msgqueue.h"
 
 NetThread::NetThread(ThreadManager *manager)
 : SocketThread(manager)
