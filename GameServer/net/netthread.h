@@ -20,7 +20,7 @@ protected:
 	void	RecvData(TPT type, ThreadID sid, int len, const char *data);
 private:
 	NetHandle		m_cneter_handle;
-	game:Hash<NetHandle, MsgQueue *>	m_role_msg;	// 玩家登录到场景后，会将个人的消息队列注册到这里
+	game:Hash<NetHandle, MsgQueue *>	m_role_msg;	// 玩家登录到场景后，会将个人的消息队列注册到这�?
 };
 
 #endif
