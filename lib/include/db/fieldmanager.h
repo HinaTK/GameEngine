@@ -7,6 +7,7 @@
 #include <functional>
 #include "rolefield.h"
 #include "preparedynamic.h"
+#include "dataupdate.h"
 #include "lib/include/rapidjson/define.h"
 
 class Field;
@@ -35,11 +36,14 @@ protected:
 	std::string 	m_data;
 	unsigned short	m_field_len;
 	CreateField 	*m_all_field;
+	dataupdate 		m_data_update;
 	
 	MysqlPrepareDynamic 	m_mp;
 	MysqlPrepareStatic		*m_load;
 	rapidjson::StringBuffer *m_s;
 	rapidjson::Writer<rapidjson::StringBuffer> m_writer;
+
+
 };
 
 #endif // !FIELD_MANAGER_H

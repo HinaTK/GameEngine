@@ -42,7 +42,7 @@ FieldManager::~FieldManager()
 
 bool FieldManager::Init()
 {
-	return m_load->Init();
+	return m_load->Init() && m_data_update.Init("../update.lua");
 }
 
 bool FieldManager::Load(RoleField *rf)
