@@ -4,6 +4,7 @@
 
 #include <string>
 #include <stdint.h>
+#include "dataupdate.h"
 #include "lib/include/rapidjson/document.h"
 #include "lib/include/rapidjson/prettywriter.h"
 #include "lib/include/rapidjson/stringbuffer.h"
@@ -33,7 +34,7 @@ public:
 	void	UnsetDirty(){ m_dirty = false; }
 
 	bool Write(rapidjson::Writer<rapidjson::StringBuffer> &writer);
-	bool Read(char *str);
+	bool Read(DataUpdate &du, char *str, bool update = true);
 
 	virtual char *	GetName() = 0;	// 获取字段名，用于构建sql
 	virtual bool Serialize(rapidjson::Writer<rapidjson::StringBuffer> &writer) = 0;

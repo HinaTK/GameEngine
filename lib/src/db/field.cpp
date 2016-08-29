@@ -19,7 +19,7 @@ bool Field::Write(rapidjson::Writer<rapidjson::StringBuffer> &writer)
 	return writer.EndObject();
 }
 
-bool Field::Read(char *str)
+bool Field::Read(DataUpdate &du, char *str)
 {
 	rapidjson::Document doc; 
 	if (doc.Parse(str).HasParseError())
@@ -41,7 +41,19 @@ bool Field::Read(char *str)
 
 	if (ver != (Version)doc[FIELD_VER_NAME].GetInt())
 	{
-		// todo 用lua作数据升级，减少包的大小
+		if (update)
+		{
+			char *new_str = du.OnUpdate(GetName(), str);
+			if (new_str != NULL)
+			{
+				Function::Error("can not update data");
+				return false;
+			}
+			// todo 检测局部变量new_str再传指针，是否会报错
+			return Read(du, new_str, false);
+		}
+		Function::Error("data update fail");
+		return false;
 	}
 		
 	return Deserialize(doc, str);
