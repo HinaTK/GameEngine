@@ -25,6 +25,9 @@
     <Filter Include="db\module\role">
       <UniqueIdentifier>{e996d611-7871-49be-b5ec-13206f41504f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="scene\obj">
+      <UniqueIdentifier>{93e6083e-b390-4c97-8589-0973afda054e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\GameServer\db\dbthread.cpp">
@@ -44,6 +47,15 @@
     </ClCompile>
     <ClCompile Include="..\GameServer\db\module\role\test.cpp">
       <Filter>db\module\role</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\scene\obj\obj.cpp">
+      <Filter>scene\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\scene\obj\objmanager.cpp">
+      <Filter>scene\obj</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\scene\obj\role.cpp">
+      <Filter>scene\obj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +92,15 @@
     </ClInclude>
     <ClInclude Include="..\GameServer\db\module\rolemodule.h">
       <Filter>db\module</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\scene\obj\obj.h">
+      <Filter>scene\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\scene\obj\objmanager.h">
+      <Filter>scene\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\scene\obj\role.h">
+      <Filter>scene\obj</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

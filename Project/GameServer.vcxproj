@@ -174,6 +174,9 @@
     <ClCompile Include="..\GameServer\db\module\role\test.cpp" />
     <ClCompile Include="..\GameServer\frame\game.cpp" />
     <ClCompile Include="..\GameServer\global\global.cpp" />
+    <ClCompile Include="..\GameServer\scene\obj\obj.cpp" />
+    <ClCompile Include="..\GameServer\scene\obj\objmanager.cpp" />
+    <ClCompile Include="..\GameServer\scene\obj\role.cpp" />
     <ClCompile Include="..\GameServer\scene\scenemanager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +191,9 @@
     <ClInclude Include="..\GameServer\log\loghandler.h" />
     <ClInclude Include="..\GameServer\log\logonline.h" />
     <ClInclude Include="..\GameServer\protocol\proto.h" />
+    <ClInclude Include="..\GameServer\scene\obj\obj.h" />
+    <ClInclude Include="..\GameServer\scene\obj\objmanager.h" />
+    <ClInclude Include="..\GameServer\scene\obj\role.h" />
     <ClInclude Include="..\GameServer\scene\scenemanager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
