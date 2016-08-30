@@ -29,3 +29,8 @@ void GateAccepter::OnCanRead()
 		m_thread->Recv(handler->m_msg_index, BaseMsg::MSG_ACCEPT, NetMsg(handler->m_handle, ip_addr, strlen(ip_addr) + 1));
 	}
 }
+
+EXPORT GateAccepter * New::_GateAccepter(SocketThread *t, int size /*= 0*/)
+{
+	return new GateAccepter(t, size);
+}

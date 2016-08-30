@@ -1,6 +1,6 @@
 
 #include "callback.h"
-#include "netthread.h"
+#include "gatethread.h"
 
 void CallBack::Accept(NetHandle handle, const char *ip)
 {

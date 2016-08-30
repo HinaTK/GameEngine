@@ -21,4 +21,8 @@ private:
 	int buf_size;
 };
 
+namespace New
+{
+	EXPORT GateAccepter * _GateAccepter(SocketThread *t, int size = 0);
+}
 #endif

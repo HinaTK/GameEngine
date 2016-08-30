@@ -26,7 +26,7 @@ NetThread::~NetThread()
 bool NetThread::Init()
 {
 	ServerInfo &info1 = CenterConfig::Instance().login;
-	if (!InitServer(info1.ip, info1.port, info1.backlog, new GateAccepter(this, 1024), new CallBack(this)))
+	if (!InitServer(info1.ip, info1.port, info1.backlog, New::_GateAccepter(this, 1024), new CallBack(this)))
 	{
 		return false;
 	}

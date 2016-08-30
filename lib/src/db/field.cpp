@@ -19,7 +19,7 @@ bool Field::Write(rapidjson::Writer<rapidjson::StringBuffer> &writer)
 	return writer.EndObject();
 }
 
-bool Field::Read(DataUpdate &du, char *str)
+bool Field::Read(DataUpdate &du, int len, char *str, bool update)
 {
 	rapidjson::Document doc; 
 	if (doc.Parse(str).HasParseError())
@@ -29,7 +29,7 @@ bool Field::Read(DataUpdate &du, char *str)
 	}
 	if (!doc.IsObject())
 	{
-		Function::Error("json is not object");
+		Function::Error("data is not a json object");
 		return false; 
 	}
 
@@ -43,14 +43,14 @@ bool Field::Read(DataUpdate &du, char *str)
 	{
 		if (update)
 		{
-			char *new_str = du.OnUpdate(GetName(), str);
+			char *new_str = du.OnUpdate(GetName(), len, str);
 			if (new_str != NULL)
 			{
 				Function::Error("can not update data");
 				return false;
 			}
 			// todo 检测局部变量new_str再传指针，是否会报错
-			return Read(du, new_str, false);
+			return Read(du, 0, new_str, false);
 		}
 		Function::Error("data update fail");
 		return false;

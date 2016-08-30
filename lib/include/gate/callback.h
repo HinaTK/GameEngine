@@ -4,11 +4,11 @@
 
 #include "lib/include/frame/message.h"
 
-class NetThread;
+class GateThread;
 class CallBack : public MsgCallBack
 {
 public:
-	CallBack(NetThread *t)
+	CallBack(GateThread *t)
 		: MsgCallBack()
 		, m_thread(t){}
 	~CallBack(){}
@@ -20,13 +20,13 @@ public:
 	void	Disconnect(NetHandle handle, int err, int reason);
 
 private:
-	NetThread *m_thread;
+	GateThread *m_thread;
 };
 
 class InnerCallBack : public MsgCallBack
 {
 public:
-	InnerCallBack(NetThread *t)
+	InnerCallBack(GateThread *t)
 		: MsgCallBack()
 		, m_thread(t){}
 	~InnerCallBack(){}
@@ -38,7 +38,7 @@ public:
 	void	Disconnect(NetHandle handle, int err, int reason);
 
 private:
-	NetThread *m_thread;
+	GateThread *m_thread;
 };
 
 #endif

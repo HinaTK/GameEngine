@@ -1,6 +1,6 @@
 
 #include <string>
-#include "update.h"
+#include "dataupdate.h"
 #include "lib/include/base/function.h"
 
 static int traceback(lua_State *L) {
@@ -16,19 +16,24 @@ static int traceback(lua_State *L) {
 	return 1;
 }
 
-DataUpdate::DataUpdate(char *file)
+DataUpdate::DataUpdate()
+: m_L(NULL)
 {
-	m_L = luaL_newstate();
-	luaL_openlibs(m_L);
+	
 }
 
 DataUpdate::~DataUpdate()
 {
-	lua_close(m_L);
+	if (m_L != NULL)
+	{
+		lua_close(m_L);
+	}
 }
 
 bool DataUpdate::Init(char *file)
 {
+	m_L = luaL_newstate();
+	luaL_openlibs(m_L);
 	std::string path = Function::WorkDir() + file;
 	if (luaL_loadfile(m_L, path.c_str()))
 	{
@@ -45,11 +50,10 @@ bool DataUpdate::Init(char *file)
 	return true;
 }
 
-char * DataUpdate::OnUpdate(char *module, char *data)
+char * DataUpdate::OnUpdate(char *module, int len, char *data)
 {
-	lua_getglobal(m_L, "OnUpdate");
-	lua_pushlstring(m_L, module);
-	lua_pushlstring(m_L, data);
+	lua_getglobal(m_L, module);
+	lua_pushlstring(m_L, data, len);
 	char *ret = NULL;
 	do
 	{
@@ -60,17 +64,19 @@ char * DataUpdate::OnUpdate(char *module, char *data)
 		}
 
 		// todo 测试传错误参数
-		if (lua_tobool(m_L, -1))
+
+		if (lua_toboolean(m_L, -1))
 		{
-			ret = lua_tostring(m_L, -2);
+			ret = (char *)lua_tostring(m_L, -2);
 		}
 		else
 		{
 			Function::Error("lua update %s", lua_tostring(m_L, -2));
 		}
 
-	}while(false)
+	} while (false);
 
 	lua_settop(m_L, 1); 	// 设置堆栈剩下一个元素traceback？
+
 	return ret;
 }

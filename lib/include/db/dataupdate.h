@@ -7,11 +7,11 @@
 class DataUpdate
 {
 public:
-	DataUpdate(char *file);
+	DataUpdate();
 	~DataUpdate();
 
 	bool	Init(char *file);
-	char *	OnUpdate(char *module, char *data);
+	char *	OnUpdate(char *module, int len, char *data);
 private:
 	lua_State *m_L;
 };

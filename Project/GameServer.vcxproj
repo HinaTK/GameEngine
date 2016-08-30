@@ -121,7 +121,7 @@
       <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Frame.lib;Common.lib;Thread.lib;Base.lib;Inner.lib;DB.lib;libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Frame.lib;Common.lib;Thread.lib;Base.lib;Inner.lib;lua5.3.lib;DB.lib;libmysql.lib;Gate.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -174,9 +174,6 @@
     <ClCompile Include="..\GameServer\db\module\role\test.cpp" />
     <ClCompile Include="..\GameServer\frame\game.cpp" />
     <ClCompile Include="..\GameServer\global\global.cpp" />
-    <ClCompile Include="..\GameServer\net\callback.cpp" />
-    <ClCompile Include="..\GameServer\net\netthread.cpp" />
-    <ClCompile Include="..\GameServer\net\router.cpp" />
     <ClCompile Include="..\GameServer\scene\scenemanager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -190,10 +187,6 @@
     <ClInclude Include="..\GameServer\log\loggold.h" />
     <ClInclude Include="..\GameServer\log\loghandler.h" />
     <ClInclude Include="..\GameServer\log\logonline.h" />
-    <ClInclude Include="..\GameServer\net\callback.h" />
-    <ClInclude Include="..\GameServer\net\netthread.h" />
-    <ClInclude Include="..\GameServer\net\proto.h" />
-    <ClInclude Include="..\GameServer\net\router.h" />
     <ClInclude Include="..\GameServer\protocol\proto.h" />
     <ClInclude Include="..\GameServer\scene\scenemanager.h" />
   </ItemGroup>

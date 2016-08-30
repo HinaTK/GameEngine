@@ -7,9 +7,6 @@
     <Filter Include="db">
       <UniqueIdentifier>{0681564c-c691-4667-9604-c5506eb3f12c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="net">
-      <UniqueIdentifier>{07d01f16-e03c-4523-830c-7d995e9c6198}</UniqueIdentifier>
-    </Filter>
     <Filter Include="log">
       <UniqueIdentifier>{61bb937e-c1f2-4ebe-9daa-12be14232e5f}</UniqueIdentifier>
     </Filter>
@@ -33,12 +30,6 @@
     <ClCompile Include="..\GameServer\db\dbthread.cpp">
       <Filter>db</Filter>
     </ClCompile>
-    <ClCompile Include="..\GameServer\net\netthread.cpp">
-      <Filter>net</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GameServer\net\callback.cpp">
-      <Filter>net</Filter>
-    </ClCompile>
     <ClCompile Include="..\GameServer\frame\game.cpp">
       <Filter>frame</Filter>
     </ClCompile>
@@ -47,9 +38,6 @@
     </ClCompile>
     <ClCompile Include="..\GameServer\global\global.cpp">
       <Filter>global</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GameServer\net\router.cpp">
-      <Filter>net</Filter>
     </ClCompile>
     <ClCompile Include="..\GameServer\db\dbmanager.cpp">
       <Filter>db</Filter>
@@ -62,12 +50,6 @@
     <ClInclude Include="..\GameServer\define.h" />
     <ClInclude Include="..\GameServer\db\dbthread.h">
       <Filter>db</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GameServer\net\netthread.h">
-      <Filter>net</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GameServer\net\callback.h">
-      <Filter>net</Filter>
     </ClInclude>
     <ClInclude Include="..\GameServer\frame\game.h">
       <Filter>frame</Filter>
@@ -86,12 +68,6 @@
     </ClInclude>
     <ClInclude Include="..\GameServer\global\global.h">
       <Filter>global</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GameServer\net\proto.h">
-      <Filter>net</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GameServer\net\router.h">
-      <Filter>net</Filter>
     </ClInclude>
     <ClInclude Include="..\GameServer\db\dbmanager.h">
       <Filter>db</Filter>

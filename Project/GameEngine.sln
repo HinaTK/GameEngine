@@ -12,8 +12,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Frame", "..\LibProject\Fram
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Thread", "..\LibProject\Thread\Thread.vcxproj", "{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GatewayServer", "GatewayServer.vcxproj", "{C4E1D6D4-AE0F-4E11-BA6D-97D77696D973}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Common", "..\LibProject\Common\common.vcxproj", "{8F0F74CF-3672-4629-98D4-322BA0ACFC7B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Base", "..\LibProject\Base\base.vcxproj", "{1AE5D021-4DD2-4E82-8FF5-8455C60BD56B}"
@@ -80,16 +78,6 @@ Global
 		{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E}.Release|Win32.ActiveCfg = Release|Win32
 		{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E}.Release|Win32.Build.0 = Release|Win32
 		{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E}.Release|x64.ActiveCfg = Release|Win32
-		{C4E1D6D4-AE0F-4E11-BA6D-97D77696D973}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
-		{C4E1D6D4-AE0F-4E11-BA6D-97D77696D973}.Debug|Mixed Platforms.Build.0 = Debug|Win32
-		{C4E1D6D4-AE0F-4E11-BA6D-97D77696D973}.Debug|Win32.ActiveCfg = Debug|Win32
-		{C4E1D6D4-AE0F-4E11-BA6D-97D77696D973}.Debug|Win32.Build.0 = Debug|Win32
-		{C4E1D6D4-AE0F-4E11-BA6D-97D77696D973}.Debug|x64.ActiveCfg = Debug|x64
-		{C4E1D6D4-AE0F-4E11-BA6D-97D77696D973}.Release|Mixed Platforms.ActiveCfg = Release|Win32
-		{C4E1D6D4-AE0F-4E11-BA6D-97D77696D973}.Release|Mixed Platforms.Build.0 = Release|Win32
-		{C4E1D6D4-AE0F-4E11-BA6D-97D77696D973}.Release|Win32.ActiveCfg = Release|Win32
-		{C4E1D6D4-AE0F-4E11-BA6D-97D77696D973}.Release|Win32.Build.0 = Release|Win32
-		{C4E1D6D4-AE0F-4E11-BA6D-97D77696D973}.Release|x64.ActiveCfg = Release|Win32
 		{8F0F74CF-3672-4629-98D4-322BA0ACFC7B}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
 		{8F0F74CF-3672-4629-98D4-322BA0ACFC7B}.Debug|Mixed Platforms.Build.0 = Debug|Win32
 		{8F0F74CF-3672-4629-98D4-322BA0ACFC7B}.Debug|Win32.ActiveCfg = Debug|Win32

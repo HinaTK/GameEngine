@@ -36,7 +36,7 @@ protected:
 	std::string 	m_data;
 	unsigned short	m_field_len;
 	CreateField 	*m_all_field;
-	dataupdate 		m_data_update;
+	DataUpdate 		m_data_update;
 	
 	MysqlPrepareDynamic 	m_mp;
 	MysqlPrepareStatic		*m_load;

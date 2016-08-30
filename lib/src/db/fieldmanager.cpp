@@ -42,7 +42,7 @@ FieldManager::~FieldManager()
 
 bool FieldManager::Init()
 {
-	return m_load->Init() && m_data_update.Init("../update.lua");
+	return m_load->Init() && m_data_update.Init("../lua/update.lua");
 }
 
 bool FieldManager::Load(RoleField *rf)
@@ -63,7 +63,7 @@ bool FieldManager::Load(RoleField *rf)
 		if (temp != NULL && len > 0)
 		{
 			Field *field = m_all_field[num].func();
-			if (field->Read(temp))
+			if (field->Read(m_data_update, len, temp))
 			{
 				rf->fields.push_back(field);
 			}
