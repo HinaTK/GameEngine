@@ -4,14 +4,16 @@
 
 #include "lib/include/frame/socketthread.h"
 #include "common/datastructure/gamehash.h"
+#include "common/datastructure/msgqueue.h"
 
-//class MsgQueue;
 class ThreadManager;
 class GateThread : public SocketThread
 {
 public:
 	virtual ~GateThread(){}
 	GateThread(ThreadManager *manager, int index);
+
+	void	Dispatch(NetMsg *msg);
 
 protected:
 	bool	Init();
@@ -20,7 +22,8 @@ protected:
 private:
 	NetHandle		m_cneter_handle;
 	int				m_index;
-	//game:Hash<NetHandle, MsgQueue *>	m_role_msg;	
+	typedef game::Hash<NetHandle, MsgQueue<NetMsg> * > ROLE_MSG;
+	ROLE_MSG		m_role_msg;
 };
 
 namespace New
