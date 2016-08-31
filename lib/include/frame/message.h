@@ -41,6 +41,7 @@ class ThreadMsg
 public:
 	ThreadMsg();
 	ThreadMsg(TPT _type, char *_data);
+	ThreadMsg(ThreadID _id, TPT _type, char *_data);
 	ThreadMsg(ThreadID _id, TPT _type, int _length, const char *_data, MsgMemoryManager *memory);
 	~ThreadMsg();
 	

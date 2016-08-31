@@ -7,7 +7,7 @@
 class MTest : public Field
 {
 public:
-	MTest():Field(){ver = 1;}
+	MTest():Field(){ver = 2;}
 	~MTest(){}
 
 	char *GetName(){ return "test"; }

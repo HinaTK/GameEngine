@@ -2,6 +2,7 @@
 #include "threadmanager.h"
 #include "basethread.h"
 #include "threadclass.h"
+#include "rpc.h"
 #include "lib/include/base/function.h"
 
 ThreadManager::~ThreadManager()
@@ -50,24 +51,36 @@ void ThreadManager::Start()
 	}
 }
 
+bool ThreadManager::SendMsg(ThreadID did, ThreadMsg &msg)
+{
+	if (m_thread.Exist(did))
+	{
+		m_thread[did]->PushMsg(msg);
+		return true;
+	}
+	Function::Error("no this thread id %d", did);
+	return false;
+}
+
 void ThreadManager::SendMsg(ThreadID did, TPT type, int len, const char *data, ThreadID sid)
 {
-	m_thread[did]->PushMsg(ThreadMsg(sid, type, len, data, m_thread[did]->GetMemory()));
+	SendMsg(did, ThreadMsg(sid, type, len, data, m_thread[did]->GetMemory()));
 }
 
-void ThreadManager::SendMsg(ThreadID did, ThreadMsg &msg)
+void ThreadManager::SendMsg(ThreadID did, TPT type, char *obj)
 {
-	m_thread[did]->PushMsg(msg);
-}
-
-void ThreadManager::SendMsg(ThreadID did, TPT type, char *data)
-{
-	m_thread[did]->PushMsg(ThreadMsg(type, data));
+	if (!SendMsg(did, ThreadMsg(type, obj)))
+	{
+		delete obj;
+	}
 }
 
 void ThreadManager::SendMsg(ThreadID did, ThreadClass *tc)
 {
-	m_thread[did]->PushMsg(ThreadMsg(ThreadSysID::TSID_CLASS, (char *)tc));
+	if (!SendMsg(did, ThreadMsg(ThreadSysID::TSID_CLASS, (char *)tc)))
+	{
+		delete tc;
+	}
 }
 
 void ThreadManager::SendMsg(ThreadID did, TPT type, long long data, ThreadID sid)
@@ -76,7 +89,15 @@ void ThreadManager::SendMsg(ThreadID did, TPT type, long long data, ThreadID sid
 	tm.id = sid;
 	tm.type = type;
 	*(long long *)&tm.data = data;
-	m_thread[did]->PushMsg(tm);
+	SendMsg(did, tm);
+}
+
+void ThreadManager::RPC(ThreadID did, ThreadRPC *rpc)
+{
+	if (!SendMsg(did, ThreadMsg(ThreadSysID::TSID_RPC, (char *)rpc)))
+	{
+		delete rpc;
+	}
 }
 
 char * ThreadManager::CreateData(ThreadID did, int len)

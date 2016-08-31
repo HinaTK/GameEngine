@@ -68,7 +68,8 @@ NetMsg::~NetMsg()
 
 
 ThreadMsg::ThreadMsg()
-: length(0)
+: id(INVALID_THREAD_ID)
+, length(0)
 , data(NULL)
 {
 
@@ -76,6 +77,16 @@ ThreadMsg::ThreadMsg()
 
 ThreadMsg::ThreadMsg(TPT _type, char *_data)
 : type(_type)
+, id(INVALID_THREAD_ID)
+, length(0)
+, data(_data)
+{
+
+}
+
+ThreadMsg::ThreadMsg(ThreadID _id, TPT _type, char *_data)
+: type(_type)
+, id(_id)
 , length(0)
 , data(_data)
 {

@@ -44,10 +44,11 @@ bool SocketThread::Run()
 		ClearHandler();
 		return true;
 	}
-	return false;
+	return DoSomething();
 	
 }
 
+// todo 由于现在操作都是在同一线程，因此不需要异步删除断开网络？
 void SocketThread::ClearHandler()
 {
 	for (INVALID_HANDLE::iterator itr = m_invalid_handle.Begin(); itr != m_invalid_handle.End(); ++itr)

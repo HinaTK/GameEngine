@@ -12,7 +12,7 @@ void *Update(void * arg)
 }
 
 BaseThread::BaseThread(ThreadManager *manager, char exit)
-: m_id(-1)
+: m_id(INVALID_THREAD_ID)
 , m_name("")
 , m_manager(manager)
 , m_thread(NULL)
@@ -71,6 +71,13 @@ void BaseThread::Loop(bool sleep)
             			delete msg.data;
             		}		
             		continue;
+            	case ThreadSysID::TSID_RPC:
+            		if (msg.data != NULL) 
+            		{
+            			((ThreadRPC *)msg.data)->Exe(this, msg.id);
+            			delete msg.data;
+            		}
+            		continue;	
             	case ThreadSysID::TSID_EXIT:
             		this->Exit();
             		break;

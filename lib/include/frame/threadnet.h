@@ -46,6 +46,7 @@ public:
 	void			Release(NetMsg &msg){ m_msg_memory.Free(msg); }
 protected:
 	virtual void	InitNetHandler(NetHandler *handler) = 0;
+	virtual bool	DoSomething(){ return false; }
 	void			RecvData(short type, ThreadID sid, int len, const char *data);
 	void			AddHandler(const char *data);
 	void			Send(NetHandle handle, int length, const char *data);

@@ -20,11 +20,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib\include\gate\gateaccepter.h" />
+    <ClInclude Include="..\..\lib\include\gate\gatebuffer.h" />
+    <ClInclude Include="..\..\lib\include\gate\gatecreator.h" />
     <ClInclude Include="..\..\lib\include\gate\gatelistener.h" />
     <ClInclude Include="..\..\lib\include\gate\gatethread.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\gate\gateaccepter.cpp" />
+    <ClCompile Include="..\..\lib\src\gate\gatebuffer.cpp" />
+    <ClCompile Include="..\..\lib\src\gate\gatecreator.cpp" />
     <ClCompile Include="..\..\lib\src\gate\gatelistener.cpp" />
     <ClCompile Include="..\..\lib\src\gate\gatethread.cpp" />
   </ItemGroup>

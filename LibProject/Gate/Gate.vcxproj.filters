@@ -15,6 +15,12 @@
     <ClInclude Include="..\..\lib\include\gate\gatethread.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\lib\include\gate\gatecreator.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\gate\gatebuffer.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\gate\gateaccepter.cpp">
@@ -24,6 +30,12 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\gate\gatethread.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\gate\gatecreator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\src\gate\gatebuffer.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

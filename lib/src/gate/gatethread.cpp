@@ -19,7 +19,7 @@ public:
 
 	void	Accept(NetHandle handle, const char *ip){};
 
-	void	Recv(NetMsg *msg){ m_thread->Dispatch(msg); }
+	void	Recv(NetMsg *msg){ }
 
 	void	Disconnect(NetHandle handle, int err, int reason){};
 
@@ -48,10 +48,11 @@ private:
 	GateThread *m_thread;
 };
 
-GateThread::GateThread(ThreadManager *manager, int index)
+GateThread::GateThread(ThreadManager *manager, int index, ThreadID global)
 : SocketThread(manager)
 , m_index(index)
 , m_role_msg(2048)
+, m_global(global)
 {
 	m_name = "gate";
 }
@@ -90,17 +91,19 @@ void GateThread::RecvData(TPT type, ThreadID sid, int len, const char *data)
 
 }
 
-void GateThread::Dispatch(NetMsg *msg)
+void GateThread::Dispatch(unsigned int msg_id, NetMsg &msg)
 {
-	ROLE_MSG::iterator itr = m_role_msg.Find(msg->handle);
-	if (itr != m_role_msg.End() && itr->val != NULL)
+	// todo 玩家下线，需要通知gate，并将消息队列移除
+	// 消息队列由GateThread delete
+
+	if (m_role_msg.Exist(msg_id))
 	{
-		itr->val->Push(*msg);
+		m_role_msg[msg_id]->Push(msg);
 	}
 }
 
 
-EXPORT GateThread * New::_GateThread(ThreadManager *manager, int index)
+EXPORT GateThread * New::_GateThread(ThreadManager *manager, int index, ThreadID id)
 {
-	return new GateThread(manager, index);
+	return new GateThread(manager, index, id);
 }

@@ -1,7 +1,7 @@
 ﻿
 
 #include "gateaccepter.h"
-#include "gatelistener.h"
+#include "gatecreator.h"
 #include "common/socketdef.h"
 
 
@@ -21,7 +21,7 @@ void GateAccepter::OnCanRead()
 	SOCKET new_sock = accept(m_sock, (struct sockaddr*)&addr, &len);
 	if (new_sock != INVALID_SOCKET)
 	{
-		GateListener *handler = new GateListener(m_thread, buf_size);
+		GateCreator *handler = new GateCreator(m_thread, buf_size);
 		handler->m_msg_index = m_msg_index;
 		handler->m_sock = new_sock;
 		handler->m_handle = m_thread->AddNetHandler(handler);
