@@ -58,7 +58,7 @@ bool ThreadManager::SendMsg(ThreadID did, ThreadMsg &msg)
 		m_thread[did]->PushMsg(msg);
 		return true;
 	}
-	Function::Error("no this thread id %d", did);
+	Function::Error("no this thread id %d from %d", did, msg.id);
 	return false;
 }
 

@@ -19,7 +19,7 @@ bool MysqlPrepareStatic::Init()
 	if (m_stmt == NULL)
 	{
 		// A pointer to a MYSQL_STMT structure in case of success. NULL if out of memory.
-		Function::Info("mysql_stmt_init error %s", m_sql);
+		Function::Error("mysql_stmt_init error %s", m_sql);
 		return false;
 	}
 
@@ -37,8 +37,8 @@ bool MysqlPrepareStatic::Init()
 			}
 		}
 
-		Function::Info("mysql_stmt_prepare error %s", m_sql);
-		Function::Info("%s", mysql_stmt_error(m_stmt));
+		Function::Error("mysql_stmt_prepare error %s", m_sql);
+		Function::Error("%s", mysql_stmt_error(m_stmt));
 		return false;
 	}
 
@@ -54,7 +54,7 @@ bool MysqlPrepareStatic::Execute(unsigned short reconnect /*= true*/)
 		{
 			return Execute(reconnect ^ RE_BIND);
 		}
-		Function::Info("mysql_stmt_bind_param error %d %s", err, mysql_stmt_error(m_stmt));
+		Function::Error("mysql_stmt_bind_param error %d %s", err, mysql_stmt_error(m_stmt));
 		return false;
 	}
 
@@ -66,7 +66,7 @@ bool MysqlPrepareStatic::Execute(unsigned short reconnect /*= true*/)
 			return Execute(reconnect ^ RE_EXECUTE);
 		}
 
-		Function::Info("mysql_stmt_execute error %d %s", err, mysql_stmt_error(m_stmt));
+		Function::Error("mysql_stmt_execute error %d %s", err, mysql_stmt_error(m_stmt));
 		return false;
 	}
 	return true;

@@ -2,6 +2,7 @@
 #include "result.h"
 #include "prepare.h"
 #include "handler.h"
+#include "lib/include/base/function.h"
 
 MysqlResult::MysqlResult(MysqlPrepare *prepare)
 : m_result(NULL)
@@ -50,7 +51,7 @@ MysqlResult::MysqlResult(MysqlPrepare *prepare)
 		case MYSQL_TYPE_MEDIUM_BLOB:
 		case MYSQL_TYPE_LONG_BLOB:
 		case MYSQL_TYPE_BLOB:
-			// todo 确认length这样做是不是对的
+			// todo make a pool,because alway return max len
 			m_result[i].buffer = new char[fields[i].length + 1];
 			m_result[i].length = &fields[i].length;
 			m_result[i].buffer_length = fields[i].length;
@@ -59,8 +60,11 @@ MysqlResult::MysqlResult(MysqlPrepare *prepare)
 			break;
 		}
 	}
-	// todo 判断错误
-	mysql_stmt_bind_result(prepare->GetStmt(), m_result);
+	
+	if (mysql_stmt_bind_result(prepare->GetStmt(), m_result) != 0)
+	{
+		Function::Error("mysql_stmt_bind_result error");
+	}
 }
 
 MysqlResult::~MysqlResult()

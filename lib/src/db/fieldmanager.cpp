@@ -47,7 +47,6 @@ bool FieldManager::Init()
 
 bool FieldManager::Load(RoleField *rf)
 {
-	// 注册的时候，将字段名字与类关联，那么从数据加载数据出来，并找到对应的类进行反序列化
 	m_load->BindLong(0, &rf->rid);
 	if (!m_load->Execute())
 	{

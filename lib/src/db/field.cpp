@@ -44,9 +44,9 @@ bool Field::Read(DataUpdate &du, int len, char *str, bool update)
 		if (update)
 		{
 			char *new_str = du.OnUpdate(GetName(), len, str);
-			if (new_str != NULL)
+			if (new_str == NULL)
 			{
-				Function::Error("can not update data");
+				Function::Error("module %s can not update data", GetName());
 				return false;
 			}
 			// todo 检测局部变量new_str再传指针，是否会报错

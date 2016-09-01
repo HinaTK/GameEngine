@@ -35,16 +35,19 @@ bool DataUpdate::Init(char *file)
 	m_L = luaL_newstate();
 	luaL_openlibs(m_L);
 	std::string path = Function::WorkDir() + file;
-	if (luaL_loadfile(m_L, path.c_str()))
+	if (luaL_loadfile(m_L, path.c_str()) || lua_pcall(m_L, 0, 0, 0))
 	{
 		Function::Error("%s", lua_tostring(m_L, -1));
 		return false;
 	}
 
 	lua_pushcfunction(m_L, traceback);
-	if (lua_pcall(m_L, 0, 0, 1))
+	lua_getglobal(m_L, "OnUpdate");
+	lua_pushstring(m_L, "test");
+	lua_pushstring(m_L, "{\"ver\"=1}");
+	if (lua_pcall(m_L, 2, 2, 1) != LUA_OK)
 	{
-		Function::Error("%s", lua_tostring(m_L, -1));
+		Function::Error("lua call OnUpdate %s", lua_tostring(m_L, -1));
 		return false;
 	}
 	return true;
@@ -52,31 +55,24 @@ bool DataUpdate::Init(char *file)
 
 char * DataUpdate::OnUpdate(char *module, int len, char *data)
 {
-	lua_getglobal(m_L, module);
+	lua_pushstring(m_L, module);
 	lua_pushlstring(m_L, data, len);
 	char *ret = NULL;
-	do
+	if (lua_pcall(m_L, 2, 2, 1) == LUA_OK)
 	{
-		if (lua_pcall(m_L, 2, 1, 1))
+		if (lua_toboolean(m_L, -2))
 		{
-			Function::Error("OnUpdate %s", lua_tostring(m_L, -1));
-			break;
-		}
-
-		// todo 测试传错误参数
-
-		if (lua_toboolean(m_L, -1))
-		{
-			ret = (char *)lua_tostring(m_L, -2);
+			ret = (char *)lua_tostring(m_L, -1);
 		}
 		else
 		{
-			Function::Error("lua update %s", lua_tostring(m_L, -2));
+			Function::Error("%s lua data update %s", module, lua_tostring(m_L, -1));
 		}
-
-	} while (false);
-
-	lua_settop(m_L, 1); 	// 设置堆栈剩下一个元素traceback？
-
+	}
+	else
+	{
+		Function::Error("%s, OnUpdate %s", module, lua_tostring(m_L, -1));
+		lua_pop(m_L, 1);
+	}
 	return ret;
 }

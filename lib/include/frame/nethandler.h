@@ -13,7 +13,7 @@ class NetHandler
 {
 public:
 	NetHandler(SocketThread *t, int type)
-		: m_handle(0)
+		: m_handle(INVALID_NET_HANDLE)
 		, m_sock(0)
 		, m_thread(t)
 		, m_type(type)

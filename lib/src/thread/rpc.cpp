@@ -1,7 +1,7 @@
 
 #include "rpc.h"
 #include "basethread.h"
-#include "threadsysid"
+#include "threadsysid.h"
 
 void ThreadRPC::Exe(BaseThread *t, ThreadID id)
 {
