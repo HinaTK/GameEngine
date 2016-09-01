@@ -1,12 +1,14 @@
 
 local cjson = require "cjson"
 
-local function UpdateNext(m, t)
-	print("fdfdfdfd 333")
-	if m[t.ver] ~= nil then
-		return m[t.ver](m, t)
+local function UpdateNext(m, t, cur, ver)
+	if cur < ver then
+		m[cur](t, ver)
+	else if cur == ver then
+		t.ver = ver
+		return true,cjson.encode(t)	
 	else
-		return true,cjson.encode(t) 	
+		return false,"Lua version greater than C++"	
 	end	
 end
 
@@ -14,7 +16,7 @@ local module_func = {}
 local test = {}
 test.ver = 2
 
-test[1] = function(t)
+test[1] = function(t, ver)
 	table.remove(t.base, 2)
 	return UpdateNext(test, t, 2)
 end
@@ -34,5 +36,5 @@ function OnUpdate(name, val, ver)
 	if t.ver == ver then
 		return true,val
 	end	
-	module_func[name][t.ver](t)
+	module_func[name][t.ver](t, ver)
 end
