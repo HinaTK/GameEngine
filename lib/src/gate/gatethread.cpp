@@ -1,6 +1,7 @@
 
 #include "gatethread.h"
 #include "gateaccepter.h"
+#include "gatelistener.h"
 #include "lib/include/inner/inneraccepter.h"
 #include "lib/include/inner/innerlistener.h"
 #include "lib/include/common/serverconfig.h"
@@ -88,7 +89,7 @@ void GateThread::Ready()
 
 void GateThread::RecvData(TPT type, ThreadID sid, int len, const char *data)
 {
-
+	
 }
 
 void GateThread::Dispatch(unsigned int msg_id, NetMsg &msg)
@@ -102,6 +103,34 @@ void GateThread::Dispatch(unsigned int msg_id, NetMsg &msg)
 	}
 }
 
+unsigned int GateThread::RegRole(NetHandle handle)
+{
+	unsigned int index = m_role_msg.Insert(new MsgQueue<NetMsg>());
+	NET_HANDLER_ARRAY::iterator itr = m_net_handler.Find(handle);
+	if (itr != m_net_handler.End() && (*itr)->Type() == NetHandler::LISTENER)
+	{
+		
+		((GateListener *)(*itr))->SetMsgID(index);
+	}
+	else{
+		// todo Êä³ö´íÎó
+	}
+	return index;
+}
+
+void GateThread::DelRole(unsigned int index)
+{
+	MsgQueue<NetMsg> *temp;
+	if (m_role_msg.Erase(index, temp))
+	{
+		delete temp;
+	}
+}
+
+void GateThread::PushCreator(NetHandle handle)
+{
+	m_creator.push(CreatorInfo{handle, time(NULL)}};
+}
 
 EXPORT GateThread * New::_GateThread(ThreadManager *manager, int index, ThreadID id)
 {

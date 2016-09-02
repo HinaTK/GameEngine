@@ -22,7 +22,7 @@ bool Init(const char *ip, unsigned short port, int backlog, SOCKET &sock)
 	}
 
 	unsigned long enable = 1;
-	if (SOCKET_ERROR == SetSockopt(sock, SOL_SOCKET, SO_REUSEADDR, (const char*)&enable, sizeof(unsigned long)))
+	if (SOCKET_ERROR == SetSockopt(sock, SOL_SOCKET, SO_LINGER, (const char*)&enable, sizeof(unsigned long)))
 	{
 		Close(sock);
 		return false;
@@ -42,15 +42,9 @@ bool Init(const char *ip, unsigned short port, int backlog, SOCKET &sock)
 		ip = inet_ntoa(sa.sin_addr);
 	}
 	
-	int ret = bind(sock, (struct sockaddr *)&sa, len);
-	if (SOCKET_ERROR == ret)
+	if (bind(sock, (struct sockaddr *)&sa, len) == SOCKET_ERROR || listen(sock, backlog) == SOCKET_ERROR)
 	{
-		return false;
-	}
-
-	ret = listen(sock, backlog);
-	if (SOCKET_ERROR == ret)
-	{
+		Close(sock);
 		return false;
 	}
 

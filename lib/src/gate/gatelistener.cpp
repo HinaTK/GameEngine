@@ -10,7 +10,7 @@ REGISTER_SAFE_MEMORYPOOL(memorypool, GateListener, 256);
 GateListener::GateListener(SocketThread *t, int size)
 : Listener(t, size)
 , m_recv_buf(this)
-, m_msg_id(0)
+, m_msg_id(-1)
 {
 
 }

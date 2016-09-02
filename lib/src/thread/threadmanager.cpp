@@ -36,7 +36,7 @@ bool ThreadManager::Init()
 	{
 		if (!(*itr)->Init())
 		{
-			Function::Info("Init thread %s error", (*itr)->GetName());
+			Function::Info("Init %s thread error", (*itr)->GetName());
 			return false;
 		}
 	}

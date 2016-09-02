@@ -43,18 +43,22 @@ bool DataUpdate::Init(char *file)
 
 	lua_pushcfunction(m_L, traceback);
 	lua_getglobal(m_L, "OnUpdate");
-	lua_pushstring(m_L, "test");
-	lua_pushstring(m_L, "{\"ver\"=1}");
-	if (lua_pcall(m_L, 2, 2, 1) != LUA_OK)
-	{
-		Function::Error("lua call OnUpdate %s", lua_tostring(m_L, -1));
-		return false;
-	}
+	//lua_getglobal(m_L, "OnUpdate");
+	// lua_pushstring(m_L, "test");
+	// lua_pushstring(m_L, "{\"ver\"=1}");
+	// lua_pushinteger(m_L, 1);
+	// if (lua_pcall(m_L, 3, 2, 1) != LUA_OK)
+	// {
+	// 	Function::Error("lua call OnUpdate %s", lua_tostring(m_L, -1));
+	// 	return false;
+	// }
 	return true;
 }
 
 char * DataUpdate::OnUpdate(char *module, int len, char *data)
 {
+	printf("xxxx1 %d\n", lua_gettop(m_L));
+	lua_getglobal(m_L, "OnUpdate");
 	lua_pushstring(m_L, module);
 	lua_pushlstring(m_L, data, len);
 	char *ret = NULL;
@@ -67,6 +71,7 @@ char * DataUpdate::OnUpdate(char *module, int len, char *data)
 		else
 		{
 			Function::Error("%s lua data update %s", module, lua_tostring(m_L, -1));
+			lua_pop(m_L, 2);
 		}
 	}
 	else
@@ -74,5 +79,11 @@ char * DataUpdate::OnUpdate(char *module, int len, char *data)
 		Function::Error("%s, OnUpdate %s", module, lua_tostring(m_L, -1));
 		lua_pop(m_L, 1);
 	}
+	printf("xxxx2 %d\n", lua_gettop(m_L));
 	return ret;
+}
+
+void DataUpdate::Release()
+{
+	lua_pop(m_L, 2);
 }

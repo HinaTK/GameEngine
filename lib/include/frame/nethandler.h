@@ -3,10 +3,10 @@
 #define NET_HANDLER_H
 
 #include "socketthread.h"
-#include "message.h"
 #include "common/socketdef.h"
 #include "common/datastructure/msgqueue.h"
 #include "lib/include/common/memorypool.h"
+#include "lib/include/common/message.h"
 
 class SocketThread;
 class NetHandler

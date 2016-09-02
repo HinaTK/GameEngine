@@ -5,6 +5,7 @@
 
 
 // 同一个线程内，共用LogItem线程安全
+// todo 不包含serverconfig，直接传参数进来，减少依赖
 
 class LogTimeEvent : public TimeEvent
 {

@@ -12,6 +12,7 @@ public:
 
 	bool	Init(char *file);
 	char *	OnUpdate(char *module, int len, char *data);
+	void	Release();
 private:
 	lua_State *m_L;
 };

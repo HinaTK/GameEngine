@@ -34,7 +34,7 @@ public:
 	void	UnsetDirty(){ m_dirty = false; }
 
 	bool Write(rapidjson::Writer<rapidjson::StringBuffer> &writer);
-	bool Read(DataUpdate &du, int len, char *str, bool update = true);
+	bool Read(DataUpdate &du, int len, char *str);
 
 	virtual char *	GetName() = 0;	// 获取字段名，用于构建sql
 	virtual bool Serialize(rapidjson::Writer<rapidjson::StringBuffer> &writer) = 0;

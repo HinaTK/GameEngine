@@ -5,6 +5,5 @@
 
 void ThreadRPC::Exe(BaseThread *t, ThreadID id)
 {
-	Call(t);
-	t->GetManager()->SendMsg(id, Ret());
+	t->GetManager()->SendMsg(id, Call(t));
 }

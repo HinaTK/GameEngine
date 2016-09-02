@@ -1,21 +1,21 @@
 
-#ifndef GAME_CLIENT_H
-#define GAME_CLIENT_H
+#ifndef GAME_PROXY_H
+#define GAME_PROXY_H
 
 #include "common/datastructure/gamehash.h"
 #include "lib/include/common/thread.h"
 #include "lib/include/frame/frame.h"
 #include "lib/include/thread/threadmanager.h"
 
-class Client : public Frame
+class Proxy : public Frame
 {
 public:
-	Client();
-	virtual ~Client();
+	Proxy();
+	virtual ~Proxy();
 
-	static Client &Instance()
+	static Proxy &Instance()
 	{
-		static Client frame;
+		static Proxy frame;
 		return frame;
 	}
 	bool	Init();    //≥ı ºªØ

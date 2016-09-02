@@ -4,9 +4,9 @@
 
 #include <stddef.h>
 #include <stdio.h>
-#include "message.h"
 #include "common/serverdef.h"
 #include "lib/include/base/netcommon.h"
+#include "lib/include/common/message.h"
 
 // 需要改进，尽量避免内存拷贝
 class BufManager

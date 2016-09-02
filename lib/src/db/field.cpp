@@ -19,18 +19,17 @@ bool Field::Write(rapidjson::Writer<rapidjson::StringBuffer> &writer)
 	return writer.EndObject();
 }
 
-bool Field::Read(DataUpdate &du, int len, char *str, bool update)
+static bool Check(rapidjson::Document &doc, char *str)
 {
-	rapidjson::Document doc; 
 	if (doc.Parse(str).HasParseError())
 	{
 		Function::Error("string is not json");
-		return false; 
+		return false;
 	}
 	if (!doc.IsObject())
 	{
 		Function::Error("data is not a json object");
-		return false; 
+		return false;
 	}
 
 	if (!doc.HasMember(FIELD_VER_NAME) || !doc[FIELD_VER_NAME].IsInt())
@@ -38,22 +37,34 @@ bool Field::Read(DataUpdate &du, int len, char *str, bool update)
 		Function::Error("can not read version");
 		return false;
 	}
+	return true;
+}
+
+bool Field::Read(DataUpdate &du, int len, char *str)
+{
+	rapidjson::Document doc; 
+	if (!Check(doc, str))
+	{
+		return false;
+	}
 
 	if (ver != (Version)doc[FIELD_VER_NAME].GetInt())
 	{
-		if (update)
+		char *new_str = du.OnUpdate(GetName(), len, str);
+		if (new_str == NULL)
 		{
-			char *new_str = du.OnUpdate(GetName(), len, str);
-			if (new_str == NULL)
-			{
-				Function::Error("module %s can not update data", GetName());
-				return false;
-			}
-			// todo 检测局部变量new_str再传指针，是否会报错
-			return Read(du, 0, new_str, false);
+			Function::Error("module %s can not update data", GetName());
+			return false;
 		}
-		Function::Error("data update fail");
-		return false;
+		if (!Check(doc, new_str))
+		{
+			Function::Error("module %s data update fail", GetName());
+			return false;
+		}
+		SetDirty();
+		bool ret = Deserialize(doc, new_str);
+		du.Release();
+		return ret;
 	}
 		
 	return Deserialize(doc, str);

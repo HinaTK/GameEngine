@@ -19,29 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\CenterServer\db\dbmanager.cpp" />
-    <ClCompile Include="..\CenterServer\db\dbthread.cpp" />
-    <ClCompile Include="..\CenterServer\main\center.cpp" />
-    <ClCompile Include="..\CenterServer\net\callback.cpp" />
-    <ClCompile Include="..\CenterServer\net\netthread.cpp" />
-    <ClCompile Include="..\CenterServer\net\src\idpool.cpp" />
-    <ClCompile Include="..\CenterServer\net\src\messagehandler.cpp" />
+    <ClCompile Include="..\Proxy\main\proxy.cpp" />
+    <ClCompile Include="..\Proxy\net\callback.cpp" />
+    <ClCompile Include="..\Proxy\net\netthread.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\CenterServer\db\dbmanager.h" />
-    <ClInclude Include="..\CenterServer\db\dbthread.h" />
-    <ClInclude Include="..\CenterServer\main\center.h" />
-    <ClInclude Include="..\CenterServer\net\callback.h" />
-    <ClInclude Include="..\CenterServer\net\netthread.h" />
-    <ClInclude Include="..\CenterServer\net\src\idpool.h" />
-    <ClInclude Include="..\CenterServer\net\src\messagehandler.h" />
-    <ClInclude Include="..\CenterServer\net\src\proto.h" />
-    <ClInclude Include="..\CenterServer\threadproto.h" />
-    <ClInclude Include="..\GameServer\rpc\gate_regrole.h" />
+    <ClInclude Include="..\Proxy\main\proxy.h" />
+    <ClInclude Include="..\Proxy\net\callback.h" />
+    <ClInclude Include="..\Proxy\net\netthread.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{68A61C8D-468B-442D-83A6-0B53CE37F800}</ProjectGuid>
-    <RootNamespace>GameServer</RootNamespace>
+    <ProjectGuid>{48923192-BD62-4CBB-8B9B-E06708AC3BF0}</ProjectGuid>
+    <RootNamespace>GatewayServer</RootNamespace>
     <Keyword>Win32Proj</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -88,15 +77,15 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\bin\</OutDir>
-    <IntDir>..\bin\centerserver\</IntDir>
+    <IntDir>..\bin\client\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..;..\CenterServer;../lib/include/mysql;$(IncludePath)</IncludePath>
+    <IncludePath>..;..\lib\include;..\Client;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..;..\CenterServer;../lib/include/mysql;$(IncludePath)</IncludePath>
+    <IncludePath>..;..\lib\include;..\Client;$(IncludePath)</IncludePath>
     <OutDir>..\bin</OutDir>
-    <IntDir>..\bin\center</IntDir>
+    <IntDir>..\bin\client</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
@@ -119,11 +108,11 @@
       <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Frame.lib;Common.lib;Thread.lib;Base.lib;Gate.lib;Inner.lib;libmysql.lib;DB.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>..\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Frame.lib;Common.lib;Thread.lib;Base.lib;Gate.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>
@@ -142,10 +131,10 @@
       <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>Frame.lib;Common.lib;Thread.lib;Base.lib;Gate.lib;Inner.lib;libmysql.lib;DB.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>..\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Frame.lib;Common.lib;Thread.lib;Base.lib;Gate.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>

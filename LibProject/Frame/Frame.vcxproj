@@ -23,7 +23,6 @@
     <ClCompile Include="..\..\lib\src\frame\bufmanager.cpp" />
     <ClCompile Include="..\..\lib\src\frame\frame.cpp" />
     <ClCompile Include="..\..\lib\src\frame\listener.cpp" />
-    <ClCompile Include="..\..\lib\src\frame\message.cpp" />
     <ClCompile Include="..\..\lib\src\frame\threadnet.cpp" />
     <ClCompile Include="..\..\lib\src\frame\threadselect.cpp" />
   </ItemGroup>
@@ -33,7 +32,6 @@
     <ClInclude Include="..\..\lib\include\frame\frame.h" />
     <ClInclude Include="..\..\lib\include\frame\listener.h" />
     <ClInclude Include="..\..\lib\include\frame\main.h" />
-    <ClInclude Include="..\..\lib\include\frame\message.h" />
     <ClInclude Include="..\..\lib\include\frame\nethandler.h" />
     <ClInclude Include="..\..\lib\include\frame\threadnet.h" />
     <ClInclude Include="..\..\lib\include\frame\threadselect.h" />

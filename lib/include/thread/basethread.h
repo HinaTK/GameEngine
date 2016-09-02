@@ -6,7 +6,7 @@
 #include <string>
 #include "threadmanager.h"
 #include "common/datastructure/msgqueue.h"
-#include "lib/include/frame/message.h"
+#include "lib/include/common/message.h"
 #include "common/serverdef.h"
 
 /*

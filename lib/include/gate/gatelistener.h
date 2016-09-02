@@ -17,8 +17,9 @@ public:
 	void *		operator new(size_t c);
 	void		operator delete(void *m);
 
-	void			Send(const char *buf, unsigned int len);
-	void			Recv(NetHandle handle, unsigned int len, char *buf);
+	void		SetMsgID(unsigned int id){m_msg_id = id;}
+	void		Send(const char *buf, unsigned int len);
+	void		Recv(NetHandle handle, unsigned int len, char *buf);
 
 protected:
 	virtual bool	RecvBuf();

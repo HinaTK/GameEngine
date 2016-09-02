@@ -1,9 +1,9 @@
 ﻿
 #include <signal.h>
 #include "frame.h"
-#include "message.h"
 #include "lib/include/thread/basethread.h"
 #include "lib/include/common/argsplit.h"
+#include "lib/include/common/message.h"
 #include "lib/include/base/function.h"
 
 

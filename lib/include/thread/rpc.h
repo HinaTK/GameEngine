@@ -10,9 +10,7 @@ class ThreadRPC
 {
 public:
 
-	virtual ThreadClass *Ret() = 0;
-
-	virtual void Call(BaseThread *t){}
+	virtual ThreadClass * Call(BaseThread *t){ return 0; }
 
 	void Exe(BaseThread *t, ThreadID id);
 

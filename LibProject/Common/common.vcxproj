@@ -23,6 +23,7 @@
     <ClInclude Include="..\..\lib\include\common\mem.h" />
     <ClInclude Include="..\..\lib\include\common\memorypool.h" />
     <ClInclude Include="..\..\lib\include\common\memoryvl.h" />
+    <ClInclude Include="..\..\lib\include\common\message.h" />
     <ClInclude Include="..\..\lib\include\common\mutex.h" />
     <ClInclude Include="..\..\lib\include\common\serializer.h" />
     <ClInclude Include="..\..\lib\include\common\serverconfig.h" />
@@ -32,6 +33,7 @@
     <ClCompile Include="..\..\lib\src\common\mem.cpp" />
     <ClCompile Include="..\..\lib\src\common\memorypool.cpp" />
     <ClCompile Include="..\..\lib\src\common\memoryvl.cpp" />
+    <ClCompile Include="..\..\lib\src\common\message.cpp" />
     <ClCompile Include="..\..\lib\src\common\serializer.cpp" />
     <ClCompile Include="..\..\lib\src\common\serverconfig.cpp" />
   </ItemGroup>
