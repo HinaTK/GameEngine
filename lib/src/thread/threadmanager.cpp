@@ -102,7 +102,11 @@ void ThreadManager::RPC(ThreadID did, ThreadRPC *rpc)
 
 char * ThreadManager::CreateData(ThreadID did, int len)
 {
-	return m_thread[did]->GetMemory()->Alloc(len);
+	if (m_thread.Exist(did))
+	{
+		return m_thread[did]->GetMemory()->Alloc(len);
+	}
+	return NULL;
 }
 
 void ThreadManager::CMD(TPT type, ThreadID sid, int len, const char *data, ThreadID did /*= -1*/)

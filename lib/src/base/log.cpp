@@ -23,6 +23,8 @@ public:
 		m_log->Save(m_index);
 	}
 
+	void Free(){}
+
 private:
 	TimerManager	*m_timer_manager;
 	Log 			*m_log;
@@ -58,8 +60,6 @@ CenterConfig::Instance().db.port)
 		m_timer_manager->AddEvent(reg[i].interval, new LogTimeEvent(m_timer_manager, this, reg[i].index));
 	}
 	SetSleepTime(20);
-
-	
 }
 
 Log::~Log()

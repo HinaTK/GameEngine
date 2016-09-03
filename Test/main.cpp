@@ -1,7 +1,8 @@
 ﻿
 #include <stdio.h>
-#include <string>
 #include <stdint.h>
+#include <string>
+#include <queue>
 #include "testdatastructure.h"
 // #include "testlog.h"
 // #include "testserializer.h"
@@ -54,10 +55,14 @@ __fun(int a comma int b)
 
 int main()
 {
-	char *temp = NULL;
-	*(long long *)&temp = 12344321;
-	long long temp2 = (long long)temp;
-	printf("%ld\n", temp2);
+	std::queue<int> aa;
+	aa.push(1);
+	aa.push(2);
+	while (aa.size() > 0)
+	{
+		printf("%d\n", aa.front());
+		aa.pop();
+	}
 // 	A *a = new B;
 // 	a->Show();
 // 	delete a;

@@ -7,7 +7,6 @@
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/base/function.h"
 
-// todo 当mysql连接失败，下面的预处理会继续执行，因此会crash
 DBManager::DBManager(DBThread *t)
 : m_thread(t)
 , m_mysql(

@@ -12,7 +12,7 @@ class SocketThread;
 class NetHandler
 {
 public:
-	NetHandler(SocketThread *t, int type)
+	NetHandler(SocketThread *t, unsigned char type)
 		: m_handle(INVALID_NET_HANDLE)
 		, m_sock(0)
 		, m_thread(t)
@@ -25,7 +25,7 @@ public:
 
 	virtual void	OnCanWrite(){}
 
-	int	Type(){ return m_type; }
+	unsigned char	Type(){ return m_type; }
 
 	int error(){ return m_err; }
 
@@ -49,6 +49,7 @@ public:
 		DR_HEADER_TOO_BIG,
 		DR_HANDSHAKE_RECV,
 		DR_HANDSHAKE_SEND,
+		DR_HANDSHAKE_TIME_OUT,
 		DR_MSG_TOO_LONG,
 		DR_RECV_FAIL,
 		// 自定义错误码
@@ -57,10 +58,10 @@ public:
 
 	NetHandle		m_handle;		// 内部操作句柄
 	SOCKET			m_sock;			// socket id
-	unsigned int	m_msg_index;	// 网络数据导向索引
+	unsigned short	m_msg_index;	// 网络数据导向索引
 protected:
 	SocketThread	*m_thread;
-	int				m_type;
+	unsigned char	m_type;
 	MsgCallBack		*m_call_back;
 	int				m_err;
 	int				m_err_arg;

@@ -84,7 +84,7 @@ public:
 
 	iterator		Find(unsigned int index)
 	{
-		if (index < m_value.Size() && m_value[index].be_used)
+		if (Exist(index))
 		{
 			return iterator(index, this);
 		}

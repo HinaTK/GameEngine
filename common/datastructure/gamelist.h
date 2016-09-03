@@ -99,7 +99,7 @@ private:
 /*
 	* 头结点不保存数据
 	┏━━┳━━┓
-	┃head┃tail┃
+	┃head ┃tail┃
 	┗━━┻━━┛
 */
 template<class T>

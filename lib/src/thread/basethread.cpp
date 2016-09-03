@@ -1,6 +1,5 @@
 ﻿
 #include "basethread.h"
-#include "threadmanager.h"
 #include "threadclass.h"
 #include "lib/include/base/interface.h"
 #include "lib/include/base/function.h"

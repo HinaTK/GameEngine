@@ -10,6 +10,7 @@ TimerManager::TimerManager()
 
 }
 
+// todo release the event pointer
 TimerManager::~TimerManager()
 {
 }
@@ -44,7 +45,58 @@ bool TimerManager::Update(time_t now)
 }
 
 
+void TimerQueue::AddEvent(TimeEvent *e)
+{
+	m_queue.push(Timer{ time(NULL) + m_interval, e });
+}
+
+EXPORT bool TimerQueue::Update(time_t now)
+{
+	if (m_queue.size() > 0 && now >= m_update_time)
+	{
+		do 
+		{
+			Timer &timer = m_queue.front();
+			if (timer.time_out >= now)
+			{
+				timer.event->OnTime();
+				timer.event->Free();
+				m_queue.pop();
+			}
+			else
+			{
+				m_update_time = timer.time_out;
+				break;
+			}
+		} while (m_queue.size() > 0);
+		return true;
+	}
+	return false;
+}
+
+TimerQueue::TimerQueue(time_t interval)
+: m_update_time(0)
+, m_interval(interval)
+{
+
+}
+
+TimerQueue::~TimerQueue()
+{
+	while (m_queue.size() > 0)
+	{
+		delete m_queue.front().event;
+		m_queue.pop();
+	}
+}
+
+
 TimerManager * New::_TimerManager()
 {
 	return new TimerManager();
+}
+
+TimerQueue * New::_TimerQueue(time_t interval)
+{
+	return new TimerQueue(interval);
 }

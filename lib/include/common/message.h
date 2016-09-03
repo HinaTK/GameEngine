@@ -33,6 +33,17 @@ public:
 	char *			data;
 };
 
+class NetGlobalMsg
+{
+public:
+	NetGlobalMsg(ThreadID _id, NetHandle _handle, unsigned short _length, char *_data);
+	~NetGlobalMsg();
+	ThreadID		id;
+	NetHandle		handle;
+	unsigned short	length;
+	char *			data;
+};
+
 // 线程消息
 class ThreadClass;
 class ThreadMsg

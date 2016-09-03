@@ -9,11 +9,8 @@
 #include "lib/include/common/message.h"
 #include "common/serverdef.h"
 
-/*
-	目的：以多线程并行代替多进程并行
-*/
+#define BASE_THREAD_MSG_TYPE(ThreadType) (ThreadType) * 256
 
-class ThreadManager;
 class BaseThread
 {
 public:

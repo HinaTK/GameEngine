@@ -28,6 +28,8 @@ public:
 	ThreadNet(ThreadManager *manager);
 	virtual ~ThreadNet();
 	
+	typedef game::Array<NetHandler*>		NET_HANDLER_ARRAY;
+	NET_HANDLER_ARRAY *GetNetHandlerArray(){ return &m_net_handler; }
 	NetHandle		AddNetHandler(NetHandler *handler);
 	void			RemoveHandler(NetHandle handle, int err, int reason = 0);
 
@@ -35,7 +37,7 @@ public:
 	virtual void	SetCanNotWrite(NetHandler *handler) = 0;
 
 	virtual void	ClearHandler() = 0;
-	void			Recv(unsigned int msg_index, NetMsgType msg_type, NetMsg &msg);
+	void			Recv(unsigned short msg_index, NetMsgType msg_type, NetMsg &msg);
 
 	bool			InitServer(const char *ip, unsigned short port, int backlog, Accepter *accepter, MsgCallBack *call_back);
 	NetHandle		SyncConnect(const char *ip, unsigned short port, Listener *listener, MsgCallBack *call_back);
@@ -44,13 +46,14 @@ public:
 	char *			CreateData(unsigned int length){ return m_msg_memory.Alloc(length); };
 	
 	void			Release(NetMsg &msg){ m_msg_memory.Free(msg); }
+
+
 protected:
 	virtual void	InitNetHandler(NetHandler *handler) = 0;
 	virtual bool	DoSomething(){ return false; }
 	void			RecvData(short type, ThreadID sid, int len, const char *data);
 	void			AddHandler(const char *data);
 	void			Send(NetHandle handle, int length, const char *data);
-	unsigned int	AddMsgHandler(MsgCallBack *call_back);
 protected:
 	struct RemoveInfo
 	{

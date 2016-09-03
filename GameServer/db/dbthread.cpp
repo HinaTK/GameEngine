@@ -2,7 +2,7 @@
 #include "dbthread.h"
 #include "module/rolemodule.h"
 #include "module/role/test.h"
-#include "protocol/proto.h"
+#include "protocol/tproto.h"
 
 #define NewField(Class) \
 	[]()->Field *{return new Class(); }

@@ -7,6 +7,7 @@
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/base/interface.h"
 #include "lib/include/base/function.h"
+#include "lib/include/base/timer.h"
 #include "common/proto.h"
 #include "common/datastructure/msgqueue.h"
 
@@ -49,17 +50,47 @@ private:
 	GateThread *m_thread;
 };
 
-GateThread::GateThread(ThreadManager *manager, int index, ThreadID global)
+class HandshakeTimeEvent : public TimeEvent
+{
+public:
+	HandshakeTimeEvent(GateThread *t, NetHandle handle) :m_t(t), m_handle(handle){}
+	void OnTime()
+	{
+		ThreadNet::NET_HANDLER_ARRAY *net_handler = m_t->GetNetHandlerArray();
+		ThreadNet::NET_HANDLER_ARRAY::iterator itr = net_handler->Find(m_handle);
+		if (itr != net_handler->End() && (*itr)->Type() == NetHandler::LISTENER)
+		{
+			GateListener *listener = (GateListener *)(*itr);
+			if (!listener->IsHandshake())
+			{
+				m_t->RemoveHandler(m_handle, NetHandler::DR_HANDSHAKE_TIME_OUT);
+			}
+		}
+	}
+
+	GateThread  *m_t;
+	NetHandle 	m_handle;
+};
+
+GateThread::GateThread(ThreadManager *manager, int index, ThreadID global, bool is_bind)
 : SocketThread(manager)
 , m_index(index)
 , m_role_msg(2048)
 , m_global(global)
+, m_is_bind(is_bind)
+, m_timer_queue(New::_TimerQueue(4))
 {
 	m_name = "gate";
 }
 
+GateThread::~GateThread()
+{
+	delete m_timer_queue;
+}
+
 bool GateThread::Init()
 {
+	// 传入一个配置指针，记得要释放
 	ServerInfo info = GatawayConfig::Instance().m_server[m_index];
 	if (!InitServer(info.ip, info.port, info.backlog, new GateAccepter(this, 1024), new CallBack(this)))
 	{
@@ -92,6 +123,11 @@ void GateThread::RecvData(TPT type, ThreadID sid, int len, const char *data)
 	
 }
 
+bool GateThread::DoSomething()
+{
+	return m_timer_queue->Update(time(NULL));
+}
+
 void GateThread::Dispatch(unsigned int msg_id, NetMsg &msg)
 {
 	// todo 玩家下线，需要通知gate，并将消息队列移除
@@ -107,13 +143,11 @@ unsigned int GateThread::RegRole(NetHandle handle)
 {
 	unsigned int index = m_role_msg.Insert(new MsgQueue<NetMsg>());
 	NET_HANDLER_ARRAY::iterator itr = m_net_handler.Find(handle);
-	if (itr != m_net_handler.End() && (*itr)->Type() == NetHandler::LISTENER)
-	{
-		
+	if (itr != m_net_handler.End() && (*itr)->Type() == NetHandler::LISTENER){	
 		((GateListener *)(*itr))->SetMsgID(index);
 	}
 	else{
-		// todo 输出错误
+		Function::Error("%s can not find the handle", __FUNCTION__);
 	}
 	return index;
 }
@@ -127,12 +161,32 @@ void GateThread::DelRole(unsigned int index)
 	}
 }
 
-void GateThread::PushCreator(NetHandle handle)
+void GateThread::ChangeChannel(NetHandle handle)
 {
-	m_creator.push(CreatorInfo{handle, time(NULL)}};
+	NET_HANDLER_ARRAY::iterator itr = m_net_handler.Find(handle);
+	if (itr != m_net_handler.End() && (*itr)->Type() == NetHandler::LISTENER)
+	{
+		if (((GateListener *)(*itr))->Recv == &GateListener::Bind)
+		{
+			((GateListener *)(*itr))->Recv = &GateListener::Dispatch;
+		}
+		else
+		{
+			Function::Error("%s the handle function is not bind", __FUNCTION__);
+		}
+	}
+	else
+	{
+		Function::Error("%s handler is not a listener", __FUNCTION__);
+	}
 }
 
-EXPORT GateThread * New::_GateThread(ThreadManager *manager, int index, ThreadID id)
+void GateThread::PushTimer(NetHandle handle)
 {
-	return new GateThread(manager, index, id);
+	m_timer_queue->AddEvent(new HandshakeTimeEvent(this, handle));
+}
+
+EXPORT GateThread * New::_GateThread(ThreadManager *manager, int index, ThreadID id, bool is_bind)
+{
+	return new GateThread(manager, index, id, is_bind);
 }

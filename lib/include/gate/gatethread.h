@@ -9,27 +9,36 @@
 #include "common/datastructure/gamearray.h"
 
 class ThreadManager;
+class GateCreator;
+class TimerQueue;
 class GateThread : public SocketThread
 {
 public:
-	virtual ~GateThread(){}
-	GateThread(ThreadManager *manager, int index, ThreadID global);
+	virtual ~GateThread();
+	GateThread(ThreadManager *manager, int index, ThreadID global, bool is_bind = true);
 
-	void	Dispatch(unsigned int msg_id, NetMsg &msg);
+	static const unsigned char THREAD_TYPE = 1;
+
+	enum
+	{
+		GATE_ROLE_BIND = BASE_THREAD_MSG_TYPE(THREAD_TYPE)
+	};
+
+	void		Dispatch(unsigned int msg_id, NetMsg &msg);
 	unsigned int RegRole(NetHandle handle);
-	void	DelRole(unsigned int index);
-	void	PushCreator(NetHandle handle);
+	void		DelRole(unsigned int index);
+	void		ChangeChannel(NetHandle handle);
+	void		PushTimer(NetHandle handle);
 
+	ThreadID	GetGlobal(){ return m_global; }
+	bool		IsBind(){ return m_is_bind; }
 protected:
 	bool	Init();
 	void	Ready();
 	void	RecvData(TPT type, ThreadID sid, int len, const char *data);
+	bool	DoSomething();
 private:
-	struct CreatorInfo
-	{
-		NetHandle 	handle;
-		time_t		timeout;
-	};
+
 	NetHandle		m_cneter_handle;
 	int				m_index;
 	/*
@@ -38,17 +47,12 @@ private:
 	typedef game::Array<MsgQueue<NetMsg> *> ROLE_MSG;
 	ROLE_MSG		m_role_msg;
 	ThreadID		m_global;
-	
-	/*
-		创建creator,并将其句柄放到这个队列，定时检查超时，并判断类型是否是Creator
-		问题：这个句柄并不是唯一的（有可能Creator释放了，其它的Creator再申请到这个句柄）
-		解决：在Creator中加入一个唯一的id（由时间和自增构成），当超时判断的时候，判断类型与这个id都是否相同，相同则删除
-	*/
-	std::queue<CreatorInfo> m_creator;
+	bool			m_is_bind;
+	TimerQueue	*m_timer_queue;
 };
 
 namespace New
 {
-	EXPORT GateThread * _GateThread(ThreadManager *manager, int index, ThreadID id);
+	EXPORT GateThread * _GateThread(ThreadManager *manager, int index, ThreadID id, bool is_bind = true);
 }
 #endif

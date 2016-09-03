@@ -2,6 +2,8 @@
 #ifndef SERVER_DEF_H
 #define SERVER_DEF_H
 
+#include <stdint.h>
+
 static const int ACCOUNT_SIZE = 36;
 static const int GAME_NAME_SIZE = 32;
 

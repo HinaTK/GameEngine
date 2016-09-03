@@ -66,6 +66,25 @@ NetMsg::~NetMsg()
 	
 }
 
+NetGlobalMsg::NetGlobalMsg(ThreadID _id, NetHandle _handle, unsigned short _length, char *_data)
+: id(_id)
+, handle(_handle)
+, length(_length)
+{
+	if (length > 0)
+	{
+		data = (char *)malloc(length);
+		memcpy(data, _data, length);
+	}
+}
+
+NetGlobalMsg::~NetGlobalMsg()
+{
+	if (length > 0)
+	{
+		free(data);
+	}
+}
 
 ThreadMsg::ThreadMsg()
 : id(INVALID_THREAD_ID)

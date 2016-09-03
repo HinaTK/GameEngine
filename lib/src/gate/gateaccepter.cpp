@@ -1,10 +1,8 @@
 ﻿
-
 #include "gateaccepter.h"
-#include "gatecreator.h"
+#include "gatelistener.h"
+#include "gatethread.h"
 #include "common/socketdef.h"
-
-
 
 GateAccepter::GateAccepter(SocketThread *t, int size)
 : Accepter(t, NetHandler::BASE_ACCEPTER)
@@ -21,13 +19,13 @@ void GateAccepter::OnCanRead()
 	SOCKET new_sock = accept(m_sock, (struct sockaddr*)&addr, &len);
 	if (new_sock != INVALID_SOCKET)
 	{
-		GateCreator *handler = new GateCreator(m_thread, buf_size);
+		GateListener *handler = new GateListener(m_thread, buf_size);
 		handler->m_msg_index = m_msg_index;
 		handler->m_sock = new_sock;
 		handler->m_handle = m_thread->AddNetHandler(handler);
 		char *ip_addr = inet_ntoa(addr.sin_addr);
 		m_thread->Recv(handler->m_msg_index, BaseMsg::MSG_ACCEPT, NetMsg(handler->m_handle, ip_addr, strlen(ip_addr) + 1));
-		//((GateThread *)m_thread)->PushCreator()
+		((GateThread *)m_thread)->PushTimer(handler->m_handle);
 	}
 }
 
