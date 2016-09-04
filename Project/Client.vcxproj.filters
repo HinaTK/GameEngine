@@ -12,9 +12,6 @@
     <ClCompile Include="..\Client\main\client.cpp">
       <Filter>main</Filter>
     </ClCompile>
-    <ClCompile Include="..\Client\net\callback.cpp">
-      <Filter>net</Filter>
-    </ClCompile>
     <ClCompile Include="..\Client\net\netthread.cpp">
       <Filter>net</Filter>
     </ClCompile>
@@ -24,9 +21,6 @@
       <Filter>main</Filter>
     </ClInclude>
     <ClInclude Include="..\Client\net\netthread.h">
-      <Filter>net</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Client\net\callback.h">
       <Filter>net</Filter>
     </ClInclude>
   </ItemGroup>

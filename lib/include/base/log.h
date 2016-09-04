@@ -8,7 +8,6 @@
 #include "timer.h"
 #include "lib/include/thread/basethread.h"
 #include "lib/include/db/base.h"
-#include "lib/include/db/prepare.h"
 #include "common/serverdef.h"
 #include "common/datastructure/gamevector.h"
 

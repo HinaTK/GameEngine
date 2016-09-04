@@ -130,7 +130,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
       <AdditionalLibraryDirectories>..\..\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Thread.lib;libmysql.lib;Common.lib;DB.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Thread.lib;libmysql.lib;DB.lib;Common.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <ClCompile>

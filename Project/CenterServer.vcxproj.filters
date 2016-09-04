@@ -27,9 +27,6 @@
     <ClCompile Include="..\CenterServer\db\dbthread.cpp">
       <Filter>db</Filter>
     </ClCompile>
-    <ClCompile Include="..\CenterServer\net\callback.cpp">
-      <Filter>net</Filter>
-    </ClCompile>
     <ClCompile Include="..\CenterServer\net\netthread.cpp">
       <Filter>net</Filter>
     </ClCompile>
@@ -52,9 +49,6 @@
     </ClInclude>
     <ClInclude Include="..\CenterServer\db\dbthread.h">
       <Filter>db</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CenterServer\net\callback.h">
-      <Filter>net</Filter>
     </ClInclude>
     <ClInclude Include="..\CenterServer\net\netthread.h">
       <Filter>net</Filter>

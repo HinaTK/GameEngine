@@ -61,27 +61,20 @@ void GateListener::Send( const char *buf, unsigned int len )
 
 void GateListener::Handshake(unsigned int len, char *buf)
 {
-	if (((GateThread *)m_thread)->IsBind())
-	{
-		Recv = &GateListener::Bind;
-	}
-	else
-	{
-		Recv = &GateListener::Dispatch;
-	}
-	
+	Recv = &GateListener::Bind;
 	m_is_handshake = true;
 }
 
 void GateListener::Bind(unsigned int len, char *buf)
 {
-	char *data = m_thread->GetManager()->CreateData(((GateThread *)m_thread)->GetGlobal(), len + sizeof(NetHandle));
-	if (data != NULL)
-	{
-		*(NetHandle *)data = m_handle;
-		memcpy(data + sizeof(NetHandle), buf, len);
-		m_thread->GetManager()->SendMsg(((GateThread *)m_thread)->GetGlobal(), GateThread::GATE_ROLE_BIND, len + sizeof(NetHandle), data, m_thread->GetID());
-	}
+	m_thread->Recv(m_msg_index, BaseMsg::MSG_RECV, NetMsg(m_handle, buf, len));
+// 	char *data = m_thread->GetManager()->CreateData(((GateThread *)m_thread)->GetGlobal(), len + sizeof(NetHandle));
+// 	if (data != NULL)
+// 	{
+// 		*(NetHandle *)data = m_handle;
+// 		memcpy(data + sizeof(NetHandle), buf, len);
+// 		m_thread->GetManager()->SendMsg(((GateThread *)m_thread)->GetGlobal(), GateThread::GATE_ROLE_BIND, len + sizeof(NetHandle), data, m_thread->GetID());
+// 	}
 }
 
 void GateListener::Dispatch(unsigned int len, char *buf)

@@ -25,7 +25,6 @@ void GateAccepter::OnCanRead()
 		handler->m_handle = m_thread->AddNetHandler(handler);
 		char *ip_addr = inet_ntoa(addr.sin_addr);
 		m_thread->Recv(handler->m_msg_index, BaseMsg::MSG_ACCEPT, NetMsg(handler->m_handle, ip_addr, strlen(ip_addr) + 1));
-		((GateThread *)m_thread)->PushTimer(handler->m_handle);
 	}
 }
 

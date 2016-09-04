@@ -6,11 +6,11 @@
 #include "src/idpool.h"
 #include "src/messagehandler.h"
 #include "common/proto.h"
-#include "lib/include/frame/socketthread.h"
+#include "lib/include/gate/gatethread.h"
 
 
 class ThreadManager;
-class NetThread : public SocketThread
+class NetThread : public GateThread
 {
 public:
 	virtual ~NetThread();

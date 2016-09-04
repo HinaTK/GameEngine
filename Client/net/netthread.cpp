@@ -1,10 +1,28 @@
 
 #include "netthread.h"
-#include "lib/include/gate/gatelistener.h"
+#include "lib/include/inner/innerlistener.h"
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/common/argsplit.h"
 #include "lib/include/base/interface.h"
 #include "CenterServer/net/src/proto.h"
+
+class CallBack : public MsgCallBack
+{
+public:
+	CallBack(NetThread *t)
+		: MsgCallBack()
+		, m_thread(t){}
+	~CallBack(){}
+
+	void	Accept(NetHandle handle, const char *ip){};
+
+	void	Recv(NetMsg *msg){ m_thread->InnerRecv(msg); };
+
+	void	Disconnect(NetHandle handle, int err, int reason){};
+
+private:
+	NetThread *m_thread;
+};
 
 NetThread::NetThread(ThreadManager *manager)
 : SocketThread(manager)
@@ -15,7 +33,7 @@ NetThread::NetThread(ThreadManager *manager)
 bool NetThread::Init()
 {
 	// todo 处理服务器断线
-	m_server_handle = SyncConnect("127.0.0.1", 12347, new GateListener(this), new CallBack(this));
+	m_server_handle = SyncConnect("127.0.0.1", 12347, new InnerListener(this), new CallBack(this));
 
 	if (m_server_handle == INVALID_NET_HANDLE)
 	{

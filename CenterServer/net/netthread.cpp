@@ -1,6 +1,5 @@
 
 #include "netthread.h"
-#include "callback.h"
 #include "threadproto.h"
 #include "main/center.h"
 #include "src/messagehandler.h"
@@ -9,9 +8,45 @@
 #include "lib/include/inner/inneraccepter.h"
 #include "lib/include/gate/gateaccepter.h"
 
+class CallBack : public MsgCallBack
+{
+public:
+	CallBack(NetThread *t)
+		: MsgCallBack()
+		, m_thread(t){}
+	~CallBack(){}
+
+	void	Accept(NetHandle handle, const char *ip){ m_thread->PushTimer(handle); };
+
+	void	Recv(NetMsg *msg){ m_thread->Recv(msg); };
+
+	void	Disconnect(NetHandle handle, int err, int reason){}
+
+private:
+	NetThread *m_thread;
+};
+
+
+class InnerCallBack : public MsgCallBack
+{
+public:
+	InnerCallBack(NetThread *t)
+		: MsgCallBack()
+		, m_thread(t){}
+	~InnerCallBack(){}
+
+	void	Accept(NetHandle handle, const char *ip){}
+
+	void	Recv(NetMsg *msg){ m_thread->InnerRecv(msg); };
+
+	void	Disconnect(NetHandle handle, int err, int reason){}
+
+private:
+	NetThread *m_thread;
+};
 
 NetThread::NetThread(ThreadManager *manager)
-: SocketThread(manager)
+: GateThread(manager)
 , m_message_handler(this)
 , m_id_pool(this)
 , m_cur_thread_id(0)

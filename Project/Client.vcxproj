@@ -20,12 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Client\main\client.cpp" />
-    <ClCompile Include="..\Client\net\callback.cpp" />
     <ClCompile Include="..\Client\net\netthread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Client\main\client.h" />
-    <ClInclude Include="..\Client\net\callback.h" />
     <ClInclude Include="..\Client\net\netthread.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -134,7 +132,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>..\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Frame.lib;Common.lib;Thread.lib;Base.lib;Gate.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Frame.lib;Common.lib;Thread.lib;Base.lib;Inner.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Bscmake>
       <PreserveSbr>true</PreserveSbr>

@@ -2,9 +2,6 @@
 #include "gatethread.h"
 #include "gateaccepter.h"
 #include "gatelistener.h"
-#include "lib/include/inner/inneraccepter.h"
-#include "lib/include/inner/innerlistener.h"
-#include "lib/include/common/serverconfig.h"
 #include "lib/include/base/interface.h"
 #include "lib/include/base/function.h"
 #include "lib/include/base/timer.h"
@@ -19,30 +16,12 @@ public:
 		, m_thread(t){}
 	~CallBack(){}
 
-	void	Accept(NetHandle handle, const char *ip){};
-
-	void	Recv(NetMsg *msg){ }
-
-	void	Disconnect(NetHandle handle, int err, int reason){};
-
-private:
-	GateThread *m_thread;
-};
-
-class InnerCallBack : public MsgCallBack
-{
-public:
-	InnerCallBack(GateThread *t)
-		: MsgCallBack()
-		, m_thread(t){}
-	~InnerCallBack(){}
-
-	void Accept(NetHandle handle, const char *ip)
+	void	Accept(NetHandle handle, const char *ip)
 	{
-		Function::Info("accept %s", ip);
+		m_thread->PushTimer(handle);
 	};
 
-	void	Recv(NetMsg *msg){};
+	void	Recv(NetMsg *msg){ }
 
 	void	Disconnect(NetHandle handle, int err, int reason){};
 
@@ -72,12 +51,10 @@ public:
 	NetHandle 	m_handle;
 };
 
-GateThread::GateThread(ThreadManager *manager, int index, ThreadID global, bool is_bind)
+GateThread::GateThread(ThreadManager *manager)
 : SocketThread(manager)
-, m_index(index)
-, m_role_msg(2048)
-, m_global(global)
-, m_is_bind(is_bind)
+, m_role_msg(1024)
+//, m_global(global)
 , m_timer_queue(New::_TimerQueue(4))
 {
 	m_name = "gate";
@@ -90,27 +67,28 @@ GateThread::~GateThread()
 
 bool GateThread::Init()
 {
-	// 传入一个配置指针，记得要释放
-	ServerInfo info = GatawayConfig::Instance().m_server[m_index];
-	if (!InitServer(info.ip, info.port, info.backlog, new GateAccepter(this, 1024), new CallBack(this)))
-	{
-		return false;
-	}
-
-	ServerInfo info2 = GameConfig::Instance().center;
-	m_cneter_handle = SyncConnect(info2.ip, info2.port, new InnerListener(this), new InnerCallBack(this));
-	
-	if (m_cneter_handle != INVALID_NET_HANDLE)
-	{
-		PProto::tocRegisterServer rs;
-		rs.type = PProto::ST_GATE;
-		rs.id = 1;
-		memcpy(rs.ip, info.ip, sizeof(rs.ip));
-		rs.port = info.port;
-		Send(m_cneter_handle, sizeof(PProto::tocRegisterServer), (const char *)&rs);
-	}
-	else return false;
 	return true;
+//	return m_gate_init->Init(this);
+// 	ServerInfo info = GatawayConfig::Instance().m_server[m_index];
+// 	if (!InitServer(info.ip, info.port, info.backlog, new GateAccepter(this, 1024), new CallBack(this)))
+// 	{
+// 		return false;
+// 	}
+
+// 	ServerInfo info2 = GameConfig::Instance().center;
+// 	m_cneter_handle = SyncConnect(info2.ip, info2.port, new InnerListener(this), new InnerCallBack(this));
+// 	
+// 	if (m_cneter_handle != INVALID_NET_HANDLE)
+// 	{
+// 		PProto::tocRegisterServer rs;
+// 		rs.type = PProto::ST_GATE;
+// 		rs.id = 1;
+// 		memcpy(rs.ip, info.ip, sizeof(rs.ip));
+// 		rs.port = info.port;
+// 		Send(m_cneter_handle, sizeof(PProto::tocRegisterServer), (const char *)&rs);
+// 	}
+// 	else return false;
+//	return true;
 }
 
 void GateThread::Ready()
@@ -184,9 +162,4 @@ void GateThread::ChangeChannel(NetHandle handle)
 void GateThread::PushTimer(NetHandle handle)
 {
 	m_timer_queue->AddEvent(new HandshakeTimeEvent(this, handle));
-}
-
-EXPORT GateThread * New::_GateThread(ThreadManager *manager, int index, ThreadID id, bool is_bind)
-{
-	return new GateThread(manager, index, id, is_bind);
 }

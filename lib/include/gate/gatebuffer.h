@@ -25,8 +25,6 @@ private:
 		char *buf = NULL;
 	}m_msg;
 	Listener *		m_listener;
-	char			m_head_len;
-	char 			m_header[NetCommon::HEADER_LENGTH];
 };
 
 

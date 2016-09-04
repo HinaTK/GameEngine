@@ -2,7 +2,6 @@
 #ifndef NET_THREAD_H
 #define NET_THREAD_H
 
-#include "callback.h"
 #include "lib/include/frame/socketthread.h"
 #include "common/datastructure/gamevector.h"
 

@@ -4,6 +4,7 @@
 
 #include <queue>
 #include "lib/include/frame/socketthread.h"
+#include "lib/include/common/serverconfig.h"
 #include "common/datastructure/gamehash.h"
 #include "common/datastructure/msgqueue.h"
 #include "common/datastructure/gamearray.h"
@@ -15,7 +16,7 @@ class GateThread : public SocketThread
 {
 public:
 	virtual ~GateThread();
-	GateThread(ThreadManager *manager, int index, ThreadID global, bool is_bind = true);
+	GateThread(ThreadManager *manager);
 
 	static const unsigned char THREAD_TYPE = 1;
 
@@ -30,8 +31,7 @@ public:
 	void		ChangeChannel(NetHandle handle);
 	void		PushTimer(NetHandle handle);
 
-	ThreadID	GetGlobal(){ return m_global; }
-	bool		IsBind(){ return m_is_bind; }
+	//ThreadID	GetGlobal(){ return m_global; }
 protected:
 	bool	Init();
 	void	Ready();
@@ -40,19 +40,13 @@ protected:
 private:
 
 	NetHandle		m_cneter_handle;
-	int				m_index;
 	/*
 		新建立的role在这里注册一个消息队列，将索引设置给listener
 	*/
 	typedef game::Array<MsgQueue<NetMsg> *> ROLE_MSG;
 	ROLE_MSG		m_role_msg;
-	ThreadID		m_global;
-	bool			m_is_bind;
-	TimerQueue	*m_timer_queue;
+	//ThreadID		m_global;
+	TimerQueue		*m_timer_queue;
 };
 
-namespace New
-{
-	EXPORT GateThread * _GateThread(ThreadManager *manager, int index, ThreadID id, bool is_bind = true);
-}
 #endif
