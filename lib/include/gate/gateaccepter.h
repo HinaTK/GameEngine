@@ -2,7 +2,6 @@
 #ifndef GATE_ACCEPTER_H
 #define GATE_ACCEPTER_H
 
-#include "lib/include/base/export.h"
 #include "lib/include/frame/accepter.h"
 
 /*
@@ -21,8 +20,4 @@ private:
 	int buf_size;
 };
 
-namespace New
-{
-	EXPORT GateAccepter * _GateAccepter(SocketThread *t, int size = 0);
-}
 #endif

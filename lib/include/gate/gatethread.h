@@ -25,15 +25,10 @@ public:
 		GATE_ROLE_BIND = BASE_THREAD_MSG_TYPE(THREAD_TYPE)
 	};
 
-	void		Dispatch(unsigned int msg_id, NetMsg &msg);
-	unsigned int RegRole(NetHandle handle);
-	void		DelRole(unsigned int index);
-	void		ChangeChannel(NetHandle handle);
+	virtual void	Dispatch(unsigned int msg_id, NetMsg &msg){};
 	void		PushTimer(NetHandle handle);
 
-	//ThreadID	GetGlobal(){ return m_global; }
 protected:
-	bool	Init();
 	void	Ready();
 	void	RecvData(TPT type, ThreadID sid, int len, const char *data);
 	bool	DoSomething();
@@ -43,9 +38,8 @@ private:
 	/*
 		新建立的role在这里注册一个消息队列，将索引设置给listener
 	*/
-	typedef game::Array<MsgQueue<NetMsg> *> ROLE_MSG;
-	ROLE_MSG		m_role_msg;
-	//ThreadID		m_global;
+	
+	
 	TimerQueue		*m_timer_queue;
 };
 

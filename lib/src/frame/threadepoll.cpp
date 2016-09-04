@@ -55,11 +55,11 @@ bool SocketThread::Run()
             }
         }
         // ReplaceHandler();
-        ClearHandler();
+        
         return true;
     }
-
-    return false;
+    ClearHandler();
+    return DoSomething();
 }
 
 void SocketThread::InitNetHandler(NetHandler *handler)

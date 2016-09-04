@@ -23,6 +23,7 @@
     <ClInclude Include="..\..\lib\include\gate\gatebuffer.h" />
     <ClInclude Include="..\..\lib\include\gate\gatelistener.h" />
     <ClInclude Include="..\..\lib\include\gate\gatethread.h" />
+    <ClInclude Include="..\..\lib\include\gate\proto.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\lib\src\gate\gateaccepter.cpp" />
@@ -33,7 +34,8 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B16E656B-DA3B-48E7-A5E0-A8CC338A0673}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Cache</RootNamespace>
+    <RootNamespace>common</RootNamespace>
+    <ProjectName>Gate</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -79,14 +81,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\..\lib\include;..\..\lib\include\gate;..\..\;$(IncludePath)</IncludePath>
     <OutDir>..\..\bin</OutDir>
     <IntDir>..\..\lib\temp</IntDir>
-    <TargetName>$(ProjectName)</TargetName>
+    <IncludePath>..\..\lib\include\common;..\..\lib\include;..\..\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <TargetName>$(ProjectName)</TargetName>
-    <IncludePath>..\..\lib\include;..\..\lib\include\gate;..\..\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\lib\include\gate;..\..\lib\include;..\..\;$(IncludePath)</IncludePath>
     <OutDir>..\..\bin</OutDir>
     <IntDir>..\..\bin\temp</IntDir>
   </PropertyGroup>
@@ -96,16 +96,17 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>
-      </AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -113,15 +114,17 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\..\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Frame.lib;Thread.lib;Common.lib;Base.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

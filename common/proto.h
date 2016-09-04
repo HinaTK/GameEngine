@@ -25,7 +25,7 @@ namespace PProto
 	// 注册服务
 	struct tocRegisterServer
 	{
-		BindProto(tocRegisterServer, TOC_REGISTER_SERVER);
+		BindProto(TOC_REGISTER_SERVER);
 		// type + id 构成每个服务的唯一标识
 		unsigned short type;	// 服务类型
 		unsigned short id;		// 服务id
@@ -36,7 +36,7 @@ namespace PProto
 	// 广播其它服务注册
 	struct ctoBrocastRegister
 	{
-		BindProto(ctoBrocastRegister, CTO_BROCAST_REGISTER);
+		BindProto(CTO_BROCAST_REGISTER);
 		unsigned short type;	// 服务类型
 		unsigned short id;		// 服务id
 		char ip[32];
@@ -45,7 +45,7 @@ namespace PProto
 
 	struct ctoBrocastDisconnect
 	{
-		BindProto(ctoBrocastDisconnect, CTO_BROCAST_DISCONNECT);
+		BindProto(CTO_BROCAST_DISCONNECT);
 		unsigned short type;	// 服务类型
 		unsigned short id;		// 服务id
 	};

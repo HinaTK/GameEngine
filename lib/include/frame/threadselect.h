@@ -18,8 +18,8 @@ public:
 protected:
 	bool			Run() final;
 	bool			CMD(short type, ThreadID sid, int len, const char *data);
-	void			ClearHandler();
 	void			InitNetHandler(NetHandler *handler);
+	void			ClearHandler();
 private:
 	
 	SOCKET			m_max_fd;

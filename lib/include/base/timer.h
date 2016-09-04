@@ -55,7 +55,7 @@ protected:
 class TimerQueue
 {
 public:
-	TimerQueue(time_t interval);
+	TimerQueue(int interval);
 	EXPORT ~TimerQueue();
 
 	EXPORT void		AddEvent(TimeEvent *e);
@@ -69,13 +69,13 @@ protected:
 protected:
 	std::queue<Timer>	m_queue;
 	time_t	m_update_time;				// 下次更新的时间
-	time_t	m_interval;
+	int		m_interval;
 };
 
 namespace New
 {
 	EXPORT TimerManager * _TimerManager();
-	EXPORT TimerQueue * _TimerQueue(time_t interval);
+	EXPORT TimerQueue * _TimerQueue(int interval);
 }
 
 #endif

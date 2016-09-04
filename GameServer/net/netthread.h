@@ -14,7 +14,11 @@ public:
 	virtual ~NetThread();
 	NetThread(ThreadManager *manager, int index);
 
-	
+	void	Dispatch(unsigned int msg_id, NetMsg &msg);
+	unsigned int RegRole(NetHandle handle);
+	void		DelRole(unsigned int index);
+	void		ChangeChannel(NetHandle handle);
+
 	void	Recv(NetMsg *msg){ };
 
 	// 接收其它进程数据
@@ -25,11 +29,12 @@ protected:
 	void	Ready();
 	void	RecvData(TPT type, ThreadID sid, int len, const char *data);
 private:
-	
+	typedef game::Array<MsgQueue<NetMsg> *> ROLE_MSG;
+
 	ThreadID 		m_cur_thread_id;
 	int			m_index;
 	NetHandle	m_cneter_handle;
-
+	ROLE_MSG		m_role_msg;
 };
 
 #endif

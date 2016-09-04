@@ -57,7 +57,7 @@ EXPORT bool TimerQueue::Update(time_t now)
 		do 
 		{
 			Timer &timer = m_queue.front();
-			if (timer.time_out >= now)
+			if (now >= timer.time_out)
 			{
 				timer.event->OnTime();
 				timer.event->Free();
@@ -74,11 +74,11 @@ EXPORT bool TimerQueue::Update(time_t now)
 	return false;
 }
 
-TimerQueue::TimerQueue(time_t interval)
+TimerQueue::TimerQueue(int interval)
 : m_update_time(0)
 , m_interval(interval)
 {
-
+	
 }
 
 TimerQueue::~TimerQueue()
@@ -96,7 +96,7 @@ TimerManager * New::_TimerManager()
 	return new TimerManager();
 }
 
-TimerQueue * New::_TimerQueue(time_t interval)
+TimerQueue * New::_TimerQueue(int interval)
 {
 	return new TimerQueue(interval);
 }

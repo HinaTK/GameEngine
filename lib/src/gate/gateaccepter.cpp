@@ -28,7 +28,3 @@ void GateAccepter::OnCanRead()
 	}
 }
 
-EXPORT GateAccepter * New::_GateAccepter(SocketThread *t, int size /*= 0*/)
-{
-	return new GateAccepter(t, size);
-}

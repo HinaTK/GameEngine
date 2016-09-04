@@ -31,12 +31,11 @@ public:
 	typedef game::Array<NetHandler*>		NET_HANDLER_ARRAY;
 	NET_HANDLER_ARRAY *GetNetHandlerArray(){ return &m_net_handler; }
 	NetHandle		AddNetHandler(NetHandler *handler);
-	void			RemoveHandler(NetHandle handle, int err, int reason = 0);
 
 	virtual void	SetCanWrite(NetHandler *handler) = 0;
 	virtual void	SetCanNotWrite(NetHandler *handler) = 0;
 
-	virtual void	ClearHandler() = 0;
+	void			RemoveHandler(NetHandle handle, int err = 0, int reason = 0);
 	void			Recv(unsigned short msg_index, NetMsgType msg_type, NetMsg &msg);
 
 	bool			InitServer(const char *ip, unsigned short port, int backlog, Accepter *accepter, MsgCallBack *call_back);
@@ -60,16 +59,15 @@ protected:
 		NetHandle handle;
 		NetCommon::ErrInfo show;
 	};
-
 	typedef game::Array<NetHandler*>		NET_HANDLER_ARRAY;
-	typedef game::Vector<RemoveInfo>		INVALID_HANDLE;
 	typedef game::Array<MsgHandler *>		MSG_HANDLER;
+	typedef game::Vector<RemoveInfo>		INVALID_HANDLE;
 	//typedef MsgMemoryManager<NetMsg>		MSG_MEMORY;
 
 	NET_HANDLER_ARRAY		m_net_handler;
-	INVALID_HANDLE			m_invalid_handle;
 	MsgMemoryManager		m_net_memory;
 	MSG_HANDLER				m_msg_handler;
+	INVALID_HANDLE			m_invalid_handle;
 };
 
 #endif

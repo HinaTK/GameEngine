@@ -2,11 +2,14 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="src">
-      <UniqueIdentifier>{81809da7-320e-4eab-9e1a-0524eb897d65}</UniqueIdentifier>
+      <UniqueIdentifier>{57e2ef99-87b3-4096-a3fb-4693044fab51}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\lib\include\gate\gateaccepter.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\include\gate\gatebuffer.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\lib\include\gate\gatelistener.h">
@@ -15,7 +18,7 @@
     <ClInclude Include="..\..\lib\include\gate\gatethread.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\include\gate\gatebuffer.h">
+    <ClInclude Include="..\..\lib\include\gate\proto.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
@@ -23,13 +26,13 @@
     <ClCompile Include="..\..\lib\src\gate\gateaccepter.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\lib\src\gate\gatebuffer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\lib\src\gate\gatelistener.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\lib\src\gate\gatethread.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\lib\src\gate\gatebuffer.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

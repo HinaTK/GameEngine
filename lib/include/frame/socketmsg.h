@@ -26,7 +26,7 @@ namespace SocketMsg
 
 	struct AddHandlerRet
 	{
-		BindProto(AddHandlerRet, STM_ADD_HANDLER_RET);
+		BindProto(STM_ADD_HANDLER_RET);
 		struct Data
 		{
 			int handle;

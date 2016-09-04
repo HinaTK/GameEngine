@@ -7,6 +7,7 @@
 #include "lib/include/frame/socketthread.h"
 #include "lib/include/inner/inneraccepter.h"
 #include "lib/include/gate/gateaccepter.h"
+#include "lib/include/base/function.h"
 
 class CallBack : public MsgCallBack
 {
@@ -61,7 +62,7 @@ NetThread::~NetThread()
 bool NetThread::Init()
 {
 	ServerInfo &info1 = CenterConfig::Instance().login;
-	if (!InitServer(info1.ip, info1.port, info1.backlog, New::_GateAccepter(this, 1024), new CallBack(this)))
+	if (!InitServer(info1.ip, info1.port, info1.backlog, new GateAccepter(this, 1024), new CallBack(this)))
 	{
 		return false;
 	}
@@ -124,6 +125,7 @@ void NetThread::InsertServer(NetMsg *msg)
 	struct PProto::tocRegisterServer *rs = (struct PProto::tocRegisterServer *)msg->data;
 	if (rs->type < PProto::ST_MAX)
 	{
+		Function::Info("new server register %d %s %d", rs->type, rs->ip, rs->port);
 		OtherServer os;
 		os.handle = msg->handle;
 		os.id = rs->id;

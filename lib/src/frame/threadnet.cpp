@@ -44,15 +44,6 @@ NetHandle ThreadNet::AddNetHandler(NetHandler *handler)
 	return handler->m_handle;
 }
 
-void ThreadNet::RemoveHandler(NetHandle handle, int err, int reason)
-{
-	RemoveInfo info;
-	info.handle = handle;
-	info.show.err = err;
-	info.show.reason = reason;
-	m_invalid_handle.Push(info);
-}
-
 void ThreadNet::RecvData(short type, ThreadID sid, int len, const char *data)
 {
 	switch (type)
@@ -64,8 +55,7 @@ void ThreadNet::RecvData(short type, ThreadID sid, int len, const char *data)
 		Send(sid, len, data);
 		break;
 	case SocketMsg::STM_REMOVE_HANDLER:
-		RemoveHandler(*(NetHandle *)data, 0);
-		ClearHandler();
+		RemoveHandler(*(NetHandle *)data);
 		break;
 	default:
 		break;
@@ -80,6 +70,11 @@ void ThreadNet::AddHandler(const char *data)
 	ard.handle = AddNetHandler(handler);
 	ard.flag = sa->flag;
 	Recv(handler->m_msg_index, BaseMsg::MSG_ACCEPT, NetMsg(ard.handle, (char *)&ard, sizeof(SocketMsg::AddHandlerRet::Data)));
+}
+
+void ThreadNet::RemoveHandler(NetHandle handle, int err, int reason)
+{
+	m_invalid_handle.Push(RemoveInfo{ handle, NetCommon::ErrInfo{ err, reason } });
 }
 
 void ThreadNet::Send(NetHandle handle, int length, const char *data)

@@ -4,8 +4,7 @@
 
 typedef unsigned short Router;
 
-#define BindProto(STRUCT, ID)\
-	STRUCT() :router(ID){}\
-	unsigned short router;
+#define BindProto(ID)\
+	unsigned short proto = ID;
 
 #endif

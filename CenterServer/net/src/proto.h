@@ -10,23 +10,40 @@ namespace Proto
 {
 	enum
 	{
-		CENTER_BEGIN = 0,
-		CS_LOGIN = 1,
-		CS_CREATE_ROLE = 2,
+		CS_LOGIN		= 0,
+		CS_CREATE_ROLE	= 1,
 
-		CENTER_END = 100,
+		CENTER_END		= 100,
+	};
+
+	enum
+	{
+		SC_LOGIN		= 0
 	};
 
 	struct csLogin
 	{
-		BindProto(csLogin, CS_LOGIN);
+		BindProto(CS_LOGIN);
 		Account		account;
 		ServerID	sid;
 	};
 
+	struct scLogin
+	{
+		BindProto(SC_LOGIN);
+		RoleID rid = 0;
+		char ip[16];
+		unsigned short port;
+	};
+
+	struct scLoginErr
+	{
+		int result;
+	};
+
 	struct csCreateRole
 	{
-		BindProto(csCreateRole, CS_CREATE_ROLE);
+		BindProto(CS_CREATE_ROLE);
 		Account		account;
 		ServerID	sid;
 

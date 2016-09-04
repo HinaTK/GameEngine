@@ -55,14 +55,8 @@ __fun(int a comma int b)
 
 int main()
 {
-	std::queue<int> aa;
-	aa.push(1);
-	aa.push(2);
-	while (aa.size() > 0)
-	{
-		printf("%d\n", aa.front());
-		aa.pop();
-	}
+	time_t t = time(NULL);
+	printf("%lld\n", t);
 // 	A *a = new B;
 // 	a->Show();
 // 	delete a;
