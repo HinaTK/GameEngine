@@ -83,6 +83,15 @@ void ThreadManager::SendMsg(ThreadID did, ThreadClass *tc)
 	}
 }
 
+void ThreadManager::SendMsg(ThreadID did, TPT type, unsigned int data, ThreadID sid /*= INVALID_THREAD_ID*/)
+{
+	ThreadMsg tm;
+	tm.id = sid;
+	tm.type = type;
+	*(unsigned int *)&tm.data = data;
+	SendMsg(did, tm);
+}
+
 void ThreadManager::SendMsg(ThreadID did, TPT type, long long data, ThreadID sid)
 {
 	ThreadMsg tm;

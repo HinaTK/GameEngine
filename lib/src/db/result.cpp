@@ -15,19 +15,19 @@ MysqlResult::MysqlResult(MysqlPrepare *prepare)
 		return;
 	}
 
-	field_num = mysql_num_fields(m_metadata);
-	if (field_num < 1)
+	m_field_num = mysql_num_fields(m_metadata);
+	if (m_field_num < 1)
 	{
 		return;
 	}
 
-	m_result = new MYSQL_BIND[field_num];
-	memset(m_result, 0, sizeof(MYSQL_BIND) * field_num);
+	m_result = new MYSQL_BIND[m_field_num];
+	memset(m_result, 0, sizeof(MYSQL_BIND) * m_field_num);
 	MYSQL_FIELD* fields = mysql_fetch_fields(m_metadata);
-	for (unsigned int i = 0; i < field_num; ++i)
+	for (unsigned int i = 0; i < m_field_num; ++i)
 	{
 		m_result[i].buffer_type = fields[i].type;
-		m_result[i].is_null = (my_bool *)m_handler->Get1Pool()->Alloc();
+		//m_result[i].is_null = (my_bool *)m_handler->Get1Pool()->Alloc();
 		switch (fields[i].type)
 		{
 		case MYSQL_TYPE_TINY:
@@ -69,9 +69,40 @@ MysqlResult::MysqlResult(MysqlPrepare *prepare)
 
 MysqlResult::~MysqlResult()
 {
-	// todo释放buffer内存
 	if (m_result != NULL)
 	{
+		for (unsigned int i = 0; i < m_field_num; ++i)
+		{
+			switch (m_result[i].buffer_type)
+			{
+			case MYSQL_TYPE_TINY:
+				m_handler->Get1Pool()->Free(m_result[i].buffer);
+				break;
+			case MYSQL_TYPE_SHORT:
+				m_handler->Get2Pool()->Free(m_result[i].buffer);
+				break;
+			case MYSQL_TYPE_LONG:
+			case MYSQL_TYPE_FLOAT:
+				m_handler->Get4Pool()->Free(m_result[i].buffer);
+				break;
+			case MYSQL_TYPE_LONGLONG:
+			case MYSQL_TYPE_DOUBLE:
+				m_handler->Get8Pool()->Free(m_result[i].buffer);
+				break;
+			case MYSQL_TYPE_VARCHAR:
+			case MYSQL_TYPE_VAR_STRING:
+			case MYSQL_TYPE_STRING:
+			case MYSQL_TYPE_TINY_BLOB:
+			case MYSQL_TYPE_MEDIUM_BLOB:
+			case MYSQL_TYPE_LONG_BLOB:
+			case MYSQL_TYPE_BLOB:
+				// todo make a pool,because alway return max len
+				delete m_result[i].buffer;
+				break;
+			default:
+				break;
+			}
+		}
 		delete[] m_result;
 		m_result = NULL;
 	}
@@ -84,7 +115,7 @@ MysqlResult::~MysqlResult()
 }
 
 #define CHECK_INDEX(index) \
-	if (index >= field_num)\
+	if (index >= m_field_num)\
 	{\
 		return false;\
 	}
@@ -156,7 +187,7 @@ bool MysqlResult::Read(unsigned int index, char *val, unsigned int len)
 
 char* MysqlResult::ReadStr(unsigned int index, int &val)
 {
-	if (index > field_num) return NULL;
+	if (index > m_field_num) return NULL;
 	
 	val = *m_result[index].length;
 	char *ret = (char *)m_result[index].buffer;
@@ -166,7 +197,7 @@ char* MysqlResult::ReadStr(unsigned int index, int &val)
 
 int MysqlResult::FieldLength(unsigned int index)
 {
-	if (index >= field_num) return -1;
+	if (index >= m_field_num) return -1;
 	return (int)m_result[index].length;
 }
 

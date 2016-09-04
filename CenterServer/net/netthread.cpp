@@ -78,23 +78,30 @@ bool NetThread::Init()
 
 void NetThread::Ready()
 {
-	m_manager->SendMsg(GetThreadID(), ThreadProto::TP_LOAD_ROLE_MAX_ID, 0, NULL, m_id);
+	m_manager->SendMsg(GetThreadID(), TProto::TP_LOAD_ROLE_MAX_ID, 0, NULL, m_id);
 }
 
 void NetThread::RecvData(TPT type, ThreadID sid, int len, const char *data)
 {
 	switch (type)
 	{
-	case ThreadProto::TP_LOAD_ROLE_MAX_ID_RET:
+	case TProto::TP_LOAD_ROLE_MAX_ID_RET:
 		m_id_pool.SetMaxID(*(unsigned int *)data);
 		break;
-	case ThreadProto::TP_LOAD_ROLE_RET:
+	case TProto::TP_LOAD_ROLE_RET:
 	{
-		ThreadProto::LoadRoleRet *lrr = (ThreadProto::LoadRoleRet *)data;
+		TProto::LoadRoleRet *lrr = (TProto::LoadRoleRet *)data;
 		printf("the ret name %s\n", lrr->name);
 		break;	
 	}
-	case ThreadProto::TP_SAVE_ROLE_RET:
+	case TProto::TP_LOAD_ROLE_NONE:
+	{
+		Proto::scLoginErr le;
+		le.result = Proto::scLoginErr::LE_NO_ROLE;
+		Send(*(NetHandle *)data, sizeof(Proto::scLoginErr), (const char *)&le);
+		break;
+	}
+	case TProto::TP_SAVE_ROLE_RET:
 
 		// TODO 通知客户端是否创建角色成功
 

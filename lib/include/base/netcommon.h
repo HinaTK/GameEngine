@@ -4,6 +4,7 @@
 
 #include <string>
 #include "export.h"
+#include "common/serverdef.h"
 #include "common/socketdef.h"
 
 namespace NetCommon

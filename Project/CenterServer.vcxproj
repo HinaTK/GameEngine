@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClCompile Include="..\CenterServer\db\dbmanager.cpp" />
     <ClCompile Include="..\CenterServer\db\dbthread.cpp" />
-    <ClCompile Include="..\CenterServer\global\global.cpp" />
     <ClCompile Include="..\CenterServer\main\center.cpp" />
     <ClCompile Include="..\CenterServer\net\netthread.cpp" />
     <ClCompile Include="..\CenterServer\net\src\idpool.cpp" />
@@ -30,7 +29,6 @@
   <ItemGroup>
     <ClInclude Include="..\CenterServer\db\dbmanager.h" />
     <ClInclude Include="..\CenterServer\db\dbthread.h" />
-    <ClInclude Include="..\CenterServer\global\global.h" />
     <ClInclude Include="..\CenterServer\main\center.h" />
     <ClInclude Include="..\CenterServer\net\netthread.h" />
     <ClInclude Include="..\CenterServer\net\src\idpool.h" />

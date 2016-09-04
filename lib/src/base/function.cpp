@@ -83,3 +83,17 @@ EXPORT void Function::Error(char *str, ...)
 	va_end(args);
 	printf("\n");
 }
+
+EXPORT void Function::CMD(char *str, ...)
+{
+	va_list args;
+	va_start(args, str);
+	vprintf(str, args);
+	va_end(args);
+	printf("\ncmd > ");
+}
+
+EXPORT void Function::CMD()
+{
+	printf("cmd > ");
+}

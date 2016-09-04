@@ -16,9 +16,6 @@
     <Filter Include="rpc">
       <UniqueIdentifier>{bd0d1dda-55ba-484a-8803-977993416140}</UniqueIdentifier>
     </Filter>
-    <Filter Include="global">
-      <UniqueIdentifier>{7c11c3d1-8725-4058-b82b-536218050066}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\CenterServer\db\dbmanager.cpp">
@@ -38,9 +35,6 @@
     </ClCompile>
     <ClCompile Include="..\CenterServer\net\src\messagehandler.cpp">
       <Filter>net\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\CenterServer\global\global.cpp">
-      <Filter>global</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,9 +62,6 @@
     </ClInclude>
     <ClInclude Include="..\GameServer\rpc\gate_regrole.h">
       <Filter>rpc</Filter>
-    </ClInclude>
-    <ClInclude Include="..\CenterServer\global\global.h">
-      <Filter>global</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

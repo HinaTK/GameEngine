@@ -31,17 +31,17 @@ void DBThread::RecvData(TPT type, ThreadID sid, int len, const char *data)
 {
 	switch (type)
 	{
-	case ThreadProto::TP_LOAD_ROLE_MAX_ID:
+	case TProto::TP_LOAD_ROLE_MAX_ID:
 		m_db_manager.LoadRoleMaxID(sid);
 		break;
-	case ThreadProto::TP_LOAD_ROLE:
+	case TProto::TP_LOAD_ROLE:
 		m_db_manager.LoadRole(sid, len, data);
 		printf("load role ... %d\n", GetID());
 		break;
-	case ThreadProto::TP_SAVE_ROLE_MAX_ID:
+	case TProto::TP_SAVE_ROLE_MAX_ID:
 		m_db_manager.SaveRoleMaxID(*(unsigned int *)data);
 		break;
-	case ThreadProto::TP_SAVE_ROLE:
+	case TProto::TP_SAVE_ROLE:
 		m_db_manager.SaveRole(sid, len, data);
 		break;
 	default:

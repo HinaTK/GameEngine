@@ -123,13 +123,13 @@ void BaseThread::SysCmd(ThreadMsg &msg)
 	{
 		if (strcmp(msg.data, "ping") == 0)
 		{
-			printf("pong %d %s\n", m_id, m_name.c_str());
+			Function::CMD("pong %d %s", m_id, m_name.c_str());
 		}
 		else 
 		{
 			if (!this->CMD(msg.type, msg.id, msg.length, msg.data))
 			{
-				printf("Thread %d no this cmd: %s\n", m_id, msg.data);
+				Function::CMD("Thread %d no this cmd: %s", m_id, msg.data);
 			}
 		}
 	}

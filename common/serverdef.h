@@ -16,6 +16,7 @@ typedef long long		RoleID;
 typedef unsigned char	ThreadID;
 typedef unsigned short	TPT;		// thread proto type
 typedef unsigned char	NetMsgType;
+typedef unsigned int	NetHandle;	// 内部网络标识
 
 #define INVALID_THREAD_ID 255
 

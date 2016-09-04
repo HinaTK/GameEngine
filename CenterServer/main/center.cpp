@@ -2,7 +2,6 @@
 #include "center.h"
 #include "net/netthread.h"
 #include "db/dbthread.h"
-#include "global/global.h"
 #include "net/src/proto.h"
 #include "lib/include/frame/main.h"
 #include "lib/include/gate/gatethread.h"

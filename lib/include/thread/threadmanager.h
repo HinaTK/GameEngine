@@ -37,7 +37,7 @@ public:
 	void 			SendMsg(ThreadID did, ThreadClass * tc);
 	void 			SendMsg(ThreadID did, TPT type, char *obj);
 	void 			SendMsg(ThreadID did, TPT type, int data);
-	void 			SendMsg(ThreadID did, TPT type, unsigned int data);
+	void 			SendMsg(ThreadID did, TPT type, unsigned int data, ThreadID sid = INVALID_THREAD_ID);
 	void 			SendMsg(ThreadID did, TPT type, long long data, ThreadID sid = INVALID_THREAD_ID);
 	void 			SendMsg(ThreadID did, TPT type, unsigned long long data);
 	void			RPC(ThreadID did, ThreadRPC *rpc);

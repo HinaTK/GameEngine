@@ -43,6 +43,6 @@ static const int RECV_BUF_SIZE = 64 * 1024; // 64K
 
 #define INVALID_NET_HANDLE	4294967295
 typedef char			IP[64];
-typedef unsigned int	NetHandle;	// 内部网络标识
+
 
 #endif

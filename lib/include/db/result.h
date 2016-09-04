@@ -30,7 +30,7 @@ private:
 	MYSQL_BIND 		*m_result;
 	MYSQL_RES 		*m_metadata;
 	MysqlHandler	*m_handler;
-	unsigned int 	field_num;
+	unsigned int 	m_field_num;
 };
 
 #define READ_RESULT_BEGIN(Result)\

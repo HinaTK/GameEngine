@@ -5,7 +5,7 @@
 #include "lib/include/common/argsplit.h"
 #include "lib/include/common/message.h"
 #include "lib/include/base/function.h"
-
+#include "lib/include/base/interface.h"
 
 static Frame *g_frame;
 namespace SignalCatch
@@ -82,6 +82,7 @@ void Frame::SetExit()
 
 void Frame::Run()
 {
+	Time::Sleep(1000);
 	static const int buf_size = 512;
 	char cmd_buf[buf_size];
 	char *buf;
@@ -92,7 +93,6 @@ void Frame::Run()
 	/* 设置为非阻塞*/
 	fcntl(STDIN_FILENO, F_SETFL, flags | O_NONBLOCK);
 #endif // __unix
-
 	while (IsRun())
 	{
 #ifdef __unix
@@ -109,6 +109,7 @@ void Frame::Run()
 		split.Reset(cmd_buf);
 		if (!split.GetArg(&buf))
 		{
+			Function::CMD();
 			continue;
 		}
 
@@ -123,24 +124,25 @@ void Frame::Run()
 				game::Array<BaseThread *> *threads = m_thread_manager.GetThreads();
 				for (game::Array<BaseThread *>::iterator itr = threads->Begin(); itr != threads->End(); ++itr)
 				{
-					printf("ping %d %s\n", (*itr)->GetID(), (*itr)->GetName());
+					Function::CMD("ping %d %s", (*itr)->GetID(), (*itr)->GetName());
 					m_thread_manager.CMD(ThreadSysID::TSID_THREAD_CMD, INVALID_THREAD_ID, sizeof("ping"), "ping", (*itr)->GetID());
 				}
 			}
 			else
 			{
 				int id = atoi(buf);
-				printf("ping %d\n", id);
+				Function::CMD("ping %d", id);
 				m_thread_manager.CMD(ThreadSysID::TSID_THREAD_CMD, INVALID_THREAD_ID, sizeof("ping"), "ping", id);
 			}
 		}
 		else if (strcmp(cmd_buf, "reset") == 0)
 		{
 			cur_id = -1;
+			Function::CMD("the current thread is main thread");
 		}
 		else if (strcmp(buf, "status") == 0)
 		{
-			printf("the current id is %d\n", cur_id);
+			Function::CMD("the current thread is %d", cur_id);
 		}
 		else if (strcmp(buf, "thread") == 0)
 		{
@@ -152,6 +154,7 @@ void Frame::Run()
 				{
 					printf("%-10d %-32s\n", (*itr)->GetID(), (*itr)->GetName());
 				}
+				Function::CMD();
 			}
 			else
 			{
@@ -168,6 +171,7 @@ void Frame::Run()
 			if (split.GetArg(&buf))
 			{
 				cur_id = atoi(buf);
+				Function::CMD("the current thread is %d", cur_id);
 			}
 			else goto NO_CMD;
 		}
@@ -180,8 +184,8 @@ void Frame::Run()
 			goto NO_CMD;
 		}
 		continue;
-NO_CMD:;
-		printf("No this cmd: %s\n", cmd_buf);		
+	NO_CMD:;
+		Function::CMD("No this cmd: %s", cmd_buf);	
 	}
 
 	Exit();

@@ -20,8 +20,6 @@ public:
 	void				SetExit();
 	bool				IsRun(){ return m_is_run; }
 
-	
-
 protected:
 	ThreadManager		m_thread_manager;
 private:

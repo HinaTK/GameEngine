@@ -15,7 +15,7 @@ CenterConfig::Instance().db.user.c_str(),
 CenterConfig::Instance().db.passwd.c_str(),
 CenterConfig::Instance().db.dbname.c_str(),
 CenterConfig::Instance().db.port)
-, m_role_s(&m_mysql, 2, "SELECT name FROM role WHERE sid=? AND account=?;")
+, m_role_s(&m_mysql, 2, "SELECT rid,name FROM role WHERE sid=? AND account=? LIMIT 1;")
 , m_role_i(&m_mysql, 4, "INSERT INTO role (rid,sid,account,name) VALUES (?,?,?,?);")
 , m_role_max_id(&m_mysql, 2, "REPLACE INTO ids (sid, role_id) VALUES (?,?);")
 {
@@ -58,27 +58,41 @@ void DBManager::LoadRoleMaxID(ThreadID tid)
 		}
 
 		Function::Info("The max role id is %d", max_id);
-		m_thread->GetManager()->SendMsg(tid, ThreadProto::TP_LOAD_ROLE_MAX_ID_RET, sizeof(unsigned int), (const char *)&max_id, m_thread->GetID());
+		m_thread->GetManager()->SendMsg(tid, TProto::TP_LOAD_ROLE_MAX_ID_RET, sizeof(unsigned int), (const char *)&max_id, m_thread->GetID());
 	}
 }
 
 void DBManager::LoadRole(ThreadID tid, int len, const char *data)
 {
-	struct ThreadProto::LoadRole *lr = (struct ThreadProto::LoadRole *)data;
+	struct TProto::LoadRole *lr = (struct TProto::LoadRole *)data;
 	m_role_s.BindInt(0, &lr->sid);
 	m_role_s.BindChar(1, lr->account);
 	if (m_role_s.Execute())
 	{
-		ThreadProto::LoadRoleRet lrr;
+		int num = 0;
+		TProto::LoadRoleRet lrr;
 		MysqlResult mr(&m_role_s);
 		while(m_role_s.HasResult())
 		{
-			if (mr.Read(0, lrr.name, GAME_NAME_SIZE))
+			if (!mr.Read(0, lrr.rid))
 			{
-				printf("the name is %s\n", lrr.name);
+				// todo wirte log
 			}
+			if (!mr.Read(1, lrr.name, GAME_NAME_SIZE))
+			{
+				// todo wirte log
+			}
+			++num;
 		}
-		m_thread->GetManager()->SendMsg(tid, ThreadProto::TP_LOAD_ROLE_RET, sizeof(ThreadProto::LoadRoleRet), (const char *)&lrr, m_thread->GetID());
+		if (num > 0)
+		{
+			lr->handle;
+			m_thread->GetManager()->SendMsg(tid, TProto::TP_LOAD_ROLE_RET, sizeof(TProto::LoadRoleRet), (const char *)&lrr, m_thread->GetID());
+		}
+		else
+		{
+			m_thread->GetManager()->SendMsg(tid, TProto::TP_LOAD_ROLE_NONE, lr->handle);
+		}
 	}
 }
 
@@ -94,7 +108,7 @@ void DBManager::SaveRoleMaxID(unsigned int max_id)
 
 void DBManager::SaveRole(ThreadID tid, int len, const char *data)
 {
-	struct ThreadProto::SaveRole *sr = (ThreadProto::SaveRole *)data;
+	struct TProto::SaveRole *sr = (TProto::SaveRole *)data;
 	m_role_i.BindLong(0, &sr->rid);
 	m_role_i.BindInt(1, &sr->sid);
 	m_role_i.BindVarChar(2, sr->account);
@@ -105,12 +119,12 @@ void DBManager::SaveRole(ThreadID tid, int len, const char *data)
 	}
 	else
 	{
-		ThreadProto::SaveRoleRet srr;
+		TProto::SaveRoleRet srr;
 		srr.handle = sr->handle;
 		srr.rid = sr->rid;
 		srr.sid = sr->sid;
 		memcpy(srr.name, sr->name, GAME_NAME_SIZE);
-		m_thread->GetManager()->SendMsg(tid, ThreadProto::TP_SAVE_ROLE_RET, sizeof(ThreadProto::SaveRoleRet), (const char *)&srr, m_thread->GetID());
+		m_thread->GetManager()->SendMsg(tid, TProto::TP_SAVE_ROLE_RET, sizeof(TProto::SaveRoleRet), (const char *)&srr, m_thread->GetID());
 	}
 }
 
