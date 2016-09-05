@@ -42,7 +42,4 @@
 static const int RECV_BUF_SIZE = 64 * 1024; // 64K
 
 
-typedef char			IP[64];
-
-
 #endif

@@ -39,7 +39,7 @@ GateThread::GateThread(ThreadManager *manager)
 
 GateThread::~GateThread()
 {
-	delete m_timer_queue;
+	Delete::_TimerQueue(m_timer_queue);
 }
 
 void GateThread::Ready()

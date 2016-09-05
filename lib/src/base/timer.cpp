@@ -100,3 +100,8 @@ TimerQueue * New::_TimerQueue(int interval)
 {
 	return new TimerQueue(interval);
 }
+
+void Delete::_TimerQueue(TimerQueue * queue)
+{
+	delete queue;
+}

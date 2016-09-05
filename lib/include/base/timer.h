@@ -23,7 +23,7 @@ class TimerManager
 {
 public:
 	TimerManager();
-	EXPORT ~TimerManager();
+	~TimerManager();
 
 	EXPORT void		AddEvent(time_t interval, TimeEvent *e);
 	EXPORT bool		Update(time_t now);
@@ -56,7 +56,7 @@ class TimerQueue
 {
 public:
 	TimerQueue(int interval);
-	EXPORT ~TimerQueue();
+	~TimerQueue();
 
 	EXPORT void		AddEvent(TimeEvent *e);
 	EXPORT bool		Update(time_t now);
@@ -78,4 +78,8 @@ namespace New
 	EXPORT TimerQueue * _TimerQueue(int interval);
 }
 
+namespace Delete
+{
+	EXPORT void _TimerQueue(TimerQueue * queue);
+}
 #endif

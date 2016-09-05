@@ -33,7 +33,8 @@ namespace Proto
 	struct scLogin
 	{
 		BindProto(SC_LOGIN);
-		RoleID rid = 0;
+		RoleID		rid = 0;
+		GameName	name;
 		IP ip;
 		unsigned short port;
 	};

@@ -3,6 +3,7 @@
 #define PROCESS_PROTO_H
 
 #include "macro.h"
+#include "common/serverdef.h"
 
 // 进程间通信协议
 

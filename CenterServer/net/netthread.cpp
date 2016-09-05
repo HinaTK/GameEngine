@@ -188,7 +188,7 @@ ThreadID NetThread::GetThreadID()
 	return Center::Instance().db_thread_id[m_cur_thread_id++];
 }
 
-OtherServer *GetGate()
+NetThread::OtherServer *NetThread::GetGate()
 {
 	if (m_gate_index > m_server[PProto::ST_GATE].size())
 	{
