@@ -6,6 +6,43 @@
 #include "lib/include/base/interface.h"
 #include "CenterServer/net/src/proto.h"
 
+class CallBack : public MsgCallBack
+{
+public:
+	CallBack(NetThread *t)
+		: MsgCallBack()
+		, m_thread(t){}
+	~CallBack(){}
+
+	void	Accept(NetHandle handle, const char *ip){};
+
+    void	Recv(NetMsg *msg){};
+
+	void	Disconnect(NetHandle handle, int err, int reason){};
+
+private:
+	NetThread *m_thread;
+};
+
+class InnerCallBack : public MsgCallBack
+{
+public:
+	InnerCallBack(NetThread *t)
+		: MsgCallBack()
+		, m_thread(t){}
+	~InnerCallBack(){}
+
+	void	Connect(NetHandle handle, int flag){};
+
+	void	Recv(NetMsg &msg){};
+
+	void	Disconnect(NetHandle handle, int reason){};
+
+private:
+	NetThread *m_thread;
+};
+
+
 NetThread::NetThread(ThreadManager *manager)
 : SocketThread(manager)
 {
@@ -14,13 +51,26 @@ NetThread::NetThread(ThreadManager *manager)
 
 bool NetThread::Init()
 {
-	// todo 处理服务器断线
-	m_server_handle = SyncConnect("127.0.0.1", 12347, new GateListener(this), new CallBack(this));
-
-	if (m_server_handle == INVALID_NET_HANDLE)
+	ServerInfo &info1 = ProxyConfig::Instance().proxy;
+	if (!InitServer(info1.ip, info1.port, info1.backlog, new InnerListener(this), new InnerCallBack(this)))
 	{
 		return false;
 	}
+	
+	ServerInfo &info2 = GameConfig::Instance().center;
+	m_cneter_handle = SyncConnect(info2.ip, info2.port, new InnerListener(this), new InnerCallBack(this));
+
+	if (m_cneter_handle != INVALID_NET_HANDLE)
+	{
+		PProto::tocRegisterServer rs;
+		rs.type = PProto::ST_PROXY;
+		rs.id = 1;
+		memcpy(rs.ip, info1.ip, sizeof(rs.ip));
+		rs.port = info1.port;
+		Send(m_cneter_handle, sizeof(PProto::tocRegisterServer), (const char *)&rs);
+	}
+	else return false;
+
 	return true;
 }
 

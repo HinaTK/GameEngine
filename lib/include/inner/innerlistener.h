@@ -30,8 +30,6 @@ private:
 		char *buf = NULL;
 	}m_msg;
 	InnerListener *	m_listener;
-	char			m_head_len;
-	char 			m_header[NetCommon::HEADER_LENGTH];
 };
 
 class InnerListener : public Listener

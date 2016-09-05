@@ -8,27 +8,6 @@
 #include "common/proto.h"
 #include "common/datastructure/msgqueue.h"
 
-class CallBack : public MsgCallBack
-{
-public:
-	CallBack(GateThread *t)
-		: MsgCallBack()
-		, m_thread(t){}
-	~CallBack(){}
-
-	void	Accept(NetHandle handle, const char *ip)
-	{
-		m_thread->PushTimer(handle);
-	};
-
-	void	Recv(NetMsg *msg){ }
-
-	void	Disconnect(NetHandle handle, int err, int reason){};
-
-private:
-	GateThread *m_thread;
-};
-
 class HandshakeTimeEvent : public TimeEvent
 {
 public:

@@ -123,3 +123,18 @@ ThreadMsg::ThreadMsg(ThreadID _id, TPT _type, int _length, const char *_data, Ms
 ThreadMsg::~ThreadMsg()
 {
 }
+
+MsgHandler::MsgHandler(MsgCallBack *call_back)
+{
+	m_bm[BaseMsg::MSG_ACCEPT] 		= new AcceptMsg(call_back);
+	m_bm[BaseMsg::MSG_RECV] 		= new RecvMsg(call_back);
+	m_bm[BaseMsg::MSG_DISCONNECT] 	= new DisconnectMsg(call_back);
+}
+
+MsgHandler::~MsgHandler()
+{
+	delete m_bm[BaseMsg::MSG_ACCEPT]->m_call_back;
+	delete m_bm[BaseMsg::MSG_ACCEPT];
+	delete m_bm[BaseMsg::MSG_RECV];
+	delete m_bm[BaseMsg::MSG_DISCONNECT];
+}

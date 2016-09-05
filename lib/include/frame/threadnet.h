@@ -5,20 +5,6 @@
 #include "common/datastructure/gamearray.h"
 #include "lib/include/thread/basethread.h"
 
-class MsgHandler
-{
-public:
-	MsgHandler(MsgCallBack *call_back);
-	~MsgHandler();
-
-	inline void Recv(NetMsgType msg_type, NetMsg &msg)
-	{
-		m_bm[msg_type]->Recv(&msg);
-	}
-private:
-	BaseMsg *m_bm[BaseMsg::MSG_MAX];
-};
-
 class NetHandler;
 class Accepter;
 class Listener;
@@ -62,7 +48,6 @@ protected:
 	typedef game::Array<NetHandler*>		NET_HANDLER_ARRAY;
 	typedef game::Array<MsgHandler *>		MSG_HANDLER;
 	typedef game::Vector<RemoveInfo>		INVALID_HANDLE;
-	//typedef MsgMemoryManager<NetMsg>		MSG_MEMORY;
 
 	NET_HANDLER_ARRAY		m_net_handler;
 	MsgMemoryManager		m_net_memory;

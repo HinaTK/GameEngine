@@ -12,6 +12,7 @@ namespace PProto
 	{
 		ST_GAME = 0,
 		ST_GATE,
+		ST_PROXY,
 		ST_MAX
 	};
 
@@ -29,7 +30,7 @@ namespace PProto
 		// type + id 构成每个服务的唯一标识
 		unsigned short type;	// 服务类型
 		unsigned short id;		// 服务id
-		char ip[32];
+		IP ip;
 		unsigned short port;
 	};
 
@@ -39,7 +40,7 @@ namespace PProto
 		BindProto(CTO_BROCAST_REGISTER);
 		unsigned short type;	// 服务类型
 		unsigned short id;		// 服务id
-		char ip[32];
+		IP ip;
 		unsigned short port;
 	};
 

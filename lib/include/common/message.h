@@ -92,12 +92,47 @@ public:
 	MsgCallBack *m_call_back;
 };
 
+// class RecvMsg
+// {
+// public:
+// 	RecvMsg(MsgCallBack *call_back) :m_call_back(call_back)
+// 	{
+// 		// todo 测试函数绑定与用数组查询，那个快
+// 		Exe[MSG_ACCEPT] 	= &RecvMsg::Accept;
+// 		Exe[MSG_RECV] 		= &RecvMsg::Recv;
+// 		Exe[MSG_DISCONNECT] = &RecvMsg::Disconnect;
+// 	}
+// 	~RecvMsg(){delete m_call_back;}
+
+// 	enum MsgType
+// 	{
+// 		MSG_ACCEPT = 0,
+// 		MSG_RECV,
+// 		MSG_DISCONNECT,
+// 		MSG_MAX
+// 	};
+// 	typedef void (RecvMsg::*Func[MSG_MAX])(NetMsg *msg);
+
+// 	Func	Exe;
+
+// 	inline void	TT(int t, NetMsg *msg){(this->*Exe[t])(msg);}
+
+// 	void	Accept(NetMsg *msg){m_call_back->Accept(msg->handle, msg->data);}
+// 	void 	Recv(NetMsg *msg){ m_call_back->Recv(msg); }
+// 	void	Disconnect(NetMsg *msg)
+// 	{
+// 		NetCommon::ErrInfo *info = (NetCommon::ErrInfo *)msg->data;
+// 		m_call_back->Disconnect(msg->handle, info->err, info->reason);
+// 	}
+	
+// private:
+// 	MsgCallBack *m_call_back;
+// };
+
 class AcceptMsg : public BaseMsg
 {
 public:
 	AcceptMsg(MsgCallBack *call_back) :BaseMsg(call_back){}
-	~AcceptMsg(){}
-
 	virtual void Recv(NetMsg *msg){ m_call_back->Accept(msg->handle, msg->data); };
 };
 
@@ -105,8 +140,6 @@ class RecvMsg : public BaseMsg
 {
 public:
 	RecvMsg(MsgCallBack *call_back) :BaseMsg(call_back){}
-	~RecvMsg(){}
-
 	virtual void Recv(NetMsg *msg){ m_call_back->Recv(msg); }
 };
 
@@ -114,13 +147,25 @@ class DisconnectMsg : public BaseMsg
 {
 public:
 	DisconnectMsg(MsgCallBack *call_back) :BaseMsg(call_back){}
-	~DisconnectMsg(){}
-
 	virtual void Recv(NetMsg *msg)
 	{ 
 		NetCommon::ErrInfo *info = (NetCommon::ErrInfo *)msg->data;
 		m_call_back->Disconnect(msg->handle, info->err, info->reason);
 	}
+};
+
+class MsgHandler
+{
+public:
+	MsgHandler(MsgCallBack *call_back);
+	~MsgHandler();
+
+	inline void Recv(NetMsgType msg_type, NetMsg &msg)
+	{
+		m_bm[msg_type]->Recv(&msg);
+	}
+private:
+	BaseMsg *m_bm[BaseMsg::MSG_MAX];
 };
 
 #endif

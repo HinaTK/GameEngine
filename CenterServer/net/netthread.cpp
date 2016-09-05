@@ -92,6 +92,13 @@ void NetThread::RecvData(TPT type, ThreadID sid, int len, const char *data)
 	{
 		TProto::LoadRoleRet *lrr = (TProto::LoadRoleRet *)data;
 		printf("the ret name %s\n", lrr->name);
+		OtherServer *os = GetGate();
+		Proto::scLogin l;
+		l.rid = lrr->rid;
+		memcpy(l.name, lrr->name, GAME_NAME_SIZE);
+		memcpy(l.ip, os->ip, sizeof(IP));
+		l.port = os->port;
+		Send(lrr->handle, sizeof(Proto::scLogin), (const char *)&l);
 		break;	
 	}
 	case TProto::TP_LOAD_ROLE_NONE:
@@ -179,4 +186,13 @@ ThreadID NetThread::GetThreadID()
 		m_cur_thread_id = 0;
 	}
 	return Center::Instance().db_thread_id[m_cur_thread_id++];
+}
+
+OtherServer *GetGate()
+{
+	if (m_gate_index > m_server[PProto::ST_GATE].size())
+	{
+		m_gate_index = 0;
+	}
+	return &m_server[PProto::ST_GATE][m_gate_index ++];
 }

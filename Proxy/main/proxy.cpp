@@ -1,6 +1,7 @@
 
 #include "client.h"
 #include "net/netthread.h"
+#include "filter/filterthread.h"
 #include "lib/include/common/serverconfig.h"
 #include "lib/include/frame/main.h"
 
@@ -16,6 +17,7 @@ Proxy::~Proxy()
 
 bool Proxy::Init()
 {
+	m_thread_manager.Register(new FilterThread(&m_thread_manager));
 	m_thread_manager.Register(new NetThread(&m_thread_manager));
 	return m_thread_manager.Init();
 }

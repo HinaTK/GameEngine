@@ -14,30 +14,26 @@ InnerBuffer::InnerBuffer(InnerListener *listener)
 
 InnerBuffer::~InnerBuffer()
 {
-
+	if (m_msg.buf != NULL)
+	{
+		delete m_msg.buf;
+		m_msg.buf = NULL;
+	}
 }
 
 void InnerBuffer::ResetBuf()
 {
-	m_head_len = 0;
 	m_msg.msg_len = 0;
 	m_msg.buf_len = 0;
 }
 
 bool InnerBuffer::GetBufInfo(char **buf, int &len)
 {
-	if (m_head_len < NetCommon::HEADER_LENGTH)
-	{
-		*buf = m_header + m_head_len;
-		len = NetCommon::HEADER_LENGTH - m_head_len;
-		return true;
-	}
-
-	if (m_msg.buf_len >= m_msg.msg_len)
+	if (m_msg.cur_len >= m_msg.msg_len)
 	{
 		return false;
 	}
-	*buf = m_msg.buf;
+	*buf = m_msg.buf + m_msg.cur_len;
 	len = m_msg.msg_len - m_msg.buf_len;
 	return true;
 }
@@ -47,21 +43,21 @@ bool InnerBuffer::GetBufInfo(char **buf, int &len)
 
 int InnerBuffer::AddBufLen(int len)
 {
-	if (m_head_len < NetCommon::HEADER_LENGTH)
+	if (m_msg.cur_len < NetCommon::HEADER_LENGTH)
 	{
-		m_head_len += len;
-		if (m_head_len == NetCommon::HEADER_LENGTH)
+		m_msg.cur_len += len;
+		if (m_msg.cur_len == NetCommon::HEADER_LENGTH)
 		{
-			NetCommon::Header *header = (NetCommon::Header *)m_header;
-			if (m_listener->buf_size == 0 || (header->msg_len > 0 && header->msg_len < m_listener->buf_size))
+			NetCommon::Header *header = (NetCommon::Header *)m_msg.buf;
+			if (header->msg_len > 0 && header->msg_len < m_listener->buf_size)
 			{
-				if (header->msg_len > m_msg.buf_len)
+				if (header->msg_len > (m_msg.buf_len + NetCommon::HEADER_LENGTH))
 				{
-					char *temp = new char[header->msg_len];
+					m_msg.msg_len = m_msg.buf_len = header->msg_len + NetCommon::HEADER_LENGTH;
+					char *temp = new char[m_msg.buf_len];
 					memcpy(temp, m_msg.buf, m_msg.cur_len);
 					delete m_msg.buf;
 					m_msg.buf = temp;
-					m_msg.msg_len = header->msg_len;
 				}
 			}
 			else
@@ -72,10 +68,10 @@ int InnerBuffer::AddBufLen(int len)
 	}
 	else
 	{
-		m_msg.buf_len += len;
-		if (m_msg.buf_len == m_msg.msg_len)
+		m_msg.cur_len += len;
+		if (m_msg.cur_len == m_msg.msg_len)
 		{
-			m_listener->GetThread()->Recv(m_listener->m_msg_index, BaseMsg::MSG_RECV, NetMsg(m_listener->m_handle, m_msg.buf, m_msg.msg_len));
+			m_listener->Recv(m_listener->m_handle, m_msg.msg_len - NetCommon::HEADER_LENGTH, m_msg.buf + NetCommon::HEADER_LENGTH);
 			ResetBuf();
 		}
 	}

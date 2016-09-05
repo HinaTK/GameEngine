@@ -51,12 +51,8 @@ __fun(int a comma int b)
 #define LOG_CONSTRUCT(Class, ...)\
 	Class(__VA_ARGS__){}
 
-
-
 int main()
 {
-	time_t t = time(NULL);
-	printf("%lld\n", t);
 // 	A *a = new B;
 // 	a->Show();
 // 	delete a;

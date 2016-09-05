@@ -22,6 +22,8 @@ public:
 
 	// 接收其它进程数据
 	void	InnerRecv(NetMsg *msg);
+	NetHandle 	GetServerHandle(){return m_server_handle;}
+	void	SetServerHandle(NetHandle handle){m_server_handle = handle;}
 protected:
 	bool	Init();
 	void	RecvData(TPT type, ThreadID sid, int len, const char *data);

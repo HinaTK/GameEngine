@@ -56,29 +56,39 @@ bool ServerConfig::Init()
 	}
 	sid = doc["server"].GetInt();
 
-	if (!doc.HasMember("center") || !doc["center"].IsObject()){
+	if (!ReadServerInfo("center", center))
+	{
 		return false;
 	}
-	rapidjson::Value &object = doc["center"];
+	
+	JSON_READ_FILE_END(config_file.c_str());
+}
+
+bool ReadServerInfo(char *node, ServerInfo &info)
+{
+	if (!doc.HasMember(node) || !doc[node].IsObject()){
+		return false;
+	}
+	rapidjson::Value &object = doc[node];
 	if (!object.HasMember("ip") || !object["ip"].IsString())
 	{
 		return false;
 	}
 	rapidjson::Value &ip = object["ip"];
-	memcpy(center.ip, ip.GetString(), ip.GetStringLength());
 
+	memcpy(info.ip, ip.GetString(), ip.GetStringLength());
 	if (!object.HasMember("port") || !object["port"].IsInt())
 	{
 		return false;
 	}
-	center.port = object["port"].GetInt();
+	info.port = object["port"].GetInt();
 
 	if (!object.HasMember("backlog") || !object["backlog"].IsInt())
 	{
 		return false;
 	}
-	center.backlog = object["backlog"].GetInt();
-	JSON_READ_FILE_END(config_file.c_str());
+	info.backlog = object["backlog"].GetInt();
+	return true;
 }
 
 GatawayConfig::GatawayConfig()
@@ -133,29 +143,7 @@ CenterConfig::CenterConfig()
 
 void CenterConfig::Read()
 {
-	if (!doc.HasMember("login") || !doc["login"].IsObject()){
-		return;
-	}
-	rapidjson::Value &object = doc["login"];
-	if (!object.HasMember("ip") || !object["ip"].IsString())
-	{
-		return;
-	}
-	rapidjson::Value &ip = object["ip"];
-
-	memcpy(login.ip, ip.GetString(), ip.GetStringLength());
-	login.ip[ip.GetStringLength()] = 0;
-	if (!object.HasMember("port") || !object["port"].IsInt())
-	{
-		return;
-	}
-	login.port = object["port"].GetInt();
-
-	if (!object.HasMember("backlog") || !object["backlog"].IsInt())
-	{
-		return;
-	}
-	login.backlog = object["backlog"].GetInt();
+	ReadServerInfo("login", login);
 }
 
 GameConfig::GameConfig()
@@ -168,26 +156,18 @@ GameConfig::GameConfig()
 
 void GameConfig::Read()
 {
-	if (!doc.HasMember("game") || !doc["game"].IsObject()){
-		return;
-	}
-	rapidjson::Value &object = doc["game"];
-	if (!object.HasMember("ip") || !object["ip"].IsString())
-	{
-		return;
-	}
-	rapidjson::Value &ip = object["ip"];
+	ReadServerInfo("game", game);
+}
 
-	memcpy(game.ip, ip.GetString(), ip.GetStringLength());
-	if (!object.HasMember("port") || !object["port"].IsInt())
+ProxyConfig::ProxyConfig()
+{
+	if (Init())
 	{
-		return;
+		Read();
 	}
-	game.port = object["port"].GetInt();
+}
 
-	if (!object.HasMember("backlog") || !object["backlog"].IsInt())
-	{
-		return;
-	}
-	game.backlog = object["backlog"].GetInt();
+void ProxyConfig::Read()
+{
+	ReadServerInfo("proxy", proxy);
 }

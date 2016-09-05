@@ -20,7 +20,7 @@ public:
 	{
 		NetHandle handle;
 		unsigned short id;
-		char ip[32];
+		IP ip;
 		unsigned short port;
 	};
 	void	Recv(NetMsg *msg){ m_message_handler.HandleMessage(msg); };
@@ -32,6 +32,8 @@ public:
 
 	IDPool			*GetIDPool(){ return &m_id_pool; }
 	ThreadID 	GetThreadID();
+
+	OtherServer *GetGate();
 protected:
 	bool	Init();
 	void	Ready();
@@ -42,7 +44,7 @@ private:
 	MessageHandler	m_message_handler;
 	IDPool			m_id_pool;
 	ThreadID 		m_cur_thread_id;
-
+	unsigned int 	m_gate_index;
 };
 
 #endif

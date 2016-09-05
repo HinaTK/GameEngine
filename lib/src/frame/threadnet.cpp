@@ -6,22 +6,6 @@
 #include "lib/include/base/netcommon.h"
 #include "lib/include/base/function.h"
 
-MsgHandler::MsgHandler(MsgCallBack *call_back)
-{
-	m_bm[BaseMsg::MSG_ACCEPT] = new AcceptMsg(call_back);
-	m_bm[BaseMsg::MSG_RECV] = new RecvMsg(call_back);
-	m_bm[BaseMsg::MSG_DISCONNECT] = new DisconnectMsg(call_back);
-}
-
-MsgHandler::~MsgHandler()
-{
-	// 由于call back 由三个类型共同拥有，因此只delete一次
-	delete m_bm[BaseMsg::MSG_ACCEPT]->m_call_back;
-	delete m_bm[BaseMsg::MSG_ACCEPT];
-	delete m_bm[BaseMsg::MSG_RECV];
-	delete m_bm[BaseMsg::MSG_DISCONNECT];
-}
-
 ThreadNet::ThreadNet(ThreadManager *manager)
 : BaseThread(manager, NULL)
 {
@@ -109,7 +93,7 @@ bool ThreadNet::InitServer(const char *ip, unsigned short port, int backlog, Acc
 		return false;
 	}
 
-	accepter->m_msg_index = m_msg_handler.Insert(new MsgHandler(call_back)); 
+	accepter->m_msg_index = m_msg_handler.Insert(new RecvMsg(call_back)); 
 	accepter->m_sock = net_id;
 	AddNetHandler(accepter);
 	Function::Info("Init Server ip=%s, port=%d Success", ip, port);
@@ -126,7 +110,7 @@ NetHandle ThreadNet::SyncConnect(const char *ip, unsigned short port, Listener *
 		return INVALID_NET_HANDLE;
 	}
 
-	listener->m_msg_index = m_msg_handler.Insert(new MsgHandler(call_back));
+	listener->m_msg_index = m_msg_handler.Insert(new RecvMsg(call_back));
 	listener->m_sock = sock;
 	return AddNetHandler(listener);
 }
@@ -140,7 +124,7 @@ void ThreadNet::AsyncConnect(const char *ip, unsigned short port, Listener *list
 		delete call_back;
 		return;
 	}
-	listener->m_msg_index = m_msg_handler.Insert(new MsgHandler(call_back));
+	listener->m_msg_index = m_msg_handler.Insert(new RecvMsg(call_back));
 	listener->m_sock = sock;
 	SocketMsg::AddHandler ah;
 	ah.flag = flag;

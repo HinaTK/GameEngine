@@ -29,6 +29,7 @@ public:
 	ServerConfig();
 	~ServerConfig(){}
 
+	bool	ReadServerInfo(char *node, ServerInfo &info);
 	ServerID	sid;
 	ServerInfo	center;
 protected:
@@ -86,6 +87,23 @@ public:
 	ServerInfo game;
 private:
 	GameConfig();
+};
+
+class ProxyConfig : public ServerConfig
+{
+public:
+	~ProxyConfig(){};
+	static ProxyConfig &Instance()
+	{
+		static ProxyConfig config;
+		return config;
+	}
+
+	void	Read();
+
+	ServerInfo proxy;
+private:
+	ProxyConfig();
 };
 
 #endif

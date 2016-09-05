@@ -2,7 +2,7 @@
 #ifndef TEST_NET_H
 #define TEST_NET_H
 
-#include "lib/include/frame/message.h"
+#include "lib/include/common/message.h"
 #include "lib/include/base/interface.h"
 #include "lib/include/thread/threadmanager.h"
 #include "lib/include/http/httpaccepter.h"

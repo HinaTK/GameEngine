@@ -34,7 +34,7 @@ namespace Proto
 	{
 		BindProto(SC_LOGIN);
 		RoleID rid = 0;
-		char ip[16];
+		IP ip;
 		unsigned short port;
 	};
 

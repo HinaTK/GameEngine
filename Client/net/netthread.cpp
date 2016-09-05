@@ -15,7 +15,11 @@ public:
 		, m_thread(t){}
 	~CallBack(){}
 
-	void	Accept(NetHandle handle, const char *ip){};
+	void	Accept(NetHandle handle, const char *ip)
+	{
+		m_thread->RemoveHandler(m_thread->GetServerHandle());
+		m_thread->SetServerHandle(handle);
+	};
 
 	void	Recv(NetMsg *msg){ m_thread->InnerRecv(msg); };
 
@@ -30,6 +34,7 @@ private:
 
 NetThread::NetThread(ThreadManager *manager)
 : SocketThread(manager)
+, m_server_handle(INVALID_NET_HANDLE)
 {
 	m_name = "net";
 }
@@ -49,6 +54,25 @@ bool NetThread::Init()
 
 void NetThread::InnerRecv(NetMsg *msg)
 {
+	if (msg->length < 2)
+	{
+		Function::Error("is not a right protocol");
+		return;
+	}
+	unsigned short * type = (unsigned short *)msg->data;
+	switch(*type)
+	{
+	case Proto::SC_LOGIN:
+	{
+		Proto::scLogin *l = (Proto::scLogin *)msg->data;
+		AsyncConnect(l->ip, l->port, new InnerListener(this), new CallBack(this));
+		break;
+	}
+	case Proto::SC_LOGIN_ERR:
+	{
+		Proto::scLoginErr *le = (Proto::scLoginErr *)msg->data;
+	}
+	}
 }
 
 void NetThread::RecvData(TPT type, ThreadID sid, int len, const char *data)
