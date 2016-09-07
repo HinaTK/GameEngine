@@ -93,7 +93,7 @@ bool ThreadNet::InitServer(const char *ip, unsigned short port, int backlog, Acc
 		return false;
 	}
 
-	accepter->m_msg_index = m_msg_handler.Insert(new RecvMsg(call_back)); 
+	accepter->m_msg_index = m_msg_handler.Insert(new MsgHandler(call_back)); 
 	accepter->m_sock = net_id;
 	AddNetHandler(accepter);
 	Function::Info("Init Server ip=%s, port=%d Success", ip, port);
@@ -110,7 +110,7 @@ NetHandle ThreadNet::SyncConnect(const char *ip, unsigned short port, Listener *
 		return INVALID_NET_HANDLE;
 	}
 
-	listener->m_msg_index = m_msg_handler.Insert(new RecvMsg(call_back));
+	listener->m_msg_index = m_msg_handler.Insert(new MsgHandler(call_back));
 	listener->m_sock = sock;
 	return AddNetHandler(listener);
 }
@@ -124,7 +124,7 @@ void ThreadNet::AsyncConnect(const char *ip, unsigned short port, Listener *list
 		delete call_back;
 		return;
 	}
-	listener->m_msg_index = m_msg_handler.Insert(new RecvMsg(call_back));
+	listener->m_msg_index = m_msg_handler.Insert(new MsgHandler(call_back));
 	listener->m_sock = sock;
 	SocketMsg::AddHandler ah;
 	ah.flag = flag;

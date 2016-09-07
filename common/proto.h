@@ -62,6 +62,7 @@ namespace PProto
 	};
 
 	// 广播给指定的人
+
 	struct ggwBroadcastSome
 	{
 		int some;				// 人数

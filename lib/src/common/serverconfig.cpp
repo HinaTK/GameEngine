@@ -64,7 +64,7 @@ bool ServerConfig::Init()
 	JSON_READ_FILE_END(config_file.c_str());
 }
 
-bool ReadServerInfo(char *node, ServerInfo &info)
+bool ServerConfig::ReadServerInfo(char *node, ServerInfo &info)
 {
 	if (!doc.HasMember(node) || !doc[node].IsObject()){
 		return false;

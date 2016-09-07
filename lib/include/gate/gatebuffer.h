@@ -19,10 +19,10 @@ protected:
 private:
 	struct GateMsg
 	{
-		unsigned short buf_len = 0;		// å®¹å™¨é•¿åº¦
-		unsigned short cur_len = 0;		// æ•°æ®é•¿åº¦
-		unsigned short msg_len = 0;		// æ¶ˆæ¯æ€»é•¿åº¦
 		char *buf = NULL;
+		unsigned short buf_len = 0;		// ÈİÆ÷³¤¶È
+		unsigned short cur_len = 0;		// Êı¾İ³¤¶È
+		unsigned short msg_len = 0;		// ÏûÏ¢×Ü³¤¶È
 	}m_msg;
 	Listener *		m_listener;
 };

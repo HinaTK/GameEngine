@@ -7,9 +7,9 @@ REGISTER_SAFE_MEMORYPOOL(memorypool, InnerListener, 1);
 
 InnerBuffer::InnerBuffer(InnerListener *listener)
 : m_listener(listener)
-, m_head_len(0)
 {
-
+	m_msg.buf = new char[NetCommon::HEADER_LENGTH];
+	m_msg.buf_len = NetCommon::HEADER_LENGTH;
 }
 
 InnerBuffer::~InnerBuffer()

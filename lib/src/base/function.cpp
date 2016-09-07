@@ -73,6 +73,10 @@ void Function::Info(char *str, ...)
 
 EXPORT void Function::Error(char *str, ...)
 {
+#ifdef _WIN64
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(handle, FOREGROUND_INTENSITY | FOREGROUND_RED);
+#endif
 	time_t t = time(NULL);
 	char buffer[64];
 	strftime(buffer, sizeof(buffer), "%Y%m%d %H:%M:%S ERROR:", localtime(&t));
@@ -82,6 +86,10 @@ EXPORT void Function::Error(char *str, ...)
 	vprintf(str, args);
 	va_end(args);
 	printf("\n");
+#ifdef _WIN64
+	SetConsoleTextAttribute(handle, 7);
+#endif
+	  
 }
 
 EXPORT void Function::CMD(char *str, ...)
