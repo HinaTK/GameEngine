@@ -1,4 +1,5 @@
 ﻿
+#include <stdarg.h>
 #include "function.h"
 #include "common/socketdef.h"
 #include "common/protocol/messageheader.h"
@@ -58,7 +59,7 @@ bool Function::ProtocolDecode(const char *buf, unsigned int len)
 	return (header->check == check);
 }
 
-void Function::Info(char *str, ...)
+void Function::Info(const char *str, ...)
 {
 	time_t t = time(NULL);
 	char buffer[64];
@@ -71,7 +72,7 @@ void Function::Info(char *str, ...)
 	printf("\n");
 }
 
-EXPORT void Function::Error(char *str, ...)
+EXPORT void Function::Error(const char *str, ...)
 {
 #ifdef _WIN64
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -92,7 +93,7 @@ EXPORT void Function::Error(char *str, ...)
 	  
 }
 
-EXPORT void Function::CMD(char *str, ...)
+EXPORT void Function::CMD(const char *str, ...)
 {
 	va_list args;
 	va_start(args, str);

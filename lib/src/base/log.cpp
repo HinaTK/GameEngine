@@ -1,4 +1,9 @@
 
+#ifdef __unix
+#include <sys/stat.h>
+#include <sys/types.h>
+#endif // __unix
+
 #include "log.h"
 #include "function.h"
 #include "lib/include/common/serverconfig.h"
@@ -51,12 +56,12 @@ CenterConfig::Instance().db.port)
 	{
 		m_log_list[reg[i].index].max_num = reg[i].max_num;
 		m_log_list[reg[i].index].format = reg[i].format;
-		m_log_list[reg[i].index].default += "INSERT INTO ";
-		m_log_list[reg[i].index].default += reg[i].name;
-		m_log_list[reg[i].index].default += " ";
-		m_log_list[reg[i].index].default += reg[i].fields;
-		m_log_list[reg[i].index].default += " VALUE ";
-		m_log_list[reg[i].index].logs = m_log_list[reg[i].index].default;
+		m_log_list[reg[i].index].base += "INSERT INTO ";
+		m_log_list[reg[i].index].base += reg[i].name;
+		m_log_list[reg[i].index].base += " ";
+		m_log_list[reg[i].index].base += reg[i].fields;
+		m_log_list[reg[i].index].base += " VALUE ";
+		m_log_list[reg[i].index].logs = m_log_list[reg[i].index].base;
 		m_timer_manager->AddEvent(reg[i].interval, new LogTimeEvent(m_timer_manager, this, reg[i].index));
 	}
 	SetSleepTime(20);
@@ -110,10 +115,10 @@ void Log::RecvData(TPT type, ThreadID sid, int len, const char *data)
 		Register((LogMsg::LogRegister *)data);
 		break;
 	case LogMsg::LM_WRITE_FILE_ERROR:
-		WriteFile(len, (char *)data, "%Y%m%d %H:%M:%S ERROR:");
+		WriteFile(len, data, "%Y%m%d %H:%M:%S ERROR:");
 		break;
 	case LogMsg::LM_WRITE_FILE_INFO:
-		WriteFile(len, (char *)data, "%Y%m%d %H:%M:%S INFO :");
+		WriteFile(len, data, "%Y%m%d %H:%M:%S INFO :");
 		break;
 	case LogMsg::LM_WRITE_DB:
 		WriteDB(len, data);
@@ -132,16 +137,16 @@ void Log::Register(LogMsg::LogRegister *data)
 		return;
 	}
 
-	if (m_log_list[data->index].default != "")
+	if (m_log_list[data->index].base != "")
 	{
 		Function::Info("log index is repeat %d\n", data->index);
 		return;
 	}
 
-	m_log_list[data->index].default += "INSERT INTO ";
-	m_log_list[data->index].default += data->name;
-	m_log_list[data->index].default += " (rid,log) VALUE ";
-	m_log_list[data->index].logs = m_log_list[data->index].default;
+	m_log_list[data->index].base += "INSERT INTO ";
+	m_log_list[data->index].base += data->name;
+	m_log_list[data->index].base += " (rid,log) VALUE ";
+	m_log_list[data->index].logs = m_log_list[data->index].base;
 }
 
 void Log::WriteDB(int len, const char *data)
@@ -153,7 +158,7 @@ void Log::WriteDB(int len, const char *data)
 	delete msg;
 }
 
-void Log::WriteFile(int len, char *data, char *format)
+void Log::WriteFile(int len, const char *data, const char *format)
 {
 	if (len > 0)
 	{
@@ -174,15 +179,15 @@ void Log::Save(unsigned short index)
 {
 	if (index < m_log_num)
 	{
-		if (m_log_list[index].default.size() > 0 && m_log_list[index].logs.size() > m_log_list[index].default.size())
+		if (m_log_list[index].base.size() > 0 && m_log_list[index].logs.size() > m_log_list[index].base.size())
 		{
 			m_log_list[index].logs.replace(m_log_list[index].logs.size() - 1, 1, ";");
 			if (mysql_query(m_mysql.GetMysql(), m_log_list[index].logs.c_str()) != 0)
 	        {
 	        	// todo 写文本日志
-	            Function::Info("%s error %s", m_log_list[index].default.c_str(), mysql_error(m_mysql.GetMysql()));
+				Function::Info("%s error %s", m_log_list[index].base.c_str(), mysql_error(m_mysql.GetMysql()));
 	        }
-	         m_log_list[index].logs = m_log_list[index].default;
+			m_log_list[index].logs = m_log_list[index].base;
 	         m_log_list[index].cur_num = 0;
 		}
 	}

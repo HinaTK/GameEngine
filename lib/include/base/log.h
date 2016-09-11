@@ -77,7 +77,7 @@ public:
 		unsigned short max_num;
 		unsigned short cur_num = 0;
 		std::string format;
-		std::string default;
+		std::string base;
 		std::string logs;
 	};
 
@@ -96,7 +96,7 @@ protected:
 private:
 	void	Register(LogMsg::LogRegister *data);
 	void	WriteDB(int len, const char *data);
-	void	WriteFile(int len, char *data, char *format);
+	void	WriteFile(int len, const char *data, const char *format);
 private:
 	int				m_log_num;
 	FILE			*m_fp;
