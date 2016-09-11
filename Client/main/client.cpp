@@ -23,7 +23,6 @@ bool Client::Init()
 bool Client::Start()
 {
 	m_thread_manager.Start();
-	this->Run();
 	return true;
 }
 

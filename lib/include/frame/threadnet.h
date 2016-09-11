@@ -22,6 +22,7 @@ public:
 	virtual void	SetCanNotWrite(NetHandler *handler) = 0;
 
 	void			RemoveHandler(NetHandle handle, int err = 0, int reason = 0);
+	void			ReplaceHandler(NetHandle handle, NetHandler *handler);
 	void			Recv(unsigned short msg_index, NetMsgType msg_type, NetMsg &msg);
 
 	bool			InitServer(const char *ip, unsigned short port, int backlog, Accepter *accepter, MsgCallBack *call_back);
@@ -40,14 +41,20 @@ protected:
 	void			AddHandler(const char *data);
 	void			Send(NetHandle handle, int length, const char *data);
 protected:
-	struct RemoveInfo
+	struct ClearInfo
 	{
+		bool is_remove = true;
 		NetHandle handle;
-		NetCommon::ErrInfo show;
+		union
+		{
+			NetHandler* handler;
+			NetCommon::ErrInfo show;
+		}u;
+		
 	};
 	typedef game::Array<NetHandler*>		NET_HANDLER_ARRAY;
 	typedef game::Array<MsgHandler *>		MSG_HANDLER;
-	typedef game::Vector<RemoveInfo>		INVALID_HANDLE;
+	typedef game::Vector<ClearInfo>		INVALID_HANDLE;
 
 	NET_HANDLER_ARRAY		m_net_handler;
 	MsgMemoryManager		m_net_memory;

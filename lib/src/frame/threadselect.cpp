@@ -2,6 +2,7 @@
 #include "threadselect.h"
 #include "nethandler.h"
 #include "lib/include/base/netcommon.h"
+#include "lib/include/base/function.h"
 
 SocketThread::SocketThread(ThreadManager *manager)
 : ThreadNet(manager)
@@ -40,7 +41,6 @@ bool SocketThread::Run()
 			}
 		}
 		//ReplaceHandler();
-		return true;
 	}
 	ClearHandler();
 	return DoSomething();
@@ -63,15 +63,37 @@ void SocketThread::ClearHandler()
 	{
 		for (INVALID_HANDLE::iterator itr = m_invalid_handle.Begin(); itr != m_invalid_handle.End(); ++itr)
 		{
-			NetHandler *handler = NULL;
-			if (m_net_handler.Erase(itr->handle, handler))
+			if (itr->is_remove)
 			{
-				FD_CLR(handler->m_sock, &m_read_set);
-				FD_CLR(handler->m_sock, &m_write_set);
+				NetHandler *handler = NULL;
+				if (m_net_handler.Erase(itr->handle, handler))
+				{
+					FD_CLR(handler->m_sock, &m_read_set);
+					FD_CLR(handler->m_sock, &m_write_set);
 
-				NetCommon::Close(handler->m_sock);
-				Recv(handler->m_msg_index, BaseMsg::MSG_DISCONNECT, NetMsg(handler->m_handle, (char *)&itr->show, sizeof(itr->show)));
-				delete handler;
+					NetCommon::Close(handler->m_sock);
+					Recv(handler->m_msg_index, BaseMsg::MSG_DISCONNECT, NetMsg(handler->m_handle, (char *)&itr->u.show, sizeof(itr->u.show)));
+					delete handler;
+				}
+				else
+				{
+					Function::Error("can not remove handle 1");
+				}
+			}
+			else
+			{
+				NetHandler *handler = NULL;
+				if (m_net_handler.Erase(itr->handle, handler))
+				{
+					itr->u.handler->m_sock = handler->m_sock;
+					itr->u.handler->m_handle = AddNetHandler(itr->u.handler);
+					delete handler;
+				}
+				else
+				{
+					delete itr->u.handler;
+					Function::Error("can not remove handle 2");
+				}
 			}
 		}
 		m_invalid_handle.Clear();

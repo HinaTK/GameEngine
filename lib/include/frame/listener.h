@@ -20,7 +20,7 @@ public:
 	virtual void	OnCanRead();
 	virtual void	OnCanWrite();
 
-	virtual void	Send(const char *buf, unsigned int len) = 0;
+	virtual void	Send(const char *buf, unsigned int len);
 	virtual void	Recv(NetHandle handle, unsigned int len, char *buf){}
 
 	void			RegisterWriteFD();

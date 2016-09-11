@@ -9,11 +9,11 @@
 #include "lib/include/common/message.h"
 
 // 需要改进，尽量避免内存拷贝
-class BufManager
+class SendBuffer
 {
 public:
-	virtual ~BufManager();
-	BufManager(unsigned int size = 64);
+	virtual ~SendBuffer();
+	SendBuffer(unsigned int size = 64);
 
 	unsigned int	Size(){ return m_size; }
 	unsigned int	Length(){ return m_length; }
@@ -25,23 +25,8 @@ public:
 	
 
 	char *			GetFreeBuf(){ return ((char *)m_buf + m_length); }
-
 	bool			Resize(unsigned int size);
-
 	bool			IsEmpty(){ return m_length == 0; }
-	
-protected:
-	char *			m_buf;
-	unsigned int	m_size;				// 容量大小
-	unsigned int	m_length;			// 数据大小
-
-};
-
-class SendBuffer : public BufManager
-{
-public:
-	virtual ~SendBuffer();
-	SendBuffer(unsigned int size = 64);
 
 	void			Push(unsigned int buf);
 	void			Push(const char *buf, unsigned int len);
@@ -52,31 +37,37 @@ public:
 	int				RemainReadLength(){ return int(m_length - m_read_length); }		// 剩余可读取内容
 
 	void			ResetBuf();
-
-private:
+	
+protected:
+	char *			m_buf;
+	unsigned int	m_size;				// 容量大小
+	unsigned int	m_length;			// 数据大小
 	unsigned int	m_read_length;
+
 };
 
-// class Listener;
-// class RecvBuffer
-// {
-// public:
-// 	RecvBuffer(Listener *listener);
-// 	~RecvBuffer();
-// 
-// 	void *		operator new(size_t c);
-// 	void		operator delete(void *m);
-// 
-// 	bool		GetBufInfo(char **buf, int &len);
-// 	int			AddBufLen(int len);
-// 
-// protected:
-// 	void		ResetBuf();
-// private:
-// 	Listener *		m_listener;
-// 	char			m_head_len;
-// 	int				m_buf_len;		// 已读数据长度
-// 	char 			m_header[NetCommon::HEADER_LENGTH];
-// 	NetMsg			m_msg;
-// };
+class RecvBuffer
+{
+public:
+	RecvBuffer(int buf_size);
+	~RecvBuffer();
+
+	bool		GetBufInfo(char **buf, int &len);
+	int			AddBufLen(int len);
+	void		ResetBuf();
+
+	inline unsigned short GetDateLen(){ return m_msg.msg_len - NetCommon::HEADER_LENGTH; }
+	inline char *GetDataBuf(){ return m_msg.buf + NetCommon::HEADER_LENGTH; }
+	int			GetBufSize(){ return m_buf_size; }
+private:
+	struct BufInfo
+	{
+		char *buf = NULL;
+		int buf_size = 0;	// 容器长度
+		int cur_len = 0;	// 数据长度
+		int msg_len = 0;	// 消息总长度
+	}m_msg;
+
+	int m_buf_size;
+};
 #endif

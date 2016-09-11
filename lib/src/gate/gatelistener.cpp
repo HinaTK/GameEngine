@@ -7,13 +7,12 @@
 REGISTER_SAFE_MEMORYPOOL(memorypool, GateListener, 256);
 
 
-GateListener::GateListener(SocketThread *t, time_t now, int size)
+GateListener::GateListener(SocketThread *t, int size)
 : Listener(t, size)
-, m_recv_buf(this)
+, m_recv_buf(buf_size)
 , m_msg_id(-1)
-, Recv(&GateListener::Handshake)
+, Recv(&GateListener::Bind)
 , m_is_handshake(false)
-, m_build_time(now)
 {
 
 }
@@ -34,7 +33,12 @@ bool GateListener::RecvBuf()
 			RETUEN_ERROR_2(NetHandler::DR_RECV_BUF, NetCommon::Error());
 		}
 		ret = m_recv_buf.AddBufLen(ret);
-		if (ret > 0)
+		if (ret == 0)
+		{
+			(this->*Recv)(m_recv_buf.GetDateLen(), m_recv_buf.GetDataBuf());
+			m_recv_buf.ResetBuf();
+		}
+		else if (ret > 0)
 		{
 			RETUEN_ERROR(ret);
 		}
@@ -59,12 +63,6 @@ void GateListener::Send( const char *buf, unsigned int len )
 	* 这样做的有风险，就是一旦出错，多个对象读取同一个队列，导致数据异常
 */
 
-void GateListener::Handshake(unsigned int len, char *buf)
-{
-	Recv = &GateListener::Bind;
-	m_is_handshake = true;
-}
-
 void GateListener::Bind(unsigned int len, char *buf)
 {
 	m_thread->Recv(m_msg_index, BaseMsg::MSG_RECV, NetMsg(m_handle, buf, len));
@@ -72,5 +70,6 @@ void GateListener::Bind(unsigned int len, char *buf)
 
 void GateListener::Dispatch(unsigned int len, char *buf)
 {
+	// todo 直接加一种类型BaseMsg::MSG_DISPATCH，发送？
 	((GateThread *)m_thread)->Dispatch(m_msg_id, NetMsg(m_handle, buf, len));
 }

@@ -78,4 +78,10 @@ void Listener::UnRegisterWriteFD()
 	m_register_state = REGISTER_STATE;
 }
 
+void Listener::Send(const char *buf, unsigned int len)
+{
+	m_send_buf->Push(len);
+	m_send_buf->Push(buf, len);
+}
+
 

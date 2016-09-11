@@ -84,6 +84,7 @@ public:
 	{
 		MSG_ACCEPT = 0,
 		MSG_RECV,
+		MSG_DISPATCH,
 		MSG_DISCONNECT,
 		MSG_MAX
 	};

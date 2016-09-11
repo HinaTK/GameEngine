@@ -1,6 +1,7 @@
 
 #include "gatethread.h"
 #include "gateaccepter.h"
+#include "gatehandshake.h"
 #include "gatelistener.h"
 #include "lib/include/base/interface.h"
 #include "lib/include/base/function.h"
@@ -16,13 +17,9 @@ public:
 	{
 		ThreadNet::NET_HANDLER_ARRAY *net_handler = m_t->GetNetHandlerArray();
 		ThreadNet::NET_HANDLER_ARRAY::iterator itr = net_handler->Find(m_handle);
-		if (itr != net_handler->End() && (*itr)->Type() == NetHandler::LISTENER)
+		if (itr != net_handler->End() && (*itr)->Type() == NetHandler::HANDSHAKER)
 		{
-			GateListener *listener = (GateListener *)(*itr);
-			if (!listener->IsHandshake())
-			{
-				m_t->RemoveHandler(m_handle, NetHandler::DR_HANDSHAKE_TIME_OUT);
-			}
+			m_t->RemoveHandler(m_handle, NetHandler::DR_HANDSHAKE_TIME_OUT);
 		}
 	}
 

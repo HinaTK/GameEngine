@@ -58,7 +58,21 @@ void ThreadNet::AddHandler(const char *data)
 
 void ThreadNet::RemoveHandler(NetHandle handle, int err, int reason)
 {
-	m_invalid_handle.Push(RemoveInfo{ handle, NetCommon::ErrInfo{ err, reason } });
+	ClearInfo info;
+	info.handle = handle;
+	info.u.show.err = err;
+	info.u.show.reason = reason;
+	m_invalid_handle.Push(info);
+}
+
+
+void ThreadNet::ReplaceHandler(NetHandle handle, NetHandler *handler)
+{
+	ClearInfo info;
+	info.is_remove = false;
+	info.handle = handle;
+	info.u.handler = handler;
+	m_invalid_handle.Push(info);
 }
 
 void ThreadNet::Send(NetHandle handle, int length, const char *data)

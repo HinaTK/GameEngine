@@ -47,6 +47,7 @@ bool NetThread::Init()
 	{
 		return false;
 	}
+
 	char *HANDSHAKE = "JIAMING";
 	Send(m_server_handle, strlen(HANDSHAKE), HANDSHAKE);
 	return true;

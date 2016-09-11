@@ -15,7 +15,6 @@ MessageHandler::MessageHandler(NetThread *t)
 
 void MessageHandler::HandleMessage(NetMsg *msg)
 {
-	// todo ¶Ï¿ªÁ¬½Ó
 	Router *router = (Router *)msg->data;
 	if (*router >= Proto::CENTER_END || m_function_list[*router].length == 0)
 	{
