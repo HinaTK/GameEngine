@@ -56,7 +56,7 @@ public:
 	int			AddBufLen(int len);
 	void		ResetBuf();
 
-	inline unsigned short GetDateLen(){ return m_msg.msg_len - NetCommon::HEADER_LENGTH; }
+	inline int	GetDateLen(){ return m_msg.msg_len - NetCommon::HEADER_LENGTH; }
 	inline char *GetDataBuf(){ return m_msg.buf + NetCommon::HEADER_LENGTH; }
 	int			GetBufSize(){ return m_buf_size; }
 private:

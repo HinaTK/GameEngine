@@ -105,7 +105,7 @@ void NetThread::RecvData(TPT type, ThreadID sid, int len, const char *data)
 	{
 		Proto::scLoginErr le;
 		le.result = Proto::scLoginErr::LE_NO_ROLE;
-		Send(*(NetHandle *)data, sizeof(Proto::scLoginErr), (const char *)&le);
+		Send((NetHandle)data, sizeof(Proto::scLoginErr), (const char *)&le);
 		break;
 	}
 	case TProto::TP_SAVE_ROLE_RET:

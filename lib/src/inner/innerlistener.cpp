@@ -7,8 +7,7 @@ REGISTER_SAFE_MEMORYPOOL(memorypool, InnerListener, 1);
 
 InnerListener::InnerListener(SocketThread *t, int size)
 : Listener(t)
-, buf_size(size)
-, m_recv_buf(this)
+, m_recv_buf(size)
 {
 
 }
@@ -32,6 +31,7 @@ bool InnerListener::RecvBuf()
 		if (ret == 0)
 		{
 			// todo dispatch data
+			m_thread->Recv(m_msg_index, BaseMsg::MSG_RECV, NetMsg(m_handle, m_recv_buf.GetDataBuf(), m_recv_buf.GetDateLen()));
 			m_recv_buf.ResetBuf();
 		}
 		else if (ret > 0)

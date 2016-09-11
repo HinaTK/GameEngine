@@ -19,7 +19,6 @@ public:
 	void *		operator new(size_t c);
 	void		operator delete(void *m);
 
-	int				buf_size;
 protected:
 	virtual bool	RecvBuf();
 	
