@@ -29,4 +29,9 @@ void Role::Send(int len, char *data)
 	m_manager->GetManager()->SendMsg(m_gate_id, 123, len, data);
 }
 
+void Role::Logout()
+{
+	m_manager->GetManager()->SendMsg(m_gate_id, )
+}
+
 
