@@ -9,8 +9,6 @@
 #include "lib/include/common/message.h"
 #include "common/serverdef.h"
 
-#define BASE_THREAD_MSG_TYPE(ThreadType) (ThreadType) * 256
-
 class BaseThread
 {
 public:

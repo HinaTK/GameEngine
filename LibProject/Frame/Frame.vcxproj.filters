@@ -59,5 +59,8 @@
     <ClInclude Include="..\..\lib\include\frame\main.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\lib\include\frame\handshake.h">
+      <Filter>src\thread</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

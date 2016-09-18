@@ -2,6 +2,9 @@
 #ifndef THREAD_SYS_ID
 #define THREAD_SYS_ID
 
+
+#define BASE_THREAD_MSG_TYPE(ThreadType) (ThreadType) * 256
+
 namespace ThreadSysID
 {
 	enum

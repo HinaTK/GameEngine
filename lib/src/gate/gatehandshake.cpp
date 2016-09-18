@@ -54,6 +54,7 @@ bool GateHandshake::RecvBuf()
 
 void GateHandshake::Handshake(unsigned int len, char *buf)
 {
+	// todo 通知线程，完成握手，建立一一对应的消息队列
 	m_thread->ReplaceHandler(m_handle, new GateListener(m_thread, m_recv_buf.GetBufSize()));
 }
 

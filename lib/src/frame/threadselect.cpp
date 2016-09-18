@@ -87,6 +87,8 @@ void SocketThread::ClearHandler()
 				{
 					itr->u.handler->m_sock = handler->m_sock;
 					itr->u.handler->m_handle = AddNetHandler(itr->u.handler);
+					OtherMsgType type = 1;
+					Recv(handler->m_msg_index, BaseMsg::MSG_OTHER, NetMsg(handler->m_handle, (char *)&type, sizeof(OtherMsgType)));
 					delete handler;
 				}
 				else

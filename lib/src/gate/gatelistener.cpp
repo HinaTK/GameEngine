@@ -17,6 +17,14 @@ GateListener::GateListener(SocketThread *t, int size)
 
 }
 
+GateListener::~GateListener()
+{
+// 	if (m_msg_id != -1)
+// 	{
+// 		((GateThread *)m_thread)->DelRole(m_msg_id);
+// 	}
+}
+
 bool GateListener::RecvBuf()
 {
 	char *buf = NULL;

@@ -17,7 +17,7 @@ public:
 		, m_thread(t){}
 	~CallBack(){}
 
-	void	Accept(NetHandle handle, const char *ip){ m_thread->PushTimer(handle); };
+	void	Accept(NetHandle handle, const char *ip){ /*m_thread->PushTimer(handle);*/ };
 
 	void	Recv(NetMsg *msg){ m_thread->Recv(msg); };
 
@@ -47,7 +47,7 @@ private:
 };
 
 NetThread::NetThread(ThreadManager *manager)
-: GateThread(manager)
+: SocketThread(manager)
 , m_message_handler(this)
 , m_id_pool(this)
 , m_cur_thread_id(0)
