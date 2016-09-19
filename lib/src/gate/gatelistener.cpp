@@ -19,10 +19,11 @@ GateListener::GateListener(SocketThread *t, int size)
 
 GateListener::~GateListener()
 {
-// 	if (m_msg_id != -1)
-// 	{
-// 		((GateThread *)m_thread)->DelRole(m_msg_id);
-// 	}
+	if (m_msg_id != -1)
+	{
+		((GateThread *)m_thread)->DelRole(m_msg_id);
+		m_msg_id = -1;
+	}
 }
 
 bool GateListener::RecvBuf()
@@ -43,7 +44,7 @@ bool GateListener::RecvBuf()
 		ret = m_recv_buf.AddBufLen(ret);
 		if (ret == 0)
 		{
-			(this->*Recv)(m_recv_buf.GetDateLen(), m_recv_buf.GetDataBuf());
+			((GateThread *)m_thread)->Dispatch(m_msg_id, m_handle, m_recv_buf.GetDateLen(), m_recv_buf.GetDataBuf());
 			m_recv_buf.ResetBuf();
 		}
 		else if (ret > 0)

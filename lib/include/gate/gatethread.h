@@ -18,10 +18,11 @@ public:
 	virtual ~GateThread();
 	GateThread(ThreadManager *manager, unsigned char index, ThreadID login_id);
 
-	virtual void	Dispatch(unsigned int msg_id, NetMsg &msg){};
-	void			PushTimer(NetHandle handle);
-	void 			RegRole(NetHandle handle);
-	void			DelRole(unsigned int index);
+	void	Dispatch(unsigned int msg_id, NetHandle handle, unsigned short len, char *data);
+	void	Dispatch(unsigned int msg_id, NetMsg &msg);
+	void	PushTimer(NetHandle handle);
+	void 	RegRole(NetHandle handle);
+	void	DelRole(unsigned int index);
 
 protected:
 	bool	Init();

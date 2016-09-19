@@ -15,7 +15,7 @@ namespace TProto
 
 	enum
 	{
-		R_GATE_DEL_ROLE = BASE_THREAD_MSG_TYPE(THREAD_TYPE)
+		R_GATE_LOGOUT = BASE_THREAD_MSG_TYPE(THREAD_TYPE)
 	};
 
 	struct sGateRegRole

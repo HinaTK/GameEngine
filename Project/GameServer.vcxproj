@@ -173,6 +173,7 @@
     <ClCompile Include="..\GameServer\db\dbthread.cpp" />
     <ClCompile Include="..\GameServer\db\module\role\test.cpp" />
     <ClCompile Include="..\GameServer\frame\game.cpp" />
+    <ClCompile Include="..\GameServer\frame\messagehandler.cpp" />
     <ClCompile Include="..\GameServer\global\global.cpp" />
     <ClCompile Include="..\GameServer\scene\obj\obj.cpp" />
     <ClCompile Include="..\GameServer\scene\obj\objmanager.cpp" />
@@ -186,6 +187,8 @@
     <ClInclude Include="..\GameServer\db\module\role\test.h" />
     <ClInclude Include="..\GameServer\define.h" />
     <ClInclude Include="..\GameServer\frame\game.h" />
+    <ClInclude Include="..\GameServer\frame\messagehandler.h" />
+    <ClInclude Include="..\GameServer\frame\netproto.h" />
     <ClInclude Include="..\GameServer\global\global.h" />
     <ClInclude Include="..\GameServer\log\loggold.h" />
     <ClInclude Include="..\GameServer\log\loghandler.h" />

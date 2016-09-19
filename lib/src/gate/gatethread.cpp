@@ -109,10 +109,11 @@ void GateThread::RecvData(TPT type, ThreadID sid, int len, const char *data)
 {
 	switch (type)
 	{
-	case TProto::R_GATE_DEL_ROLE:
+	case TProto::R_GATE_LOGOUT:
 	{
-		unsigned int index = *(unsigned int *)data;
-		DelRole(index);
+		NetHandle handle = *(NetHandle *)data;
+		RemoveHandler(handle);
+		//DelRole(index);
 		break;
 	}	
 	default:
@@ -144,7 +145,7 @@ void GateThread::RegRole(NetHandle handle)
 		delete queue;
 		return;
 	}
-	m_manager->SendMsg(m_login_id, TProto::S_GATE_REG_ROLE, sizeof(TProto::sGateRegRole), (const char *)&(TProto::sGateRegRole{queue, index}), m_id);
+	m_manager->SendMsg(m_login_id, TProto::S_GATE_REG_ROLE, sizeof(TProto::sGateRegRole), (const char *)&(TProto::sGateRegRole{queue, m_id, handle, index}), m_id);
 }
 
 void GateThread::DelRole(unsigned int index)
@@ -153,5 +154,36 @@ void GateThread::DelRole(unsigned int index)
 	if (m_role_msg.Erase(index, temp))
 	{
 		delete temp;
+	}
+	// todo 通知玩家？
+
+}
+
+void GateThread::Dispatch(unsigned int msg_id, NetMsg &msg)
+{
+	// todo 跨线程（异步） NetMsg 的buf需要处理一下
+	ROLE_MSG::iterator itr = m_role_msg.Find(msg_id);
+	if (itr != m_role_msg.End())
+	{
+		(*itr)->Push(msg);
+	}
+	else
+	{
+		// out put error
+	}
+}
+
+void GateThread::Dispatch(unsigned int msg_id, NetHandle handle, unsigned short len, char *data)
+{
+	NetMsg msg;
+	msg.Alloc(handle, len, data);
+	ROLE_MSG::iterator itr = m_role_msg.Find(msg_id);
+	if (itr != m_role_msg.End())
+	{
+		(*itr)->Push(msg);
+	}
+	else
+	{
+		// out put error
 	}
 }

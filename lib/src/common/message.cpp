@@ -66,6 +66,25 @@ NetMsg::~NetMsg()
 	
 }
 
+void NetMsg::Alloc(NetHandle _handle, unsigned int _length, char *buf)
+{
+	handle = _handle;
+	length = _length;
+	if (length > 0)
+	{
+		data = new char[length];
+		memcpy(data, buf, length);
+	}
+}
+
+void NetMsg::Free()
+{
+	if (length > 0)
+	{
+		delete [] data;
+	}
+}
+
 NetGlobalMsg::NetGlobalMsg(ThreadID _id, NetHandle _handle, unsigned short _length, char *_data)
 : id(_id)
 , handle(_handle)

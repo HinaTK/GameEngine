@@ -19,6 +19,11 @@ private:
 	MemoryVL *memory;
 };
 
+struct NetMsgHeader
+{
+	
+};
+
 // 网络消息
 class NetMsg
 {
@@ -28,9 +33,18 @@ public:
 	NetMsg(NetHandle _handle, char *_data, unsigned int _length);
 	~NetMsg();
 
+	void	Alloc(NetHandle _handle, unsigned int _length, char *buf);
+	void	Free();
+
 	NetHandle		handle;
 	unsigned int	length;
 	char *			data;
+};
+
+class RoleNetMsg
+{
+public:
+	RoleNetMsg(NetHandle _handle, char *_data, unsigned int _length);
 };
 
 class NetGlobalMsg

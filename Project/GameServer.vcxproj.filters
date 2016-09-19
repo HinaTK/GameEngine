@@ -57,6 +57,9 @@
     <ClCompile Include="..\GameServer\scene\obj\role.cpp">
       <Filter>scene\obj</Filter>
     </ClCompile>
+    <ClCompile Include="..\GameServer\frame\messagehandler.cpp">
+      <Filter>frame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GameServer\define.h" />
@@ -101,6 +104,12 @@
     </ClInclude>
     <ClInclude Include="..\GameServer\scene\obj\role.h">
       <Filter>scene\obj</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\frame\messagehandler.h">
+      <Filter>frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\frame\netproto.h">
+      <Filter>frame</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

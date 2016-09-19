@@ -5,6 +5,7 @@
 #include "lib/include/thread/basethread.h"
 #include "common/datastructure/gamevector.h"
 
+
 class Role;
 class ThreadManager;
 class Global : public BaseThread
@@ -19,7 +20,9 @@ protected:
 	void	RecvData(TPT type, ThreadID sid, int len, const char *data);
 
 private:
+	
 	game::Vector<Role *> m_role_manager;
+
 };
 
 
