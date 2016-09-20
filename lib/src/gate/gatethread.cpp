@@ -113,7 +113,6 @@ void GateThread::RecvData(TPT type, ThreadID sid, int len, const char *data)
 	{
 		NetHandle handle = *(NetHandle *)data;
 		RemoveHandler(handle);
-		//DelRole(index);
 		break;
 	}	
 	default:

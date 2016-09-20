@@ -10,7 +10,7 @@
 
 
 class SceneManager;
-class Role:public Obj
+class Role : public Obj
 {
 public:
 	Role(MsgQueue<NetMsg> *queue, unsigned int index, ThreadID gate_id, NetHandle handle);
@@ -34,15 +34,6 @@ private:
 private:
 	RoleID				m_id;
 protected:
-	struct HandlerItem 
-	{
-		HandlerItem():func(0), length(0){}
-		HandlerItem(HandleFunc f, int s):func(f), length(s){}
-		HandleFunc		func;
-		unsigned short	length;
-	};
-	HandlerItem m_function_list[Proto::GAME_END];
-
 	void 	Register();
 	void	CSLogin(NetMsg *msg);
 };

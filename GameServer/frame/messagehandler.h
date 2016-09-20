@@ -5,7 +5,9 @@
 #include "netproto.h"
 #include "lib/include/common/message.h"
 
+class TempRole;
 class Role;
+class Global;
 class MessageHandler
 {
 public:
@@ -13,6 +15,7 @@ public:
 	~MessageHandler(){};
 	typedef void (MessageHandler::*HandleFunc)(Role *role, NetMsg &msg);
 
+	void	BeforeMessage(Global *global, TempRole *role, NetMsg &msg);
 	bool	HandleMessage(Role *role, NetMsg &msg);
 protected:
 	
@@ -25,7 +28,7 @@ protected:
 	};
 	HandlerItem m_function_list[Proto::GAME_END];
 
-	void	CSLogin(Role *role, NetMsg &msg);
+	void	CSLogin(Global *global, TempRole *role, NetMsg &msg);
 
 	
 

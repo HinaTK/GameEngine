@@ -115,7 +115,7 @@ int main()
 	//TestOther::Test3();
 	//TestOther::Test4();
 	//TestOther::Test5();
-	//TestOther::Test6();
+	TestOther::Test6();
 	//TestOther::Test7();
 	//TestOther::Test8();
 
