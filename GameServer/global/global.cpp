@@ -42,7 +42,7 @@ void Global::RecvData(TPT type, ThreadID sid, int len, const char *data)
 		m_role_manager.Push(TempRole((MsgQueue<NetMsg> *)grr->queue, grr->index, grr->gate_id, grr->handle));
 		break;
 	case TProto::TO_GLOBAL_LOAD_ROLE:
-		// todo 将各数据模块初始化到角色并进入场景	
+		// todo 将各数据模块初始化到角色并进入场�?
 	case TProto::R_GLOBAL_LOGOUT:
 		RoleLogout((Role *)data);
 		break;
