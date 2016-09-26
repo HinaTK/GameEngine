@@ -23,6 +23,11 @@ public:
 	virtual bool	Init(){ return true; }
 	virtual void	Ready(){}
 
+	inline void	SendMsg(ThreadID did, TPT type, int len, const char *data){m_manager->SendMsg(did, type, len, data, m_id);}
+	inline void SendMsg(ThreadID did, ThreadClass * tc){m_manager->SendMsg(did, tc);}
+	template<class T>
+	inline void SendMsg(ThreadID did, TPT type, T data){m_manager->SendMsg(did, type, data, m_id);}
+
 	void	PushMsg(ThreadMsg &msg);
 	void	SysCmd(ThreadMsg &msg);
 	virtual bool 	CMD(TPT type, ThreadID sid, int len, const char *data){ return false; }

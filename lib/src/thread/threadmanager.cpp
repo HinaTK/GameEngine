@@ -67,9 +67,9 @@ void ThreadManager::SendMsg(ThreadID did, TPT type, int len, const char *data, T
 	SendMsg(did, ThreadMsg(sid, type, len, data, m_thread[did]->GetMemory()));
 }
 
-void ThreadManager::SendMsg(ThreadID did, TPT type, char *obj)
+void ThreadManager::SendMsg(ThreadID did, TPT type, char *obj, ThreadID sid)
 {
-	if (!SendMsg(did, ThreadMsg(type, obj)))
+	if (!SendMsg(did, ThreadMsg(sid, type, obj)))
 	{
 		delete obj;
 	}
@@ -83,7 +83,7 @@ void ThreadManager::SendMsg(ThreadID did, ThreadClass *tc)
 	}
 }
 
-void ThreadManager::SendMsg(ThreadID did, TPT type, unsigned int data, ThreadID sid /*= INVALID_THREAD_ID*/)
+void ThreadManager::SendMsg(ThreadID did, TPT type, unsigned int data, ThreadID sid)
 {
 	ThreadMsg tm;
 	tm.id = sid;

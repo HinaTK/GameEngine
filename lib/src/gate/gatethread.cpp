@@ -144,7 +144,7 @@ void GateThread::RegRole(NetHandle handle)
 		delete queue;
 		return;
 	}
-	m_manager->SendMsg(m_login_id, TProto::S_GATE_REG_ROLE, sizeof(TProto::sGateRegRole), (const char *)&(TProto::sGateRegRole{queue, m_id, handle, index}), m_id);
+	SendMsg(m_login_id, TProto::S_GATE_REG_ROLE, sizeof(TProto::sGateRegRole), (const char *)&(TProto::sGateRegRole{queue, m_id, handle, index}));
 }
 
 void GateThread::DelRole(unsigned int index)
