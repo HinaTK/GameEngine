@@ -5,12 +5,12 @@
 #include <vector>
 #include "src/idpool.h"
 #include "src/messagehandler.h"
+#include "lib/include/frame/socketthread.h"
 #include "common/proto.h"
-#include "lib/include/gate/gatethread.h"
 
 
 class ThreadManager;
-class NetThread : public GateThread
+class NetThread : public SocketThread
 {
 public:
 	virtual ~NetThread();

@@ -12,7 +12,7 @@ class GateListener : public Listener
 {
 public:
 	GateListener(SocketThread *t, int size = 0);
-	virtual ~GateListener(){}
+	virtual ~GateListener();
 
 	typedef void (GateListener::*RecvFunc)(unsigned int len, char *buf);
 

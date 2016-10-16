@@ -30,6 +30,7 @@
     <ClInclude Include="..\..\lib\include\frame\accepter.h" />
     <ClInclude Include="..\..\lib\include\frame\bufmanager.h" />
     <ClInclude Include="..\..\lib\include\frame\frame.h" />
+    <ClInclude Include="..\..\lib\include\frame\handshake.h" />
     <ClInclude Include="..\..\lib\include\frame\listener.h" />
     <ClInclude Include="..\..\lib\include\frame\main.h" />
     <ClInclude Include="..\..\lib\include\frame\nethandler.h" />

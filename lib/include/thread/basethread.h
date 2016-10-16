@@ -9,8 +9,6 @@
 #include "lib/include/common/message.h"
 #include "common/serverdef.h"
 
-#define BASE_THREAD_MSG_TYPE(ThreadType) (ThreadType) * 256
-
 class BaseThread
 {
 public:
@@ -24,6 +22,11 @@ public:
 	void			Do();
 	virtual bool	Init(){ return true; }
 	virtual void	Ready(){}
+
+	inline void	SendMsg(ThreadID did, TPT type, int len, const char *data){m_manager->SendMsg(did, type, len, data, m_id);}
+	inline void SendMsg(ThreadID did, ThreadClass * tc){m_manager->SendMsg(did, tc);}
+	template<class T>
+	inline void SendMsg(ThreadID did, TPT type, T data){m_manager->SendMsg(did, type, data, m_id);}
 
 	void	PushMsg(ThreadMsg &msg);
 	void	SysCmd(ThreadMsg &msg);

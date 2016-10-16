@@ -19,6 +19,11 @@ private:
 	MemoryVL *memory;
 };
 
+struct NetMsgHeader
+{
+	
+};
+
 // 网络消息
 class NetMsg
 {
@@ -28,9 +33,18 @@ public:
 	NetMsg(NetHandle _handle, char *_data, unsigned int _length);
 	~NetMsg();
 
+	void	Alloc(NetHandle _handle, unsigned int _length, char *buf);
+	void	Free();
+
 	NetHandle		handle;
 	unsigned int	length;
 	char *			data;
+};
+
+class RoleNetMsg
+{
+public:
+	RoleNetMsg(NetHandle _handle, char *_data, unsigned int _length);
 };
 
 class NetGlobalMsg
@@ -61,6 +75,8 @@ public:
 	char		*data;
 };
 
+typedef unsigned char OtherMsgType;
+
 class MsgCallBack
 {
 public:
@@ -71,7 +87,9 @@ public:
 
 	virtual void Recv(NetMsg *msg) = 0;
 
-	virtual void Disconnect(NetHandle handle, int err, int reason) = 0;
+	virtual void Disconnect(NetHandle handle, int err, int reason){};
+
+	virtual void Other(NetMsg *msg){};
 };
 
 class BaseMsg
@@ -84,51 +102,14 @@ public:
 	{
 		MSG_ACCEPT = 0,
 		MSG_RECV,
-		MSG_DISPATCH,
 		MSG_DISCONNECT,
+		MSG_OTHER,
 		MSG_MAX
 	};
 
 	virtual void Recv(NetMsg *msg){};
 	MsgCallBack *m_call_back;
 };
-
-// class RecvMsg
-// {
-// public:
-// 	RecvMsg(MsgCallBack *call_back) :m_call_back(call_back)
-// 	{
-// 		// todo 测试函数绑定与用数组查询，那个快
-// 		Exe[MSG_ACCEPT] 	= &RecvMsg::Accept;
-// 		Exe[MSG_RECV] 		= &RecvMsg::Recv;
-// 		Exe[MSG_DISCONNECT] = &RecvMsg::Disconnect;
-// 	}
-// 	~RecvMsg(){delete m_call_back;}
-
-// 	enum MsgType
-// 	{
-// 		MSG_ACCEPT = 0,
-// 		MSG_RECV,
-// 		MSG_DISCONNECT,
-// 		MSG_MAX
-// 	};
-// 	typedef void (RecvMsg::*Func[MSG_MAX])(NetMsg *msg);
-
-// 	Func	Exe;
-
-// 	inline void	TT(int t, NetMsg *msg){(this->*Exe[t])(msg);}
-
-// 	void	Accept(NetMsg *msg){m_call_back->Accept(msg->handle, msg->data);}
-// 	void 	Recv(NetMsg *msg){ m_call_back->Recv(msg); }
-// 	void	Disconnect(NetMsg *msg)
-// 	{
-// 		NetCommon::ErrInfo *info = (NetCommon::ErrInfo *)msg->data;
-// 		m_call_back->Disconnect(msg->handle, info->err, info->reason);
-// 	}
-	
-// private:
-// 	MsgCallBack *m_call_back;
-// };
 
 class AcceptMsg : public BaseMsg
 {
@@ -152,6 +133,16 @@ public:
 	{ 
 		NetCommon::ErrInfo *info = (NetCommon::ErrInfo *)msg->data;
 		m_call_back->Disconnect(msg->handle, info->err, info->reason);
+	}
+};
+
+class OtherMsg : public BaseMsg
+{
+public:
+	OtherMsg(MsgCallBack *call_back) :BaseMsg(call_back){}
+	virtual void Recv(NetMsg *msg)
+	{ 
+		m_call_back->Other(msg); 
 	}
 };
 

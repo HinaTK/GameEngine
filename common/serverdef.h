@@ -6,6 +6,7 @@
 
 static const int ACCOUNT_SIZE = 36;
 static const int GAME_NAME_SIZE = 32;
+static const int SESSION_SIZE = 32;
 
 typedef char			IP[16];
 typedef unsigned char	Byte;
