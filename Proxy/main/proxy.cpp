@@ -1,5 +1,5 @@
 
-#include "client.h"
+#include "proxy.h"
 #include "net/netthread.h"
 #include "filter/filterthread.h"
 #include "lib/include/common/serverconfig.h"
