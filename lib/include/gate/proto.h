@@ -7,15 +7,9 @@
 
 namespace TProto
 {
-	static const unsigned char THREAD_TYPE = 1;
 	enum
 	{
-		S_GATE_REG_ROLE = BASE_THREAD_MSG_TYPE(THREAD_TYPE),
-	};
-
-	enum
-	{
-		R_GATE_LOGOUT = BASE_THREAD_MSG_TYPE(THREAD_TYPE)
+		GATE_LOGOUT = 0
 	};
 
 	struct sGateRegRole

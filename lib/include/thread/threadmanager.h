@@ -33,13 +33,13 @@ public:
 	void			Wait();
 
 	bool			SendMsg(ThreadID did, ThreadMsg &msg);
-	void			SendMsg(ThreadID did, TPT type, int len, const char *data, ThreadID sid);
+	void			SendMsg(ThreadID did, TPT type, int len, const char *data, ThreadID sid = INVALID_THREAD_ID);
 	void 			SendMsg(ThreadID did, ThreadClass * tc);
-	void 			SendMsg(ThreadID did, TPT type, char *obj, ThreadID sid);
-	void 			SendMsg(ThreadID did, TPT type, int data, ThreadID sid);
-	void 			SendMsg(ThreadID did, TPT type, unsigned int data, ThreadID sid);
-	void 			SendMsg(ThreadID did, TPT type, long long data, ThreadID sid);
-	void 			SendMsg(ThreadID did, TPT type, unsigned long long data, ThreadID sid);
+	void 			SendMsg(ThreadID did, TPT type, char *obj, ThreadID sid = INVALID_THREAD_ID);
+	void 			SendMsg(ThreadID did, TPT type, int data, ThreadID sid = INVALID_THREAD_ID);
+	void 			SendMsg(ThreadID did, TPT type, unsigned int data, ThreadID sid = INVALID_THREAD_ID);
+	void 			SendMsg(ThreadID did, TPT type, long long data, ThreadID sid = INVALID_THREAD_ID);
+	void 			SendMsg(ThreadID did, TPT type, unsigned long long data, ThreadID sid = INVALID_THREAD_ID);
 	void			RPC(ThreadID did, ThreadRPC *rpc);
 	
 	char *			CreateData(ThreadID did, int len);

@@ -31,10 +31,11 @@ void RoleCache::Push(Role *role)
 		ROLE_HASH::iterator itr2 = m_role_hash.Find(info.rid);
 		if (itr2 != m_role_hash.End())
 		{
-			if (itr2->index == info.index)
+			
+			if (itr2->val.index == info.index)
 			{
 				m_role_hash.Erase(info.rid);
-				delete itr2->role;
+				delete (itr2->val.role);
 			}
 		}
 	}
@@ -46,7 +47,7 @@ Role * RoleCache::Pop(RoleID rid)
 	if (itr != m_role_hash.End())
 	{
 		m_role_hash.Erase(rid);
-		return itr->role;
+		return itr->val.role;
 	}
 
 	return NULL;

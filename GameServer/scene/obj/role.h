@@ -3,7 +3,7 @@
 #define ROLE_H
 
 #include "obj.h"
-#include "netproto.h"
+//#include "netproto.h"
 #include "lib/include/frame/message.h"
 #include "common/serverdef.h"
 #include "common/datastructure/msgqueue.h"

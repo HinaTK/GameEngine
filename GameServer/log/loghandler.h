@@ -34,12 +34,12 @@ namespace LogHandler
 
 	inline void Error(ThreadManager &manager, ThreadID id, char *data)
 	{
-		manager.SendMsg(id, LogMsg::LM_WRITE_FILE_ERROR, strlen(data) + 1, data);
+		manager.SendMsg(id, LogMsg::LM_WRITE_FILE_ERROR, strlen(data) + 1, data, INVALID_THREAD_ID);
 	}
 
 	inline void Info(ThreadManager &manager, ThreadID id, char *data)
 	{
-		manager.SendMsg(id, LogMsg::LM_WRITE_FILE_INFO, strlen(data) + 1, data);
+		manager.SendMsg(id, LogMsg::LM_WRITE_FILE_INFO, strlen(data) + 1, data, INVALID_THREAD_ID);
 	}
 }
 

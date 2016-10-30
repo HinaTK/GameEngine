@@ -16,7 +16,7 @@ class GateThread : public SocketThread
 {
 public:
 	virtual ~GateThread();
-	GateThread(ThreadManager *manager, unsigned char index, ThreadID login_id);
+	GateThread(ThreadManager *manager, unsigned char index, ThreadID login_id, TPT proto_type);
 
 	void	Dispatch(unsigned int msg_id, NetHandle handle, unsigned short len, char *data);
 	void	Dispatch(unsigned int msg_id, NetMsg &msg);
@@ -37,6 +37,7 @@ private:
 	TimerQueue		*m_timer_queue;
 	unsigned char	m_index;
 	ThreadID		m_login_id;
+	TPT				m_proto_type;
 };
 
 #endif

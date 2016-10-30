@@ -24,9 +24,9 @@ bool Global::Run()
 {
 	if (m_role_manager.Size() > 0)
 	{
-		for (game::Vector<TempRole *>::iterator itr = m_role_manager.Begin(); itr != m_role_manager.End(); ++itr)
+		for (game::Vector<TempRole>::iterator itr = m_role_manager.Begin(); itr != m_role_manager.End(); ++itr)
 		{
-			(*itr)->Dispatch();
+			itr->Dispatch(this);
 		}
 		return true;
 	}
@@ -37,13 +37,13 @@ void Global::RecvData(TPT type, ThreadID sid, int len, const char *data)
 {
 	switch (type)
 	{
-	case TProto::S_GATE_REG_ROLE:
+	CASE(TProto::GLOBAL_REG_ROLE)
 		TProto::sGateRegRole *grr = (TProto::sGateRegRole *)data;
 		m_role_manager.Push(TempRole((MsgQueue<NetMsg> *)grr->queue, grr->index, grr->gate_id, grr->handle));
-		break;
-	case TProto::TO_GLOBAL_LOAD_ROLE:
-		// todo 灏嗗悇鏁版嵁妯″潡鍒濆鍖栧埌瑙掕壊骞惰繘鍏ュ満鏅?
-	case TProto::R_GLOBAL_LOGOUT:
+		BREAK();
+	case TProto::GLOBAL_LOAD_ROLE:
+		// todo 加载角色缓存信息，找不到则到数据找
+	case TProto::GLOBAL_ROLE_LOGOUT:
 		RoleLogout((Role *)data);
 		break;
 	default:

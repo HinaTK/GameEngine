@@ -11,18 +11,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\include\cache\dataadapter.h" />
-    <ClInclude Include="..\..\lib\include\cache\datacache.h" />
-    <ClInclude Include="..\..\lib\include\cache\datamap.h" />
+    <ClInclude Include="..\..\lib\include\behavior\composite\selector.h" />
+    <ClInclude Include="..\..\lib\include\behavior\node.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lib\src\cache\datacache.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\..\lib\include\cache\设计.txt" />
+    <ClCompile Include="..\..\lib\src\behavior\composite\selector.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E}</ProjectGuid>
+    <ProjectGuid>{F57BCFF8-399B-4C46-8F53-2055FDB3126C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Cache</RootNamespace>
   </PropertyGroup>
@@ -51,9 +47,9 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\..\lib\include;..\..\lib\include\cache;..\..\;$(IncludePath)</IncludePath>
-    <OutDir>..\..\lib\windows</OutDir>
-    <IntDir>..\..\lib\temp</IntDir>
+    <IncludePath>..\..\lib\include;..\..\lib\include\behavior;..\..\;$(IncludePath)</IncludePath>
+    <OutDir>..\..\bin</OutDir>
+    <IntDir>..\..\bin\temp</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

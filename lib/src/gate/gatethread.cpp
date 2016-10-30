@@ -61,11 +61,12 @@ private:
 	GateThread *m_thread;
 };
 
-GateThread::GateThread(ThreadManager *manager, unsigned char index, ThreadID login_id)
+GateThread::GateThread(ThreadManager *manager, unsigned char index, ThreadID login_id, TPT proto_type)
 : SocketThread(manager)
 , m_timer_queue(New::_TimerQueue(4))
 , m_index(index)
 , m_login_id(login_id)
+, m_proto_type(proto_type)
 {
 	m_name = "gate";
 }
@@ -109,7 +110,7 @@ void GateThread::RecvData(TPT type, ThreadID sid, int len, const char *data)
 {
 	switch (type)
 	{
-	case TProto::R_GATE_LOGOUT:
+	case TProto::GATE_LOGOUT:
 	{
 		NetHandle handle = *(NetHandle *)data;
 		RemoveHandler(handle);
@@ -144,7 +145,7 @@ void GateThread::RegRole(NetHandle handle)
 		delete queue;
 		return;
 	}
-	SendMsg(m_login_id, TProto::S_GATE_REG_ROLE, sizeof(TProto::sGateRegRole), (const char *)&(TProto::sGateRegRole{queue, m_id, handle, index}));
+	SendMsg(m_login_id, m_proto_type, sizeof(TProto::sGateRegRole), (const char *)&(TProto::sGateRegRole{queue, m_id, handle, index}));
 }
 
 void GateThread::DelRole(unsigned int index)
@@ -154,13 +155,13 @@ void GateThread::DelRole(unsigned int index)
 	{
 		delete temp;
 	}
-	// todo 通知玩家？
+	// todo 通知玩家�?
 
 }
 
 void GateThread::Dispatch(unsigned int msg_id, NetMsg &msg)
 {
-	// todo 跨线程（异步） NetMsg 的buf需要处理一下
+	// todo 跨线程（异步�?NetMsg 的buf需要处理一�?
 	ROLE_MSG::iterator itr = m_role_msg.Find(msg_id);
 	if (itr != m_role_msg.End())
 	{

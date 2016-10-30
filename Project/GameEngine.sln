@@ -28,6 +28,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Inner", "..\LibProject\Inne
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Proxy", "Proxy.vcxproj", "{48923192-BD62-4CBB-8B9B-E06708AC3BF0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Behavior", "..\LibProject\Behavior\Behavior.vcxproj", "{F57BCFF8-399B-4C46-8F53-2055FDB3126C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -167,6 +169,16 @@ Global
 		{48923192-BD62-4CBB-8B9B-E06708AC3BF0}.Release|Win32.Build.0 = Release|Win32
 		{48923192-BD62-4CBB-8B9B-E06708AC3BF0}.Release|x64.ActiveCfg = Release|x64
 		{48923192-BD62-4CBB-8B9B-E06708AC3BF0}.Release|x64.Build.0 = Release|x64
+		{F57BCFF8-399B-4C46-8F53-2055FDB3126C}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{F57BCFF8-399B-4C46-8F53-2055FDB3126C}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{F57BCFF8-399B-4C46-8F53-2055FDB3126C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F57BCFF8-399B-4C46-8F53-2055FDB3126C}.Debug|Win32.Build.0 = Debug|Win32
+		{F57BCFF8-399B-4C46-8F53-2055FDB3126C}.Debug|x64.ActiveCfg = Debug|Win32
+		{F57BCFF8-399B-4C46-8F53-2055FDB3126C}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{F57BCFF8-399B-4C46-8F53-2055FDB3126C}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{F57BCFF8-399B-4C46-8F53-2055FDB3126C}.Release|Win32.ActiveCfg = Release|Win32
+		{F57BCFF8-399B-4C46-8F53-2055FDB3126C}.Release|Win32.Build.0 = Release|Win32
+		{F57BCFF8-399B-4C46-8F53-2055FDB3126C}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -179,5 +191,6 @@ Global
 		{5A99A955-0F4A-462C-ACD5-8FE49A95E52E} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
 		{B16E656B-DA3B-48E7-A5E0-A8CC338A0673} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
 		{55E09E14-D732-4E2B-9E6C-0397943B1D85} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
+		{F57BCFF8-399B-4C46-8F53-2055FDB3126C} = {8EFF0858-A371-4E72-B4A7-D3612AFE62C9}
 	EndGlobalSection
 EndGlobal

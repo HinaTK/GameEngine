@@ -2,10 +2,14 @@
 #ifndef GLOBAL_TEMP_ROLE_H
 #define GLOBAL_TEMP_ROLE_H
 
+#include "lib/include/common/message.h"
+#include "common/datastructure/msgqueue.h"
+
 class Global;
 class TempRole
 {
 public:
+	TempRole(){}
 	TempRole(MsgQueue<NetMsg> *queue, unsigned int index, ThreadID gate_id, NetHandle handle);
 
 	void 	Dispatch(Global *global);

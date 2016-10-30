@@ -42,7 +42,7 @@ void Role::Send(int len, char *data)
 
 void Role::Logout()
 {
-	m_manager->GetManager()->SendMsg(m_gate_id, TProto::R_GATE_LOGOUT, m_handle);
+	m_manager->GetManager()->SendMsg(m_gate_id, TProto::GATE_LOGOUT, m_handle);
 	m_msg_queue = NULL;
 }
 

@@ -30,8 +30,8 @@ public:
 	bool	Start();
 	bool	Cmd(char *buf);
 
-	ThreadID 	GetThreadID();
-	inline bool HandleMessage(Role *role, NetMsg *msg){return m_message_handler.HandleMessage(role, msg);}
+	//ThreadID 	GetThreadID();
+	inline bool HandleMessage(Role *role, NetMsg *msg){return m_message_handler.HandleMessage(role, *msg);}
 public:
 	ThreadID		m_global_id;
 	ThreadID		m_db_id[2];

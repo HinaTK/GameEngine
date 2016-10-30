@@ -3,6 +3,7 @@
 #define ROLE_CACHE_H
 
 #include <list>
+#include "common/serverdef.h"
 #include "common/datastructure/gamehash.h"
 
 class Role;

@@ -53,7 +53,7 @@ void MessageHandler::CSLogin(Global *global, TempRole *role, NetMsg &msg)
 		return;
 	}
 	
-	GetManager()->SendMsg(m_thread->GetThreadID(), TProto::S_DB_LOAD_ROLE, login->rid, m_thread->GetID());
+	//GetManager()->SendMsg(m_thread->GetThreadID(), TProto::S_DB_LOAD_ROLE, login->rid, m_thread->GetID());
 	// todo 加载玩家数据
 	// todo 切换场景
 

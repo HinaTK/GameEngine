@@ -60,6 +60,12 @@
     <ClCompile Include="..\GameServer\frame\messagehandler.cpp">
       <Filter>frame</Filter>
     </ClCompile>
+    <ClCompile Include="..\GameServer\global\temprole.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameServer\global\rolecache.cpp">
+      <Filter>global</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\GameServer\define.h" />
@@ -110,6 +116,12 @@
     </ClInclude>
     <ClInclude Include="..\GameServer\frame\netproto.h">
       <Filter>frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\global\temprole.h">
+      <Filter>global</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameServer\global\rolecache.h">
+      <Filter>global</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

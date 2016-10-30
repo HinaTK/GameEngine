@@ -23,5 +23,10 @@ typedef unsigned int	NetHandle;	// 内部网络标识
 #define INVALID_THREAD_ID 	255
 #define INVALID_NET_HANDLE	4294967295
 
+
+#define CASE(Val) case Val:{
+#define BREAK() }break;
+
+
 #endif
 
