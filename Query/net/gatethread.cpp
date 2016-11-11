@@ -43,24 +43,6 @@ private:
 };
 
 
-class InnerCallBack : public MsgCallBack
-{
-public:
-	InnerCallBack(GateThread *t)
-		: MsgCallBack()
-		, m_thread(t){}
-	~InnerCallBack(){}
-
-	void	Accept(NetHandle handle, const char *ip){}
-
-	void	Recv(NetMsg *msg){ /*m_thread->InnerRecv(msg); */};
-
-	void	Disconnect(NetHandle handle, int err, int reason){}
-
-private:
-	GateThread *m_thread;
-};
-
 GateThread::GateThread(ThreadManager *manager, unsigned char index, ThreadID login_id, TPT proto_type)
 : SocketThread(manager)
 , m_timer_queue(New::_TimerQueue(4))
@@ -83,20 +65,6 @@ bool GateThread::Init()
 	{
 		return false;
 	}
-	
-	ServerInfo info2 = GameConfig::Instance().center;
-	m_center_handle = SyncConnect(info2.ip, info2.port, new InnerListener(this), new InnerCallBack(this));
-
-	if (m_center_handle != INVALID_NET_HANDLE)
-	{
-		PProto::tocRegisterServer rs;
-		rs.type = PProto::ST_GATE;
-		rs.id = 1;
-		memcpy(rs.ip, info1.ip, sizeof(rs.ip));
-		rs.port = info1.port;
-		Send(m_center_handle, sizeof(PProto::tocRegisterServer), (const char *)&rs);
-	}
-	else return false;
 
 	return true;
 }

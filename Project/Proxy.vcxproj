@@ -83,7 +83,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..;..\lib\include;..\Client;$(IncludePath)</IncludePath>
+    <IncludePath>..;..\lib\include;..\Proxy;$(IncludePath)</IncludePath>
     <OutDir>..\bin</OutDir>
     <IntDir>..\bin\client</IntDir>
   </PropertyGroup>

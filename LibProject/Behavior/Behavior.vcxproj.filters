@@ -6,24 +6,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\include\cache\dataadapter.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\include\cache\datacache.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\lib\include\cache\datamap.h">
-      <Filter>src</Filter>
-    </ClInclude>
+    <ClInclude Include="..\..\lib\include\behavior\composite\selector.h" />
+    <ClInclude Include="..\..\lib\include\behavior\node.h" />
+    <ClInclude Include="..\..\lib\include\behavior\blackboard.h" />
+    <ClInclude Include="..\..\lib\include\behavior\behaviortree.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\lib\src\cache\datacache.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\..\lib\include\cache\设计.txt">
-      <Filter>src</Filter>
-    </Text>
+    <ClCompile Include="..\..\lib\src\behavior\composite\selector.cpp" />
   </ItemGroup>
 </Project>
