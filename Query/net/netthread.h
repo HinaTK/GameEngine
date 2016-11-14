@@ -22,6 +22,7 @@ public:
 	};
 
 	// 接收其它进程数据
+	void	Recv(NetMsg *msg);
 	void	InnerRecv(NetMsg *msg);
 protected:
 	bool	Init();

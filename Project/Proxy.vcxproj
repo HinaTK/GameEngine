@@ -85,7 +85,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>..;..\lib\include;..\Proxy;$(IncludePath)</IncludePath>
     <OutDir>..\bin</OutDir>
-    <IntDir>..\bin\client</IntDir>
+    <IntDir>..\bin\proxy</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
