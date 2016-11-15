@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="main">
+      <UniqueIdentifier>{bb9bf4ff-a637-48e3-8c86-e13e9a355be4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="net">
+      <UniqueIdentifier>{5504f7bd-9669-4471-b849-33ef875f272a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="other">
+      <UniqueIdentifier>{01a15b58-9422-409b-a0b2-b24633162e39}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\CenterProxy\other\proto.h">
+      <Filter>other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterProxy\net\gateaccepter.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterProxy\net\gatehandshake.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterProxy\net\gatelistener.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterProxy\net\gatethread.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterProxy\net\netthread.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterProxy\net\proto.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CenterProxy\other\serverconfig.h">
+      <Filter>other</Filter>
+    </ClInclude>
+    <ClInclude Include="..\centerproxy\main\centerproxy.h">
+      <Filter>main</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\CenterProxy\net\gateaccepter.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterProxy\net\gatehandshake.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterProxy\net\gatelistener.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterProxy\net\gatethread.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterProxy\net\netthread.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CenterProxy\other\serverconfig.cpp">
+      <Filter>other</Filter>
+    </ClCompile>
+    <ClCompile Include="..\centerproxy\main\centerproxy.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

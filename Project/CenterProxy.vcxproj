@@ -19,26 +19,30 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Query\main\query.cpp" />
-    <ClCompile Include="..\Query\net\gateaccepter.cpp" />
-    <ClCompile Include="..\Query\net\gatehandshake.cpp" />
-    <ClCompile Include="..\Query\net\gatelistener.cpp" />
-    <ClCompile Include="..\Query\net\gatethread.cpp" />
-    <ClCompile Include="..\Query\net\netthread.cpp" />
+    <ClInclude Include="..\centerproxy\main\centerproxy.h" />
+    <ClInclude Include="..\CenterProxy\net\gateaccepter.h" />
+    <ClInclude Include="..\CenterProxy\net\gatehandshake.h" />
+    <ClInclude Include="..\CenterProxy\net\gatelistener.h" />
+    <ClInclude Include="..\CenterProxy\net\gatethread.h" />
+    <ClInclude Include="..\CenterProxy\net\netthread.h" />
+    <ClInclude Include="..\CenterProxy\net\proto.h" />
+    <ClInclude Include="..\CenterProxy\other\proto.h" />
+    <ClInclude Include="..\CenterProxy\other\serverconfig.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Query\main\query.h" />
-    <ClInclude Include="..\Query\net\gateaccepter.h" />
-    <ClInclude Include="..\Query\net\gatehandshake.h" />
-    <ClInclude Include="..\Query\net\gatelistener.h" />
-    <ClInclude Include="..\Query\net\gatethread.h" />
-    <ClInclude Include="..\Query\net\netthread.h" />
-    <ClInclude Include="..\Query\net\proto.h" />
+    <ClCompile Include="..\centerproxy\main\centerproxy.cpp" />
+    <ClCompile Include="..\CenterProxy\net\gateaccepter.cpp" />
+    <ClCompile Include="..\CenterProxy\net\gatehandshake.cpp" />
+    <ClCompile Include="..\CenterProxy\net\gatelistener.cpp" />
+    <ClCompile Include="..\CenterProxy\net\gatethread.cpp" />
+    <ClCompile Include="..\CenterProxy\net\netthread.cpp" />
+    <ClCompile Include="..\CenterProxy\other\serverconfig.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{43B5197F-3177-4499-8A7C-11630614D4E2}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Query</RootNamespace>
+    <ProjectName>CenterProxy</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -90,10 +94,10 @@
     <IncludePath>..;..\Query;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..;..\Query;$(IncludePath)</IncludePath>
+    <IncludePath>..;..\centerproxy;$(IncludePath)</IncludePath>
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\bin</OutDir>
-    <IntDir>..\bin\query</IntDir>
+    <IntDir>..\bin\centerproxy</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -125,6 +129,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>/D _CRT_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
