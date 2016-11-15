@@ -14,15 +14,6 @@ struct ServerInfo
 	int				backlog;
 };
 
-struct DBInfo
-{
-	char			ip[16];
-	unsigned short	port;
-	std::string		user;
-	std::string		passwd;
-	std::string		dbname;
-};
-
 class ServerConfig
 {
 public:
@@ -30,27 +21,25 @@ public:
 	~ServerConfig(){}
 
 	bool	ReadServerInfo(char *node, ServerInfo &info);
-	ServerID	sid;
-	ServerInfo	center;
 protected:
 	bool	Init();
 	rapidjson::Document doc;
 };
 
-class GatawayConfig : public ServerConfig
+class ProxyConfig : public ServerConfig
 {
 public:
-	~GatawayConfig(){};
-	static GatawayConfig &Instance()
+	~ProxyConfig(){};
+	static ProxyConfig &Instance()
 	{
-		static GatawayConfig config;
+		static ProxyConfig config;
 		return config;
 	}
 	void	Read();
 
-	std::vector<ServerInfo>	m_server;
+	std::vector<ServerInfo>	server;
 private:
-	GatawayConfig();
+	ProxyConfig();
 };
 
 class CenterConfig : public ServerConfig
@@ -65,45 +54,10 @@ public:
 
 	void	Read();
 
-	ServerInfo	login;
-	DBInfo		db;
+	ServerInfo	server;
 
 private:
 	CenterConfig();
-};
-
-class GameConfig : public ServerConfig
-{
-public:
-	~GameConfig(){};
-	static GameConfig &Instance()
-	{
-		static GameConfig config;
-		return config;
-	}
-
-	void	Read();
-
-	ServerInfo game;
-private:
-	GameConfig();
-};
-
-class ProxyConfig : public ServerConfig
-{
-public:
-	~ProxyConfig(){};
-	static ProxyConfig &Instance()
-	{
-		static ProxyConfig config;
-		return config;
-	}
-
-	void	Read();
-
-	ServerInfo proxy;
-private:
-	ProxyConfig();
 };
 
 #endif

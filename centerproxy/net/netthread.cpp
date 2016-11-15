@@ -1,10 +1,10 @@
 
 #include "netthread.h"
-#include "lib/include/gate/gateaccepter.h"
-#include "lib/include/common/serverconfig.h"
+#include "other/serverconfig.h"
+#include "gateaccepter.h"
+#include "gatelistener.h"
 #include "lib/include/common/argsplit.h"
 #include "lib/include/base/interface.h"
-#include "CenterServer/net/src/proto.h"
 
 class CallBack : public MsgCallBack
 {
@@ -16,9 +16,9 @@ public:
 
 	void	Accept(NetHandle handle, const char *ip){};
 
-    void	Recv(NetMsg *msg){m_thread->Recv(&msg);}
+    void	Recv(NetMsg *msg){m_thread->Recv(msg);}
 
-	void	Disconnect(NetHandle handle, int err, int reason){};
+	void	Disconnect(NetHandle handle, int err, int reason){}
 
 private:
 	NetThread *m_thread;
@@ -34,7 +34,7 @@ public:
 
 	void	Connect(NetHandle handle, int flag){};
 
-	void	Recv(NetMsg &msg){m_thread->InnerRecv(&msg);}
+	void	Recv(NetMsg *msg){m_thread->InnerRecv(msg);}
 
 	void	Disconnect(NetHandle handle, int reason){};
 
@@ -52,13 +52,14 @@ NetThread::NetThread(ThreadManager *manager, int index)
 
 bool NetThread::Init()
 {
-	ServerInfo &info1 = ProxyConfig::Instance().proxy;
+	ServerInfo &info1 = ProxyConfig::Instance().server[m_index - 1];
 	if (!InitServer(info1.ip, info1.port, info1.backlog, new GateAccepter(this), new CallBack(this)))
 	{
 		return false;
 	}
-	
-	m_server_handle = SyncConnect("127.0.0.1", 12346, new GateListener(this), new InnerCallBack(this));
+
+	ServerInfo &info2 = CenterConfig::Instance().server;
+	m_server_handle = SyncConnect(info2.ip, info2.port, new GateListener(this), new InnerCallBack(this));
 	if (m_server_handle == INVALID_NET_HANDLE)
 	{
 		return false;

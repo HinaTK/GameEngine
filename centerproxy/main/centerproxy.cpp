@@ -1,45 +1,45 @@
 
-#include "query.h"
+#include "centerproxy.h"
 #include "net/netthread.h"
 #include "lib/include/frame/main.h"
 
-Query::Query()
+CenterProxy::CenterProxy()
 {
 
 }
 
-Query::~Query()
+CenterProxy::~CenterProxy()
 {
 
 }
 
-bool Query::Init()
+bool CenterProxy::Init()
 {
 	m_thread_manager.Register(new NetThread(&m_thread_manager, 1));
 	m_thread_manager.Register(new NetThread(&m_thread_manager, 2));
 	return m_thread_manager.Init();
 }
 
-bool Query::Start()
+bool CenterProxy::Start()
 {
 	m_thread_manager.Start();
 	this->Run();
 	return true;
 }
 
-bool Query::Cmd(char *buf)
+bool CenterProxy::Cmd(char *buf)
 {
 	return false;
 }
 
-void Query::Exit()
+void CenterProxy::Exit()
 {
 
 }
 
-void Query::Wait()
+void CenterProxy::Wait()
 {
 
 }
 
-GAME_MAIN(Query);
+GAME_MAIN(CenterProxy);

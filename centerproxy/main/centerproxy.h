@@ -7,15 +7,15 @@
 #include "lib/include/frame/frame.h"
 #include "lib/include/thread/threadmanager.h"
 
-class Query : public Frame
+class CenterProxy : public Frame
 {
 public:
-	Query();
-	virtual ~Query();
+	CenterProxy();
+	virtual ~CenterProxy();
 
-	static Query &Instance()
+	static CenterProxy &Instance()
 	{
-		static Query frame;
+		static CenterProxy frame;
 		return frame;
 	}
 	bool	Init();    //≥ı ºªØ
