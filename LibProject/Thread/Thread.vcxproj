@@ -34,6 +34,11 @@
     <ClCompile Include="..\..\lib\src\thread\threadpool.cpp" />
     <ClCompile Include="..\..\lib\src\thread\treethread.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Base\base.vcxproj">
+      <Project>{1ae5d021-4dd2-4e82-8ff5-8455c60bd56b}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4FAB63CA-EF8C-4EB8-9E4E-3EAA40C6E58E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

@@ -37,6 +37,11 @@
     <ClCompile Include="..\..\lib\src\common\serializer.cpp" />
     <ClCompile Include="..\..\lib\src\common\serverconfig.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Base\base.vcxproj">
+      <Project>{1ae5d021-4dd2-4e82-8ff5-8455c60bd56b}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{8F0F74CF-3672-4629-98D4-322BA0ACFC7B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
