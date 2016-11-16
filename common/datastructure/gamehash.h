@@ -64,7 +64,7 @@ namespace game
 		iterator	End(){ return m_value_array.End(); }
 
 		bool		Push(K key, V &val);
-		bool		Push(K key, const V &val){ return Push(key, val); }
+		bool		Push(K key, const V &val){ return Push(key, (V)val); }
 		void		Erase(K key);
 		ValNode &	operator[](K key)
 		{

@@ -30,7 +30,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Proxy", "Proxy.vcxproj", "{
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Behavior", "..\LibProject\Behavior\Behavior.vcxproj", "{F57BCFF8-399B-4C46-8F53-2055FDB3126C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Query", "Query.vcxproj", "{43B5197F-3177-4499-8A7C-11630614D4E2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CenterProxy", "CenterProxy.vcxproj", "{43B5197F-3177-4499-8A7C-11630614D4E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -192,7 +192,8 @@ Global
 		{43B5197F-3177-4499-8A7C-11630614D4E2}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{43B5197F-3177-4499-8A7C-11630614D4E2}.Release|Win32.ActiveCfg = Release|Win32
 		{43B5197F-3177-4499-8A7C-11630614D4E2}.Release|Win32.Build.0 = Release|Win32
-		{43B5197F-3177-4499-8A7C-11630614D4E2}.Release|x64.ActiveCfg = Release|Win32
+		{43B5197F-3177-4499-8A7C-11630614D4E2}.Release|x64.ActiveCfg = Release|x64
+		{43B5197F-3177-4499-8A7C-11630614D4E2}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

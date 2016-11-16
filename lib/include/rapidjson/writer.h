@@ -42,6 +42,7 @@ RAPIDJSON_DIAG_OFF(4127) // conditional expression is constant
 RAPIDJSON_DIAG_PUSH
 RAPIDJSON_DIAG_OFF(padded)
 RAPIDJSON_DIAG_OFF(unreachable-code)
+RAPIDJSON_DIAG_OFF(c++98-compat)
 #endif
 
 RAPIDJSON_NAMESPACE_BEGIN
@@ -63,7 +64,7 @@ RAPIDJSON_NAMESPACE_BEGIN
 enum WriteFlag {
     kWriteNoFlags = 0,              //!< No flags are set.
     kWriteValidateEncodingFlag = 1, //!< Validate encoding of JSON strings.
-    kWriteNanAndInfFlag = 2,        //!< Allow writing of Inf, -Inf and NaN.
+    kWriteNanAndInfFlag = 2,        //!< Allow writing of Infinity, -Infinity and NaN.
     kWriteDefaultFlags = RAPIDJSON_WRITE_DEFAULT_FLAGS  //!< Default write flags. Can be customized by defining RAPIDJSON_WRITE_DEFAULT_FLAGS
 };
 
@@ -102,6 +103,13 @@ public:
     explicit
     Writer(StackAllocator* allocator = 0, size_t levelDepth = kDefaultLevelDepth) :
         os_(0), level_stack_(allocator, levelDepth * sizeof(Level)), maxDecimalPlaces_(kDefaultMaxDecimalPlaces), hasRoot_(false) {}
+
+#if RAPIDJSON_HAS_CXX11_RVALUE_REFS
+    Writer(Writer&& rhs) :
+        os_(rhs.os_), level_stack_(std::move(rhs.level_stack_)), maxDecimalPlaces_(rhs.maxDecimalPlaces_), hasRoot_(rhs.hasRoot_) {
+        rhs.os_ = 0;
+    }
+#endif
 
     //! Reset the writer with a new stream.
     /*!
@@ -169,30 +177,32 @@ public:
     */
     //@{
 
-    bool Null()                 { Prefix(kNullType);   return WriteNull(); }
-    bool Bool(bool b)           { Prefix(b ? kTrueType : kFalseType); return WriteBool(b); }
-    bool Int(int i)             { Prefix(kNumberType); return WriteInt(i); }
-    bool Uint(unsigned u)       { Prefix(kNumberType); return WriteUint(u); }
-    bool Int64(int64_t i64)     { Prefix(kNumberType); return WriteInt64(i64); }
-    bool Uint64(uint64_t u64)   { Prefix(kNumberType); return WriteUint64(u64); }
+    bool Null()                 { Prefix(kNullType);   return EndValue(WriteNull()); }
+    bool Bool(bool b)           { Prefix(b ? kTrueType : kFalseType); return EndValue(WriteBool(b)); }
+    bool Int(int i)             { Prefix(kNumberType); return EndValue(WriteInt(i)); }
+    bool Uint(unsigned u)       { Prefix(kNumberType); return EndValue(WriteUint(u)); }
+    bool Int64(int64_t i64)     { Prefix(kNumberType); return EndValue(WriteInt64(i64)); }
+    bool Uint64(uint64_t u64)   { Prefix(kNumberType); return EndValue(WriteUint64(u64)); }
 
     //! Writes the given \c double value to the stream
     /*!
         \param d The value to be written.
         \return Whether it is succeed.
     */
-    bool Double(double d)       { Prefix(kNumberType); return WriteDouble(d); }
+    bool Double(double d)       { Prefix(kNumberType); return EndValue(WriteDouble(d)); }
 
     bool RawNumber(const Ch* str, SizeType length, bool copy = false) {
+        RAPIDJSON_ASSERT(str != 0);
         (void)copy;
         Prefix(kNumberType);
-        return WriteString(str, length);
+        return EndValue(WriteString(str, length));
     }
 
     bool String(const Ch* str, SizeType length, bool copy = false) {
+        RAPIDJSON_ASSERT(str != 0);
         (void)copy;
         Prefix(kStringType);
-        return WriteString(str, length);
+        return EndValue(WriteString(str, length));
     }
 
 #if RAPIDJSON_HAS_STDSTRING
@@ -214,10 +224,7 @@ public:
         RAPIDJSON_ASSERT(level_stack_.GetSize() >= sizeof(Level));
         RAPIDJSON_ASSERT(!level_stack_.template Top<Level>()->inArray);
         level_stack_.template Pop<Level>(1);
-        bool ret = WriteEndObject();
-        if (RAPIDJSON_UNLIKELY(level_stack_.Empty()))   // end of json text
-            os_->Flush();
-        return ret;
+        return EndValue(WriteEndObject());
     }
 
     bool StartArray() {
@@ -231,10 +238,7 @@ public:
         RAPIDJSON_ASSERT(level_stack_.GetSize() >= sizeof(Level));
         RAPIDJSON_ASSERT(level_stack_.template Top<Level>()->inArray);
         level_stack_.template Pop<Level>(1);
-        bool ret = WriteEndArray();
-        if (RAPIDJSON_UNLIKELY(level_stack_.Empty()))   // end of json text
-            os_->Flush();
-        return ret;
+        return EndValue(WriteEndArray());
     }
     //@}
 
@@ -255,7 +259,11 @@ public:
         \param length Length of the json.
         \param type Type of the root of json.
     */
-    bool RawValue(const Ch* json, size_t length, Type type) { Prefix(type); return WriteRawValue(json, length); }
+    bool RawValue(const Ch* json, size_t length, Type type) {
+        RAPIDJSON_ASSERT(json != 0);
+        Prefix(type);
+        return EndValue(WriteRawValue(json, length));
+    }
 
 protected:
     //! Information for each nested level
@@ -458,6 +466,13 @@ protected:
             RAPIDJSON_ASSERT(!hasRoot_);    // Should only has one and only one root.
             hasRoot_ = true;
         }
+    }
+
+    // Flush the value if it is the top level one.
+    bool EndValue(bool ret) {
+        if (RAPIDJSON_UNLIKELY(level_stack_.Empty()))   // end of json text
+            os_->Flush();
+        return ret;
     }
 
     OutputStream* os_;

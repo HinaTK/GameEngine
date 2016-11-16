@@ -60,12 +60,6 @@ GateThread::~GateThread()
 
 bool GateThread::Init()
 {
-	ServerInfo &info1 = GatawayConfig::Instance().m_server[m_index];
-	if (!InitServer(info1.ip, info1.port, info1.backlog, new GateAccepter(this, 1024), new CallBack(this)))
-	{
-		return false;
-	}
-
 	return true;
 }
 
