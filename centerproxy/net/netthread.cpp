@@ -75,8 +75,9 @@ void NetThread::Recv(NetMsg *msg)
 	// 并返回给本地网关，本地网关存储后，通知客户端切换场景
 	// SCSceneEnter
 
-	InnerProtocol::WGNetRecvMsg *rm = (InnerProtocol::WGNetRecvMsg *)msg->data;
-	if (rm->header.msgid == 1185)
+	InnerProtocol::MessageHeader *header = (InnerProtocol::MessageHeader *)msg->data;
+	if (header->msgid == InnerProtocol::MT_INNER_GATE_SERVER_USER_RECV ||
+		header->msgid == InnerProtocol::MT_INNER_SCENE_TO_PROXY_TO_SCENE)
 	{
 		// 分配id todo 活动结束后，清空m_proxy，免得出错了，id溢出
 		if (msg->handle >= m_gate.size())
@@ -84,16 +85,16 @@ void NetThread::Recv(NetMsg *msg)
 			m_gate.resize(msg->handle);
 		}
 		game::Hash<int, NetHandle> &hash = m_gate[msg->handle];
-		game::Hash<int, NetHandle>::iterator itr = hash.Find(rm->header.outer_netid);
+		game::Hash<int, NetHandle>::iterator itr = hash.Find(header->outer_netid);
 		if (itr == hash.End())
 		{
-			unsigned short gate_net_id = rm->header.outer_netid;
-			rm->header.outer_netid = m_proxy.Insert(Route{ msg->handle, rm->header.outer_netid });
-			hash.Push(gate_net_id, rm->header.outer_netid);
+			unsigned short gate_net_id = header->outer_netid;
+			header->outer_netid = m_proxy.Insert(Route{ msg->handle, header->outer_netid });
+			hash.Push(gate_net_id, header->outer_netid);
 		}
 		else
 		{
-			rm->header.outer_netid = itr->val;
+			header->outer_netid = itr->val;
 		}	
 	}
 
@@ -150,6 +151,27 @@ void NetThread::RecvData(TPT type, ThreadID sid, int len, const char *data)
 
 bool NetThread::CMD(TPT type, ThreadID sid, int len, const char *data)
 {
-	return true;
+	char *buf;
+	ArgSplit split((char *)data);
+	split.GetArg(&buf);
+	if (strcmp(buf, "test") == 0)
+	{
+		if (split.GetLeft(&buf))
+		{
+			int id = atoi(buf);
+			m_db_manager.Test(id);
+			return true;
+		}
+	}
+	else if (strcmp(buf, "test2") == 0)
+	{
+		if (split.GetLeft(&buf))
+		{
+			int id = atoi(buf);
+			m_db_manager.SaveRoleMaxID(id);
+			return true;
+		}
+	}
+	return false;
 }
 

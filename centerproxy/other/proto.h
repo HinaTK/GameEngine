@@ -20,11 +20,12 @@ namespace InnerProtocol
 	{
 		MT_INTERNAL_INVALID,
 
-		MT_INNER_GATE_SERVER_USER_RECV,
+		MT_INNER_GATE_SERVER_USER_RECV = 1,
 		MT_INNER_SERVER_GATE_USER_SEND_ONE = 4,
 		MT_INNER_SERVER_GATE_USER_SEND_MUL,
 		MT_INNER_SERVER_GATE_USER_SEND_ALL,
 		MT_INNER_SERVER_GATE_USER_DISCONNECT,
+		MT_INNER_SCENE_TO_PROXY_TO_SCENE = 9,		// 本地场景与中心场景通信
 		MT_INNER_CENTER_TO_GATE = 9
 	};
 
@@ -35,9 +36,16 @@ namespace InnerProtocol
 		// 从该地址开始为收到消息的内容
 	};
 
-	struct GWCenterSend
+	struct GWSceneSend
 	{
-		GWCenterSend() :header(MT_INNER_CENTER_TO_GATE){}
+		GWSceneSend():header(MT_INNER_SCENE_TO_PROXY_TO_SCENE){}
+		MessageHeader	header;
+		// 后面紧更着消息内容
+	};
+
+	struct GWGateSend
+	{
+		GWGateSend():header(MT_INNER_GATE_TO_PROXY_TO_SCENE){}
 		MessageHeader	header;
 		// 后面紧更着消息内容
 	};
