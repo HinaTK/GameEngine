@@ -116,6 +116,9 @@ void NetThread::InnerRecv(NetMsg *msg)
 	case InnerProtocol::MT_INNER_SERVER_GATE_USER_DISCONNECT:
 		OnInnerRecvDisconnect(msg->data, msg->length);
 		break;
+	case InnerProtocol::MT_INNER_SCENE_TO_PROXY_TO_SCENE:
+
+		break;
 	default:
 		break;
 	}
@@ -133,6 +136,7 @@ void NetThread::OnInnerRecv(const char *data, int length)
 }
 
 // todo 在中心服务器中加判断,调用下线时，判断是否需要重新保存数据
+
 void NetThread::OnInnerRecvDisconnect(const char *data, int length)
 {
 	InnerProtocol::MessageHeader *header = (InnerProtocol::MessageHeader*)data;
@@ -151,27 +155,27 @@ void NetThread::RecvData(TPT type, ThreadID sid, int len, const char *data)
 
 bool NetThread::CMD(TPT type, ThreadID sid, int len, const char *data)
 {
-	char *buf;
-	ArgSplit split((char *)data);
-	split.GetArg(&buf);
-	if (strcmp(buf, "test") == 0)
-	{
-		if (split.GetLeft(&buf))
-		{
-			int id = atoi(buf);
-			m_db_manager.Test(id);
-			return true;
-		}
-	}
-	else if (strcmp(buf, "test2") == 0)
-	{
-		if (split.GetLeft(&buf))
-		{
-			int id = atoi(buf);
-			m_db_manager.SaveRoleMaxID(id);
-			return true;
-		}
-	}
+// 	char *buf;
+// 	ArgSplit split((char *)data);
+// 	split.GetArg(&buf);
+// 	if (strcmp(buf, "test") == 0)
+// 	{
+// 		if (split.GetLeft(&buf))
+// 		{
+// 			int id = atoi(buf);
+// 			m_db_manager.Test(id);
+// 			return true;
+// 		}
+// 	}
+// 	else if (strcmp(buf, "test2") == 0)
+// 	{
+// 		if (split.GetLeft(&buf))
+// 		{
+// 			int id = atoi(buf);
+// 			m_db_manager.SaveRoleMaxID(id);
+// 			return true;
+// 		}
+// 	}
 	return false;
 }
 

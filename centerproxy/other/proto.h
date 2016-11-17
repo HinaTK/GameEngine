@@ -42,13 +42,6 @@ namespace InnerProtocol
 		MessageHeader	header;
 		// 后面紧更着消息内容
 	};
-
-	struct GWGateSend
-	{
-		GWGateSend():header(MT_INNER_GATE_TO_PROXY_TO_SCENE){}
-		MessageHeader	header;
-		// 后面紧更着消息内容
-	};
 }
 
 #pragma pack(pop)
