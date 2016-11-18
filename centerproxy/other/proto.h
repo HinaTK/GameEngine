@@ -25,8 +25,9 @@ namespace InnerProtocol
 		MT_INNER_SERVER_GATE_USER_SEND_MUL,
 		MT_INNER_SERVER_GATE_USER_SEND_ALL,
 		MT_INNER_SERVER_GATE_USER_DISCONNECT,
-		MT_INNER_SCENE_TO_PROXY_TO_SCENE = 9,		// 本地场景与中心场景通信
-		MT_INNER_CENTER_TO_GATE = 9
+		MT_INNER_GAME_TO_CENTER,					// 本地场景与中心场景通信
+		MT_INNER_CENTER_TO_GAME,					// 中心场景与本地场景通信
+		MT_INNER_CENTER_BACK_TO_GAME,		// 中心服玩家下线，在本地重新上线
 	};
 
 	struct WGNetRecvMsg
@@ -38,7 +39,7 @@ namespace InnerProtocol
 
 	struct GWSceneSend
 	{
-		GWSceneSend():header(MT_INNER_SCENE_TO_PROXY_TO_SCENE){}
+		GWSceneSend() :header(MT_INNER_GAME_TO_CENTER){}
 		MessageHeader	header;
 		// 后面紧更着消息内容
 	};

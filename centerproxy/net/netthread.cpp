@@ -77,7 +77,7 @@ void NetThread::Recv(NetMsg *msg)
 
 	InnerProtocol::MessageHeader *header = (InnerProtocol::MessageHeader *)msg->data;
 	if (header->msgid == InnerProtocol::MT_INNER_GATE_SERVER_USER_RECV ||
-		header->msgid == InnerProtocol::MT_INNER_SCENE_TO_PROXY_TO_SCENE)
+		header->msgid == InnerProtocol::MT_INNER_GAME_TO_CENTER)
 	{
 		// 分配id todo 活动结束后，清空m_proxy，免得出错了，id溢出
 		if (msg->handle >= m_gate.size())
@@ -111,13 +111,12 @@ void NetThread::InnerRecv(NetMsg *msg)
 	case InnerProtocol::MT_INNER_SERVER_GATE_USER_SEND_ONE:
 	case InnerProtocol::MT_INNER_SERVER_GATE_USER_SEND_MUL:
 	case InnerProtocol::MT_INNER_SERVER_GATE_USER_SEND_ALL:
+	case InnerProtocol::MT_INNER_CENTER_TO_GAME:
+	case InnerProtocol::MT_INNER_CENTER_BACK_TO_GAME:
 		OnInnerRecv(msg->data, msg->length);
 		break;
 	case InnerProtocol::MT_INNER_SERVER_GATE_USER_DISCONNECT:
 		OnInnerRecvDisconnect(msg->data, msg->length);
-		break;
-	case InnerProtocol::MT_INNER_SCENE_TO_PROXY_TO_SCENE:
-
 		break;
 	default:
 		break;
