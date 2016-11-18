@@ -52,11 +52,11 @@ ProxyConfig::ProxyConfig()
 
 void ProxyConfig::Read()
 {
-	if (!doc.HasMember("gateway") || !doc["gateway"].IsArray()){
+	if (!doc.HasMember("proxy") || !doc["proxy"].IsArray()){
 		return;
 	}
 	ServerInfo info;
-	rapidjson::Value &array = doc["gateway"];
+	rapidjson::Value &array = doc["proxy"];
 	for (unsigned int i = 0; i < array.Size(); ++i)
 	{
 		rapidjson::Value &object = array[i];
