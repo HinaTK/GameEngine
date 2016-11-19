@@ -28,11 +28,11 @@ SendBuffer::~SendBuffer()
 
 bool SendBuffer::Resize(unsigned int size)
 {
-	char *new_buf = Mem::Alloc(m_size + size);
+	m_size += size;
+	char *new_buf = Mem::Alloc(m_size);
 	memcpy(new_buf, m_buf, m_length);
 	Mem::Free(m_buf);
 	m_buf = new_buf;
-	m_size += size;
 	return true;
 }
 
@@ -60,12 +60,12 @@ void SendBuffer::Push(unsigned int buf)
 	static const int INT_LEN = sizeof(unsigned int);
 	if (INT_LEN > (m_size - m_length))
 	{
-		if (!Resize(m_size + INT_LEN))
+		if (!Resize(INT_LEN))
 		{
 			return;
 		}
 	}
-	*(int *)m_buf = buf;
+	*(unsigned int *)(m_buf + m_length) = buf;
 	m_length += INT_LEN;
 }
 
@@ -74,7 +74,7 @@ void SendBuffer::Push(const char *buf, unsigned int len)
 {
 	if (len > (m_size - m_length))
 	{
-		if (!Resize(m_size + len))
+		if (!Resize(len))
 		{
 			return;
 		}
@@ -132,7 +132,7 @@ int RecvBuffer::AddBufLen(int len)
 	if (m_msg.cur_len == NetCommon::HEADER_LENGTH)
 	{
 		NetCommon::Header *header = (NetCommon::Header *)m_msg.buf;
-		if (header->msg_len > 0 && header->msg_len < m_buf_size)
+		if (header->msg_len > 0 && (header->msg_len < m_buf_size || m_buf_size <= 0))
 		{
 			if (header->msg_len > m_msg.buf_size - m_msg.cur_len)
 			{
