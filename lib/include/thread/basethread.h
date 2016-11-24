@@ -9,6 +9,9 @@
 #include "lib/include/common/message.h"
 #include "common/serverdef.h"
 
+#define THREAD_RUNNING	true;
+#define THREAD_IDLING	false;
+
 class BaseThread
 {
 public:

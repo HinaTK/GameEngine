@@ -41,6 +41,7 @@ public:
 	};
 
 	// disconnect reason
+	// todo 实现将枚举转成输出
 	enum
 	{
 		DR_RECV_BUF = 1,
