@@ -3,6 +3,7 @@
 #define GAME_TIME_H
 
 #include <time.h>
+#include "export.h"
 
 class GameTime
 {
@@ -29,6 +30,21 @@ private:
 	int					m_day_id;
 	int					m_sceond_id;
 	unsigned long long	m_FPS;		// 毫秒
+};
+
+namespace TimeUtil
+{
+	static const time_t A_DAY 	= 24 * 3600;
+	static const time_t A_WEEK	= 7 * A_DAY;
+
+	EXPORT time_t	Today();
+	EXPORT time_t	Today(time_t now);
+
+	EXPORT int 		WeekDay();
+	EXPORT int 		WeekDay(time_t now);
+
+	EXPORT time_t	NextWeek(int day);
+	EXPORT time_t	NextWeek(time_t now, int day);
 };
 
 #endif // GAMETIME_H

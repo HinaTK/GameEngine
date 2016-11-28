@@ -80,6 +80,7 @@ namespace New
 
 namespace Delete
 {
+	EXPORT void _TimerManager(TimerManager *tm);
 	EXPORT void _TimerQueue(TimerQueue * queue);
 }
 #endif

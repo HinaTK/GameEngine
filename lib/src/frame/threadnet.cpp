@@ -143,7 +143,7 @@ void ThreadNet::AsyncConnect(const char *ip, unsigned short port, Listener *list
 	SocketMsg::AddHandler ah;
 	ah.flag = flag;
 	ah.listener = (void *)listener;
-	PushMsg(ThreadMsg(SocketMsg::STM_ADD_HANDLER, -1, sizeof(SocketMsg::AddHandler), (const char *)&ah, GetMemory()));
+	PushMsg(ThreadMsg(-1, SocketMsg::STM_ADD_HANDLER, sizeof(SocketMsg::AddHandler), (const char *)&ah, GetMemory()));
 }
 
 void ThreadNet::Recv(unsigned short msg_index, NetMsgType msg_type, NetMsg &msg)

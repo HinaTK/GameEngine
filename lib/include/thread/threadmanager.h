@@ -7,6 +7,8 @@
 #include "common/serverdef.h"
 #include "common/datastructure/gamearray.h"
 
+#define POINT_2_CLASS(Point, Class) *(Class *)&Point
+
 class ThreadMsg;
 class BaseThread;
 class ThreadClass;

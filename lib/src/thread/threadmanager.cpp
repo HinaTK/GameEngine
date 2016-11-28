@@ -83,6 +83,15 @@ void ThreadManager::SendMsg(ThreadID did, ThreadClass *tc)
 	}
 }
 
+void ThreadManager::SendMsg(ThreadID did, TPT type, int data, ThreadID sid)
+{
+	ThreadMsg tm;
+	tm.id = sid;
+	tm.type = type;
+	*(int *)&tm.data = data;
+	SendMsg(did, tm);
+}
+
 void ThreadManager::SendMsg(ThreadID did, TPT type, unsigned int data, ThreadID sid)
 {
 	ThreadMsg tm;
@@ -127,13 +136,13 @@ void ThreadManager::CMD(TPT type, ThreadID sid, int len, const char *data, Threa
 			m_thread[did]->PushMsg(ThreadMsg(sid, type, len, data, m_thread[did]->GetMemory()));
 		}
 	}
-	else
-	{
-		for (game::Array<BaseThread * >::iterator itr = m_thread.Begin(); itr != m_thread.End(); ++itr)
-		{
-			(*itr)->PushMsg(ThreadMsg(sid, type, len, data, m_thread[did]->GetMemory()));
-		}
-	}
+// 	else
+// 	{
+// 		for (game::Array<BaseThread * >::iterator itr = m_thread.Begin(); itr != m_thread.End(); ++itr)
+// 		{
+// 			(*itr)->PushMsg(ThreadMsg(sid, type, len, data, m_thread[did]->GetMemory()));
+// 		}
+// 	}
 }
 
 void ThreadManager::Exit()

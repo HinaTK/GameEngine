@@ -90,5 +90,50 @@ void GameTime::Update()
 }
 
 
+time_t TimeUtil::Today()
+{
+	return Today(time(NULL));
+}
 
+time_t TimeUtil::Today(time_t now)
+{
+	struct tm *temp = localtime(&now);
+	temp->tm_hour = 0;
+	temp->tm_min = 0;
+	temp->tm_sec = 0;
+	return mktime(temp);
+}
 
+int TimeUtil::WeekDay()
+{
+	return WeekDay(time(NULL));
+}
+
+int TimeUtil::WeekDay(time_t now)
+{
+	return localtime(&now)->tm_wday;
+}
+
+time_t TimeUtil::NextWeek(int day)
+{
+	return TimeUtil::NextWeek(day, time(NULL));
+}
+
+EXPORT time_t TimeUtil::NextWeek(time_t now, int day)
+{
+	if (day < 0 || day > 6)
+	{
+		return 0;
+	}
+
+	struct tm *temp = localtime(&now);
+	temp->tm_hour = 0;
+	temp->tm_min = 0;
+	temp->tm_sec = 0;
+	time_t today = mktime(temp);
+	if (temp->tm_wday < day)
+	{
+		return today + (temp->tm_wday - day + 7) * A_DAY;
+	}
+	return today + (temp->tm_wday - day) * A_DAY;
+}

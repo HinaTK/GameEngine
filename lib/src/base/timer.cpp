@@ -22,7 +22,7 @@ void TimerManager::AddEvent(time_t interval, TimeEvent *e)
 
 bool TimerManager::Update(time_t now)
 {	
-	if (now >= m_update_time)
+	if (m_update_time > 0 && now >= m_update_time)
 	{
 		Timer timer;
 		while (m_event_heap.Front(&timer))
@@ -104,4 +104,9 @@ TimerQueue * New::_TimerQueue(int interval)
 void Delete::_TimerQueue(TimerQueue * queue)
 {
 	delete queue;
+}
+
+void Delete::_TimerManager(TimerManager *tm)
+{
+	delete tm;
 }
