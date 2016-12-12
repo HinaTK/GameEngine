@@ -94,6 +94,23 @@ void ThreadNet::Send(NetHandle handle, int length, const char *data)
 	}
 }
 
+void ThreadNet::Broadcast(int length, const char *data)
+{
+	NET_HANDLER_ARRAY::iterator itr = m_net_handler.Begin();
+	for (; itr != m_net_handler.End(); ++itr)
+	{
+		if ((*itr)->Type() == NetHandler::LISTENER)
+		{
+			Listener *listener = (Listener *)(*itr);
+			if (listener != NULL)
+			{
+				listener->Send(data, length);
+				listener->RegisterWriteFD();
+			}
+		}
+	}
+}
+
 bool ThreadNet::InitServer(const char *ip, unsigned short port, int backlog, Accepter *accepter, MsgCallBack *call_back)
 {
 	Function::Info("Init Server ...", ip, port);

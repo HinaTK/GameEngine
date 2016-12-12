@@ -27,7 +27,7 @@ public:
 		Iterator():m_index(0){}
 		Iterator(unsigned int index, Handle *handle = 0) :m_index(index), m_handle(handle){}
 		~Iterator(){}
-
+		
 		Iterator<V, Handle>& operator ++()
 		{
 			++m_index;
@@ -78,6 +78,8 @@ public:
 	bool			Exist(unsigned int index, T &val);
 
 	unsigned int	Size(){ return m_size; }
+	unsigned int 	BeginIndex(){return m_begin.m_index;}
+	unsigned int 	EndIndex(){return m_end.m_index;}
 
 	iterator		Begin(){ return m_begin; }
 	iterator		End(){ return m_end; }
@@ -100,18 +102,18 @@ private:
 	std::queue<unsigned int> m_index_pool;
 	iterator		m_begin;
 	iterator		m_end;
+	iterator		m_temp;
 	unsigned int	m_size;
 };
 
 template<class T>
 Array<T>::Array(unsigned int size)
 : m_value(size)
+, m_begin(0 ,this)
+, m_end(0, this)
 , m_size(0)
 {
-	m_begin.m_handle	= this;
-	m_begin.m_index		= 0;
-	m_end.m_handle		= this;
-	m_end.m_index		= 0;
+	
 }
 
 // m_index_pool这样处理有问题，因为放到池里的索引可能很大，再读出来的时候，会浪费性能 2015.1.27

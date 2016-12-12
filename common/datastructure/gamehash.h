@@ -64,8 +64,8 @@ namespace game
 		iterator	End(){ return m_value_array.End(); }
 
 		bool		Push(K key, V &val);
-		bool		Push(K key, const V &val){ return Push(key, (V)val); }
 		void		Erase(K key);
+		void		Clear();
 		ValNode &	operator[](K key)
 		{
 			unsigned int real_key = key % m_size;
@@ -165,6 +165,25 @@ namespace game
 			frontNode = node;
 			node = node->next;
 		}
+	}
+
+	template<class K, class V>
+	void game::Hash<K, V>::Clear()
+	{
+		KeyNode *next_node = NULL;
+		KeyNode *temp_node = NULL;
+		for (unsigned int i = 0; i < m_size; ++i)
+		{
+			next_node = m_hash_list[i];
+			while (next_node != NULL)
+			{
+				temp_node = next_node->next;
+				delete next_node;
+				next_node = temp_node;
+			}
+		}
+		memset(m_hash_list, NULL, m_size * sizeof(KeyNode*));
+		m_value_array.Clear();
 	}
 }
 #endif

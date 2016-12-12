@@ -2,9 +2,9 @@
 #ifndef MACRO_H
 #define MACRO_H
 
-typedef unsigned short Router;
+typedef unsigned short ProtoID;
 
 #define BindProto(ID)\
-	unsigned short proto = ID;
+	ProtoID proto = ID;
 
 #endif

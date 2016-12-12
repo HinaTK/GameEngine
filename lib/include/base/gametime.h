@@ -37,6 +37,8 @@ namespace TimeUtil
 	static const time_t A_DAY 	= 24 * 3600;
 	static const time_t A_WEEK	= 7 * A_DAY;
 
+	inline time_t 	Now(){return time(NULL);}
+
 	EXPORT time_t	Today();
 	EXPORT time_t	Today(time_t now);
 

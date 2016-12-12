@@ -12,8 +12,10 @@ namespace game
 		~Queue();
 
 	private:
-		struct ListNode
+		class ListNode
 		{
+		public:
+			ListNode() :/*val(T()), */next(NULL){}
 			T val;
 			ListNode *next;
 		};

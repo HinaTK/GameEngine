@@ -40,6 +40,7 @@ protected:
 	void			RecvData(short type, ThreadID sid, int len, const char *data);
 	void			AddHandler(const char *data);
 	void			Send(NetHandle handle, int length, const char *data);
+	void			Broadcast(int length, const char *data);
 protected:
 	struct ClearInfo
 	{
