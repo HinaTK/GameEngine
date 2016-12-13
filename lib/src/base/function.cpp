@@ -59,6 +59,20 @@ bool Function::ProtocolDecode(const char *buf, unsigned int len)
 	return (header->check == check);
 }
 
+uint64_t Function::MarkBit(char mark[])
+{
+	int len = sizeof(mark);
+	uint64_t bit = 0;
+	uint64_t temp = 1;
+	for (int i = 0; i < len; ++i)
+	{
+		temp = 1;
+		temp = temp << mark[i];
+		bit |= temp;
+	}
+	return bit;
+}
+
 void Function::Info(const char *str, ...)
 {
 	time_t t = time(NULL);

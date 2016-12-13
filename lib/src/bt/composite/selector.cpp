@@ -1,15 +1,17 @@
 
-#include "composite/selector.h"
+// #include "composite/selector.h"
 
-bool BT::Selector::Update()
-{
-	for (std::vector<Node *>::iterator itr = m_children.begin(); itr != m_children.end(); ++itr)
-	{
-		if ((*itr)->Update())
-		{
-			return SUCCESS;
-		}
-	}
-	return FAILURE;
-}
+// char BT::Selector::Update()
+// {
+// 	char status = 0;
+// 	for (std::vector<Node *>::iterator itr = m_children.begin(); itr != m_children.end(); ++itr)
+// 	{
+// 		status = (*itr)->Update();
+// 		if (status != FAILURE)
+// 		{
+// 			return status;
+// 		}
+// 	}
+// 	return FAILURE;
+// }
 

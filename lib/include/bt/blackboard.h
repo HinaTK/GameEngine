@@ -7,17 +7,39 @@
 
 namespace BT
 {
+// 所有的Chalk 的指针类型都继承这个类
+class ChalkPtr
+{
+public:
+	ChalkPtr(){}
+	virtual ~ChalkPtr(){}
+};
+
 class Chalk
 {
 public:
+	Chalk():m_is_ptr(false){}
+	~Chalk(){
+		if (m_is_ptr && m_val.ptr != NULL)
+		{
+			delete m_val.ptr;
+			m_val.ptr = NULL;
+		}
+	}
 	union Content
 	{
 		short 				s;
 		unsigned short 		us;
 		int					i;
 		unsigned int		ui;
-		void*				ptr;
+		ChalkPtr*			ptr = NULL;
 	};
+
+	void Set(short &val){m_val.s = val;}
+	void Set(unsigned short &val){m_val.us = val;}
+	void Set(int &val){m_val.i = val;}
+	void Set(unsigned int &val){m_val.ui = val;}
+	void Set(ChalkPtr *val){m_is_ptr = true; m_val.ptr = val;}
 
 	void Get(short &val){val = m_val.s;}
 	void Get(unsigned short &val){val = m_val.us;}
@@ -26,8 +48,11 @@ public:
 	template <class T>
 	void Get(T &val){val = (T)m_val.ptr;}
 
+	bool IsPointer(){return m_is_ptr;}	
+
 private:
 	Content 	m_val;
+	bool		m_is_ptr;
 };
 
 // 各种ai 创建自己的黑板，根据生成的行为树，生成特定的黑板（主要是属性的枚举，不想用字符串（太慢））
@@ -70,12 +95,16 @@ public:
 	{
 		if (m_chalk_hash != NULL)
 		{
+			m_chalk_hash->Clear();
 			delete m_chalk_hash;
 			m_chalk_hash = NULL;
 		}
 	}
 
 	void	Set(uint16_t key, Chalk val){ m_chalk_hash->Push(key, val); }
+	template <class T>
+	void	Set(uint16_t key, T val){Chalk c;c.set(val);m_chalk_hash->Push(key, c);}
+	
 	bool	Get(uint16_t key, Chalk &val)
 	{
 		game::Hash<uint16_t, Chalk>::iterator itr = m_chalk_hash->Find(key);
