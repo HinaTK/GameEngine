@@ -5,6 +5,8 @@
 
 #include "common/datastructure/gamehash.h"
 
+namespace BT
+{
 class Chalk
 {
 public:
@@ -54,11 +56,10 @@ class BlackBoard
 {
 public:
 	BlackBoard(unsigned char size)
-	
 	{
 		if (size > 0)
 		{
-			m_chalk_hash = new game::Hash<uint64, Chalk>(size);
+			m_chalk_hash = new game::Hash<uint16_t, Chalk>(size);
 		}
 		else
 		{
@@ -74,8 +75,22 @@ public:
 		}
 	}
 
-private:
-	game::Hash<uint64, Chalk> *m_chalk_hash;
-};
+	void	Set(uint16_t key, Chalk val){ m_chalk_hash->Push(key, val); }
+	bool	Get(uint16_t key, Chalk &val)
+	{
+		game::Hash<uint16_t, Chalk>::iterator itr = m_chalk_hash->Find(key);
+		if (itr != m_chalk_hash->End())
+		{
+			val = itr->val;
+			return true;
+		}
+		return false;
+	}
 
+	void	Remove(uint16_t key){ m_chalk_hash->Erase(key); }
+
+private:
+	game::Hash<uint16_t, Chalk> *m_chalk_hash;
+};
+}
 #endif
