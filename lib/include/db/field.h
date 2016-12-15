@@ -9,6 +9,9 @@
 #include "lib/include/rapidjson/prettywriter.h"
 #include "lib/include/rapidjson/stringbuffer.h"
 
+#define NewField(Class) \
+	[]()->Field *{return new Class(); }
+
 static inline bool	JsonWrite(rapidjson::Writer<rapidjson::StringBuffer> &writer, bool val){ return writer.Bool(val); }
 static inline bool	JsonWrite(rapidjson::Writer<rapidjson::StringBuffer> &writer, int val){ return writer.Int(val); }
 static inline bool	JsonWrite(rapidjson::Writer<rapidjson::StringBuffer> &writer, unsigned int val){ return writer.Uint(val); }

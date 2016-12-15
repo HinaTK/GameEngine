@@ -4,8 +4,6 @@
 #include "module/role/test.h"
 #include "protocol/tproto.h"
 
-#define NewField(Class) \
-	[]()->Field *{return new Class(); }
 
 FieldManager::CreateField fields[] =
 {
