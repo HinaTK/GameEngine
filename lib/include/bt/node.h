@@ -13,14 +13,7 @@
 
 namespace BT
 {
-// todo 对象继承这个，可以是Monter多继承	
-class Object
-{
-public:
-	//T obj;
-	BlackBoard 	*black_board;
-};
-
+	
 class Node
 {
 public:
@@ -29,6 +22,28 @@ public:
 protected:
 	std::vector<Node *> m_children;
 };
+
+// todo 对象继承这个，可以是Monter多继承	
+class Object
+{
+public:
+	Object(unsigned short size = 4): black_board(new BlackBoard(size))
+	{
+
+	}
+	~Object()
+	{
+		if (black_board != NULL)
+		{
+			delete black_board;
+			black_board = NULL;
+		}
+	}
+	//T obj;
+	BlackBoard 	*black_board;
+};
+
+
 }
 
 #endif // !BT_NODE_H 
