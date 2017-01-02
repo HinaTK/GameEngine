@@ -98,7 +98,7 @@ public:
 
 	void			Clear();
 private:
-	Vector<ValueState>	m_value;
+	std::vector<ValueState>	m_value;
 	std::queue<unsigned int> m_index_pool;
 	iterator		m_begin;
 	iterator		m_end;
@@ -108,8 +108,7 @@ private:
 
 template<class T>
 Array<T>::Array(unsigned int size)
-: m_value(size)
-, m_begin(0 ,this)
+: m_begin(0 ,this)
 , m_end(0, this)
 , m_size(0)
 {
@@ -125,8 +124,8 @@ unsigned int Array<T>::Insert(T val)
 	ValueState vs = { val, true };
 	if (m_index_pool.size() <= 0)
 	{
-		index = m_value.Size();
-		m_value.Push(vs);
+		index = (unsigned int)m_value.size();
+		m_value.push_back(vs);
 	}
 	else
 	{
@@ -135,14 +134,10 @@ unsigned int Array<T>::Insert(T val)
 		m_value[index] = vs;
 	}
 
-	if (index < m_begin.m_index)
-	{
-		m_begin.m_index = index;
-	}
-	else if (index >= m_end.m_index)
-	{
-		m_end.m_index = index + 1;
-	}
+	if (m_begin.m_index == m_end.m_index) m_end.m_index = (m_begin.m_index = index) + 1;
+	else if (index < m_begin.m_index) m_begin.m_index = index;
+	else if (index >= m_end.m_index) m_end.m_index = index + 1;
+
 	++m_size;
 	return index;
 }
@@ -150,7 +145,7 @@ unsigned int Array<T>::Insert(T val)
 template<class T>
 void Array<T>::Erase(unsigned int index)
 {
-	if (index >= m_value.Size() || !m_value[index].be_used)
+	if (index >= m_value.size() || !m_value[index].be_used)
 	{
 		return;
 	}
@@ -160,8 +155,8 @@ void Array<T>::Erase(unsigned int index)
 
 	if (index == m_begin.m_index)
 	{
-		unsigned i = index + 1;
-		for (; i < m_value.Size() && i < m_end.m_index; ++i)
+		unsigned i = index;
+		for (; i < m_value.size() && i < m_end.m_index; ++i)
 		{
 			if (m_value[i].be_used)
 			{
@@ -170,9 +165,9 @@ void Array<T>::Erase(unsigned int index)
 		}
 		m_begin.m_index = i;
 	}
-	else if (index == (m_end.m_index - 1))
+	else if (index == (m_end.m_index - 1) && m_begin.m_index != m_end.m_index)
 	{
-		unsigned i = index - 1;
+		unsigned i = index;
 		for (; i >= m_begin.m_index; --i)
 		{
 			if (m_value[i].be_used)
@@ -188,7 +183,7 @@ void Array<T>::Erase(unsigned int index)
 template<class T>
 bool Array<T>::Erase(unsigned int index, T &val)
 {
-	if (index >= m_value.Size() || !m_value[index].be_used)
+	if (index >= m_value.size() || !m_value[index].be_used)
 	{
 		return false;
 	}
@@ -200,7 +195,7 @@ bool Array<T>::Erase(unsigned int index, T &val)
 	if (index == m_begin.m_index)
 	{
 		unsigned i = index + 1;
-		for (; i < m_value.Size() && i < m_end.m_index; ++i)
+		for (; i < m_value.size() && i < m_end.m_index; ++i)
 		{
 			if (m_value[i].be_used)
 			{
@@ -228,7 +223,7 @@ bool Array<T>::Erase(unsigned int index, T &val)
 template<class T>
 bool Array<T>::Exist(unsigned int index)
 {
-	if (index < m_value.Size() && m_value[index].be_used)
+	if (index < m_value.size() && m_value[index].be_used)
 	{
 		return true;
 	}
@@ -238,7 +233,7 @@ bool Array<T>::Exist(unsigned int index)
 template<class T>
 bool Array<T>::Exist(unsigned int index, T &val)
 {
-	if (index < m_value.Size() && m_value[index].be_used)
+	if (index < m_value.size() && m_value[index].be_used)
 	{
 		val = m_value[index].val;
 		return true;
@@ -249,9 +244,10 @@ bool Array<T>::Exist(unsigned int index, T &val)
 template<class T>
 void Array<T>::Clear()
 {
-	m_value.Clear();
+	m_value.clear();
 	m_begin.m_index = 0;
 	m_end.m_index = 0;
+	while (m_index_pool.size() != 0) m_index_pool.pop();
 }
 }
 #endif

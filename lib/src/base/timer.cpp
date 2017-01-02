@@ -22,26 +22,23 @@ void TimerManager::AddEvent(time_t interval, TimeEvent *e)
 
 bool TimerManager::Update(time_t now)
 {	
-	if (m_update_time > 0 && now >= m_update_time)
+	bool ret = false;
+	Timer timer;
+	while (m_event_heap.Front(&timer))
 	{
-		Timer timer;
-		while (m_event_heap.Front(&timer))
+		if (timer.trigger_time <= now)
 		{
-			if (timer.trigger_time <= now)
-			{
-				timer.event->OnTime();
-				timer.event->Free();
-				m_event_heap.PopFront();
-			}
-			else
-			{
-				m_update_time = timer.trigger_time;
-				break;
-			}
+			timer.event->OnTime();
+			timer.event->Free();
+			m_event_heap.PopFront();
 		}
-		return true;
+		else
+		{
+			break;
+		}
+		ret = true;
 	}
-	return false;
+	return ret;
 }
 
 

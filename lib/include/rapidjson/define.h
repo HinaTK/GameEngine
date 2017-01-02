@@ -3,6 +3,10 @@
 #ifndef RAPIDJSON_DEFINE_H
 #define RAPIDJSON_DEFINE_H
 
+#ifdef __unix
+#define RAPIDJSON_ASSERT(X)
+#endif
+
 #include "document.h"
 #include "prettywriter.h"
 #include "stringbuffer.h"
@@ -26,15 +30,20 @@ enum
 	ERR_NO_THIS_FIELD		// 没有这个字段
 };
 
+// todo 完善error
+
+#define JsonError(Code, Line)\
+	false;
+
 #define JSON_BASIC_CHECK(Str)\
 	rapidjson::Document doc; \
 	if (doc.Parse(Str).HasParseError())\
 	{\
-		return Error(ERR_IS_NOT_JSON); \
+		return JsonError(ERR_IS_NOT_JSON, __LINE__); \
 	}\
 	if (!doc.IsObject())\
 	{\
-		return Error(ERR_IS_NOT_OBJECT); \
+		return JsonError(ERR_IS_NOT_OBJECT, __LINE__); \
 	}
 
 #define JSON_WRITE_BASE_ARRAY_BEGIN(Writer, Name)\
@@ -88,12 +97,11 @@ enum
 
 #define JSON_READ_TWO_ARRAY_BEGIN(Name)\
 	if (doc.HasMember(Name) && doc[Name].IsArray()){\
-		Value &array = doc[Name]; \
+		rapidjson::Value &array = doc[Name]; \
 		for (unsigned int i = 0; i < array.Size(); ++i)\
 		{\
-			const Value& sub = array[i]; \
-			if (!sub.IsArray()) return Error(ERR_IS_NOT_OBJECT, __LINE__); \
-			unsigned int size = sub.Size(); \
+			const rapidjson::Value& sub = array[i]; \
+			if (!sub.IsArray()) return JsonError(ERR_IS_NOT_OBJECT, __LINE__); \
 
 #define JSON_READ_TWO_ARRAY_END() \
 		}\

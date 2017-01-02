@@ -25,6 +25,7 @@ public:
 	void			Do();
 	virtual bool	Init(){ return true; }
 	virtual void	Ready(){}
+	virtual void	Exit(){}
 
 	inline void	SendMsg(ThreadID did, TPT type, int len, const char *data){m_manager->SendMsg(did, type, len, data, m_id);}
 	inline void SendMsg(ThreadID did, ThreadClass * tc){m_manager->SendMsg(did, tc);}
@@ -36,7 +37,7 @@ public:
 	virtual bool 	CMD(TPT type, ThreadID sid, int len, const char *data){ return false; }
 	ThreadManager *GetManager(){ return m_manager; }
 	MsgMemoryManager *GetMemory(){return &m_msg_memory;}
-	void	Exit();
+	void	DoExit();
 	void	Wait();
 
 

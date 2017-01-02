@@ -34,6 +34,8 @@ bool MysqlBase::Connect()
 		Function::Info("mysql_real_connect error: %s", mysql_error(m_mysql));
 		return false;
 	}
+
+	mysql_set_character_set(m_mysql, "utf8");
 	return true;
 }
 

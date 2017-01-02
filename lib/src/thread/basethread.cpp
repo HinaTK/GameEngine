@@ -78,7 +78,7 @@ void BaseThread::Loop(bool sleep)
             		}
             		continue;	
             	case ThreadSysID::TSID_EXIT:
-            		this->Exit();
+            		this->DoExit();
             		break;
             	case ThreadSysID::TSID_THREAD_CMD:	
             		this->SysCmd(msg);
@@ -103,9 +103,10 @@ void BaseThread::PushMsg(ThreadMsg &msg)
 	m_recv_queue.Push(msg);
 }
 
-void BaseThread::Exit()
+void BaseThread::DoExit()
 {
 	m_is_exit = true;
+    Exit();
 }
 
 void BaseThread::Wait()

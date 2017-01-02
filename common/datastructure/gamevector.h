@@ -94,11 +94,11 @@ protected:
 private:
 	T * m_list;
 	unsigned int m_size;		// 容器容量
-	unsigned int m_index;		// 当前数据索引
+	unsigned int m_index;		// 当前数据索引(TODO 这里会有问题，因为无法知道operator[]是否是赋值)
 };
 
 template<class T>
-T& Vector<T>::operator[]( unsigned int index )
+ T& Vector<T>::operator[]( unsigned int index )
 {
 	return m_list[index];
 }

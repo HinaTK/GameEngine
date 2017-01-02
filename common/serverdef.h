@@ -19,6 +19,7 @@ typedef unsigned char	ThreadID;
 typedef unsigned short	TPT;		// thread proto type
 typedef unsigned char	NetMsgType;
 typedef unsigned int	NetHandle;	// 内部网络标识
+typedef unsigned short	NetID;
 
 #define INVALID_THREAD_ID 	255
 #define INVALID_NET_HANDLE	4294967295

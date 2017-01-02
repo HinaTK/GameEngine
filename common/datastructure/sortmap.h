@@ -9,6 +9,7 @@
 /*
 	有序映射，具快速插入、查找及排序的能力
 	游戏中的应用：活动、副本等实时积分排名
+	todo 把内存池去掉
 */
 
 namespace game
@@ -119,7 +120,7 @@ unsigned int SortMap<K, V>::Insert(K &key, V &data)
 	// 向上冒泡
 	for (int i = (int)(itr->second->rank - 1); i > 0; --i)
 	{
-		if (m_data[i]->second <= m_data[i - 1]->second)
+		if (m_data[i - 1]->second >= m_data[i]->second)
 		{
 			break;
 		}
